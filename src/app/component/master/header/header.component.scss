@@ -1,0 +1,239 @@
+@import '../../../../styles';
+
+.header- {
+  &block7.layout {
+    position: relative;
+    flex: 1 1 auto;
+    height: min-content;
+  }
+  &block8 {
+    display: flex;
+    background-color: rgb(255, 255, 255);
+  }
+  &block8.layout {
+    position: relative;
+    height: min-content;
+  }
+  &block8-item {
+    @include flex-column;
+    position: relative;
+    flex: 0 1 151px;
+  }
+  &block9 {
+    display: flex;
+    cursor: pointer;
+  }
+  &block9.layout {
+    position: relative;
+    height: min-content;
+    margin: 9px 0px 9px 31px;
+    @include lg {
+      margin: 8px 27px;
+    }
+    @include md {
+      margin: 7px 23px;
+    }
+    @include sm {
+      margin: 6px 19px;
+    }
+    @include xs {
+      margin: 5px 18px;
+    }
+    @include xxs {
+      margin: 5px 16px;
+    }
+    @include tn {
+      margin: 5px 15px;
+    }
+  }
+  &block9-item {
+    @include flex-column;
+    position: relative;
+    flex: 0 1 24px;
+  }
+  &box2 {
+    // background-color: rgb(217, 217, 217);
+  }
+  &box2.layout {
+    position: relative;
+    height: 16px;
+    margin: 10px 0px 11px;
+    @include lg {
+      margin: 9px 0px 10px;
+    }
+    @include md {
+      margin: 7px 0px 8px;
+    }
+    @include sm {
+      margin: 6px 0px 7px;
+    }
+    @include xs {
+      margin: 6px 0px;
+    }
+    @include xxs {
+      margin: 5px 0px 6px;
+    }
+    @include tn {
+      margin: 5px 0px;
+    }
+  }
+  &block9-spacer {
+    flex: 0 1 5px;
+  }
+  &block9-item1 {
+    @include flex-column;
+    position: relative;
+    flex: 0 1 50px;
+  }
+  &box3 {
+    background-color: rgb(255, 255, 255);
+  }
+  &box3.layout {
+    position: relative;
+    height: 13px;
+    margin: 12px 0px;
+    @include lg {
+      margin: 11px 0px;
+    }
+    @include md {
+      margin: 9px 0px;
+    }
+    @include sm {
+      margin: 8px 0px;
+    }
+    @include xs {
+      margin: 7px 0px;
+    }
+    @include xxs {
+      margin: 6px 0px;
+    }
+  }
+  &block9-item2 {
+    @include flex-column;
+    position: relative;
+    flex: 0 1 36px;
+  }
+  &icon {
+    background: var(--src) center center / contain no-repeat;
+  }
+  &icon.layout {
+    position: relative;
+    height: 36px;
+    width: 36px;
+    min-width: 36px;
+    margin: 0px 0px 1px;
+    @include lg {
+      margin: 0px 0px 5px;
+    }
+  }
+  &block8-spacer {
+    flex: 0 1 10px;
+    @include lg;
+  }
+  &block8-item1 {
+    @include flex-column;
+    position: relative;
+    flex: 1 1 auto;
+  }
+  &box4 {
+    background-color: rgb(255, 255, 255);
+  }
+  &box4.layout {
+    position: relative;
+    height: 18px;
+    width: 100%;
+    min-width: 1px;
+    max-width: 945px;
+    margin: 18px 0px 19px;
+    @include lg {
+      margin: 16px 0px 17px;
+    }
+    @include md {
+      margin: 13px 0px 14px;
+    }
+    @include sm {
+      margin: 11px 0px 12px;
+    }
+    @include xs {
+      margin: 10px 0px 11px;
+    }
+    @include xxs {
+      margin: 9px 0px 10px;
+    }
+    @include tn {
+      margin: 9px 0px;
+    }
+  }
+  &block8-item2 {
+    @include flex-column;
+    position: relative;
+    flex: 0 1 10px;
+  }
+  &box5 {
+    // background-color: rgb(217, 217, 217);
+  }
+  &box5.layout {
+    position: relative;
+    height: 25px;
+    width: 25px;
+    min-width: 25px;
+    margin: 10px 31px 15px 0px;
+    @include lg {
+      margin: 13px 27px;
+    }
+    @include md {
+      margin: 11px 23px;
+    }
+    @include sm {
+      margin: 9px 19px;
+    }
+    @include xs {
+      margin: 9px 18px;
+    }
+    @include xxs {
+      margin: 8px 16px;
+    }
+    @include tn {
+      margin: 7px 15px;
+    }
+  }
+}
+
+.profile_txt {
+  margin: 20px 10px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'Roboto';
+  line-height: 15.23px;
+}
+.txt_menu {
+  margin: 17px 17px;
+  position: relative;
+  img {
+    vertical-align: middle;
+  }
+  .count_circle {
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    background-color: #70787f;
+    position: absolute;
+    top: -7px;
+    right: -4px;
+    text-align: center;
+    p {
+      color: #fff;
+      padding: 0;
+      margin: 0;
+      font-size: 11px;
+    }
+  }
+  &:before {
+    content: '';
+    background-color: #c2c5c8;
+    height: 22px;
+    width: 1px;
+    position: absolute;
+    right: -20px;
+  }
+}

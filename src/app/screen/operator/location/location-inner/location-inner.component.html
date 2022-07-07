@@ -1,0 +1,525 @@
+<div class="dashboard-block12 layout">
+  <h3 class="dashboard-subtitle layout">Locations</h3>
+  <!-- <hr class="dashboard-line layout" /> -->
+</div>
+<div class="dashboard-block13 layout">
+  <div class="dashboard-block13-item">
+    <div class="dashboard-block14 layout">
+      <div class="dashboard-block15 layout">
+        <!-- <div *ngFor="let item of data; let i = index"> -->
+        <div class="dashboard-block15-item">
+          <app-widget [widgetIcon]="locations" [data]="data[0]"></app-widget>
+        </div>
+        <div class="dashboard-block15-spacer"></div>
+        <!-- <div *ngif="i == 0" class="dashboard-block15-spacer"></div>
+                    <div *ngif="i == 1" class="dashboard-block15-spacer1"></div>
+                    <div *ngif="i == 2" class="dashboard-block15-spacer"></div> -->
+        <!-- </div> -->
+        <div class="dashboard-block15-item">
+          <app-widget [widgetIcon]="chargers" [data]="data[1]"></app-widget>
+        </div>
+        <div class="dashboard-block15-spacer1"></div>
+        <div class="dashboard-block15-item">
+          <app-widget
+            [widgetIcon]="charging_session"
+            [data]="data[2]"
+          ></app-widget>
+        </div>
+        <div class="dashboard-block15-spacer"></div>
+        <div class="dashboard-block15-item">
+          <app-widget [widgetIcon]="errors" [data]="data[3]"></app-widget>
+        </div>
+      </div>
+      <div class="dashboard-block32 layout">
+        <div class="dashboard-block33 layout">
+          <div class="dashboard-block33-item">
+            <!-- <div class="dashboard-block34 layout">
+
+
+            </div> -->
+          </div>
+          <div class="dashboard-block33-item1">
+            <div class="dashboard-block35 layout">
+              <div class="dashboard-text-body2 layout">Last 24 Hours</div>
+            </div>
+          </div>
+          <div class="dashboard-block33-item2">
+            <div class="dashboard-block36 layout">
+              <div class="dashboard-text-body3 layout">One Week</div>
+            </div>
+          </div>
+          <div class="dashboard-block33-item3">
+            <div class="dashboard-block37 layout">
+              <div class="dashboard-text-body3 layout1">Current Month</div>
+            </div>
+          </div>
+          <div class="dashboard-block33-item4">
+            <div class="dashboard-block38 layout">
+              <div class="dashboard-text-body3 layout2">Last 3 Months</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-block42 layout">
+        <div class="dashboard-block42-item">
+          <!-- <app-line-chart></app-line-chart> -->
+          <app-bar-chart
+            [chartType]="basicStatus"
+            [chartTitle]="locationStatusTitle"
+          ></app-bar-chart>
+        </div>
+        <div class="dashboard-block42-spacer"></div>
+        <div class="dashboard-block42-item">
+          <!-- <app-graph-card></app-graph-card> -->
+          <app-bar-chart
+            [chartType]="basic"
+            [chartTitle]="locationPerormTitle"
+            [toggle]="true"
+          ></app-bar-chart>
+        </div>
+      </div>
+
+      <div class="">
+        <div class="dashboard-block48 layout">
+          <div class="dashboard-block48-item">
+            <!-- <div class="dashboard-block49 layout"> -->
+            <div>
+              <div class="cust-list-flex3 layout">
+                <div class="cust-list-flex3-item">
+                  <div class="cust-list-group layout">
+                    <div class="cust-list-block19 layout">
+                      <div class="cust-list-box9 layout">
+                        <img
+                          src="../../../../assets/icons/search.png"
+                          alt=""
+                          class="cust-list-icon layout"
+                        />
+                      </div>
+
+                      <div class="cust-list-block20 layout">
+                        <input
+                          class="cust-list-text-body21 layout"
+                          (keyup)="applyFilter($event)"
+                          placeholder="Search Locations list"
+                          #input
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="cust-list-flex3-spacer"></div>
+                <div class="cust-list-flex3-item1">
+                  <div class="cust-list-block23 layout">
+                    <!-- <div class="cust-list-block23-item">
+                                <div class="cust-list-box10 layout"></div>
+                              </div> -->
+                    <!-- <div class="cust-list-block23-spacer"></div>
+                              <div class="cust-list-text-body4 layout">Add Button</div> -->
+                  </div>
+                </div>
+              </div>
+              <div class="cust-list-group2 layout">
+                <table mat-table [dataSource]="dataSource">
+                  <ng-container matColumnDef="locationName">
+                    <th mat-header-cell *matHeaderCellDef>Location Name</th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element.locationName }}
+                    </td>
+                  </ng-container>
+
+                  <!-- Name Column -->
+                  <ng-container matColumnDef="address">
+                    <th mat-header-cell *matHeaderCellDef>Address</th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element.address }}
+                    </td>
+                  </ng-container>
+
+                  <!-- Weight Column -->
+                  <ng-container matColumnDef="contactPersonName">
+                    <th mat-header-cell *matHeaderCellDef>
+                      Contact Person Name
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element.contactPersonName }}
+                    </td>
+                  </ng-container>
+
+                  <!-- Symbol Column -->
+                  <ng-container matColumnDef="contactNumber">
+                    <th mat-header-cell *matHeaderCellDef>Contact Number</th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element.contactNumber }}
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="locationStatus">
+                    <th mat-header-cell *matHeaderCellDef>Location Status</th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element.locationStatus }}
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="noOfPorts">
+                    <th mat-header-cell *matHeaderCellDef>No of Ports</th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element.noOfPorts }}
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="available">
+                    <th mat-header-cell *matHeaderCellDef>Available</th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element.available }}
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="connected">
+                    <th mat-header-cell *matHeaderCellDef>Connected</th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element.connected }}
+                    </td>
+                  </ng-container>
+                  <ng-container matColumnDef="faulty">
+                    <th mat-header-cell *matHeaderCellDef>Faulty</th>
+                    <td mat-cell *matCellDef="let element">
+                      {{ element.faulty }}
+                    </td>
+                  </ng-container>
+
+                  <!-- Symbol Column -->
+                  <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef>Action</th>
+                    <td
+                      mat-cell
+                      *matCellDef="let element"
+                      (click)="viewLocation()"
+                      style="cursor: pointer;"
+                    >
+                      <img src="../../../../assets/icons/view-icon.png" />
+                    </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr
+                    mat-row
+                    *matRowDef="let row; columns: displayedColumns"
+                  ></tr>
+                </table>
+
+                <!-- <mat-paginator
+                  [pageSizeOptions]="[5, 10, 20]"
+                  showFirstLastButtons
+                  aria-label="Select page of periodic elements"
+                ></mat-paginator> -->
+                <mat-paginator
+                  [length]="100"
+                  [pageSizeOptions]="[10, 20, 100]"
+                  aria-label="Rows per page"
+                ></mat-paginator>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="dashboard-block13-spacer"></div>
+  <div class="dashboard-block13-item1">
+    <!-- <app-status-panel></app-status-panel> -->
+
+    <div class="statuspanel-block43 layout">
+      <div class="statuspanel-block46 layout">
+        <div class="statuspanel-block47 layout">
+          <!-- status box start -->
+          <div class="statuspanel-block45 layout1">
+            <div class="statuspanel-block45-item">
+              <div class="statuspanel-group layout2">
+                <h4 class="statuspanel-highlights2 layout">
+                  Charging Infrastructure
+                </h4>
+              </div>
+            </div>
+            <div class="statuspanel-block45-spacer1"></div>
+            <div class="statuspanel-block45-item2">
+              <img
+                src="../../../../../assets/locationcharger-icon/charging-infa.svg"
+                class="statuspanel-box16 layout"
+                alt=""
+              />
+            </div>
+          </div>
+
+          <!-- status box end -->
+          <div class="list-element-block2 layout">
+            <div class="list-element-block6 layout">
+              <div class="list-element-block3 layout">
+                <div class="list-element-block3-item">
+                  <div class="list-element-block4 layout">
+                    <img
+                      src="../../../../../assets/status-panel-icon/chargers.png"
+                      class="list-element-box3 layout"
+                      alt=""
+                    />
+                  </div>
+                </div>
+                <div class="list-element-block3-spacer"></div>
+                <div class="list-element-block3-item1">
+                  <div class="list-element-block5 layout">
+                    <h3 class="list-element-subtitle layout">
+                      250
+                    </h3>
+                    <div class="list-element-text-body layout">
+                      Total Chargers
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- status box element start -->
+
+          <!-- <div class="box-element-block2 layout">
+            <div class="box-element-block5 layout">
+              <img
+                src="../../../../../assets/status-panel-icon/sites.png"
+                class="box-element-box2 layout"
+              />
+              <div class="box-element-block6 layout">
+                <h3 class="box-element-subtitle layout">50</h3>
+                <div class="box-element-text-body layout">
+                  Total Sites
+                </div>
+              </div>
+            </div>
+            <div class="box-element-block2-spacer dotted_line">
+              <hr />
+            </div>
+            <div class="box-element-block5 layout1">
+              <img
+                src="../../../../../assets/status-panel-icon/chargers.png"
+                class="box-element-box2 layout"
+              />
+              <div class="box-element-block6 layout">
+                <h3 class="box-element-subtitle layout">250</h3>
+                <div class="box-element-text-body layout">
+                  Total Chargers
+                </div>
+              </div>
+            </div>
+          </div> -->
+
+          <!-- status box element end -->
+        </div>
+      </div>
+
+      <div class="statuspanel-block46 layout">
+        <div class="statuspanel-block47 layout">
+          <!-- status box start -->
+          <div class="statuspanel-block45 layout1">
+            <div class="statuspanel-block45-item">
+              <div class="statuspanel-group layout2">
+                <h4 class="statuspanel-highlights2 layout">
+                  Revenue From Public Charging
+                </h4>
+              </div>
+            </div>
+            <div class="statuspanel-block45-spacer1"></div>
+            <div class="statuspanel-block45-item2">
+              <img
+                src="../../../../../assets/status-panel-icon/revenue.png"
+                class="statuspanel-box16 layout"
+                alt=""
+              />
+            </div>
+          </div>
+          <!-- status box end -->
+
+          <!-- insert chart -->
+
+          <div echarts [options]="option" class="echart-item"></div>
+
+          <!-- insert chart end -->
+        </div>
+      </div>
+
+      <div class="statuspanel-block46 layout">
+        <div class="statuspanel-block47 layout">
+          <div class="statuspanel-block45 layout1">
+            <div class="statuspanel-block45-item">
+              <div class="statuspanel-group layout2">
+                <h4 class="statuspanel-highlights2 layout">Energy Used</h4>
+              </div>
+            </div>
+            <div class="statuspanel-block45-spacer1"></div>
+            <div class="statuspanel-block45-item2">
+              <img
+                src="../../../../../assets/status-panel-icon/energy_used.png"
+                class="statuspanel-box16 layout"
+                alt=""
+              />
+            </div>
+          </div>
+
+          <!-- add the content here -->
+
+          <!-- list start  -->
+
+          <div class="list-element-block2 layout">
+            <div class="list-element-block6 layout">
+              <div
+                class="list-element-block3 layout"
+                style="border-bottom: 1px dotted #c2c5c8; padding-bottom: 15px;"
+              >
+                <div class="list-element-block3-item">
+                  <div class="list-element-block4 layout">
+                    <img
+                      src="../../../../../assets/status-panel-icon/total-energy.png"
+                      class="list-element-box3 layout"
+                      alt=""
+                    />
+                  </div>
+                </div>
+                <div class="list-element-block3-spacer"></div>
+                <div class="list-element-block3-item1">
+                  <div class="list-element-block5 layout">
+                    <h3 class="list-element-subtitle layout">
+                      408.14
+                    </h3>
+                    <div class="list-element-text-body layout">
+                      Total Energy
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- <hr> -->
+              <div
+                class="list-element-block3 layout"
+                style="border-bottom: 1px dotted #c2c5c8; padding-bottom: 15px;"
+              >
+                <div class="list-element-block3-item">
+                  <div class="list-element-block4 layout">
+                    <img
+                      src="../../../../../assets/status-panel-icon/daily_average.png"
+                      class="list-element-box3 layout"
+                      alt=""
+                    />
+                  </div>
+                </div>
+                <div class="list-element-block3-spacer"></div>
+                <div class="list-element-block3-item1">
+                  <div class="list-element-block5 layout">
+                    <h3 class="list-element-subtitle layout">
+                      412.14
+                    </h3>
+                    <div class="list-element-text-body layout">
+                      Total Energy
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="list-element-block3 layout">
+                <div class="list-element-block3-item">
+                  <div class="list-element-block4 layout">
+                    <img
+                      src="../../../../../assets/status-panel-icon/calender.png"
+                      class="list-element-box3 layout"
+                      alt=""
+                    />
+                  </div>
+                </div>
+                <div class="list-element-block3-spacer"></div>
+                <div class="list-element-block3-item1">
+                  <div class="list-element-block5 layout">
+                    <h3 class="list-element-subtitle layout">
+                      990.71
+                    </h3>
+                    <div class="list-element-text-body layout">
+                      Today's
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- list end  -->
+        </div>
+      </div>
+
+      <div class="statuspanel-block46 layout">
+        <div class="statuspanel-block47 layout">
+          <!-- status box start -->
+          <div class="statuspanel-block45 layout1">
+            <div class="statuspanel-block45-item">
+              <div class="statuspanel-group layout2">
+                <h4 class="statuspanel-highlights2 layout">
+                  Energy Points
+                </h4>
+              </div>
+            </div>
+            <div class="statuspanel-block45-spacer1"></div>
+            <div class="statuspanel-block45-item2">
+              <img
+                src="../../../../../assets/status-panel-icon/energy_points.png"
+                class="statuspanel-box16 layout"
+                alt=""
+              />
+            </div>
+          </div>
+          <!-- status box end -->
+
+          <!-- status box element start -->
+
+          <div class="box-element-block2 layout">
+            <div class="box-element-block5 layout">
+              <img
+                src="../../../../../assets/status-panel-icon/sites.png"
+                class="box-element-box2 layout"
+              />
+              <div class="box-element-block6 layout">
+                <h3 class="box-element-subtitle layout">19,408.07</h3>
+                <div class="box-element-text-body layout">
+                  MT of CO2 Saved
+                </div>
+              </div>
+            </div>
+            <div class="box-element-block2-spacer dotted_line">
+              <hr />
+            </div>
+            <div class="box-element-block5 layout1">
+              <img
+                src="../../../../../assets/status-panel-icon/chargers.png"
+                class="box-element-box2 layout"
+              />
+              <div class="box-element-block6 layout">
+                <h3 class="box-element-subtitle layout">990.71</h3>
+                <div class="box-element-text-body layout">
+                  Gasoline Gallon Equivalent (GGE Saved)
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- status box element end -->
+        </div>
+      </div>
+
+      <!-- <app-status-box
+    [title]="statusBoxTitle1"
+    [icon]="statusBoxIcon1"
+  ></app-status-box>
+
+  <app-status-box-graph
+    [title]="statusBoxTitle2"
+    [icon]="statusBoxIcon2"
+  ></app-status-box-graph>
+  <app-status-box-energy [title]="statusBoxTitle3"></app-status-box-energy>
+
+
+  <app-status-box-points
+    [title]="statusBoxTitle4"
+    [icon]="statusBoxIcon4"
+  ></app-status-box-points> -->
+    </div>
+  </div>
+</div>

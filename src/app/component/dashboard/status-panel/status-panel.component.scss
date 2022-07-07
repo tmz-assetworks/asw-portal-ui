@@ -1,0 +1,20 @@
+@import '../../../../styles';
+
+
+.statuspanel- {
+  &block43 {
+    @include flex-column;
+  }
+  &block43_layout {
+    position: relative;
+    height: min-content;
+  }
+}
+.box-element-block2.layout[_ngcontent-mog-c58] {
+  margin: 20px 0px 6px;
+}
+.box-element-box2.layout[_ngcontent-mog-c58] {
+  padding: 10px;
+  box-sizing: border-box;
+}
+

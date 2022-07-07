@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+  <!--  This source code is exported from pxCode, you can get more document from https://www.pxcode.io  -->
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+    <link rel="stylesheet" type="text/css" href="/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="/css/fonts.css" />
+    <link rel="stylesheet" type="text/css" href="/css/Karkar.css" />
+
+    <script type="text/javascript" src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/headroom.js@0.12.0/dist/headroom.min.js"></script>
+  </head>
+
+  <div style="display: flex; flex-direction: column">
+    <div class="karkar karkar-block layout">
+      <div class="karkar-block1 layout">
+        <div class="karkar-block2 layout">
+          <div class="karkar-block3 layout">
+            <div class="karkar-block3-item"><div class="karkar-box layout"></div></div>
+          </div>
+          <div class="karkar-block4 layout">
+            <div class="karkar-block5 layout">
+              <div class="karkar-block5-item"><div class="karkar-box1 layout"></div></div>
+              <div class="karkar-block5-spacer"></div>
+              <div class="karkar-block5-item1"><div class="karkar-text-body layout">text123</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="karkar-block6 layout">
+          <div class="karkar-block7 layout">
+            <div class="karkar-block8 layout">
+              <div class="karkar-block8-item">
+                <div class="karkar-block9 layout">
+                  <div class="karkar-block9-item"><div class="karkar-box2 layout"></div></div>
+                  <div class="karkar-block9-spacer"></div>
+                  <div class="karkar-block9-item1"><div class="karkar-box3 layout"></div></div>
+                  <div class="karkar-block9-spacer"></div>
+                  <div class="karkar-block9-item2">
+                    <div
+                      style="--src:url(/assets/0ff09a5a2fdeebf5700aca8904a6dc85.png)"
+                      class="karkar-icon layout"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+              <div class="karkar-block8-spacer"></div>
+              <div class="karkar-block8-item1"><div class="karkar-box4 layout"></div></div>
+              <div class="karkar-block8-spacer"></div>
+              <div class="karkar-block8-item2"><div class="karkar-box5 layout"></div></div>
+            </div>
+          </div>
+          <div class="karkar-block10 layout">
+            <div class="karkar-block11 layout">
+              <div class="karkar-block12 layout">
+                <h3 class="karkar-subtitle layout">HEADING1234567</h3>
+                <hr class="karkar-line layout" />
+              </div>
+              <div class="karkar-block13 layout">
+                <div class="karkar-block13-item">
+                  <div class="karkar-block14 layout">
+                    <div class="karkar-block15 layout">
+                      <div class="karkar-block15-item">
+                        <div class="karkar-block16 layout">
+                          <div class="karkar-block17 layout">
+                            <div class="karkar-block18 layout">
+                              <div class="karkar-block18-item"><div class="karkar-box6 layout"></div></div>
+                              <div class="karkar-block18-spacer"></div>
+                              <div class="karkar-block18-item1">
+                                <div class="karkar-block19 layout">
+                                  <h1 class="karkar-hero-title layout">11</h1>
+                                  <h5 class="karkar-highlights layout">aABC</h5>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="karkar-block20 layout">
+                              <div class="karkar-block20-item">
+                                <div class="karkar-block21 layout">
+                                  <div class="karkar-text-body1 layout">text.abc123</div>
+                                  <div class="karkar-text-body1 layout1">text.abc123</div>
+                                  <div class="karkar-text-body1 layout2">text.abc123</div>
+                                </div>
+                              </div>
+                              <div class="karkar-block20-spacer"></div>
+                              <div class="karkar-block20-item1">
+                                <div class="karkar-block22 layout">
+                                  <div class="karkar-box7 layout"></div>
+                                  <div class="karkar-box8 layout"></div>
+                                  <div class="karkar-box9 layout"></div>
+                                </div>
+                              </div>
+                              <div class="karkar-block20-spacer1"></div>
+                              <div class="karkar-block20-item2">
+                                <div class="karkar-block23 layout">
+                                  <div class="karkar-text-body11 layout">123</div>
+                                  <div class="karkar-text-body12 layout">123</div>
+                                  <div class="karkar-text-body13 layout">123</div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="karkar-block15-spacer"></div>
+                      <div class="karkar-block15-item">
+                        <div class="karkar-block24 layout">
+                          <div class="karkar-block25 layout">
+                            <div class="karkar-block26 layout">
+                              <div class="karkar-block26-item"><div class="karkar-box6 layout1"></div></div>
+                              <div class="karkar-block26-spacer"></div>
+                              <div class="karkar-block26-item1">
+                                <div class="karkar-block27 layout">
+                                  <h1 class="karkar-hero-title layout">11</h1>
+                                  <h5 class="karkar-highlights layout1">aABC</h5>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="karkar-block20 layout1">
+                              <div class="karkar-block20-item">
+                                <div class="karkar-block21 layout">
+                                  <div class="karkar-text-body1 layout">text.abc123</div>
+                                  <div class="karkar-text-body1 layout3">text.abc123</div>
+                                  <div class="karkar-text-body1 layout4">text.abc123</div>
+                                </div>
+                              </div>
+                              <div class="karkar-block20-spacer"></div>
+                              <div class="karkar-block20-item3">
+                                <div class="karkar-block22 layout">
+                                  <div class="karkar-box7 layout"></div>
+                                  <div class="karkar-box8 layout"></div>
+                                  <div class="karkar-box9 layout"></div>
+                                </div>
+                              </div>
+                              <div class="karkar-block20-spacer2"></div>
+                              <div class="karkar-block20-item4">
+                                <div class="karkar-block23 layout">
+                                  <div class="karkar-text-body14 layout">123</div>
+                                  <div class="karkar-text-body15 layout">123</div>
+                                  <div class="karkar-text-body16 layout">123</div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="karkar-block15-spacer1"></div>
+                      <div class="karkar-block15-item">
+                        <div class="karkar-block24 layout1">
+                          <div class="karkar-block25 layout">
+                            <div class="karkar-block26 layout">
+                              <div class="karkar-block26-item"><div class="karkar-box6 layout2"></div></div>
+                              <div class="karkar-block26-spacer"></div>
+                              <div class="karkar-block26-item2">
+                                <div class="karkar-block27 layout">
+                                  <h1 class="karkar-hero-title layout">11</h1>
+                                  <h5 class="karkar-highlights layout2">aABC</h5>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="karkar-block20 layout2">
+                              <div class="karkar-block20-item">
+                                <div class="karkar-block21 layout">
+                                  <div class="karkar-text-body1 layout">text.abc123</div>
+                                  <div class="karkar-text-body1 layout5">text.abc123</div>
+                                  <div class="karkar-text-body1 layout6">text.abc123</div>
+                                </div>
+                              </div>
+                              <div class="karkar-block20-spacer3"></div>
+                              <div class="karkar-block20-item5">
+                                <div class="karkar-block22 layout">
+                                  <div class="karkar-box7 layout"></div>
+                                  <div class="karkar-box8 layout"></div>
+                                  <div class="karkar-box9 layout"></div>
+                                </div>
+                              </div>
+                              <div class="karkar-block20-spacer4"></div>
+                              <div class="karkar-block20-item6">
+                                <div class="karkar-block23 layout">
+                                  <div class="karkar-text-body17 layout">123</div>
+                                  <div class="karkar-text-body18 layout">123</div>
+                                  <div class="karkar-text-body19 layout">123</div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="karkar-block15-spacer"></div>
+                      <div class="karkar-block15-item">
+                        <div class="karkar-block28 layout">
+                          <div class="karkar-block29 layout">
+                            <div class="karkar-block30 layout">
+                              <div class="karkar-block30-item"><div class="karkar-box6 layout3"></div></div>
+                              <div class="karkar-block30-spacer"></div>
+                              <div class="karkar-block30-item1">
+                                <div class="karkar-block31 layout">
+                                  <h1 class="karkar-hero-title layout">11</h1>
+                                  <h5 class="karkar-highlights layout3">aABC</h5>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="karkar-block20 layout3">
+                              <div class="karkar-block20-item">
+                                <div class="karkar-block21 layout1">
+                                  <div class="karkar-text-body1 layout">text.abc123</div>
+                                  <div class="karkar-text-body1 layout7">text.abc123</div>
+                                  <div class="karkar-text-body1 layout8">text.abc123</div>
+                                </div>
+                              </div>
+                              <div class="karkar-block20-spacer5"></div>
+                              <div class="karkar-block20-item7">
+                                <div class="karkar-block22 layout1">
+                                  <div class="karkar-box7 layout"></div>
+                                  <div class="karkar-box8 layout1"></div>
+                                  <div class="karkar-box9 layout1"></div>
+                                </div>
+                              </div>
+                              <div class="karkar-block20-spacer6"></div>
+                              <div class="karkar-block20-item8">
+                                <div class="karkar-block23 layout1">
+                                  <div class="karkar-text-body110 layout">123</div>
+                                  <div class="karkar-text-body111 layout">123</div>
+                                  <div class="karkar-text-body112 layout">123</div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="karkar-block32 layout">
+                      <div class="karkar-block33 layout">
+                        <div class="karkar-block33-item">
+                          <div class="karkar-block34 layout"><div class="karkar-text-body1 layout9">BUTTON.A</div></div>
+                        </div>
+                        <div class="karkar-block33-item1">
+                          <div class="karkar-block35 layout">
+                            <div class="karkar-text-body2 layout">BUTTON.ABC</div>
+                          </div>
+                        </div>
+                        <div class="karkar-block33-item2">
+                          <div class="karkar-block36 layout"><div class="karkar-text-body3 layout">sgehg</div></div>
+                        </div>
+                        <div class="karkar-block33-item3">
+                          <div class="karkar-block37 layout"><div class="karkar-text-body3 layout1">sgehg</div></div>
+                        </div>
+                        <div class="karkar-block33-item4">
+                          <div class="karkar-block38 layout"><div class="karkar-text-body3 layout2">sgehg</div></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="karkar-block39 layout">
+                      <div class="karkar-block39-item">
+                        <div class="karkar-block40 layout">
+                          <div class="karkar-block41 layout">
+                            <div class="karkar-group layout"><h4 class="karkar-highlights1 layout">ABC123</h4></div>
+                            <div class="karkar-block41-spacer"></div>
+                            <div class="karkar-block41-item"><div class="karkar-box11 layout"></div></div>
+                          </div>
+                          <div class="karkar-box12 layout"></div>
+                        </div>
+                      </div>
+                      <div class="karkar-block39-spacer"></div>
+                      <div class="karkar-block39-item">
+                        <div class="karkar-block40 layout1">
+                          <div class="karkar-block41 layout">
+                            <div class="karkar-group layout"><h4 class="karkar-highlights1 layout">ABC123</h4></div>
+                            <div class="karkar-block41-spacer"></div>
+                            <div class="karkar-block41-item"><div class="karkar-box11 layout"></div></div>
+                          </div>
+                          <div class="karkar-box12 layout"></div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="karkar-block42 layout">
+                      <div class="karkar-block42-item"><div class="karkar-box14 layout"></div></div>
+                      <div class="karkar-block42-spacer"></div>
+                      <div class="karkar-block42-item"><div class="karkar-box13 layout"></div></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="karkar-block13-spacer"></div>
+                <div class="karkar-block13-item1">
+                  <div class="karkar-block43 layout">
+                    <div class="karkar-block44 layout">
+                      <div class="karkar-block45 layout">
+                        <div class="karkar-block45-item">
+                          <div class="karkar-group layout1"><h4 class="karkar-highlights2 layout">ABC123</h4></div>
+                        </div>
+                        <div class="karkar-block45-spacer"></div>
+                        <div class="karkar-block45-item1"><div class="karkar-box16 layout"></div></div>
+                      </div>
+                    </div>
+                    <div class="karkar-block46 layout">
+                      <div class="karkar-block47 layout">
+                        <div class="karkar-block45 layout1">
+                          <div class="karkar-block45-item">
+                            <div class="karkar-group layout2"><h4 class="karkar-highlights2 layout">ABC123</h4></div>
+                          </div>
+                          <div class="karkar-block45-spacer1"></div>
+                          <div class="karkar-block45-item2"><div class="karkar-box16 layout"></div></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="karkar-block48 layout">
+                <div class="karkar-block48-item">
+                  <div class="karkar-block49 layout">
+                    <div class="karkar-flex layout">
+                      <div class="karkar-flex-item">
+                        <div class="karkar-group layout3"><h4 class="karkar-highlights1 layout1">ABC123</h4></div>
+                      </div>
+                      <div class="karkar-flex-spacer"></div>
+                      <div class="karkar-flex-item1"><div class="karkar-box11 layout1"></div></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="karkar-block50 layout">
+                <div class="karkar-text-body4 layout">FOOTERTEXT.ABC123456789.TEXTFILLABC123456789</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</html>

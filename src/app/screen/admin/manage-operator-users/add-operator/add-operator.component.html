@@ -1,0 +1,240 @@
+<div class="barbar-block10 layout">
+  <div class="barbar-flex layout">
+    <div class="barbar-block11 layout">
+      <h3 class="barbar-subtitle layout">Basic Details</h3>
+    </div>
+
+    <form [formGroup]="addOperatorProfile">
+      <div class="barbar-block12 layout">
+        <h4 class="barbar-highlights1 layout">Customer Information</h4>
+        <div class="barbar-block13 layout">
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">User Name*</h5>
+
+              <div class="barbar-box6 layout">
+                <input
+                  formControlName="username"
+                  type="text"
+                  class="barbar-input-text"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Email ID</h5>
+              <div class="barbar-box6 layout">
+                <input
+                  formControlName="emailid"
+                  type="text"
+                  class="barbar-input-text"
+                />
+                <!-- <mat-error>This Field is required</mat-error> -->
+              </div>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">DOB</h5>
+              <div class="barbar-box6 layout">
+                <input
+                  formControlName="dob"
+                  type="text"
+                  class="barbar-input-text"
+                />
+                <!-- <mat-error>This Field is required</mat-error> -->
+              </div>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Phone Number</h5>
+              <div class="barbar-box6 layout">
+                <input
+                  formControlName="phonenumber"
+                  type="text"
+                  class="barbar-input-text"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Assign Location</h5>
+
+              <mat-form-field class="barbar-box6 layout">
+                <mat-label>Select</mat-label>
+                <mat-select>
+                  <mat-option>
+                    Location A
+                  </mat-option>
+                  <mat-option>
+                    Location B
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <!-- <div class="barbar-box6 layout">
+                <select
+                  required
+                  formControlName="country"
+                  class="barbar-input-text"
+                >
+                  <option value="locationA">Location A</option>
+                  <option value="locationB">Location B</option>
+                  <option value="locationC">Location C</option>
+                </select>
+              </div> -->
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item"></div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item"></div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item"></div>
+        </div>
+      </div>
+
+      <div class="barbar-block12 layout">
+        <h4 class="barbar-highlights1 layout">Location</h4>
+        <div class="barbar-block13 layout">
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Address Line 1</h5>
+              <div class="barbar-box6 layout">
+                <input
+                  formControlName="addressLine1"
+                  type="text"
+                  class="barbar-input-text"
+                />
+                <!-- <mat-error>This Fiels is required</mat-error> -->
+              </div>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Address Line 2</h5>
+              <div class="barbar-box6 layout">
+                <input
+                  formControlName="addressLine2"
+                  type="text"
+                  class="barbar-input-text"
+                />
+                <!-- <mat-error>This Fiels is required</mat-error> -->
+              </div>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Country</h5>
+
+              <mat-form-field class="barbar-box6 layout">
+                <mat-label>Select</mat-label>
+                <mat-select>
+                  <mat-option>
+                    USA
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">State</h5>
+
+              <mat-form-field class="barbar-box6 layout">
+                <mat-label>Select</mat-label>
+                <mat-select>
+                  <mat-option>
+                    California
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">City</h5>
+
+              <mat-form-field class="barbar-box6 layout">
+                <mat-label>Select</mat-label>
+                <mat-select>
+                  <mat-option>
+                    Los Angeles
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Zip Code</h5>
+              <div class="barbar-box6 layout">
+                <input
+                  formControlName="zipcode"
+                  type="text"
+                  class="barbar-input-text"
+                />
+                <!-- <mat-error>This Field is required</mat-error> -->
+              </div>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item"></div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item"></div>
+        </div>
+      </div>
+
+      <div class="barbar-flex1 layout">
+        <div class="barbar-flex1-item">
+          <div class="barbar-block17 layout">
+            <div class="barbar-text-body2 layout">CANCEL</div>
+          </div>
+        </div>
+        <div class="barbar-flex1-spacer"></div>
+        <div class="barbar-flex1-item">
+          <div class="barbar-block16 layout">
+            <div class="barbar-text-body1 layout" (click)="alertWithSuccess()">
+              SAVE
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="barbar-flex1 layout">
+        <div class="barbar-flex1-item">
+          <div class="barbar-block17 layout">
+            <div class="barbar-text-body2 layout">CANCEL</div>
+          </div>
+        </div>
+        <div class="barbar-flex1-spacer"></div>
+        <div class="barbar-flex1-item">
+          <button (click)="saveForm()" class="barbar-block16 layout">
+            <div class="barbar-text-body1 layout" (click)="alertWithSuccess()">
+              SAVE
+            </div>
+          </button>
+        </div>
+      </div> -->
+    </form>
+  </div>
+</div>

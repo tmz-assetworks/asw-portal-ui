@@ -1,0 +1,35 @@
+<div class="statuspanel-block46 layout">
+  <div class="statuspanel-block47 layout">
+    <div class="statuspanel-block45 layout1">
+      <div class="statuspanel-block45-item">
+        <div class="statuspanel-group layout2">
+          <h4 class="statuspanel-highlights2 layout">{{ title }}</h4>
+        </div>
+      </div>
+      <div class="statuspanel-block45-spacer1"></div>
+      <div class="statuspanel-block45-item2">
+        <img
+          class="statuspanel-box16 layout"
+          src="../../../../assets/status-panel-icon/energy_used.png"
+          alt=""
+        />
+      </div>
+    </div>
+
+    <!-- add the content here -->
+    <app-status-list-element
+      [EnergyUsedData]="energyUsedData[0]"
+      [Icon]="icon1"
+    ></app-status-list-element>
+    <app-status-list-element
+      [EnergyUsedData]="energyUsedData[1]"
+      [Icon]="icon2"
+    ></app-status-list-element>
+    <app-status-list-element
+      [EnergyUsedData]="energyUsedData[2]"
+      [Icon]="icon3"
+    ></app-status-list-element>
+    <!-- <app-status-box-element></app-status-box-element> -->
+    <!-- <div [ngStyle]='{"height":"200px"}'>add the content here</div> -->
+  </div>
+</div>

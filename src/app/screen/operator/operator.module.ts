@@ -1,0 +1,75 @@
+import { NgModule } from '@angular/core'
+import { RouterModule, Routes } from '@angular/router'
+import { AuthGuard } from 'src/app/gurads/auth.guard'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
+import { SharedModule } from 'src/app/shared/shared.module'
+import { MainMasterModule } from '../master/master.module'
+import { MasterComponent } from '../master/master.component'
+import { RoleAuthGuard } from 'src/app/gurads/role.auth.guard'
+
+const routes: Routes = [
+  {
+    path: '',
+    component: MasterComponent,
+    canActivate: [ RoleAuthGuard],
+    // pathMatch: 'full',
+    children: [
+      {
+        path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full',
+      },
+
+      {
+        path: 'dashboard',
+        loadChildren: () =>
+          import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
+      },
+      {
+        path: 'location',
+        loadChildren: () =>
+          import('./location/location.module').then((m) => m.LocationModule),
+      },
+
+      {
+        path: 'charger',
+        loadChildren: () =>
+          import('./charger/charger.module').then((m) => m.ChargerModule),
+      },
+      {
+        path: 'diagonstics',
+        loadChildren: () =>
+          import('./diagnostics/diagnostics.module').then(
+            (m) => m.DiagnosticsModule,
+          ),
+      },
+      {
+        path: 'vehicles',
+        loadChildren: () =>
+          import('./vehicles/vehicles.module').then((m) => m.VehiclesModule),
+      },
+      {
+        path: 'reports',
+        loadChildren: () =>
+          import('./reports/reports.module').then((m) => m.ReportsModule),
+      },
+      {
+        path: 'alerts',
+        loadChildren: () =>
+          import('./alerts/alerts.module').then((m) => m.AlertsModule),
+      },
+      {
+        path: 'help',
+        loadChildren: () =>
+          import('./help/help.module').then((m) => m.HelpModule),
+      },
+    ],
+  },
+]
+
+@NgModule({
+  imports: [SharedMaterialModule, SharedModule, RouterModule.forChild(routes)],
+  exports: [],
+  declarations: [],
+})
+export class OperatorModule {}

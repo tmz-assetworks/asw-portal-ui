@@ -1,0 +1,59 @@
+<div [ngStyle]="{'z-index': '6'}"
+  [ngClass]="(messages ? 'nav-transition nav-block2-collapse layout' : 'nav-transition  nav-block2 layout')"
+  id="leftBar"
+>
+<div
+  [ngClass]="(messages ? 'nav-transition nav-block2-collapse layout' : 'nav-transition  nav-block19 layout')"
+  id="leftBar"
+>
+  <!-- <div class="nav-block2-collapse layout" id="leftBar"> -->
+  <div class="nav-block3 layout">
+    <div class="nav-block3-item">
+      <div class="nav-box layout">
+        <ng-container *ngIf="!messages">
+          <img src="../../../../assets/logo.png" alt="" />
+        </ng-container>
+        <ng-container *ngIf="messages">
+          <img
+            src="../../../../assets/logo-collapse.png"
+            style="width: 30px;"
+            alt=""
+          />
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <ng-container *ngFor="let item of menuItems">
+    <a routerLink="{{ item.routerLink }}">
+      <div [ngClass]="(messages ? 'navbtn-block4 layout-colapse' : 'navbtn-block4 layout')" >
+        <div
+          class="navbtn-block5 layout pointer"
+          routerLinkActive="link-active"
+        >
+          <div class="navbtn-block5-item ">
+            <div class="navbtn-box1 layout">
+              <img src="{{ item.icon }}" alt="" />
+            </div>
+          </div>
+          <div class="navbtn-block5-spacer"></div>
+          <div [ngClass]="(messages ? 'navbtn-block5-item1-colapse' : 'navbtn-block5-item1')" >
+            <div
+              [ngClass]="
+                messages
+                  ? 'navbtn-text-body-collapse'
+                  : 'navbtn-text-body layout'
+              "
+            >
+              {{ item.text }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <app-nav-button [menuIcon]="item.icon" [menuText]="item.text">
+        {{ item.text }}
+      </app-nav-button> -->
+    </a>
+  </ng-container>
+</div>
+</div>

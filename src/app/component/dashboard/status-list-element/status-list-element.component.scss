@@ -1,0 +1,130 @@
+@import "../../../../styles";
+
+$font_type0: 700 20px/1.2 "Roboto", Helvetica, Arial, serif;
+$font_type1: 13px/1.2 "Roboto", Helvetica, Arial, serif;
+
+.list-element- {
+  &block2 {
+    @include flex-column;
+  }
+  &block2.layout {
+    position: relative;
+    height: min-content;
+  }
+  &block6 {
+    @include flex-column;
+  }
+  &block6.layout {
+    position: relative;
+    height: min-content;
+    margin: 15px 20px 13px;
+    @include xl1 {
+      margin: 8px 20px 6px;
+    }
+    border-bottom: 1px dotted #c2c5c8;
+    &.zero_br {
+      border-bottom: 0px dotted #c2c5c8;
+    }
+  }
+  &block3 {
+    display: flex;
+  }
+  &block3.layout {
+    position: relative;
+    height: min-content;
+    margin-bottom: 15px;
+    @include xl1 {
+      margin-bottom: 7px;
+    }
+  }
+  &block3-item {
+    @include flex-column;
+    position: relative;
+    flex: 0 1 50px;
+    @include xl1 {
+      flex: 0 1 40px;
+    }
+  }
+  &block4 {
+    @include flex-column;
+    border: 1px solid rgb(173, 173, 173);
+    border-radius: 8px 8px 8px 8px;
+  }
+  &block4.layout {
+    position: relative;
+    height: min-content;
+    @include xl1 {
+      width: 40px;
+      height: 40px;
+    }
+  }
+  &box3 {
+    // background-color: rgb(217, 217, 217);
+  }
+  &box3.layout {
+    position: relative;
+    height: 23px;
+    width: 23px;
+    min-width: 23px;
+    margin: 14px 14px 13px 13px;
+    @include xl1 {
+      margin: 9px 9px 9px 9px;
+    }
+  }
+  &block3-spacer {
+    flex: 1 1 auto;
+  }
+  &block3-item1 {
+    @include flex-column;
+    position: relative;
+    flex: 0 1 81px;
+  }
+  &block5 {
+    @include flex-column;
+  }
+  &block5.layout {
+    position: relative;
+    height: min-content;
+    margin: 5px 0px 4px;
+    text-align: left;
+  }
+  &subtitle {
+    font: $font_type0;
+    color: rgb(19, 27, 33);
+    text-decoration: underline;
+    letter-spacing: 0px;
+  }
+  &subtitle.layout {
+    position: relative;
+    height: min-content;
+    margin: 0px 0px 0px 11px;
+    text-decoration: none;
+  }
+  &text-body {
+    font: $font_type1;
+    color: rgb(112, 120, 127);
+    text-decoration: underline;
+    letter-spacing: 0px;
+  }
+  &text-body.layout {
+    position: relative;
+    height: min-content;
+    margin: 1px 2px 0px 0px;
+    text-decoration: none;
+    text-align: right;
+  }
+  &line {
+    border: 1px solid rgb(194, 197, 200);
+    width: 100%;
+    height: auto;
+    vertical-align: top;
+    object-fit: contain;
+    object-position: center top;
+  }
+  &line.layout {
+    position: absolute;
+    top: 63px;
+    left: 0px;
+    width: 254px;
+  }
+}

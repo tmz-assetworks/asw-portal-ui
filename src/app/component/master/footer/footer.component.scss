@@ -1,0 +1,64 @@
+@import "../../../../styles";
+
+.footer- {
+  &block50 {
+    @include flex-column;
+    background-color: rgb(255, 255, 255);
+  }
+  &block50.layout {
+    position: relative;
+    height: min-content;
+    margin: 28px 0px 0px 0;
+    @include lg {
+      margin: 25px 0px 0px 18px;
+    }
+    @include md {
+      margin: 21px 0px 0px 15px;
+    }
+    @include sm {
+      margin: 18px 0px 0px 13px;
+    }
+    @include xs {
+      margin: 16px 0px 0px 11px;
+    }
+    @include xxs {
+      margin: 14px 0px 0px 10px;
+    }
+    @include tn {
+      margin: 13px 0px 0px 10px;
+    }
+  }
+
+  &text-body4 {
+    @include h-center-content;
+    font: $font_type4;
+    color: rgb(19, 27, 33);
+    text-align: center;
+    letter-spacing: 0px;
+    @include md {
+      font-size: 12px;
+      text-align: center;
+    }
+  }
+  &text-body4.layout {
+    position: relative;
+    height: min-content;
+    width: 16.93%;
+    margin: 18px auto 16px;
+    @include lg {
+      margin: 16px auto 14px;
+    }
+    @include md {
+      margin: 13px auto 12px;
+    }
+    @include sm {
+      margin: 11px auto 10px;
+    }
+    @include xs {
+      margin: 10px auto 9px;
+    }
+    @include xxs {
+      margin: 9px auto 8px;
+    }
+  }
+}
