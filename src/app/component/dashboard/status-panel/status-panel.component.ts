@@ -1,14 +1,33 @@
 import { Component, OnInit } from '@angular/core'
-
+import { DashboardService } from 'src/app/screen/operator/dashboard/dashboard.service'
 @Component({
   selector: 'app-status-panel',
   templateUrl: './status-panel.component.html',
   styleUrls: ['./status-panel.component.scss'],
 })
 export class StatusPanelComponent implements OnInit {
+  
+ // constructor(private _dashboardService: DashboardService) {}
+
+
+/**
+ * 
+ * Get Summary Data
+ */
+  // getsummarydata() {
+  // this._dashboardService.GetSummaryData().subscribe((res:any)=>{
+  //  console.log(res)
+  //    console.log(res.data[0])
+  // })
+    
+  
+  // }
+
+  
   statusBoxTitle1 = 'Charging Infrastructure'
 
-  statusBoxIcon1 = '../../../../../assets/locationcharger-icon/charging-infa.svg'
+  statusBoxIcon1 =
+    '../../../../../assets/locationcharger-icon/charging-infa.svg'
   statusBoxTitle2 = ' Revenue From Public Charging'
   statusBoxIcon2 = '../../../../assets/status-panel-icon/revenue.png'
 
@@ -25,7 +44,7 @@ export class StatusPanelComponent implements OnInit {
           Value: 50,
         },
         {
-          Key: 'Total Charger',
+          Key: 'Total Chargers',
           Value: 150,
         },
       ],
@@ -70,7 +89,9 @@ export class StatusPanelComponent implements OnInit {
     },
   ]
 
-  constructor() {}
+  
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    //this.getsummarydata()
+  }
 }

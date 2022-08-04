@@ -1,4 +1,4 @@
-@import "../../../../styles";
+@import '../../../../styles';
 a {
   text-decoration: none;
 }
@@ -114,6 +114,7 @@ a {
     min-width: 25px;
     margin: 18px auto;
     text-align: center;
+    cursor: pointer;
     img {
       width: 85%;
     }

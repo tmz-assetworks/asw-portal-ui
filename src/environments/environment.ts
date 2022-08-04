@@ -4,15 +4,21 @@
 
 export const environment = {
   production: false,
-  origin: '',
-  localOrigin: '',
+  // origin: 'http://51.141.73.41:6010/',
+  // originAuth: 'http://51.141.73.41:8081/',
+  // localOrigin: 'http://51.141.73.41:8081/api/',
+  // origin: 'http://51.141.73.41:6010/',
+  // originAuth: 'http://51.141.73.41:6008/',
+  // localOrigin: 'http://51.141.73.41:6008/api/',
+  origin: 'http://51.142.150.252:6010/',
+  originAuth: 'http://51.142.150.252:6008/',
+  localOrigin: 'http://51.142.150.252:6008/api/',
   imagePath: '',
   onProd: 0,
   isPlatform: 'Development Platform',
   isPlatformMsg: '',
   versionNumber: 'Dev v 1.0',
   PASSWORD_PRIVATE_KEY: '',
-  baseURL: 'http://35.89.134.61:8081/api/Auth/'
 }
 
 /*

@@ -1200,7 +1200,7 @@
     transition-property: transform;
   }
   &block35:hover {
-    transform: scale(1.05);
+    //transform: scale(1.05);
   }
   &block35.layout {
     position: relative;
@@ -2738,3 +2738,11 @@ tr.mat-row:last-of-type {
   font-size: 13px;
   color: #323e48;
 }
+.mat-button-toggle-appearance-standard:hover{
+  border:1px solid #0062a6;
+  //background-color: #fff;
+  }
+  .dashboard-block35:hover{
+    border:1px solid #0062a6;
+    border-left: 1px solid #0062a6;
+  }

@@ -1,0 +1,275 @@
+<div class="statuspanel-block43 layout">
+  <div class="statuspanel-block46 layout">
+    <div class="statuspanel-block47 layout">
+      <!-- status box start -->
+      <div class="statuspanel-block45 layout1">
+        <div class="statuspanel-block45-item">
+          <div class="statuspanel-group layout2">
+            <h4 class="statuspanel-highlights2 layout">
+              Charging Infrastructure
+            </h4>
+          </div>
+        </div>
+        <div class="statuspanel-block45-spacer1"></div>
+        <div class="statuspanel-block45-item2">
+          <img
+            src="../../../../../assets/locationcharger-icon/charging-infa.svg"
+            class="statuspanel-box16 layout"
+            alt=""
+          />
+        </div>
+      </div>
+
+      <!-- status box end -->
+      <div class="list-element-block2 layout">
+        <div class="list-element-block6 layout">
+          <div class="list-element-block3 layout">
+            <div class="list-element-block3-item">
+              <div class="list-element-block4 layout">
+                <img
+                  src="../../../../../assets/status-panel-icon/chargers.png"
+                  class="list-element-box3 layout"
+                  alt=""
+                />
+              </div>
+            </div>
+            <div class="list-element-block3-spacer"></div>
+            <div class="list-element-block3-item1">
+              <div class="list-element-block5 layout">
+                <h3 class="list-element-subtitle layout">
+                {{infraValue}}
+                </h3>
+                <div class="list-element-text-body layout">
+                  {{infrakey}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- status box element start -->
+
+      <!-- <div class="box-element-block2 layout">
+    <div class="box-element-block5 layout">
+      <img
+        src="../../../../../assets/status-panel-icon/sites.png"
+        class="box-element-box2 layout"
+      />
+      <div class="box-element-block6 layout">
+        <h3 class="box-element-subtitle layout">50</h3>
+        <div class="box-element-text-body layout">
+          Total Sites
+        </div>
+      </div>
+    </div>
+    <div class="box-element-block2-spacer dotted_line">
+      <hr />
+    </div>
+    <div class="box-element-block5 layout1">
+      <img
+        src="../../../../../assets/status-panel-icon/chargers.png"
+        class="box-element-box2 layout"
+      />
+      <div class="box-element-block6 layout">
+        <h3 class="box-element-subtitle layout">250</h3>
+        <div class="box-element-text-body layout">
+          Total Chargers
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+      <!-- status box element end -->
+    </div>
+  </div>
+
+  <div class="statuspanel-block46 layout">
+    <div class="statuspanel-block47 layout">
+      <!-- status box start -->
+      <div class="statuspanel-block45 layout1">
+        <div class="statuspanel-block45-item">
+          <div class="statuspanel-group layout2">
+            <h4 class="statuspanel-highlights2 layout">
+              Revenue From Public Charging
+            </h4>
+          </div>
+        </div>
+        <div class="statuspanel-block45-spacer1"></div>
+        <div class="statuspanel-block45-item2">
+          <img
+            src="../../../../../assets/status-panel-icon/revenue.png"
+            class="statuspanel-box16 layout"
+            alt=""
+          />
+        </div>
+      </div>
+      <div echarts [options]="chartOption" class="echart-item"></div>
+    </div>
+  </div>
+
+  <div class="statuspanel-block46 layout">
+    <div class="statuspanel-block47 layout">
+      <div class="statuspanel-block45 layout1">
+        <div class="statuspanel-block45-item">
+          <div class="statuspanel-group layout2">
+            <h4 class="statuspanel-highlights2 layout">
+              Energy Used
+            </h4>
+          </div>
+        </div>
+        <div class="statuspanel-block45-spacer1"></div>
+        <div class="statuspanel-block45-item2">
+          <img
+            src="../../../../../assets/status-panel-icon/energy_used.png"
+            class="statuspanel-box16 layout"
+            alt=""
+          />
+        </div>
+      </div>
+
+      <!-- add the content here -->
+
+      <!-- list start  -->
+
+      <div class="list-element-block2 layout">
+        <div class="list-element-block6 layout">
+          <div
+            class="list-element-block3 layout"
+            style="border-bottom: 1px dotted #c2c5c8; padding-bottom: 15px;"
+          >
+            <div class="list-element-block3-item">
+              <div class="list-element-block4 layout">
+                <img
+                  src="../../../../../assets/status-panel-icon/total-energy.png"
+                  class="list-element-box3 layout"
+                  alt=""
+                />
+              </div>
+            </div>
+            <div class="list-element-block3-spacer"></div>
+            <div class="list-element-block3-item1">
+              <div class="list-element-block5 layout">
+                <h3 class="list-element-subtitle layout">
+                  {{energyUsedvalue0}}
+                </h3>
+                <div class="list-element-text-body layout">
+                  {{energyUsedkey0}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- <hr> -->
+          <div
+            class="list-element-block3 layout"
+            style="border-bottom: 1px dotted #c2c5c8; padding-bottom: 15px;"
+          >
+            <div class="list-element-block3-item">
+              <div class="list-element-block4 layout">
+                <img
+                  src="../../../../../assets/status-panel-icon/daily_average.png"
+                  class="list-element-box3 layout"
+                  alt=""
+                />
+              </div>
+            </div>
+            <div class="list-element-block3-spacer"></div>
+            <div class="list-element-block3-item1">
+              <div class="list-element-block5 layout">
+                <h3 class="list-element-subtitle layout">
+                  {{energyUsedvalue1}}
+                </h3>
+                <div class="list-element-text-body layout">
+                  {{energyUsedkey1}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="list-element-block3 layout">
+            <div class="list-element-block3-item">
+              <div class="list-element-block4 layout">
+                <img
+                  src="../../../../../assets/status-panel-icon/calender.png"
+                  class="list-element-box3 layout"
+                  alt=""
+                />
+              </div>
+            </div>
+            <div class="list-element-block3-spacer"></div>
+            <div class="list-element-block3-item1">
+              <div class="list-element-block5 layout">
+                <h3 class="list-element-subtitle layout">
+                  {{energyUsedvalue2}}
+                </h3>
+                <div class="list-element-text-body layout">
+                  {{energyUsedkey2}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- list end  -->
+    </div>
+  </div>
+
+  <div class="statuspanel-block46 layout">
+    <div class="statuspanel-block47 layout">
+      <!-- status box start -->
+      <div class="statuspanel-block45 layout1">
+        <div class="statuspanel-block45-item">
+          <div class="statuspanel-group layout2">
+            <h4 class="statuspanel-highlights2 layout">
+              Energy Points
+            </h4>
+          </div>
+        </div>
+        <div class="statuspanel-block45-spacer1"></div>
+        <div class="statuspanel-block45-item2">
+          <img
+            src="../../../../../assets/status-panel-icon/energy_points.png"
+            class="statuspanel-box16 layout"
+            alt=""
+          />
+        </div>
+      </div>
+      <!-- status box end -->
+
+      <!-- status box element start -->
+
+      <div class="box-element-block2 layout">
+        <div class="box-element-block5 layout">
+          <img
+            src="../../../../../assets/status-panel-icon/saved.png"
+            class="box-element-box2 layout"
+          />
+          <div class="box-element-block6 layout">
+            <h3 class="box-element-subtitle layout">{{energyPointsvalue0}}</h3>
+            <div class="box-element-text-body layout">
+             {{energyPointskey0}}
+            </div>
+          </div>
+        </div>
+        <div class="box-element-block2-spacer dotted_line">
+          <hr />
+        </div>
+        <div class="box-element-block5 layout1">
+          <img
+            src="../../../../../assets/status-panel-icon/chargers.png"
+            class="box-element-box2 layout"
+          />
+          <div class="box-element-block6 layout">
+            <h3 class="box-element-subtitle layout">{{energyPointsvalue1}}</h3>
+            <div class="box-element-text-body layout">
+              {{energyPointskey1}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- status box element end -->
+    </div>
+  </div>
+</div>

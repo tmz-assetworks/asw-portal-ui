@@ -1,0 +1,53 @@
+@import "../../../../styles.scss";
+
+$color_type_0: rgb(19, 27, 33);
+$color_type_1: rgb(255, 255, 255);
+
+.tool-tip- {
+  &block {
+    @include flex-column;
+    background-color: $color_type_1;
+  }
+  &block.layout {
+    position: relative;
+    overflow: hidden;
+    min-height: 229px;
+  }
+  &block1 {
+    @include flex-column;
+    filter: drop-shadow(0px 0px 30px rgba(0, 0, 0, 0.24705882352941178));
+  }
+  &block1.layout {
+    position: relative;
+    height: min-content;
+    width: max-content;
+    background-color: $color_type_1;
+  }
+  &block2 {
+    @include flex-column;
+  }
+  &block2.layout {
+    position: relative;
+    // top: 43px;
+    height: min-content;
+    // left: 39px;
+    width: min-content;
+    margin: 20px;
+  }
+  &highlights {
+    @include font-face($font_type26, $color_type_0, 0px);
+  }
+  &highlights.layout {
+    position: relative;
+    height: min-content;
+  }
+  &block3 {
+    display: flex;
+    column-gap: 16px;
+  }
+  &block3.layout {
+    position: relative;
+    height: min-content;
+    margin: 13px 0px 0px;
+  }
+}

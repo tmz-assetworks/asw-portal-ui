@@ -1,0 +1,256 @@
+<div class="header header-block layout">
+  <div class="header-block1 layout">
+    <div class="header-flex layout">
+      <h3 class="header-subtitle-box layout">
+        Chargers
+      </h3>
+
+      <div class="dashboard-block12 layout">
+        <!-- <h3 class="dashboard-subtitle layout">Chargers</h3> -->
+      </div>
+      <div class="dashboard-block13 layout">
+        <div class="dashboard-block13-item">
+          <div class="dashboard-block14 layout">
+            <div class="dashboard-block15 layout">
+              <!-- <div *ngFor="let item of data; let i = index"> -->
+              <div class="dashboard-block15-item">
+                <app-widget
+                  [widgetIcon]="chargers"
+                  [data]="data[0]"
+                ></app-widget>
+              </div>
+              <div class="dashboard-block15-spacer"></div>
+              <!-- <div *ngif="i == 0" class="dashboard-block15-spacer"></div>
+          <div *ngif="i == 1" class="dashboard-block15-spacer1"></div>
+          <div *ngif="i == 2" class="dashboard-block15-spacer"></div> -->
+              <!-- </div> -->
+              <div class="dashboard-block15-item">
+                <app-widget
+                  [widgetIcon]="charging_session"
+                  [data]="data[1]"
+                ></app-widget>
+              </div>
+              <div class="dashboard-block15-spacer1"></div>
+              <div class="dashboard-block15-item">
+                <app-widget [widgetIcon]="errors" [data]="data[2]"></app-widget>
+              </div>
+            </div>
+
+            <div class="dashboard-block32 layout">
+              <div class="dashboard-block33 layout">
+                <div class="dashboard-block33-item1">
+                  <div class="dashboard-block35 layout">
+                    <div class="dashboard-text-body2 layout">
+                      Last 24 Hours
+                      <!-- <button mat-button>
+                  Last 24 Hours
+                </button> -->
+                    </div>
+                  </div>
+                </div>
+                <div class="dashboard-block33-item2">
+                  <div class="dashboard-block36 layout">
+                    <div class="dashboard-text-body3 layout">
+                      One Week
+                      <!-- <button mat-button>
+                  One Week
+                </button> -->
+                    </div>
+                  </div>
+                </div>
+                <div class="dashboard-block33-item3">
+                  <div class="dashboard-block37 layout">
+                    <div class="dashboard-text-body3 layout1">
+                      <!-- <button mat-button>
+                  Current Month
+                </button> -->
+                      Current Month
+                    </div>
+                  </div>
+                </div>
+                <div class="dashboard-block33-item4">
+                  <div class="dashboard-block38 layout">
+                    <div class="dashboard-text-body3 layout2">
+                      <!-- <button mat-button>
+                  Last Three Months
+                </button> -->
+                      Last 3 Months
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="dashboard-block42 layout">
+              <div class="dashboard-block42-item">
+                <app-bar-chart
+                  [chartType]="bar"
+                  [chartTitle]="barTitle"
+                ></app-bar-chart>
+              </div>
+              <div class="dashboard-block42-spacer"></div>
+              <div class="dashboard-block42-item">
+                <app-area-chart
+                  [chartType]="chargerArea"
+                  [chartTitle]="chargerAreaTitle"
+                  [chargingSessionData]="chargingSessionData"
+                ></app-area-chart>
+              </div>
+            </div>
+            <div class="">
+              <div class="dashboard-block48 layout">
+                <div class="dashboard-block48-item">
+                  <!-- <div class="dashboard-block49 layout"> -->
+                  <div>
+                    <div class="cust-list-flex3 layout">
+                      <div class="cust-list-flex3-item">
+                        <div class="cust-list-group layout">
+                          <div class="cust-list-block19 layout">
+                            <div class="cust-list-box9 layout">
+                              <img
+                                src="../../../../assets/icons/search.png"
+                                alt=""
+                                class="cust-list-icon layout"
+                              />
+                            </div>
+
+                            <div class="cust-list-block20 layout">
+                              <input
+                                class="cust-list-text-body21 layout"
+                                (keyup)="applyFilter($event)"
+                                placeholder="Search Chargers"
+                                #input
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="cust-list-flex3-spacer"></div>
+                      <div class="cust-list-flex3-item1">
+                        <div class="cust-list-block23 layout">
+                          <!-- <div class="cust-list-block23-item">
+                                <div class="cust-list-box10 layout"></div>
+                              </div> -->
+                          <!-- <div class="cust-list-block23-spacer"></div>
+                              <div class="cust-list-text-body4 layout">Add Button</div> -->
+                        </div>
+                      </div>
+                    </div>
+                    <div class="layout mat-data">
+                      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                        <ng-container matColumnDef="locationName">
+                          <th mat-header-cell *matHeaderCellDef>
+                            CHARGER NAME
+                          </th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.locationName }}
+                          </td>
+                        </ng-container>
+
+                        <!-- Name Column -->
+                        <ng-container matColumnDef="chargerBoxId">
+                          <th mat-header-cell *matHeaderCellDef>
+                            CHARGER BOX ID
+                          </th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.chargerBoxId }}
+                          </td>
+                        </ng-container>
+
+                        <!-- Weight Column -->
+                        <ng-container matColumnDef="chargertype">
+                          <th mat-header-cell *matHeaderCellDef>
+                            CHARGER TYPE
+                          </th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.chargertype }}
+                          </td>
+                        </ng-container>
+
+                        <!-- Symbol Column -->
+                        <ng-container matColumnDef="faultisince">
+                          <th mat-header-cell *matHeaderCellDef>FAULT SINCE</th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.faultisince }}
+                          </td>
+                        </ng-container>
+                        <ng-container matColumnDef="locationcontactname">
+                          <th mat-header-cell *matHeaderCellDef>
+                            LOCATIONS CONTACT NAME
+                          </th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.locationcontactname }}
+                          </td>
+                        </ng-container>
+                        <ng-container matColumnDef="timereported">
+                          <th mat-header-cell *matHeaderCellDef>
+                            TIME REPORTED
+                          </th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.timereported }}
+                          </td>
+                        </ng-container>
+                        <ng-container matColumnDef="locationid">
+                          <th mat-header-cell *matHeaderCellDef>
+                            LOCATIONS ID
+                          </th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.locationid }}
+                          </td>
+                        </ng-container>
+                        <ng-container matColumnDef="state">
+                          <th mat-header-cell *matHeaderCellDef>STATE</th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.state }}
+                          </td>
+                        </ng-container>
+                        <ng-container matColumnDef="locationcontactnumber">
+                          <th mat-header-cell *matHeaderCellDef>
+                            LOCATION CONTACT NUMBER
+                          </th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.locationcontactnumber }}
+                          </td>
+                        </ng-container>
+
+                        <!-- Symbol Column -->
+                        <ng-container matColumnDef="action">
+                          <th mat-header-cell *matHeaderCellDef>ACTION</th>
+                          <td
+                            mat-cell
+                            *matCellDef="let element"
+                            (click)="viewCharger()"
+                            style="cursor: pointer;"
+                          >
+                            <img src="../../../../assets/icons/view-icon.png" />
+                          </td>
+                        </ng-container>
+
+                        <tr
+                          mat-header-row
+                          *matHeaderRowDef="displayedColumns"
+                        ></tr>
+                        <tr
+                          mat-row
+                          *matRowDef="let row; columns: displayedColumns"
+                        ></tr>
+                      </table>
+                      <ng-container *ngIf="isTableHasData">
+                        <p class="text-center">No record found</p>
+                      </ng-container>
+                    </div>
+                    <mat-paginator
+                      [length]="100"
+                      [pageSizeOptions]="[10, 20, 100]"
+                      aria-label="Rows per page"
+                    ></mat-paginator>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

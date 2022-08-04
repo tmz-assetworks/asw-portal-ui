@@ -1,1 +1,135 @@
-<p>alerts works!</p>
+<div class="cust-list-flex1 layout ">
+  <h3 class="cust-list-subtitle layout">Alerts</h3>
+  <div class="cust-list-flex3 layout">
+    <div class="cust-list-flex3-item">
+      <div class="cust-list-group layout">
+        <div class="cust-list-block19 layout">
+          <div class="cust-list-box9 layout">
+            <img
+              src="assets/images/serach.png"
+              alt=""
+              class="cust-list-icon layout"
+            />
+          </div>
+
+          <div class="cust-list-block20 layout">
+            <input
+              class="cust-list-text-body21 layout"
+              (keyup)="applyFilter($event)"
+              placeholder="Search by Message"
+              #input
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cust-list-flex3-spacer"></div>
+  </div>
+   <div>
+  <div class="layout mat-data">
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      multiTemplateDataRows
+      matSorts
+      class="mat-elevation-z8"
+    >
+      <ng-container matColumnDef="ChargeBoxId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="fontsize14">
+          CHARGEBOX ID
+        </th>
+        <td mat-cell *matCellDef="let element; let i = index">
+          {{ element.ChargeBoxId }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="Category">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="fontsize14">CATEGORY</th>
+        <td mat-cell *matCellDef="let element; let i = index">
+          {{ element.Category }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="MessageType">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="fontsize14">MESSAGE TYPE</th>
+        <td mat-cell *matCellDef="let element; let i = index">
+          {{ element.MessageType }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="Datetime">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="fontsize14">DATE/ TIME</th>
+        <td mat-cell *matCellDef="let element; let i = index">
+          {{ element.Datetime }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="IpAddress">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="fontsize14">IP ADDRESS</th>
+        <td mat-cell *matCellDef="let element; let i = index">
+          {{ element.IpAddress }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="LocationName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="fontsize14">LOCATIONS NAME</th>
+        <td mat-cell *matCellDef="let element; let i = index">
+          {{ element.LocationName }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header class="fontsize14">ACTION</th>
+        <td mat-cell *matCellDef="let element; let i = index">
+          <img
+            style="cursor: pointer;"
+            src="../../../../assets/icons/view-icon.png"
+            (click)="
+              expandedElement = expandedElement === element ? null : element
+            "
+          />
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="expandedDetail">
+        <td style="background-color: #fff;"
+          mat-cell
+          *matCellDef="let element"
+          [attr.colspan]="displayedColumns.length"
+        >
+          <div
+            class="example-element-detail"
+            [@detailExpand]="
+              element === expandedElement ? 'expanded' : 'collapsed'
+            "
+          >
+            <div class="example-element-description textleftcollapse">
+              <div class="">
+                <div class="">
+                  <pre> {{ element.RequestPayload | json }}</pre>
+                </div>
+              </div>
+              <hr />
+              <div class="example-element-description">
+                <pre> {{ element.ResponsePayload | json }}</pre>
+              </div>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let element; columns: displayedColumns"
+        class="example-element-row"
+        [class.example-expanded-row]="expandedElement === element"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: ['expandedDetail']"
+        class="example-detail-row"
+      ></tr>
+    </table>
+  </div>
+  <mat-paginator
+      [length]="100"
+      [pageSizeOptions]="[10, 20, 100]"
+    ></mat-paginator>
+ </div>
+</div>
+

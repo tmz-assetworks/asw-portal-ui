@@ -8,12 +8,18 @@ import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 import { LocationInformationComponent } from './location-information/location-information.component'
 import { LocationChargersComponent } from './location-chargers/location-chargers.component'
 import { LocationInnerComponent } from './location-inner/location-inner.component'
-import { NgxEchartsModule } from 'ngx-echarts'
+import { NgxEchartsModule } from 'ngx-echarts';
+import { LocationStausComponent } from './location-staus/location-staus.component';
+import { EventsLogComponent } from './events-log/events-log.component'
+import { GraphDetailComponent } from '../graph-detail/graph-detail.component'
+import { LocationStatusPanelComponent } from './location-status-panel/location-status-panel.component'
+
 
 const routes: Routes = [
   {
     path: '',
     component: LocationComponent,
+    
     children: [
       {
         path: '',
@@ -37,8 +43,22 @@ const routes: Routes = [
         component: LocationChargersComponent,
         // pathMatch: 'full',
       },
+      {
+        path: 'events-log',
+        component: EventsLogComponent,
+        // pathMatch: 'full',
+      },
+      {
+        path: 'location-status',
+        component: LocationStausComponent,
+        // pathMatch: 'full',
+      },
     ],
   },
+  { path: 'detail', component: GraphDetailComponent},
+  { path: 'detail/:id', component: GraphDetailComponent},
+ {path: 'analytics/detail', component: GraphDetailComponent},
+  {path: 'analytics/detail/:id', component: GraphDetailComponent} 
 ]
 
 @NgModule({
@@ -48,6 +68,9 @@ const routes: Routes = [
     LocationInformationComponent,
     LocationChargersComponent,
     LocationInnerComponent,
+    LocationStausComponent,
+    EventsLogComponent,
+    LocationStatusPanelComponent,
   ],
   imports: [
     CommonModule,

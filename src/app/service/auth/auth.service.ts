@@ -13,14 +13,13 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private _router: Router,
-    private storage: StorageService, private _loginService: LoginService
+    private storage: StorageService,
+    private _loginService: LoginService,
   ) {
     // this.baseUrl = environment.origin
-    
   }
 
   isLoggedIn() {
-    
     return localStorage.getItem('token_operator') || ''
   }
 
@@ -32,7 +31,7 @@ export class AuthService {
   }
 
   getToken() {
-    return localStorage.getItem('token_operator') || ''
+    return localStorage.getItem('token_id') || ''
   }
 
   isAuthenticated() {
@@ -51,39 +50,37 @@ export class AuthService {
   } */
 
   haveAccess(role: string) {
-    let idToken = localStorage.getItem('token_id');
-    if(idToken !== null && idToken !== '') {
-    let decodeData = this._loginService.getDecodedAccessToken(idToken);
-    const currentRole = decodeData.roles[0];
-    console.log('auth ser' + role);
-    if(currentRole == role) {
-       return true;
-    } 
+    let idToken = localStorage.getItem('token_id')
+    if (idToken !== null && idToken !== '') {
+      let decodeData = this._loginService.getDecodedAccessToken(idToken)
+      const currentRole = decodeData.roles
+
+      if (currentRole == role) {
+        return true
+      }
     }
-    return false;
+    return false
   }
   tokenExpired() {
-   // return true;
-    const token = localStorage.getItem('token_operator');
+    // return true;
+    const token = localStorage.getItem('token_operator')
     let expTime = localStorage.getItem('expTime')
-    
-    if(token != null && expTime !=null) {
-     // expTime = JSON.parse(expTime)
-  
-    const d = new Date();
-    let time = d.getTime();  
-    //time = 300000 + time;  // 5 min
-    if(time > Number(expTime)) {
-      alert('Token Has Expired. Please login again');
-      localStorage.removeItem('token_operator');
-     // this.refreshToken();
-      //this._router.navigate(['/login']);
-    } 
+
+    if (token != null && expTime != null) {
+      // expTime = JSON.parse(expTime)
+
+      const d = new Date()
+      let time = d.getTime()
+      //time = 300000 + time;  // 5 min
+      if (time > Number(expTime)) {
+        alert('Token Has Expired. Please login again')
+        localStorage.removeItem('token_operator')
+        // this.refreshToken();
+        //this._router.navigate(['/login']);
+      }
     } else {
       // TOKEN IS NULL
-      this._router.navigate(['/login']);
+      this._router.navigate(['/login'])
     }
-    
   }
-  
 }

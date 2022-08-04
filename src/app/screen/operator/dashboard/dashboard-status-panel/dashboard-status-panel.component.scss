@@ -1,0 +1,394 @@
+@import '../../../../../styles.scss';
+
+.statuspanel- {
+  &block43 {
+    @include flex-column;
+  }
+  &block43_layout {
+    position: relative;
+    height: min-content;
+  }
+  &block46 {
+    @include flex-column;
+  }
+  &block46.layout {
+    position: relative;
+    height: min-content;
+    margin: 11px 0px;
+    @include lg {
+      margin: 18px 0px 25px;
+    }
+    @include md {
+      margin: 15px 0px 25px;
+    }
+    @include sm {
+      margin: 13px 0px 20px;
+    }
+    @include xs {
+      margin: 11px 0px 15px;
+    }
+    @include xxs {
+      margin: 10px 0px 17px;
+    }
+    @include tn {
+      margin: 10px 0px 5px;
+    }
+  }
+  &block47 {
+    @include flex-column;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 20px 0px rgba(196, 196, 196, 0.24705882352941178);
+    border-radius: 10px 10px 10px 10px;
+  }
+  &block47.layout {
+    position: relative;
+    height: min-content;
+  }
+
+  &block45 {
+    display: flex;
+    align-items: center;
+    background-color: rgb(112, 120, 127);
+    border-radius: 10px 10px 0px 0px;
+  }
+  &block45.layout1 {
+    position: relative;
+    height: min-content;
+    @include xl1 {
+      height: 50px;
+    }
+  }
+  &group.layout2 {
+    position: relative;
+    height: min-content;
+    // width: 191px;
+    // min-width: 191px;
+    margin: 19px 0px 5px 20px;
+    @include xl1 {
+      margin: 22px 0px 0px 18px;
+    }
+
+    @include sm {
+      margin: 14px 0px 13px 13px;
+    }
+    @include xs {
+      margin: 13px 0px 12px 11px;
+    }
+    @include xxs {
+      margin: 12px 0px 11px 10px;
+    }
+    @include tn {
+      margin: 11px 0px 10px 10px;
+    }
+  }
+  &highlights2 {
+    @include font-face($font_type2, rgb(255, 255, 255), 0px);
+    text-align: left;
+
+    @include xxl {
+      font-size: 16px;
+    }
+    @include xl {
+      font-size: 14px;
+    }
+    @include lg {
+      font-size: 14px;
+    }
+    // @include md {
+    //   font-size: 12px;
+    // }
+    @include sm {
+      font-size: 18px;
+    }
+    @include xxs {
+      font-size: 18px;
+    }
+  }
+  &highlights2.layout {
+    position: relative;
+    height: min-content;
+    // margin: 5px 0px 5px 0px; // niharika added
+    @include sm {
+      margin: 5px 0px 5px 0px; // niharika added
+    }
+  }
+  &block45-spacer1 {
+    flex: 1 1 auto;
+  }
+  &block45-item {
+    @include flex-column;
+    position: relative;
+    flex: 0 1 211px;
+  }
+  &block45-item2 {
+    @include flex-column;
+    position: relative;
+    flex: 0 1 44px;
+  }
+  &box16 {
+    // background-color: rgb(255, 255, 255);
+  }
+  &box16.layout {
+    position: relative;
+    height: 24px;
+    width: 24px;
+    margin: 21px 20px 21px 0px;
+    @include lg {
+      margin: 18px 18px 18px 0px;
+    }
+    @include md {
+      margin: 16px 15px 16px 0px;
+    }
+    @include sm {
+      margin: 13px 13px 13px 0px;
+    }
+    @include xs {
+      margin: 12px 11px 12px 0px;
+    }
+    @include xxs {
+      margin: 11px 10px 11px 0px;
+    }
+    @include tn {
+      margin: 10px 10px 10px 0px;
+    }
+  }
+}
+.box-element-block2.layout[_ngcontent-mog-c58] {
+  margin: 20px 0px 6px;
+}
+.box-element-box2.layout[_ngcontent-mog-c58] {
+  padding: 10px;
+  box-sizing: border-box;
+}
+.echart- {
+  &item {
+    height: 290px;
+    @include xl1 {
+      height: 280px;
+    }
+  }
+}
+
+$font_type0: 700 20px/1.2 'Roboto', Helvetica, Arial, serif;
+$font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
+
+.list-element- {
+  &block2 {
+    @include flex-column;
+  }
+  &block2.layout {
+    position: relative;
+    height: min-content;
+  }
+  &block6 {
+    @include flex-column;
+  }
+  &block6.layout {
+    position: relative;
+    height: min-content;
+    margin: 15px 20px 13px;
+    @include xl1 {
+      margin: 8px 20px 6px;
+    }
+    // border-bottom: 1px dotted #c2c5c8;
+    &.zero_br {
+      border-bottom: 1px dotted #c2c5c8;
+    }
+  }
+  &block3 {
+    display: flex;
+  }
+  &block3.layout {
+    position: relative;
+    height: min-content;
+    margin-bottom: 15px;
+    @include xl1 {
+      margin-bottom: 7px;
+    }
+  }
+  &block3-item {
+    @include flex-column;
+    position: relative;
+    flex: 0 1 50px;
+    @include xl1 {
+      flex: 0 1 40px;
+    }
+  }
+  &block4 {
+    @include flex-column;
+    border: 1px solid rgb(173, 173, 173);
+    border-radius: 8px 8px 8px 8px;
+  }
+  &block4.layout {
+    position: relative;
+    height: min-content;
+    @include xl1 {
+      width: 40px;
+      height: 40px;
+    }
+  }
+  &box3 {
+    // background-color: rgb(217, 217, 217);
+  }
+  &box3.layout {
+    position: relative;
+    height: 23px;
+    width: 23px;
+    min-width: 23px;
+    margin: 14px 14px 13px 13px;
+    @include xl1 {
+      margin: 9px 9px 9px 9px;
+    }
+  }
+  &block3-spacer {
+    flex: 1 1 auto;
+  }
+  &block3-item1 {
+    @include flex-column;
+    position: relative;
+    flex: 0 1 81px;
+  }
+  &block5 {
+    @include flex-column;
+  }
+  &block5.layout {
+    position: relative;
+    height: min-content;
+    margin: 5px 0px 4px;
+    text-align: left;
+  }
+  &subtitle {
+    font: $font_type0;
+    color: rgb(19, 27, 33);
+    text-decoration: underline;
+    letter-spacing: 0px;
+  }
+  &subtitle.layout {
+    position: relative;
+    height: min-content;
+    margin: 0px 0px 0px 11px;
+    text-decoration: none;
+    text-align: right;
+  }
+  &text-body {
+    font: $font_type1;
+    color: rgb(112, 120, 127);
+    text-decoration: underline;
+    letter-spacing: 0px;
+  }
+  &text-body.layout {
+    position: relative;
+    height: min-content;
+    margin: 1px 2px 0px 0px;
+    text-decoration: none;
+    text-align: right;
+  }
+  &line {
+    border: 1px solid rgb(194, 197, 200);
+    width: 100%;
+    height: auto;
+    vertical-align: top;
+    object-fit: contain;
+    object-position: center top;
+  }
+  &line.layout {
+    position: absolute;
+    top: 63px;
+    left: 0px;
+    width: 254px;
+  }
+}
+.box-element- {
+  &block2 {
+    @include flex-column;
+    flex-direction: row;
+    // flex-wrap: wrap;
+    justify-content: flex-start;
+    // align-content: center;
+    // align-items: center;
+  }
+  &block2.layout {
+    position: relative;
+    height: min-content;
+    margin: 20px 0px 30px;
+    @include lg {
+      margin: 20px 0px 30px;
+    }
+    @include lg {
+      margin: 10px 0px 20px;
+    }
+  }
+  &block5 {
+    @include flex-column;
+    align-items: center;
+  }
+  &block5.layout {
+    position: relative;
+    flex: 0 1 105px;
+    @include xl1 {
+      flex: 0 1 90px;
+    }
+    height: min-content;
+    margin: 0px 0px 1px;
+  }
+  &box2 {
+    border: 1px solid rgb(173, 173, 173);
+    border-radius: 8px 8px 8px 8px;
+  }
+  &box2.layout {
+    position: relative;
+    height: 50px;
+    width: 50px;
+    // margin: 0px 27px 0px 28px;
+    @include xl1 {
+      // margin: 0px 18px 0px 20px;
+      width: 40px;
+      height: 40px;
+    }
+  }
+  &block6 {
+    @include flex-column;
+    justify-items: center;
+  }
+  &block6.layout {
+    position: relative;
+    height: min-content;
+    margin: 14px auto;
+    text-align: center;
+  }
+  &subtitle {
+    @include font-face($font_type0, rgb(19, 27, 33), 0px);
+  }
+  &subtitle.layout {
+    position: relative;
+    height: min-content;
+    text-align: center;
+  }
+  &text-body {
+    @include font-face($font_type1, rgb(112, 120, 127), 0px);
+  }
+  &text-body.layout {
+  }
+  &block2-spacer {
+    flex: 1 1 auto;
+    max-width: 30%;
+  }
+  &block5.layout1 {
+    position: relative;
+    flex: 0 1 105px;
+    height: min-content;
+  }
+}
+.box-element-box2.layout {
+  padding: 10px;
+  box-sizing: border-box;
+}
+//   .box-element-block2.layout {
+//     margin: 20px auto;
+//   }
+.dotted_line hr {
+  width: 1px;
+  height: 100px;
+  border: 0;
+  border-left: 1px dotted #c2c5c8;
+}

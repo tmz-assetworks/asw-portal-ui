@@ -1,0 +1,38 @@
+@import "../../../../styles";
+
+.bar- {
+  &block8 {
+    display: flex;
+    @include md {
+      flex-wrap: wrap;
+      row-gap: 16px;
+    }
+  }
+  &block8.layout {
+    position: relative;
+    height: min-content;
+    margin: 36px 19px 0px;
+    flex-wrap: wrap;
+    @include lg {
+      margin: 31px 17px 0px;
+    }
+    @include md {
+      margin: 26px 14px 0px;
+    }
+    @include sm {
+      margin: 22px 12px 0px;
+    }
+    @include xs {
+      margin: 20px 11px 0px;
+    }
+    @include xxs {
+      margin: 17px 10px 0px;
+    }
+    @include tn {
+      margin: 16px 9px 0px;
+    }
+  }
+  .screeenlayout{
+    flex-wrap: wrap;
+  }
+}

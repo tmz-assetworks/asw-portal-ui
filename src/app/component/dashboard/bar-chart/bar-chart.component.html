@@ -11,10 +11,13 @@
           [color]="color"
           [checked]="checked"
           [disabled]="disabled"
+          (change)="setToggleValue($event)"
         ></mat-slide-toggle>
       </ng-container>
       <ng-container *ngIf="!isToggle">
-        <div class="card-box11 layout"><img src="{{ icon }}" alt="" /></div>
+        <div class="card-box11 layout">
+          <img src="{{ icon }}" alt="" (click)="graphDetailPage(barChartId)" />
+        </div>
       </ng-container>
 
       <!-- <div class="card-box11 layout"><img src="{{ icon }}" alt="" /></div> -->

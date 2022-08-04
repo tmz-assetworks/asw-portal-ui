@@ -1,1 +1,211 @@
-<p>diagnostics works!</p>
+<div class="cust-list-flex1 layout">
+  <h3 class="cust-list-subtitle layout" style="color: #0e0d0d !important;">
+    Diagonstics
+  </h3>
+  <div class="cust-list-flex3 layout">
+    <div class="cust-list-flex3-item">
+      <div class="cust-list-group layout">
+        <div class="cust-list-block19 layout">
+          <div class="cust-list-box9 layout">
+            <img
+              src="assets/images/serach.png"
+              alt=""
+              class="cust-list-icon layout"
+            />
+          </div>
+
+          <div class="cust-list-block20 layout">
+            <input
+              class="cust-list-text-body21 layout"
+              (keyup)="applyFilter($event)"
+              placeholder="Search by Charger"
+              #input
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cust-list-flex3-spacer"></div>
+  </div>
+
+  <!-- Refer tootl tip componet here ----------------------------------------------------------------------------------------- -->
+  <!-- <app-tool-tip *ngIf="showToolTip">
+  <div class="title">tolltip</div>
+  <app-tool-tip-item class="item">
+    <div class="title">tolltiptolltip</div>
+    <img class="img" style="width:100%; height:100%" src="../../../../assets/logo-collapse.png">
+  </app-tool-tip-item>
+
+  <app-tool-tip-item class="item">
+    <div class="title">tolltiptolltip</div>
+    <img class="img" style="width:100%; height:100%" src="../../../../assets/logo-collapse.png">
+  </app-tool-tip-item>
+
+  <app-tool-tip-item class="item">
+    <div class="title">tolltiptolltip</div>
+    <img class="img" style="width:100%; height:100%" src="../../../../assets/logo-collapse.png">
+  </app-tool-tip-item>
+
+</app-tool-tip> -->
+  <!-- Refer tootl tip componet upto here ------------------------------------------------------------------------------------ -->
+
+  <app-diag-widget-bar>
+    <app-diag-widget
+      style="cursor: pointer; border-left: 1px solid #aea4a4;"
+      class="wd_sub_1"
+    >
+      <img class="img" src="assets/images/provising.png" />
+      <div class="text">Provisioning</div>
+    </app-diag-widget>
+    <app-diag-widget class="wd_sub_1">
+      <img class="img" src="assets/images/authrization.png" />
+      <div class="text">Authorization</div>
+    </app-diag-widget>
+    <app-diag-widget class="wd_sub_1">
+      <img class="img" src="assets/images/remotecontrol.png" />
+      <div class="text">Remote Control</div>
+    </app-diag-widget>
+    <app-diag-widget class="wd_sub_1">
+      <img class="img" src="assets/images/smartcharging.png" />
+      <div class="text">Smart Charging</div>
+    </app-diag-widget>
+
+    <app-diag-widget
+      (click)="viewToolTip()"
+      [showToolTip]="showToolTip"
+      class="wd_sub_1"
+    >
+      <img class="img" src="assets/images/firemanagement.png" />
+      <div class="text">Firmware Management</div>
+    </app-diag-widget>
+
+    <app-tool-tip
+      *ngIf="showToolTip"
+      class="tool_align"
+      class="wd_sub_1 tool_align"
+    >
+      <div class="title">Firmware Management</div>
+      <app-tool-tip-item class="item">
+        <div class="title">Update Firmware</div>
+        <img
+          class="img"
+          style="width: 100%; height: 100%;"
+          src="../../../../assets/diagnostic/update-firmware.svg"
+        />
+      </app-tool-tip-item>
+
+      <app-tool-tip-item class="item">
+        <div class="title">Publish Firmware</div>
+        <img
+          class="img"
+          style="width: 100%; height: 100%;"
+          src="../../../../assets/diagnostic/publish-firmware.svg"
+        />
+      </app-tool-tip-item>
+    </app-tool-tip>
+
+    <!--Tool Tip -->
+
+    <app-diag-widget class="wd_sub_1">
+      <img class="img" src="assets/images/diagnostics.png" />
+      <div class="text">Diagnostics</div>
+    </app-diag-widget>
+    <app-diag-widget class="wd_sub_1">
+      <img class="img" src="assets/images/displaymsg.png" />
+      <div class="text">Display Message</div>
+    </app-diag-widget>
+  </app-diag-widget-bar>
+  <div class="cust-list-group2 layout">
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      multiTemplateDataRows
+      matSort
+      class="mat-elevation-z8"
+    >
+      <ng-container matColumnDef="ChargeBoxId">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+          OPERATION TYPE
+        </th>
+        <td mat-cell *matCellDef="let element; let i = index">
+          {{ element.ChargeBoxId }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="Datetime">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>DATE/ TIME</th>
+        <td mat-cell *matCellDef="let element; let i = index">
+          {{ element.Datetime }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>ACTION</th>
+        <td mat-cell *matCellDef="let element; let i = index">
+          <img
+            style="cursor: pointer;"
+            src="../../../../assets/icons/view-icon.png"
+            (click)="
+              expandedElement = expandedElement === element ? null : element
+            "
+          />
+          &nbsp;
+          <img
+            style="cursor: pointer;"
+            src="../../../../assets/icons/download.png"
+            (click)="downloadAsPDF()"
+          />
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="expandedDetail">
+        <td
+          style="background-color: #fff;"
+          mat-cell
+          *matCellDef="let element"
+          [attr.colspan]="displayedColumns.length"
+        >
+          <div
+            class="example-element-detail"
+            [@detailExpand]="
+              element === expandedElement ? 'expanded' : 'collapsed'
+            "
+          >
+            <div
+              class="example-element-description textcollapse"
+              id="pdfTable"
+              #pdfTable
+            >
+              <div class="">
+                <div class="">
+                  <pre> {{ element.RequestPayload | json }}</pre>
+                </div>
+              </div>
+              <hr style="width: 100%;" />
+              <div class="example-element-description">
+                <pre> {{ element.ResponsePayload | json }}</pre>
+              </div>
+            </div>
+          </div>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let element; columns: displayedColumns"
+        class="example-element-row"
+        [class.example-expanded-row]="expandedElement === element"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: ['expandedDetail']"
+        class="example-detail-row"
+      ></tr>
+    </table>
+
+    <mat-paginator
+      [length]="100"
+      [pageSizeOptions]="[10, 20, 100]"
+    ></mat-paginator>
+  </div>
+  <!-- <div class="charge-flex2-spacer"></div> -->
+</div>

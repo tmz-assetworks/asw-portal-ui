@@ -1,0 +1,16 @@
+<div class="widget-block8-item" [ngClass]="{'btn-active': showToolTipData==false}">
+  <div class="widget-block9 layout" style="cursor: pointer" [ngClass]="{'btn-active': showToolTipData==true} " 
+  >
+    <div class="widget-block10 layout">
+      <div class="widget-block11 layout" >
+        <!-- <div class="widget-box2 layout"> -->
+        <ng-content select=".img"></ng-content>
+      <!-- </div> -->
+    </div>
+      <div class="widget-text-body2 layout">
+        <ng-content select=".text"></ng-content>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -67,7 +67,7 @@ export class StatusBoxGraphComponent implements OnInit {
       },
     },
     legend: {
-      data: ['Total Revenue', 'Daily Revenue', 'Today Revenue'],
+      data: ['Total Revenue', 'Daily Revenue', "Today's Revenue"],
       icon: 'circle',
       right: 10,
       top: 'bottom',
@@ -132,7 +132,7 @@ export class StatusBoxGraphComponent implements OnInit {
         data: ['-', 412.14, '-'],
       },
       {
-        name: 'Today Revenue',
+        name: "Today's Revenue",
         type: 'bar',
         stack: 'Total',
         itemStyle: {

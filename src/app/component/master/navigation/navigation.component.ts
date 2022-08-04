@@ -1,16 +1,20 @@
-import { HostListener, Component, ElementRef, OnInit, ViewChild } from '@angular/core'
+import {
+  HostListener,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core'
 import { Router } from '@angular/router'
 import { Subscription } from 'rxjs'
+import { StorageService } from 'src/app/service/storage.service'
 import { HeaderService } from '../header/header.service'
-
-
 
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss'],
 })
-
 export class NavigationComponent implements OnInit {
   @ViewChild('leftPanel', { read: ElementRef, static: false })
   //@Input() makeDifferent;
@@ -19,16 +23,17 @@ export class NavigationComponent implements OnInit {
   isExpandedState = true
   subscription: Subscription
   menuItems: any[] = []
-  private wasInside = false;
-  private clicked = false;
+  private wasInside = false
+  private clicked = false
   constructor(
     public _headerService: HeaderService,
     ele: ElementRef,
     public _router: Router,
+    public _storageService: StorageService,
   ) {
     this.loadMenu()
     this.subscription = this._headerService.subject.subscribe((message) => {
-      this.clicked=true
+      this.clicked = true
       const value = document.getElementsByClassName('nav-block2')
       if (this.messages) {
         value[0].classList.add('col-md-6')
@@ -38,37 +43,21 @@ export class NavigationComponent implements OnInit {
     })
   }
 
-
-
-
-
   @HostListener('click')
   clickInside() {
-
-    this.wasInside = true;
+    this.wasInside = true
   }
 
-  @HostListener('document:click', ["$event"])
-  clickout(event:any) {
-
-
-    if ((event.target.id!=900923) ){
-
+  @HostListener('document:click', ['$event'])
+  clickout(event: any) {
+    if (event.target.id != 900923) {
       if (!this.wasInside && window.innerWidth < 992) {
-
-        this.messages = true;
+        this.messages = true
       }
-    this.wasInside = false;
-
-
-  }else{
-
-    this.messages=!this.messages
-
-
-
-  }
-
+      this.wasInside = false
+    } else {
+      this.messages = !this.messages
+    }
   }
 
   ngOnDestroy() {
@@ -80,7 +69,6 @@ export class NavigationComponent implements OnInit {
 
   loadMenu() {
     const role = localStorage.getItem('role')
-
     if (role == 'Operator') {
       this.menuItems = [
         {
@@ -109,14 +97,14 @@ export class NavigationComponent implements OnInit {
           icon: '../../../../assets/icons/vehicles.png',
         },
         {
-          routerLink: ['reports'],
+          routerLink: ['reports/report-session'],
           text: 'Reports',
           icon: '../../../../assets/icons/reports.png',
         },
         {
           routerLink: ['alerts'],
           text: 'Alerts',
-          icon: '../../../../assets/icons/alerts.png',
+          icon: '../../../../assets/icons/Alert.png',
         },
         {
           routerLink: ['help'],
@@ -195,5 +183,19 @@ export class NavigationComponent implements OnInit {
     }
   }
 
+  /**
+   * Redirects the user to the home page
+   */
+  home() {
+    const role = this._storageService.getLocalData('role')
+
+    if (role === 'Operator') {
+      this._router.navigateByUrl('operator')
+    } else if (role === 'SuperAdmin') {
+      this._router.navigateByUrl('superadmin')
+    } else {
+      this._router.navigateByUrl('admin')
+    }
+  }
   ngAfterViewInit() {}
 }

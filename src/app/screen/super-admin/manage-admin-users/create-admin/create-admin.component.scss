@@ -591,3 +591,19 @@ $font_type_3: 500 14px/1.2 'Roboto', Helvetica, Arial, serif;
 .form-container {
   margin: 100px;
 }
+
+
+.swal-button:focus {
+  box-shadow: none;
+  width: 25px;
+  align-self: auto;
+}
+
+.swal2-styled.swal2-confirm {
+  border: 0;
+  border-radius: 0.25em;
+  background: initial;
+ // background-color: #7066e0;
+  color: #fff;
+  font-size: 1em;
+}

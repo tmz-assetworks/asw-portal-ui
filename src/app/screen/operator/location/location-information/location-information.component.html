@@ -2,7 +2,7 @@
   <div class="location-block1 layout">
     <div class="location-flex layout">
       <h3 class="location-subtitle-box layout">
-        <pre class="location-subtitle">Location A </pre>
+        <pre class="location-subtitle">{{ locationTitleName }} </pre>
       </h3>
 
       <div class="location-block23 layout">
@@ -36,11 +36,15 @@
                     </a>
                   </div>
                 </div>
-                <!-- <div class="location-block4-item">
-              <div class="location-block5 layout">
-                <div class="location-text-body layout">EVENT LOGS</div>
-              </div>
-            </div> -->
+                <div class="location-block4-item">
+                  <div class="location-block5 layout">
+                    <a [routerLink]="['../events-log']">
+                      <div class="location-text-body layout">
+                        EVENT LOGS
+                      </div>
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="location-block2-spacer"></div>
@@ -73,7 +77,6 @@
               </div>
               <div class="location-block19 layout">
                 <div class="location-flex3 layout">
-
                   <!-- <div class="location-flex3-spacer"></div>
                   <div style="width:100%">
                     <div style="width:50%;float:left;"></div>
@@ -97,7 +100,7 @@
                               </div>
                               <div class="location-block22 layout">
                                 <h5 class="location-highlights1 layout">
-                                  John
+                                  {{ contactPersonName }}
                                 </h5>
                                 <div class="location-text-body3 layout">
                                   Contact Person Name
@@ -130,10 +133,14 @@
                                 />
                               </div>
                               <div class="location-block22 layout">
-                                <h5 class="location-highlights2 layout txt_wrap">
-                                  999-000-3440
+                                <h5
+                                  class="location-highlights2 layout txt_wrap"
+                                >
+                                  {{ mobileNumber }}
                                 </h5>
-                                <div class="location-text-body3 layout txt_wrap">
+                                <div
+                                  class="location-text-body3 layout txt_wrap"
+                                >
                                   Contact Person
                                 </div>
                               </div>
@@ -164,7 +171,7 @@
                               </div>
                               <div class="location-block22 layout">
                                 <h5 class="location-highlights3 layout">
-                                  JOHN@GMAIL.COM
+                                  {{ emailId }}
                                 </h5>
                                 <div class="location-text-body3 layout">
                                   Email ID
@@ -184,18 +191,29 @@
                         </div>
                       </div>
                       <div class="location-block20-spacer"></div>
-                      <div  style="display:flex; flex-direction: column; flex: 3 1 30%; width: 30%;">
-                        <div >
-                          <h5 class="location-highlights layout headingtitle" style="width:100%; margin-bottom: 8px;">Location On Map</h5>
+                      <div
+                        style="
+                          display: flex;
+                          flex-direction: column;
+                          flex: 3 1 30%;
+                          width: 30%;
+                        "
+                      >
+                        <div>
+                          <h5
+                            class="location-highlights layout headingtitle"
+                            style="width: 100%; margin-bottom: 8px;"
+                          >
+                            Location On Map
+                          </h5>
                         </div>
-                      <img
-                      style="width:100%; height:100%;"
-
-
-                        src="../../../../../assets/location-info/map.png"
-                        alt=""
-                        srcset=""
-                      />
+                        <!-- <img
+                          style="width: 100%; height: 100%;"
+                          src="../../../../../assets/location-info/map.png"
+                          alt=""
+                          srcset=""
+                        /> -->
+                        <div id="map" style="width: 100%; height: 100%;"></div>
                       </div>
                     </div>
                   </div>
@@ -220,8 +238,51 @@
                 </div>
               </div>
               <div class="location-block8 layout">
-                <div class="location-flex9 layout">
-                  <div class="location-flex9-item">
+                <div class="location-flex9 layout location-loop">
+                  <div
+                    class="location-block9 layout loction-week"
+                    *ngFor="let item of locationSchedule"
+                  >
+                    <div class="location-text-body1 layout text-uppercase">
+                      {{ item.day }}
+                    </div>
+                    <div
+                      class="location-block10 layout"
+                      *ngIf="item.day != 'Sunday'"
+                    >
+                      <div class="location-block10-item">
+                        <div class="location-block11 layout">
+                          <div class="location-text-body1 layout1">
+                            {{ item.startTime | date: 'h:mm a' }}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="location-block10-item">
+                        <div class="location-block12 layout">
+                          <div class="location-text-body1 layout2">to</div>
+                        </div>
+                      </div>
+                      <div class="location-block10-item">
+                        <div class="location-block13 layout">
+                          <div class="location-text-body1 layout3">
+                            {{ item.endTime | date: 'h:mm a' }}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="location-block10 layout"
+                      *ngIf="item.day == 'Sunday'"
+                    >
+                      <div class="location-block10-item">
+                        <div class="location-block11 layout">
+                          <div class="location-text-body1 layout1">CLOSED</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- <div class="location-flex9-item">
                     <div class="location-flex10 layout">
                       <div class="location-block9 layout">
                         <div class="location-text-body1 layout">MONDAY</div>
@@ -385,7 +446,7 @@
                     </div>
                   </div>
 
-                  <div class="location-flex9-spacer3"></div>
+                  <div class="location-flex9-spacer3"></div> -->
                 </div>
               </div>
             </div>
@@ -413,7 +474,9 @@
                       <div class="fill-group layout">
                         <div class="fill-block6 layout">
                           <div class="fill-text-body1 layout">Name</div>
-                          <h5 class="fill-highlights layout">JOHN</h5>
+                          <h5 class="fill-highlights layout">
+                            {{ departmentName }}
+                          </h5>
                         </div>
                         <div
                           style="
@@ -428,7 +491,7 @@
                       <div class="fill-group layout">
                         <div class="fill-block6 layout">
                           <div class="fill-text-body1 layout">Address</div>
-                          <h5 class="fill-highlights layout">NEW YORK CITY</h5>
+                          <h5 class="fill-highlights layout">{{ address }}</h5>
                         </div>
                         <div
                           style="
@@ -445,7 +508,9 @@
                           <div class="fill-text-body1 layout">
                             Location Name
                           </div>
-                          <h5 class="fill-highlights layout">NEW YORK CITY</h5>
+                          <h5 class="fill-highlights layout">
+                            {{ locationName }}
+                          </h5>
                         </div>
                         <div
                           style="
@@ -462,7 +527,9 @@
                           <div class="fill-text-body1 layout">
                             Fuel Product Type
                           </div>
-                          <h5 class="fill-highlights layout">NUCLEAR</h5>
+                          <h5 class="fill-highlights layout">
+                            {{ fuelProtectType }}
+                          </h5>
                         </div>
                         <div
                           style="
@@ -505,7 +572,9 @@
                           <div class="fill-text-body1 layout">
                             Total Capacity
                           </div>
-                          <h5 class="fill-highlights layout">100 KW</h5>
+                          <h5 class="fill-highlights layout">
+                            {{ totalCapacity }}
+                          </h5>
                         </div>
                         <div
                           style="
@@ -522,7 +591,9 @@
                           <div class="fill-text-body1 layout">
                             Utility Service
                           </div>
-                          <h5 class="fill-highlights layout">XYZ</h5>
+                          <h5 class="fill-highlights layout">
+                            {{ utilityService }}
+                          </h5>
                         </div>
                         <div
                           style="
@@ -568,300 +639,8 @@
 
         <div class="location-block23-spacer"></div>
 
-        <div class="location-block23-item1">
-          <div class="statuspanel-block43 layout">
-            <div class="statuspanel-block46 layout">
-              <div class="statuspanel-block47 layout">
-                <!-- status box start -->
-                <div class="statuspanel-block45 layout1">
-                  <div class="statuspanel-block45-item">
-                    <div class="statuspanel-group layout2">
-                      <h4 class="statuspanel-highlights2 layout">
-                        Charging Infrastructure
-                      </h4>
-                    </div>
-                  </div>
-                  <div class="statuspanel-block45-spacer1"></div>
-                  <div class="statuspanel-block45-item2">
-                    <img
-                      src="../../../../../assets/locationcharger-icon/charging-infa.svg"
-                      class="statuspanel-box16 layout"
-                      alt=""
-                    />
-                  </div>
-                </div>
-
-                <!-- status box end -->
-                <div class="list-element-block2 layout">
-                  <div class="list-element-block6 layout">
-                    <div class="list-element-block3 layout">
-                      <div class="list-element-block3-item">
-                        <div class="list-element-block4 layout">
-                          <img
-                            src="../../../../../assets/status-panel-icon/chargers.png"
-                            class="list-element-box3 layout"
-                            alt=""
-                          />
-                        </div>
-                      </div>
-                      <div class="list-element-block3-spacer"></div>
-                      <div class="list-element-block3-item1">
-                        <div class="list-element-block5 layout">
-                          <h3 class="list-element-subtitle layout">
-                            250
-                          </h3>
-                          <div class="list-element-text-body layout">
-                            Total Chargers
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- status box element start -->
-
-                <!-- <div class="box-element-block2 layout">
-                  <div class="box-element-block5 layout">
-                    <img
-                      src="../../../../../assets/status-panel-icon/sites.png"
-                      class="box-element-box2 layout"
-                    />
-                    <div class="box-element-block6 layout">
-                      <h3 class="box-element-subtitle layout">50</h3>
-                      <div class="box-element-text-body layout">
-                        Total Sites
-                      </div>
-                    </div>
-                  </div>
-                  <div class="box-element-block2-spacer dotted_line">
-                    <hr />
-                  </div>
-                  <div class="box-element-block5 layout1">
-                    <img
-                      src="../../../../../assets/status-panel-icon/chargers.png"
-                      class="box-element-box2 layout"
-                    />
-                    <div class="box-element-block6 layout">
-                      <h3 class="box-element-subtitle layout">250</h3>
-                      <div class="box-element-text-body layout">
-                        Total Chargers
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
-
-                <!-- status box element end -->
-              </div>
-            </div>
-
-            <div class="statuspanel-block46 layout">
-              <div class="statuspanel-block47 layout">
-                <!-- status box start -->
-                <div class="statuspanel-block45 layout1">
-                  <div class="statuspanel-block45-item">
-                    <div class="statuspanel-group layout2">
-                      <h4 class="statuspanel-highlights2 layout">
-                        Revenue From Public Charging
-                      </h4>
-                    </div>
-                  </div>
-                  <div class="statuspanel-block45-spacer1"></div>
-                  <div class="statuspanel-block45-item2">
-                    <img
-                      src="../../../../../assets/status-panel-icon/revenue.png"
-                      class="statuspanel-box16 layout"
-                      alt=""
-                    />
-                  </div>
-                </div>
-                <!-- status box end -->
-
-                <!-- insert chart -->
-
-                <div echarts [options]="option" class="echart-item"></div>
-
-                <!-- insert chart end -->
-              </div>
-            </div>
-
-            <div class="statuspanel-block46 layout">
-              <div class="statuspanel-block47 layout">
-                <div class="statuspanel-block45 layout1">
-                  <div class="statuspanel-block45-item">
-                    <div class="statuspanel-group layout2">
-                      <h4 class="statuspanel-highlights2 layout">
-                        Energy Used
-                      </h4>
-                    </div>
-                  </div>
-                  <div class="statuspanel-block45-spacer1"></div>
-                  <div class="statuspanel-block45-item2">
-                    <img
-                      src="../../../../../assets/status-panel-icon/energy_used.png"
-                      class="statuspanel-box16 layout"
-                      alt=""
-                    />
-                  </div>
-                </div>
-
-                <!-- add the content here -->
-
-                <!-- list start  -->
-
-                <div class="list-element-block2 layout">
-                  <div class="list-element-block6 layout">
-                    <div class="list-element-block3 layout">
-                      <div class="list-element-block3-item">
-                        <div class="list-element-block4 layout">
-                          <img
-                            src="../../../../../assets/status-panel-icon/total-energy.png"
-                            class="list-element-box3 layout"
-                            alt=""
-                          />
-                        </div>
-                      </div>
-                      <div class="list-element-block3-spacer"></div>
-                      <div class="list-element-block3-item1">
-                        <div class="list-element-block5 layout">
-                          <h3 class="list-element-subtitle layout">
-                            408.14
-                          </h3>
-                          <div class="list-element-text-body layout">
-                            Total Energy
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- <hr> -->
-                    <div class="list-element-block3 layout">
-                      <div class="list-element-block3-item">
-                        <div class="list-element-block4 layout">
-                          <img
-                            src="../../../../../assets/status-panel-icon/daily_average.png"
-                            class="list-element-box3 layout"
-                            alt=""
-                          />
-                        </div>
-                      </div>
-                      <div class="list-element-block3-spacer"></div>
-                      <div class="list-element-block3-item1">
-                        <div class="list-element-block5 layout">
-                          <h3 class="list-element-subtitle layout">
-                            412.14
-                          </h3>
-                          <div class="list-element-text-body layout">
-                            Total Energy
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="list-element-block3 layout">
-                      <div class="list-element-block3-item">
-                        <div class="list-element-block4 layout">
-                          <img
-                            src="../../../../../assets/status-panel-icon/calender.png"
-                            class="list-element-box3 layout"
-                            alt=""
-                          />
-                        </div>
-                      </div>
-                      <div class="list-element-block3-spacer"></div>
-                      <div class="list-element-block3-item1">
-                        <div class="list-element-block5 layout">
-                          <h3 class="list-element-subtitle layout">
-                            990.71
-                          </h3>
-                          <div class="list-element-text-body layout">
-                            Today's
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- list end  -->
-              </div>
-            </div>
-
-            <div class="statuspanel-block46 layout">
-              <div class="statuspanel-block47 layout">
-                <!-- status box start -->
-                <div class="statuspanel-block45 layout1">
-                  <div class="statuspanel-block45-item">
-                    <div class="statuspanel-group layout2">
-                      <h4 class="statuspanel-highlights2 layout">
-                        Energy Points
-                      </h4>
-                    </div>
-                  </div>
-                  <div class="statuspanel-block45-spacer1"></div>
-                  <div class="statuspanel-block45-item2">
-                    <img
-                      src="../../../../../assets/status-panel-icon/energy_points.png"
-                      class="statuspanel-box16 layout"
-                      alt=""
-                    />
-                  </div>
-                </div>
-                <!-- status box end -->
-
-                <!-- status box element start -->
-
-                <div class="box-element-block2 layout">
-                  <div class="box-element-block5 layout">
-                    <img
-                      src="../../../../../assets/status-panel-icon/sites.png"
-                      class="box-element-box2 layout"
-                    />
-                    <div class="box-element-block6 layout">
-                      <h3 class="box-element-subtitle layout">19,408.07</h3>
-                      <div class="box-element-text-body layout">
-                        MT of CO2 Saved
-                      </div>
-                    </div>
-                  </div>
-                  <div class="box-element-block2-spacer dotted_line">
-                    <hr />
-                  </div>
-                  <div class="box-element-block5 layout1">
-                    <img
-                      src="../../../../../assets/status-panel-icon/chargers.png"
-                      class="box-element-box2 layout"
-                    />
-                    <div class="box-element-block6 layout">
-                      <h3 class="box-element-subtitle layout">990.71</h3>
-                      <div class="box-element-text-body layout">
-                        Gasoline Gallon Equivalent (GGE Saved)
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- status box element end -->
-              </div>
-            </div>
-
-            <!-- <app-status-box
-          [title]="statusBoxTitle1"
-          [icon]="statusBoxIcon1"
-        ></app-status-box>
-
-        <app-status-box-graph
-          [title]="statusBoxTitle2"
-          [icon]="statusBoxIcon2"
-        ></app-status-box-graph>
-        <app-status-box-energy [title]="statusBoxTitle3"></app-status-box-energy>
-
-
-        <app-status-box-points
-          [title]="statusBoxTitle4"
-          [icon]="statusBoxIcon4"
-        ></app-status-box-points> -->
-          </div>
-          <!-- <app-status-panel></app-status-panel> -->
+        <div class="location-block13-item">
+          <app-location-status-panel></app-location-status-panel>
         </div>
       </div>
     </div>

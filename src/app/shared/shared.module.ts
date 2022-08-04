@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { Router, RouterModule } from '@angular/router'
 import { NgxEchartsModule } from 'ngx-echarts'
 import { AreaChartComponent } from '../component/dashboard/area-chart/area-chart.component'
 import { BarChartComponent } from '../component/dashboard/bar-chart/bar-chart.component'
@@ -19,6 +20,14 @@ import { FooterComponent } from '../component/master/footer/footer.component'
 import { HeaderComponent } from '../component/master/header/header.component'
 import { NavigationModule } from '../component/master/navigation/navigation.module'
 import { SharedMaterialModule } from './shared-material.module'
+import { TabsBarComponent } from '../component/diagnostic/tabs-bar/tabs-bar.component'
+import { TabComponent } from '../component/diagnostic/tab/tab.component'
+import { DiagWidgetComponent } from '../component/diagnostic/diag-widget/diag-widget.component'
+import { DiagTableComponent } from '../component/diagnostic/diag-table/diag-table.component'
+import { DiagWidgetBarComponent } from '../component/diagnostic/diag-widget-bar/diag-widget-bar.component';
+import { MatTableComponent } from '../component/dashboard/mat-table/mat-table.component'
+import { ToolTipComponent } from '../component/diagnostic/tool-tip/tool-tip.component';
+import { ToolTipItemComponent } from '../component/diagnostic/tool-tip-item/tool-tip-item.component';
 
 @NgModule({
   imports: [
@@ -31,6 +40,7 @@ import { SharedMaterialModule } from './shared-material.module'
     CommonModule,
     SharedMaterialModule,
     CommonModule,
+    RouterModule
   ],
   exports: [
     FormsModule,
@@ -42,6 +52,7 @@ import { SharedMaterialModule } from './shared-material.module'
     BarChartComponent,
     AreaChartComponent,
     LineChartComponent,
+    MatTableComponent,
     StackedAreaChartComponent,
     StatusListElementComponent,
     StatusBoxElementComponent,
@@ -51,6 +62,13 @@ import { SharedMaterialModule } from './shared-material.module'
     NavigationModule,
     StatusBoxGraphComponent,
     StatusBoxPointsComponent,
+    TabsBarComponent,
+    TabComponent,
+    DiagWidgetComponent,
+    DiagTableComponent,
+    DiagWidgetBarComponent,
+    ToolTipComponent,
+    ToolTipItemComponent
   ],
   declarations: [
     WidgetComponent,
@@ -60,6 +78,7 @@ import { SharedMaterialModule } from './shared-material.module'
     BarChartComponent,
     AreaChartComponent,
     LineChartComponent,
+    MatTableComponent,
     StackedAreaChartComponent,
     StatusListElementComponent,
     StatusBoxElementComponent,
@@ -68,6 +87,13 @@ import { SharedMaterialModule } from './shared-material.module'
     StatusBoxEnergyComponent,
     StatusBoxGraphComponent,
     StatusBoxPointsComponent,
+    TabsBarComponent,
+    TabComponent,
+    DiagWidgetComponent,
+    DiagTableComponent,
+    DiagWidgetBarComponent,
+    ToolTipComponent,
+    ToolTipItemComponent
   ],
   providers: [],
 })

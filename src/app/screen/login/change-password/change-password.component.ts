@@ -15,6 +15,7 @@ export class ChangePasswordComponent implements OnInit {
   passwordField = true;
   passwordCField = true;
   showLoader = false;
+  regexPass = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$');
   constructor( private _loginService: LoginService, private _router: Router, private toastr: ToastrService) {
     this.changePassForm = new FormGroup({'password': new FormControl(null, [Validators.required]),
     'cpassword': new FormControl(null,[Validators.required])
@@ -27,7 +28,15 @@ export class ChangePasswordComponent implements OnInit {
   saveForm() {
     if(this.changePassForm.value.password == null || this.changePassForm.value.cpassword == null) {
      this.toastr.error('Please enter all values');
-   } else if(this.changePassForm.value.password.trim() != this.changePassForm.value.cpassword.trim() ) {
+   } else if(!this.regexPass.test(this.changePassForm.value.password)) {
+    // check for pattern
+    this.toastr.error('Password should have minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter 1 number and special characters');
+
+   } else if(!this.regexPass.test(this.changePassForm.value.cpassword)) {
+    // check for pattern
+    this.toastr.error('Password should have minimum 8 characters, at least 1 uppercase letter, 1 lowercase letter 1 number and special characters');
+
+   }else if(this.changePassForm.value.password.trim() != this.changePassForm.value.cpassword.trim() ) {
      this.toastr.error('Password and confirm pasword should have same value');
    }else {
     

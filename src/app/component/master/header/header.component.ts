@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { LoginService } from 'src/app/screen/login/login.service'
 import { HeaderService } from './header.service'
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr'
 
 @Component({
   selector: 'app-header',
@@ -12,15 +12,20 @@ import { ToastrService } from 'ngx-toastr';
 export class HeaderComponent implements OnInit {
   toggle: boolean = false
   role = ''
-  showLoader = false;
-  constructor(public _headerService: HeaderService, public _router: Router,public _loginService: LoginService,private toastr: ToastrService ) {
+  showLoader = false
+  constructor(
+    public _headerService: HeaderService,
+    public _router: Router,
+    public _loginService: LoginService,
+    private toastr: ToastrService,
+  ) {
     this._headerService.subject.subscribe((elem) => {
       this.toggle = elem
     })
   }
 
   ngOnInit(): void {
-   this.role = localStorage.getItem('role') || '';
+    this.role = localStorage.getItem('role') || ''
   }
 
   toggleNav() {
@@ -29,18 +34,19 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.showLoader = true;
-    let email =  localStorage.getItem('userEmail') || ''
-    if(email !== '') {
-    this._loginService.logout(email).subscribe({
-      next: (response: any) => {
-       this._router.navigate(['/login']);
-      },
-      error: (err) => {
-        this.showLoader = false;
-        this.toastr.error('Something Went Wrong','Please Try Again')
-      }
-    });
+    this.showLoader = true
+    let email = localStorage.getItem('userEmail') || ''
+
+    if (email !== '') {
+      this._loginService.logout(email).subscribe({
+        next: (response: any) => {
+          this._router.navigate(['/login'])
+        },
+        error: (err) => {
+          this.showLoader = false
+          this.toastr.error('Something Went Wrong', 'Please Try Again')
+        },
+      })
     }
-}
+  }
 }

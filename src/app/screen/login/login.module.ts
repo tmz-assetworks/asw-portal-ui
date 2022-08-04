@@ -7,7 +7,8 @@ import { CommonModule } from '@angular/common'
 import { CookieService } from 'ngx-cookie-service'
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component'
 import { ChangePasswordComponent } from './change-password/change-password.component'
-import { LoginVerificationComponent } from './login-verification/login-verification.component'
+import { LoginVerificationComponent } from './login-verification/login-verification.component';
+import { ConfirmationMailComponent } from './confirmation-mail/confirmation-mail.component'
 
 @NgModule({
   imports: [RouterModule, ReactiveFormsModule, FormsModule, CommonModule],
@@ -17,6 +18,7 @@ import { LoginVerificationComponent } from './login-verification/login-verificat
     ForgotPasswordComponent,
     ChangePasswordComponent,
     LoginVerificationComponent,
+    ConfirmationMailComponent,
   ],
   providers: [CookieService],
 })

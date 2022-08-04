@@ -2,6 +2,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms'
 
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core'
 import Swal from 'sweetalert2'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-create-admin',
@@ -13,7 +14,7 @@ export class CreateAdminComponent implements OnInit {
   registrationForm: any
   disableSelect = new FormControl(false)
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private _router: Router) {}
   // ngAfterViewInit(): void {
   //   throw new Error('Method not implemented.')
   // }
@@ -38,59 +39,23 @@ export class CreateAdminComponent implements OnInit {
   ngOnInit() {
     // this.onSubmit();
   }
-  //  simpleAlert(){
-  //   Swal.fire('Hello world!');
-  // }
 
   alertWithSuccess() {
     Swal.fire({
-      title: '<strong>Are you Sure Want to Successfully !</strong>',
-
+      title: '<strong>Are you sure you want to confirm?</strong>',
       icon: 'success',
-     
       showCloseButton: true,
       showCancelButton: false,
       focusConfirm: false,
-     
-      confirmButtonText:
-        '<i class="fa fa-thumbs-up"></i> Close',
-      confirmButtonAriaLabel: 'Thumbs up, great!',
 
+      confirmButtonText: '<i class="fa fa-thumbs-up"></i> Close',
     })
   }
 
-  // confirmBox(){
-  //   Swal.fire({
-  //     title: 'Are you sure want to remove?',
-  //     text: 'You will not be able to recover this file!',
-  //     icon: 'warning',
-  //     showCancelButton: true,
-  //     confirmButtonText: 'Yes, delete it!',
-  //     cancelButtonText: 'No, keep it'
-  //   }).then((result) => {
-  //     if (result.value) {
-  //       Swal.fire(
-  //         'Deleted!',
-  //         'Your imaginary file has been deleted.',
-  //         'success'
-  //       )
-  //     }
-  // else if (result.dismiss === Swal.DismissReason.cancel) {
-  //   Swal.fire(
-  //     'Cancelled',
-  //     'Your imaginary file is safe :)',
-  //     'error'
-  //   )
-  // }
-  // })
-  //
-
   saveForm() {
-    console.log('Form data is ', this.addCustomerProfile.value)
+    // console.log('Form data is ', this.addCustomerProfile.value)
   }
-  cancel() {}
-
-  //  ngAfterViewInit() {
-  //    // this.dataSource.paginator = this.paginator;
-  //  }
+  btnClick() {
+    this._router.navigateByUrl('superadmin/admin/')
+  }
 }

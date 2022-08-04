@@ -4,6 +4,7 @@ import { Router } from '@angular/router'
 import { ToastrService } from 'ngx-toastr'
 import { LoginService } from './login.service'
 import Swal from 'sweetalert2'
+import { StorageService } from 'src/app/service/storage.service'
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit {
     private _router: Router,
     private _loginService: LoginService,
     private toastr: ToastrService,
+    private _storageService: StorageService,
   ) {
     this.email =
       localStorage.getItem('emailEleVehi') != null &&
@@ -54,7 +56,8 @@ export class LoginComponent implements OnInit {
     localStorage.removeItem('role')
     localStorage.removeItem('token_refresh')
     localStorage.removeItem('token_id')
-    localStorage.removeItem('expTime')
+    localStorage.removeItem('token_expires_on')
+    localStorage.removeItem('refreshToken_expires_on')
   }
 
   rememberMe(event: any) {
@@ -103,43 +106,50 @@ export class LoginComponent implements OnInit {
         this.myLoginForm.value.password.trim(),
       )
       this.showLoader = true
-      this._loginService
-        .sendData(this.myLoginForm.value.email.trim(), encryptedPassword)
-        .subscribe({
-          next: (res) => {
-            //localStorage.setItem('token_operator', JSON.stringify(res.data[0].token));
-            localStorage.setItem('userEmail', this.myLoginForm.value.email)
 
-            // const d = new Date();
-            //  let time = d.getTime();
-            //  res.expires_on = time + 120000; // 2 min
-            //  res.not_before = time + 240000 // 4 min
-            localStorage.setItem('token_operator', res.access_token)
-            localStorage.setItem('token_refresh', res.refresh_token)
-            localStorage.setItem('token_id', res.id_token) // for role
-            localStorage.setItem('token_expires_on', res.expires_on)
-            localStorage.setItem('refreshToken_expires_on', res.not_before)
-            const decodeData = this._loginService.getDecodedAccessToken(
-              res.id_token,
-            )
-            this.showLoader = false
-            if (decodeData.roles[0] == 'Operator') {
-              localStorage.setItem('role', 'Operator')
-              this._router.navigate(['/operator'])
-            } else if (decodeData.roles[0] == 'Admin') {
-              localStorage.setItem('role', 'Admin')
-              // admin/customer
-              this._router.navigate(['/admin/operator-user'])
-            } else if (decodeData.roles[0] == 'SuperAdmin') {
-              localStorage.setItem('role', 'SuperAdmin')
-              this._router.navigate(['/superadmin/customer'])
-            }
-          },
-          error: (err) => {
-            this.showLoader = false
-            this.toastr.error('Something Went Wrong', 'Please Try Again')
-          },
-        })
+      const pBody = {
+        username: this.myLoginForm.value.email.trim(),
+        password: encryptedPassword,
+      }
+      this._loginService.loginUser(pBody).subscribe({
+        next: (res) => {
+          localStorage.setItem('userEmail', this.myLoginForm.value.email)
+          const d = new Date()
+          let time = d.getTime()
+          //  res.data.expires_on = time + 120000; // 2 min
+          //  res.data.not_before = time + 240000 // 4 min
+          localStorage.setItem('token_operator', res.data[0].access_token)
+          localStorage.setItem('token_refresh', res.data[0].refresh_token)
+          localStorage.setItem('token_id', res.data[0].id_token) // for role
+          localStorage.setItem('token_expires_on', res.data[0].expires_on)
+          localStorage.setItem(
+            'refreshToken_expires_on',
+            res.data[0].not_before,
+          )
+          const decodeData = this._loginService.getDecodedAccessToken(
+            res.data[0].id_token,
+          )
+
+          this._storageService.setLocalData('user_id', decodeData.oid)
+
+          this.showLoader = false
+          if (decodeData.roles == 'Operator') {
+            localStorage.setItem('role', 'Operator')
+            this._router.navigate(['/operator'])
+          } else if (decodeData.roles == 'Admin') {
+            localStorage.setItem('role', 'Admin')
+            // admin/customer
+            this._router.navigate(['/admin/operator-user'])
+          } else if (decodeData.roles == 'SuperAdmin') {
+            localStorage.setItem('role', 'SuperAdmin')
+            this._router.navigate(['/superadmin/customer'])
+          }
+        },
+        error: (err) => {
+          this.showLoader = false
+          this.toastr.error('Something Went Wrong', 'Please Try Again')
+        },
+      })
     }
   }
 

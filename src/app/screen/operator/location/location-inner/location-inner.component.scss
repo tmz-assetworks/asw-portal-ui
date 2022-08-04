@@ -149,6 +149,9 @@
     @include md {
       flex: 0 0 100%;
     }
+    @include xs {
+      flex: 0 0 56%;
+    }
   }
   &block16 {
     @include flex-column;
@@ -1214,7 +1217,7 @@
   }
   &block35.layout {
     position: relative;
-    height: 50px;
+    // height: 50px;
     min-width: min-content;
     // width: min-content;
   }
@@ -1258,7 +1261,7 @@
   }
   &block36.layout {
     position: relative;
-    height: 50px;
+    // height: 50px;
     @include xl {
     }
   }
@@ -1301,7 +1304,7 @@
   }
   &block37.layout {
     position: relative;
-    height: 50px;
+    // height: 50px;
   }
   &text-body3.layout1 {
     position: relative;
@@ -1335,7 +1338,7 @@
   }
   &block38.layout {
     position: relative;
-    height: 50px;
+    // height: 50px;
   }
   &text-body3.layout2 {
     position: relative;
@@ -1354,243 +1357,244 @@
       row-gap: 16px;
     }
   }
-  &block391.layout {.statuspanel- {
-    &block46 {
-      @include flex-column;
+  &block391.layout {
+    .statuspanel- {
+      &block46 {
+        @include flex-column;
+      }
+      &block46.layout {
+        position: relative;
+        height: min-content;
+        margin: 11px 0px;
+        @include lg {
+          margin: 18px 0px 25px;
+        }
+        @include md {
+          margin: 15px 0px 25px;
+        }
+        @include sm {
+          margin: 13px 0px 20px;
+        }
+        @include xs {
+          margin: 11px 0px 15px;
+        }
+        @include xxs {
+          margin: 10px 0px 17px;
+        }
+        @include tn {
+          margin: 10px 0px 5px;
+        }
+      }
+      &block47 {
+        @include flex-column;
+        background-color: rgb(255, 255, 255);
+        box-shadow: 0px 0px 20px 0px rgba(196, 196, 196, 0.24705882352941178);
+        border-radius: 10px 10px 10px 10px;
+      }
+      &block47.layout {
+        position: relative;
+        height: min-content;
+      }
+
+      &block45 {
+        display: flex;
+        align-items: center;
+        background-color: rgb(112, 120, 127);
+        border-radius: 10px 10px 0px 0px;
+      }
+      &block45.layout1 {
+        position: relative;
+        height: min-content;
+        @include xl1 {
+          height: 50px;
+        }
+      }
+      &group.layout2 {
+        position: relative;
+        height: min-content;
+        // width: 191px;
+        // min-width: 191px;
+        margin: 15px 0px 5px 20px;
+        @include xl1 {
+          margin: 10px 0px 0px 18px;
+        }
+
+        @include sm {
+          margin: 14px 0px 13px 13px;
+        }
+        @include xs {
+          margin: 13px 0px 12px 11px;
+        }
+        @include xxs {
+          margin: 12px 0px 11px 10px;
+        }
+        @include tn {
+          margin: 11px 0px 10px 10px;
+        }
+      }
+      &highlights2 {
+        @include font-face($font_type2, rgb(255, 255, 255), 0px);
+        text-align: left;
+
+        @include xxl {
+          font-size: 18px;
+        }
+        @include xl1 {
+          font-size: 14px;
+        }
+        @include lg {
+          font-size: 14px;
+        }
+        // @include md {
+        //   font-size: 12px;
+        // }
+        @include sm {
+          font-size: 18px;
+        }
+        @include xxs {
+          font-size: 18px;
+        }
+      }
+      &highlights2.layout {
+        position: relative;
+        height: min-content;
+      }
+      &block45-spacer1 {
+        flex: 1 1 auto;
+      }
+      &block45-item {
+        @include flex-column;
+        position: relative;
+        flex: 0 1 211px;
+      }
+      &block45-item2 {
+        @include flex-column;
+        position: relative;
+        flex: 0 1 44px;
+      }
+      &box16 {
+        // background-color: rgb(255, 255, 255);
+      }
+      &box16.layout {
+        position: relative;
+        height: 24px;
+        width: 24px;
+        margin: 21px 20px 21px 0px;
+        @include lg {
+          margin: 18px 18px 18px 0px;
+        }
+        @include md {
+          margin: 16px 15px 16px 0px;
+        }
+        @include sm {
+          margin: 13px 13px 13px 0px;
+        }
+        @include xs {
+          margin: 12px 11px 12px 0px;
+        }
+        @include xxs {
+          margin: 11px 10px 11px 0px;
+        }
+        @include tn {
+          margin: 10px 10px 10px 0px;
+        }
+      }
     }
-    &block46.layout {
-      position: relative;
-      height: min-content;
-      margin: 11px 0px;
-      @include lg {
-        margin: 18px 0px 25px;
-      }
-      @include md {
-        margin: 15px 0px 25px;
-      }
-      @include sm {
-        margin: 13px 0px 20px;
-      }
-      @include xs {
-        margin: 11px 0px 15px;
-      }
-      @include xxs {
-        margin: 10px 0px 17px;
-      }
-      @include tn {
-        margin: 10px 0px 5px;
+    .box-element-box2.layout {
+      padding: 10px;
+    }
+    .box-element-box2.layout[_ngcontent-dkq-c58] {
+      padding: 10px;
+    }
+
+    .echart- {
+      &item {
+        height: 290px;
+        @include xl1 {
+          height: 280px;
+        }
       }
     }
-    &block47 {
-      @include flex-column;
-      background-color: rgb(255, 255, 255);
-      box-shadow: 0px 0px 20px 0px rgba(196, 196, 196, 0.24705882352941178);
-      border-radius: 10px 10px 10px 10px;
-    }
-    &block47.layout {
-      position: relative;
-      height: min-content;
-    }
-  
-    &block45 {
-      display: flex;
-      align-items: center;
-      background-color: rgb(112, 120, 127);
-      border-radius: 10px 10px 0px 0px;
-    }
-    &block45.layout1 {
-      position: relative;
-      height: min-content;
-      @include xl1 {
+    $font_type0: 700 20px/1.2 'Roboto', Helvetica, Arial, serif;
+    $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
+    .box-element- {
+      &block2 {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      &block2.layout {
+        position: relative;
+        height: min-content;
+        margin: 20px 0px 30px;
+      }
+      &block5 {
+        @include flex-column;
+      }
+      &block5.layout {
+        position: relative;
+        flex: 0 1 105px;
+        height: min-content;
+        margin: 0px 0px 1px;
+      }
+      &box2 {
+        border: 1px solid rgb(173, 173, 173);
+        border-radius: 8px 8px 8px 8px;
+      }
+      &box2.layout {
+        position: relative;
         height: 50px;
+        margin: 0px 27px 0px 28px;
       }
-    }
-    &group.layout2 {
-      position: relative;
-      height: min-content;
-      // width: 191px;
-      // min-width: 191px;
-      margin: 15px 0px 5px 20px;
-      @include xl1 {
-        margin: 10px 0px 0px 18px;
+      &block6 {
+        @include flex-column;
       }
-  
-      @include sm {
-        margin: 14px 0px 13px 13px;
+      &block6.layout {
+        position: relative;
+        height: min-content;
+        margin: 14px auto;
+        text-align: center;
       }
-      @include xs {
-        margin: 13px 0px 12px 11px;
+      &subtitle {
+        @include font-face($font_type0, rgb(19, 27, 33), 0px);
       }
-      @include xxs {
-        margin: 12px 0px 11px 10px;
+      &subtitle.layout {
+        position: relative;
+        height: min-content;
+        text-align: center;
       }
-      @include tn {
-        margin: 11px 0px 10px 10px;
+      &text-body {
+        @include font-face($font_type1, rgb(112, 120, 127), 0px);
       }
-    }
-    &highlights2 {
-      @include font-face($font_type2, rgb(255, 255, 255), 0px);
-      text-align: left;
-  
-      @include xxl {
-        font-size: 18px;
-      }
-      @include xl1 {
-        font-size: 14px;
-      }
-      @include lg {
-        font-size: 14px;
-      }
-      // @include md {
-      //   font-size: 12px;
+      // &text-body.layout {
       // }
-      @include sm {
-        font-size: 18px;
+      &block2-spacer {
+        flex: 1 1 auto;
       }
-      @include xxs {
-        font-size: 18px;
-      }
-    }
-    &highlights2.layout {
-      position: relative;
-      height: min-content;
-    }
-    &block45-spacer1 {
-      flex: 1 1 auto;
-    }
-    &block45-item {
-      @include flex-column;
-      position: relative;
-      flex: 0 1 211px;
-    }
-    &block45-item2 {
-      @include flex-column;
-      position: relative;
-      flex: 0 1 44px;
-    }
-    &box16 {
-      // background-color: rgb(255, 255, 255);
-    }
-    &box16.layout {
-      position: relative;
-      height: 24px;
-      width: 24px;
-      margin: 21px 20px 21px 0px;
-      @include lg {
-        margin: 18px 18px 18px 0px;
-      }
-      @include md {
-        margin: 16px 15px 16px 0px;
-      }
-      @include sm {
-        margin: 13px 13px 13px 0px;
-      }
-      @include xs {
-        margin: 12px 11px 12px 0px;
-      }
-      @include xxs {
-        margin: 11px 10px 11px 0px;
-      }
-      @include tn {
-        margin: 10px 10px 10px 0px;
+      &block5.layout1 {
+        position: relative;
+        flex: 0 1 105px;
+        height: min-content;
       }
     }
-  }
-  .box-element-box2.layout {
-    padding: 10px;
-  }
-  .box-element-box2.layout[_ngcontent-dkq-c58] {
-    padding: 10px;
-  }
-  
-  .echart- {
-    &item {
-      height: 290px;
-      @include xl1 {
-        height: 280px;
-      }
+    .box-element-box2.layout {
+      padding: 10px;
+      box-sizing: border-box;
     }
-  }
-  $font_type0: 700 20px/1.2 'Roboto', Helvetica, Arial, serif;
-  $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
-  .box-element- {
-    &block2 {
-      display: flex;
-      flex-wrap: wrap;
+    .box-element-block2.layout {
+      margin: 20px auto;
     }
-    &block2.layout {
-      position: relative;
-      height: min-content;
-      margin: 20px 0px 30px;
+    .dotted_line hr {
+      width: 1px;
+      height: 100px;
+      border: 0;
+      border-left: 1px dotted #c2c5c8;
     }
-    &block5 {
-      @include flex-column;
+
+    .box-element-box2.layout {
+      padding: 10px;
+      box-sizing: border-box;
     }
-    &block5.layout {
-      position: relative;
-      flex: 0 1 105px;
-      height: min-content;
-      margin: 0px 0px 1px;
-    }
-    &box2 {
-      border: 1px solid rgb(173, 173, 173);
-      border-radius: 8px 8px 8px 8px;
-    }
-    &box2.layout {
-      position: relative;
-      height: 50px;
-      margin: 0px 27px 0px 28px;
-    }
-    &block6 {
-      @include flex-column;
-    }
-    &block6.layout {
-      position: relative;
-      height: min-content;
-      margin: 14px auto;
-      text-align: center;
-    }
-    &subtitle {
-      @include font-face($font_type0, rgb(19, 27, 33), 0px);
-    }
-    &subtitle.layout {
-      position: relative;
-      height: min-content;
-      text-align: center;
-    }
-    &text-body {
-      @include font-face($font_type1, rgb(112, 120, 127), 0px);
-    }
-    // &text-body.layout {
-    // }
-    &block2-spacer {
-      flex: 1 1 auto;
-    }
-    &block5.layout1 {
-      position: relative;
-      flex: 0 1 105px;
-      height: min-content;
-    }
-  }
-  .box-element-box2.layout {
-    padding: 10px;
-    box-sizing: border-box;
-  }
-  .box-element-block2.layout {
-    margin: 20px auto;
-  }
-  .dotted_line hr {
-    width: 1px;
-    height: 100px;
-    border: 0;
-    border-left: 1px dotted #c2c5c8;
-  }
-  
-  .box-element-box2.layout {
-    padding: 10px;
-    box-sizing: border-box;
-  }
-  
+
     position: relative;
     height: min-content;
     margin: 1px 0px;
@@ -1630,6 +1634,8 @@
     position: relative;
     height: min-content;
     margin: 21px 0px 0px;
+    justify-content: space-between;
+    justify-items: space-between;
     @include lg {
       margin: 18px 0px 0px;
     }
@@ -1653,10 +1659,13 @@
     @include flex-column;
     position: relative;
     flex: 1 1 auto;
-    min-width: 45%;
+    min-width: 49%;
+    max-width: 49%;
+
     @include xl {
       flex: 1 1 auto;
-      min-width: 45%;
+      min-width: auto;
+      max-width: auto;
     }
 
     @include lg {
@@ -1665,20 +1674,14 @@
       min-width: 100%;
     }
   }
-  // &box14 {
-  //   background-color: rgb(255, 255, 255);
-  //   box-shadow: 0px 0px 20px 0px rgba(196, 196, 196, 0.24705882352941178);
-  //   border: 1px solid rgb(228, 228, 228);
-  //   border-radius: 10px 10px 10px 10px;
-  // }
-  // &box14.layout {
-  //   position: relative;
-  //   height: 445px;
-  // }
+
   &block42-spacer {
     flex: 0 1 25px;
     @include lg {
       // display: none;
+    }
+    @include xl {
+      display: none;
     }
   }
   // &box13 {
@@ -1818,163 +1821,7 @@
     width: fit-content;
   }
 }
-.statuspanel- {
-  &block46 {
-    @include flex-column;
-  }
-  &block46.layout {
-    position: relative;
-    height: min-content;
-    margin: 11px 0px;
-    @include lg {
-      margin: 18px 0px 25px;
-    }
-    @include md {
-      margin: 15px 0px 25px;
-    }
-    @include sm {
-      margin: 13px 0px 20px;
-    }
-    @include xs {
-      margin: 11px 0px 15px;
-    }
-    @include xxs {
-      margin: 10px 0px 17px;
-    }
-    @include tn {
-      margin: 10px 0px 5px;
-    }
-  }
-  &block47 {
-    @include flex-column;
-    background-color: rgb(255, 255, 255);
-    box-shadow: 0px 0px 20px 0px rgba(196, 196, 196, 0.24705882352941178);
-    border-radius: 10px 10px 10px 10px;
-  }
-  &block47.layout {
-    position: relative;
-    height: min-content;
-  }
 
-  &block45 {
-    display: flex;
-    align-items: center;
-    background-color: rgb(112, 120, 127);
-    border-radius: 10px 10px 0px 0px;
-  }
-  &block45.layout1 {
-    position: relative;
-    height: min-content;
-    @include xl1 {
-      height: 50px;
-    }
-  }
-  &group.layout2 {
-    position: relative;
-    height: min-content;
-    // width: 191px;
-    // min-width: 191px;
-    margin: 15px 0px 5px 20px;
-    @include xl1 {
-      margin: 10px 0px 0px 18px;
-    }
-
-    @include sm {
-      margin: 14px 0px 13px 13px;
-    }
-    @include xs {
-      margin: 13px 0px 12px 11px;
-    }
-    @include xxs {
-      margin: 12px 0px 11px 10px;
-    }
-    @include tn {
-      margin: 11px 0px 10px 10px;
-    }
-  }
-  &highlights2 {
-    @include font-face($font_type2, rgb(255, 255, 255), 0px);
-    text-align: left;
-
-    @include xxl {
-      font-size: 16px;
-    }
-    @include xl1 {
-      font-size: 14px;
-    }
-    @include lg {
-      font-size: 14px;
-    }
-    // @include md {
-    //   font-size: 12px;
-    // }
-    @include sm {
-      font-size: 18px;
-    }
-    @include xxs {
-      font-size: 18px;
-    }
-  }
-  &highlights2.layout {
-    position: relative;
-    height: min-content;
-  }
-  &block45-spacer1 {
-    flex: 1 1 auto;
-  }
-  &block45-item {
-    @include flex-column;
-    position: relative;
-    flex: 0 1 211px;
-  }
-  &block45-item2 {
-    @include flex-column;
-    position: relative;
-    flex: 0 1 44px;
-  }
-  &box16 {
-    // background-color: rgb(255, 255, 255);
-  }
-  &box16.layout {
-    position: relative;
-    height: 24px;
-    width: 24px;
-    margin: 21px 20px 21px 0px;
-    @include lg {
-      margin: 18px 18px 18px 0px;
-    }
-    @include md {
-      margin: 16px 15px 16px 0px;
-    }
-    @include sm {
-      margin: 13px 13px 13px 0px;
-    }
-    @include xs {
-      margin: 12px 11px 12px 0px;
-    }
-    @include xxs {
-      margin: 11px 10px 11px 0px;
-    }
-    @include tn {
-      margin: 10px 10px 10px 0px;
-    }
-  }
-}
-.box-element-box2.layout {
-  padding: 10px;
-}
-.box-element-box2.layout[_ngcontent-dkq-c58] {
-  padding: 10px;
-}
-
-.echart- {
-  &item {
-    height: 290px;
-    @include xl1 {
-      height: 280px;
-    }
-  }
-}
 $font_type0: 700 20px/1.2 'Roboto', Helvetica, Arial, serif;
 $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
 .box-element- {
@@ -2035,24 +1882,6 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
     flex: 0 1 105px;
     height: min-content;
   }
-}
-.box-element-box2.layout {
-  padding: 10px;
-  box-sizing: border-box;
-}
-.box-element-block2.layout {
-  margin: 20px auto;
-}
-.dotted_line hr {
-  width: 1px;
-  height: 100px;
-  border: 0;
-  border-left: 1px dotted #c2c5c8;
-}
-
-.box-element-box2.layout {
-  padding: 10px;
-  box-sizing: border-box;
 }
 
 // .box-element-box2.layout {
@@ -2916,7 +2745,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     width: 54px;
     min-width: 54px;
     @include lg {
-      margin: 5px 0px 5px 5px;
+      margin: 0px 0px 5px 5px;
     }
   }
   &icon {
@@ -2943,7 +2772,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
       bottom: 12px;
     }
     @include sm {
-      top: 11px;
+      top: 15px;
       bottom: 10px;
     }
     @include xs {
@@ -3132,7 +2961,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   margin-left: 20px;
 }
 table {
-  width: 100%;
+  // width: 100%;
 }
 section {
   display: table;
@@ -3250,7 +3079,7 @@ section {
 //   color: #323e48;
 // }
 .mat-table {
-  overflow: auto;
+  // overflow: auto;
   max-height: 500px;
 }
 
@@ -3312,7 +3141,7 @@ th.mat-header-cell,
 td.mat-cell,
 td.mat-footer-cell {
   border-bottom: 1px solid #8f8f8f;
-  text-align: left;
+  text-align: center;
   padding: 0 12px;
 
   @include xl {
@@ -3388,7 +3217,7 @@ tr.mat-row:last-of-type {
     @include flex-column;
     position: relative;
     flex: 0 1 108px;
-  
+
     text-align: center;
   }
   &block5 {
@@ -3440,5 +3269,64 @@ tr.mat-row:last-of-type {
     left: 0px;
     width: 254px;
   }
+}
+.mat-button-toggle-checked.mat-button-toggle-appearance-standard {
+  color: #fff !important;
+}
 
+.space-between {
+  margin-right: 5px;
+}
+
+.mat-elevation-z8 {
+  box-shadow: 0px 0px 0px 0px rgb(0 0 0 / 20%), 0px 0px 0px 0px rgb(0 0 0 / 14%),
+    0px 0px 0px 0px rgb(0 0 0 / 12%);
+}
+.mat-data {
+  display: block;
+  margin: 20px 0px 0;
+
+  @include lg {
+    display: block;
+    width: 90vw;
+    overflow: auto;
+  }
+  @include md {
+    width: 86vw;
+  }
+  @include sm {
+    width: 90vw;
+  }
+
+  .mat-elevation-z8 {
+    width: 100%;
+
+    @include lg {
+      width: 100vw;
+      // max-width: 100%;
+      overflow: auto;
+      // margin-bottom: 10px;
+      display: inline-table;
+      // border-collapse: collapse;
+    }
+  }
+}
+// .mat-paginator{
+//   margin: 0 20px;
+// }
+
+@media screen and (max-width: 960px) {
+  .mat-table {
+    border: 0;
+    vertical-align: middle;
+  }
+}
+
+.mat-button-toggle-appearance-standard:hover {
+  border: 1px solid #0062a6;
+  //background-color: #fff;
+}
+.dashboard-block35:hover {
+  border: 1px solid #0062a6;
+  background-color: green;
 }

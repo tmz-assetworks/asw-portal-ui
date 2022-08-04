@@ -136,7 +136,7 @@
     </div>
     <div class="cust-list-flex3-spacer"></div>
     <div class="cust-list-flex3-item1">
-      <div class="cust-list-block23 layout">
+      <div class="cust-list-block23 layout"  [routerLink]="['add-operator']">
         <div class="cust-list-block23-item">
           <div class="cust-list-box10 layout">
             <img
@@ -149,15 +149,15 @@
         <div class="cust-list-block23-spacer"></div>
         <div
           class="cust-list-text-body4 layout"
-          [routerLink]="['add-operator']"
+         
         >
           ADD USER
         </div>
       </div>
     </div>
   </div>
-  <div class="cust-list-group2 layout">
-    <table mat-table [dataSource]="dataSource">
+  <div class="layout mat-data">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       <ng-container matColumnDef="customername">
         <th mat-header-cell *matHeaderCellDef>NAME</th>
         <td mat-cell *matCellDef="let element">{{ element.CustomerName }}</td>
@@ -196,9 +196,10 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
 
-    <mat-paginator
-      [length]="100"
-      [pageSizeOptions]="[10, 20, 100]"
-    ></mat-paginator>
+
   </div>
+  <mat-paginator
+  [length]="100"
+  [pageSizeOptions]="[10, 20, 100]"
+></mat-paginator>
 </div>

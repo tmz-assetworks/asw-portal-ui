@@ -2,14 +2,13 @@ import { AfterViewInit, Component, OnInit } from '@angular/core'
 
 import { FormBuilder, Validators } from '@angular/forms'
 import { FormControl, FormGroup, Validator } from '@angular/forms'
+import { Router } from '@angular/router'
 import Swal from 'sweetalert2'
 
-
 interface Food {
-  value: string;
-  viewValue: string;
+  value: string
+  viewValue: string
 }
-
 
 @Component({
   selector: 'app-add-customers',
@@ -17,20 +16,19 @@ interface Food {
   styleUrls: ['./add-customers.component.scss'],
 })
 export class AddCustomersComponent implements OnInit {
-
   foods: Food[] = [
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'},
-  ];
-  
+    { value: 'steak-0', viewValue: 'Steak' },
+    { value: 'pizza-1', viewValue: 'Pizza' },
+    { value: 'tacos-2', viewValue: 'Tacos' },
+  ]
+
   submitted = false
   registrationForm: any
-  private _router: any
+
   showAddCustomer: boolean | undefined
   showCustomersList: boolean | undefined
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private _router: Router) {}
 
   addCustomerProfile = this.formBuilder.group({
     username: new FormControl('', Validators.required),
@@ -54,20 +52,28 @@ export class AddCustomersComponent implements OnInit {
 
   alertWithSuccess() {
     Swal.fire({
-      title: '<strong>Are you Sure Want to Successfully !</strong>',
+      title: '<strong>Are you sure you want to confirm?</strong>',
       icon: 'success',
       showCloseButton: true,
       showCancelButton: false,
       focusConfirm: false,
-     
-      confirmButtonText:
-        '<i class="fa fa-thumbs-up"></i> Close',
-      confirmButtonAriaLabel: 'Thumbs up, great!',
+
+      confirmButtonText: '<i class="fa fa-thumbs-up"></i> Close',
+      // confirmButtonAriaLabel: 'Thumbs up, great!',
     })
   }
 
   saveForm() {
-    console.log('Form data is ', this.addCustomerProfile.value)
+    // console.log('Form data is ', this.addCustomerProfile.value)
   }
-  cancel() {}
+
+  // alertWithCancel (){
+
+  //   Swal.fire('Do you want to cancel')
+
+  //  }
+
+  btnClick() {
+    this._router.navigateByUrl('superadmin/customer/')
+  }
 }

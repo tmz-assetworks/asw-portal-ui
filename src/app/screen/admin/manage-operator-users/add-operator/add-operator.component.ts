@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -11,7 +12,7 @@ export class AddOperatorComponent implements OnInit {
   submitted = false
   registrationForm: any
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder,private router:Router) {}
 
   addOperatorProfile = this.formBuilder.group({
     username: new FormControl('', Validators.required),
@@ -41,27 +42,31 @@ export class AddOperatorComponent implements OnInit {
   ngOnInit(){
     // this.onSubmit();
   }
+
+
   alertWithSuccess() {
     Swal.fire({
-      title: '<strong>Are you Sure Want to Successfully !</strong>',
-
+      title: '<strong>Are you sure you want to confirm?</strong>',
       icon: 'success',
       showCloseButton: true,
       showCancelButton: false,
       focusConfirm: false,
-      footer:'',
+      // confirmButtonColor: "#DD6B55", 
       confirmButtonText:
         '<i class="fa fa-thumbs-up"></i> Close',
-      confirmButtonAriaLabel: 'Thumbs up, great!',
-
+      // confirmButtonAriaLabel: 'Thumbs up, great!',
     })
   }
+
 
    saveForm(){
     //alert("Your Record Succefully Save.")
     console.log('Form data is ', this.addOperatorProfile.value)
   }
-  cancel() {}
+  btnClick(){
+
+    this.router.navigateByUrl('admin/manage-operator/');
+   }
 
   ngAfterViewInit() {
     // this.dataSource.paginator = this.paginator;

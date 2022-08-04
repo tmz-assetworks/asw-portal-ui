@@ -1,18 +1,22 @@
 import { Component, OnInit } from '@angular/core'
 import { FormControl } from '@angular/forms'
-import { AuthService } from 'src/app/service/auth/auth.service'
-import { data } from './locations'
+import { ActivatedRoute, Router } from '@angular/router'
 
+import { AuthService } from 'src/app/service/auth/auth.service'
+import { StorageService } from 'src/app/service/storage.service'
+import { DashboardService } from './dashboard.service'
+import { data } from './locations'
+import { ToastrService } from 'ngx-toastr'
 declare const google: any
 declare const MarkerClusterer: any
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  constructor(private _auth: AuthService) {}
-
+  myparams: any
   locations = '../../../assets/widget-icon/location.png'
   chargers = '../../../assets/widget-icon/chargers.png'
   charging_session = '../../../assets/widget-icon/charging-sessions.png'
@@ -21,114 +25,146 @@ export class DashboardComponent implements OnInit {
   basic = 'basic'
   bar = 'bar'
   barTitle = 'Chargers'
-  basicTitle = 'Locations Performing '
-  // toggle: boolean = false
 
-  alteration_types = [
-    'Location A',
-    'Location B',
-    'Location C',
-    'Location D',
-    'Location E',
-  ]
-  type_list: any
+  locationPerformingData = ''
+  dashboardlocationPerform = 'dashboardlocationPerform'
+  locationPerormTitle = 'Locations Performing '
 
-  type_lists = new FormControl('')
+  energyUsedData = ''
+  dashboardEnergyUsed = 'dashboardEnergyUsed'
+  dashboardEnergyUsedTitle = 'Energy Demand Over Time'
 
-  data = [
-    {
-      Type: 'Locations',
-      Count: 50,
-      StatusData: [
-        {
-          Key: 'Commissioned',
-          Color: '#757575',
-          value: 20,
-        },
-        {
-          Key: 'Under Maintenance',
-          Color: '#E97300',
-          value: 25,
-        },
-        {
-          Key: 'Upcoming',
-          Color: '#0062A6',
-          value: 15,
-        },
-      ],
-    },
-    {
-      Type: 'Chargers',
-      Count: 35,
-      StatusData: [
-        {
-          Key: 'Available',
-          Color: '#90993F',
-          value: 10,
-        },
-        {
-          Key: 'Connected',
-          Color: '#E97300',
-          value: 16,
-        },
-        {
-          Key: 'Offline',
-          Color: '#757575',
-          value: 10,
-        },
-      ],
-    },
-    {
-      Type: 'Charging Sessions',
-      Count: 26,
-      StatusData: [
-        {
-          Key: 'Cancelled',
-          Color: '#EA002A',
-          value: 15,
-        },
-        {
-          Key: 'Interrupted',
-          Color: '#E97300',
-          value: 15,
-        },
-        {
-          Key: 'Completed',
-          Color: '#90993F',
-          value: 15,
-        },
-      ],
-    },
-    {
-      Type: 'Errors',
-      Count: 10,
-      StatusData: [
-        {
-          Key: 'Critical',
-          Color: '#E97300',
-          value: 10,
-        },
-        {
-          Key: 'High',
-          Color: '#EA002A',
-          value: 13,
-        },
-        {
-          Key: 'Medium',
-          Color: '#0062A6',
-          value: 12,
-        },
-      ],
-    },
-  ]
+  locationList: any
+
+  location_list: any
+  summaryStatus = []
+
+  locationIds = new FormControl([])
+  filterToggle = new FormControl('1')
+
+  selectedTime: number = 1
+  selecteLocationIds = ''
+  UserId: any
+  chargersChartData = ''
+  locationsPerReq: any // niharika
+  energyUsedReq: any // niharika
+  chargersGraphReq: any // niharika
+
+  /**
+   * declare variables for charging session
+   */
+
+  chargingSessionData = ''
+  dashboardChargingSession = 'dashboardChargingSession'
+  dashboardChargingSessionTitle = 'Charging Session'
+
+  mapstatusdata: any
+  initMapFunc: any
+  toggleValue: number = 1
+
+  constructor(
+    private _dashboardService: DashboardService,
+    private _storageService: StorageService,
+    private _router: Router,
+    private _route: ActivatedRoute,
+    private toastr: ToastrService,
+  ) {
+    this.UserId = this._storageService.getLocalData('user_id')
+  }
 
   ngOnInit(): void {
+    this.getMapLocations(this.selecteLocationIds, this.UserId)
+    this.locationIds.valueChanges.subscribe((res) => {
+      this.onSelectLocation(res)
+    })
+    this.getSummaryStatus()
     ;(window as any).initMap = this.initMap as any
-    const initMapFunc = (window as any).initMap.bind(this)
-    initMapFunc()
+    this.initMapFunc = (window as any).initMap.bind(this)
+    // initMapFunc()
     // this.setMarker(locations);
     // this.handleEventListenerFromMarker();
+
+    /**
+     * Get All Locations
+     */
+    this.getAllLocations()
+
+    /**
+     * Call Location performing
+     */
+
+    this.getLocationPerforming(
+      this.selecteLocationIds,
+      this.selectedTime,
+      this.UserId,
+      this.toggleValue,
+    )
+
+    /**
+     * Call Energy Used
+     */
+
+    this.getEnergyUsedByLocationId(
+      this.selecteLocationIds,
+      this.selectedTime,
+      this.UserId,
+    )
+
+    /**
+     * Call Chargers Graph
+     */
+
+    this.getChargerGraph(
+      this.selecteLocationIds,
+      this.selectedTime,
+      this.UserId,
+    )
+
+    this.getChargingSessionChartData(
+      this.selecteLocationIds,
+      this.selectedTime,
+      this.UserId,
+    )
+    /* 
+    // FORK JOIN CODE
+    this.locationsPerReq = {
+      locationIds: this.selecteLocationIds ? this.selecteLocationIds : [],
+      duration: this.selectedTime.toString(),
+      opratorid: this.UserId,
+      orderby: 1,
+    }
+
+   this.energyUsedReq = {
+    locationIds: this.selecteLocationIds ? this.selecteLocationIds : [],
+    duration: this.selectedTime.toString(),
+    opratorid: this.UserId,
+    }
+
+    this.chargersGraphReq =  {
+      locationIds: this.selecteLocationIds ? this.selecteLocationIds : [],
+      duration: this.selectedTime.toString(),
+      opratorid: this.UserId,
+    }
+   
+      this._dashboardService.requestDataFromMultipleSources(this.locationsPerReq,this.energyUsedReq,this.chargersGraphReq).subscribe({
+        next: (responseList) => {
+          
+          
+          this.summaryStatus = responseList[0].data
+          this.locationPerformingData = responseList[1].data
+          this.energyUsedData = responseList[2].data
+          this.chargersChartData = responseList[3]
+        },
+        error: (err) => {
+         
+        }
+      });
+  */
   }
+
+  /**
+   * Initializes the map
+   */
 
   initMap() {
     // let latlng=new google.maps.LatLng(-34.397, 150.644);
@@ -137,11 +173,10 @@ export class DashboardComponent implements OnInit {
     //   zoom: 5,
     // });
 
-    function initialize() {
-      var center = new google.maps.LatLng(59.9214, 10.8463)
-
+    const initialize = () => {
+      var center = new google.maps.LatLng(36.2082629, -113.737393)
       var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 10,
+        zoom: 5,
         center: center,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
       })
@@ -167,36 +202,37 @@ export class DashboardComponent implements OnInit {
       }
 
       var markers = []
-      for (var i = 0; i < data.features.length; i++) {
-        var accident_injuries = data.features[i].properties['5074']
-        var accident_title = ''
-        var accident_lnglat = data.features[i].geometry['coordinates']
-        switch (Number(accident_injuries)) {
-          case 1:
-            accident_title = 'Available'
-            break
-          case 3:
-            accident_title = 'Unavailable'
-            break
-          case 2:
-            accident_title = 'Offline'
-            break
-          case 5:
-            accident_title = 'Busy'
-            break
-          case 4:
-            accident_title = 'Occupied'
-            break
-          case 6:
-            accident_title = 'Faulted'
-            break
-          case 7:
-            accident_title = 'EV Disconnected'
-            break
-        }
+      for (var i = 0; i < this.mapstatusdata.length; i++) {
+        //var accident_injuries = this.mapstatusdata[i].charger[0]
+        var accident_title = this.mapstatusdata[i].status
+        // var accident_lnglat = this.mapstatusdata[i].coordinates
+        // switch (Number(accident_injuries)) {
+        //   case 1:
+        //     accident_title = 'Available'
+        //     break
+        //   case 3:
+        //     accident_title = 'Unavailable'
+        //     break
+        //   case 2:
+        //     accident_title = 'Offline'
+        //     break
+        //   case 5:
+        //     accident_title = 'Busy'
+        //     break
+        //   case 4:
+        //     accident_title = 'Occupied'
+        //     break
+        //   case 6:
+        //     accident_title = 'Faulted'
+        //     break
+        //   case 7:
+        //     accident_title = 'EV Disconnected'
+        //     break
+        // }
+        //debugger
         var accident_LatLng = new google.maps.LatLng(
-          Number(accident_lnglat[1]),
-          Number(accident_lnglat[0]),
+          this.mapstatusdata[i].latitude,
+          this.mapstatusdata[i].longitude,
         )
 
         const info =
@@ -270,5 +306,239 @@ export class DashboardComponent implements OnInit {
 
     google.load('visualization', '1', { packages: ['corechart'] })
     google.setOnLoadCallback(initialize)
+  }
+
+  /**
+   * Get Summary Status
+   */
+  getSummaryStatus() {
+    this._dashboardService.GetSummaryStatus().subscribe((res) => {
+      this.summaryStatus = res.data
+    })
+  }
+
+  openDetailPage(event: any, graphHeading: string, pageHeading: string) {
+    sessionStorage.setItem('graphHeading', graphHeading)
+    sessionStorage.setItem('pageHeading', pageHeading)
+    this._router.navigate(['detail'], {
+      relativeTo: this._route,
+      queryParams: { id: event },
+    })
+    //this._router.navigate(['detail'],{relativeTo: this._route});
+  }
+  /**
+   * Get Alllocations
+   */
+
+  getAllLocations() {
+    this._dashboardService.GetAllLocations().subscribe((res) => {
+      this.locationList = res.data
+    })
+  }
+
+  /**
+   * Set time to show
+   */
+
+  setTime(event: any) {
+    if (event.value) {
+      this.selectedTime = event.value
+      this.getEnergyUsedByLocationId(
+        this.selecteLocationIds,
+        this.selectedTime,
+        this.UserId,
+      )
+      this.getLocationPerforming(
+        this.selecteLocationIds,
+        this.selectedTime,
+        this.UserId,
+        this.toggleValue,
+      )
+
+      this.getChargerGraph(
+        this.selecteLocationIds,
+        this.selectedTime,
+        this.UserId,
+      )
+
+      this.getChargingSessionChartData(
+        this.selecteLocationIds,
+        this.selectedTime,
+        this.UserId,
+      )
+    }
+  }
+
+  /**
+   * Get Location performing data
+   */
+
+  getLocationPerforming(
+    locationIds: any,
+    duration: any,
+    operatorId: any,
+    orderBy: any,
+  ) {
+    const body = {
+      locationIds: locationIds ? locationIds : [],
+      duration: duration.toString(),
+      opratorid: operatorId,
+      orderby: orderBy,
+    }
+
+    this._dashboardService.GetLocationPerforming(body).subscribe((res) => {
+      // console.log(
+      //   'loactions performing api on dashboard for location' + locationIds,
+      //   res.data.length,
+      // )
+      this.locationPerformingData = res.data
+    })
+  }
+
+  /**
+   * Get Location area data
+   */
+
+  /**
+   * Emit Toggle event
+   */
+  changeToggleValue(event: any) {
+    this.toggleValue = event
+    this.getLocationPerforming(
+      this.selecteLocationIds,
+      this.selectedTime,
+      this.UserId,
+      this.toggleValue,
+    )
+  }
+  /**
+   *
+   * @param locationIds
+   * @param duration
+   * @param operatorId
+   *
+   * Get Energy Used data
+   */
+
+  getEnergyUsedByLocationId(locationIds: any, duration: any, operatorId: any) {
+    const body = {
+      locationIds: locationIds ? locationIds : [],
+      duration: duration.toString(),
+      opratorid: operatorId,
+    }
+    this._dashboardService.GetEnergyUsedByLocationID(body).subscribe((res) => {
+      // console.log(
+      //   'energy used api on dashboard for location' + locationIds,
+      //   res.data.length,
+      // )
+      this.energyUsedData = res.data
+    })
+  }
+
+  /**
+   *
+   * @param event
+   *
+   * select location data
+   */
+  onSelectLocation(event: any) {
+    // if (!event.isUserInput) {
+    //   return
+    // }
+
+    let locationIds = this.locationIds.value
+
+    this.selecteLocationIds = locationIds
+
+    this.getEnergyUsedByLocationId(
+      this.selecteLocationIds,
+      this.selectedTime,
+      this.UserId,
+    )
+    this.getLocationPerforming(
+      this.selecteLocationIds,
+      this.selectedTime,
+      this.UserId,
+      1,
+    )
+    this.getChargerGraph(
+      this.selecteLocationIds,
+      this.selectedTime,
+      this.UserId,
+    )
+
+    this.getChargingSessionChartData(
+      this.selecteLocationIds,
+      this.selectedTime,
+      this.UserId,
+    )
+
+    this.getChargerGraph(
+      this.selecteLocationIds,
+      this.selectedTime,
+      this.UserId,
+    )
+  }
+
+  /**
+   * Get Charger Graph
+   */
+
+  getChargerGraph(locationIds: any, duration: any, operatorId: any) {
+    const body = {
+      locationIds: locationIds ? locationIds : [],
+      duration: duration.toString(),
+      opratorid: operatorId,
+    }
+    this._dashboardService.getChargerChartData(body).subscribe({
+      next: (response) => {
+        // console.log(
+        //   'chargers api on dashboard for location' + locationIds,
+        //   response.data.length,
+        // )
+        this.chargersChartData = response
+      },
+      error: (err) => {
+        console.log('no response for chargers graph')
+      },
+    })
+  }
+
+  /**
+   *
+   * @param locationIds
+   * @param duration
+   * @param operatorId
+   *
+   * Get charging session data
+   */
+  getChargingSessionChartData(
+    locationIds: any,
+    duration: any,
+    operatorId: any,
+  ) {
+    const body = {
+      locationIds: locationIds ? locationIds : [],
+      duration: duration.toString(),
+      opratorid: operatorId,
+    }
+    this._dashboardService.GetAreachartdataData(body).subscribe((res) => {
+      // console.log(
+      //   'charging session graph on dashboard for location' + locationIds,
+      //   res.data.length,
+      // )
+      this.chargingSessionData = res.data
+    })
+  }
+
+  getMapLocations(locationIds: any, operatorId: any) {
+    const body = {
+      locationIds: locationIds ? locationIds : [],
+      opratorid: operatorId,
+    }
+    this._dashboardService.GetMap(body).subscribe((res) => {
+      this.mapstatusdata = res.data
+      this.initMapFunc()
+    })
   }
 }

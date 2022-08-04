@@ -3,9 +3,11 @@ import { RouterModule, Routes } from '@angular/router'
 import { AuthGuard } from 'src/app/gurads/auth.guard'
 import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 import { SharedModule } from 'src/app/shared/shared.module'
+import { NgxEchartsModule } from 'ngx-echarts'
 import { MainMasterModule } from '../master/master.module'
 import { MasterComponent } from '../master/master.component'
-import { RoleAuthGuard } from 'src/app/gurads/role.auth.guard'
+import { RoleAuthGuard } from 'src/app/gurads/role.auth.guard';
+import { GraphDetailComponent } from './graph-detail/graph-detail.component'
 
 const routes: Routes = [
   {
@@ -68,8 +70,12 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  imports: [SharedMaterialModule, SharedModule, RouterModule.forChild(routes)],
+  imports: [SharedMaterialModule, SharedModule, RouterModule.forChild(routes),NgxEchartsModule.forRoot({
+    echarts: () => import('echarts'),
+  })],
   exports: [],
-  declarations: [],
+  declarations: [
+    GraphDetailComponent
+  ],
 })
 export class OperatorModule {}

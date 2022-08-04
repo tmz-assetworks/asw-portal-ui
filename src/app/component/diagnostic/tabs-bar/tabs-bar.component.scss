@@ -1,0 +1,173 @@
+@import "../../../../styles";
+
+$color_type_0: rgb(0, 98, 166);
+$color_type_4: rgb(217, 217, 217);
+$color_type_7: rgb(235, 235, 235);
+$color_type_9: rgb(255, 255, 255);
+
+.tabs- {
+  &block1 {
+    display: flex;
+    justify-content: space-between;
+    background-color: $color_type_7;
+    @include xs {
+      flex-wrap: wrap;
+      row-gap: 16px;
+    }
+  }
+  &block1.layout {
+    position: relative;
+    height: min-content;
+    margin: 35px 19px 0px;
+    @include lg {
+      margin: 30px 17px 0px;
+    }
+    @include md {
+      margin: 26px 14px 0px;
+    }
+    @include sm {
+      margin: 21px 12px 0px;
+    }
+    @include xs {
+      margin: 19px 11px 0px;
+    }
+    @include xxs {
+      margin: 17px 10px 0px;
+    }
+    @include tn {
+      margin: 16px 9px 0px;
+    }
+  }
+  &block1-item {
+    @include flex-column;
+    position: relative;
+    flex: 1 1 493px;
+    @include xs {
+      flex: 0 0 50%;
+    }
+  }
+  &block2 {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 5px;
+  }
+  &block2.layout {
+    position: relative;
+    height: min-content;
+    margin: 1px 0px 0px;
+    @include lg {
+      margin: 5px 0px 0px;
+    }
+  }
+
+  &block1-item1 {
+    @include flex-column;
+    position: relative;
+    flex: 0 0 auto;
+    min-width: 67px;
+    @include xs {
+      flex: 0 0 50%;
+      min-width: unset;
+    }
+  }
+  &block5 {
+    @include flex-column;
+    background-color: $color_type_7;
+    border: 1px solid rgb(255, 255, 255);
+  }
+  &block5.layout {
+    position: relative;
+    height: min-content;
+    width: 67px;
+    min-width: 67px;
+  }
+  &box {
+    background-color: $color_type_4;
+  }
+  &box.layout {
+    position: relative;
+    height: 25px;
+    width: 25px;
+    min-width: 25px;
+    margin: 13px 21px;
+    @include lg {
+      margin: 11px 18px;
+    }
+    @include md {
+      margin: 10px 16px;
+    }
+    @include sm {
+      margin: 8px 13px;
+    }
+    @include xs {
+      margin: 7px 12px;
+    }
+    @include xxs {
+      margin: 7px 11px;
+    }
+    @include tn {
+      margin: 6px 10px;
+    }
+  }
+
+  // &block3 {
+  //   @include flex-column;
+  //   background-color: $color_type_7;
+  // }
+  // &block3.layout {
+  //   position: relative;
+  //   flex: 0 1 123px;
+  //   height: min-content;
+  //   margin: 0px 0px 0px 1px;
+  //   @include lg {
+  //     margin: 0px 0px 0px 5px;
+  //   }
+  // }
+  // &text-body {
+  //   @include font-face($font_type22, $color_type_0, 0px);
+  //   @include md {
+  //     font-size: 13px;
+  //     text-align: left;
+  //   }
+  //   @include xs {
+  //     font-size: 12px;
+  //   }
+  // }
+  // &block3.layout1 {
+  //   position: relative;
+  //   flex: 0 1 122px;
+  //   height: min-content;
+  // }
+  // &block3.layout2 {
+  //   position: relative;
+  //   flex: 0 1 123px;
+  //   height: min-content;
+  //   margin: 0px 1px 0px 0px;
+  //   @include lg {
+  //     margin: 0px 5px 0px 0px;
+  //   }
+  // }
+  // &text-body.layout {
+  //   position: relative;
+  //   height: min-content;
+  //   margin: 17px 27px 16px 17px;
+  //   @include lg {
+  //     margin: 15px 24px 14px 15px;
+  //   }
+  //   @include md {
+  //     margin: 13px 20px 12px 13px;
+  //   }
+  //   @include sm {
+  //     margin: 11px 17px 10px 11px;
+  //   }
+  //   @include xs {
+  //     margin: 10px 15px 9px 10px;
+  //   }
+  //   @include xxs {
+  //     margin: 9px 14px 8px 9px;
+  //   }
+  //   @include tn {
+  //     margin: 8px 13px 8px 8px;
+  //   }
+  // }
+}

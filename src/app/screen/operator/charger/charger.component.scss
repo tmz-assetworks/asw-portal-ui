@@ -1,0 +1,590 @@
+@import "../../../../styles.scss";
+
+$color_type_0: rgb(0, 98, 166);
+$color_type_1: rgb(112, 120, 127);
+$color_type_2: rgb(142, 21, 55);
+$color_type_3: rgb(19, 27, 33);
+$color_type_4: rgb(217, 217, 217);
+$color_type_5: rgb(229, 229, 229);
+$color_type_6: rgb(230, 230, 230);
+$color_type_7: rgb(235, 235, 235);
+$color_type_8: rgb(245, 245, 245);
+$color_type_9: rgb(255, 255, 255);
+
+.digdig- {
+  &block {
+    @include flex-column;
+    background-color: $color_type_8;
+  }
+  &block.layout {
+    position: relative;
+    min-height: 1055px;
+  }
+  &subtitle {
+    @include font-face($font_type1, $color_type_3, 0px);
+    @include lg {
+      font-size: 19px;
+      text-align: left;
+    }
+    @include md {
+      font-size: 18px;
+    }
+    @include sm {
+      font-size: 17px;
+    }
+    @include xxs {
+      font-size: 16px;
+    }
+  }
+  &subtitle.layout {
+    position: relative;
+    height: min-content;
+    margin: 33px 19px 0px;
+    @include lg {
+      margin: 29px 17px 0px;
+    }
+    @include md {
+      margin: 24px 14px 0px;
+    }
+    @include sm {
+      margin: 20px 12px 0px;
+    }
+    @include xs {
+      margin: 18px 11px 0px;
+    }
+    @include xxs {
+      margin: 16px 10px 0px;
+    }
+    @include tn {
+      margin: 15px 9px 0px;
+    }
+  }
+
+  &block6 {
+    @include flex-column;
+    background-color: $color_type_9;
+    border: 1px solid rgb(173, 173, 173);
+    border-radius: 5px 5px 5px 5px;
+  }
+  &block6.layout {
+    position: relative;
+    height: min-content;
+    width: 21.96%;
+    margin: 36px 76.88% 0px 1.16%;
+    @include lg {
+      margin: 31px 76.88% 0px 1.16%;
+    }
+    @include md {
+      margin: 26px 76.88% 0px 1.16%;
+    }
+    @include sm {
+      margin: 22px 76.88% 0px 1.16%;
+    }
+    @include xs {
+      margin: 20px 76.88% 0px 1.16%;
+    }
+    @include xxs {
+      margin: 17px 76.88% 0px 1.16%;
+    }
+    @include tn {
+      margin: 16px 76.88% 0px 1.16%;
+    }
+  }
+  &block7 {
+    display: flex;
+  }
+  &block7.layout {
+    position: relative;
+    height: min-content;
+    margin: 17px 18px 16px;
+    @include lg {
+      margin: 15px 16px 14px;
+    }
+    @include md {
+      margin: 13px 13px 12px;
+    }
+    @include sm {
+      margin: 11px 11px 10px;
+    }
+    @include xs {
+      margin: 10px 10px 9px;
+    }
+    @include xxs {
+      margin: 9px 9px 8px;
+    }
+    @include tn {
+      margin: 8px 9px;
+    }
+  }
+  &text-body1 {
+    @include font-face($font_type5, $color_type_1, 0px);
+    @include md {
+      font-size: 12px;
+      text-align: left;
+    }
+  }
+  &text-body1.layout {
+    position: relative;
+    flex: 0 0 auto;
+    height: min-content;
+    width: 100%;
+    border: none;
+    outline: none;
+  }
+  &block7-spacer {
+    flex: 0 1 225px;
+  }
+  &block7-item {
+    @include flex-column;
+    position: relative;
+    flex: 0 1 10px;
+  }
+  &box1 {
+    background-color: $color_type_4;
+  }
+  &box1.layout {
+    position: relative;
+    height: 6px;
+    margin: 5px 0px;
+  }
+
+  // &block12 {
+  //   @include flex-column;
+  //   background-color: $color_type_9;
+  //   border: 1px solid rgb(174, 164, 164);
+  // }
+  // &block12.layout {
+  //   position: relative;
+  //   height: min-content;
+  //   margin: 36px 19px 33px;
+  //   @include lg {
+  //     margin: 31px 17px 29px;
+  //   }
+  //   @include md {
+  //     margin: 26px 14px 24px;
+  //   }
+  //   @include sm {
+  //     margin: 22px 12px 20px;
+  //   }
+  //   @include xs {
+  //     margin: 20px 11px 18px;
+  //   }
+  //   @include xxs {
+  //     margin: 17px 10px 16px;
+  //   }
+  //   @include tn {
+  //     margin: 16px 9px 15px;
+  //   }
+  // }
+  // &block13 {
+  //   display: flex;
+  //   background-color: $color_type_6;
+  //   @include xl {
+  //     flex-wrap: wrap;
+  //     row-gap: 16px;
+  //   }
+  // }
+  // &block13.layout {
+  //   position: relative;
+  //   height: min-content;
+  //   margin: 2px 2px 0px;
+  //   @include lg {
+  //     margin: 5px 5px 0px;
+  //   }
+  // }
+  // &block13-item {
+  //   @include flex-column;
+  //   position: relative;
+  //   flex: 31 1 492px;
+  //   @include xl {
+  //     flex: 0 0 33.33333333333333%;
+  //   }
+  // }
+  // &block14 {
+  //   @include flex-column;
+  // }
+  // &block14.layout {
+  //   position: relative;
+  //   height: min-content;
+  // }
+  // &block15 {
+  //   @include flex-column;
+  //   background-color: $color_type_1;
+  // }
+  // &block15.layout {
+  //   position: relative;
+  //   height: min-content;
+  // }
+  // &text-body3 {
+  //   @include font-face($font_type22, $color_type_9, 0px);
+  //   @include md {
+  //     font-size: 13px;
+  //     text-align: left;
+  //   }
+  //   @include xs {
+  //     font-size: 12px;
+  //   }
+  // }
+  // &text-body3.layout {
+  //   position: relative;
+  //   height: min-content;
+  //   margin: 17px 25px 16px;
+  //   @include lg {
+  //     margin: 15px 22px 14px;
+  //   }
+  //   @include md {
+  //     margin: 13px 19px 12px;
+  //   }
+  //   @include sm {
+  //     margin: 11px 16px 10px;
+  //   }
+  //   @include xs {
+  //     margin: 10px 14px 9px;
+  //   }
+  //   @include xxs {
+  //     margin: 9px 13px 8px;
+  //   }
+  //   @include tn {
+  //     margin: 8px 12px;
+  //   }
+  // }
+  // &block16 {
+  //   @include flex-column;
+  //   background-color: $color_type_8;
+  // }
+  // &block16.layout {
+  //   position: relative;
+  //   height: 49px;
+  //   margin: 2px 0px 0px;
+  //   @include lg {
+  //     margin: 5px 0px 0px;
+  //   }
+  // }
+  // &text-body4 {
+  //   @include font-face($font_type5, $color_type_3, 0px);
+  //   @include md {
+  //     font-size: 12px;
+  //     text-align: left;
+  //   }
+  // }
+  // &text-body4.layout {
+  //   position: relative;
+  //   height: min-content;
+  //   margin: 17px 25px 16px;
+  //   @include lg {
+  //     margin: 15px 22px 14px;
+  //   }
+  //   @include md {
+  //     margin: 13px 19px 12px;
+  //   }
+  //   @include sm {
+  //     margin: 11px 16px 10px;
+  //   }
+  //   @include xs {
+  //     margin: 10px 14px 9px;
+  //   }
+  //   @include xxs {
+  //     margin: 9px 13px 8px;
+  //   }
+  //   @include tn {
+  //     margin: 8px 12px;
+  //   }
+  // }
+  // &block13-item1 {
+  //   @include flex-column;
+  //   position: relative;
+  //   flex: 38 1 611px;
+  //   @include xl {
+  //     flex: 0 0 33.33333333333333%;
+  //   }
+  // }
+  // &block17 {
+  //   @include flex-column;
+  // }
+  // &block17.layout {
+  //   position: relative;
+  //   height: min-content;
+  // }
+  // &block18 {
+  //   @include flex-column;
+  //   background-color: $color_type_1;
+  // }
+  // &block18.layout {
+  //   position: relative;
+  //   height: min-content;
+  // }
+  // &text-body31 {
+  //   @include h-center-content;
+  //   font: $font_type22;
+  //   color: $color_type_9;
+  //   text-align: center;
+  //   letter-spacing: 0px;
+  //   @include md {
+  //     font-size: 13px;
+  //     text-align: center;
+  //   }
+  //   @include xs {
+  //     font-size: 12px;
+  //   }
+  // }
+  // &text-body31.layout {
+  //   position: relative;
+  //   height: min-content;
+  //   margin: 17px 0px 16px;
+  //   @include lg {
+  //     margin: 15px 0px 14px;
+  //   }
+  //   @include md {
+  //     margin: 13px 0px 12px;
+  //   }
+  //   @include sm {
+  //     margin: 11px 0px 10px;
+  //   }
+  //   @include xs {
+  //     margin: 10px 0px 9px;
+  //   }
+  //   @include xxs {
+  //     margin: 9px 0px 8px;
+  //   }
+  //   @include tn {
+  //     margin: 8px 0px;
+  //   }
+  // }
+  // &block19 {
+  //   @include flex-column;
+  //   background-color: $color_type_8;
+  // }
+  // &block19.layout {
+  //   position: relative;
+  //   height: 49px;
+  //   margin: 2px 0px 0px;
+  //   @include lg {
+  //     margin: 5px 0px 0px;
+  //   }
+  // }
+  // &text-body41 {
+  //   @include h-center-content;
+  //   font: $font_type5;
+  //   color: $color_type_3;
+  //   text-align: center;
+  //   letter-spacing: 0px;
+  //   @include md {
+  //     font-size: 12px;
+  //     text-align: center;
+  //   }
+  // }
+  // &text-body41.layout {
+  //   position: relative;
+  //   height: min-content;
+  //   margin: 17px 0px 16px;
+  //   @include lg {
+  //     margin: 15px 0px 14px;
+  //   }
+  //   @include md {
+  //     margin: 13px 0px 12px;
+  //   }
+  //   @include sm {
+  //     margin: 11px 0px 10px;
+  //   }
+  //   @include xs {
+  //     margin: 10px 0px 9px;
+  //   }
+  //   @include xxs {
+  //     margin: 9px 0px 8px;
+  //   }
+  //   @include tn {
+  //     margin: 8px 0px;
+  //   }
+  // }
+  // &block20 {
+  //   @include flex-column;
+  // }
+  // &block20.layout {
+  //   position: relative;
+  //   height: min-content;
+  // }
+  // &text-body32 {
+  //   display: flex;
+  //   justify-content: flex-end;
+  //   font: $font_type22;
+  //   color: $color_type_9;
+  //   text-align: right;
+  //   letter-spacing: 0px;
+  //   @include md {
+  //     font-size: 13px;
+  //     text-align: right;
+  //   }
+  //   @include xs {
+  //     font-size: 12px;
+  //   }
+  // }
+  // &text-body32.layout {
+  //   position: relative;
+  //   height: min-content;
+  //   margin: 17px 25px 16px;
+  //   @include lg {
+  //     margin: 15px 22px 14px;
+  //   }
+  //   @include md {
+  //     margin: 13px 19px 12px;
+  //   }
+  //   @include sm {
+  //     margin: 11px 16px 10px;
+  //   }
+  //   @include xs {
+  //     margin: 10px 14px 9px;
+  //   }
+  //   @include xxs {
+  //     margin: 9px 13px 8px;
+  //   }
+  //   @include tn {
+  //     margin: 8px 12px;
+  //   }
+  // }
+  // &block20-item {
+  //   @include flex-column;
+  //   position: relative;
+  //   flex: 0 0 auto;
+  //   min-height: 51px;
+  // }
+  // &block21 {
+  //   display: flex;
+  //   justify-content: flex-end;
+  //   background-color: $color_type_8;
+  // }
+  // &block21.layout {
+  //   position: relative;
+  //   height: 49px;
+  //   margin: 2px 0px 0px;
+  // }
+  // &box3 {
+  //   background-color: $color_type_1;
+  // }
+  // &box3.layout {
+  //   position: relative;
+  //   height: 17px;
+  //   width: 20px;
+  //   min-width: 20px;
+  //   margin: 16px 0px;
+  // }
+  // &block21-spacer {
+  //   flex: 0 1 10px;
+  // }
+  // &block21-item {
+  //   @include flex-column;
+  //   position: relative;
+  //   flex: 0 1 45px;
+  // }
+  // &box3.layout1 {
+  //   position: relative;
+  //   height: 17px;
+  //   width: 20px;
+  //   min-width: 20px;
+  //   margin: 16px 25px 16px 0px;
+  // }
+  // &block22 {
+  //   @include flex-column;
+  // }
+  // &block22.layout {
+  //   position: relative;
+  //   height: min-content;
+  //   width: 94.44%;
+  //   margin: 38px auto 48px;
+  //   @include lg {
+  //     margin: 33px auto 41px;
+  //   }
+  //   @include md {
+  //     margin: 27px auto 33px;
+  //   }
+  //   @include sm {
+  //     margin: 23px auto 27px;
+  //   }
+  //   @include xs {
+  //     margin: 20px auto 24px;
+  //   }
+  //   @include xxs {
+  //     margin: 18px auto 20px;
+  //   }
+  //   @include tn {
+  //     margin: 16px auto 18px;
+  //   }
+  // }
+  // &text-body42-box {
+  //   @include md {
+  //     align-items: flex-start;
+  //     justify-content: flex-start;
+  //   }
+  // }
+  // &text-body42-box.layout {
+  //   position: relative;
+  //   height: min-content;
+  // }
+  // &text-body42 {
+  //   overflow: visible;
+  //   margin-top: 0px;
+  //   margin-bottom: 0px;
+  //   margin: 0px;
+  //   @include font-face($font_type5, $color_type_3, 0px);
+  //   white-space: pre-wrap;
+  //   @include md {
+  //     font-size: 12px;
+  //     text-align: left;
+  //   }
+  // }
+  // &line {
+  //   background-color: $color_type_5;
+  // }
+  // &line.layout {
+  //   position: relative;
+  //   height: 1px;
+  //   margin: 8px 0px 0px;
+  //   @include lg {
+  //     margin: 7px 0px 0px;
+  //   }
+  //   @include md {
+  //     margin: 6px 0px 0px;
+  //   }
+  //   @include sm {
+  //     margin: 5px 0px 0px;
+  //   }
+  // }
+
+  // &text-body43-box {
+  //   @include md {
+  //     align-items: flex-start;
+  //     justify-content: flex-start;
+  //   }
+  // }
+  // &text-body43-box.layout {
+  //   position: relative;
+  //   height: min-content;
+  //   margin: 15px 0px 0px;
+  //   @include lg {
+  //     margin: 13px 0px 0px;
+  //   }
+  //   @include md {
+  //     margin: 11px 0px 0px;
+  //   }
+  //   @include sm {
+  //     margin: 9px 0px 0px;
+  //   }
+  //   @include xxs {
+  //     margin: 8px 0px 0px;
+  //   }
+  //   @include tn {
+  //     margin: 7px 0px 0px;
+  //   }
+  // }
+  // &text-body43 {
+  //   overflow: visible;
+  //   margin-top: 0px;
+  //   margin-bottom: 0px;
+  //   margin: 0px;
+  //   @include font-face($font_type5, $color_type_3, 0px);
+  //   white-space: pre-wrap;
+  //   @include md {
+  //     font-size: 12px;
+  //     text-align: left;
+  //   }
+  // }
+}

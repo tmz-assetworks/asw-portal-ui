@@ -1,18 +1,26 @@
 <div style="display: flex; flex-direction: column;">
+
   <div class="karkar karkar-block layout">
+
     <div class="karkar-block1 layout">
+      <div class="karkar-flex2-spacer"></div>
       <!-- nav bar -->
       <app-navigation></app-navigation>
 
       <div class="karkar-block6 layout">
         <app-header></app-header>
 
-        <div class="karkar-block10 layout">
-          <div class="karkar-block11 layout">
-            <router-outlet></router-outlet>
 
-            <app-footer></app-footer>
+        <!-- <div class="karkar-block10 layout"> -->
+
+          <div class="karkar-block11 layout">
+
+            <router-outlet></router-outlet>
+            <div class="karkar-footer">
+
           </div>
+          <app-footer></app-footer>
+          <!-- </div> -->
         </div>
       </div>
     </div>

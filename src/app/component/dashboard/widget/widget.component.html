@@ -7,8 +7,8 @@
       <div class="widgets-block30-spacer"></div>
       <div class="widgets-block30-item1">
         <div class="widgets-block31 layout">
-          <h1 class="widgets-hero-title layout">{{ data.Count }}</h1>
-          <h5 class="widgets-highlights layout3">{{ data.Type }}</h5>
+          <h1 class="widgets-hero-title layout">{{ data?.count }}</h1>
+          <h5 class="widgets-highlights layout3">{{ data?.type }}</h5>
         </div>
       </div>
     </div>
@@ -53,7 +53,7 @@
     <!-- <div class="widgets-block20-item">
         <div class="widgets-block21 layout1">
           <div class="widgets-text-body1 layout">
-            {{ data.StatusData[0].Key }}
+            {{ data?.statusData[0]?.Key }}
           </div>
           <div class="widgets-text-body1 layout7">
             {{ data.StatusData[1].Key }}
@@ -68,7 +68,7 @@
         <div class="widgets-block22 layout1">
           <div
             class="widgets-box7 layout"
-            [ngStyle]="{ 'background-color': data.StatusData[0].Color }"
+            [ngStyle]="{ 'background-color': data?.statusData[0]?.Color }"
           ></div>
           <div
             class="widgets-box8 layout1"
@@ -84,7 +84,7 @@
       <div class="widgets-block20-item8">
         <div class="widgets-block23 layout1">
           <div class="widgets-text-body110 layout">
-            {{ data.StatusData[0].value }}
+            {{ data?.statusData[0]?.value }}
           </div>
           <div class="widgets-text-body111 layout">
             {{ data.StatusData[1].value }}
@@ -102,60 +102,66 @@
         <div class="widget-block1-item">
           <div class="widget-block2 layout">
             <div class="widget-text-body layout">
-              {{ data.StatusData[0].Key }}
+              {{ (data?.statusData || [])[0]?.key }}
             </div>
             <div class="widget-block2-spacer"></div>
             <div class="widget-block2-item">
               <div
                 class="widget-box layout"
-                [ngStyle]="{ 'background-color': data.StatusData[0].Color }"
+                [ngStyle]="{
+                  'background-color': (data?.statusData || [])[0]?.color
+                }"
               ></div>
             </div>
           </div>
         </div>
         <div class="widget-block1-spacer"></div>
         <div class="widget-text-body1 layout">
-          {{ data.StatusData[0].value }}
+          {{ (data?.statusData || [])[0]?.value }}
         </div>
       </div>
       <div class="widget-block1 layout">
         <div class="widget-block1-item">
           <div class="widget-block2 layout">
             <div class="widget-text-body layout">
-              {{ data.StatusData[1].Key }}
+              {{ (data?.statusData || [])[1]?.key }}
             </div>
             <div class="widget-block2-spacer"></div>
             <div class="widget-block2-item">
               <div
                 class="widget-box layout"
-                [ngStyle]="{ 'background-color': data.StatusData[1].Color }"
+                [ngStyle]="{
+                  'background-color': (data?.statusData || [])[1]?.color
+                }"
               ></div>
             </div>
           </div>
         </div>
         <div class="widget-block1-spacer"></div>
         <div class="widget-text-body1 layout">
-          {{ data.StatusData[1].value }}
+          {{ (data?.statusData || [])[1]?.value }}
         </div>
       </div>
       <div class="widget-block1 layout">
         <div class="widget-block1-item">
           <div class="widget-block2 layout">
             <div class="widget-text-body layout">
-              {{ data.StatusData[2].Key }}
+              {{ (data?.statusData || [])[2]?.key }}
             </div>
             <div class="widget-block2-spacer"></div>
             <div class="widget-block2-item">
               <div
                 class="widget-box layout"
-                [ngStyle]="{ 'background-color': data.StatusData[2].Color }"
+                [ngStyle]="{
+                  'background-color': (data?.statusData || [])[2]?.color
+                }"
               ></div>
             </div>
           </div>
         </div>
         <div class="widget-block1-spacer"></div>
         <div class="widget-text-body1 layout">
-          {{ data.StatusData[0].value }}
+          {{ (data?.statusData || [])[2]?.value }}
         </div>
       </div>
       <!-- <div class="widget-block3 layout">

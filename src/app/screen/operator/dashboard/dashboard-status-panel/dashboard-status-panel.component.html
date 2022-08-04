@@ -1,0 +1,213 @@
+<div class="statuspanel-block43 layout">
+    <div class="statuspanel-block46 layout">
+        <div class="statuspanel-block47 layout">
+          <div class="statuspanel-block45 layout1">
+            <div class="statuspanel-block45-item">
+              <div class="statuspanel-group layout2">
+                <h4 class="statuspanel-highlights2 layout">Charging Infrastructure</h4>
+              </div>
+            </div>
+            <div class="statuspanel-block45-spacer1"></div>
+            <div class="statuspanel-block45-item2">
+              <img src="../../../../../assets/locationcharger-icon/charging-infa.svg" class="statuspanel-box16 layout" alt="" />
+            </div>
+          </div>
+      
+          <!-- add the content here -->
+
+          <div class="box-element-block2 layout">
+            <div class="box-element-block5 layout">
+              <img src="../../../../../assets/status-panel-icon/sites.png" class="box-element-box2 layout" />
+              <div class="box-element-block6 layout">
+                <h3 class="box-element-subtitle layout">{{infraValue }}</h3>
+                <div class="box-element-text-body layout">{{ infrakey }}</div>
+              </div>
+            </div>
+            <div class="box-element-block2-spacer dotted_line">
+              <hr />
+            </div>
+            <div class="box-element-block5 layout1">
+              <img src="../../../../../assets/status-panel-icon/chargers.png" class="box-element-box2 layout" />
+              <div class="box-element-block6 layout">
+                <h3 class="box-element-subtitle layout">{{ chargervalue }}</h3>
+                <div class="box-element-text-body layout">{{ chargerkey }}</div>
+              </div>
+            </div>
+          </div>
+      
+       
+        </div>
+      </div>
+
+      <!-- chargibng infra end here -->
+
+
+      <div class="statuspanel-block46 layout">
+        <div class="statuspanel-block47 layout">
+          <div class="statuspanel-block45 layout1">
+            <div class="statuspanel-block45-item">
+              <div class="statuspanel-group layout2">
+                <h4 class="statuspanel-highlights2 layout">Revenue From Public Charging</h4>
+              </div>
+            </div>
+            <div class="statuspanel-block45-spacer1"></div>
+            <div class="statuspanel-block45-item2">
+              <img src="../../../../../assets/status-panel-icon/revenue.png" class="statuspanel-box16 layout" alt="" />
+            </div>
+          </div>
+      
+          <div echarts [options]="chartOption" class="echart-item"></div>
+        </div>
+      </div>
+
+
+      <!-- revenue end here -->
+
+      <!-- energy used start here  -->
+
+      <div class="statuspanel-block46 layout">
+        <div class="statuspanel-block47 layout">
+          <div class="statuspanel-block45 layout1">
+            <div class="statuspanel-block45-item">
+              <div class="statuspanel-group layout2">
+                <h4 class="statuspanel-highlights2 layout">Energy Used</h4>
+              </div>
+            </div>
+            <div class="statuspanel-block45-spacer1"></div>
+            <div class="statuspanel-block45-item2">
+              <img
+                class="statuspanel-box16 layout"
+                src="../../../../assets/status-panel-icon/energy_used.png"
+                alt=""
+              />
+            </div>
+          </div>
+      
+      <!-- app list start -->
+      <div class="list-element-block2 layout">
+        <div class="list-element-block6 layout zero_br">
+          <div class="list-element-block3 layout">
+            <div class="list-element-block3-item">
+              <div class="list-element-block4 layout">
+                <img src="../../../../../assets/status-panel-icon/total-energy.png" class="list-element-box3 layout" alt="" />
+              </div>
+            </div>
+            <div class="list-element-block3-spacer"></div>
+            <div class="list-element-block3-item1">
+              <div class="list-element-block5 layout">
+                <h3 class="list-element-subtitle layout">
+                  {{energyUsedvalue0}}
+                </h3>
+                <div class="list-element-text-body layout">
+              {{energyUsedkey0}}
+                </div>
+              </div>
+            </div>
+          </div>
+    
+        </div>
+      </div>
+
+
+      <div class="list-element-block2 layout">
+        <div class="list-element-block6 layout zero_br">
+          <div class="list-element-block3 layout">
+            <div class="list-element-block3-item">
+              <div class="list-element-block4 layout">
+                <img src="../../../../../assets/status-panel-icon/daily_average.png" class="list-element-box3 layout" alt="" />
+              </div>
+            </div>
+            <div class="list-element-block3-spacer"></div>
+            <div class="list-element-block3-item1">
+              <div class="list-element-block5 layout">
+                <h3 class="list-element-subtitle layout">
+               {{energyUsedvalue1}}
+                </h3>
+                <div class="list-element-text-body layout">
+                    {{energyUsedkey1}}
+                </div>
+              </div>
+            </div>
+          </div>
+    
+        </div>
+      </div>
+
+
+      <div class="list-element-block2 layout">
+        <div class="list-element-block6 layout ">
+          <div class="list-element-block3 layout">
+            <div class="list-element-block3-item">
+              <div class="list-element-block4 layout">
+                <img src="../../../../../assets/status-panel-icon/calender.png" class="list-element-box3 layout" alt="" />
+              </div>
+            </div>
+            <div class="list-element-block3-spacer"></div>
+            <div class="list-element-block3-item1">
+              <div class="list-element-block5 layout">
+                <h3 class="list-element-subtitle layout">
+               {{energyUsedvalue2}}
+                </h3>
+                <div class="list-element-text-body layout">
+                    {{energyUsedkey2}}
+                </div>
+              </div>
+            </div>
+          </div>
+    
+        </div>
+      </div>
+
+      <!-- app list end -->
+         
+        </div>
+      </div>
+      <!-- enegy used end -->
+
+      
+
+
+  <!-- status box points start -->
+  <div class="statuspanel-block46 layout">
+    <div class="statuspanel-block47 layout">
+      <div class="statuspanel-block45 layout1">
+        <div class="statuspanel-block45-item">
+          <div class="statuspanel-group layout2">
+            <h4 class="statuspanel-highlights2 layout">Energy Points</h4>
+          </div>
+        </div>
+        <div class="statuspanel-block45-spacer1"></div>
+        <div class="statuspanel-block45-item2">
+          <img src="../../../../../assets/status-panel-icon/energy_points.png" class="statuspanel-box16 layout" alt="" />
+        </div>
+      </div>
+  
+      <!-- add the content here -->
+  
+      <div class="box-element-block2 layout">
+        <div class="box-element-block5 layout">
+          <img src="../../../../../assets/status-panel-icon/sites.png" class="box-element-box2 layout" />
+          <div class="box-element-block6 layout">
+            <h3 class="box-element-subtitle layout">{{ energyPointsvalue0 }}</h3>
+            <div class="box-element-text-body layout">{{ energyPointskey0 }}</div>
+          </div>
+        </div>
+        <div class="box-element-block2-spacer dotted_line">
+          <hr />
+        </div>
+        <div class="box-element-block5 layout1">
+          <img src="../../../../../assets/status-panel-icon/gallon.png" class="box-element-box2 layout" />
+          <div class="box-element-block6 layout">
+            <h3 class="box-element-subtitle layout">{{ energyPointsvalue1 }}</h3>
+            <div class="box-element-text-body layout">{{ energyPointskey1 }}</div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+  
+<!-- status box points end -->
+  </div>

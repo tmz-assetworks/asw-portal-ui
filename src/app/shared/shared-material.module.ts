@@ -15,7 +15,11 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { MatMenuModule } from '@angular/material/menu'
-
+import { MatListModule } from '@angular/material/list'
+import { MatButtonToggleModule } from '@angular/material/button-toggle'
+import { MatGridListModule } from '@angular/material/grid-list'
+import { MatTooltipModule } from '@angular/material/tooltip'
+import { MatExpansionModule } from '@angular/material/expansion'
 const MATERIAL_MODULES = [
   MatSelectModule,
   MatTableModule,
@@ -33,6 +37,11 @@ const MATERIAL_MODULES = [
   MatSlideToggleModule,
   MatFormFieldModule,
   MatMenuModule,
+  MatListModule,
+  MatButtonToggleModule,
+  MatGridListModule,
+  MatTooltipModule,
+  MatExpansionModule,
 ]
 
 @NgModule({

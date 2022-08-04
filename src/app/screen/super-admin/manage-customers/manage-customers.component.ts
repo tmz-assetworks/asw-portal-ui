@@ -1,8 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { SuperAdminService } from '../super-admin.service';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit, ViewChild } from '@angular/core'
+import { MatPaginator } from '@angular/material/paginator'
+import { MatTableDataSource } from '@angular/material/table'
+import { SuperAdminService } from '../super-admin.service'
+import { HttpClient } from '@angular/common/http'
 
 @Component({
   selector: 'app-manage-customers',
@@ -10,10 +10,9 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./manage-customers.component.scss'],
 })
 export class ManageCustomersComponent implements OnInit {
-
-  customerList= [];
-  showCustomersList: boolean=true
-  showAddCustomer: boolean=false
+  customerList = []
+  showCustomersList: boolean = true
+  showAddCustomer: boolean = false
 
   displayedColumns: string[] = [
     'OrganisationName',
@@ -28,15 +27,13 @@ export class ManageCustomersComponent implements OnInit {
     'action',
   ]
 
-  
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  dataSource = new MatTableDataSource<Element>(this.customerList);
+  @ViewChild(MatPaginator) paginator!: MatPaginator
+  dataSource = new MatTableDataSource<Element>(this.customerList)
 
-  constructor(public _superAdminService: SuperAdminService){
-  }
+  constructor(public _superAdminService: SuperAdminService) {}
 
-  ngOnInit(){
-    this.getCustomerList();
+  ngOnInit() {
+    this.getCustomerList()
   }
 
   ngAfterViewInit() {
@@ -61,8 +58,6 @@ export class ManageCustomersComponent implements OnInit {
   getCustomerList(): void {
     this._superAdminService.getCustomertList().subscribe((data: any) => {
       this.customerList = data.Data
-
-      console.log(this.customerList)
 
       this.dataSource.data = this.customerList
     })

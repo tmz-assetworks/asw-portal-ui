@@ -1,0 +1,169 @@
+@import "../../../../styles";
+
+$color_type_2: rgb(142, 21, 55);
+$color_type_3: rgb(19, 27, 33);
+$color_type_4: rgb(217, 217, 217);
+$color_type_5: rgb(229, 229, 229);
+$color_type_9: rgb(255, 255, 255);
+.widget- {
+  &block8-item {
+    @include flex-column;
+    position: relative;
+    @include md {
+      flex: 0 0 16.666666666666664%;
+    }
+  }
+  &block9 {
+    @include flex-column;
+    background-color: $color_type_9;
+    border-right: 1px solid #aea4a4;
+    border-bottom: 1px solid #aea4a4;
+    border-top: 1px solid #aea4a4;
+    min-height: 200px;
+    @include sm {
+      min-height: 1px;
+    }
+    @include xs {
+      min-height: 1px;
+    }
+
+
+  }
+  
+  
+  &block9.layout {
+    position: relative;
+    height: min-content;
+    &.btn-active{
+      background-color: #0062A6;
+      .text{
+        color:#fff;
+      }
+      }
+  }
+  &block10 {
+    @include flex-column;
+  }
+  &block10.layout {
+    position: relative;
+    height: min-content;
+    margin: 30px 17px 39px;
+    @include lg {
+      margin: 26px 15px 34px;
+    }
+    @include md {
+      margin: 22px 13px 28px;
+    }
+    @include sm {
+      margin: 19px 11px 23px;
+    }
+    @include xs {
+      margin: 17px 10px 21px;
+    }
+    @include xxs {
+      margin: 15px 9px 18px;
+    }
+    @include tn {
+      margin: 14px 8px 17px;
+    }
+  }
+  &block11 {
+    @include flex-column;
+    background-color: $color_type_2;
+    border-radius: 8px 8px 8px 8px;
+    
+  }
+  &block11.layout {
+    position: relative;
+    height: min-content;
+    width: 59px;
+    min-width: 59px;
+    margin: 0px auto;
+  }
+  &box2 {
+    //background-color: $color_type_4;
+  }
+  &box2.layout {
+    position: relative;
+    height: 33px;
+    margin: 13px;
+    @include lg {
+      margin: 11px;
+    }
+    @include md {
+      margin: 10px;
+    }
+    @include sm {
+      margin: 8px;
+    }
+    @include xs {
+      margin: 7px;
+    }
+    @include tn {
+      margin: 6px;
+    }
+  }
+  &text-body2 {
+    @include h-center-content;
+    font: $font_type24;
+    color: $color_type_3;
+    text-align: center;
+    letter-spacing: 0px;
+    @include md {
+      font-size: 13px;
+      text-align: center;
+    }
+    @include xs {
+      font-size: 12px;
+    }
+  }
+  &text-body2.layout {
+    position: relative;
+    height: min-content;
+    margin: 34px 19.5px 1px;
+    text-transform: uppercase;
+    @include lg {
+      margin: 30px 17px 5px;
+    }
+    @include md {
+      margin: 25px 14px 5px;
+    }
+    @include sm {
+      margin: 21px 12px 5px;
+    }
+    @include xs {
+      margin: 19px 11px 5px;
+    }
+    @include xxs {
+      margin: 17px 10px 5px;
+    }
+    @include tn {
+      margin: 15px 9px 5px;
+    }
+  }
+}
+
+:host ::ng-deep .img {
+  position: relative;
+  height: 33px;
+  margin: 13px;
+  @include lg {
+    margin: 11px;
+  }
+  @include md {
+    margin: 10px;
+  }
+  @include sm {
+    margin: 8px;
+  }
+  @include xs {
+    margin: 7px;
+  }
+  @include tn {
+    margin: 6px;
+  }
+}
+.scrennlayout{
+  flex-wrap: wrap;
+}
+

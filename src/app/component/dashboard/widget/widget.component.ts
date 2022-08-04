@@ -9,12 +9,8 @@ export class WidgetComponent implements OnInit {
   constructor() {}
 
   @Input() widgetIcon: string | undefined
+  // @Input() data: any
   @Input() data: any
 
-  color: any
-
-  ngOnInit(): void {
-    console.log(this.data, 'getting data')
-    this.color = this.data.StatusData[0].Color
-  }
+  ngOnInit(): void {}
 }

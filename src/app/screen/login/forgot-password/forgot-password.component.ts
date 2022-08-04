@@ -31,11 +31,14 @@ export class ForgotPasswordComponent implements OnInit {
    this.toastr.error('Incorrect email');
  } else {
     this.showLoader = true;
+    
      this._loginService.verifyUser(this.forgotPasswordForm.value.email).subscribe({
+      
       next: (response: any) => {
         let email = response.data.userPrincipalName;
         localStorage.setItem('userEmail',email);
         this.showLoader = false;
+        this.toastr.success('OTP Send To Emailid');
         this._router.navigate(['/verifyOTP']);
       },
       error: (err) => {

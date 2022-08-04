@@ -1,15 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core'
 
 @Component({
   selector: 'app-vehicles',
   templateUrl: './vehicles.component.html',
-  styleUrls: ['./vehicles.component.scss']
+  styleUrls: ['./vehicles.component.scss'],
 })
 export class VehiclesComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  constructor() {}
+  ngOnInit(): void {}
 }

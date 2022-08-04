@@ -1,4 +1,5 @@
-@import "../../../../styles";
+@import '../../../../styles';
+
 .dashboard- {
   &block12 {
     @include flex-column;
@@ -146,6 +147,12 @@
     }
     @include md {
       flex: 0 0 100%;
+    }
+    @include xs {
+      flex: 0 0 81%;
+    }
+    @include sm {
+      flex: 0 0 70%;
     }
   }
   &block16 {
@@ -1208,7 +1215,7 @@
     transition-property: transform;
   }
   &block35:hover {
-    transform: scale(1.05);
+    // transform: scale(1.05);
   }
   &block35.layout {
     position: relative;
@@ -1256,7 +1263,7 @@
   }
   &block36.layout {
     position: relative;
-    height: 50px;
+    // height: 50px;
     @include xl {
     }
   }
@@ -1299,7 +1306,7 @@
   }
   &block37.layout {
     position: relative;
-    height: 50px;
+    // height: 50px;
   }
   &text-body3.layout1 {
     position: relative;
@@ -1333,7 +1340,7 @@
   }
   &block38.layout {
     position: relative;
-    height: 50px;
+    // height: 50px;
   }
   &text-body3.layout2 {
     position: relative;
@@ -1392,6 +1399,8 @@
     position: relative;
     height: min-content;
     margin: 21px 0px 0px;
+    justify-content: space-between;
+    justify-items: space-between;
     @include lg {
       margin: 18px 0px 0px;
     }
@@ -1415,10 +1424,13 @@
     @include flex-column;
     position: relative;
     flex: 1 1 auto;
-    min-width: 45%;
+    min-width: 49%;
+    max-width: 49%;
+
     @include xl {
       flex: 1 1 auto;
-      min-width: 45%;
+      min-width: auto;
+      max-width: auto;
     }
 
     @include lg {
@@ -1432,6 +1444,9 @@
     flex: 0 1 25px;
     @include lg {
       // display: none;
+    }
+    @include xl {
+      display: none;
     }
   }
 
@@ -1472,6 +1487,10 @@
     }
     @include xl {
       margin: 20px auto 0px;
+    }
+    @include xs {
+      width: 81.29%;
+      margin: 28px 0;
     }
   }
   &block48-item {
@@ -1585,4 +1604,21 @@
 }
 .mat-select-trigger {
   width: 118% !important;
+}
+
+/* CSS PANEL */
+.mat-button-toggle-checked.mat-button-toggle-appearance-standard {
+  color: #fff !important;
+}
+
+.space-between {
+  margin-right: 5px;
+}
+.mat-button-toggle-appearance-standard:hover {
+  border: 1px solid #0062a6;
+  //background-color: #fff;
+}
+.dashboard-block35:hover {
+  border: 1px solid #0062a6;
+  border-left: 1px solid #0062a6;
 }

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core'
+import { DashboardService } from 'src/app/screen/operator/dashboard/dashboard.service'
 
 @Component({
   selector: 'app-status-box',
@@ -6,10 +7,16 @@ import { Component, Input, OnInit } from '@angular/core'
   styleUrls: ['./status-box.component.scss'],
 })
 export class StatusBoxComponent implements OnInit {
-  constructor() {}
+  constructor(private _dashboardService:DashboardService) {}
 
   @Input() title: any
   @Input() icon: any
+  // data=[]
+
+  ngOnInit(): void {
+   // this.getSummaryData();
+  }
+
 
   data = [
     {
@@ -18,11 +25,27 @@ export class StatusBoxComponent implements OnInit {
       Icon: '../../../../assets/status-panel-icon/sites.png',
     },
     {
-      Key: 'Total Charger',
+      Key: 'Total Chargers',
       Value: 150,
       Icon: '../../../../assets/status-panel-icon/chargers.png',
     },
   ]
 
-  ngOnInit(): void {}
+
+  /**
+   * Get Summary Data
+   */
+
+// getSummaryData(){
+
+//   this._dashboardService.GetSummaryData().subscribe(data=>{
+
+//     console.log(data[0].chargingInfustructure,"getting panakj")
+     
+
+
+//   })
+// }
+
+
 }

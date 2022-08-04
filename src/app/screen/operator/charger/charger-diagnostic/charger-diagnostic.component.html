@@ -1,0 +1,224 @@
+<div class="header header-block layout">
+  <div class="header-block1 layout">
+    <div class="header-flex layout">
+      <h3 class="header-subtitle-box layout">Charger Details</h3>
+
+      <!-- <div class="location-block12 layout"></div> -->
+      <div class="location-block2 layout">
+        <div class="location-block2-item">
+          <div class="location-block4 layout">
+            <div class="location-block4-item">
+              <div class="location-block5 layout">
+                <a [routerLink]="['../chargers-analytics']">
+                  <div class="location-text-body layout">ANALYTICS</div>
+                </a>
+              </div>
+            </div>
+            <div class="location-block4-item">
+              <div class="location-block5 layout">
+                <a [routerLink]="['../chargers-info']">
+                  <div class="location-text-body layout">
+                    CHARGER INFORMATION
+                  </div>
+                </a>
+              </div>
+            </div>
+            <div class="location-block4-item">
+              <div class="location-block5 layout">
+                <a [routerLink]="['../chargers-session']">
+                  <div class="location-text-body layout">
+                    CHARGE SESSIONS
+                  </div>
+                </a>
+              </div>
+            </div>
+            <div class="location-block4-item">
+              <div class="location-block6 layout">
+                <a [routerLink]="['../chargers-diagnostic']">
+                  <div class="location-text-body layout">DIAGNOSTIC</div>
+                </a>
+              </div>
+            </div>
+            <div class="location-block4-item">
+              <div class="location-block5 layout">
+                <a [routerLink]="['../chargers-event']">
+                  <div class="location-text-body layout">EVENT LOGS</div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="location-block2-spacer"></div>
+        <div class="location-block2-item1">
+          <div
+            class="location-block3 layout"
+            style="
+              display: flex;
+              flex-direction: column;
+              background-color: #ebebeb;
+              border-left: 1px solid white;
+            "
+          >
+            <div class="location-box3 layout">
+              <img
+                src="../../../../../assets/charger-diago.svg"
+                alt=""
+                srcset=""
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cust-list-flex1 layout">
+        <!-- <h3 class="cust-list-subtitle layout">Alerts</h3> -->
+        <div class="cust-list-flex3 layout">
+          <div class="cust-list-flex3-item">
+            <div class="cust-list-group layout">
+              <div class="cust-list-block19 layout">
+                <mat-form-field class="cust-list-block20 layout">
+                  <!-- <mat-label>Cars</mat-label> -->
+                  <select matNativeControl required>
+                    <option value="volvo">Charge Box ID</option>
+                    <option value="saab">Saab</option>
+                    <option value="mercedes">Mercedes</option>
+                    <option value="audi">Audi</option>
+                  </select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <div class="cust-list-flex3-spacer"></div>
+        </div>
+      </div>
+      <!-- <div class="location-block15 layout">
+        <div class="location-flex14 layout"> -->
+      <app-diag-widget-bar>
+        <app-diag-widget style="cursor: pointer;border-left: 1px solid #aea4a4;" class="wd_sub_1">
+          <img class="img" src="../../../../../assets/diagnostic/update.svg" />
+          <div class="text">UPDATE FIRMWARE</div>
+        </app-diag-widget>
+        <app-diag-widget style="cursor: pointer;" class="wd_sub_1">
+          <img
+            class="img"
+            src="../../../../../assets/diagnostic/diagnostic.svg"
+          />
+          <div class="text">DIAGNOSTICS</div>
+        </app-diag-widget>
+        <app-diag-widget style="cursor: pointer;" class="wd_sub_1">
+          <img
+            class="img"
+            src="../../../../../assets/diagnostic/remote-contro.svg"
+          />
+          <div class="text">REMOTE CONTROL</div>
+        </app-diag-widget>
+        <app-diag-widget style="cursor: pointer;" class="wd_sub_1">
+          <img
+            class="img"
+            src="../../../../../assets/diagnostic/smart-charger.svg"
+          />
+          <div class="text">SMART CHARGING</div>
+        </app-diag-widget>
+        <app-diag-widget style="cursor: pointer;" class="wd_sub_1"> 
+          <img class="img" src="../../../../../assets/diagnostic/firmware.svg" />
+          <div class="text">Firmware
+            Management</div>
+        </app-diag-widget>
+        <app-diag-widget style="cursor: pointer;">
+          <img
+            class="img"
+            style="cursor: pointer;"
+            src="../../../../../assets/diagnostic/display.svg"
+          />
+          <div class="text" style="cursor: pointer;">DISPLAY MESSAGE</div>
+        </app-diag-widget>
+      </app-diag-widget-bar>
+    </div>
+    <!-- <div class="cust-list-flex3-spacer"></div> -->
+    <div class="cust-list-group2 layout">
+      <table
+        mat-table
+        [dataSource]="dataSource"
+        multiTemplateDataRows
+        matSort
+        class="mat-elevation-z8"
+      >
+        <ng-container matColumnDef="OperatorType">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            OPERATION TYPE
+          </th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            {{ element.OperatorType }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="Datetime">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>DATE/ TIME</th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            {{ element.Datetime }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>ACTION</th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            <img
+              style="cursor: pointer;"
+              src="../../../../assets/icons/view-icon.png"
+              (click)="
+                expandedElement = expandedElement === element ? null : element
+              "
+              
+            />
+            &nbsp;
+          <img style="cursor: pointer;margin: 3px;" src="../../../../assets/icons/download.png" (click)="downloadAsPDF()">
+        </td>
+          
+        </ng-container>
+        <ng-container matColumnDef="expandedDetail">
+          <td
+            mat-cell
+            *matCellDef="let element"
+            [attr.colspan]="displayedColumns.length"
+          >
+            <div
+              class="example-element-detail"
+              [@detailExpand]="
+                element === expandedElement ? 'expanded' : 'collapsed'
+              "
+            >
+              <div class="example-element-description">
+                <div class="">
+                  <div class="">
+                    <pre> {{ element.RequestPayload | json }}</pre>
+                  </div>
+                </div>
+                <hr />
+                <div class="example-element-description">
+                  <pre> {{ element.ResponsePayload | json }}</pre>
+                </div>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr
+          mat-row
+          *matRowDef="let element; columns: displayedColumns"
+          class="example-element-row"
+          [class.example-expanded-row]="expandedElement === element"
+        ></tr>
+        <tr
+          mat-row
+          *matRowDef="let row; columns: ['expandedDetail']"
+          class="example-detail-row"
+        ></tr>
+      </table>
+
+      <mat-paginator
+        [length]="100"
+        [pageSizeOptions]="[10, 20, 100]"
+      ></mat-paginator>
+    </div>
+  </div>
+</div>

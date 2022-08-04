@@ -1,0 +1,165 @@
+<div class="header header-block layout">
+  <div class="header-block1 layout">
+    <div class="header-flex layout">
+      <h3 class="header-subtitle-box layout">Charger Details</h3>
+
+      <div class="dashboard-block12 layout"></div>
+
+      <!-- <div class="dashboard-block13 layout">
+        <div class="dashboard-block13-item"> -->
+      <div class="location-block2 layout">
+        <div class="location-block2-item">
+          <div class="location-block4 layout">
+            <div class="location-block4-item">
+              <div class="location-block6 layout">
+                <a [routerLink]="['../chargers-analytics']">
+                  <div class="location-text-body layout">ANALYTICS</div>
+                </a>
+              </div>
+            </div>
+            <div class="location-block4-item">
+              <div class="location-block5 layout">
+                <a [routerLink]="['../chargers-info']">
+                  <div class="location-text-body layout">
+                    CHARGER INFORMATION
+                  </div>
+                </a>
+              </div>
+            </div>
+            <div class="location-block4-item">
+              <div class="location-block5 layout">
+                <a [routerLink]="['../chargers-session']">
+                  <div class="location-text-body layout">
+                    CHARGE SESSIONS
+                  </div>
+                </a>
+              </div>
+            </div>
+            <div class="location-block4-item">
+              <div class="location-block5 layout">
+                <a [routerLink]="['../chargers-diagnostic']">
+                  <div class="location-text-body layout">DIAGNOSTIC</div>
+                </a>
+              </div>
+            </div>
+            <div class="location-block4-item">
+              <div class="location-block5 layout">
+                <a [routerLink]="['../chargers-event']">
+                  <div class="location-text-body layout">EVENT LOGS</div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="location-block2-spacer"></div>
+        <div class="location-block2-item1">
+          <div
+            class="location-block3 layout"
+            style="
+              display: flex;
+              flex-direction: column;
+              background-color: #ebebeb;
+              border-left: 1px solid white;
+            "
+          >
+            <div class="location-box3 layout">
+              <img
+                src="../../../../../assets/charger-ana.svg"
+                alt=""
+                srcset=""
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="dashboard-block14 layout">
+        <div class="dashboard-block15 layout"></div>
+        <div class="dashboard-block32 layout">
+          <div class="dashboard-block33 layout">
+            <div class="dashboard-block33-item"></div>
+            <div class="dashboard-block33-item1">
+              <div class="dashboard-block35 layout">
+                <div class="dashboard-text-body2 layout">
+                  Last 24 Hours
+                  <!-- <button mat-button>
+                    Last 24 Hours
+                  </button> -->
+                </div>
+              </div>
+            </div>
+            <div class="dashboard-block33-item2">
+              <div class="dashboard-block36 layout">
+                <div class="dashboard-text-body3 layout">
+                  One Week
+                  <!-- <button mat-button>
+                    One Week
+                  </button> -->
+                </div>
+              </div>
+            </div>
+            <div class="dashboard-block33-item3">
+              <div class="dashboard-block37 layout">
+                <div class="dashboard-text-body3 layout1">
+                  <!-- <button mat-button>
+                    Current Month
+                  </button> -->
+                  Current Month
+                </div>
+              </div>
+            </div>
+            <div class="dashboard-block33-item4">
+              <div class="dashboard-block38 layout">
+                <div class="dashboard-text-body3 layout2">
+                  <!-- <button mat-button>
+                    Last Three Months
+                  </button> -->
+                  Last 3 Months
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="dashboard-block42 layout">
+          <div class="dashboard-block42-item">
+            <app-bar-chart
+              [chartType]="bar"
+              [chartTitle]="barTitle"
+            ></app-bar-chart>
+            <!-- <app-graph-card></app-graph-card> -->
+            <!-- <a [routerLink]="['../location-status']">Location status</a> -->
+          </div>
+          <div class="dashboard-block42-spacer"></div>
+          <div class="dashboard-block42-item">
+            <app-area-chart
+              [chartType]="analyticsArea"
+              [chargingSessionData]="chargingSessionData"
+            ></app-area-chart>
+            <!-- <app-graph-card></app-graph-card> -->
+          </div>
+        </div>
+        <div class="dashboard-block42 layout">
+          <div class="dashboard-block42-item">
+            <app-line-chart
+              [chartType]="chargerAnalytics"
+              [chartTitle]="chargerAnalyticsTitle"
+            ></app-line-chart>
+          </div>
+          <div class="dashboard-block42-spacer"></div>
+          <div class="dashboard-block42-item">
+            <!-- <app-graph-card></app-graph-card> -->
+            <!--  <app-area-chart [chartType]="'alalyticsArea'"></app-area-chart> -->
+            <app-stacked-area-chart
+              [chartType]="'stackedArea'"
+              [chartTitle]="'Miles Added'"
+            ></app-stacked-area-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dashboard-block13-spacer"></div>
+  </div>
+</div>
+<!-- </div>
+</div> -->

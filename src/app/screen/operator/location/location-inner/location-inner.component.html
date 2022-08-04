@@ -32,50 +32,65 @@
       </div>
       <div class="dashboard-block32 layout">
         <div class="dashboard-block33 layout">
-          <div class="dashboard-block33-item">
-            <!-- <div class="dashboard-block34 layout">
+          <mat-button-toggle-group
+            [formControl]="filterToggle"
+            (change)="setTime($event)"
+          >
+            <div class="dashboard-block33-item">
+              <!-- <div class="dashboard-block34 layout">
 
 
             </div> -->
-          </div>
-          <div class="dashboard-block33-item1">
-            <div class="dashboard-block35 layout">
-              <div class="dashboard-text-body2 layout">Last 24 Hours</div>
             </div>
-          </div>
-          <div class="dashboard-block33-item2">
-            <div class="dashboard-block36 layout">
-              <div class="dashboard-text-body3 layout">One Week</div>
+            <div class="dashboard-block33-item1">
+              <div class="dashboard-block35 layout space-between">
+                <mat-button-toggle value="1" style="border: 1px solid #0062a6;">
+                  Last 24 Hours
+                </mat-button-toggle>
+                <!-- <div class="dashboard-text-body2 layout">Last 24 Hours</div> -->
+              </div>
             </div>
-          </div>
-          <div class="dashboard-block33-item3">
-            <div class="dashboard-block37 layout">
-              <div class="dashboard-text-body3 layout1">Current Month</div>
+            <div class="dashboard-block33-item2">
+              <div class="dashboard-block36 layout space-between">
+                <!-- <div class="dashboard-text-body3 layout">One Week</div> -->
+                <mat-button-toggle value="7">One Week</mat-button-toggle>
+              </div>
             </div>
-          </div>
-          <div class="dashboard-block33-item4">
-            <div class="dashboard-block38 layout">
-              <div class="dashboard-text-body3 layout2">Last 3 Months</div>
+            <div class="dashboard-block33-item3">
+              <div class="dashboard-block37 layout space-between">
+                <!-- <div class="dashboard-text-body3 layout1">Current Month</div> -->
+                <mat-button-toggle value="30">Current Month</mat-button-toggle>
+              </div>
             </div>
-          </div>
+            <div class="dashboard-block33-item4">
+              <div class="dashboard-block38 layout space-between">
+                <!-- <div class="dashboard-text-body3 layout2">Last 3 Months</div> -->
+                <mat-button-toggle value="90">Last 3 Months</mat-button-toggle>
+              </div>
+            </div>
+          </mat-button-toggle-group>
         </div>
       </div>
 
       <div class="dashboard-block42 layout">
         <div class="dashboard-block42-item">
-          <!-- <app-line-chart></app-line-chart> -->
           <app-bar-chart
+            *ngIf="locationStatusData !== ''"
             [chartType]="basicStatus"
             [chartTitle]="locationStatusTitle"
+            [locationStatusData]="locationStatusData"
+            (barDetailPage)="openDetailPage(4, 'Location Status', 'LOCATIONS')"
           ></app-bar-chart>
         </div>
-        <div class="dashboard-block42-spacer"></div>
+        <!-- <div class="dashboard-block42-spacer"></div> -->
         <div class="dashboard-block42-item">
-          <!-- <app-graph-card></app-graph-card> -->
           <app-bar-chart
-            [chartType]="basic"
+            *ngIf="locationPerformingData !== ''"
+            [chartType]="locationPerform"
             [chartTitle]="locationPerormTitle"
             [toggle]="true"
+            [locationPerformingData]="locationPerformingData"
+            (toggleValueChanges)="changeToggleValue($event)"
           ></app-bar-chart>
         </div>
       </div>
@@ -119,8 +134,12 @@
                   </div>
                 </div>
               </div>
-              <div class="cust-list-group2 layout">
-                <table mat-table [dataSource]="dataSource">
+              <div class="layout mat-data">
+                <table
+                  mat-table
+                  [dataSource]="dataSource"
+                  class="mat-elevation-z8"
+                >
                   <ng-container matColumnDef="locationName">
                     <th mat-header-cell *matHeaderCellDef>Location Name</th>
                     <td mat-cell *matCellDef="let element">
@@ -142,7 +161,7 @@
                       Contact Person Name
                     </th>
                     <td mat-cell *matCellDef="let element">
-                      {{ element.contactPersonName }}
+                      {{ element.contactName }}
                     </td>
                   </ng-container>
 
@@ -150,19 +169,19 @@
                   <ng-container matColumnDef="contactNumber">
                     <th mat-header-cell *matHeaderCellDef>Contact Number</th>
                     <td mat-cell *matCellDef="let element">
-                      {{ element.contactNumber }}
+                      {{ element.contactNo }}
                     </td>
                   </ng-container>
                   <ng-container matColumnDef="locationStatus">
                     <th mat-header-cell *matHeaderCellDef>Location Status</th>
                     <td mat-cell *matCellDef="let element">
-                      {{ element.locationStatus }}
+                      {{ element.status }}
                     </td>
                   </ng-container>
                   <ng-container matColumnDef="noOfPorts">
                     <th mat-header-cell *matHeaderCellDef>No of Ports</th>
                     <td mat-cell *matCellDef="let element">
-                      {{ element.noOfPorts }}
+                      {{ element.noofPort }}
                     </td>
                   </ng-container>
                   <ng-container matColumnDef="available">
@@ -180,7 +199,7 @@
                   <ng-container matColumnDef="faulty">
                     <th mat-header-cell *matHeaderCellDef>Faulty</th>
                     <td mat-cell *matCellDef="let element">
-                      {{ element.faulty }}
+                      {{ element.faulted }}
                     </td>
                   </ng-container>
 
@@ -190,7 +209,7 @@
                     <td
                       mat-cell
                       *matCellDef="let element"
-                      (click)="viewLocation()"
+                      (click)="viewLocation(element)"
                       style="cursor: pointer;"
                     >
                       <img src="../../../../assets/icons/view-icon.png" />
@@ -204,17 +223,15 @@
                   ></tr>
                 </table>
 
-                <!-- <mat-paginator
-                  [pageSizeOptions]="[5, 10, 20]"
-                  showFirstLastButtons
-                  aria-label="Select page of periodic elements"
-                ></mat-paginator> -->
-                <mat-paginator
-                  [length]="100"
-                  [pageSizeOptions]="[10, 20, 100]"
-                  aria-label="Rows per page"
-                ></mat-paginator>
+                <ng-container *ngIf="isTableHasData">
+                  <p class="text-center">No record found</p>
+                </ng-container>
               </div>
+              <mat-paginator
+                [length]="100"
+                [pageSizeOptions]="[10, 20, 100]"
+                aria-label="Rows per page"
+              ></mat-paginator>
             </div>
           </div>
         </div>
@@ -224,302 +241,6 @@
   <div class="dashboard-block13-spacer"></div>
   <div class="dashboard-block13-item1">
     <!-- <app-status-panel></app-status-panel> -->
-
-    <div class="statuspanel-block43 layout">
-      <div class="statuspanel-block46 layout">
-        <div class="statuspanel-block47 layout">
-          <!-- status box start -->
-          <div class="statuspanel-block45 layout1">
-            <div class="statuspanel-block45-item">
-              <div class="statuspanel-group layout2">
-                <h4 class="statuspanel-highlights2 layout">
-                  Charging Infrastructure
-                </h4>
-              </div>
-            </div>
-            <div class="statuspanel-block45-spacer1"></div>
-            <div class="statuspanel-block45-item2">
-              <img
-                src="../../../../../assets/locationcharger-icon/charging-infa.svg"
-                class="statuspanel-box16 layout"
-                alt=""
-              />
-            </div>
-          </div>
-
-          <!-- status box end -->
-          <div class="list-element-block2 layout">
-            <div class="list-element-block6 layout">
-              <div class="list-element-block3 layout">
-                <div class="list-element-block3-item">
-                  <div class="list-element-block4 layout">
-                    <img
-                      src="../../../../../assets/status-panel-icon/chargers.png"
-                      class="list-element-box3 layout"
-                      alt=""
-                    />
-                  </div>
-                </div>
-                <div class="list-element-block3-spacer"></div>
-                <div class="list-element-block3-item1">
-                  <div class="list-element-block5 layout">
-                    <h3 class="list-element-subtitle layout">
-                      250
-                    </h3>
-                    <div class="list-element-text-body layout">
-                      Total Chargers
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- status box element start -->
-
-          <!-- <div class="box-element-block2 layout">
-            <div class="box-element-block5 layout">
-              <img
-                src="../../../../../assets/status-panel-icon/sites.png"
-                class="box-element-box2 layout"
-              />
-              <div class="box-element-block6 layout">
-                <h3 class="box-element-subtitle layout">50</h3>
-                <div class="box-element-text-body layout">
-                  Total Sites
-                </div>
-              </div>
-            </div>
-            <div class="box-element-block2-spacer dotted_line">
-              <hr />
-            </div>
-            <div class="box-element-block5 layout1">
-              <img
-                src="../../../../../assets/status-panel-icon/chargers.png"
-                class="box-element-box2 layout"
-              />
-              <div class="box-element-block6 layout">
-                <h3 class="box-element-subtitle layout">250</h3>
-                <div class="box-element-text-body layout">
-                  Total Chargers
-                </div>
-              </div>
-            </div>
-          </div> -->
-
-          <!-- status box element end -->
-        </div>
-      </div>
-
-      <div class="statuspanel-block46 layout">
-        <div class="statuspanel-block47 layout">
-          <!-- status box start -->
-          <div class="statuspanel-block45 layout1">
-            <div class="statuspanel-block45-item">
-              <div class="statuspanel-group layout2">
-                <h4 class="statuspanel-highlights2 layout">
-                  Revenue From Public Charging
-                </h4>
-              </div>
-            </div>
-            <div class="statuspanel-block45-spacer1"></div>
-            <div class="statuspanel-block45-item2">
-              <img
-                src="../../../../../assets/status-panel-icon/revenue.png"
-                class="statuspanel-box16 layout"
-                alt=""
-              />
-            </div>
-          </div>
-          <!-- status box end -->
-
-          <!-- insert chart -->
-
-          <div echarts [options]="option" class="echart-item"></div>
-
-          <!-- insert chart end -->
-        </div>
-      </div>
-
-      <div class="statuspanel-block46 layout">
-        <div class="statuspanel-block47 layout">
-          <div class="statuspanel-block45 layout1">
-            <div class="statuspanel-block45-item">
-              <div class="statuspanel-group layout2">
-                <h4 class="statuspanel-highlights2 layout">Energy Used</h4>
-              </div>
-            </div>
-            <div class="statuspanel-block45-spacer1"></div>
-            <div class="statuspanel-block45-item2">
-              <img
-                src="../../../../../assets/status-panel-icon/energy_used.png"
-                class="statuspanel-box16 layout"
-                alt=""
-              />
-            </div>
-          </div>
-
-          <!-- add the content here -->
-
-          <!-- list start  -->
-
-          <div class="list-element-block2 layout">
-            <div class="list-element-block6 layout">
-              <div
-                class="list-element-block3 layout"
-                style="border-bottom: 1px dotted #c2c5c8; padding-bottom: 15px;"
-              >
-                <div class="list-element-block3-item">
-                  <div class="list-element-block4 layout">
-                    <img
-                      src="../../../../../assets/status-panel-icon/total-energy.png"
-                      class="list-element-box3 layout"
-                      alt=""
-                    />
-                  </div>
-                </div>
-                <div class="list-element-block3-spacer"></div>
-                <div class="list-element-block3-item1">
-                  <div class="list-element-block5 layout">
-                    <h3 class="list-element-subtitle layout">
-                      408.14
-                    </h3>
-                    <div class="list-element-text-body layout">
-                      Total Energy
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- <hr> -->
-              <div
-                class="list-element-block3 layout"
-                style="border-bottom: 1px dotted #c2c5c8; padding-bottom: 15px;"
-              >
-                <div class="list-element-block3-item">
-                  <div class="list-element-block4 layout">
-                    <img
-                      src="../../../../../assets/status-panel-icon/daily_average.png"
-                      class="list-element-box3 layout"
-                      alt=""
-                    />
-                  </div>
-                </div>
-                <div class="list-element-block3-spacer"></div>
-                <div class="list-element-block3-item1">
-                  <div class="list-element-block5 layout">
-                    <h3 class="list-element-subtitle layout">
-                      412.14
-                    </h3>
-                    <div class="list-element-text-body layout">
-                      Total Energy
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="list-element-block3 layout">
-                <div class="list-element-block3-item">
-                  <div class="list-element-block4 layout">
-                    <img
-                      src="../../../../../assets/status-panel-icon/calender.png"
-                      class="list-element-box3 layout"
-                      alt=""
-                    />
-                  </div>
-                </div>
-                <div class="list-element-block3-spacer"></div>
-                <div class="list-element-block3-item1">
-                  <div class="list-element-block5 layout">
-                    <h3 class="list-element-subtitle layout">
-                      990.71
-                    </h3>
-                    <div class="list-element-text-body layout">
-                      Today's
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- list end  -->
-        </div>
-      </div>
-
-      <div class="statuspanel-block46 layout">
-        <div class="statuspanel-block47 layout">
-          <!-- status box start -->
-          <div class="statuspanel-block45 layout1">
-            <div class="statuspanel-block45-item">
-              <div class="statuspanel-group layout2">
-                <h4 class="statuspanel-highlights2 layout">
-                  Energy Points
-                </h4>
-              </div>
-            </div>
-            <div class="statuspanel-block45-spacer1"></div>
-            <div class="statuspanel-block45-item2">
-              <img
-                src="../../../../../assets/status-panel-icon/energy_points.png"
-                class="statuspanel-box16 layout"
-                alt=""
-              />
-            </div>
-          </div>
-          <!-- status box end -->
-
-          <!-- status box element start -->
-
-          <div class="box-element-block2 layout">
-            <div class="box-element-block5 layout">
-              <img
-                src="../../../../../assets/status-panel-icon/sites.png"
-                class="box-element-box2 layout"
-              />
-              <div class="box-element-block6 layout">
-                <h3 class="box-element-subtitle layout">19,408.07</h3>
-                <div class="box-element-text-body layout">
-                  MT of CO2 Saved
-                </div>
-              </div>
-            </div>
-            <div class="box-element-block2-spacer dotted_line">
-              <hr />
-            </div>
-            <div class="box-element-block5 layout1">
-              <img
-                src="../../../../../assets/status-panel-icon/chargers.png"
-                class="box-element-box2 layout"
-              />
-              <div class="box-element-block6 layout">
-                <h3 class="box-element-subtitle layout">990.71</h3>
-                <div class="box-element-text-body layout">
-                  Gasoline Gallon Equivalent (GGE Saved)
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- status box element end -->
-        </div>
-      </div>
-
-      <!-- <app-status-box
-    [title]="statusBoxTitle1"
-    [icon]="statusBoxIcon1"
-  ></app-status-box>
-
-  <app-status-box-graph
-    [title]="statusBoxTitle2"
-    [icon]="statusBoxIcon2"
-  ></app-status-box-graph>
-  <app-status-box-energy [title]="statusBoxTitle3"></app-status-box-energy>
-
-
-  <app-status-box-points
-    [title]="statusBoxTitle4"
-    [icon]="statusBoxIcon4"
-  ></app-status-box-points> -->
-    </div>
+    <app-location-status-panel></app-location-status-panel>
   </div>
 </div>

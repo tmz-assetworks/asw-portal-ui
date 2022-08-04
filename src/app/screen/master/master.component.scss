@@ -27,6 +27,8 @@
     position: relative;
     flex: 1 1 auto;
     height: min-content;
+    min-height: 100vh;
+    // flex-grow: 1 1 auto;
   }
   &block7 {
     @include flex-column;
@@ -256,6 +258,8 @@
   &block11.layout {
     position: relative;
     height: min-content;
+    min-height: 100%;
+    flex: 1 0 auto;
     // overflow-x: scroll;
     @include lg {
       margin: 29px 0px 0px;
@@ -401,5 +405,17 @@
     @include xxs {
       margin: 9px auto 8px;
     }
+  }
+  &flex2-spacer {
+    position: relative;
+    // flex: 1 1 100%;
+    height: 100vh;
+  }
+  &footer {
+    position: relative;
+    flex: 1 1 100%;
+    height: auto;
+    padding-top: auto;
+    // height: 100vh;
   }
 }
