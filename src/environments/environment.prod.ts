@@ -1,15 +1,10 @@
 export const environment = {
   production: true,
-  // origin: 'http://51.141.73.41:8081/',
-  // localOrigin: 'http://51.141.73.41:8081/api/',
+  origin: 'https://asw-portal-rest-service.azurewebsites.net/',
+  originAuth: 'https://user-mgmt-service.azurewebsites.net/',
+  localOrigin: 'https://user-mgmt-service.azurewebsites.net/api/',
 
-  // origin: 'http://51.141.73.41:6010/',
-  // originAuth: 'http://51.141.73.41:6008/',
-  // localOrigin: 'http://51.141.73.41:6008/api/',
-
-  origin: 'http://51.142.150.252:6010/',
-  originAuth: 'http://51.142.150.252:6008/',
-  localOrigin: 'http://51.142.150.252:6008/api/',
+  originDiagnostic: 'https://ocpp-core.azurewebsites.net/',
   imagePath: '',
   onProd: 0,
   isPlatform: 'Production Platform',

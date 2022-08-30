@@ -142,6 +142,7 @@ export class NavigationComponent implements OnInit {
           text: 'Operator Users',
           icon: '../../../../assets/icons/operator.png',
         },
+        
         {
           routerLink: ['locations'],
           text: 'Locations',
@@ -168,7 +169,7 @@ export class NavigationComponent implements OnInit {
           icon: '../../../../assets/icons/pricing.png',
         },
         {
-          routerLink: ['subscription-plans'],
+          routerLink: ['subscriptions-plans'],
           text: 'Subscription Plans',
           icon: '../../../../assets/icons/Subscription.svg',
         },

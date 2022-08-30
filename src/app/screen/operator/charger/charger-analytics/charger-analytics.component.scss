@@ -1261,7 +1261,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
   &block36.layout {
     position: relative;
-    height: 50px;
+   // height: 50px;
   }
   &text-body3 {
     @include font-face($font_type5, rgb(0, 98, 166), 0px);
@@ -1298,7 +1298,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
   &block37.layout {
     position: relative;
-    height: 50px;
+   // height: 50px;
   }
   &text-body3.layout1 {
     position: relative;
@@ -1328,7 +1328,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
   &block38.layout {
     position: relative;
-    height: 50px;
+    //height: 50px;
   }
   &text-body3.layout2 {
     position: relative;
@@ -1425,7 +1425,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     flex-wrap: wrap;
     row-gap: 16px;
     @include lg {
-      flex-wrap: wrap;
+     // flex-wrap: wrap;
       row-gap: 16px;
     }
   }
@@ -1455,7 +1455,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block42-item {
     @include flex-column;
     position: relative;
-    flex: 1 1 auto;
+   // flex: 1 1 auto;
     min-width: 45%;
     @include xl {
       flex: 1 1 auto;
@@ -3700,4 +3700,66 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
       font-size: 16px;
     }
   }
+  
+}
+.mat-select-trigger {
+  width: 118% !important;
+}
+
+/* CSS PANEL */
+.mat-button-toggle-checked.mat-button-toggle-appearance-standard {
+  color: #fff !important;
+}
+
+.space-between {
+  margin-right: 5px;
+}
+.mat-button-toggle-appearance-standard:hover {
+  border: 1px solid #0062a6;
+  //background-color: #fff;
+}
+.dashboard-block35:hover {
+  border: 1px solid #0062a6;
+  border-left: 1px solid #0062a6;
+}
+
+@media (max-width: 568px){
+.location-text-body.layout{
+  margin: 5px 5px 5px 5px;
+  font-size: 10px;
+}
+  .widget-block2.layout{
+    flex-wrap: wrap;
+}
+.dashboard-block15 {
+  flex-wrap: wrap;
+  row-gap: 16px;
+}
+.card-block40.layout {
+  width: 450px;
+}
+.statuspanel-block46.layout {
+  width: 458px;
+}
+.dashboard-block48.layout{
+  width: 96%;
+}
+
+.location-text-body.layout {
+  font-size: 12px;
+  padding: 0px 0px;
+}
+// .location-block4.layout {
+//   display: flex;
+// }
+.location-text-body.layout {
+  margin: 9px 12px !important;
+}
+.dashboard-block33{
+  justify-content: flex-start;
+}
+}
+
+.mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+  padding: 1px 12px;
 }

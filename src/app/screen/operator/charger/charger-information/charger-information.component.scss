@@ -2138,6 +2138,9 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     @include sm{
       display: block;
     }
+    @include md {
+      display: block;
+    }
   }
   &block5.layout {
     position: relative;
@@ -2264,13 +2267,37 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
 
 
 
-// @media only screen and (min-width: 1920px) {
-//   .resposiveclass {
-//     min-width: 1920px;
-//     width:1920px;
-//     overflow-x: scroll
-//   }
+// @media only screen and (min-width: 568px) {
+
+// .location-block4{
+//   display: flex;
+// }
+
+// .location-text-body.layout{
+//   margin: 9px 5px !important;
+//   font-size: 11px;
+// }
 // }
 
 
+.fill-group{
+  display: flex;
+  flex-direction: initial;
+}
 
+.fill-text-body1.layout {
+  width: max-content;
+}
+.fill-text-body1.layout{
+  margin: 0px;
+}
+.fill-group.layout {
+  max-width: 366px;
+}
+
+
+@media (max-width: 1920px){
+  .fill-group.layout{
+    max-width: 338px;
+  }
+}

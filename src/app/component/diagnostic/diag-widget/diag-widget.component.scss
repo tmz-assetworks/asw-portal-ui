@@ -36,10 +36,15 @@ $color_type_9: rgb(255, 255, 255);
     height: min-content;
     &.btn-active{
       background-color: #0062A6;
-      .text{
+      div.text{
         color:#fff;
       }
       }
+    .btn-active{
+      .text{
+        color:#fff;
+      }
+    }
   }
   &block10 {
     @include flex-column;

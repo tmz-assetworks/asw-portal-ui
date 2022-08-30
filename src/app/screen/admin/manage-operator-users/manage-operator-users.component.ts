@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
 import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
+import { ToastrService } from 'ngx-toastr'
 import { OperatorService } from '../operator.service'
 
 @Component({
@@ -21,7 +22,7 @@ export class ManageOperatorUsersComponent implements OnInit {
 
   dataSource = new MatTableDataSource<Element>(this.customerList)
 
-  constructor(private operator: OperatorService) {}
+  constructor(private operator: OperatorService,private toastr: ToastrService) {}
 
   ngOnInit() {
     this.getCustomerList()
@@ -50,6 +51,6 @@ export class ManageOperatorUsersComponent implements OnInit {
   }
 
   addCustomers(): void {
-    alert('Your Record Added Coming Soon....')
+    this.toastr.success('Your Record Added Coming Soon....')
   }
 }

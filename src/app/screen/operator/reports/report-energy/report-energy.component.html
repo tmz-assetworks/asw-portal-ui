@@ -1,121 +1,169 @@
-
 <div class="header header-block layout">
-    <div class="header-block1 layout">
-      <div class="header-flex layout">
-        <h3 class="header-subtitle-box layout">Reports</h3>
-  
-        <div class="dashboard-block12 layout"></div>
-  
-        <!-- <div class="dashboard-block13 layout">
+  <div class="header-block1 layout">
+    <div class="header-flex layout">
+      <h3 class="header-subtitle-box layout">Reports</h3>
+
+      <div class="dashboard-block12 layout"></div>
+
+      <!-- <div class="dashboard-block13 layout">
             <div class="dashboard-block13-item"> -->
-        <div class="location-block2 layout">
-          <div class="location-block2-item">
-            <div class="location-block4 layout">
-              <div class="location-block4-item">
-                <div class="location-block5 layout">
-                  <a [routerLink]="['../report-session']">
-                    <div class="location-text-body layout">SESSION</div>
-                  </a>
-                </div>
+      <div class="location-block2 layout">
+        <div class="location-block2-item">
+          <div class="location-block4 layout">
+            <div class="location-block4-item">
+              <div class="location-block5 layout">
+                <a [routerLink]="['../report-session']">
+                  <div class="location-text-body layout">SESSION</div>
+                </a>
               </div>
-              <div class="location-block4-item">
-                <div class="location-block5 layout">
-                  <a [routerLink]="['../report-subscription']">
-                    <div class="location-text-body layout">SUBSCRIPTION</div>
-                  </a>
-                </div>
+            </div>
+            <div class="location-block4-item">
+              <div class="location-block5 layout">
+                <a [routerLink]="['../report-subscription']">
+                  <div class="location-text-body layout">SUBSCRIPTION</div>
+                </a>
               </div>
-              <div class="location-block4-item">
-                <div class="location-block5 layout">
-                  <a [routerLink]="['../report-transaction']">
-                    <div class="location-text-body layout">TRANSACTION</div>
-                  </a>
-                </div>
+            </div>
+            <div class="location-block4-item">
+              <div class="location-block5 layout">
+                <a [routerLink]="['../report-transaction']">
+                  <div class="location-text-body layout">TRANSACTION</div>
+                </a>
               </div>
-              <div class="location-block4-item">
-                <div class="location-block6 layout">
-                  <a [routerLink]="['../report-energy']">
-                    <div class="location-text-body layout">ENERGY</div>
-                  </a>
-                </div>
+            </div>
+            <div class="location-block4-item">
+              <div class="location-block6 layout">
+                <a [routerLink]="['../report-energy']">
+                  <div class="location-text-body layout">ENERGY</div>
+                </a>
               </div>
-              <!-- <div class="location-block4-item">
+            </div>
+            <!-- <div class="location-block4-item">
                               <div class="location-block5 layout">
                                   <a [routerLink]="['../chargers-event']">
                                       <div class="location-text-body layout">EVENT LOGS</div>
                                   </a>
                               </div>
                           </div> -->
-            </div>
           </div>
-          <div class="location-block2-spacer"></div>
-          <div class="location-block2-item1">
-            <div
-              class="location-block3 layout"
-              style="
-                display: flex;
-                flex-direction: column;
-                background-color: #ebebeb;
-                border-left: 1px solid white;
-              "
-            >
-              <div class="location-box3 layout">
-                <img
-                  src="assets/charger-session.svg"
-                  alt=""
-                  srcset=""
-                />
-              </div>
+        </div>
+        <div class="location-block2-spacer"></div>
+        <div class="location-block2-item1">
+          <div
+            class="location-block3 layout"
+            style="
+              display: flex;
+              flex-direction: column;
+              background-color: #ebebeb;
+              border-left: 1px solid white;
+            "
+          >
+            <div class="location-box3 layout">
+              <img src="assets/charger-session.svg" alt="" srcset="" />
             </div>
           </div>
         </div>
-        <div class="dashboard-block14 layout">
-          <div class="dashboard-block15 layout">
-           
-            
-          </div>
-          <div class="dashboard-block32 layout">
-            <div class="dashboard-block33 layout">
-              <div class="dashboard-block33-item"></div>
+      </div>
+      <div class="dashboard-block14 layout">
+        <div class="dashboard-block15 layout"></div>
+        <div class="dashboard-block32 layout">
+          <div class="dashboard-block33 layout">
+            <mat-button-toggle-group
+              [formControl]="filterToggle"
+              (change)="setTime($event)"
+            >
+              <div class="dashboard-block33-item">
+                <!-- <div class="dashboard-block34 layout">
+
+
+          </div> -->
+              </div>
               <div class="dashboard-block33-item1">
-                <div class="dashboard-block35 layout">
-                  <div class="dashboard-text-body2 layout">
+                <div class="dashboard-block35 layout space-between">
+                  <mat-button-toggle
+                    value="1"
+                    style="border: 1px solid #0062a6;"
+                  >
                     Last 24 Hours
-                    <!-- <button mat-button>
-                  Last 24 Hours
-                </button> -->
-                  </div>
+                  </mat-button-toggle>
+                  <!-- <div class="dashboard-text-body2 layout">Last 24 Hours</div> -->
                 </div>
               </div>
               <div class="dashboard-block33-item2">
-                <div class="dashboard-block36 layout">
-                  <div class="dashboard-text-body3 layout">
-                    One Week
-                    <!-- <button mat-button>
-                  One Week
-                </button> -->
-                  </div>
+                <div class="dashboard-block36 layout space-between">
+                  <!-- <div class="dashboard-text-body3 layout">One Week</div> -->
+                  <mat-button-toggle value="7">One Week</mat-button-toggle>
                 </div>
               </div>
               <div class="dashboard-block33-item3">
-                <div class="dashboard-block37 layout">
-                  <div class="dashboard-text-body3 layout1">
-                    <!-- <button mat-button>
-                  Current Month
-                </button> -->
+                <div class="dashboard-block37 layout space-between">
+                  <!-- <div class="dashboard-text-body3 layout1">Current Month</div> -->
+                  <mat-button-toggle value="30">
                     Current Month
-                  </div>
+                  </mat-button-toggle>
                 </div>
               </div>
               <div class="dashboard-block33-item4">
-                <div class="dashboard-block38 layout">
-                  <div class="dashboard-text-body3 layout2">
-                    <!-- <button mat-button>
-                  Last Three Months
-                </button> -->
+                <div class="dashboard-block38 layout space-between">
+                  <!-- <div class="dashboard-text-body3 layout2">Last 3 Months</div> -->
+                  <mat-button-toggle value="90">
                     Last 3 Months
-                  </div>
+                  </mat-button-toggle>
                 </div>
               </div>
-            </div>
+            </mat-button-toggle-group>
           </div>
+        </div>
+        <div class="dashboard-block42 layout">
+          <div class="dashboard-block42-item">
+            <!-- <app-bar-chart
+              [chartType]="reportBarSession"
+              [chartTitle]="reportBarSessionTitle"
+            ></app-bar-chart> -->
+            <app-line-chart
+              [chartType]="'reportSubscribeYearly'"
+              [chartTitle]="'Energy Used'"
+              (lineDetailPage)="openDetailPage(1, 'Energy Used', 'REPORTS', 90)"
+            ></app-line-chart>
+          </div>
+          <div class="dashboard-block42-spacer"></div>
+          <div class="dashboard-block42-item">
+            <app-stacked-area-chart
+              [chartType]="'stackedArea'"
+              [chartTitle]="'Miles Added'"
+              (stackedAreaDetailPage)="
+                openDetailPage(1, 'Miles Added', 'REPORTS', 90)
+              "
+            ></app-stacked-area-chart>
+          </div>
+        </div>
+        <div class="dashboard-block42 layout">
+          <div class="dashboard-block42-item">
+            <app-area-chart
+              [chartType]="'reportEnegyMTCo2Saved'"
+              [chartTitle]="'MT Of CO2 Saved'"
+              (areaDetailPage)="
+                openDetailPage(1, 'MT Of CO2 Saved', 'REPORTS', 90)
+              "
+            ></app-area-chart>
+          </div>
+          <div class="dashboard-block42-spacer"></div>
+          <div class="dashboard-block42-item">
+            <app-line-chart
+              [chartType]="'reportEnergyGasolineGallon'"
+              [chartTitle]="'Gasoline Gallon Equivalents'"
+              (lineDetailPage)="
+                openDetailPage(
+                  1,
+                  'Gasoline Gallon Equivalents',
+                  'REPORTS',
+                  '90'
+                )
+              "
+            ></app-line-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,185 +1,99 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-
+import { Component, Input, OnInit, ViewChild } from '@angular/core'
+import { MatTableDataSource } from '@angular/material/table'
+import { MatPaginator } from '@angular/material/paginator'
+import { DashboardService } from 'src/app/screen/operator/dashboard/dashboard.service'
+import { StorageService } from 'src/app/service/storage.service'
 @Component({
   selector: 'app-mat-table',
   templateUrl: './mat-table.component.html',
-  styleUrls: ['./mat-table.component.scss']
+  styleUrls: ['./mat-table.component.scss'],
 })
 export class MatTableComponent implements OnInit {
-  @Input() getGraphId: any
-  bar = false;
-  setGraphId = 0;
-  hasAction = true;
-  rowsData: any;
-  graphHeading = ''
-  currentPage = ''
-  @ViewChild(MatPaginator)
-  paginator!: MatPaginator;
-//  displayedColumns: string[] = ['action'];
-displayedColumns: string[] = [];
-  columns: string[] = [];
- // dataSource = new MatTableDataSource(this.rowsData);
- dataSource = new MatTableDataSource();
- constructor() {
-  
- // this.setGraphId = this.getGraphId !== undefined ? this.getGraphId : 0;
- }
-  ngOnInit(){
-    this.bar = false;
-   // if(this.setGraphId > 0) {
-      // call api
+  detailpagedata = []
+  pageNumber = 1
+  searchparam = ''
+  pageSize = 10
 
-   // }
-      /* this.getColumns().then((cols: any)=>{
-        if(!this.hasAction) {
-          this.displayedColumns = [];
-        }
-        this.displayedColumns.unshift(...cols);
-        this.columns=cols;
-      }) */
+  locationId: any
+  duration = 1
+  flag = 'chargerSession'
+  locationstatus = 'locationstatus'
+  operatorid: any
+  displayedColumns: string[] = [
+    'chargerName',
+    'uid',
+    'chargerType',
+    'faultSince',
+    'faultDescription',
+    'timeReported',
+    'locationId',
+    'locationName',
+  ]
+
+  // dataSource = new MatTableDataSource();
+  dataSource = new MatTableDataSource<any>(this.detailpagedata)
+  isTableHasData: any
+  UserId: any
+
+  constructor(
+    public _dashboardService: DashboardService,
+    private _storageService: StorageService,
+  ) {}
+
+  ngOnInit() {
+    //this.bar = false;
+    this.getDetailpage(
+      this.pageNumber,
+      this.searchparam,
+      this.pageSize,
+      this.duration,
+      this.flag,
+      this.locationstatus,
+    )
   }
-   
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator
+
+  searchKey: any
+
   ngAfterViewInit() {
-    this.setGraphId = this.getGraphId !== undefined ? this.getGraphId : 0;
-    this.getColumns().then((cols: any)=>{
-      if(!this.hasAction) {
-        this.displayedColumns = [];
-      }
-      this.displayedColumns.unshift(...cols);
-      this.columns=cols;
-    })
-    this.dataSource.paginator = this.paginator;
-  }
-  getColumns(){
-    /*assume this is an api*/
-    if(this.setGraphId == 1) {
-      this.rowsData = [
-        {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-        {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-        {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-        {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-        {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-        {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-        {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-        {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-        {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-        {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-        {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-        
-      ];
-      this.dataSource = new MatTableDataSource(this.rowsData);
-    return new Promise((resolve,reject)=>{
-      resolve(['CHARGER NAME','UID','CHARGER TYPE','FAULT SINCE','FAULT DESCRIPTION','TIME REPORTED','LOCATIONS ID','LOCATION']);
-    })
-  } else if(this.setGraphId == 2) {
-    this.rowsData = [];
-    this.rowsData = [
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      
-    ];
-    this.dataSource = new MatTableDataSource(this.rowsData);
-    return new Promise((resolve,reject)=>{
-      resolve(['CHARGER NAME','UID','CHARGER TYPE','FAULT SINCE','FAULT DESCRIPTION','TIME REPORTED','LOCATIONS ID','LOCATION']);
-    })
-  } else if(this.setGraphId == 3) {
-    this.rowsData = [];
-    this.rowsData = [
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      
-    ];
-    this.dataSource = new MatTableDataSource(this.rowsData);
-    return new Promise((resolve,reject)=>{
-      resolve(['CHARGER NAME','UID','CHARGER TYPE','FAULT SINCE','FAULT DESCRIPTION','TIME REPORTED','LOCATIONS ID','LOCATION']);
-    })
-  } else if(this.setGraphId == 4) {
-    this.rowsData = [];
-    this.rowsData = [
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      
-    ];
-    this.dataSource = new MatTableDataSource(this.rowsData);
-    return new Promise((resolve,reject)=>{
-      resolve(['CHARGER NAME','UID','CHARGER TYPE','FAULT SINCE','FAULT DESCRIPTION','TIME REPORTED','LOCATIONS ID','LOCATION']);
-    })
-  } else if(this.setGraphId == 5) {
-    this.rowsData = [];
-    this.rowsData = [
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      
-    ];
-    this.dataSource = new MatTableDataSource(this.rowsData);
-    return new Promise((resolve,reject)=>{
-      resolve(['CHARGER NAME','UID','CHARGER TYPE','FAULT SINCE','FAULT DESCRIPTION','TIME REPORTED','LOCATIONS ID','LOCATION']);
-    })
-  } else if(this.setGraphId == 6 || this.setGraphId == 7 || this.setGraphId == 8) {
-    this.rowsData = [];
-    this.rowsData = [
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      {'CHARGER NAME': 'L23CH123', 'UID': 'SITEWIT001', 'CHARGER TYPE': 'CSS','FAULT SINCE':'1 Day 1 hr','FAULT DESCRIPTION':'Drioong Power due to','TIME REPORTED':'20-04-21 12:30','LOCATIONS ID':'WIT202101021234','LOCATION':'NEW YORK'},
-      
-    ];
-    this.dataSource = new MatTableDataSource(this.rowsData);
-    return new Promise((resolve,reject)=>{
-      resolve(['CHARGER NAME','UID','CHARGER TYPE','FAULT SINCE','FAULT DESCRIPTION','TIME REPORTED','LOCATIONS ID','LOCATION']);
-    })
+    this.dataSource.paginator = this.paginator
+    this.paginator._intl.itemsPerPageLabel = 'Rows per page'
   }
 
-  return new Promise((resolve,reject)=>{
-    resolve(['ID', 'charger Name', 'charger Status', 'charger Port']);
-  })
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value
+    this.dataSource.filter = filterValue.trim().toLowerCase()
+    if (this.dataSource.filteredData.length > 0) {
+      this.isTableHasData = false
+    } else {
+      this.isTableHasData = true
+    }
+  }
+
+  getDetailpage(
+    pageNumber: number,
+    searchparam: any,
+    pageSize: any,
+    duration: any,
+    flag: any,
+    locationstatus: any,
+  ) {
+    //alert("1")
+    const body = {
+      pageNumber: pageNumber,
+      searchparam: searchparam,
+      pageSize: pageSize,
+      duration: duration.toString(),
+      orderBy: '',
+      opratorid: this.UserId,
+      locationIds: [],
+      flag: flag,
+      locationstatus: locationstatus,
+    }
+    this._dashboardService.GetChartDetailsList(body).subscribe((data) => {
+      this.detailpagedata = data.data
+      this.dataSource.data = this.detailpagedata
+    })
   }
 }
-
-
-

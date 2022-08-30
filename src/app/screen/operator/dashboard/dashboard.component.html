@@ -1,7 +1,7 @@
 <div class="dashboard-block12 layout">
   <h3 class="dashboard-subtitle layout">Operator Dashboard</h3>
 </div>
-<div class="dashboard-block13 layout">
+<div class="dashboard-block13 layout opt-dashboard">
   <div class="dashboard-block13-item">
     <div class="dashboard-block14 layout">
       <div class="dashboard-block15 layout">
@@ -163,7 +163,9 @@
             [chartType]="bar"
             [chartTitle]="barTitle"
             [chargersData]="chargersChartData"
-            (barDetailPage)="openDetailPage($event, 'Chargers', 'DASHBOARD')"
+            (barDetailPage)="
+              openDetailPage(1, 'Chargers', 'DASHBOARD', selectedTime)
+            "
           ></app-bar-chart>
         </div>
         <!-- <div class="dashboard-block42-spacer"></div> -->
@@ -171,7 +173,7 @@
           <app-area-chart
             *ngIf="chargingSessionData !== ''"
             (areaDetailPage)="
-              openDetailPage(2, 'Charging Session', 'DASHBOARD')
+              openDetailPage(2, 'Charging Session', 'DASHBOARD', selectedTime)
             "
             [chargingSessionData]="chargingSessionData"
             [chartType]="dashboardChargingSession"
@@ -187,7 +189,12 @@
             [chartType]="dashboardEnergyUsed"
             [chartTitle]="dashboardEnergyUsedTitle"
             (lineDetailPage)="
-              openDetailPage(3, 'Energy Demand Over Time', 'DASHBOARD')
+              openDetailPage(
+                3,
+                'Energy Demand Over Time',
+                'DASHBOARD',
+                selectedTime
+              )
             "
           ></app-line-chart>
         </div>
@@ -209,6 +216,6 @@
   </div>
   <div class="dashboard-block13-spacer"></div>
   <div class="dashboard-block13-item1">
-   <app-dashboard-status-panel></app-dashboard-status-panel>
+    <app-dashboard-status-panel></app-dashboard-status-panel>
   </div>
 </div>

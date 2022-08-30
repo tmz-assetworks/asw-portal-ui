@@ -1,0 +1,73 @@
+@import '../../../../../../styles';
+.form-fields select {
+  height: 40px !important;
+  margin-top: 10px;
+  width: 400px;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  // padding: 8px 10px;
+}
+button {
+  margin: auto 35%;
+  background: #0062a6;
+  padding: 10px 22px;
+  border-radius: 5px;
+  border: none;
+  color: #ffffff;
+  margin-top: 20px;
+}
+.form-fields input {
+  margin-top: 10px;
+  width: 400px;
+  border: 1px solid #e5e5e5 !important;
+  padding: 8px 10px !important;
+  border-radius: 5px;
+}
+.required {
+  color: red;
+  // padding: 10px;
+}
+
+// .close_btn.close-action {
+//   margin: 0px;
+//   bottom: 15px;
+//   width: 100%;
+//   background: transparent;
+//   padding: 0px;
+//   text-align: right;
+// }
+// .close-action .mat-button-ripple.mat-ripple, .mat-button-focus-overlay {
+//   background: transparent !important;
+// }
+
+span.option {
+  text-align: right;
+  float: right;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+span.option2 {
+  text-align: right;
+  float: right;
+  font-size: 16px;
+  font-weight: 500;
+}
+span.option3 {
+  text-align: right;
+  float: right;
+  font-size: 16px;
+  font-weight: 500;
+}
+span.option4 {
+  text-align: right;
+  float: right;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.close-action .mat-button-ripple.mat-ripple,
+.mat-button-focus-overlay {
+  background: transparent !important;
+}

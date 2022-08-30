@@ -185,6 +185,12 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
   &block4 {
     display: flex;
+    @include sm{
+      display: block;
+    }
+    @include xs{
+      display: block;
+    }
   }
   &block4.layout {
     position: relative;
@@ -2920,7 +2926,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     max-width: 400px;
   }
   &block19 {
-    @include flex-column;
+    //@include flex-column;
     flex-direction: row-reverse;
     background-color: $color_type_8;
     border: 1px solid rgb(173, 173, 173);
@@ -3352,8 +3358,9 @@ tr.example-element-row:not(.example-expanded-row):active {
 }
 
 .example-element-description {
-  padding: 16px;
+  //padding: 16px;
   text-align: left;
+  padding: 30px 0px 30px 2px;
 }
 
 .example-element-description-attribution {

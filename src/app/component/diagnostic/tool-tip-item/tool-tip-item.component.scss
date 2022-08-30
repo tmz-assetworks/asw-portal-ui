@@ -1,4 +1,4 @@
-@import "../../../../styles.scss";
+@import '../../../../styles.scss';
 
 $color_type_0: rgb(19, 27, 33);
 $color_type_1: rgb(255, 255, 255);
@@ -16,6 +16,7 @@ $color_type_2: rgb(142, 21, 55);
   &block4.layout {
     position: relative;
     height: min-content;
+    width: 160px;
   }
   &block5 {
     @include flex-column;
@@ -26,6 +27,18 @@ $color_type_2: rgb(142, 21, 55);
   &block5.layout {
     position: relative;
     height: min-content;
+    &.btn-active{
+      background-color: #0062A6;
+      div.text{
+        color:#fff;
+      }
+      }
+    .btn-active{
+      .text{
+        color:#fff;
+      }
+    }
+    
   }
   &block6 {
     @include flex-column;

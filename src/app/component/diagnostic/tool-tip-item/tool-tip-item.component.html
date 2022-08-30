@@ -1,6 +1,7 @@
-<div class="item-block3-item">
-  <div class="item-block4 layout">
-    <div class="item-block5 layout">
+<div class="item-block3-item" [ngClass]="{ 'btn-active': showToolTipitem == false }">
+  <div class="item-block4 layout" >
+    <div class="item-block5 layout" style="cursor: pointer;"
+    [ngClass]="{ 'btn-active': showToolTipitem == true }">
       <div class="item-block6 layout">
         <div   class="item-icon layout" >
           <ng-content select=".img"></ng-content>

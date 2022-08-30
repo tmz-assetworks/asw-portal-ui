@@ -70,16 +70,20 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">Oraganization Name</h5>
 
-              <mat-form-field class="barbar-box6 layout">
-                <mat-label>Select</mat-label>
-                <mat-select>
+              <mat-form-field class="barbar-box6 layout" style="padding-right: 10px;">
+                <!--mat-label>Select</mat-label-->
+                 <!-- <mat-select>
                   <mat-option>
                     Organization A
                   </mat-option>
                   <mat-option>
                     Organization B
                   </mat-option>
-                </mat-select>
+                </mat-select>  -->
+               <select matNativeControl>
+                  <option value="valid" selected>Organization A</option>
+                  <option value="invalid">Organization B</option>
+                </select> 
               </mat-form-field>
               <!-- <div class="barbar-box6 layout">
                 <select

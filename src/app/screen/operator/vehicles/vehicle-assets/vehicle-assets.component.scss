@@ -147,7 +147,10 @@
       flex: 0 0 calc(50% - 8px);
     }
     @include md {
-      flex: 0 0 100%;
+      flex: 0 0 97%;
+    }
+    @include sm {
+      flex: 0 0 90%;
     }
   }
   &block16 {
@@ -3049,8 +3052,7 @@ cust-list-icon.layout {
   background: white;
   border: 1px solid #8f8f8f;
 }
-header
-th.mat-header-cell {
+header th.mat-header-cell {
   border-right: 1px solid #e6e6e6;
   text-align: center;
 }
@@ -3768,7 +3770,6 @@ $color_type_4: rgb(255, 255, 255);
   }
 }
 
-
 .header- {
   &block {
     @include flex-column;
@@ -3861,48 +3862,51 @@ $color_type_4: rgb(255, 255, 255);
   }
 }
 
-
-.mat-data{
+.mat-data {
   display: block;
   margin: 20px 0px 0;
+  @include xl {
+    overflow: auto;
+    width: 1100px;
+  }
 
-  @include lg{
+  @include lg {
     display: block;
     width: 90vw;
     overflow: auto;
   }
-  @include md{
+  @include md {
     width: 86vw;
   }
-  @include sm{
+  @include sm {
     width: 90vw;
   }
+  @include xs {
+    width: 80vw;
+  }
 
-  .mat-elevation-z8{
+  .mat-elevation-z8 {
     width: 100%;
 
-    @include lg{
+    @include lg {
       width: 100vw;
       // max-width: 100%;
       overflow: auto;
       // margin-bottom: 10px;
-      display:inline-table;
+      display: inline-table;
       // border-collapse: collapse;
     }
   }
 }
-.mat-paginator{
+.mat-paginator {
   margin: 0 -10px;
-}  
-
- 
+}
 
 @media screen and (max-width: 960px) {
   .mat-table {
     border: 0;
-    vertical-align: middle
+    vertical-align: middle;
   }
-
 }
 
 .cust-list- {
@@ -4659,7 +4663,7 @@ $color_type_4: rgb(255, 255, 255);
     position: relative;
     height: min-content;
     // margin: 50px 22px 0px;
-   // margin: 0px -11px 0px;
+    // margin: 0px -11px 0px;
     @include lg {
       margin: 43px 19px 0px;
     }
@@ -5075,4 +5079,16 @@ tr.mat-row:last-of-type {
 .mat-cell {
   font-size: 13px;
   color: #323e48;
+}
+
+@media (max-width: 1199px) {
+  .mat-data .mat-table {
+    min-width: 1200px !important;
+  }
+}
+@media (max-width: 1366px) {
+  .mat-data {
+    overflow: auto;
+    width: 80vw;
+  }
 }

@@ -10,6 +10,7 @@ import { ChargerDiagnosticComponent } from './charger-diagnostic/charger-diagnos
 import { ChargerEventComponent } from './charger-event/charger-event.component'
 import { SharedModule } from 'src/app/shared/shared.module'
 import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
+import { GraphDetailComponent } from '../graph-detail/graph-detail.component'
 // import { TabsBarComponent } from '../../../component/diagnostic/tabs-bar/tabs-bar.component'
 // import { TabComponent } from '../../../component/diagnostic/tab/tab.component'
 // import { DiagWidgetComponent } from '../../../component/diagnostic/diag-widget/diag-widget.component'
@@ -55,6 +56,10 @@ const routes: Routes = [
       },
     ],
   },
+  { path: 'detail', component: GraphDetailComponent },
+  { path: 'detail/:id', component: GraphDetailComponent },
+  {path: 'chargers-analytics/detail', component: GraphDetailComponent},
+  {path: 'chargers-analytics/detail/:id', component: GraphDetailComponent} 
 ]
 @NgModule({
   declarations: [

@@ -20,10 +20,10 @@
                 <div class="widgets-block30-item1">
                   <div class="widgets-block31 layout">
                     <h1 class="widgets-hero-title layout">
-                      {{ data[0].Count }}
+                      {{ statusList.count }}
                     </h1>
                     <h5 class="widgets-highlights layout3">
-                      {{ data[0].Type }}
+                      {{ statusList.type }}
                     </h5>
                   </div>
                 </div>
@@ -34,14 +34,14 @@
                   <div class="widget-block1-item">
                     <div class="widget-block2 layout">
                       <div class="widget-text-body layout">
-                        {{ data[0].StatusData[0].Key }}
+                        {{ statusList.statusData[0].key }}
                       </div>
                       <div class="widget-block2-spacer"></div>
                       <div class="widget-block2-item">
                         <div
                           class="widget-box layout"
                           [ngStyle]="{
-                            'background-color': data[0].StatusData[0].Color
+                            'background-color': statusList.statusData[0].color
                           }"
                         ></div>
                       </div>
@@ -49,21 +49,21 @@
                   </div>
                   <div class="widget-block1-spacer"></div>
                   <div class="widget-text-body1 layout">
-                    {{ data[0].StatusData[0].value }}
+                    {{ statusList.statusData[0].value }}
                   </div>
                 </div>
                 <div class="widget-block1 layout">
                   <div class="widget-block1-item">
                     <div class="widget-block2 layout">
                       <div class="widget-text-body layout">
-                        {{ data[0].StatusData[1].Key }}
+                        {{ statusList.statusData[1].key }}
                       </div>
                       <div class="widget-block2-spacer"></div>
                       <div class="widget-block2-item">
                         <div
                           class="widget-box layout"
                           [ngStyle]="{
-                            'background-color': data[0].StatusData[1].Color
+                            'background-color': statusList.statusData[1].color
                           }"
                         ></div>
                       </div>
@@ -71,7 +71,7 @@
                   </div>
                   <div class="widget-block1-spacer"></div>
                   <div class="widget-text-body1 layout">
-                    {{ data[0].StatusData[1].value }}
+                    {{ statusList.statusData[1].value }}
                   </div>
                 </div>
               </div>
@@ -129,11 +129,15 @@
                 </div>
               </div>
               <div class="layout mat-data">
-                <table mat-table [dataSource]="dataSource"  class="mat-elevation-z8">
+                <table
+                  mat-table
+                  [dataSource]="dataSource"
+                  class="mat-elevation-z8"
+                >
                   <ng-container matColumnDef="VIN">
                     <th mat-header-cell *matHeaderCellDef>VIN</th>
                     <td mat-cell *matCellDef="let element">
-                      {{ element.VIN }}
+                      {{ element.vin }}
                     </td>
                   </ng-container>
 
@@ -141,7 +145,7 @@
                   <ng-container matColumnDef="ModelYear">
                     <th mat-header-cell *matHeaderCellDef>MODEL YEAR</th>
                     <td mat-cell *matCellDef="let element">
-                      {{ element.ModelYear }}
+                      {{ element.model }}
                     </td>
                   </ng-container>
 
@@ -151,7 +155,7 @@
                       MAKE
                     </th>
                     <td mat-cell *matCellDef="let element">
-                      {{ element.Name }}
+                      {{ element.make }}
                     </td>
                   </ng-container>
 
@@ -159,19 +163,19 @@
                   <ng-container matColumnDef="Modal">
                     <th mat-header-cell *matHeaderCellDef>MODEL</th>
                     <td mat-cell *matCellDef="let element">
-                      {{ element.Modal }}
+                      {{ element.modelYear }}
                     </td>
                   </ng-container>
                   <ng-container matColumnDef="LicencePlate">
                     <th mat-header-cell *matHeaderCellDef>LICENCE PLATE</th>
                     <td mat-cell *matCellDef="let element">
-                      {{ element.LicencePlate }}
+                      {{ element.licencePlate }}
                     </td>
                   </ng-container>
                   <ng-container matColumnDef="Department">
                     <th mat-header-cell *matHeaderCellDef>DEPARTMENT</th>
                     <td mat-cell *matCellDef="let element">
-                      {{ element.Department }}
+                      {{ element.department }}
                     </td>
                   </ng-container>
                   <ng-container matColumnDef="DomicileLocation">
@@ -179,7 +183,7 @@
                       DOMICILE LOCATION
                     </th>
                     <td mat-cell *matCellDef="let element">
-                      {{ element.DomicileLocation }}
+                      {{ element.domicileLocation }}
                     </td>
                   </ng-container>
                   <ng-container matColumnDef="VehicleMacAddress">
@@ -187,7 +191,7 @@
                       VEHICLE MAC ADDRESS
                     </th>
                     <td mat-cell *matCellDef="let element">
-                      {{ element.VehicleMacAddress }}
+                      {{ element.vehicleMacAddress }}
                     </td>
                   </ng-container>
                   <ng-container matColumnDef="RFIDCardAssigned">
@@ -195,13 +199,13 @@
                       RFID CARD ASSIGNED
                     </th>
                     <td mat-cell *matCellDef="let element">
-                      {{ element.RFIDCardAssigned }}
+                      {{ element.rfidCardAssigned }}
                     </td>
                   </ng-container>
                   <ng-container matColumnDef="Status">
                     <th mat-header-cell *matHeaderCellDef>STATUS</th>
                     <td mat-cell *matCellDef="let element">
-                      {{ element.Status }}
+                      {{ element.status == true ? 'Active' : 'Inactive' }}
                     </td>
                   </ng-container>
 
@@ -211,7 +215,7 @@
                     <td
                       mat-cell
                       *matCellDef="let element"
-                      (click)="viewVehicleDetails()"
+                      (click)="viewVehicleDetails(element)"
                       style="cursor: pointer;"
                     >
                       <img src="../../../../assets/icons/view-icon.png" />
@@ -225,9 +229,15 @@
                   ></tr>
                 </table>
 
+                <ng-container *ngIf="isTableHasData">
+                  <p class="text-center">No record found</p>
+                </ng-container>
               </div>
               <mat-paginator
-              [length]="100"
+              #paginator
+              (page)="getAllVehicle($event, currentPage, totalRecords)"
+              [length]="totalRecords"
+              [pageSize]="pageSize"
               [pageSizeOptions]="[10, 20, 100]"
             ></mat-paginator>
             </div>

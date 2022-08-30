@@ -438,6 +438,323 @@ export class AreaChartComponent implements OnInit {
       this.option = this.setAreaChartOption(
         this.chargingSessionDataSet,
       ) as EChartsOption
+    } else if (chartType == 'reportSessionLength') {
+      this.option = {
+        color: ['#87B3B9'],
+        title: {
+          // text: 'Charging Sessions',
+          // padding: [0, 20, 0, 100],
+        },
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'cross',
+            label: {
+              backgroundColor: '#6a7985',
+            },
+          },
+        },
+        legend: {
+          // data: ['SESSION LENGTH'],
+          icon: 'square',
+          // right: 0,
+          right: '4%',
+          // top: 'center',
+        },
+        // toolbox: {
+        //   feature: {
+        //     saveAsImage: {},
+        //   },
+        // },
+        grid: {
+          left: '12%',
+          right: '6%',
+          bottom: '8%',
+          containLabel: true,
+        },
+        xAxis: [
+          {
+            name: 'Session Lengths (Hours)',
+            type: 'category',
+            // boundaryGap: false,
+            nameLocation: 'middle',
+            // nameGap: 50,
+            axisTick: {
+              alignWithLabel: true,
+            },
+            data: [
+              '01',
+              '02',
+              '03',
+              '04',
+              '05',
+              '06',
+              '07',
+              '08',
+              '09',
+              '10',
+              '11',
+              '12',
+              '13',
+              '14',
+              '15',
+              '16',
+              '17',
+              '18',
+              '19',
+              '20',
+              '21',
+              '22',
+              '23',
+              '24',
+            ],
+            axisLabel: {
+              // formatter: '{value} kg',
+              // align: 'center',
+              rotate: 30,
+
+              // ...
+            },
+            // axisTick: {
+            //       alignWithLabel: true,
+            //     },
+            nameTextStyle: {
+              // align: 'right',
+              verticalAlign: 'top',
+              /**
+               * the top padding will shift the name down so that it does not overlap with the axis-labels
+               * t-l-b-r
+               */
+              padding: [20, 0, 0, 0],
+              fontSize: 14,
+              // fontWeight: 800,
+              // fontStyle: 'italic',
+            },
+            // the default nameGap=15 would move the text to the right
+          },
+        ],
+        yAxis: [
+          {
+            type: 'value',
+            name: 'Charging Sessions',
+
+            nameLocation: 'middle',
+            /* fontWeight: 'bolder', */
+            nameGap: 60,
+          },
+        ],
+        series: [
+          {
+            name: 'SESSION LENGTH',
+            type: 'line',
+            stack: 'Total',
+            smooth: true,
+            lineStyle: {
+              width: 0,
+            },
+            showSymbol: false,
+            areaStyle:{
+              color:'#87B3B9',
+             },
+            // areaStyle: {
+            //   opacity: 0.8,
+            //   color: new graphic.LinearGradient(0, 0, 0, 1, [
+            //     {
+            //       offset: 0,
+            //       color: '#87B3B9',
+            //     },
+            //     {
+            //       offset: 1,
+            //       color: 'rgba(144, 153, 63, 0.5)',
+            //     },
+            //   ]),
+            // },
+            emphasis: {
+              focus: 'series',
+            },
+            data: [
+              140,
+              232,
+              101,
+              264,
+              90,
+              340,
+              250,
+              264,
+              90,
+              340,
+              250,
+              264,
+              90,
+              264,
+              90,
+              340,
+              250,
+              264,
+              90,
+              340,
+              250,
+              264,
+              90,
+              90,
+            ],
+          },
+        ],
+      }
+    }else if (chartType == 'reportEnegyMTCo2Saved') {
+      this.option = {
+        color: ['#87B3B9'],
+        title: {
+          // text: 'Charging Sessions',
+          // padding: [0, 20, 0, 100],
+        },
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'cross',
+            label: {
+              backgroundColor: '#6a7985',
+            },
+          },
+        },
+        legend: {
+          // data: ['SESSION LENGTH'],
+          icon: 'square',
+          // right: 0,
+          right: '4%',
+          // top: 'center',
+        },
+        // toolbox: {
+        //   feature: {
+        //     saveAsImage: {},
+        //   },
+        // },
+        grid: {
+          left: '12%',
+          right: '6%',
+          bottom: '8%',
+          containLabel: true,
+        },
+        xAxis: [
+          {
+            name: 'Time',
+            type: 'category',
+            // boundaryGap: false,
+            nameLocation: 'middle',
+            // nameGap: 50,
+            axisTick: {
+              alignWithLabel: true,
+            },
+            data: [
+              'July 20',
+              'Aug 20',
+              'Sep 20',
+              'Oct 20',
+              'Nov 20',
+              'Dec 20',
+              'Jan 21',
+              'Feb 21',
+              'Mar 21',
+              'Apr 21',
+              'May 21',
+              'Jun 21',
+              
+            ],
+            axisLabel: {
+              // formatter: '{value} kg',
+              // align: 'center',
+              rotate: 30,
+
+              // ...
+            },
+            // axisTick: {
+            //       alignWithLabel: true,
+            //     },
+            nameTextStyle: {
+              // align: 'right',
+              verticalAlign: 'top',
+              /**
+               * the top padding will shift the name down so that it does not overlap with the axis-labels
+               * t-l-b-r
+               */
+              padding: [20, 0, 0, 0],
+              fontSize: 14,
+              // fontWeight: 800,
+              // fontStyle: 'italic',
+            },
+            // the default nameGap=15 would move the text to the right
+          },
+        ],
+        yAxis: [
+          {
+            type: 'value',
+            name: 'MT of CO2 Saved',
+
+            nameLocation: 'middle',
+            /* fontWeight: 'bolder', */
+            nameGap: 60,
+          },
+        ],
+        series: [
+          {
+            name: 'MT of CO2 SAVED',
+            type: 'line',
+            stack: 'Total',
+            smooth: true,
+            lineStyle: {
+              width: 0,
+            },
+            showSymbol: false,
+            areaStyle:{
+             color:'#87B3B9',
+            },
+
+            // areaStyle: {
+            //   opacity: 0.8,
+            //   color: new graphic.LinearGradient(0, 0, 0, 1, [
+            //     {
+            //       offset: 0,
+            //       color: '#87B3B9',
+            //     },
+            //     {
+            //       offset: 1,
+            //       color: 'rgba(144, 153, 63, 0.5)',
+            //     },
+            //   ]),
+            // },
+            emphasis: {
+              focus: 'series',
+            },
+            data: [
+              0,
+              140,
+              232,
+              101,
+              264,
+              90,
+              340,
+              250,
+              264,
+              90,
+              340,
+              250,
+              264,
+              90,
+              264,
+              90,
+              340,
+              250,
+              264,
+              90,
+              340,
+              250,
+              264,
+              90,
+              90,
+            ],
+          },
+        ],
+      }
     }
   }
 
@@ -491,7 +808,6 @@ export class AreaChartComponent implements OnInit {
       legend: {
         data: legends,
         icon: 'square',
-
         right: '4%',
         // top: 'center',
       },
@@ -513,7 +829,7 @@ export class AreaChartComponent implements OnInit {
           type: 'category',
           // boundaryGap: false,
           nameLocation: 'middle',
-          // nameGap: 50,
+          nameGap: 42,
           axisTick: {
             alignWithLabel: true,
           },
@@ -522,25 +838,14 @@ export class AreaChartComponent implements OnInit {
           axisLabel: {
             // formatter: '{value} kg',
             // align: 'center',
-            rotate: 30,
+            rotate: 25,
 
             // ...
           },
           // axisTick: {
           //       alignWithLabel: true,
           //     },
-          nameTextStyle: {
-            // align: 'right',
-            verticalAlign: 'top',
-            /**
-             * the top padding will shift the name down so that it does not overlap with the axis-labels
-             * t-l-b-r
-             */
-            padding: [20, 0, 0, 0],
-            fontSize: 14,
-            // fontWeight: 800,
-            // fontStyle: 'italic',
-          },
+        
           // the default nameGap=15 would move the text to the right
         },
       ],

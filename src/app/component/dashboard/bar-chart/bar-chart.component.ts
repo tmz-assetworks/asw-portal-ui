@@ -78,96 +78,48 @@ export class BarChartComponent implements OnInit {
     if (chartType === 'bar' && this.chargerData !== undefined) {
       // alert('bar');
       this.barChartId = 1
-
       let arr: any
-
       arr = this.chargerData.data
-      // let checkArratLength = arr.length
-
-      // if (checkArratLength == 0) {
-      //   this.option = {}
-      // }
-
-      // console.log(arr, 'arr')
-         
+      //console.log(arr);
       const maxValue = arr.map((accu: any) => `${accu.counts}`)
 
       const maxCountValue = Math.max(...maxValue)
-      let sorted: any = {}
-      let arrKeys: any = []
       let arrObject: any[] = []
       let seriesData: any[] = []
       let legendColorData: any[] = []
       let legendData: any[] = ['Time']
-
+      let svalueData: any[] =[];
       for (let i = 0; i < arr.length; i++) {
         legendData.push(arr[i].chargeStatus)
       }
       legendData = [...new Set(legendData)]
-
-      arrObject.push(legendData)
-
+    
       for (let i = 0; i < arr.length; i++) {
-        if (sorted[parseInt(arr[i].times)] == undefined) {
-          sorted[parseInt(arr[i].times)] = []
-        }
-        //  sorted[arr[i].times].push(arr[i]);
-        // PUSHING KEYS IN ARRAY LIKE 3,4
-        arrKeys.push(parseInt(arr[i].times))
-        arrKeys = arrKeys.sort(function (a: number, b: number) {
-          return a - b
-        })
-        sorted[parseInt(arr[i].times)].push(arr[i])
+        svalueData.push(arr[i].times)
       }
-
-      // REMOVE DUBLICATE FROM ARRAY
-      let uniqueKey: any
-      uniqueKey = [...new Set(arrKeys)]
-      
-      for (let i = 0; i < uniqueKey.length; i++) {
-        let arrOb: any[] = []
-        for (let j = 0; j < sorted[uniqueKey[i]].length; j++) {
-          if (parseInt(sorted[uniqueKey[i]][j].times) == uniqueKey[i]) {
-            for(let k=1;k<legendData.length;k++) {
-              arrOb.push(
-                sorted[uniqueKey[i]][j].times,
-                0
-              )
-            }
-            
-              let ind = legendData.indexOf(sorted[uniqueKey[i]][j].chargeStatus);
-              if(ind !== -1) {
-               
-                /* arrOb.push(
-                  sorted[uniqueKey[i]][j].times) */
-                arrOb.splice(ind,1,sorted[uniqueKey[i]][j].counts)
-              }
-              
-            let color =
-              sorted[uniqueKey[i]][j].color !== undefined
-                ? sorted[uniqueKey[i]][j].color
-                : '#90993F'
-            if(legendColorData.indexOf(sorted[uniqueKey[i]][j].color) == -1) {
-            legendColorData.push(color)
-            }
-            arrObject.push(arrOb)
-          }
-
+      svalueData = [...new Set(svalueData)]
+      // FIND COLOR ACC TO LEGEND DATA 
+       for(let i=1;i<legendData.length;i++) {
+          let ind = arr.findIndex((x: any) => x.chargeStatus == legendData[i]);
+         if(ind >= 0) {
+           legendColorData.push((arr[ind].color !== undefined ? arr[ind].color : '#90993F' ));
+         } 
+         
+       }
+      arrObject.push(legendData);
+       for(let i=0;i<svalueData.length;i++) {
+        let xvalueData: any[] =[svalueData[i]];
+       for(let j=1;j<legendData.length;j++) {
+       let ind = arr.findIndex((x: any) => x.chargeStatus == legendData[j] && x.times == svalueData[i]);
+       let arrOb =  ind >= 0 ? arr[ind].counts : 0;
+       xvalueData.push(arrOb);
+         
+       }
+       // console.log(xvalueData);
+        arrObject.push(xvalueData);
+       
         }
-      }
-     
-      arrObject = [...new Set(arrObject)]
 
-      for (let k = 0; k < arrObject.length; k++) {
-        for (let j = 0; j < arrObject[k].length; j++) {
-          // CHECK IF TIME OUTSIDE 0 INDEX, REMOVE TIME
-          if (j > 0 && arrKeys.includes(parseInt(arrObject[k][j]))) {
-            arrObject[k].splice(j, 1)
-          }
-        }
-      }
-
-     // console.log(arrObject,'arr obj');
 
       // CREATE OBJECT FOR DIFF ELEMENT
       // console.log(legendData,'legend data');
@@ -206,12 +158,13 @@ export class BarChartComponent implements OnInit {
             type: 'category',
             name: 'Time',
             nameLocation: 'middle',
-            nameGap: 35,
+            nameGap: 42,
             axisTick: { show: false },
 
             axisLabel: {
-              rotate: 30,
+              rotate: 25,
             },
+           
           },
         ],
         yAxis: [
@@ -236,124 +189,6 @@ export class BarChartComponent implements OnInit {
         // Declare several bar series, each will be mapped
         // to a column of dataset.source by default.
         series: seriesData,
-      }
-    } else if (chartType === 'locationPerform') {
-      this.barChartId = 2
-
-      if (this.performingDataSet !== undefined) {
-        this.option = this.setPerformChartOptions(
-          this.performingDataSet,
-        ) as EChartsOption
-      }
-    } else if (chartType === 'dashboardlocationPerform') {
-      //alert(4);
-      if (this.performingDataSet !== undefined) {
-        this.barChartId = 4
-        this.option = this.setPerformChartOptions(
-          this.performingDataSet,
-        ) as EChartsOption
-      }
-    } else if (chartType == 'basicStatus') {
-      if (this.statusData !== undefined) {
-        this.barChartId = 3
-
-        let legendData: any[] = []
-        let seriesData: any[] = []
-        seriesData.push({
-          name: 'Placeholder',
-          type: 'bar',
-          stack: 'Total',
-          itemStyle: {
-            borderColor: 'transparent',
-            color: 'transparent',
-          },
-          emphasis: {
-            itemStyle: {
-              borderColor: 'transparent',
-              color: 'transparent',
-            },
-          },
-        })
-        for (let i = 0; i < this.statusData.length; i++) {
-          legendData.push(this.statusData[i].locationStatus)
-        }
-
-        let legendCountData: any[] = []
-        let legendColorData: any[] = []
-
-        for (let i = 0; i < this.statusData.length; i++) {
-          legendCountData.push(this.statusData[i].counts)
-        }
-
-        for (let i = 0; i < this.statusData.length; i++) {
-          let color =
-            this.statusData[i].color !== undefined
-              ? this.statusData[i].color
-              : '#90993F'
-          legendColorData.push(color)
-        }
-        // CREATE OBJECT FOR DIFF ELEMENT
-        for (let j = 0; j < legendCountData.length; j++) {
-          let obj = {
-            //  name: 'TOTAL LOCATIONS',
-            name: legendData[j],
-            type: 'bar',
-            stack: 'Total',
-            itemStyle: {
-              color: legendColorData[j],
-            },
-            data: this.returnData(j, legendCountData),
-          }
-
-          seriesData.push(obj)
-        }
-        this.option = {
-          tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-              type: 'shadow',
-            },
-          },
-          legend: {
-            data: legendData,
-            icon: 'square',
-            right: '4%',
-          },
-          grid: {
-            left: '10%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true,
-          },
-          xAxis: {
-            type: 'category',
-            // data: ['Total Locations', 'Live', 'Under Maintenance', 'Upcoming'], // on hover
-            data: legendData,
-            axisLabel: {
-              // rotate: 30,
-              fontSize: 10,
-            },
-          },
-          yAxis: {
-            type: 'value',
-            name: 'Count',
-            min: 0,
-            max: 500,
-
-            nameLocation: 'middle',
-            // fontWeight: 'bolder',
-            nameGap: 50,
-            nameTextStyle: {
-              // align: 'right',
-              verticalAlign: 'top',
-
-              fontSize: 14,
-              // fontWeight: 800,
-              // fontStyle: 'italic',
-            },
-          },
-          series: seriesData,
-        }
       }
     } else if (chartType === 'barAnalytics') {
       this.option = {
@@ -534,6 +369,426 @@ export class BarChartComponent implements OnInit {
           },
         ],
       }
+    } else if (chartType === 'dashboardlocationPerform') {
+      //alert(4);
+      if (this.performingDataSet !== undefined) {
+        this.barChartId = 4
+        this.option = this.setPerformChartOptions(
+          this.performingDataSet,
+        ) as EChartsOption
+      }
+    } else if (chartType == 'basicStatus') {
+      if (this.statusData !== undefined) {
+        this.barChartId = 3
+
+        let legendData: any[] = []
+        let seriesData: any[] = []
+        seriesData.push({
+          name: 'Placeholder',
+          type: 'bar',
+          stack: 'Total',
+          itemStyle: {
+            borderColor: 'transparent',
+            color: 'transparent',
+          },
+          emphasis: {
+            itemStyle: {
+              borderColor: 'transparent',
+              color: 'transparent',
+            },
+          },
+        })
+        for (let i = 0; i < this.statusData.length; i++) {
+          legendData.push(this.statusData[i].locationStatus)
+        }
+
+        let legendCountData: any[] = []
+        let legendColorData: any[] = []
+
+        for (let i = 0; i < this.statusData.length; i++) {
+          legendCountData.push(this.statusData[i].counts)
+        }
+
+        for (let i = 0; i < this.statusData.length; i++) {
+          let color =
+            this.statusData[i].color !== undefined
+              ? this.statusData[i].color
+              : '#90993F'
+          legendColorData.push(color)
+        }
+        // CREATE OBJECT FOR DIFF ELEMENT
+        for (let j = 0; j < legendCountData.length; j++) {
+          let obj = {
+            //  name: 'TOTAL LOCATIONS',
+            name: legendData[j],
+            type: 'bar',
+            stack: 'Total',
+            itemStyle: {
+              color: legendColorData[j],
+            },
+            data: this.returnData(j, legendCountData),
+          }
+
+          seriesData.push(obj)
+        }
+        this.option = {
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              type: 'shadow',
+            },
+          },
+          legend: {
+            data: legendData,
+            icon: 'square',
+            right: '4%',
+          },
+          grid: {
+            left: '10%',
+            right: '4%',
+            bottom: '3%',
+            containLabel: true,
+          },
+          xAxis: {
+            type: 'category',
+            // data: ['Total Locations', 'Live', 'Under Maintenance', 'Upcoming'], // on hover
+            data: legendData,
+            axisLabel: {
+              // rotate: 30,
+              fontSize: 10,
+            },
+          },
+          yAxis: {
+            type: 'value',
+            name: 'Count',
+            min: 0,
+            max: 500,
+
+            nameLocation: 'middle',
+            // fontWeight: 'bolder',
+            nameGap: 50,
+            nameTextStyle: {
+              // align: 'right',
+              verticalAlign: 'top',
+
+              fontSize: 14,
+              // fontWeight: 800,
+              // fontStyle: 'italic',
+            },
+          },
+          series: seriesData,
+        }
+      }
+    } else if (chartType === 'locationPerform') {
+      this.barChartId = 2
+
+      if (this.performingDataSet !== undefined) {
+        this.option = this.setPerformChartOptions(
+          this.performingDataSet,
+        ) as EChartsOption
+      }
+    } else if (chartType == 'reportSubscribeMonthly') {
+      this.option = {
+        legend: {
+          right: '4%',
+          icon: 'square',
+        },
+        grid: {
+          left: '12%',
+        },
+        tooltip: {
+          show: true,
+        },
+        xAxis: {
+          type: 'category',
+          data: [
+            'July 20',
+            'Aug 20',
+            'Sept 20',
+            'Oct 20',
+            'Nov 20',
+            'Dec 20',
+            'Jan 21',
+            'Feb 21',
+            'Mar 21',
+            'Apr 21',
+            'May 21',
+            'Jun 21',
+            'July 21',
+          ],
+          name: 'Month',
+          nameLocation: 'middle',
+          nameGap: 45,
+          //nameGap: 25,
+          axisTick: { show: false },
+
+          // axisLabel: {
+          //   rotate: 30,
+          // },
+        },
+        yAxis: {
+          type: 'value',
+          name: 'Monthly Subscription',
+          nameLocation: 'middle',
+          nameGap: 50,
+          nameTextStyle: {
+            // align: 'right',
+            verticalAlign: 'top',
+            fontSize: 14,
+          },
+          axisLabel: {
+            formatter: '${value}',
+            // align: 'center'
+            // ...
+          },
+        },
+        series: [
+          {
+            name: 'MONTHLY SUBSCRIPTION',
+            data: [120, 200, 150, 80, 70, 110, 130, 80, 70, 110, 130, 110, 130],
+            type: 'bar',
+            // itemStyle:{color:'#FFA12D'}
+          },
+        ],
+      }
+    } else if (chartType == 'reportSubscribeType') {
+      this.option = {
+        legend: {
+          right: '4%',
+          icon: 'square',
+        },
+        grid: {
+          left: '12%',
+        },
+        tooltip: {
+          show: true,
+        },
+        xAxis: {
+          type: 'category',
+          data: [
+            'Service Plan 1',
+            'Service Plan 2',
+            'Service Plan 3',
+            'Service Plan 4',
+          ],
+          name: 'Month',
+          nameLocation: 'middle',
+          nameGap: 45,
+          //nameGap: 25,
+          axisTick: { show: false },
+
+          // axisLabel: {
+          //   rotate: 30,
+          // },
+        },
+        yAxis: {
+          type: 'value',
+          name: 'Count',
+          nameLocation: 'middle',
+          nameGap: 50,
+          nameTextStyle: {
+            // align: 'right',
+            verticalAlign: 'top',
+            fontSize: 14,
+          },
+          axisLabel: {
+            formatter: '${value}',
+            // align: 'center'
+            // ...
+          },
+        },
+        series: [
+          {
+            name: 'TYPE',
+            data: [120, 200, 150, 80],
+            type: 'bar',
+            itemStyle: { color: '#90993F' },
+          },
+        ],
+      }
+    } else if (chartType == 'reportTransaction') {
+      this.option = {
+        grid: {
+          left: '8%',
+          right: '6%',
+          bottom: '8%',
+          top: 50,
+          containLabel: true,
+        },
+        legend: {
+          // left: '63%',
+          right: '4%',
+          icon: 'square',
+        },
+        tooltip: {},
+        dataset: {
+          source: [
+            ['Yearly', 'TRANSACTION AMOUNT'],
+            ['2022', 600],
+            ['2023', 650],
+            ['2024', 450],
+            ['2025', 325],
+            ['2026', 800],
+            ['2027', 450],
+            ['2028', 650],
+            ['2029', 410],
+            ['2030', 630],
+            ['2031', 650],
+            ['2032', 690],
+            ['2033', 630],
+          ],
+        },
+        xAxis: [
+          {
+            type: 'category',
+            name: 'Yearly',
+            nameLocation: 'middle',
+            nameGap: 35,
+            axisTick: { show: false },
+
+            axisLabel: {
+              //  rotate: 30,
+              rotate: 0,
+            },
+          },
+        ],
+        yAxis: [
+          {
+            type: 'value',
+            name: 'Amount',
+            nameLocation: 'middle',
+            axisLabel: {
+              formatter: '${value}',
+              // align: 'center'
+              // ...
+            },
+
+            /* fontWeight: 'bolder', */
+            nameGap: 60,
+            min: 0,
+            max: 1000,
+            nameTextStyle: {
+              // align: 'right',
+              verticalAlign: 'top',
+              /**
+               * the top padding will shift the name down so that it does not overlap with the axis-labels
+               * t-l-b-r
+               */
+              // padding: [20, 0, 0, 0],
+              fontSize: 14,
+              // fontWeight: 800,
+              // fontStyle: 'italic',
+            },
+          },
+        ],
+        // Declare several bar series, each will be mapped
+        // to a column of dataset.source by default.
+        series: [
+          {
+            type: 'bar',
+            barWidth: '18%',
+            itemStyle: {
+              // color: '#90993F',
+              color: '#FFA12D',
+            },
+          },
+        ],
+      }
+    } else if (chartType == 'reportSession') {
+      this.option = {
+        grid: {
+          left: '8%',
+          right: '6%',
+          bottom: '8%',
+          top: 50,
+          containLabel: true,
+        },
+        legend: {
+          // left: '63%',
+          right: '4%',
+          icon: 'square',
+        },
+        tooltip: {},
+        dataset: {
+          source: [
+            ['Time', 'Available', 'Connected', 'Offline'],
+            ['July 20', 26, 18, 25],
+            ['Aug 20', 47, 173, 55.1],
+            ['Sep 20', 60, 65.2, 82.5],
+            ['Oct 20', 70, 53.9, 39.1],
+            ['Nov 20', 80, 53.9, 39.1],
+            ['Dec 20', 92.4, 53.9, 39.1],
+            ['Jan 21', 72.4, 53.9, 39.1],
+            ['Fab 21', 72.4, 53.9, 39.1],
+            ['Mar 21', 72.4, 53.9, 39.1],
+            ['Apr 21', 72.4, 53.9, 39.1],
+            ['May 21', 72.4, 53.9, 39.1],
+            ['Jun 21', 72.4, 53.9, 39.1],
+          ],
+        },
+        xAxis: [
+          {
+            type: 'category',
+            name: 'Months',
+            nameLocation: 'middle',
+            nameGap: 50,
+            axisTick: { show: false },
+
+            axisLabel: {
+              rotate: 30,
+            },
+          },
+        ],
+        yAxis: [
+          {
+            type: 'value',
+            name: 'Charging Session',
+            nameLocation: 'middle',
+
+            /* fontWeight: 'bolder', */
+            nameGap: 60,
+            min: 0,
+            max: 300,
+            nameTextStyle: {
+              // align: 'right',
+              verticalAlign: 'top',
+              /**
+               * the top padding will shift the name down so that it does not overlap with the axis-labels
+               * t-l-b-r
+               */
+              // padding: [20, 0, 0, 0],
+              fontSize: 14,
+              // fontWeight: 800,
+              // fontStyle: 'italic',
+            },
+          },
+        ],
+        // Declare several bar series, each will be mapped
+        // to a column of dataset.source by default.
+        series: [
+          {
+            type: 'bar',
+            barWidth: '10%',
+            itemStyle: {
+              color: '#90993F',
+            },
+          },
+          {
+            type: 'bar',
+            barWidth: '10%',
+            itemStyle: {
+              color: '#E97300',
+            },
+          },
+          {
+            type: 'bar',
+            barWidth: '10%',
+            itemStyle: {
+              color: '#757575',
+            },
+          },
+        ],
+      }
     }
   }
 
@@ -598,9 +853,9 @@ export class BarChartComponent implements OnInit {
 
     const meteredValue = dataSet.map((accu: any) => `${accu.meterValue}`)
 
-    const maxMeterdedValue = Math.max(...meteredValue)
+    // const maxMeterdedValue = Math.max(...meteredValue)
 
-    const color = dataSet.map((elem: any) => `${elem.color}`)
+    // const color = dataSet.map((elem: any) => `${elem.color}`)
 
     const legends = dataSet.map((accu: any) => accu.locationName)
 
@@ -644,7 +899,7 @@ export class BarChartComponent implements OnInit {
         },
       },
       grid: {
-        left: '4%',
+        left: '10%',
         right: '4%',
         bottom: '3%',
         containLabel: true,
@@ -665,7 +920,7 @@ export class BarChartComponent implements OnInit {
 
         nameLocation: 'middle',
         /* fontWeight: 'bolder', */
-        nameGap: 60,
+        nameGap: 80,
         nameTextStyle: {
           // align: 'right',
           verticalAlign: 'top',
@@ -754,7 +1009,7 @@ export class BarChartComponent implements OnInit {
     }
   }
 
- /*  Array.prototype.insert = function ( index, item ) {
+  /*  Array.prototype.insert = function ( index, item ) {
     this.splice( index, 0, item );
 }; */
 }

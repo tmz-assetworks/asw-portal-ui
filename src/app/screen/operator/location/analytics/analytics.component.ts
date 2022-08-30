@@ -74,6 +74,13 @@ export class AnalyticsComponent implements OnInit {
       this.selectedTime,
       this.UserId,
     )
+    let isDuration = this._storageService.getSessionData('duration')
+
+    if (isDuration) {
+      this._storageService.removeSessionData('duration')
+      this._storageService.removeSessionData('graphHeading')
+      this._storageService.removeSessionData('pageHeading')
+    }
   }
 
   locations = '../../../assets/widget-icon/location.png'
@@ -183,10 +190,17 @@ export class AnalyticsComponent implements OnInit {
       })
   }
 
-  openDetailPage(event: any, graphHeading: string, pageHeading: string) {
+  openDetailPage(
+    event: any,
+    graphHeading: string,
+    pageHeading: string,
+    duration: any,
+  ) {
     //alert('derails page');
     sessionStorage.setItem('graphHeading', graphHeading)
     sessionStorage.setItem('pageHeading', pageHeading)
+    sessionStorage.setItem('duration', duration)
+
     this._router.navigate(['detail'], {
       relativeTo: this._route,
       queryParams: { id: event },
@@ -288,6 +302,7 @@ export class AnalyticsComponent implements OnInit {
     }
     this._dashboardService.GetAreachartdataData(body).subscribe((res) => {
       this.chargingSessionData = res.data
+      console.log(this.chargingSessionData, 'hello session chart')
     })
   }
 

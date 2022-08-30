@@ -1240,3 +1240,41 @@ tr.mat-row:last-of-type {
   }
 
 }
+
+// Soni CSS
+@media screen and (max-width: 737px) {
+  .cust-list-block4 {
+    flex-wrap: inherit;
+  }
+  .cust-list-block9.layout{
+    margin-left: 0px;
+    width: 114px;
+
+  }
+  .cust-list-text-body2.layout {
+    margin: 0px;
+}
+.cust-list-block13.layout{
+  margin: 0 0px 0 20px;
+}
+.cust-list-block4-spacer {
+  flex: 0;
+}
+.cust-list-block18.layout{
+  margin-left: 18px;
+  margin-right: 0px;
+}
+.cust-list-block7.layout {
+  margin-right: 15px;
+}
+}
+
+@media (max-width: 1199px){
+  .mat-elevation-z8{
+    min-width: 1200px;
+   overflow: auto;
+   display: inline-table
+}
+}
+
+

@@ -1,7 +1,7 @@
 <div class="header header-block layout">
   <div class="header-block1 layout">
     <div class="header-flex layout">
-      <h3 class="header-subtitle-box layout">Charger Details</h3>
+      <h3 class="header-subtitle-box layout">{{ chargerName }}</h3>
 
       <div class="location-block2 layout">
         <div class="location-block2-item">
@@ -69,49 +69,71 @@
           </div>
         </div>
       </div>
-     <div>
-      <div class="cust-list-flex1 layout">
-        <!-- <h3 class="cust-list-subtitle layout">Alerts</h3> -->
-        <div class="cust-list-flex3 layout">
-          <div class="cust-list-flex3-item">
-            <div class="cust-list-group layout">
-              <div class="cust-list-block19 layout">
-                <mat-form-field class="cust-list-block20 layout">
-                  <!-- <mat-label>Cars</mat-label> -->
+      <div>
+        <div class="cust-list-flex1 layout">
+          <!-- <h3 class="cust-list-subtitle layout">Alerts</h3> -->
+          <div class="cust-list-flex3 layout">
+            <div class="cust-list-flex3-item">
+              <div class="cust-list-group layout">
+                <div class="cust-list-block19 layout">
+                  <!-- <div style="text-align: left; margin: 12px 0px 0px 17px;;">{{selecteChargerIds}}</div> -->
+                  <!-- <mat-form-field class="cust-list-block20 layout">
+                  <mat-label>Cars</mat-label>
                   <select matNativeControl required>
                     <option value="volvo">Charge Box ID</option>
                     <option value="saab">Saab</option>
                     <option value="mercedes">Mercedes</option>
                     <option value="audi">Audi</option>
                   </select>
-                </mat-form-field>
+                </mat-form-field> -->
+                  <mat-form-field class="barbar-box6 layout">
+                    <select
+                      matNativeControl
+                      required
+                      [(ngModel)]="searchParam"
+                      (change)="selectOption($event)"
+                    >
+                      <!--  <option value="volvo">
+                      All
+                    </option>
+                    <option value="saab">Reset</option>
+                    <option value="mercedes">
+                      Heartbeat
+                    </option>
+                    <option value="audi">
+                      Start Transaction
+                    </option> -->
+                      <option *ngFor="let item of arrKeys">
+                        {{ item.value }}
+                      </option>
+                    </select>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+
+            <div class="cust-list-flex3-spacer"></div>
+            <div class="cust-list-flex3-item1">
+              <div class="cust-list-block23 layout" (click)="downloadAsPDF()">
+                <div class="cust-list-block23-item">
+                  <div class="cust-list-box10 layout">
+                    <img
+                      src="../../../../../assets/download-report.png"
+                      alt=""
+                      srcset=""
+                    />
+                  </div>
+                </div>
+                <div class="cust-list-block23-spacer"></div>
+                <div class="cust-list-text-body4 layout">
+                  DOWNLOAD SESSION
+                </div>
               </div>
             </div>
           </div>
-          <div class="cust-list-flex3-spacer"></div>
-              <div class="cust-list-flex3-item1">
-                <div class="cust-list-block23 layout">
-                  <div class="cust-list-block23-item">
-                    <div class="cust-list-box10 layout">
-                      <img
-                        src="../../../../../assets/download-report.png"
-                        alt=""
-                        srcset=""
-                      />
-                    </div>
-                  </div>
-                  <div class="cust-list-block23-spacer"></div>
-                  <div
-                    class="cust-list-text-body4 layout"
-                    [routerLink]="['add-operator']"
-                  >
-                   DOWNLOAD SESSION
-                  </div>
-                </div>
-              </div>
         </div>
 
-        <div class="cust-list-group2 layout">
+        <div class="cust-list-group2 layout" id="content" #content>
           <table
             mat-table
             [dataSource]="dataSource"
@@ -121,10 +143,10 @@
           >
             <ng-container matColumnDef="Reset">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                RESET
+                TYPE
               </th>
               <td mat-cell *matCellDef="let element; let i = index">
-                {{ element.OperatorType }}
+                {{ element.requestType }}
               </td>
             </ng-container>
             <ng-container matColumnDef="Datetime">
@@ -132,12 +154,14 @@
                 Date/ Time
               </th>
               <td mat-cell *matCellDef="let element; let i = index">
-                {{ element.Datetime }}
+                {{ element.modifiedAt }}
               </td>
             </ng-container>
 
             <ng-container matColumnDef="action">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>ACTION</th>
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                ACTION
+              </th>
               <td mat-cell *matCellDef="let element; let i = index">
                 <img
                   style="cursor: pointer;"
@@ -147,7 +171,6 @@
                       expandedElement === element ? null : element
                   "
                 />
-               
               </td>
             </ng-container>
             <ng-container matColumnDef="expandedDetail">
@@ -165,12 +188,16 @@
                   <div class="example-element-description">
                     <div class="">
                       <div class="">
-                        <pre> {{ element.RequestPayload | json }}</pre>
+                        <div style="text-transform: none;">
+                          {{ element.requestPayload }}
+                        </div>
                       </div>
                     </div>
                     <hr />
                     <div class="example-element-description">
-                      <pre> {{ element.ResponsePayload | json }}</pre>
+                      <div style="text-transform: none;">
+                        {{ element.responsePayload }}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -190,13 +217,22 @@
               class="example-detail-row"
             ></tr>
           </table>
-
+          <ng-container *ngIf="isTableHasData">
+            <p class="text-center">No record found</p>
+          </ng-container>
           <mat-paginator
-            [length]="100"
+            #paginator
+            (page)="getChargerEventLogTable($event, currentPage, totalRecords)"
+            [length]="totalRecords"
+            [pageSize]="pageSize"
             [pageSizeOptions]="[10, 20, 100]"
           ></mat-paginator>
+          <!-- <mat-paginator
+            [length]="100"
+            [pageSizeOptions]="[10, 20, 100]"
+          ></mat-paginator> -->
         </div>
       </div>
-     </div>
     </div>
-  
+  </div>
+</div>

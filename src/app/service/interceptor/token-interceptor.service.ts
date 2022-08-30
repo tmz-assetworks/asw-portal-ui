@@ -22,18 +22,19 @@ import {
 } from 'rxjs'
 import { LoginService } from 'src/app/screen/login/login.service'
 import { AuthService } from '../auth/auth.service'
-
+import { ToastrService } from 'ngx-toastr'
 @Injectable({
   providedIn: 'root',
 })
 export class TokenInterceptorService implements HttpInterceptor {
   isRefreshing = false
+  handleErrorCalled = false
   refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(false)
 
   constructor(
     private _injector: Injector,
     private _loginService: LoginService,
-
+    private toastr: ToastrService,
     private _authService: AuthService,
   ) {}
 
@@ -41,6 +42,7 @@ export class TokenInterceptorService implements HttpInterceptor {
     req: HttpRequest<any>,
     next: HttpHandler,
   ): Observable<HttpEvent<any>> {
+    console.log(req);
     const tokenizedReq = req.clone({
       setHeaders: {
         Authorization: 'Bearer ' + `${this._authService.getToken()}`,
@@ -48,6 +50,65 @@ export class TokenInterceptorService implements HttpInterceptor {
       },
     })
     return next.handle(tokenizedReq).pipe(
+      mergeMap((res) => {
+        //console.log(req,'reshANDLE');
+          /* if(req.url.includes('RemoteStartTransaction')) {
+          alert('inva');
+          console.log(res);
+          return of(res)
+        }   */
+        if ((res as any)?.body?.statusCode == 404) {
+          return throwError(() => {
+            new Error('error')
+          })
+        }
+        return of(res)
+      }),
+      retry(1),
+      catchError((error: HttpErrorResponse) => {
+        if(error !== undefined && error.url !== null  && error.url.includes('RemoteStartTransaction') && error.error !== undefined) {
+          this.toastr.error(JSON.stringify(error.error.error));
+          
+        }
+        return of(null as any)
+      }),
+    )
+  }
+
+  /* intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>  {
+    if(!request.url.includes('refreshToken')) {
+    let token = null;
+    let jwtToken: any;
+   const tokenExpireTime = JSON.parse(JSON.stringify(localStorage.getItem('token_expires_on'))) || '';
+   const refreshTokenExpireTime = JSON.parse(JSON.stringify(localStorage.getItem('refreshToken_expires_on')));
+   let email =  localStorage.getItem('userEmail') || '';
+   
+   // CODE TO CHECK IS TOKEN EXPIRES
+    email = localStorage.getItem('userEmail') || '';
+    token = localStorage.getItem('token_id') || '';
+   
+   if(email !== '' && tokenExpireTime !== '' && !request.url.includes('refreshToken')) {
+   // alert('not login page');
+   if(token !== '') {
+  request = this.addTokenHeader(request,token);
+   }
+   } else if(request.url.includes('refreshToken')) {
+    return next.handle(request);
+   } else  {
+   // alert('go to login');
+    return next.handle(request);
+   }
+    //   return next.handle(request).pipe(catchError(error => {
+    //   if(error instanceof HttpErrorResponse && error.status == 401 && !this.handleErrorCalled) {
+    //     return this.handle401Error(request,next);
+        
+    //   }
+    //   else {
+    //     return throwError(error)
+    //   }
+    // }));  
+
+    return next.handle(request).pipe(
       mergeMap((res) => {
         if ((res as any)?.body?.statusCode >= 400) {
           return throwError(() => {
@@ -57,44 +118,21 @@ export class TokenInterceptorService implements HttpInterceptor {
         return of(res)
       }),
       retry(1),
-      catchError((error: HttpErrorResponse) => {
-        return of(null as any)
+      catchError(error => {
+        if(error instanceof HttpErrorResponse && error.status == 401 && !this.handleErrorCalled) {
+          return this.handle401Error(request,next);
+          
+        }
+        else {
+          return throwError(error)
+        }
       }),
-    )
-  } 
-
- /*  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>  {
-    
-    let token = null;
-    let jwtToken: any;
-   const tokenExpireTime = JSON.parse(JSON.stringify(localStorage.getItem('token_expires_on'))) || '';
-   const refreshTokenExpireTime = JSON.parse(JSON.stringify(localStorage.getItem('refreshToken_expires_on')));
-   let email =  localStorage.getItem('userEmail') || '';
-   
-   // CODE TO CHECK IS TOKEN EXPIRES
-    email = localStorage.getItem('userEmail') || '';
-    token = localStorage.getItem('token_operator') || '';
-   
-   if(email !== '' && tokenExpireTime !== '') {
-   // alert('not login page');
-   if(token !== '') {
-  request = this.addTokenHeader(request,token);
-   }
-   } else  {
-   // alert('go to login');
-    return next.handle(request);
-   }
-    return next.handle(request).pipe(catchError(error => {
-      if(error instanceof HttpErrorResponse && error.status == 401) {
-        return this.handle401Error(request,next);
-      }
-      else {
-        return throwError(error)
-      }
-    }));
+    ) 
     
     
  //  return
+  }
+  return next.handle(request);
   } 
 
  
@@ -106,6 +144,9 @@ export class TokenInterceptorService implements HttpInterceptor {
   
    handle401Error(request: HttpRequest<any>, next: HttpHandler) {
    // let authService = this._loginService
+   alert('refresh token');
+   
+   this. handleErrorCalled = true;
     if(!this.isRefreshing) {
       this.isRefreshing = true;
       this.refreshTokenSubject.next(null);
@@ -134,5 +175,7 @@ export class TokenInterceptorService implements HttpInterceptor {
       );
     }
 
-   } */
+   } 
+   
+  */
 }

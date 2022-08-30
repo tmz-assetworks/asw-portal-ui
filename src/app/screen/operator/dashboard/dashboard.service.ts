@@ -17,7 +17,7 @@ export class DashboardService {
    */
 
   GetSummaryStatus(): Observable<any> {
-    return this._http.get<any>(`${this.url}getsummarystatus/${0}`)
+    return this._http.get<any>(`${this.url}getsummarystatus/${0}/false`)
   }
 
   /**
@@ -75,6 +75,10 @@ export class DashboardService {
     return this._http.post<any>(`${this.url}getLocationsDispenserformap`, param)
   }
 
+  GetChartDetailsList(param: any): Observable<any> {
+    let url ='https://asw-portal-rest-service.azurewebsites.net/api/v1/Charger/'
+    return this._http.post<any>(`${url}GetChartDetailsList`, param)
+  }
   /**
    *
    * @param params
@@ -93,7 +97,8 @@ export class DashboardService {
   public requestDataFromMultipleSources(
     locatioPer: any,
     energyUsed: any,
-    chargersGraphReq: any,chargingSessionReq: any
+    chargersGraphReq: any,
+    chargingSessionReq: any,
   ): Observable<any[]> {
     let response1 = this._http.get<any>(`${this.url}getsummarystatus/${0}`)
     let response2 = this._http.post<any>(
@@ -110,9 +115,19 @@ export class DashboardService {
     )
 
     let response5 = this._http.get<any>(`${this.url}getalllocation`)
-    let response6 = this._http.post<any>(`${this.url}ChargingSession`,chargingSessionReq)
+    let response6 = this._http.post<any>(
+      `${this.url}ChargingSession`,
+      chargingSessionReq,
+    )
     // let response3 = this.http.get(requestUrl3);
     // Observable.forkJoin (RxJS 5) changes to just forkJoin() in RxJS 6
-    return forkJoin([response1, response2, response3, response4,response5,response6])
+    return forkJoin([
+      response1,
+      response2,
+      response3,
+      response4,
+      response5,
+      response6,
+    ])
   }
 }

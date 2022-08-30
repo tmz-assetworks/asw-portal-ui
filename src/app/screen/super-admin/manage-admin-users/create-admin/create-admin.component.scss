@@ -607,3 +607,10 @@ $font_type_3: 500 14px/1.2 'Roboto', Helvetica, Arial, serif;
   color: #fff;
   font-size: 1em;
 }
+
+// Soni CSS
+@media screen and (max-width: 737px) {
+  div#mat-select-2-panel {
+    margin-top: 33px;
+}
+}

@@ -1,0 +1,448 @@
+<div class="barbar-block10 layout">
+  <div class="barbar-flex layout">
+    <div class="barbar-block11 layout">
+      <h3 class="barbar-subtitle layout">{{locationInfoTitle}}</h3>
+    </div>
+
+    <form [formGroup]="addLocationForm">
+      <div class="barbar-block12 layout">
+        <h4 class="barbar-highlights1 layout"></h4>
+        <div class="barbar-block13 layout">
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Location ID</h5>
+              <div class="barbar-box6 layout">
+                <input
+                  formControlName="LocationId"
+                  type="text"
+                  class="barbar-input-text"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout" >Location Name</h5>
+              <div class="barbar-box6 layout">
+                <input
+                  formControlName="LocationName"
+                  type="text"
+                  class="barbar-input-text"
+                />
+                <!-- <mat-error>This Field is required</mat-error> -->
+              </div>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Location Status</h5>
+
+              <mat-form-field class="barbar-box6 layout">
+                <mat-label >Select</mat-label>
+                <mat-select formControlName="locationStatus">
+                  <mat-option> Organization A </mat-option>
+                  <mat-option> Organization B </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Description</h5>
+              <div class="barbar-box6 layout">
+                <input
+                  formControlName="Description"
+                  type="text"
+                  class="barbar-input-text"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Contact Person Name</h5>
+              <div class="barbar-box6 layout">
+                <input
+                  formControlName="contactPersonName"
+                  type="text"
+                  class="barbar-input-text"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Contact Person Number</h5>
+              <div class="barbar-box6 layout">
+                <input
+                  formControlName="contactPersonNumber"
+                  type="text"
+                  class="barbar-input-text"
+                />
+              </div>
+            </div>
+          </div>
+          <!-- <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">No. of Chargers</h5>
+              <div class="barbar-box6 layout">
+                <input
+                  formControlName="phoneNumber"
+                  type="text"
+                  class="barbar-input-text"
+                />
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+
+      <div class="barbar-block12 layout">
+        <h4 class="barbar-highlights1 layout">Location</h4>
+        <div class="barbar-block13 layout">
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Latitude</h5>
+              <div class="barbar-box6 layout">
+                <input
+                  formControlName="Latitude"
+                  type="text"
+                  class="barbar-input-text"
+                />
+                <!-- <mat-error>This Fiels is required</mat-error> -->
+              </div>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Longitude</h5>
+              <div class="barbar-box6 layout">
+                <input
+                  formControlName="Longitude"
+                  type="text"
+                  class="barbar-input-text"
+                />
+                <!-- <mat-error>This Fiels is required</mat-error> -->
+              </div>
+            </div>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Address Line 1</h5>
+              <div class="barbar-box6 layout">
+                <input
+                  formControlName="addressLine1"
+                  type="text"
+                  class="barbar-input-text"
+                />
+                <!-- <mat-error>This Fiels is required</mat-error> -->
+              </div>
+            </div>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Address Line 2</h5>
+              <div class="barbar-box6 layout">
+                <input
+                  formControlName="addressLine2"
+                  type="text"
+                  class="barbar-input-text"
+                />
+                <!-- <mat-error>This Fiels is required</mat-error> -->
+              </div>
+            </div>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Country</h5>
+              <mat-form-field class="barbar-box6 layout">
+                <!-- <mat-label >Select</mat-label> -->
+                <mat-select formControlName="Country">
+                  <mat-option> USA </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">State</h5>
+
+              <mat-form-field class="barbar-box6 layout">
+                <!-- <mat-label >Select</mat-label> -->
+                <mat-select formControlName="State">
+                  <mat-option > California </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <!-- <div class="barbar-box6 layout">
+                  <select
+                    required
+                    formControlName="country"
+                    class="barbar-input-text"
+                  >
+                    <option value="California">California</option>
+  
+                  
+                  </select>
+                </div> -->
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">City</h5>
+              <mat-form-field class="barbar-box6 layout">
+                <!-- <mat-label >Select</mat-label> -->
+                <mat-select formControlName="City">
+                  <mat-option> Los Angeles </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Zip Code</h5>
+              <div class="barbar-box6 layout">
+                <input
+                  formControlName="zipcode"
+                  type="text"
+                  class="barbar-input-text"
+                />
+                <!-- <mat-error>This Field is required</mat-error> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="barbar-block12 layout">
+        <h4 class="barbar-highlights1 layout">Reference Information</h4>
+        <div class="barbar-block13 layout">
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Total Capacity</h5>
+              <div class="barbar-box6 layout">
+                <input
+                  formControlName="totalcapacity"
+                  type="text"
+                  class="barbar-input-text"
+                />
+                <!-- <mat-error>This Fiels is required</mat-error> -->
+              </div>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Utility Service</h5>
+              <div class="barbar-box6 layout">
+                <input
+                  formControlName="utilityservice"
+                  type="text"
+                  class="barbar-input-text"
+                />
+                <!-- <mat-error>This Fiels is required</mat-error> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+        <div class="cust-list-flex3-item">
+          <h3  class="searchtitle">Search Location </h3>
+          <div class="cust-list-group layout">
+            <div class="cust-list-block19 layout">
+              <div class="cust-list-box9 layout">
+                <img
+                  src="assets/images/serach.png"
+                  alt=""
+                  class="cust-list-icon layout"
+                />
+              </div>
+              <div class="cust-list-block20 layout">
+                <input
+                  class="cust-list-text-body21 layout"
+                  (keyup)="($event)"
+                  placeholder=""
+                  #input
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      
+
+      <div class="location-block20-spacer"></div>
+      <div style="display: flex; flex-direction: column; flex: 3 1 30%">
+        <div>
+          <h5
+            class="location-highlights layout headingtitle"
+            style="width: 100%; margin-bottom: 8px"
+          ></h5>
+        </div>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.9147702084!2d-74.11976311543931!3d40.697403442267195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sin!4v1659609967810!5m2!1sen!2sin"
+          style="width: 101%; height: 300px; border: 0;    border-radius: 18px 18px 18px 18px;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+        <!-- <div id="map" style="width: 100%; height: 100%"></div> -->
+      </div>
+      <div class="barbar-block13-spacer"></div>
+      <div class="barbar-block12 layout">
+        <h4 class="barbar-highlights1 layout">Location Opening Hours</h4>
+        <div class="barbar-block13 layout">
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item width">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Monday</h5>
+
+              <mat-form-field class="barbar-box6 layout width50" >
+                <mat-label>7 AM to 8 PM</mat-label>
+                <mat-select    >
+                  <mat-option  > 8 AM to 9 PM </mat-option>
+                  <mat-option > 9 AM to 10 PM </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <!-- <mat-form-field>
+                <mat-select [(value)]="selected" placeholder="Mode">
+                    <mat-option value="domain">Domain</mat-option>
+                    <mat-option value="exact">Exact</mat-option>
+                </mat-select>
+            </mat-form-field> -->
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item width">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Tuesday</h5>
+
+              <mat-form-field class="barbar-box6 layout width50" >
+                <mat-label>7 AM to 8 PM</mat-label>
+                <mat-select>
+                  <mat-option> 8 AM to 9 PM </mat-option>
+                  <mat-option> 9 AM to 10 PM</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item width">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Wednesday</h5>
+
+              <mat-form-field class="barbar-box6 layout width50" >
+                <mat-label>7 AM to 8 PM</mat-label>
+                <mat-select>
+                  <mat-option> 8 AM to 9 PM </mat-option>
+                  <mat-option> 9 AM to 10 PM </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item width">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Thursday</h5>
+
+              <mat-form-field class="barbar-box6 layout width50" >
+                <mat-label>7 AM to 8 PM</mat-label>
+                <mat-select>
+                  <mat-option> 8 AM to 9 PM </mat-option>
+                  <mat-option> 9 AM to 10 PM </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item width">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Friday</h5>
+
+              <mat-form-field class="barbar-box6 layout width50" >
+                <mat-label>7 AM to 8 PM</mat-label>
+                <mat-select>
+                  <mat-option> 8 AM to 9 PM </mat-option>
+                  <mat-option> 9 AM to 10 PM</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item width" >
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Saturday</h5>
+
+              <mat-form-field class="barbar-box6 layout width50" >
+                <mat-label>7 AM to 8 PM</mat-label>
+                <mat-select>
+                  <mat-option> 8 AM to 9 PM </mat-option>
+                  <mat-option> 9 AM to 10 PM</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item width">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Sunday</h5>
+
+              <mat-form-field class="barbar-box6 layout width50" >
+                <mat-label>Closed</mat-label>
+                <mat-select>
+                  <!-- <mat-option> Organization A </mat-option>
+                  <mat-option> Organization B </mat-option> -->
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="barbar-flex1 layout">
+        <div class="barbar-flex1-item">
+          <div class="barbar-block17 layout">
+            <div
+              class="barbar-text-body2 layout"
+              [routerLink]="['../../locations']"
+            >
+              CANCEL
+            </div>
+          </div>
+        </div>
+        <div class="barbar-flex1-spacer"></div>
+        <div class="barbar-flex1-item">
+          <div class="barbar-block16 layout">
+            <div class="barbar-text-body1 layout" (click)="addLocation()" *ngIf="isSaveBtn">
+              SAVE
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -73,6 +73,19 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    let isDuration = this._storageService.getSessionData('duration')
+
+    let isLocation = this._storageService.getSessionData('locationId')
+
+    if (isLocation) {
+      this._storageService.removeSessionData('locationId')
+    }
+
+    if (isDuration) {
+      this._storageService.removeSessionData('duration')
+      this._storageService.removeSessionData('graphHeading')
+      this._storageService.removeSessionData('pageHeading')
+    }
     this.getMapLocations(this.selecteLocationIds, this.UserId)
     this.locationIds.valueChanges.subscribe((res) => {
       this.onSelectLocation(res)
@@ -229,7 +242,7 @@ export class DashboardComponent implements OnInit {
         //     accident_title = 'EV Disconnected'
         //     break
         // }
-        //debugger
+
         var accident_LatLng = new google.maps.LatLng(
           this.mapstatusdata[i].latitude,
           this.mapstatusdata[i].longitude,
@@ -317,9 +330,16 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  openDetailPage(event: any, graphHeading: string, pageHeading: string) {
+  openDetailPage(
+    event: any,
+    graphHeading: string,
+    pageHeading: string,
+    duration: any,
+  ) {
     sessionStorage.setItem('graphHeading', graphHeading)
     sessionStorage.setItem('pageHeading', pageHeading)
+    sessionStorage.setItem('duration', duration)
+
     this._router.navigate(['detail'], {
       relativeTo: this._route,
       queryParams: { id: event },

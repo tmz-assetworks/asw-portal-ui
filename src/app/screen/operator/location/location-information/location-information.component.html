@@ -1,4 +1,4 @@
-<div class="location location-block layout">
+<div class="location location-block layout location-info">
   <div class="location-block1 layout">
     <div class="location-flex layout">
       <h3 class="location-subtitle-box layout">
@@ -60,354 +60,217 @@
               </div>
             </div>
           </div>
+
           <div class="location-block18 layout">
-            <div class="location-flex1 layout">
-              <div class="location-block14 layout">
-                <div class="location-flex2 layout">
-                  <div class="location-flex2-item">
-                    <div class="location-text-body2 layout">
+              <mat-accordion>
+                <mat-expansion-panel hideToggle>
+                  <mat-expansion-panel-header style="height: 50px;">
+                    <mat-panel-title>
                       BASIC INFORMATION
-                    </div>
-                  </div>
-                  <div class="location-flex2-spacer"></div>
-                  <div class="location-flex2-item1">
-                    <div class="location-box7 layout"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="location-block19 layout">
-                <div class="location-flex3 layout">
-                  <!-- <div class="location-flex3-spacer"></div>
-                  <div style="width:100%">
-                    <div style="width:50%;float:left;"></div>
-                    <div style="width:50%;float:right;">
-                      <h5 class="location-highlights layout headingtitle" style="width:99.53%">Location On Map</h5>
-                    </div>
-                  </div> -->
-
-                  <div class="location-flex3-item">
-                    <div class="location-block20 layout">
-                      <div class="location-block20-item">
-                        <div class="location-block21 layout">
-                          <div class="location-block21-item">
-                            <div class="location-flex4 layout">
-                              <div class="location-box11 layout">
-                                <img
-                                  src="../../../../../assets/location-info/persion-icon.png"
-                                  alt=""
-                                  srcset=""
-                                />
-                              </div>
-                              <div class="location-block22 layout">
-                                <h5 class="location-highlights1 layout">
-                                  {{ contactPersonName }}
-                                </h5>
-                                <div class="location-text-body3 layout">
-                                  Contact Person Name
+                    </mat-panel-title>
+                    <!-- <mat-panel-description>
+                    This is a summary of the content
+                  </mat-panel-description> -->
+                  </mat-expansion-panel-header>
+                  <div class="location-block19 layout">
+                    <div class="location-flex3 layout">
+                      <!-- <div class="location-flex3-spacer"></div>
+                      <div style="width:100%">
+                        <div style="width:50%;float:left;"></div>
+                        <div style="width:50%;float:right;">
+                          <h5 class="location-highlights layout headingtitle" style="width:99.53%">Location On Map</h5>
+                        </div>
+                      </div> -->
+ 
+                      <div class="location-flex3-item">
+                        <div class="location-block20 layout">
+                          <div class="location-block20-item">
+                            <div class="location-block21 layout">
+                              <div class="location-block21-item">
+                                <div class="location-flex4 layout">
+                                  <div class="location-box11 layout">
+                                    <img
+                                      src="../../../../../assets/location-info/persion-icon.png"
+                                      alt=""
+                                      srcset=""
+                                    />
+                                  </div>
+                                  <div class="location-block22 layout">
+                                    <h5 class="location-highlights1 layout">
+                                      {{ contactPersonName }}
+                                    </h5>
+                                    <div class="location-text-body3 layout">
+                                      Contact Person Name
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                          </div>
-                          <div class="location-block21-spacer"></div>
-                          <div class="location-block21-item1">
-                            <div
-                              style="
-                                --src: url(/assets/2a45e807e92cb6812178b568e776e532.png);
-                              "
-                              class="location-image layout"
-                            ></div>
-                          </div>
-                        </div>
-                        <!-- <div style="width:4px; background-color:black; height:100%"></div> -->
-                      </div>
-                      <div class="location-block20-spacer"></div>
-                      <div class="location-block20-item">
-                        <div class="location-block21 layout">
-                          <div class="location-block21-item">
-                            <div class="location-flex5 layout">
-                              <div class="location-box11 layout">
-                                <img
-                                  src="../../../../../assets/location-info/contact-icon.png"
-                                  alt=""
-                                  srcset=""
-                                />
-                              </div>
-                              <div class="location-block22 layout">
-                                <h5
-                                  class="location-highlights2 layout txt_wrap"
-                                >
-                                  {{ mobileNumber }}
-                                </h5>
+                              <div class="location-block21-spacer"></div>
+                              <div class="location-block21-item1">
                                 <div
-                                  class="location-text-body3 layout txt_wrap"
-                                >
-                                  Contact Person
+                                  style="
+                                    --src: url(/assets/2a45e807e92cb6812178b568e776e532.png);
+                                  "
+                                  class="location-image layout"
+                                ></div>
+                              </div>
+                            </div>
+                            <!-- <div style="width:4px; background-color:black; height:100%"></div> -->
+                          </div>
+                          <div class="location-block20-spacer"></div>
+                          <div class="location-block20-item">
+                            <div class="location-block21 layout">
+                              <div class="location-block21-item">
+                                <div class="location-flex5 layout">
+                                  <div class="location-box11 layout">
+                                    <img
+                                      src="../../../../../assets/location-info/contact-icon.png"
+                                      alt=""
+                                      srcset=""
+                                    />
+                                  </div>
+                                  <div class="location-block22 layout">
+                                    <h5
+                                      class="location-highlights2 layout txt_wrap"
+                                    >
+                                      {{ mobileNumber }}
+                                    </h5>
+                                    <div
+                                      class="location-text-body3 layout txt_wrap"
+                                    >
+                                      Contact Person
+                                    </div>
+                                  </div>
                                 </div>
+                              </div>
+                              <div class="location-block21-spacer"></div>
+                              <div class="location-block21-item2">
+                                <div
+                                  style="
+                                    --src: url(/assets/2a45e807e92cb6812178b568e776e532.png);
+                                  "
+                                  class="location-image layout"
+                                ></div>
                               </div>
                             </div>
                           </div>
-                          <div class="location-block21-spacer"></div>
-                          <div class="location-block21-item2">
-                            <div
-                              style="
-                                --src: url(/assets/2a45e807e92cb6812178b568e776e532.png);
-                              "
-                              class="location-image layout"
-                            ></div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="location-block20-spacer"></div>
-                      <div class="location-block20-item">
-                        <div class="location-block21 layout">
-                          <div class="location-block21-item">
-                            <div class="location-flex6 layout">
-                              <div class="location-box11 layout">
-                                <img
-                                  src="../../../../../assets/location-info/mail-icon.png"
-                                  alt=""
-                                  srcset=""
-                                />
-                              </div>
-                              <div class="location-block22 layout">
-                                <h5 class="location-highlights3 layout">
-                                  {{ emailId }}
-                                </h5>
-                                <div class="location-text-body3 layout">
-                                  Email ID
+                          <div class="location-block20-spacer"></div>
+                          <div class="location-block20-item">
+                            <div class="location-block21 layout">
+                              <div class="location-block21-item">
+                                <div class="location-flex6 layout">
+                                  <div class="location-box11 layout">
+                                    <img
+                                      src="../../../../../assets/location-info/mail-icon.png"
+                                      alt=""
+                                      srcset=""
+                                    />
+                                  </div>
+                                  <div class="location-block22 layout">
+                                    <h5 class="location-highlights3 layout">
+                                      {{ emailId }}
+                                    </h5>
+                                    <div class="location-text-body3 layout">
+                                      Email ID
+                                    </div>
+                                  </div>
                                 </div>
+                              </div>
+                              <div class="location-block21-spacer"></div>
+                              <div class="location-block21-item3">
+                                <div
+                                  style="
+                                    --src: url(/assets/2a45e807e92cb6812178b568e776e532.png);
+                                  "
+                                  class="location-image layout"
+                                ></div>
                               </div>
                             </div>
                           </div>
-                          <div class="location-block21-spacer"></div>
-                          <div class="location-block21-item3">
-                            <div
-                              style="
-                                --src: url(/assets/2a45e807e92cb6812178b568e776e532.png);
-                              "
-                              class="location-image layout"
-                            ></div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="location-block20-spacer"></div>
-                      <div
-                        style="
-                          display: flex;
-                          flex-direction: column;
-                          flex: 3 1 30%;
-                          width: 30%;
-                        "
-                      >
-                        <div>
-                          <h5
-                            class="location-highlights layout headingtitle"
-                            style="width: 100%; margin-bottom: 8px;"
+                          <div class="location-block20-spacer"></div>
+                          <div
+                            style="
+                              display: flex;
+                              flex-direction: column;
+                              flex: 3 1 30%;
+                              width: 30%;
+                            "
                           >
-                            Location On Map
-                          </h5>
+                            <div>
+                              <h5
+                                class="location-highlights layout headingtitle"
+                                style="width: 100%; margin-bottom: 8px;"
+                              >
+                                Location On Map
+                              </h5>
+                            </div>
+                            <!-- <img
+                              style="width: 100%; height: 100%;"
+                              src="../../../../../assets/location-info/map.png"
+                              alt=""
+                              srcset=""
+                            /> -->
+                            <div
+                              id="map"
+                              style="width: 100%; height: 100%;"
+                            ></div>
+                          </div>
                         </div>
-                        <!-- <img
-                          style="width: 100%; height: 100%;"
-                          src="../../../../../assets/location-info/map.png"
-                          alt=""
-                          srcset=""
-                        /> -->
-                        <div id="map" style="width: 100%; height: 100%;"></div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
+                </mat-expansion-panel>
+              </mat-accordion>
             </div>
-          </div>
-
-          <div class="location-block7 layout">
-            <div class="location-flex7 layout">
-              <div class="location-block14 layout">
-                <div class="location-flex2 layout">
-                  <div class="location-flex2-item">
-                    <div class="location-text-body2 layout">
+ 
+            <div class="location-block15 layout">
+              <mat-accordion>
+                <mat-expansion-panel hideToggle>
+                  <mat-expansion-panel-header style="height: 50px;">
+                    <mat-panel-title>
                       SITES AVAILABILITY
-                    </div>
-                  </div>
-                  <div class="location-flex2-spacer"></div>
-                  <div class="location-flex2-item2">
-                    <div class="location-box7 layout"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="location-block8 layout">
-                <div class="location-flex9 layout location-loop">
-                  <div
-                    class="location-block9 layout loction-week"
-                    *ngFor="let item of locationSchedule"
-                  >
-                    <div class="location-text-body1 layout text-uppercase">
-                      {{ item.day }}
-                    </div>
-                    <div
-                      class="location-block10 layout"
-                      *ngIf="item.day != 'Sunday'"
-                    >
-                      <div class="location-block10-item">
-                        <div class="location-block11 layout">
-                          <div class="location-text-body1 layout1">
-                            {{ item.startTime | date: 'h:mm a' }}
-                          </div>
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div class="location-block8 layout">
+                    <div class="location-flex9 layout location-loop">
+                      <div
+                        class="location-block9 layout loction-week"
+                        *ngFor="let item of locationSchedule"
+                      >
+                        <div class="location-text-body1 layout text-uppercase">
+                          {{ item.day }}
                         </div>
-                      </div>
-                      <div class="location-block10-item">
-                        <div class="location-block12 layout">
-                          <div class="location-text-body1 layout2">to</div>
-                        </div>
-                      </div>
-                      <div class="location-block10-item">
-                        <div class="location-block13 layout">
-                          <div class="location-text-body1 layout3">
-                            {{ item.endTime | date: 'h:mm a' }}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="location-block10 layout"
-                      *ngIf="item.day == 'Sunday'"
-                    >
-                      <div class="location-block10-item">
-                        <div class="location-block11 layout">
-                          <div class="location-text-body1 layout1">CLOSED</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- <div class="location-flex9-item">
-                    <div class="location-flex10 layout">
-                      <div class="location-block9 layout">
-                        <div class="location-text-body1 layout">MONDAY</div>
-                        <div class="location-block10 layout">
+                        <div
+                          class="location-block10 layout"
+                          *ngIf="item.day != 'Sunday'"
+                        >
                           <div class="location-block10-item">
                             <div class="location-block11 layout">
-                              <div class="location-text-body1 layout1">7AM</div>
+                              <div class="location-text-body1 layout1">
+                                {{ item.startTime | date: 'h:mm:ss a' }}
+                              </div>
                             </div>
                           </div>
-                          <div class="location-block10-item1">
+                          <div class="location-block10-item">
                             <div class="location-block12 layout">
                               <div class="location-text-body1 layout2">to</div>
                             </div>
                           </div>
-                          <div class="location-block10-item2">
-                            <div class="location-block13 layout">
-                              <div class="location-text-body1 layout3">8PM</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="location-block9 layout1">
-                        <div class="location-text-body1 layout">FRIDAY</div>
-                        <div class="location-block10 layout">
                           <div class="location-block10-item">
-                            <div class="location-block11 layout">
-                              <div class="location-text-body1 layout4">7AM</div>
-                            </div>
-                          </div>
-                          <div class="location-block10-item3">
-                            <div class="location-block12 layout">
-                              <div class="location-text-body1 layout5">to</div>
-                            </div>
-                          </div>
-                          <div class="location-block10-item4">
                             <div class="location-block13 layout">
-                              <div class="location-text-body1 layout6">8PM</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="location-flex9-spacer"></div>
-                  <div class="location-flex9-item">
-                    <div class="location-flex10 layout">
-                      <div class="location-block9 layout">
-                        <div class="location-text-body1 layout">TUESDAY</div>
-                        <div class="location-block10 layout">
-                          <div class="location-block10-item">
-                            <div class="location-block11 layout">
-                              <div class="location-text-body1 layout7">7AM</div>
-                            </div>
-                          </div>
-                          <div class="location-block10-item5">
-                            <div class="location-block12 layout">
-                              <div class="location-text-body1 layout8">to</div>
-                            </div>
-                          </div>
-                          <div class="location-block10-item6">
-                            <div class="location-block13 layout">
-                              <div class="location-text-body1 layout9">8PM</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="location-block9 layout2">
-                        <div class="location-text-body1 layout">SATURDAY</div>
-                        <div class="location-block10 layout">
-                          <div class="location-block10-item">
-                            <div class="location-block11 layout">
-                              <div class="location-text-body1 layout10">
-                                7AM
-                              </div>
-                            </div>
-                          </div>
-                          <div class="location-block10-item7">
-                            <div class="location-block12 layout">
-                              <div class="location-text-body1 layout11">to</div>
-                            </div>
-                          </div>
-                          <div class="location-block10-item8">
-                            <div class="location-block13 layout">
-                              <div class="location-text-body1 layout12">
-                                8PM
+                              <div class="location-text-body1 layout3">
+                                {{ item.endTime | date: 'h:mm:ss a' }}
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="location-flex9-spacer1"></div>
-                  <div class="location-flex9-item">
-                    <div class="location-flex10 layout">
-                      <div class="location-block9 layout">
-                        <div class="location-text-body1 layout">WEDNESDAY</div>
-                        <div class="location-block10 layout">
+                        <div
+                          class="location-block10 layout"
+                          *ngIf="item.day == 'Sunday'"
+                        >
                           <div class="location-block10-item">
                             <div class="location-block11 layout">
-                              <div class="location-text-body1 layout13">
-                                7AM
-                              </div>
-                            </div>
-                          </div>
-                          <div class="location-block10-item9">
-                            <div class="location-block12 layout">
-                              <div class="location-text-body1 layout14">to</div>
-                            </div>
-                          </div>
-                          <div class="location-block10-item10">
-                            <div class="location-block13 layout">
-                              <div class="location-text-body1 layout15">
-                                8PM
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="location-block9 layout3">
-                        <div class="location-text-body1 layout">SUNDAY</div>
-                        <div class="location-block10 layout">
-                          <div class="location-block10-item">
-                            <div class="location-block11 layout">
-                              <div class="location-text-body1 layout16">
+                              <div class="location-text-body1 layout1">
                                 CLOSED
                               </div>
                             </div>
@@ -416,224 +279,176 @@
                       </div>
                     </div>
                   </div>
-                  <div class="location-flex9-spacer2"></div>
-                  <div class="location-flex9-item">
-                    <div class="location-flex10 layout">
-                      <div class="location-block9 layout">
-                        <div class="location-text-body1 layout">THURSDAY</div>
-                        <div class="location-block10 layout">
-                          <div class="location-block10-item">
-                            <div class="location-block11 layout">
-                              <div class="location-text-body1 layout19">
-                                7AM
-                              </div>
-                            </div>
-                          </div>
-                          <div class="location-block10-item13">
-                            <div class="location-block12 layout">
-                              <div class="location-text-body1 layout20">to</div>
-                            </div>
-                          </div>
-                          <div class="location-block10-item14">
-                            <div class="location-block13 layout">
-                              <div class="location-text-body1 layout21">
-                                8PM
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="location-flex9-spacer3"></div> -->
-                </div>
-              </div>
+                </mat-expansion-panel>
+              </mat-accordion>
             </div>
-          </div>
-
-          <div class="location-block15 layout">
-            <div class="location-flex14 layout">
-              <div class="location-block17 layout">
-                <div class="location-flex15 layout">
-                  <div class="location-flex15-item">
-                    <div class="location-text-body2 layout1 text-uppercase">
+            <div class="location-block7 layout">
+              <mat-accordion>
+                <mat-expansion-panel hideToggle>
+                  <mat-expansion-panel-header style="height: 50px;">
+                    <mat-panel-title class="text-uppercase">
                       Department Information
-                    </div>
-                  </div>
-                  <div class="location-flex15-spacer"></div>
-                  <div class="location-flex15-item1">
-                    <hr class="location-line layout" />
-                  </div>
-                </div>
-              </div>
-              <div class="location-block16 layout">
-                <div class="fill-block4 layout">
-                  <div class="fill-block5 layout">
-                    <div class="fill-block5-item">
-                      <div class="fill-group layout">
-                        <div class="fill-block6 layout">
-                          <div class="fill-text-body1 layout">Name</div>
-                          <h5 class="fill-highlights layout">
-                            {{ departmentName }}
-                          </h5>
-                        </div>
-                        <div
-                          style="
-                            --src: url(/assets/6f9f170d72615beea8e11bdd988574dc.png);
-                          "
-                          class="fill-image layout"
-                        ></div>
-                      </div>
-                    </div>
-                    <div class="fill-block5-spacer"></div>
-                    <div class="fill-block5-item">
-                      <div class="fill-group layout">
-                        <div class="fill-block6 layout">
-                          <div class="fill-text-body1 layout">Address</div>
-                          <h5 class="fill-highlights layout">{{ address }}</h5>
-                        </div>
-                        <div
-                          style="
-                            --src: url(/assets/6f9f170d72615beea8e11bdd988574dc.png);
-                          "
-                          class="fill-image layout"
-                        ></div>
-                      </div>
-                    </div>
-                    <div class="fill-block5-spacer"></div>
-                    <div class="fill-block5-item">
-                      <div class="fill-group layout">
-                        <div class="fill-block6 layout">
-                          <div class="fill-text-body1 layout">
-                            Location Name
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+ 
+                  <div class="location-block16 layout">
+                    <div class="fill-block4 layout">
+                      <div class="fill-block5 layout">
+                        <div class="fill-block5-item">
+                          <div class="fill-group layout">
+                            <div class="fill-block6 layout">
+                              <div class="fill-text-body1 layout">Name</div>
+                              <h5 class="fill-highlights layout">
+                                {{ departmentName }}
+                              </h5>
+                            </div>
+                            <div
+                              style="
+                                --src: url(/assets/6f9f170d72615beea8e11bdd988574dc.png);
+                              "
+                              class="fill-image layout"
+                            ></div>
                           </div>
-                          <h5 class="fill-highlights layout">
-                            {{ locationName }}
-                          </h5>
                         </div>
-                        <div
-                          style="
-                            --src: url(/assets/6f9f170d72615beea8e11bdd988574dc.png);
-                          "
-                          class="fill-image layout"
-                        ></div>
-                      </div>
-                    </div>
-                    <div class="fill-block5-spacer"></div>
-                    <div class="fill-block5-item">
-                      <div class="fill-group layout">
-                        <div class="fill-block6 layout">
-                          <div class="fill-text-body1 layout">
-                            Fuel Product Type
+                        <div class="fill-block5-spacer"></div>
+                        <div class="fill-block5-item">
+                          <div class="fill-group layout">
+                            <div class="fill-block6 layout">
+                              <div class="fill-text-body1 layout">Address</div>
+                              <h5 class="fill-highlights layout">
+                                {{ address }}
+                              </h5>
+                            </div>
+                            <div
+                              style="
+                                --src: url(/assets/6f9f170d72615beea8e11bdd988574dc.png);
+                              "
+                              class="fill-image layout"
+                            ></div>
                           </div>
-                          <h5 class="fill-highlights layout">
-                            {{ fuelProtectType }}
-                          </h5>
                         </div>
-                        <div
-                          style="
-                            --src: url(/assets/6f9f170d72615beea8e11bdd988574dc.png);
-                          "
-                          class="fill-image layout"
-                        ></div>
+                        <div class="fill-block5-spacer"></div>
+                        <div class="fill-block5-item">
+                          <div class="fill-group layout">
+                            <div class="fill-block6 layout">
+                              <div class="fill-text-body1 layout">
+                                Location Name
+                              </div>
+                              <h5 class="fill-highlights layout">
+                                {{ locationName }}
+                              </h5>
+                            </div>
+                            <div
+                              style="
+                                --src: url(/assets/6f9f170d72615beea8e11bdd988574dc.png);
+                              "
+                              class="fill-image layout"
+                            ></div>
+                          </div>
+                        </div>
+                        <div class="fill-block5-spacer"></div>
+                        <div class="fill-block5-item">
+                          <div class="fill-group layout">
+                            <div class="fill-block6 layout">
+                              <div class="fill-text-body1 layout">
+                                Fuel Product Type
+                              </div>
+                              <h5 class="fill-highlights layout">
+                                {{ fuelProtectType }}
+                              </h5>
+                            </div>
+                            <div
+                              style="
+                                --src: url(/assets/6f9f170d72615beea8e11bdd988574dc.png);
+                              "
+                              class="fill-image layout"
+                            ></div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
+                </mat-expansion-panel>
+              </mat-accordion>
             </div>
-
-            <div class="location-block3-spacer"></div>
-            <div class="location-block3-item1"></div>
-          </div>
-
-          <div class="location-block15 layout">
-            <div class="location-flex14 layout">
-              <div class="location-block17 layout">
-                <div class="location-flex15 layout">
-                  <div class="location-flex15-item">
-                    <div class="location-text-body2 layout1 text-uppercase">
+ 
+            <div class="location-block15 layout">
+              <mat-accordion>
+                <mat-expansion-panel hideToggle>
+                  <mat-expansion-panel-header style="height: 50px;">
+                    <mat-panel-title class="text-uppercase">
                       REFERENCE INFORMATION
-                    </div>
-                  </div>
-                  <div class="location-flex15-spacer"></div>
-                  <div class="location-flex15-item1">
-                    <hr class="location-line layout" />
-                  </div>
-                </div>
-              </div>
-              <div class="location-block16 layout">
-                <div class="fill-block4 layout">
-                  <div class="fill-block5 layout">
-                    <div class="fill-block5-item">
-                      <div class="fill-group layout">
-                        <div class="fill-block6 layout">
-                          <div class="fill-text-body1 layout">
-                            Total Capacity
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div class="location-block16 layout">
+                    <div class="fill-block4 layout">
+                      <div class="fill-block5 layout">
+                        <div class="fill-block5-item">
+                          <div class="fill-group layout">
+                            <div class="fill-block6 layout">
+                              <div class="fill-text-body1 layout">
+                                Total Capacity
+                              </div>
+                              <h5 class="fill-highlights layout">
+                                {{ totalCapacity }}
+                              </h5>
+                            </div>
+                            <div
+                              style="
+                                --src: url(/assets/6f9f170d72615beea8e11bdd988574dc.png);
+                              "
+                              class="fill-image layout"
+                            ></div>
                           </div>
-                          <h5 class="fill-highlights layout">
-                            {{ totalCapacity }}
-                          </h5>
                         </div>
-                        <div
-                          style="
-                            --src: url(/assets/6f9f170d72615beea8e11bdd988574dc.png);
-                          "
-                          class="fill-image layout"
-                        ></div>
-                      </div>
-                    </div>
-                    <div class="fill-block5-spacer"></div>
-                    <div class="fill-block5-item">
-                      <div class="fill-group layout">
-                        <div class="fill-block6 layout">
-                          <div class="fill-text-body1 layout">
-                            Utility Service
+                        <div class="fill-block5-spacer"></div>
+                        <div class="fill-block5-item">
+                          <div class="fill-group layout">
+                            <div class="fill-block6 layout">
+                              <div class="fill-text-body1 layout">
+                                Utility Service
+                              </div>
+                              <h5 class="fill-highlights layout">
+                                {{ utilityService }}
+                              </h5>
+                            </div>
+                            <div
+                              style="
+                                --src: url(/assets/6f9f170d72615beea8e11bdd988574dc.png);
+                              "
+                              class="fill-image layout"
+                            ></div>
                           </div>
-                          <h5 class="fill-highlights layout">
-                            {{ utilityService }}
-                          </h5>
                         </div>
-                        <div
-                          style="
-                            --src: url(/assets/6f9f170d72615beea8e11bdd988574dc.png);
-                          "
-                          class="fill-image layout"
-                        ></div>
+                        <!-- <div class="fill-block5-spacer"></div>
+                    <div class="fill-block5-item">
+                    <div class="fill-group layout">
+                      <div class="fill-block6 layout">
+                        <div class="fill-text-body1 layout">Location Name
+                        </div>
+                        <h5 class="fill-highlights layout">NEW YORK CITY</h5>
+                      </div>
+                      <div style="--src:url(/assets/6f9f170d72615beea8e11bdd988574dc.png)" class="fill-image layout"></div>
+                    </div>
+                  </div> -->
+                        <!-- <div class="fill-block5-spacer"></div>
+                    <div class="fill-block5-item">
+                    <div class="fill-group layout">
+                      <div class="fill-block6 layout">
+                        <div class="fill-text-body1 layout">Fuel Product Type</div>
+                        <h5 class="fill-highlights layout">NUCLEAR</h5>
+                      </div>
+                      <div style="--src:url(/assets/6f9f170d72615beea8e11bdd988574dc.png)" class="fill-image layout"></div>
+                    </div>
+                  </div>
+                   -->
                       </div>
                     </div>
-                    <!-- <div class="fill-block5-spacer"></div>
-                  <div class="fill-block5-item">
-                  <div class="fill-group layout">
-                    <div class="fill-block6 layout">
-                      <div class="fill-text-body1 layout">Location Name
-                      </div>
-                      <h5 class="fill-highlights layout">NEW YORK CITY</h5>
-                    </div>
-                    <div style="--src:url(/assets/6f9f170d72615beea8e11bdd988574dc.png)" class="fill-image layout"></div>
                   </div>
-                </div> -->
-                    <!-- <div class="fill-block5-spacer"></div>
-                  <div class="fill-block5-item">
-                  <div class="fill-group layout">
-                    <div class="fill-block6 layout">
-                      <div class="fill-text-body1 layout">Fuel Product Type</div>
-                      <h5 class="fill-highlights layout">NUCLEAR</h5>
-                    </div>
-                    <div style="--src:url(/assets/6f9f170d72615beea8e11bdd988574dc.png)" class="fill-image layout"></div>
-                  </div>
-                </div>
-                 -->
-                  </div>
-                </div>
-              </div>
+                </mat-expansion-panel>
+              </mat-accordion>
             </div>
-
-            <div class="location-block3-spacer"></div>
-            <div class="location-block3-item1"></div>
-          </div>
-
+         
           <!-- end here -->
         </div>
 

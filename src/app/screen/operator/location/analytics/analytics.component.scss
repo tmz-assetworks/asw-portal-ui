@@ -4033,3 +4033,25 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
   border: 1px solid #0062a6;
   border-left: 1px solid #0062a6;
 }
+
+@media (max-width: 768px){
+  .analytics-main .dashboard-block13-item1 app-location-status-panel {
+      width: 240px;
+      margin-left: 5px;
+    }
+  .analytics-main .widgets-block28.layout{
+      max-width: 410px;
+  }
+  .analytics-main .dashboard-block13-item .location-block4 {
+   display: block !important;
+    width: 334px;
+  }
+  .analytics-main .dashboard-block33-item1 .mat-button-toggle-appearance-standard.mat-button-toggle-label-content {
+    padding: 0px 8px;
+    font-size: 13px;
+  }
+  .dashboard-block13-item {
+    width: 400px;
+  }
+  }
+  

@@ -139,7 +139,7 @@ export class LoginComponent implements OnInit {
           } else if (decodeData.roles == 'Admin') {
             localStorage.setItem('role', 'Admin')
             // admin/customer
-            this._router.navigate(['/admin/operator-user'])
+            this._router.navigate(['/admin/customer'])
           } else if (decodeData.roles == 'SuperAdmin') {
             localStorage.setItem('role', 'SuperAdmin')
             this._router.navigate(['/superadmin/customer'])

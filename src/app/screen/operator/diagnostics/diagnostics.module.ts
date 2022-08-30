@@ -5,11 +5,17 @@ import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 import { SharedModule } from 'src/app/shared/shared.module'
 
 import { DiagnosticsComponent } from './diagnostics.component'
+import { MatAutocompleteModule } from '@angular/material/autocomplete'
 
 const routes: Routes = [{ path: '', component: DiagnosticsComponent }]
 
 @NgModule({
-  imports: [CommonModule, RouterModule.forChild(routes),SharedMaterialModule,SharedModule],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    SharedMaterialModule,
+    SharedModule,
+  ],
   exports: [],
   declarations: [DiagnosticsComponent],
   providers: [],

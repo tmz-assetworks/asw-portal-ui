@@ -159,6 +159,12 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     @include md {
       flex: 0 0 70%;
     }
+    @include sm {
+      flex: 0 0 90%;
+    }
+    @include sm1 {
+      flex: 0 0 96%;
+    }
   }
   &block16 {
     @include flex-column;
@@ -1155,6 +1161,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     @include sm {
       flex-wrap: wrap;
       row-gap: 7px;
+      justify-content: flex-start;
     }
   }
   &block33.layout {
@@ -1167,7 +1174,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     position: relative;
     flex: 0 1 15%;
     @include sm {
-      flex: 0 0 20%;
+      flex: 0 0 0%;
     }
     // min-width: 117px;
     min-width: min-content;
@@ -1202,7 +1209,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block33-item1 {
     @include flex-column;
     position: relative;
-    flex: 0 1 8%;
+    flex: 0 1 10%;
     @include sm {
       flex: 0 0 10%;
     }
@@ -1211,7 +1218,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
   &block35 {
     display: flex;
-    align-items: center;
+    //align-items: center;
     justify-content: center;
     background-color: rgb(0, 98, 166);
     border-radius: 5px 5px 5px 5px;
@@ -1393,7 +1400,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
   &block42 {
     display: flex;
-    flex-wrap: wrap;
+    //flex-wrap: wrap;
     row-gap: 16px;
     @include lg {
       flex-wrap: wrap;
@@ -1577,7 +1584,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
 .header- {
   &block {
     @include flex-column;
-    background-color: $color_type_6;
+    // background-color: $color_type_6;
   }
   &block.layout {
     position: relative;
@@ -3531,46 +3538,69 @@ $color_type_4: rgb(255, 255, 255);
   }
 }
 
-
-.mat-data{
+.mat-data {
   display: block;
   margin: 20px -10px 0;
 
-  @include lg{
+  @include lg {
     display: block;
     width: 90vw;
     overflow: auto;
   }
-  @include md{
+  @include md {
     width: 86vw;
   }
-  @include sm{
+  @include sm {
     width: 90vw;
   }
+  @include xs {
+    width: 80vw;
+  }
 
-  .mat-elevation-z8{
+  .mat-elevation-z8 {
     width: 100%;
 
-    @include lg{
+    @include lg {
       width: 100vw;
       // max-width: 100%;
       overflow: auto;
       // margin-bottom: 10px;
-      display:inline-table;
+      display: inline-table;
+      min-width: 1200px;
       // border-collapse: collapse;
     }
   }
 }
-.mat-paginator{
+.mat-paginator {
   margin: 0 -10px;
-}  
-
- 
+}
 
 @media screen and (max-width: 960px) {
   .mat-table {
     border: 0;
-    vertical-align: middle
+    vertical-align: middle;
   }
+}
 
+.space-between {
+  margin-right: 5px;
+}
+.mat-button-toggle-checked.mat-button-toggle-appearance-standard {
+  color: #fff !important;
+}
+
+.mat-button-toggle-appearance-standard:hover {
+  border: 1px solid #0062a6;
+  //background-color: #fff;
+}
+mat-button-toggle-group.mat-button-toggle-group.mat-button-toggle-group-appearance-standard.ng-untouched.ng-pristine.ng-valid {
+  margin: 0px;
+}
+
+mat-button-toggle-group.pt-0 {
+  padding: 2px;
+}
+
+mat-button-toggle-group.pt-0 {
+  padding: 2px;
 }

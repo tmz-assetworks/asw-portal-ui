@@ -1197,7 +1197,7 @@
     position: relative;
     flex: 0 1 10%;
     @include sm {
-      flex: 0 0 10%;
+      flex: 0 1 10%;
     }
     // min-width: 59px;
     min-width: min-content;
@@ -1213,7 +1213,7 @@
     transition-property: transform;
   }
   &block35:hover {
-    transform: scale(1.05);
+    // transform: scale(1.05);
   }
   &block35.layout {
     position: relative;
@@ -3329,4 +3329,50 @@ tr.mat-row:last-of-type {
 .dashboard-block35:hover {
   border: 1px solid #0062a6;
   background-color: green;
+}
+@media (max-width: 1199px) {
+  .mat-data .mat-table {
+    min-width: 1200px !important;
+  }
+}
+
+@media (max-width: 568px) {
+  .header-block7 .header-block8-item {
+    max-width: 41%;
+  }
+  .dashboard-block15-item {
+    flex: 0 0 90%;
+  }
+  .dashboard-block33 {
+    justify-content: start;
+  }
+  .dashboard-block33-item {
+    flex: 0 0 0%;
+  }
+  .card-block40.layout {
+    max-width: 87%;
+  }
+  .mat-data {
+    width: 85vw;
+  }
+  .statuspanel-block46.layout {
+    width: 96%;
+  }
+}
+@media (max-width: 737px) {
+  .dashboard-block13-item {
+    max-width: 100%;
+  }
+  .dashboard-block33 {
+    justify-content: start;
+  }
+  .dashboard-block33-item {
+    flex: 0 0 0%;
+  }
+  .mat-data {
+    width: 85vw;
+  }
+  .statuspanel-block46.layout {
+    max-width: 100%;
+  }
 }

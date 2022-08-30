@@ -1,0 +1,80 @@
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
+
+
+@Component({
+  selector: 'app-add-charger',
+  templateUrl: './add-charger.component.html',
+  styleUrls: ['./add-charger.component.scss']
+})
+export class AddChargerComponent implements OnInit {
+
+  submitted = false
+  registrationForm: any
+
+  constructor(private formBuilder: FormBuilder,private router:Router) {}
+
+  addOperatorProfile = this.formBuilder.group({
+    username: new FormControl('', Validators.required),
+    emailid: new FormControl('', Validators.email),
+    dob: new FormControl('', Validators.required),
+    phonenumber: new FormControl('', [
+      Validators.required,
+      Validators.minLength(8),
+    ]),
+    addressLine1: new FormControl('', Validators.required),
+    addressLine2: new FormControl('', Validators.required),
+    country: new FormControl('', Validators.required),
+    state: new FormControl('', Validators.required),
+    city: new FormControl('', Validators.required),
+    zipcode: new FormControl('', Validators.required),
+  })
+
+
+  type_lists = new FormControl('')
+  alteration_types = [
+    'Location A',
+    'Location B',
+    'Location C',
+    'Location D',
+    'Location E',
+  ]
+  ngOnInit(){
+    // this.onSubmit();
+  }
+
+
+  alertWithSuccess() {
+    Swal.fire({
+       title: '<strong>Are you sure you want to confirm?</strong>',
+       icon: 'success',
+       showCloseButton: true,
+       
+       focusConfirm: true,
+       confirmButtonText: 'CANCEL',
+       confirmButtonColor:'#E6E8E9',
+       
+       cancelButtonColor:'#0062A6',
+       cancelButtonText:' CONFIRM',
+       showCancelButton: true,
+      
+     })}
+
+
+   saveForm(){
+    //alert("Your Record Succefully Save.")
+    console.log('Form data is ', this.addOperatorProfile.value)
+  }
+  btnClick(){
+
+    this.router.navigateByUrl('admin/manage-operator/');
+   }
+
+  ngAfterViewInit() {
+    // this.dataSource.paginator = this.paginator;
+  }
+}
+
+

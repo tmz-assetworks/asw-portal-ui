@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core'
 import { FormControl } from '@angular/forms'
+import { ActivatedRoute, Router } from '@angular/router'
 import { EChartsOption } from 'echarts'
 import { AuthService } from 'src/app/service/auth/auth.service'
+import { StorageService } from 'src/app/service/storage.service'
+import { DashboardService } from '../../dashboard/dashboard.service'
+import { LocationService } from '../../location/location.service'
 
 @Component({
   selector: 'app-charger-analytics',
@@ -12,7 +16,44 @@ export class ChargerAnalyticsComponent implements OnInit {
   isAnalytics = true
   analyticsArea = 'analyticsArea'
   chargingSessionData = ''
-  constructor(private _auth: AuthService) {}
+  filterToggle = new FormControl('1')
+  selectedTime: number = 1
+  UserId: any
+
+  selecteLocationIds: any
+  energyAnalyticsUsedData = ''
+  energyAnalyticsUsedTitle = 'Energy Used'
+  energyAnalyticsUsed = 'energyAnalyticsUsed'
+
+  chargersChartData = ''
+
+  locationAnalyticsMilesAdd = 'locationAnalyticsMilesAdd'
+  locationAnalyticsMilesAddTitle = 'Miles Added'
+  locationAnalyticsMilesAddData: any
+
+  chargingSessionTitle = 'Charging Session'
+  chargingSession = 'chargingSession'
+  chargerName: string | null
+  chargerboxid: any
+
+  constructor(
+    private _auth: AuthService,
+    private _dashboardService: DashboardService,
+    private _locationService: LocationService,
+    private _storageService: StorageService,
+    private _router: Router,
+    private _route: ActivatedRoute,
+  ) {
+    this.UserId = this._storageService.getLocalData('user_id')
+    this.chargerboxid = this._storageService.getSessionData('chargerBoxId')
+
+    this.chargerName = this._storageService.getSessionData('chargerName')
+
+    // this.selecteLocationIds = this._storageService.getSessionData('locationId')
+
+    //this.locationName = this._storageService.getSessionData('locationName')
+  }
+
   option: EChartsOption = {
     // legend: {
     //   data: ['Total Revenue', 'Daily Revenue', 'Today Revenue'],
@@ -146,14 +187,6 @@ export class ChargerAnalyticsComponent implements OnInit {
   barTitle = 'Chargers'
   basicTitle = 'Locations Performing '
 
-  alteration_types = [
-    'Extra cheese',
-    'Mushroom',
-    'Onion',
-    'Pepperoni',
-    'Sausage',
-    'Tomato',
-  ]
   type_list: any
 
   type_lists = new FormControl('')
@@ -243,6 +276,204 @@ export class ChargerAnalyticsComponent implements OnInit {
   ]
 
   ngOnInit(): void {
-    //this._auth.tokenExpired()
+    let isDuration = this._storageService.getSessionData('duration')
+    if (isDuration) {
+      this._storageService.removeSessionData('duration')
+      this._storageService.removeSessionData('graphHeading')
+      this._storageService.removeSessionData('pageHeading')
+    }
+    // this.GetSummaryDataByLocationId(this.selecteLocationIds)
+    this.getEnergyUsedByLocationId(
+      this.selecteLocationIds,
+      this.selectedTime,
+      this.UserId,
+      this.chargerboxid,
+    )
+    this.getChargerGraph(
+      this.selecteLocationIds,
+      this.selectedTime,
+      this.UserId,
+      this.chargerboxid,
+    )
+    this.getChargingSessionChartData(
+      this.selecteLocationIds,
+      this.selectedTime,
+      this.UserId,
+      this.chargerboxid,
+    )
+
+    this.GetLocationMilesAddedChartdata(
+      this.selecteLocationIds,
+      this.selectedTime,
+      this.UserId,
+      this.chargerboxid,
+    )
+  }
+
+  // GetSummaryDataByLocationId(locationId: any) {
+  //   this._locationService
+  //     .GetSummaryStatuByLocationId(locationId)
+  //     .subscribe((res) => {
+  //       //   this.summaryData = res.data
+  //     })
+  // }
+
+  openDetailPage(
+    event: any,
+    graphHeading: string,
+    pageHeading: string,
+    duration: any,
+  ) {
+    sessionStorage.setItem('graphHeading', graphHeading)
+    sessionStorage.setItem('pageHeading', pageHeading)
+    sessionStorage.setItem('duration', duration)
+    this._router.navigate(['detail'], {
+      relativeTo: this._route,
+      queryParams: { id: event },
+    })
+    //this._router.navigate(['detail'],{relativeTo: this._route});
+  }
+  /**
+   * Set time to show
+   */
+
+  setTime(event: any) {
+    if (event.value) {
+      this.selectedTime = event.value
+      this.getEnergyUsedByLocationId(
+        this.selecteLocationIds,
+        this.selectedTime,
+        this.UserId,
+        this.chargerboxid,
+      )
+
+      this.getChargerGraph(
+        this.selecteLocationIds,
+        this.selectedTime,
+        this.UserId,
+        this.chargerboxid,
+      )
+      this.getChargingSessionChartData(
+        this.selecteLocationIds,
+        this.selectedTime,
+        this.UserId,
+        this.chargerboxid,
+      )
+      this.GetLocationMilesAddedChartdata(
+        this.selecteLocationIds,
+        this.selectedTime,
+        this.UserId,
+        this.chargerboxid,
+      )
+    }
+  }
+
+  /**
+   *
+   * @param locationIds
+   * @param duration
+   * @param operatorId
+   * @param chargerBoxId
+   *
+   * Get Energy Used data
+   */
+
+  getEnergyUsedByLocationId(
+    locationIds: any,
+    duration: any,
+    operatorId: any,
+    chargerBoxId: any,
+  ) {
+    const body = {
+      locationIds: locationIds ? [locationIds] : [],
+      duration: duration.toString(),
+      opratorid: operatorId,
+      chargerboxid: chargerBoxId,
+    }
+
+    this._dashboardService.GetEnergyUsedByLocationID(body).subscribe((res) => {
+      this.energyAnalyticsUsedData = res.data
+    })
+  }
+
+  /**
+   * Get Charger Graph
+   */
+
+  getChargerGraph(
+    locationIds: any,
+    duration: any,
+    operatorId: any,
+    chargerBoxId: any,
+  ) {
+    //alert('remove hardcode');
+    // this.chargersChartData = ''
+    //alert(duration);
+    const body = {
+      //locationIds: [locationIds],
+      locationIds: locationIds ? [locationIds] : [],
+      duration: duration.toString(),
+      opratorid: operatorId,
+      chargerboxid: chargerBoxId,
+    }
+    this._locationService.getChargerChartData(body).subscribe({
+      next: (response) => {
+        this.chargersChartData = response
+      },
+      error: (_err) => {
+        console.log('no response for chargers graph')
+      },
+    })
+  }
+  /**
+   *
+   * @param locationIds
+   * @param duration
+   * @param operatorId
+   *
+   * Get charging session data
+   */
+  getChargingSessionChartData(
+    locationIds: any,
+    duration: any,
+    operatorId: any,
+    chargerBoxId: any,
+  ) {
+    const body = {
+      locationIds: locationIds ? [locationIds] : [],
+      duration: duration.toString(),
+      opratorid: operatorId,
+      chargerboxid: chargerBoxId,
+    }
+    this._dashboardService.GetAreachartdataData(body).subscribe((res) => {
+      this.chargingSessionData = res.data
+      console.log(this.chargingSessionData, 'hello session chart')
+    })
+  }
+
+  /**
+   *
+   *
+   *
+   * Get Location Analytics Miles Added chart data
+   */
+
+  GetLocationMilesAddedChartdata(
+    locationIds: any,
+    duration: any,
+    operatorId: any,
+    chargerBoxId: any,
+  ) {
+    const body = {
+      locationIds: locationIds ? [locationIds] : [],
+      duration: duration.toString(),
+      opratorid: operatorId,
+      chargerboxid: chargerBoxId,
+    }
+    this._locationService
+      .GetLocationMilesAddedChartdata(body)
+      .subscribe((res) => {
+        this.locationAnalyticsMilesAddData = res.data
+      })
   }
 }

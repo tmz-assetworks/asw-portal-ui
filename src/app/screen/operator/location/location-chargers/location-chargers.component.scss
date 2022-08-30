@@ -2585,7 +2585,8 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &group2.layout {
     position: relative;
     height: min-content;
-    margin: 50px 23px 0px 22px;
+    // margin: 50px 23px 0px 22px;
+    margin: 50px 0px 0px 0px;
     @include lg {
       margin: 43px 20px 0px 19px;
     }
@@ -5294,3 +5295,21 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
     width: 254px;
   }
 }
+.showHandCursor {
+  cursor: pointer !important;
+  margin: 3px;
+}
+
+
+@media screen and (max-width: 768px) {
+.widgets-block28.layout{
+    max-width: 637px;
+  }
+.dashboard-block33{
+    justify-content: end;
+} 
+.dashboard-block42.layout {
+  width: 650px;
+} 
+}
+

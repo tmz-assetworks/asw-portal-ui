@@ -6,12 +6,14 @@ import { environment } from 'src/environments/environment'
 export class VehicleService {
   url: any
   constructor(private _http: HttpClient) {
-    // this.url = environment.origin + 'api'
-
-    this.url = 'https://run.mocky.io/v3/e004a5eb-1108-461b-966b-53d621ff1a84'
+    this.url = environment.origin + 'api/v1/VehicleDashboard/'
   }
 
-  getVehicleList() {
-    return this._http.get<any>(`${this.url}`)
+  getAllVehicle(param: any) {
+    return this._http.post<any>(`${this.url}getallvehicle`, param)
+  }
+
+  GetVehicleByID(param: any) {
+    return this._http.get<any>(`${this.url}GetVehicleByID/${param}`)
   }
 }

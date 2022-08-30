@@ -1,1 +1,263 @@
-<p>manage-vehicles works!</p>
+<div class="cust-list-flex1 layout">
+    <h3 class="cust-list-subtitle layout">Vehicles</h3>
+    <div class="cust-list-flex1-item">
+      <div class="cust-list-block3 layout">
+        <div class="cust-list-block3-item">
+          <div class="cust-list-block4 layout">
+            <div class="cust-list-block4-item">
+              <div class="cust-list-block5 layout">
+                <div class="cust-list-block5-item">
+                  <div class="cust-list-block6 layout">
+                    <div class="cust-list-block7 layout">
+                      <div class="cust-list-block7-item">
+                        <div class="cust-list-block8 layout">
+                          <div class="cust-list-box7 layout">
+                            <img src="assets/icons/v1.png" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="cust-list-block7-spacer"></div>
+                      <div class="cust-list-block7-item1">
+                        <div class="cust-list-block9 layout">
+                          <h1 class="cust-list-hero-title layout mt_zero">100</h1>
+                          <div class="cust-list-text-body2 layout">
+                            Total Vehicles
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="cust-list-block5-spacer"></div>
+                <div class="cust-list-block5-item1">
+                  <div
+                    style="
+                      --src: url(/assets/79bc613acca208fbbe5d5ee8be3a0594.png);
+                    "
+                    class="cust-list-image layout"
+                  ></div>
+                </div>
+              </div>
+            </div>
+            <div class="cust-list-block4-spacer"></div>
+            <div class="cust-list-block4-item">
+              <div class="cust-list-block10 layout">
+                <div class="cust-list-block10-item">
+                  <div class="cust-list-block11 layout">
+                    <div class="cust-list-block12 layout">
+                      <div class="cust-list-block12-item">
+                        <div class="cust-list-block13 layout">
+                          <div class="cust-list-box7 layout">
+                            <img src="assets/icons/v2.png" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="cust-list-block12-spacer"></div>
+                      <div class="cust-list-block12-item1">
+                        <div class="cust-list-block14 layout">
+                          <h1 class="cust-list-hero-title layout">40</h1>
+                          <div class="cust-list-text-body2 layout1">Active</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="cust-list-block10-spacer"></div>
+                <div class="cust-list-block10-item1">
+                  <div
+                    style="
+                      --src: url(/assets/79bc613acca208fbbe5d5ee8be3a0594.png);
+                    "
+                    class="cust-list-image layout1"
+                  ></div>
+                </div>
+              </div>
+            </div>
+            <div class="cust-list-block4-spacer"></div>
+            <div class="cust-list-block4-item1">
+              <div class="cust-list-block15 layout">
+                <div class="cust-list-block15-item">
+                  <div class="cust-list-block16 layout">
+                    <div class="cust-list-block17 layout">
+                      <div class="cust-list-block17-item">
+                        <div class="cust-list-block18 layout">
+                          <div class="cust-list-box7 layout">
+                            <img src="assets/icons/v3.png" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="cust-list-block17-spacer"></div>
+                      <div class="cust-list-block17-item1">
+                        <div class="cust-list-block14 layout">
+                          <h1 class="cust-list-hero-title layout">60</h1>
+                          <div class="cust-list-text-body2 layout2">Inactive</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="cust-list-block15-spacer"></div>
+                <div class="cust-list-block15-item1">
+                  <div
+                    style="
+                      --src: url(/assets/79bc613acca208fbbe5d5ee8be3a0594.png);
+                    "
+                    class="cust-list-image layout2"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cust-list-flex3 layout">
+      <div class="cust-list-flex3-item">
+        <div class="cust-list-group layout">
+          <div class="cust-list-block19 layout">
+            <div class="cust-list-box9 layout">
+              <img
+                src="assets/images/serach.png"
+                alt=""
+                class="cust-list-icon layout"
+              />
+            </div>
+  
+            <div class="cust-list-block20 layout">
+              <input
+                class="cust-list-text-body21 layout"
+                (keyup)="applyFilter($event)"
+                placeholder="Search By Vehicles"
+                #input
+              />
+            </div>
+          </div> 
+        </div>
+      </div>
+      <div class="cust-list-flex3-spacer"></div>
+      <div class="cust-list-flex3-item1">
+        <div class="cust-list-block23 layout" [routerLink]="['add-vehicle']">
+          <div class="cust-list-block23-item">
+            <div class="cust-list-box10 layout">
+              <img
+                src="../../../../assets/superadmin-icons/add-icon.png"
+                alt=""
+                srcset=""
+              />
+            </div>
+          </div>
+          <div class="cust-list-block23-spacer"></div>
+          <div class="cust-list-text-body4 layout"  >
+            ADD VEHICLE
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="layout mat-data">
+        <table mat-table [dataSource]="dataSource"  class="mat-elevation-z8">
+            <ng-container matColumnDef="VIN">
+              <th mat-header-cell *matHeaderCellDef>VIN</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.VIN }}
+              </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="ModelYear">
+              <th mat-header-cell *matHeaderCellDef>MODEL YEAR</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.ModelYear }}
+              </td>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="Name">
+              <th mat-header-cell *matHeaderCellDef>
+                MAKE
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.Name }}
+              </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="Modal">
+              <th mat-header-cell *matHeaderCellDef>MODEL</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.Modal }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="LicencePlate">
+              <th mat-header-cell *matHeaderCellDef>LICENCE PLATE</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.LicencePlate }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="Department">
+              <th mat-header-cell *matHeaderCellDef>DEPARTMENT</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.Department }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="DomicileLocation">
+              <th mat-header-cell *matHeaderCellDef>
+                DOMICILE LOCATION
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.DomicileLocation }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="VehicleMacAddress">
+              <th mat-header-cell *matHeaderCellDef>
+                VEHICLE MAC ADDRESS
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.VehicleMacAddress }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="RFIDCardAssigned">
+              <th mat-header-cell *matHeaderCellDef>
+                RFID CARD ASSIGNED
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.RFIDCardAssigned }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="Status">
+              <th mat-header-cell *matHeaderCellDef>STATUS</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.Status }}
+              </td>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="Action">
+              <th mat-header-cell *matHeaderCellDef>ACTION</th>
+              <td
+                mat-cell
+                *matCellDef="let element"
+                style="cursor: pointer;"
+              >
+              <img src="assets/icons/tick.png " title="Active">&nbsp;
+                <img src="../../../../assets/icons/view-icon.png"  style="cursor: pointer" (click)="viewLocation(element)" title="View"/>&nbsp;
+                <img src="assets/icons/Edit.png" alt=""  (click)="editLocation(element)" style="cursor: pointer" title="Edit"/>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr
+              mat-row
+              *matRowDef="let row; columns: displayedColumns"
+            ></tr>
+
+          </table>
+          <ng-container *ngIf="isTableHasData">
+            <p class="text-center">No record found</p>
+          </ng-container>
+    </div>
+    <mat-paginator
+    [length]="100"
+    [pageSizeOptions]="[10, 20, 100]"
+  ></mat-paginator>
+  </div>
+  

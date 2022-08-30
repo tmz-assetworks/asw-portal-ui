@@ -2,7 +2,7 @@
 <a [routerLink]="['../location-info']">Location Info</a>
 <a [routerLink]="['../location-chargers']">Location Chargers</a> -->
 
-<div class="location location-block layout">
+<div class="location location-block layout event-log-main">
   <div class="location-block1 layout">
     <div class="location-flex layout">
       <h3 class="location-subtitle-box layout">
@@ -48,9 +48,7 @@
                     <div class="location-block4-item">
                       <div class="location-block6 layout">
                         <a [routerLink]="['../events-log']">
-                          <div class="location-text-body layout">
-                            EVENT LOG
-                          </div>
+                          <div class="location-text-body layout">EVENT LOG</div>
                         </a>
                       </div>
                     </div>
@@ -96,8 +94,13 @@
                                   </mat-form-field> -->
 
                                   <mat-form-field class="barbar-box6 layout">
-                                    <select matNativeControl required>
-                                      <option value="volvo">
+                                    <select
+                                      matNativeControl
+                                      required
+                                      [(ngModel)]="searchParam"
+                                      (change)="selectOption($event)"
+                                    >
+                                      <!--  <option value="volvo">
                                         All
                                       </option>
                                       <option value="saab">Reset</option>
@@ -106,6 +109,9 @@
                                       </option>
                                       <option value="audi">
                                         Start Transaction
+                                      </option> -->
+                                      <option *ngFor="let item of arrKeys">
+                                        {{ item.value }}
                                       </option>
                                     </select>
                                   </mat-form-field>
@@ -115,7 +121,10 @@
                           </div>
                           <div class="cust-list-flex3-spacer"></div>
                           <div class="cust-list-flex3-item1">
-                            <div class="cust-list-block23 layout">
+                            <div
+                              class="cust-list-block23 layout"
+                              (click)="downloadAsPDF()"
+                            >
                               <div class="cust-list-block23-item">
                                 <div class="cust-list-box10 layout">
                                   <img
@@ -127,19 +136,23 @@
                               </div>
                               <div class="cust-list-block23-spacer"></div>
                               &nbsp;&nbsp;
-                              <div
-                                class="cust-list-text-body4 layout"
-                                [routerLink]="['createcustomer']"
-                                routerLinkActive="router-link-active"
-                              >
+                              <div class="cust-list-text-body4 layout">
                                 DOWNLOAD REPORTS
                               </div>
                             </div>
                           </div>
                         </div>
 
-                        <div class="cust-list-group2 layout">
+                        <div
+                          class="cust-list-group2 layout"
+                          id="pdfTable"
+                          #pdfTable
+                        >
                           <table
+                            *ngIf="
+                              displayedColumns !== undefined &&
+                              displayedColumns.length > 0
+                            "
                             mat-table
                             [dataSource]="dataSource"
                             multiTemplateDataRows
@@ -155,17 +168,35 @@
                               >
                                 TYPE
                               </th>
-                              <td
+                              <!--  <td
                                 mat-cell
                                 *matCellDef="let element; let i = index"
                                 [ngClass]="{
-                                  heartbeat: element.Type === 'Heartbeat',
+                                  'heartbeat heartbeatbullet' : element.Type === 'Heartbeat',
                                   startTranstion:
                                     element.Type === 'Start Transaction',
                                   reset: element.Type === 'Reset'
                                 }"
+                              > -->
+                              <!--  {{ element.Type }} -->
+                              <td
+                                mat-cell
+                                *matCellDef="let element; let i = index"
                               >
-                                {{ element.Type }}
+                                <div
+                                  (click)="UpdateOcppEventLogIsRead(element.id)"
+                                  [ngStyle]="{
+                                    color: element.requestTypeColor
+                                  }"
+                                >
+                                  <span
+                                    *ngIf="element.isRead == false"
+                                    class="bullet-point"
+                                  >
+                                    &#8226;
+                                  </span>
+                                  {{ element.requestType }}
+                                </div>
                               </td>
                             </ng-container>
                             <ng-container matColumnDef="DateTime">
@@ -181,7 +212,10 @@
                                 mat-cell
                                 *matCellDef="let element; let i = index"
                               >
-                                {{ element.DateTime }}
+                                <!-- {{ element.DateTime }}  -->
+                                {{
+                                  element.createdAt | date: 'dd-MM-yyyy hh:mm'
+                                }}
                               </td>
                             </ng-container>
 
@@ -198,7 +232,8 @@
                                 mat-cell
                                 *matCellDef="let element; let i = index"
                               >
-                                {{ element.SerialNumber }}
+                                <!--  {{ element.SerialNumber }} -->
+                                {{ element.deviceId }}
                               </td>
                             </ng-container>
 
@@ -242,19 +277,19 @@
                                       : 'collapsed'
                                   "
                                 >
-                                  <div class="example-element-description">
+                                  <div
+                                    class="example-element-description textleftcollapse"
+                                  >
                                     <div class="">
-                                      <div class="">
-                                        <pre>
- {{ element.RequestPayload | json }}</pre
-                                        >
+                                      <div style="text-transform: none;">
+                                        {{ element.requestPayload }}
                                       </div>
                                     </div>
                                     <hr />
                                     <div class="example-element-description">
-                                      <pre>
- {{ element.ResponsePayload | json }}</pre
-                                      >
+                                      <div style="text-transform: none;">
+                                        {{ element.responsePayload }}
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
@@ -282,8 +317,22 @@
                               class="example-detail-row"
                             ></tr>
                           </table>
+
+                          <ng-container *ngIf="isTableHasData">
+                            <p class="text-center">No record found</p>
+                          </ng-container>
+
                           <mat-paginator
-                            [length]="100"
+                            #paginator
+                            (page)="
+                              getLocationEventLogTableData(
+                                $event,
+                                currentPage,
+                                totalRecords
+                              )
+                            "
+                            [length]="totalRecords"
+                            [pageSize]="pageSize"
                             [pageSizeOptions]="[10, 20, 100]"
                           ></mat-paginator>
                         </div>

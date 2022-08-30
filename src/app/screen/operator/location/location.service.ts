@@ -27,7 +27,7 @@ export class LocationService {
    */
 
   public GetSummaryStatus(): Observable<any> {
-    return this._http.get<any>(`${this.url}getsummarystatus/${0}`)
+    return this._http.get<any>(`${this.url}getsummarystatus/${0}/false`)
   }
 
   /**
@@ -37,7 +37,9 @@ export class LocationService {
    */
 
   public GetSummaryStatuByLocationId(locationId: any): Observable<any> {
-    return this._http.get<any>(`${this.url}getsummarystatus/${locationId}`)
+    return this._http.get<any>(
+      `${this.url}getsummarystatus/${locationId}/false`,
+    )
   }
 
   /**
@@ -48,7 +50,8 @@ export class LocationService {
 
   public GetLocationStatus(params: any): Observable<any> {
     // let url =  environment.origin + 'v1/LocationDashboard/'
-    let url = 'http://51.142.150.252:6010/api/v1/LocationDashboard/'
+    let url =
+      'https://asw-portal-rest-service.azurewebsites.net/api/v1/LocationDashboard/'
     return this._http.post<any>(`${url}locationstatus`, params)
   }
 
@@ -83,7 +86,8 @@ export class LocationService {
   // }
   public GetlocationChargerList(params: any): Observable<any> {
     // let url =  environment.origin + 'v1/LocationDashboard/'
-    let url = 'http://51.142.150.252:6010/api/v1/LocationDashboard/'
+    let url =
+      'https://asw-portal-rest-service.azurewebsites.net/api/v1/LocationDashboard/'
     return this._http.post<any>(`${url}GetDispenserByLocation`, params)
   }
   public locationStatusList(): Observable<any> {
@@ -127,7 +131,8 @@ export class LocationService {
    */
 
   getlocationInformationById(params: any): Observable<any> {
-    let url = 'http://51.142.150.252:6010/api/v1/LocationDashboard/'
+    let url =
+      'https://asw-portal-rest-service.azurewebsites.net/api/v1/LocationDashboard/'
     return this._http.get<any>(`${url}getlocatinbyid?id=${params}`)
   }
 
@@ -140,11 +145,25 @@ export class LocationService {
    */
 
   GetLocationMilesAddedChartdata(params: any): Observable<any> {
-    // let url = 'http://51.142.150.252:6010/api/v1/OperatorDashboard/'
     return this._http.post<any>(`${this.url}GetMilesAddedByLocation`, params)
   }
-  // GetLocationMilesAddedChartdata(params: any): Observable<any> {
-  //   let url = 'http://51.142.150.252:6010/api/v1/OperatorDashboard/GetMilesAddedByLocation/'
-  //   return this._http.get<any>(`${url}GetMilesAddedByLocation?id=${params}`)
-  // }
+
+  /*
+     location event log table list
+  */
+
+  public getEventLogTableData(params: any): Observable<any> {
+    return this._http.post<any>(`${this.url}GetEventLogByLocation`, params)
+  }
+
+  /*
+     
+
+  */
+
+  public UpdateOcppEventLogIsRead(params: any): Observable<any> {
+    let url =
+      'https://asw-portal-rest-service.azurewebsites.net/api/v1/OperatorDashboard/'
+    return this._http.post<any>(`${url}UpdateOcppEventLogIsRead`, params)
+  }
 }

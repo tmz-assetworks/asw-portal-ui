@@ -8,7 +8,7 @@
       <div class="dashboard-block12 layout">
         <!-- <h3 class="dashboard-subtitle layout">Chargers</h3> -->
       </div>
-      <div class="dashboard-block13 layout">
+      <div class="dashboard-block13 layout charger-inner">
         <div class="dashboard-block13-item">
           <div class="dashboard-block14 layout">
             <div class="dashboard-block15 layout">
@@ -38,62 +38,88 @@
 
             <div class="dashboard-block32 layout">
               <div class="dashboard-block33 layout">
-                <div class="dashboard-block33-item1">
-                  <div class="dashboard-block35 layout">
-                    <div class="dashboard-text-body2 layout">
-                      Last 24 Hours
-                      <!-- <button mat-button>
-                  Last 24 Hours
-                </button> -->
+                <mat-button-toggle-group
+                  class="pt-0"
+                  [formControl]="filterToggle"
+                  (change)="setTime($event)"
+                >
+                  <!-- <div class="dashboard-block33-item">
+                    <div class="dashboard-block34 layout">
+  
+  
+          </div>  
+                  </div>-->
+                  <div class="dashboard-block33-item1">
+                    <div class="dashboard-block35 layout space-between">
+                      <mat-button-toggle
+                        value="1"
+                        style="border: 1px solid #0062a6;"
+                      >
+                        Last 24 Hours
+                      </mat-button-toggle>
+                      <!-- <div class="dashboard-text-body2 layout">Last 24 Hours</div> -->
                     </div>
                   </div>
-                </div>
-                <div class="dashboard-block33-item2">
-                  <div class="dashboard-block36 layout">
-                    <div class="dashboard-text-body3 layout">
-                      One Week
-                      <!-- <button mat-button>
-                  One Week
-                </button> -->
+                  <div class="dashboard-block33-item2">
+                    <div class="dashboard-block36 layout space-between">
+                      <!-- <div class="dashboard-text-body3 layout">One Week</div> -->
+                      <mat-button-toggle value="7">One Week</mat-button-toggle>
                     </div>
                   </div>
-                </div>
-                <div class="dashboard-block33-item3">
-                  <div class="dashboard-block37 layout">
-                    <div class="dashboard-text-body3 layout1">
-                      <!-- <button mat-button>
-                  Current Month
-                </button> -->
-                      Current Month
+                  <div class="dashboard-block33-item3">
+                    <div class="dashboard-block37 layout space-between">
+                      <!-- <div class="dashboard-text-body3 layout1">Current Month</div> -->
+                      <mat-button-toggle value="30">
+                        Current Month
+                      </mat-button-toggle>
                     </div>
                   </div>
-                </div>
-                <div class="dashboard-block33-item4">
-                  <div class="dashboard-block38 layout">
-                    <div class="dashboard-text-body3 layout2">
-                      <!-- <button mat-button>
-                  Last Three Months
-                </button> -->
-                      Last 3 Months
+
+                  <div class="dashboard-block33-item4">
+                    <div class="dashboard-block38 layout space-between">
+                      <!-- <div class="dashboard-text-body3 layout2">Last 3 Months</div> -->
+                      <mat-button-toggle value="90">
+                        Last 3 Months
+                      </mat-button-toggle>
                     </div>
                   </div>
-                </div>
+                </mat-button-toggle-group>
               </div>
             </div>
 
             <div class="dashboard-block42 layout">
               <div class="dashboard-block42-item">
                 <app-bar-chart
-                  [chartType]="bar"
-                  [chartTitle]="barTitle"
+                  *ngIf="chargersChartData !== ''"
+                  style="width: 100%; height: 100%;"
+                  [chartType]="'bar'"
+                  [chartTitle]="'Chargers in Use'"
+                  [chargersData]="chargersChartData"
+                  (barDetailPage)="
+                    openDetailPage(
+                      5,
+                      'Chargers in Use',
+                      'DASHBOARD',
+                      selectedTime
+                    )
+                  "
                 ></app-bar-chart>
               </div>
               <div class="dashboard-block42-spacer"></div>
               <div class="dashboard-block42-item">
                 <app-area-chart
-                  [chartType]="chargerArea"
-                  [chartTitle]="chargerAreaTitle"
+                  *ngIf="chargingSessionData !== ''"
+                  (areaDetailPage)="
+                    openDetailPage(
+                      2,
+                      'Charging Session',
+                      'DASHBOARD',
+                      selectedTime
+                    )
+                  "
                   [chargingSessionData]="chargingSessionData"
+                  [chartType]="dashboardChargingSession"
+                  [chartTitle]="dashboardChargingSessionTitle"
                 ></app-area-chart>
               </div>
             </div>
@@ -137,13 +163,17 @@
                       </div>
                     </div>
                     <div class="layout mat-data">
-                      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-                        <ng-container matColumnDef="locationName">
+                      <table
+                        mat-table
+                        [dataSource]="dataSource"
+                        class="mat-elevation-z8"
+                      >
+                        <ng-container matColumnDef="chargerName">
                           <th mat-header-cell *matHeaderCellDef>
                             CHARGER NAME
                           </th>
                           <td mat-cell *matCellDef="let element">
-                            {{ element.locationName }}
+                            {{ element.chargerName }}
                           </td>
                         </ng-container>
 
@@ -163,7 +193,7 @@
                             CHARGER TYPE
                           </th>
                           <td mat-cell *matCellDef="let element">
-                            {{ element.chargertype }}
+                            {{ element.chargerType }}
                           </td>
                         </ng-container>
 
@@ -171,7 +201,7 @@
                         <ng-container matColumnDef="faultisince">
                           <th mat-header-cell *matHeaderCellDef>FAULT SINCE</th>
                           <td mat-cell *matCellDef="let element">
-                            {{ element.faultisince }}
+                            {{ element.faultSince }}
                           </td>
                         </ng-container>
                         <ng-container matColumnDef="locationcontactname">
@@ -179,7 +209,7 @@
                             LOCATIONS CONTACT NAME
                           </th>
                           <td mat-cell *matCellDef="let element">
-                            {{ element.locationcontactname }}
+                            {{ element.locationContactName }}
                           </td>
                         </ng-container>
                         <ng-container matColumnDef="timereported">
@@ -187,7 +217,7 @@
                             TIME REPORTED
                           </th>
                           <td mat-cell *matCellDef="let element">
-                            {{ element.timereported }}
+                            {{ element.timeReported }}
                           </td>
                         </ng-container>
                         <ng-container matColumnDef="locationid">
@@ -195,7 +225,7 @@
                             LOCATIONS ID
                           </th>
                           <td mat-cell *matCellDef="let element">
-                            {{ element.locationid }}
+                            {{ element.locationId }}
                           </td>
                         </ng-container>
                         <ng-container matColumnDef="state">
@@ -209,7 +239,7 @@
                             LOCATION CONTACT NUMBER
                           </th>
                           <td mat-cell *matCellDef="let element">
-                            {{ element.locationcontactnumber }}
+                            {{ element.locationContactNumber }}
                           </td>
                         </ng-container>
 
@@ -219,7 +249,7 @@
                           <td
                             mat-cell
                             *matCellDef="let element"
-                            (click)="viewCharger()"
+                            (click)="viewCharger(element)"
                             style="cursor: pointer;"
                           >
                             <img src="../../../../assets/icons/view-icon.png" />
@@ -240,9 +270,13 @@
                       </ng-container>
                     </div>
                     <mat-paginator
-                      [length]="100"
+                      #paginator
+                      (page)="
+                        getDispensersDetail($event, currentPage, totalRecords)
+                      "
+                      [length]="totalRecords"
+                      [pageSize]="pageSize"
                       [pageSizeOptions]="[10, 20, 100]"
-                      aria-label="Rows per page"
                     ></mat-paginator>
                   </div>
                 </div>

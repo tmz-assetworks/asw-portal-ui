@@ -12,7 +12,8 @@ import { NgxEchartsModule } from 'ngx-echarts';
 import { LocationStausComponent } from './location-staus/location-staus.component';
 import { EventsLogComponent } from './events-log/events-log.component'
 import { GraphDetailComponent } from '../graph-detail/graph-detail.component'
-import { LocationStatusPanelComponent } from './location-status-panel/location-status-panel.component'
+import { LocationStatusPanelComponent } from './location-status-panel/location-status-panel.component';
+import { CommandDialogComponent } from './location-chargers/command-dialog/command-dialog.component'
 
 
 const routes: Routes = [
@@ -71,6 +72,7 @@ const routes: Routes = [
     LocationStausComponent,
     EventsLogComponent,
     LocationStatusPanelComponent,
+    CommandDialogComponent,
   ],
   imports: [
     CommonModule,

@@ -306,7 +306,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     position: relative;
     flex: 0 0 auto;
     @include sm {
-      flex: 0 0 calc(33.33333333333333% - 10.666666666666666px);
+      flex: 0 0 100%;
     }
     @include xxs {
       flex: 0 0 100%;
@@ -399,6 +399,9 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     height: min-content;
     margin-left: 30px;
     width: 125px;
+    @include sm{
+      margin-left: 0px;
+    }
   }
   &hero-title {
     display: flex;
@@ -433,6 +436,9 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     margin: 0 auto;
     &.mt_zero {
       margin: 0;
+      @include sm{
+        margin:0 auto;
+      }
     }
   }
   &text-body2 {
@@ -457,7 +463,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
       margin: 5px 23px 0px 29px;
     }
     @include sm {
-      margin: 5px 19px 0px 24px;
+      margin: 5px auto;
     }
     @include xs {
       margin: 5px 18px 0px 21px;
@@ -552,6 +558,10 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     height: min-content;
     border-right: 1px dotted #70787f73;
     border-left: 1px dotted #70787f73;
+    @include sm{
+      border-right: 0px dotted #70787f73;
+      border-left: 0px dotted #70787f73;
+    }
   }
   &block12-item {
     @include flex-column;
@@ -569,6 +579,9 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     width: 77px;
     min-width: 77px;
     margin: 0 20px 0 30px;
+    @include sm{
+      margin: 0;
+    }
   }
   &block12-spacer {
     flex: 0 1 3px;
@@ -600,7 +613,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
       margin: 0px 23px 0px 29px;
     }
     @include sm {
-      margin: 0px 19px 0px 24px;
+      margin: 0px auto;
     }
     @include xs {
       margin: 0px 18px 0px 21px;
@@ -650,7 +663,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     min-width: 222px;
     @include sm {
       flex: 0 0 calc(33.33333333333333% - 10.666666666666666px);
-      min-width: unset;
+     
     }
     @include xxs {
       flex: 0 0 100%;
@@ -702,6 +715,9 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     width: 77px;
     min-width: 77px;
     margin: auto 20px;
+    @include sm{
+      margin: auto -20px;
+    }
   }
   &block17-spacer {
     flex: 0 1 3px;
@@ -710,6 +726,9 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     @include flex-column;
     position: relative;
     flex: 0 1 112px;
+    @include sm{
+      flex: 0 1 74px;
+    }
   }
   &text-body2.layout2 {
     position: relative;
@@ -722,7 +741,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
       margin: 0px 23px 0px 29px;
     }
     @include sm {
-      margin: 0px 19px 0px 24px;
+      margin: 0px auto;
     }
     @include xs {
       margin: 0px 18px 0px 21px;
@@ -866,7 +885,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
       bottom: 12px;
     }
     @include sm {
-      top: 11px;
+      top: 16px;
       bottom: 10px;
     }
     @include xs {
@@ -1212,14 +1231,16 @@ tr.mat-row:last-of-type {
     width: 86vw;
   }
   @include sm{
-    width: 90vw;
+    max-width: 90vw;
+    overflow: auto;
   }
 
   .mat-elevation-z8{
     width: 100%;
 
     @include lg{
-      width: 100vw;
+      min-width: 1200px;
+      //width: 100vw;
       // max-width: 100%;
       overflow: auto;
       // margin-bottom: 10px;
@@ -1240,4 +1261,53 @@ tr.mat-row:last-of-type {
     vertical-align: middle
   }
 
+}
+
+// Soni CSS 
+@media screen and (max-width: 767px) {
+  .cust-list-block5-item{
+    flex: 0 1 166px;
+}
+.cust-list-flex1 .cust-list-block4 {
+  flex-wrap: inherit;
+}
+.cust-list-flex1 .cust-list-block4-item {
+  flex: 0 0 33%;
+}
+.barbar-block10{
+  width: 115px;
+}
+.cust-list-flex1 .cust-list-block17-item {
+  flex: 0 1 56px;
+}
+}
+
+@media screen and (max-width: 737px) {
+//   .cust-list-block9.layout{
+//     width: 85px;
+// }
+// .cust-list-block12-item1 {
+//   width: 60px;
+// }
+// .cust-list-block11.layout {
+//   width: 55px;
+// }
+// .cust-list-block13.layout{
+//   width: 60px;
+//   min-width: 60px;
+// }
+// .cust-list-block8.layout{
+//   width: 60px;
+//   min-width: 60px;
+// }
+// .cust-list-block18.layout{
+//   width: 60px;
+//   min-width: 60px;
+// }
+// .cust-list-block17-item{
+//   flex: 0 1 28px;
+// }
+.cust-list-text-body21.layout{
+  margin: 11px 6px 6px 6px;
+}
 }

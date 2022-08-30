@@ -392,3 +392,11 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
   border: 0;
   border-left: 1px dotted #c2c5c8;
 }
+@media (max-width: 1366px) {
+  h3.box-element-subtitle.layout {
+    font-size: 14px;
+  }
+  h3.list-element-subtitle.layout {
+    font-size: 14px;
+  }
+}

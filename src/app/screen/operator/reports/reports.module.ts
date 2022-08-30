@@ -10,6 +10,7 @@ import { ReportSubscriptionComponent } from './report-subscription/report-subscr
 import { ReportTransactionComponent } from './report-transaction/report-transaction.component';
 import { ReportEnergyComponent } from './report-energy/report-energy.component'
 import { ReportSessionComponent } from './report-session/report-session.component'
+import { GraphDetailComponent } from '../graph-detail/graph-detail.component'
 
 
 
@@ -45,10 +46,17 @@ const routes: Routes = [
         component: ReportEnergyComponent,
         // pathMatch: 'full',
       },
-     
     ],
   },
-]
+  { path: 'report-transaction/detail', component: GraphDetailComponent },
+  { path: 'report-transaction/detail/:id', component: GraphDetailComponent },
+  { path: 'report-subscription/detail', component: GraphDetailComponent },
+  { path: 'report-subscription/detail/:id', component: GraphDetailComponent },
+  { path: 'report-session/detail', component: GraphDetailComponent },
+  { path: 'report-session/detail/:id', component: GraphDetailComponent },
+  { path: 'report-energy/detail', component: GraphDetailComponent },
+  { path: 'report-energy/detail/:id', component: GraphDetailComponent }
+];
 @NgModule({
   declarations: [
     ReportsComponent,

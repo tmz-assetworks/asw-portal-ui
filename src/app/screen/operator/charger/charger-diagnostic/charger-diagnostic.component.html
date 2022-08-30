@@ -1,7 +1,7 @@
 <div class="header header-block layout">
   <div class="header-block1 layout">
     <div class="header-flex layout">
-      <h3 class="header-subtitle-box layout">Charger Details</h3>
+      <h3 class="header-subtitle-box layout">{{ chargerName }}</h3>
 
       <!-- <div class="location-block12 layout"></div> -->
       <div class="location-block2 layout">
@@ -76,15 +76,9 @@
           <div class="cust-list-flex3-item">
             <div class="cust-list-group layout">
               <div class="cust-list-block19 layout">
-                <mat-form-field class="cust-list-block20 layout">
-                  <!-- <mat-label>Cars</mat-label> -->
-                  <select matNativeControl required>
-                    <option value="volvo">Charge Box ID</option>
-                    <option value="saab">Saab</option>
-                    <option value="mercedes">Mercedes</option>
-                    <option value="audi">Audi</option>
-                  </select>
-                </mat-form-field>
+                <div style="text-align: left; margin: 12px 0px 0px 17px;">
+                  {{ chargerId }}
+                </div>
               </div>
             </div>
           </div>
@@ -93,46 +87,467 @@
       </div>
       <!-- <div class="location-block15 layout">
         <div class="location-flex14 layout"> -->
+
       <app-diag-widget-bar>
-        <app-diag-widget style="cursor: pointer;border-left: 1px solid #aea4a4;" class="wd_sub_1">
-          <img class="img" src="../../../../../assets/diagnostic/update.svg" />
-          <div class="text">UPDATE FIRMWARE</div>
+        <app-diag-widget
+          (click)="viewToolTip('provisioning')"
+          [isProvisioning]="isProvisioning"
+          style="cursor: pointer; border-left: 1px solid #aea4a4;"
+          class="wd_sub_1"
+        >
+          <img class="img" src="assets/images/provising.png" />
+
+          <div class="text">Provisioning</div>
         </app-diag-widget>
-        <app-diag-widget style="cursor: pointer;" class="wd_sub_1">
-          <img
-            class="img"
-            src="../../../../../assets/diagnostic/diagnostic.svg"
-          />
-          <div class="text">DIAGNOSTICS</div>
+
+        <ng-container *ngIf="isProvisioning">
+          <app-tool-tip class="wd_sub_1 tool_alignP">
+            <div class="title">
+              Provisioning
+              <span class="close-icon" (click)="closePopup()">X</span>
+            </div>
+
+            <!-- <app-tool-tip-item class="item" (click)="getConfiguration()"> -->
+            <app-tool-tip-item
+              class="item"
+              (click)="showMessage('getconfig'); viewToolTipTtem('isGetConfig')"
+              [isGetConfig]="isGetConfig"
+            >
+              <div class="title">GetConfiguration</div>
+              <img
+                class="img"
+                style="width: 100%; height: 100%;"
+                src="../../../../assets/diagnostic/getConfiguration.png"
+              />
+            </app-tool-tip-item>
+
+            <app-tool-tip-item
+              class="item"
+              (click)="clearCache(); viewToolTipTtem('isClearCache')"
+              [isClearCache]="isClearCache"
+            >
+              <div class="title">ClearCache</div>
+              <img
+                class="img"
+                style="width: 100%; height: 100%;"
+                src="../../../../assets/diagnostic/clearCache.png"
+              />
+            </app-tool-tip-item>
+            <app-tool-tip-item
+              class="item"
+              (click)="showMessage('reset'); viewToolTipTtem('isReset')"
+              [isReset]="isReset"
+            >
+              <div class="title">Reset</div>
+              <img
+                class="img"
+                style="width: 100%; height: 100%;"
+                src="../../../../assets/diagnostic/reset.png"
+              />
+            </app-tool-tip-item>
+            <!-- <app-tool-tip-item class="item" (click)="changeConfiguration()"> -->
+            <app-tool-tip-item
+              class="item"
+              (click)="
+                showMessage('changeconfig');
+                viewToolTipTtem('isChangeConfiguration')
+              "
+              [isChangeConfiguration]="isChangeConfiguration"
+            >
+              <div class="title">ChangeConfiguration</div>
+              <img
+                class="img"
+                style="width: 100%; height: 100%;"
+                src="../../../../assets/diagnostic/changeConfiguration.png"
+              />
+            </app-tool-tip-item>
+            <!-- <app-tool-tip-item class="item" (click)="changeAvailability()"> -->
+            <app-tool-tip-item
+              class="item"
+              (click)="
+                showMessage('change'); viewToolTipTtem('isChangeAvailability')
+              "
+              [isChangeAvailability]="isChangeAvailability"
+            >
+              <div class="title">ChangeAvailability</div>
+              <img
+                class="img"
+                style="width: 100%; height: 100%;"
+                src="../../../../assets/diagnostic/changeAvailability.png"
+              />
+            </app-tool-tip-item>
+          </app-tool-tip>
+        </ng-container>
+        <app-diag-widget
+          class="wd_sub_1"
+          (click)="viewToolTip('authorization')"
+          [isAuthorization]="isAuthorization"
+        >
+          <img class="img" src="assets/images/authrization.png" />
+          <div class="text">Authorization</div>
         </app-diag-widget>
-        <app-diag-widget style="cursor: pointer;" class="wd_sub_1">
-          <img
-            class="img"
-            src="../../../../../assets/diagnostic/remote-contro.svg"
-          />
-          <div class="text">REMOTE CONTROL</div>
+        <!-- niharika -->
+        <ng-container *ngIf="isAuthorization">
+          <app-tool-tip class="wd_sub_1 tool_alignAuth">
+            <div class="title">
+              Authorization
+              <span class="close-icon auth-close" (click)="closePopup()">
+                X
+              </span>
+            </div>
+
+            <app-tool-tip-item
+              class="item"
+              (click)="
+                getLocalListVersion(); viewToolTipTtem('isGetLocalListVersion')
+              "
+              [isGetLocalListVersion]="isGetLocalListVersion"
+            >
+              <div class="title">GetLocalListVersion</div>
+              <img
+                class="img"
+                style="width: 100%; height: 100%;"
+                src="../../../../assets/diagnostic/getConfiguration.png"
+              />
+            </app-tool-tip-item>
+          </app-tool-tip>
+        </ng-container>
+        <app-diag-widget
+          class="wd_sub_1"
+          (click)="viewToolTip('remoteControl')"
+          [isRemoteControl]="isRemoteControl"
+        >
+          <img class="img" src="assets/images/remotecontrol.png" />
+          <div class="text">
+            Remote Control
+          </div>
         </app-diag-widget>
-        <app-diag-widget style="cursor: pointer;" class="wd_sub_1">
-          <img
-            class="img"
-            src="../../../../../assets/diagnostic/smart-charger.svg"
-          />
-          <div class="text">SMART CHARGING</div>
+
+        <ng-container *ngIf="isRemoteControl">
+          <app-tool-tip class="wd_sub_1 tool_alignRC">
+            <div class="title">
+              Remote Control
+              <span class="close-icon" (click)="closePopup()">X</span>
+            </div>
+            <!--  <app-tool-tip-item class="item" (click)="remoteStartTransaction()"> -->
+            <app-tool-tip-item
+              class="item"
+              (click)="
+                showMessage('start');
+                viewToolTipTtem('isRemoteStartTransaction')
+              "
+              [isRemoteStartTransaction]="isRemoteStartTransaction"
+            >
+              <div class="title">RemoteStartTransaction</div>
+              <img
+                class="img"
+                style="width: 100%; height: 100%;"
+                src="../../../../assets/diagnostic/RemoteStartTransaction.svg"
+              />
+            </app-tool-tip-item>
+
+            <app-tool-tip-item
+              class="item"
+              (click)="
+                remoteStopTransaction();
+                viewToolTipTtem('isRemoteStopTransaction')
+              "
+              [isRemoteStopTransaction]="isRemoteStopTransaction"
+            >
+              <div class="title">RemoteStopTransaction</div>
+              <img
+                class="img"
+                style="width: 100%; height: 100%;"
+                src="../../../../assets/diagnostic/RemoteStopTransaction.svg"
+              />
+            </app-tool-tip-item>
+          </app-tool-tip>
+        </ng-container>
+        <app-diag-widget
+          class="wd_sub_1"
+          (click)="viewToolTip('smartcharging')"
+          [isSmartCharging]="isSmartCharging"
+        >
+          <img class="img" src="assets/images/smartcharging.png" />
+          <div class="text">Smart Charging</div>
         </app-diag-widget>
-        <app-diag-widget style="cursor: pointer;" class="wd_sub_1"> 
-          <img class="img" src="../../../../../assets/diagnostic/firmware.svg" />
-          <div class="text">Firmware
-            Management</div>
+        <ng-container *ngIf="isSmartCharging">
+          <app-tool-tip class="wd_sub_1 tool_alignSC">
+            <div class="title">
+              Smart Charging
+              <span class="close-icon auth-close" (click)="closePopup()">
+                X
+              </span>
+            </div>
+            <!--  <app-tool-tip-item class="item" (click)="getCompositeSchedule()"> -->
+            <app-tool-tip-item
+              class="item"
+              (click)="
+                showMessage('getComposite');
+                viewToolTipTtem('isGetCompositeSchedule')
+              "
+              [isGetCompositeSchedule]="isGetCompositeSchedule"
+            >
+              <div class="title">GetCompositeSchedule</div>
+              <img
+                class="img"
+                style="width: 100%; height: 100%;"
+                src="../../../../assets/diagnostic/GetCompositeSchedule.svg"
+              />
+            </app-tool-tip-item>
+          </app-tool-tip>
+        </ng-container>
+
+        <app-diag-widget
+          (click)="viewToolTip('fireware')"
+          [isFireWareItem]="isFireWareItem"
+          class="wd_sub_1"
+        >
+          <img class="img" src="../../../../assets/logo-collapse1.svg" />
+          <div class="text">Firmware Management</div>
         </app-diag-widget>
-        <app-diag-widget style="cursor: pointer;">
-          <img
-            class="img"
-            style="cursor: pointer;"
-            src="../../../../../assets/diagnostic/display.svg"
-          />
-          <div class="text" style="cursor: pointer;">DISPLAY MESSAGE</div>
+        <ng-container *ngIf="isFireWareItem">
+          <app-tool-tip class="wd_sub_1 tool_align">
+            <div class="title">Firmware Management</div>
+            <app-tool-tip-item class="item">
+              <div class="title">Update Firmware</div>
+              <img
+                class="img"
+                style="width: 100%; height: 100%;"
+                src="../../../../assets/diagnostic/update-firmware.svg"
+              />
+            </app-tool-tip-item>
+
+            <app-tool-tip-item class="item">
+              <div class="title">Publish Firmware</div>
+              <img
+                class="img"
+                style="width: 100%; height: 100%;"
+                src="../../../../assets/diagnostic/publish-firmware.svg"
+              />
+            </app-tool-tip-item>
+          </app-tool-tip>
+        </ng-container>
+
+        <!--Tool Tip -->
+
+        <app-diag-widget class="wd_sub_1">
+          <img class="img" src="assets/images/diagnostics.png" />
+          <div class="text">Diagnostics</div>
+        </app-diag-widget>
+        <app-diag-widget class="wd_sub_1">
+          <img class="img" src="assets/images/displaymsg.png" />
+          <div class="text">Display Message</div>
         </app-diag-widget>
       </app-diag-widget-bar>
+      <!--niharika  -->
+      <div class="form-fields">
+        <div
+          *ngIf="commandType !== ''"
+          class="cdk-overlay-backdrop cdk-overlay-dark-backdrop cdk-overlay-backdrop-showing"
+        ></div>
+        <app-diag-widget-bar>
+          <ng-container
+            *ngIf="
+              commandType == 'change' ||
+              commandType == 'reset' ||
+              commandType == 'start' ||
+              commandType == 'getconfig' ||
+              commandType == 'changeconfig' ||
+              commandType == 'getComposite'
+            "
+          >
+            <app-tool-tip
+              class="wd_sub_1 select-opt-modal tool_alignP setMarginTool"
+            >
+              <div class="title">
+                <span class="close-icon-type" (click)="closePopupType()">
+                  X
+                </span>
+                <span *ngIf="commandType == 'change'" class="mandatoryField">
+                  Select Type
+                  <span class="required-field">*</span>
+                </span>
+                <select
+                  *ngIf="commandType == 'change'"
+                  name="chargerType"
+                  class="chargerType"
+                  (change)="selectOption($event)"
+                >
+                  <option value="">Type</option>
+                  <option value="Inoperative">Inoperative</option>
+                  <option value="Operative">Operative</option>
+                </select>
+                <br />
+                <br />
+
+                <span
+                  *ngIf="
+                    commandType == 'change' || commandType == 'getComposite'
+                  "
+                  class="required"
+                >
+                  Select Connector ID
+                  <span class="required-field">*</span>
+                </span>
+                <select
+                  *ngIf="
+                    commandType == 'change' || commandType == 'getComposite'
+                  "
+                  class="chargerType"
+                  name="chargerType"
+                  (change)="selectConnectorID($event)"
+                >
+                  <option value="">Connector ID</option>
+                  <option *ngFor="let item of selectConnectorIds">
+                    {{ item }}
+                  </option>
+                </select>
+                <!-- <input *ngIf="commandType == 'getComposite'" class="cust-list-text-body21 layout idTagInput"
+                        placeholder="Enter Duration" #inputDuration class="connector_id" /> -->
+                <span
+                  *ngIf="commandType == 'getComposite'"
+                  class="required inpt-field"
+                >
+                  Enter Duration
+                  <span class="required-field">*</span>
+                </span>
+
+                <input
+                  *ngIf="commandType == 'getComposite'"
+                  class="cust-list-text-body21 layout idTagInput"
+                  placeholder="Duration"
+                  #inputDuration
+                  class="connector_id"
+                />
+                <br />
+                <br />
+                <span *ngIf="commandType == 'getComposite'" class="required">
+                  Select Charging Rate Unit
+                  <span class="required-field"></span>
+                </span>
+                <select
+                  *ngIf="commandType == 'getComposite'"
+                  class="chargerType"
+                  name="ChargingRateUnit"
+                  (change)="selectChargingRateUnit($event)"
+                >
+                  <option>Charging Rate Unit</option>
+
+                  <option value="W">W</option>
+                  <option value="A">A</option>
+                </select>
+                <span *ngIf="commandType == 'reset'" class="required">
+                  Select Type
+                  <span class="required-field">*</span>
+                </span>
+                <select
+                  *ngIf="commandType == 'reset'"
+                  class="chargerType"
+                  name="chargerType"
+                  (change)="selectOption($event)"
+                >
+                  <option value="">Type</option>
+                  <option value="Hard">Hard</option>
+                  <option value="Soft">Soft</option>
+                </select>
+                <span
+                  *ngIf="commandType == 'getconfig'"
+                  class="required inpt-field"
+                >
+                  Enter Key
+                </span>
+                <input
+                  *ngIf="commandType == 'getconfig'"
+                  class="cust-list-text-body21 layout idTagInput"
+                  #inputKey
+                  placeholder="Key"
+                  class="connector_id"
+                />
+                <span
+                  *ngIf="commandType == 'changeconfig'"
+                  class="required inpt-field"
+                >
+                  Enter Key
+                  <span class="required-field">*</span>
+                </span>
+                <input
+                  *ngIf="commandType == 'changeconfig'"
+                  class="cust-list-text-body21 layout idTagInput"
+                  placeholder="Key"
+                  #inputKey
+                  class="connector_id"
+                />
+                <span
+                  *ngIf="commandType == 'changeconfig'"
+                  class="required inpt-field"
+                >
+                  <br />
+                  Enter Value
+                  <span class="required-field">*</span>
+                </span>
+                <input
+                  *ngIf="commandType == 'changeconfig'"
+                  class="cust-list-text-body21 layout idTagInput"
+                  #inputValue
+                  placeholder="Value"
+                  class="connector_id"
+                />
+                <br />
+                <button
+                  *ngIf="
+                    commandType == 'getconfig' ||
+                    commandType == 'changeconfig' ||
+                    commandType == 'getComposite' ||
+                    commandType == 'change' ||
+                    commandType == 'reset'
+                  "
+                  class="btnTypeCharger"
+                  type="button"
+                  (click)="getConfiguration(commandType)"
+                >
+                  Submit
+                </button>
+                <span *ngIf="commandType == 'start'" class="required">
+                  Select Connector ID
+                </span>
+                <select
+                  *ngIf="commandType == 'start'"
+                  class="chargerTypeStart"
+                  name="chargerType"
+                  (change)="selectConnectorID($event)"
+                >
+                  <option value="">Connector ID</option>
+                  <option *ngFor="let item of selectConnectorIds">
+                    {{ item }}
+                  </option>
+                </select>
+                <br />
+                <br />
+                <span *ngIf="commandType == 'start'" class="mandatoryField">
+                  Enter RFID
+                  <span class="required-field">*</span>
+                </span>
+                <input
+                  *ngIf="commandType == 'start'"
+                  class="cust-list-text-body21 layout idTagInput"
+                  #inputTag
+                  class="connector_id"
+                />
+                <br />
+                <button
+                  *ngIf="commandType == 'start'"
+                  class="btnTypeCharger"
+                  type="button"
+                  (click)="remoteStartTransaction()"
+                >
+                  Submit
+                </button>
+              </div>
+            </app-tool-tip>
+          </ng-container>
+        </app-diag-widget-bar>
+      </div>
     </div>
     <!-- <div class="cust-list-flex3-spacer"></div> -->
     <div class="cust-list-group2 layout">
@@ -148,13 +563,13 @@
             OPERATION TYPE
           </th>
           <td mat-cell *matCellDef="let element; let i = index">
-            {{ element.OperatorType }}
+            {{ element.requestType }}
           </td>
         </ng-container>
         <ng-container matColumnDef="Datetime">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>DATE/ TIME</th>
           <td mat-cell *matCellDef="let element; let i = index">
-            {{ element.Datetime }}
+            {{ element.modifiedAt | date: 'dd-MM-yyyy h:mm' }}
           </td>
         </ng-container>
 
@@ -167,12 +582,14 @@
               (click)="
                 expandedElement = expandedElement === element ? null : element
               "
-              
             />
-            &nbsp;
-          <img style="cursor: pointer;margin: 3px;" src="../../../../assets/icons/download.png" (click)="downloadAsPDF()">
-        </td>
-          
+
+            <img
+              style="cursor: pointer; margin: 3px;"
+              src="../../../../assets/icons/download.png"
+              (click)="downloadAsPDF()"
+            />
+          </td>
         </ng-container>
         <ng-container matColumnDef="expandedDetail">
           <td
@@ -186,15 +603,19 @@
                 element === expandedElement ? 'expanded' : 'collapsed'
               "
             >
-              <div class="example-element-description">
+              <div class="example-element-description" id="pdfTable" #pdfTable>
                 <div class="">
                   <div class="">
-                    <pre> {{ element.RequestPayload | json }}</pre>
+                    <pre style="text-transform: none;">{{
+                      element.requestPayload
+                    }}</pre>
                   </div>
                 </div>
                 <hr />
                 <div class="example-element-description">
-                  <pre> {{ element.ResponsePayload | json }}</pre>
+                  <pre style="text-transform: none;">{{
+                    element.responsePayload
+                  }}</pre>
                 </div>
               </div>
             </div>
@@ -214,6 +635,9 @@
           class="example-detail-row"
         ></tr>
       </table>
+      <ng-container *ngIf="!isTableHasData">
+        <p class="text-center">No record found</p>
+      </ng-container>
 
       <mat-paginator
         [length]="100"

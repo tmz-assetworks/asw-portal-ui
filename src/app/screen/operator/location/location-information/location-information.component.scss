@@ -2446,6 +2446,10 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
   .mat-expansion-panel-header:hover {
   background: #70787f;
 }
+mat-expansion-panel-header.mat-expanded{
+
+  height: none
+}
 .header- {
   &block {
     @include flex-column;
@@ -2537,3 +2541,36 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
     }
   }
 }
+
+// Soni CSS
+@media (max-width: 768px){
+  .location-text-body1.layout1{
+    margin: 5px 10px 5px 10px;
+  }
+.location-info .location-block10{
+    display: inline-block;
+}
+.location-info .location-text-body.layout {
+  min-height: 27px;
+}
+.location-info .location-block4{
+  display: block;
+}
+.location-block23-item{width: 375px;}
+.location-block4-item {
+  width: 309px;
+}
+.statuspanel-block43.layout {
+  width: 250px;
+}
+}
+
+@media (max-width: 1399px){
+.location-info .location-block10{
+    display: block;
+}
+}
+
+
+
+

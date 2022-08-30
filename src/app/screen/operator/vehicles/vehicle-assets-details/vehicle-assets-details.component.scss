@@ -10,7 +10,6 @@ $color_type_3: rgb(217, 217, 217);
 $color_type_4: rgb(235, 235, 235);
 $color_type_5: rgb(245, 245, 245);
 $color_type_6: rgb(255, 255, 255);
-
 .rfid_txt {
   padding: 0 26px;
   p {
@@ -1892,7 +1891,7 @@ $color_type_6: rgb(255, 255, 255);
   }
   &block5 {
     display: flex;
-    @include tn {
+   @include tn {
       flex-wrap: wrap;
       row-gap: 16px;
     }
@@ -1906,6 +1905,7 @@ $color_type_6: rgb(255, 255, 255);
     }
     @include md {
       margin: 29px 26px;
+      display: block;
     }
     @include sm {
       margin: 24px 22px;
@@ -2425,3 +2425,15 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
 // .location-block6 {
 //   text-decoration: none;
 // }
+
+// Soni CSS
+@media (max-width: 812px){
+  .location-block15.layout{
+    margin: 19px 0px 0px 5px;
+}
+}
+@media (max-width: 995px){
+  .location-block15.layout{
+    margin: 19px 0px 0px 5px;
+}
+}

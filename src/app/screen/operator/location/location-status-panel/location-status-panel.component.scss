@@ -393,3 +393,12 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
     width: 254px;
   }
 }
+
+@media (max-width: 1366px) {
+  h3.box-element-subtitle.layout {
+    font-size: 14px;
+  }
+  h3.list-element-subtitle.layout {
+    font-size: 14px;
+  }
+}

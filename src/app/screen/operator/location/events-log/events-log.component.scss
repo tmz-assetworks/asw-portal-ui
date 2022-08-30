@@ -1858,6 +1858,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     @include sm {
       flex-wrap: wrap;
       row-gap: 16px;
+      display: block;
     }
   }
   &block4.layout {
@@ -2448,7 +2449,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
       margin: -10px 3.5% 6px 2.54%;
     }
     @include md {
-      margin: -12px 0.5% 5px 2.54%;;
+      margin: -12px 0.5% 5px 2.54%;
     }
     @include sm {
       margin: -13px 2.5% -8px 2.54%;
@@ -2766,6 +2767,9 @@ $color_type_5: rgb(245, 245, 245);
   &block4.layout {
     position: relative;
     height: min-content;
+    @include sm {
+      display: block;
+    }
   }
   &block4-item {
     @include flex-column;
@@ -5239,16 +5243,14 @@ tr.example-element-row:not(.example-expanded-row):active {
   line-height: normal;
 }
 
-.example-element-description {
-  padding: 16px;
-}
-
-.example-element-description-attribution {
-  opacity: 0.5;
-}
-
 .heartbeat {
   color: #ea002a;
+}
+.heartbeatbullet {
+  /* display: list-item;
+  list-style-type: disc; 
+  list-style-position: inside;
+  margin-top: 5%; */
 }
 .startTranstion {
   color: #0062a6;
@@ -5297,7 +5299,8 @@ tr.example-detail-row {
 }
 
 .example-element-description {
-  padding: 16px;
+  //padding: 2px;
+  // padding: 5px 0px 0px -2px;
   text-align: left;
 }
 
@@ -5320,19 +5323,36 @@ tr.example-detail-row {
 //   font-size: 14px;
 // }
 // .mat-elevation-z8 {
-//   box-shadow: 0px 0px 0px 0px rgb(0 0 0 / 20%), 
-//   0px 0px 0px 0px rgb(0 0 0 / 14%), 
+//   box-shadow: 0px 0px 0px 0px rgb(0 0 0 / 20%),
+//   0px 0px 0px 0px rgb(0 0 0 / 14%),
 //   0px 0px 0px 0px rgb(0 0 0 / 12%);
 // }
-
 
 //table line css
 
 .form-dropdown {
+  color: #70787f !important;
+}
+::ng-deep .mat-select-trigger {
+  width: 12px;
+}
 
-  color: #70787F !important;
-  
+.textleftcollapse {
+  text-align: left;
+  width: 100%;
+  // padding: 5px 0px 0px 20px;
+  padding: 30px 0px 30px 20px;
+}
+
+@media screen and (max-width: 737px) {
+.report-main  h4.statuspanel-highlights2.layout {
+    margin-bottom: 0px;
   }
-  ::ng-deep .mat-select-trigger {
-    width: 12px;
-  }
+}
+
+
+.bullet-point {
+  font-size: xx-large;
+  top: 8px;
+  position: relative;
+}

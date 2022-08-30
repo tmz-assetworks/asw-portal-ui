@@ -20,7 +20,7 @@
                   </div>
                   <div class="location-flex15-spacer"></div>
                   <div class="location-flex15-item1">
-                    <hr class="location-line layout" />
+                    <!-- <hr class="location-line layout" /> -->
                   </div>
                 </div>
               </div>
@@ -31,7 +31,9 @@
                       <div class="fill-group layout">
                         <div class="fill-block6 layout">
                           <div class="fill-text-body1 layout">VIN</div>
-                          <h5 class="fill-highlights layout">543545</h5>
+                          <h5 class="fill-highlights layout">
+                            {{ vehicleData?.vin }}
+                          </h5>
                         </div>
                         <div
                           style="
@@ -46,7 +48,9 @@
                       <div class="fill-group layout">
                         <div class="fill-block6 layout">
                           <div class="fill-text-body1 layout">Model Year</div>
-                          <h5 class="fill-highlights layout">2022</h5>
+                          <h5 class="fill-highlights layout">
+                            {{ vehicleData?.modelYear }}
+                          </h5>
                         </div>
                         <div
                           style="
@@ -63,7 +67,9 @@
                           <div class="fill-text-body1 layout">
                             Make
                           </div>
-                          <h5 class="fill-highlights layout">Classic</h5>
+                          <h5 class="fill-highlights layout">
+                            {{ vehicleData?.make }}
+                          </h5>
                         </div>
                         <div
                           style="
@@ -80,7 +86,9 @@
                           <div class="fill-text-body1 layout">
                             Model
                           </div>
-                          <h5 class="fill-highlights layout">2019</h5>
+                          <h5 class="fill-highlights layout">
+                            {{ vehicleData?.model }}
+                          </h5>
                         </div>
                         <div
                           style="
@@ -97,7 +105,9 @@
                           <div class="fill-text-body1 layout">
                             License Plate
                           </div>
-                          <h5 class="fill-highlights layout">High Security</h5>
+                          <h5 class="fill-highlights layout">
+                            {{ vehicleData?.licencePlate }}
+                          </h5>
                         </div>
                         <div
                           style="
@@ -114,7 +124,9 @@
                           <div class="fill-text-body1 layout">
                             Department
                           </div>
-                          <h5 class="fill-highlights layout">Transport</h5>
+                          <h5 class="fill-highlights layout">
+                            {{ vehicleData?.department }}
+                          </h5>
                         </div>
                         <div
                           style="
@@ -131,7 +143,9 @@
                           <div class="fill-text-body1 layout">
                             Domicile Location
                           </div>
-                          <h5 class="fill-highlights layout">New York</h5>
+                          <h5 class="fill-highlights layout">
+                            {{ vehicleData?.domicileLocation }}
+                          </h5>
                         </div>
                         <div
                           style="
@@ -148,7 +162,9 @@
                           <div class="fill-text-body1 layout">
                             Vehicle MAC Address
                           </div>
-                          <h5 class="fill-highlights layout">PDHR324565RT</h5>
+                          <h5 class="fill-highlights layout">
+                            {{ vehicleData?.vehicleMacAddress }}
+                          </h5>
                         </div>
                         <div
                           style="
@@ -158,14 +174,16 @@
                         ></div>
                       </div>
                     </div>
-                    <div class="fill-block5-spacer"></div>
+                    <!-- <div class="fill-block5-spacer"></div>
                     <div class="fill-block5-item">
                       <div class="fill-group layout">
                         <div class="fill-block6 layout">
                           <div class="fill-text-body1 layout">
                             RFID Card Assigned
                           </div>
-                          <h5 class="fill-highlights layout">666-897-4256</h5>
+                          <h5 class="fill-highlights layout">
+                            {{ vehicleData?.rfidCardAssigned }}
+                          </h5>
                         </div>
                         <div
                           style="
@@ -174,7 +192,7 @@
                           class="fill-image layout"
                         ></div>
                       </div>
-                    </div>
+                    </div> -->
 
                     <div class="fill-block5-spacer"></div>
                     <div class="fill-block5-item">
@@ -183,7 +201,9 @@
                           <div class="fill-text-body1 layout">
                             Status
                           </div>
-                          <h5 class="fill-highlights layout">ACTIVE</h5>
+                          <h5 class="fill-highlights layout">
+                            {{ vehicleData?.status ? 'Active' : 'Inactive' }}
+                          </h5>
                         </div>
                         <div
                           style="
@@ -205,7 +225,9 @@
                       <div class="fill-group layout">
                         <div class="fill-block6 layout">
                           <div class="fill-text-body1 layout">RFID No.</div>
-                          <h5 class="fill-highlights layout">4980952345567</h5>
+                          <h5 class="fill-highlights layout">
+                            {{ vehicleData?.rfid }}
+                          </h5>
                         </div>
                         <div
                           style="
@@ -215,7 +237,7 @@
                         ></div>
                       </div>
                     </div>
-                    <div class="fill-block5-spacer"></div>
+                    <!-- <div class="fill-block5-spacer"></div>
 
                     <div class="fill-block5-item">
                       <div class="fill-group layout">
@@ -230,7 +252,7 @@
                           class="fill-image layout"
                         ></div>
                       </div>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
               </div>
@@ -251,7 +273,7 @@
                   </div>
                   <div class="location-flex15-spacer"></div>
                   <div class="location-flex15-item1">
-                    <hr class="location-line layout" />
+                    <!-- <hr class="location-line layout" /> -->
                   </div>
                 </div>
               </div>
@@ -265,7 +287,7 @@
                             Subscription Plans Name
                           </div>
                           <h5 class="fill-highlights layout text-uppercase">
-                            30 Minutes free
+                            {{ vehicleData?.subscriptionPlanName }}
                           </h5>
                         </div>
                         <div
@@ -284,7 +306,7 @@
                             Type
                           </div>
                           <h5 class="fill-highlights layout text-uppercase">
-                            Minutes
+                            {{ vehicleData?.type }}
                           </h5>
                         </div>
                         <div
@@ -302,7 +324,9 @@
                           <div class="fill-text-body1 layout">
                             Value
                           </div>
-                          <h5 class="fill-highlights layout">30</h5>
+                          <h5 class="fill-highlights layout">
+                            {{ vehicleData?.value }}
+                          </h5>
                         </div>
                         <div
                           style="
@@ -319,7 +343,9 @@
                           <div class="fill-text-body1 layout">
                             Valid From
                           </div>
-                          <h5 class="fill-highlights layout">01-06-2022</h5>
+                          <h5 class="fill-highlights layout">
+                            {{ vehicleData?.validFrom | date: 'dd-MM-yyyy' }}
+                          </h5>
                         </div>
                         <div
                           style="
@@ -336,7 +362,9 @@
                           <div class="fill-text-body1 layout">
                             Valid To
                           </div>
-                          <h5 class="fill-highlights layout">06-06-2022</h5>
+                          <h5 class="fill-highlights layout">
+                            {{ vehicleData?.validTo | date: 'dd-MM-yyyy' }}
+                          </h5>
                         </div>
                         <div
                           style="
@@ -353,9 +381,7 @@
                           <div class="fill-text-body1 layout">
                             RFID’s No.
                           </div>
-                          <h5 class="fill-highlights layout">
-                            4980952345567, 4980952345567
-                          </h5>
+                          <h5 class="fill-highlights layout"></h5>
                         </div>
                         <div
                           style="

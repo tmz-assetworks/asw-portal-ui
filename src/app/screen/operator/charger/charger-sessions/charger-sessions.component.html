@@ -1,7 +1,7 @@
-<div class="header header-block layout">
+<div class="header header-block layout charger-session-main">
   <div class="header-block1 layout">
     <div class="header-flex layout">
-      <h3 class="header-subtitle-box layout">Charger Details</h3>
+      <h3 class="header-subtitle-box layout">{{ chargerName }}</h3>
 
       <div class="dashboard-block12 layout"></div>
 
@@ -79,21 +79,24 @@
             <div class="cust-list-flex3-item">
               <div class="cust-list-group layout">
                 <div class="cust-list-block19 layout">
-                  <mat-form-field class="cust-list-block20 layout">
-                    <!-- <mat-label>Cars</mat-label> -->
+                  <div style="text-align: left; margin: 12px 0px 0px 17px;">
+                    {{ selecteChargerIds }}
+                  </div>
+                  <!-- <mat-form-field class="cust-list-block20 layout">
+                    <mat-label>Cars</mat-label>
                     <select matNativeControl required>
                       <option value="volvo">Charge Box ID</option>
                       <option value="saab">Saab</option>
                       <option value="mercedes">Mercedes</option>
                       <option value="audi">Audi</option>
                     </select>
-                  </mat-form-field>
+                  </mat-form-field> -->
                 </div>
               </div>
             </div>
             <div class="cust-list-flex3-spacer"></div>
             <div class="cust-list-flex3-item1">
-              <div class="cust-list-block23 layout">
+              <div class="cust-list-block23 layout" (click)="downloadAsPDF()">
                 <div class="cust-list-block23-item">
                   <div class="cust-list-box10 layout">
                     <img
@@ -106,14 +109,14 @@
                 <div class="cust-list-block23-spacer"></div>
                 <div
                   class="cust-list-text-body4 layout"
-                  [routerLink]="['add-operator']"
+                
                 >
                   DOWNLOAD SESSIONS
                 </div>
               </div>
             </div>
           </div>
-          <div class="cust-list-group2 layout">
+          <div class="cust-list-group2 layout mat-data" id="pdfTable" #pdfTable>
             <table mat-table [dataSource]="dataSource">
               <ng-container matColumnDef="sessionid">
                 <th mat-header-cell *matHeaderCellDef>SESSION ID</th>
@@ -144,13 +147,13 @@
               <ng-container matColumnDef="starttime">
                 <th mat-header-cell *matHeaderCellDef>START TIME</th>
                 <td mat-cell *matCellDef="let element">
-                  {{ element.starttime }}
+                  {{ element.startTime | date: 'dd-MM-yyyy h:mm' }}
                 </td>
               </ng-container>
               <ng-container matColumnDef="endtime">
                 <th mat-header-cell *matHeaderCellDef>END TIME</th>
                 <td mat-cell *matCellDef="let element">
-                  {{ element.endtime }}
+                  {{ element.endTime | date: 'dd-MM-yyyy h:mm' }}
                 </td>
               </ng-container>
 
@@ -165,18 +168,29 @@
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
             </table>
-
-            <!-- <mat-paginator
+            <ng-container *ngIf="isTableHasData">
+              <p class="text-center">No record found</p>
+            </ng-container>
+          </div>
+          <mat-paginator
+            #paginator
+            (page)="
+              GetChargerSessionDetailsList($event, currentPage, totalRecords)
+            "
+            [length]="totalRecords"
+            [pageSize]="pageSize"
+            [pageSizeOptions]="[10, 20, 100]"
+          ></mat-paginator>
+          <!-- <mat-paginator
               [pageSizeOptions]="[5, 10, 20]"
               showFirstLastButtons
               aria-label="Select page of periodic elements"
             ></mat-paginator> -->
-            <mat-paginator
-              [length]="100"
-              [pageSizeOptions]="[10, 20, 100]"
-              aria-label="Rows per page"
-            ></mat-paginator>
-          </div>
+          <!-- <mat-paginator
+                      [length]="100"
+                      [pageSizeOptions]="[10, 20, 100]"
+                      aria-label="Rows per page"
+                    ></mat-paginator> -->
         </div>
       </div>
     </div>

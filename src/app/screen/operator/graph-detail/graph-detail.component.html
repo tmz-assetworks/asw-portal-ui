@@ -1,278 +1,415 @@
 <div class="header header-block layout">
-    <div class="header-block1 layout">
-      <div class="header-flex layout">
-         <h3 class="header-subtitle txt_label" style="margin-top:30px;">
-          <span (click)="goback()" class="cursorPointer" style="position: relative;top: 10px;"><img  src="../../../../assets/icons/backArrow.png" /></span>
-          {{graphHeading}}<b>{{currentPage}}</b>
-        </h3> 
-       <!--  <div style="margin-top:30px;">
+  <div class="header-block1 layout">
+    <div class="header-flex layout">
+      <h3 class="header-subtitle txt_label" style="margin-top: 30px;">
+        <span
+          (click)="goback()"
+          class="cursorPointer"
+          style="position: relative; top: 10px; font-size: 20px;"
+        >
+          <img src="../../../../assets/icons/backArrow.png" />
+        </span>
+        <span class="graph-heading">{{ graphHeading }}</span>
+        <b style="font-size: 13px;">{{ pageHeading }}</b>
+      </h3>
+      <!--  <div style="margin-top:30px;">
           <div style="width:40px;height: 40px;"> <span (click)="goback()" class="cursorPointer"><img  src="../../../../assets/icons/backArrow.png" class="txt_label" /></span></div>
         </div> -->
-        <div class="dashboard-block12 layout">
-         
-          <div class="dashboard-block13 layout">
-            <div class="dashboard-block13-item">
-            
-              <div class="dashboard-block14 layout">
-               
-  
-                <div class="dashboard-block39 layout">
-                  <div class="dashboard-block48 layout">
-                    <div class="dashboard-block48-item">
-                      <div>
-                        <div class="cust-list-flex3 layout">
-                        
-                          <div class="cust-list-flex3-spacer"></div>
-                          <div class="cust-list-flex3-item1">
-                            <div class="cust-list-block23 layout">
-                              <div class="cust-list-block23-item">
-                                <div class="cust-list-box10 layout">
-                                  <img
-                                    src="../../../../../assets/download-report.png"
-                                    alt=""
-                                    srcset=""
-                                  />
-                                </div>
+      <div class="dashboard-block12 layout">
+        <div class="dashboard-block13 layout">
+          <div class="dashboard-block13-item">
+            <div class="dashboard-block14 layout">
+              <div class="dashboard-block39 layout">
+                <div class="dashboard-block48 layout">
+                  <div class="dashboard-block48-item">
+                    <div>
+                      <div class="cust-list-flex3 layout">
+                        <div class="cust-list-flex3-spacer"></div>
+                        <div class="cust-list-flex3-item1"  (click)="downloadAsPDF()">
+                          <div class="cust-list-block23 layout">
+                            <div class="cust-list-block23-item">
+                              <div class="cust-list-box10 layout">
+                                <img
+                                  src="../../../../../assets/download-report.png"
+                                  alt=""
+                                  srcset=""
+                                />
                               </div>
-                              <div class="cust-list-block23-spacer"></div>
-                              <div
-                                class="cust-list-text-body4 layout"
-                              >
-                                EXPORT
-                              </div>
+                            </div>
+                            <div class="cust-list-block23-spacer"></div>
+                            <div class="cust-list-text-body4 layout">
+                              EXPORT
                             </div>
                           </div>
                         </div>
-  
-                        <div class="cust-list-group2 layout">
-                         <app-mat-table [getGraphId]="graphId"></app-mat-table>
+                      </div>
+
+                      <div class="cust-list-group2 layout"    id="pdfTable"
+                      #pdfTable>
+                        <div class="layout mat-data">
+                          <table
+                            mat-table
+                            [dataSource]="dataSource"
+                            class="mat-elevation-z8"
+                          >
+                            <ng-container matColumnDef="chargerName">
+                              <th mat-header-cell *matHeaderCellDef>
+                                CHARGER NAME
+                              </th>
+                              <td mat-cell *matCellDef="let element">
+                                {{ element.chargerName }}
+                              </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="uid">
+                              <th mat-header-cell *matHeaderCellDef style="width: 70px;">UID</th>
+                              <td mat-cell *matCellDef="let element">
+                                <!-- {{ element.uid }} -->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                              </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="chargerType">
+                              <th mat-header-cell *matHeaderCellDef>
+                                CHARGER TYPE
+                              </th>
+                              <td mat-cell *matCellDef="let element">
+                                {{ element.chargerType }}
+                              </td>
+                            </ng-container>
+                            <ng-container matColumnDef="faultSince">
+                              <th mat-header-cell *matHeaderCellDef>
+                                FAULT SINCE
+                              </th>
+                              <td mat-cell *matCellDef="let element">
+                                {{ element.faultSince }}
+                              </td>
+                            </ng-container>
+                            <ng-container matColumnDef="faultDescription">
+                              <th mat-header-cell *matHeaderCellDef>
+                                FAULT DESCRIPTION
+                              </th>
+                              <td mat-cell *matCellDef="let element">
+                                {{ element.faultDescription }}
+                              </td>
+                            </ng-container>
+                            <ng-container matColumnDef="timeReported">
+                              <th mat-header-cell *matHeaderCellDef>
+                                TIME REPORTED
+                              </th>
+                              <td mat-cell *matCellDef="let element">
+                                {{ element.timeReported }}
+                              </td>
+                            </ng-container>
+                            <ng-container matColumnDef="locationId">
+                              <th mat-header-cell *matHeaderCellDef>
+                                LOCATION ID
+                              </th>
+                              <td mat-cell *matCellDef="let element">
+                                {{ element.locationId }}
+                              </td>
+                            </ng-container>
+                            <ng-container matColumnDef="locationName">
+                              <th mat-header-cell *matHeaderCellDef>
+                                LOCATION NAME
+                              </th>
+                              <td mat-cell *matCellDef="let element">
+                                {{ element.locationName }}
+                              </td>
+                            </ng-container>
+
+                            <tr
+                              mat-header-row
+                              *matHeaderRowDef="displayedColumns"
+                            ></tr>
+                            <tr
+                              mat-row
+                              *matRowDef="let row; columns: displayedColumns"
+                            ></tr>
+                          </table>
+                          <ng-container *ngIf="isTableHasData">
+                            <p class="text-center">No record found</p>
+                          </ng-container>
                         </div>
+                        <mat-paginator
+                        #paginator
+                        (page)="GetChartDetailsList($event, currentPage, totalRecords,flag)"
+                        [length]="totalRecords"
+                        [pageSize]="pageSize"
+                        [pageSizeOptions]="[10, 20, 100]"
+                      ></mat-paginator>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="dashboard-block13-spacer"></div>
-            <div class="dashboard-block13-item1">
-              <div class="statuspanel-block43 layout">
-                <div class="statuspanel-block46 layout">
-                    <div class="statuspanel-block47 layout">
-                      <div class="statuspanel-block45 layout1">
-                        <div class="statuspanel-block45-item">
-                          <div class="statuspanel-group layout2">
-                            <h4 class="statuspanel-highlights2 layout">Charging Infrastructure</h4>
-                          </div>
-                        </div>
-                        <div class="statuspanel-block45-spacer1"></div>
-                        <div class="statuspanel-block45-item2">
-                          <img src="../../../../../assets/locationcharger-icon/charging-infa.svg" class="statuspanel-box16 layout" alt="" />
-                        </div>
-                      </div>
-                  
-                      <!-- add the content here -->
-            
-                      <div class="box-element-block2 layout">
-                        <div class="box-element-block5 layout">
-                          <img src="../../../../../assets/status-panel-icon/sites.png" class="box-element-box2 layout" />
-                          <div class="box-element-block6 layout">
-                            <h3 class="box-element-subtitle layout">{{infraValue }}</h3>
-                            <div class="box-element-text-body layout">{{ infrakey }}</div>
-                          </div>
-                        </div>
-                        <div class="box-element-block2-spacer dotted_line">
-                          <hr />
-                        </div>
-                        <div class="box-element-block5 layout1">
-                          <img src="../../../../../assets/status-panel-icon/chargers.png" class="box-element-box2 layout" />
-                          <div class="box-element-block6 layout">
-                            <h3 class="box-element-subtitle layout">{{ chargervalue }}</h3>
-                            <div class="box-element-text-body layout">{{ chargerkey }}</div>
-                          </div>
-                        </div>
-                      </div>
-                  
-                   
-                    </div>
-                  </div>
-            
-                  <!-- chargibng infra end here -->
-            
-            
-                  <div class="statuspanel-block46 layout">
-                    <div class="statuspanel-block47 layout">
-                      <div class="statuspanel-block45 layout1">
-                        <div class="statuspanel-block45-item">
-                          <div class="statuspanel-group layout2">
-                            <h4 class="statuspanel-highlights2 layout">Revenue From Public Charging</h4>
-                          </div>
-                        </div>
-                        <div class="statuspanel-block45-spacer1"></div>
-                        <div class="statuspanel-block45-item2">
-                          <img src="../../../../../assets/status-panel-icon/revenue.png" class="statuspanel-box16 layout" alt="" />
-                        </div>
-                      </div>
-                  
-                    <div echarts [options]="chartOption" class="echart-item"></div>
-                    </div>
-                  </div>
-            
-            
-                  <!-- revenue end here -->
-            
-                  <!-- energy used start here  -->
-            
-                  <div class="statuspanel-block46 layout">
-                    <div class="statuspanel-block47 layout">
-                      <div class="statuspanel-block45 layout1">
-                        <div class="statuspanel-block45-item">
-                          <div class="statuspanel-group layout2">
-                            <h4 class="statuspanel-highlights2 layout">Energy Used</h4>
-                          </div>
-                        </div>
-                        <div class="statuspanel-block45-spacer1"></div>
-                        <div class="statuspanel-block45-item2">
-                          <img
-                            class="statuspanel-box16 layout"
-                            src="../../../../assets/status-panel-icon/energy_used.png"
-                            alt=""
-                          />
-                        </div>
-                      </div>
-                  
-                  <!-- app list start -->
-                  <div class="list-element-block2 layout">
-                    <div class="list-element-block6 layout zero_br">
-                      <div class="list-element-block3 layout">
-                        <div class="list-element-block3-item">
-                          <div class="list-element-block4 layout">
-                            <img src="../../../../../assets/status-panel-icon/total-energy.png" class="list-element-box3 layout" alt="" />
-                          </div>
-                        </div>
-                        <div class="list-element-block3-spacer"></div>
-                        <div class="list-element-block3-item1">
-                          <div class="list-element-block5 layout">
-                            <h3 class="list-element-subtitle layout">
-                              {{energyUsedvalue0}}
-                            </h3>
-                            <div class="list-element-text-body layout">
-                          {{energyUsedkey0}}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                
-                    </div>
-                  </div>
-            
-            
-                  <div class="list-element-block2 layout">
-                    <div class="list-element-block6 layout zero_br">
-                      <div class="list-element-block3 layout">
-                        <div class="list-element-block3-item">
-                          <div class="list-element-block4 layout">
-                            <img src="../../../../../assets/status-panel-icon/daily_average.png" class="list-element-box3 layout" alt="" />
-                          </div>
-                        </div>
-                        <div class="list-element-block3-spacer"></div>
-                        <div class="list-element-block3-item1">
-                          <div class="list-element-block5 layout">
-                            <h3 class="list-element-subtitle layout">
-                           {{energyUsedvalue1}}
-                            </h3>
-                            <div class="list-element-text-body layout">
-                                {{energyUsedkey1}}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                
-                    </div>
-                  </div>
-            
-            
-                  <div class="list-element-block2 layout">
-                    <div class="list-element-block6 layout ">
-                      <div class="list-element-block3 layout">
-                        <div class="list-element-block3-item">
-                          <div class="list-element-block4 layout">
-                            <img src="../../../../../assets/status-panel-icon/calender.png" class="list-element-box3 layout" alt="" />
-                          </div>
-                        </div>
-                        <div class="list-element-block3-spacer"></div>
-                        <div class="list-element-block3-item1">
-                          <div class="list-element-block5 layout">
-                            <h3 class="list-element-subtitle layout">
-                           {{energyUsedvalue2}}
-                            </h3>
-                            <div class="list-element-text-body layout">
-                                {{energyUsedkey2}}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                
-                    </div>
-                  </div>
-            
-                  <!-- app list end -->
-                     
-                    </div>
-                  </div>
-                  <!-- enegy used end -->
-            
-                  
-            
-            
-              <!-- status box points start -->
+          </div>
+          <div class="dashboard-block13-spacer"></div>
+          <div class="dashboard-block13-item1">
+            <div class="statuspanel-block43 layout">
               <div class="statuspanel-block46 layout">
                 <div class="statuspanel-block47 layout">
                   <div class="statuspanel-block45 layout1">
                     <div class="statuspanel-block45-item">
                       <div class="statuspanel-group layout2">
-                        <h4 class="statuspanel-highlights2 layout">Energy Points</h4>
+                        <h4 class="statuspanel-highlights2 layout">
+                          Charging Infrastructure
+                        </h4>
                       </div>
                     </div>
                     <div class="statuspanel-block45-spacer1"></div>
                     <div class="statuspanel-block45-item2">
-                      <img src="../../../../../assets/status-panel-icon/energy_points.png" class="statuspanel-box16 layout" alt="" />
+                      <img
+                        src="../../../../../assets/locationcharger-icon/charging-infa.svg"
+                        class="statuspanel-box16 layout"
+                        alt=""
+                      />
                     </div>
                   </div>
-              
+
                   <!-- add the content here -->
-              
+
                   <div class="box-element-block2 layout">
                     <div class="box-element-block5 layout">
-                      <img src="../../../../../assets/status-panel-icon/sites.png" class="box-element-box2 layout" />
+                      <img
+                        src="../../../../../assets/status-panel-icon/sites.png"
+                        class="box-element-box2 layout"
+                      />
                       <div class="box-element-block6 layout">
-                        <h3 class="box-element-subtitle layout">{{ energyPointsvalue0 }}</h3>
-                        <div class="box-element-text-body layout">{{ energyPointskey0 }}</div>
+                        <h3 class="box-element-subtitle layout">
+                          {{ infraValue }}
+                        </h3>
+                        <div class="box-element-text-body layout">
+                          {{ infrakey }}
+                        </div>
                       </div>
                     </div>
                     <div class="box-element-block2-spacer dotted_line">
                       <hr />
                     </div>
                     <div class="box-element-block5 layout1">
-                      <img src="../../../../../assets/status-panel-icon/gallon.png" class="box-element-box2 layout" />
+                      <img
+                        src="../../../../../assets/status-panel-icon/chargers.png"
+                        class="box-element-box2 layout"
+                      />
                       <div class="box-element-block6 layout">
-                        <h3 class="box-element-subtitle layout">{{ energyPointsvalue1 }}</h3>
-                        <div class="box-element-text-body layout">{{ energyPointskey1 }}</div>
+                        <h3 class="box-element-subtitle layout">
+                          {{ chargervalue }}
+                        </h3>
+                        <div class="box-element-text-body layout">
+                          {{ chargerkey }}
+                        </div>
                       </div>
                     </div>
                   </div>
-                  
                 </div>
               </div>
-            
-            
-              
-            <!-- status box points end -->
+
+              <!-- chargibng infra end here -->
+
+              <div class="statuspanel-block46 layout">
+                <div class="statuspanel-block47 layout">
+                  <div class="statuspanel-block45 layout1">
+                    <div class="statuspanel-block45-item">
+                      <div class="statuspanel-group layout2">
+                        <h4 class="statuspanel-highlights2 layout">
+                          Revenue From Public Charging
+                        </h4>
+                      </div>
+                    </div>
+                    <div class="statuspanel-block45-spacer1"></div>
+                    <div class="statuspanel-block45-item2">
+                      <img
+                        src="../../../../../assets/status-panel-icon/revenue.png"
+                        class="statuspanel-box16 layout"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+
+                  <div
+                    echarts
+                    [options]="chartOption"
+                    class="echart-item"
+                  ></div>
+                </div>
               </div>
 
-           </div>
+              <!-- revenue end here -->
+
+              <!-- energy used start here  -->
+
+              <div class="statuspanel-block46 layout">
+                <div class="statuspanel-block47 layout">
+                  <div class="statuspanel-block45 layout1">
+                    <div class="statuspanel-block45-item">
+                      <div class="statuspanel-group layout2">
+                        <h4 class="statuspanel-highlights2 layout">
+                          Energy Used
+                        </h4>
+                      </div>
+                    </div>
+                    <div class="statuspanel-block45-spacer1"></div>
+                    <div class="statuspanel-block45-item2">
+                      <img
+                        class="statuspanel-box16 layout"
+                        src="../../../../assets/status-panel-icon/energy_used.png"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+
+                  <!-- app list start -->
+                  <div class="list-element-block2 layout">
+                    <div class="list-element-block6 layout zero_br">
+                      <div class="list-element-block3 layout">
+                        <div class="list-element-block3-item">
+                          <div class="list-element-block4 layout">
+                            <img
+                              src="../../../../../assets/status-panel-icon/total-energy.png"
+                              class="list-element-box3 layout"
+                              alt=""
+                            />
+                          </div>
+                        </div>
+                        <div class="list-element-block3-spacer"></div>
+                        <div class="list-element-block3-item1">
+                          <div class="list-element-block5 layout">
+                            <h3 class="list-element-subtitle layout">
+                              {{ energyUsedvalue0 }}
+                            </h3>
+                            <div class="list-element-text-body layout">
+                              {{ energyUsedkey0 }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="list-element-block2 layout">
+                    <div class="list-element-block6 layout zero_br">
+                      <div class="list-element-block3 layout">
+                        <div class="list-element-block3-item">
+                          <div class="list-element-block4 layout">
+                            <img
+                              src="../../../../../assets/status-panel-icon/daily_average.png"
+                              class="list-element-box3 layout"
+                              alt=""
+                            />
+                          </div>
+                        </div>
+                        <div class="list-element-block3-spacer"></div>
+                        <div class="list-element-block3-item1">
+                          <div class="list-element-block5 layout">
+                            <h3 class="list-element-subtitle layout">
+                              {{ energyUsedvalue1 }}
+                            </h3>
+                            <div class="list-element-text-body layout">
+                              {{ energyUsedkey1 }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="list-element-block2 layout">
+                    <div class="list-element-block6 layout">
+                      <div class="list-element-block3 layout">
+                        <div class="list-element-block3-item">
+                          <div class="list-element-block4 layout">
+                            <img
+                              src="../../../../../assets/status-panel-icon/calender.png"
+                              class="list-element-box3 layout"
+                              alt=""
+                            />
+                          </div>
+                        </div>
+                        <div class="list-element-block3-spacer"></div>
+                        <div class="list-element-block3-item1">
+                          <div class="list-element-block5 layout">
+                            <h3 class="list-element-subtitle layout">
+                              {{ energyUsedvalue2 }}
+                            </h3>
+                            <div class="list-element-text-body layout">
+                              {{ energyUsedkey2 }}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- app list end -->
+                </div>
+              </div>
+              <!-- enegy used end -->
+
+              <!-- status box points start -->
+              <div class="statuspanel-block46 layout">
+                <div class="statuspanel-block47 layout">
+                  <div class="statuspanel-block45 layout1">
+                    <div class="statuspanel-block45-item">
+                      <div class="statuspanel-group layout2">
+                        <h4 class="statuspanel-highlights2 layout">
+                          Energy Points
+                        </h4>
+                      </div>
+                    </div>
+                    <div class="statuspanel-block45-spacer1"></div>
+                    <div class="statuspanel-block45-item2">
+                      <img
+                        src="../../../../../assets/status-panel-icon/energy_points.png"
+                        class="statuspanel-box16 layout"
+                        alt=""
+                      />
+                    </div>
+                  </div>
+
+                  <!-- add the content here -->
+
+                  <div class="box-element-block2 layout">
+                    <div class="box-element-block5 layout">
+                      <img
+                        src="../../../../../assets/status-panel-icon/sites.png"
+                        class="box-element-box2 layout"
+                      />
+                      <div class="box-element-block6 layout">
+                        <h3 class="box-element-subtitle layout">
+                          {{ energyPointsvalue0 }}
+                        </h3>
+                        <div class="box-element-text-body layout">
+                          {{ energyPointskey0 }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="box-element-block2-spacer dotted_line">
+                      <hr />
+                    </div>
+                    <div class="box-element-block5 layout1">
+                      <img
+                        src="../../../../../assets/status-panel-icon/gallon.png"
+                        class="box-element-box2 layout"
+                      />
+                      <div class="box-element-block6 layout">
+                        <h3 class="box-element-subtitle layout">
+                          {{ energyPointsvalue1 }}
+                        </h3>
+                        <div class="box-element-text-body layout">
+                          {{ energyPointskey1 }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- status box points end -->
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
+</div>

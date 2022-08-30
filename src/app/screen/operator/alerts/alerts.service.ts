@@ -7,9 +7,9 @@ import { environment } from 'src/environments/environment'
 export class AlertsService {
   url: any
   constructor(private _http: HttpClient) {
-    // this.url = environment.origin + 'api/Auth/'
+    this.url = environment.origin + 'api/v1/OperatorDashboard/'
 
-    this.url = 'https://run.mocky.io/v3/f6b39ff3-632e-49d3-9a0e-094436794919'
+    // this.url = 'https://run.mocky.io/v3/f6b39ff3-632e-49d3-9a0e-094436794919'
   }
 
   /**
@@ -19,25 +19,18 @@ export class AlertsService {
 
   getAlertsList() {
     // let params = '?emailid=' + email
-    return this._http.get<any>(`${this.url}`)
+
+    let url = 'https://run.mocky.io/v3/f6b39ff3-632e-49d3-9a0e-094436794919'
+    return this._http.get<any>(`${url}`)
   }
 
   /**
-   * Change Password
-   * @param email
-   * @param password
-   */
-  changePassword(email: string, password: string) {
-    let params = '?emailid=' + email + '&password=' + password
-    return this._http.get<any>(`${this.url}ChangePassword${params}`)
-  }
-
-  /**
-   * Show Password
-   * @param password
+   * Get Operator Alerts
+   * @param params
    * @returns
    */
-  showPassword(password: boolean) {
-    return !password
+
+  GetOperatorAlerts(params: any) {
+    return this._http.post<any>(`${this.url}GetOperatorAlerts`, params)
   }
 }

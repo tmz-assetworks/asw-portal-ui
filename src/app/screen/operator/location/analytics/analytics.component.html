@@ -12,7 +12,7 @@ Location A </pre
         >
       </h3> -->
 
-<div class="location location-block layout">
+<div class="location location-block layout analytics-main">
   <div class="location-block1 layout">
     <div class="location-flex layout">
       <h3 class="location-subtitle-box layout">
@@ -129,7 +129,10 @@ Location A </pre
                     >
                       <div class="dashboard-block33-item1">
                         <div class="dashboard-block35 layout space-between">
-                          <mat-button-toggle value="1" style="border: 1px solid #0062a6;">
+                          <mat-button-toggle
+                            value="1"
+                            style="border: 1px solid #0062a6;"
+                          >
                             Last 24 Hours
                           </mat-button-toggle>
                           <!-- <div class="dashboard-text-body2 layout">
@@ -179,7 +182,7 @@ Location A </pre
                       [chartTitle]="barTitle"
                       [chargersData]="chargersChartData"
                       (barDetailPage)="
-                        openDetailPage(5, 'Chargers', 'ANALYTICS')
+                        openDetailPage(5, 'Chargers', 'ANALYTICS', selectedTime)
                       "
                     ></app-bar-chart>
                   </div>
@@ -188,7 +191,12 @@ Location A </pre
                     <app-area-chart
                       *ngIf="chargingSessionData !== ''"
                       (areaDetailPage)="
-                        openDetailPage(6, 'Charging Session', 'ANALYTICS')
+                        openDetailPage(
+                          6,
+                          'Charging Session',
+                          'ANALYTICS',
+                          selectedTime
+                        )
                       "
                       [chargingSessionData]="chargingSessionData"
                       [chartType]="chargingSession"
@@ -202,9 +210,15 @@ Location A </pre
                       *ngIf="energyAnalyticsUsedData !== ''"
                       [energyUsedData]="energyAnalyticsUsedData"
                       [chartType]="energyAnalyticsUsed"
-                      [chartTitle]="energyAnalyticsUsedTitle" (lineDetailPage)="
-                      openDetailPage(7, 'Energy Demand Over Time', 'ANALYTICS')
-                    "
+                      [chartTitle]="energyAnalyticsUsedTitle"
+                      (lineDetailPage)="
+                        openDetailPage(
+                          7,
+                          'Energy Demand Over Time',
+                          'ANALYTICS',
+                          selectedTime
+                        )
+                      "
                     ></app-line-chart>
                   </div>
                   <div class="dashboard-block42-spacer"></div>
@@ -219,7 +233,12 @@ Location A </pre
                       [chartType]="locationAnalyticsMilesAdd"
                       [chartTitle]="locationAnalyticsMilesAddTitle"
                       (stackedAreaDetailPage)="
-                        openDetailPage(8, 'Miles Added', 'ANALYTICS')
+                        openDetailPage(
+                          8,
+                          'Miles Added',
+                          'ANALYTICS',
+                          selectedTime
+                        )
                       "
                     ></app-stacked-area-chart>
                   </div>

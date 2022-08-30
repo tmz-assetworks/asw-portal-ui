@@ -20,6 +20,8 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle'
 import { MatGridListModule } from '@angular/material/grid-list'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatExpansionModule } from '@angular/material/expansion'
+import { MatAutocompleteModule } from '@angular/material/autocomplete'
+
 const MATERIAL_MODULES = [
   MatSelectModule,
   MatTableModule,
@@ -42,6 +44,7 @@ const MATERIAL_MODULES = [
   MatGridListModule,
   MatTooltipModule,
   MatExpansionModule,
+  MatAutocompleteModule,
 ]
 
 @NgModule({
