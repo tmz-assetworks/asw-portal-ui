@@ -637,7 +637,7 @@ $font_type_4: 500 13px/1.2 "Roboto", Helvetica, Arial, serif;
   &text-body2.layout2 {
     position: relative;
     height: min-content;
-    margin: 0 auto;
+    // margin: 0 auto;
     @include lg {
       margin: 0px 27px 0px 35px;
     }
@@ -837,4 +837,25 @@ $font_type_4: 500 13px/1.2 "Roboto", Helvetica, Arial, serif;
 .width{
   min-width: 202px;
   max-width: 202px;
+}
+
+.error-mess {
+  color: red;
+}
+
+.barbar-block13-item.width {
+  display: contents;
+}
+.barbar-block14.layout {
+  display: contents;
+}
+.add-location-values .barbar-block13{
+  display: block;
+  margin-right: 30px !important;
+}
+.add-location-values .barbar-block13.layout {
+  display: inline-block;
+}
+.add-location-values .barbar-block12{
+  display: inline-block;
 }

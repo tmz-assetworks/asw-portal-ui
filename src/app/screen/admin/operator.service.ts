@@ -23,12 +23,33 @@ export class OperatorService {
     );
   }
 
-  /****************Amdin Location table data API call*************** */
+  /********Amdin Location table data API call*************** */
 
   adminLocationTableData(): Observable<any> {
     return this.objHttp.get(
       'https://run.mocky.io/v3/d33ad8ea-3d5e-49a4-896a-71bcd36edbbc'
     );
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /**
+   * 
+   * 
+   */
+  
 
 }

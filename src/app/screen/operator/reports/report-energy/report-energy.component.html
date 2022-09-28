@@ -121,25 +121,31 @@
               [chartTitle]="reportBarSessionTitle"
             ></app-bar-chart> -->
             <app-line-chart
-              [chartType]="'reportSubscribeYearly'"
-              [chartTitle]="'Energy Used'"
+              *ngIf="reportEnergyUsedData !== ''"
+              [reportEnergyUsedData]="reportEnergyUsedData"
+              [chartType]="'reportEnergyUsed'"
+              [chartTitle]="'Energy  Demand Over Time'"
               (lineDetailPage)="openDetailPage(1, 'Energy Used', 'REPORTS', 90)"
             ></app-line-chart>
           </div>
           <div class="dashboard-block42-spacer"></div>
           <div class="dashboard-block42-item">
-            <app-stacked-area-chart
-              [chartType]="'stackedArea'"
+            <app-line-chart
+              *ngIf="reportEnergyMilesAddedData !== ''"
+              [reportEnergyMilesAddedData]="reportEnergyMilesAddedData"
+              [chartType]="'reportEnergyMilesAdded'"
               [chartTitle]="'Miles Added'"
               (stackedAreaDetailPage)="
                 openDetailPage(1, 'Miles Added', 'REPORTS', 90)
               "
-            ></app-stacked-area-chart>
+            ></app-line-chart>
           </div>
         </div>
         <div class="dashboard-block42 layout">
           <div class="dashboard-block42-item">
             <app-area-chart
+              *ngIf="reportEnegyMTCo2SavedData !== ''"
+              [reportEnegyMTCo2SavedData]="reportEnegyMTCo2SavedData"
               [chartType]="'reportEnegyMTCo2Saved'"
               [chartTitle]="'MT Of CO2 Saved'"
               (areaDetailPage)="
@@ -150,6 +156,8 @@
           <div class="dashboard-block42-spacer"></div>
           <div class="dashboard-block42-item">
             <app-line-chart
+              *ngIf="reportEnergyGasolineGallonData !== ''"
+              [reportEnergyGasolineGallonData]="reportEnergyGasolineGallonData"
               [chartType]="'reportEnergyGasolineGallon'"
               [chartTitle]="'Gasoline Gallon Equivalents'"
               (lineDetailPage)="

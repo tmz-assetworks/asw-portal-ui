@@ -2553,21 +2553,36 @@ mat-expansion-panel-header.mat-expanded{
 .location-info .location-text-body.layout {
   min-height: 27px;
 }
-.location-info .location-block4{
-  display: block;
-}
-.location-block23-item{width: 375px;}
-.location-block4-item {
-  width: 309px;
-}
+// .location-info .location-block4{
+//   display: block;
+// }
+// .location-block23-item{width: 375px;}
+// .location-block4-item {
+//   width: 309px;
+// }
 .statuspanel-block43.layout {
   width: 250px;
 }
 }
+@media (min-width: 480px) and (max-width: 568px){
+.location-info .location-block23-item .location-block15.layout {
+  width: 100%;
+  margin: 14px 0px 0px 0px;
+  }
+  .location-info .location-block7.layout{
+    margin: 14px 0px 0px 0px;
+}
 
-@media (max-width: 1399px){
-.location-info .location-block10{
-    display: block;
+}
+@media all and (min-width: 768px) and (max-width: 1024px) {
+.location-block23.layout {
+  flex-wrap: wrap;
+}
+.location-block2-spacer {
+  display: none;
+}
+.location-block13-item {
+  min-width: 100%;
 }
 }
 

@@ -3724,6 +3724,10 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
 }
 
 @media (max-width: 568px){
+  .dashboard-block42-item{
+    flex: 1 1 auto;
+    min-width: 100%;
+} 
 .location-text-body.layout{
   margin: 5px 5px 5px 5px;
   font-size: 10px;
@@ -3762,4 +3766,26 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
 
 .mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
   padding: 1px 12px;
+}
+
+.card-block40.layout{
+  margin:0px;
+}
+
+@media (max-width: 1920px){
+  .dashboard-block42.layout{
+    justify-content: space-between;
+}
+// .charger_content .dashboard-block42-item {
+//   min-width: 49%;
+// }
+
+} 
+@media (max-width: 1366px){
+  .charger_main .dashboard-block42-item .card-block40.layout{
+    margin: 20px 0px 0px 0px !important;
+  }
+}
+.charger_main .dashboard-block42-item .card-block40.layout{
+  margin: 20px 0px 0px 0px !important;
 }

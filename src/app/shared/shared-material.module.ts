@@ -21,6 +21,8 @@ import { MatGridListModule } from '@angular/material/grid-list'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatAutocompleteModule } from '@angular/material/autocomplete'
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
 
 const MATERIAL_MODULES = [
   MatSelectModule,
@@ -45,6 +47,7 @@ const MATERIAL_MODULES = [
   MatTooltipModule,
   MatExpansionModule,
   MatAutocompleteModule,
+  MatCheckboxModule
 ]
 
 @NgModule({

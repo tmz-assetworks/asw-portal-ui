@@ -43,9 +43,12 @@ export class LocationStatusPanelComponent implements OnInit {
    */
   getsummarydata(locationId: number) {
     this.locationservice.GetSummaryData(locationId).subscribe((res: any) => {
+      debugger
       this.summaryData = res.data[0]
 
-      this.infra = this.summaryData.chargingInfustructure[1]
+      this.infra = locationId
+        ? this.summaryData.chargingInfustructure[0]
+        : this.summaryData.chargingInfustructure[1]
 
       this.infrakey = this.infra.key
       this.infraValue = this.infra.value
@@ -71,7 +74,7 @@ export class LocationStatusPanelComponent implements OnInit {
 
       //Energy Points
       this.energyPoints = this.summaryData.energyPoints[0]
-      this.energyPointskey0 = this.energyPoints.key
+      this.energyPointskey0 = this.energyPoints.key.replace('MT', 'Metric Tons')
       this.energyPointsvalue0 = this.energyPoints.value
 
       this.energyPoints = this.summaryData.energyPoints[1]
@@ -113,9 +116,13 @@ export class LocationStatusPanelComponent implements OnInit {
       },
       xAxis: {
         type: 'category',
+        // name: 'USD',
+        // nameLocation: 'middle',
+        // nameGap: 50,
         data: values,
         axisLabel: {
           rotate: 30,
+          formatter: '${value}',
         },
       },
       yAxis: {

@@ -156,17 +156,17 @@ export class LocationStausComponent implements OnInit {
     this.dataSource.paginator = this.paginator
     this.paginator._intl.itemsPerPageLabel = 'Rows per page'
   }
-  getLocationList() {
-    this._locationService.locationStatusList().subscribe((data) => {
-      this.locationChargerList = data.Data
+  // getLocationList() {
+  //   this._locationService.locationStatusList().subscribe((data) => {
+  //     this.locationChargerList = data.Data
 
-      this.dataSource.data = this.locationChargerList
-    })
-  }
+  //     this.dataSource.data = this.locationChargerList
+  //   })
+  // }
 
   ngOnInit() {
     // this._auth.tokenExpired()
-    this.getLocationList()
+    // this.getLocationList()
   }
 
   // @ViewChild(MatPaginator) paginator!: MatPaginator;

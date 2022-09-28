@@ -128,6 +128,46 @@ export class ToolTipItemComponent implements OnInit {
     }
   }
 
+  @Input() set isUnlock(value: boolean) {
+    if (value !== undefined) {
+      console.log(value, 'value getting')
+
+      this.showToolTipitem = value
+    }
+  }
+
+  @Input() set isCancelReservation(value: boolean) {
+    if (value !== undefined) {
+      console.log(value, 'value getting')
+
+      this.showToolTipitem = value
+    }
+  }
+
+  @Input() set isReserveNow(value: boolean) {
+    if (value !== undefined) {
+      console.log(value, 'value getting')
+
+      this.showToolTipitem = value
+    }
+  }
+
+  @Input() set isTriggerMess(value: boolean) {
+    if (value !== undefined) {
+      console.log(value, 'value getting')
+
+      this.showToolTipitem = value
+    }
+  }
+
+  @Input() set isUpdateFirmware(value: boolean) {
+    if (value !== undefined) {
+      console.log(value, 'value getting')
+
+      this.showToolTipitem = value
+    }
+  }
+
   constructor() {}
 
   ngOnInit(): void {

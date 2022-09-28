@@ -2517,7 +2517,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block9.layout {
     position: relative;
     height: min-content;
-    margin-left: 30px;
+    // margin-left: 30px;
     width: 125px;
   }
   &hero-title {
@@ -2666,8 +2666,8 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block12.layout {
     position: relative;
     height: min-content;
-    border-right: 1px dotted #70787f73;
-    border-left: 1px dotted #70787f73;
+    // border-right: 1px dotted #70787f73;
+    // border-left: 1px dotted #70787f73;
   }
   &block12-item {
     @include flex-column;
@@ -2684,7 +2684,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     height: min-content;
     width: 77px;
     min-width: 77px;
-    margin: 0 20px 0 30px;
+    // margin: 0 20px 0 30px;
   }
   &block12-spacer {
     flex: 0 1 3px;
@@ -2817,7 +2817,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     height: min-content;
     width: 77px;
     min-width: 77px;
-    margin: auto 20px;
+    // margin: auto 20px;
   }
   &block17-spacer {
     flex: 0 1 3px;

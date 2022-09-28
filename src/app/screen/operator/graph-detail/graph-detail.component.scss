@@ -3969,11 +3969,34 @@ $font_type1: 13px/1.2 "Roboto", Helvetica, Arial, serif;
 }
 @media (max-width: 1199px){
   .mat-table{
-    min-width: 1200px !important;
+    max-width: 1200px !important;
 }
 }
 @media (max-width: 768px){
   .dashboard-block12.layout{
     margin: 0px 0px 0px -29px;
+}
+}
+
+@media all and (min-width: 768px) and (max-width: 1024px) {
+.dashboard-block13.layout {
+  flex-wrap: wrap;
+}
+.dashboard-block13 .cust-list-flex3-spacer{
+  flex: 0 1 0px !important;
+}
+.cust-list-flex3.layout {
+  width: 160px;
+}
+
+.cust-list-flex3.layout{
+  margin: 35px 13px 0px;
+}
+.dashboard-block13 .layout.mat-data {
+  width: 66vw !important;
+  min-width: -webkit-fill-available;
+}
+#pdfTable {
+  margin: 0px;
 }
 }

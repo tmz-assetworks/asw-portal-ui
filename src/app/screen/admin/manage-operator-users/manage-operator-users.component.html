@@ -1,4 +1,4 @@
-<div class="cust-list-flex1 layout">
+<div class="cust-list-flex1 layout top-box">
   <h3 class="cust-list-subtitle layout">Users</h3>
   <div class="cust-list-flex1-item">
     <div class="cust-list-block3 layout">
@@ -9,7 +9,7 @@
               <div class="cust-list-block5-item">
                 <div class="cust-list-block6 layout">
                   <div class="cust-list-block7 layout">
-                    <div class="cust-list-block7-item">
+                    <div class="cust-list-block7-item icon-box total-count">
                       <div class="cust-list-block8 layout">
                         <div class="cust-list-box7 layout">
                           <img src="assets/images/Group.png" />
@@ -19,7 +19,9 @@
                     <div class="cust-list-block7-spacer"></div>
                     <div class="cust-list-block7-item1">
                       <div class="cust-list-block9 layout">
-                        <h1 class="cust-list-hero-title layout mt_zero">100</h1>
+                        <h1 class="cust-list-hero-title layout mt_zero">
+                          {{ statusData[0].value }}
+                        </h1>
                         <div class="cust-list-text-body2 layout">
                           Total Users
                         </div>
@@ -45,7 +47,7 @@
               <div class="cust-list-block10-item">
                 <div class="cust-list-block11 layout">
                   <div class="cust-list-block12 layout">
-                    <div class="cust-list-block12-item">
+                    <div class="cust-list-block12-item icon-box">
                       <div class="cust-list-block13 layout">
                         <div class="cust-list-box7 layout">
                           <img src="assets/images/Group1.png" />
@@ -53,16 +55,21 @@
                       </div>
                     </div>
                     <div class="cust-list-block12-spacer"></div>
-                    <div class="cust-list-block12-item1">
+                    <div class="cust-list-block12-item1 mg-20">
                       <div class="cust-list-block14 layout">
-                        <h1 class="cust-list-hero-title layout">40</h1>
-                        <div class="cust-list-text-body2 layout1">Active</div>
+                        <h1 class="cust-list-hero-title layout">
+                          {{ statusData[1].value }}
+                        </h1>
+                        <div class="cust-list-text-body2 layout1">
+                          {{ statusData[1].key }}
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="cust-list-block10-spacer"></div>
+              <!-- <div class="cust-list-block10-spacer"></div> -->
+              <div class="cust-list-block4-spacer"></div>
               <div class="cust-list-block10-item1">
                 <div
                   style="
@@ -73,13 +80,13 @@
               </div>
             </div>
           </div>
-          <div class="cust-list-block4-spacer"></div>
+          <!-- <div class="cust-list-block4-spacer"></div> -->
           <div class="cust-list-block4-item1">
             <div class="cust-list-block15 layout">
               <div class="cust-list-block15-item">
                 <div class="cust-list-block16 layout">
                   <div class="cust-list-block17 layout">
-                    <div class="cust-list-block17-item">
+                    <div class="cust-list-block17-item icon-box">
                       <div class="cust-list-block18 layout">
                         <div class="cust-list-box7 layout">
                           <img src="assets/icons/inactive.png" />
@@ -89,8 +96,12 @@
                     <div class="cust-list-block17-spacer"></div>
                     <div class="cust-list-block17-item1">
                       <div class="cust-list-block14 layout">
-                        <h1 class="cust-list-hero-title layout">60</h1>
-                        <div class="cust-list-text-body2 layout2">Inactive</div>
+                        <h1 class="cust-list-hero-title layout">
+                          {{ statusData[2].value }}
+                        </h1>
+                        <div class="cust-list-text-body2 layout2">
+                          {{ statusData[2].key }}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -136,7 +147,10 @@
     </div>
     <div class="cust-list-flex3-spacer"></div>
     <div class="cust-list-flex3-item1">
-      <div class="cust-list-block23 layout"  [routerLink]="['add-operator']">
+      <div
+        class="cust-list-block23 layout"
+        (click)="performAction('create', '')"
+      >
         <div class="cust-list-block23-item">
           <div class="cust-list-box10 layout">
             <img
@@ -147,48 +161,88 @@
           </div>
         </div>
         <div class="cust-list-block23-spacer"></div>
-        <div
-          class="cust-list-text-body4 layout"
-         
-        >
+        <div class="cust-list-text-body4 layout">
           ADD USER
         </div>
       </div>
     </div>
   </div>
-  <div class="layout mat-data">
+  <div class="layout mat-data table-responsive">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       <ng-container matColumnDef="customername">
         <th mat-header-cell *matHeaderCellDef>NAME</th>
-        <td mat-cell *matCellDef="let element">{{ element.CustomerName }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.adminName }}</td>
       </ng-container>
 
       <ng-container matColumnDef="customerid">
         <th mat-header-cell *matHeaderCellDef>EMAIL ID</th>
-        <td mat-cell *matCellDef="let element">{{ element.CustomerEmail }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.emailId }}</td>
       </ng-container>
 
       <ng-container matColumnDef="customeremail">
         <th mat-header-cell *matHeaderCellDef>STATUS</th>
-        <td mat-cell *matCellDef="let element">{{ element.Status }}</td>
+        <td mat-cell *matCellDef="let element">
+          {{ element.isActive ? 'Active' : 'InActive' }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="phonenumber">
         <th mat-header-cell *matHeaderCellDef>ASSOCIATED SITES</th>
-        <td mat-cell *matCellDef="let element">{{ element.Users }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.customerID }}</td>
       </ng-container>
 
       <ng-container matColumnDef="status">
         <th mat-header-cell *matHeaderCellDef>Status</th>
-        <td mat-cell *matCellDef="let element">{{ element.Status }}</td>
+        <td mat-cell *matCellDef="let element">
+          {{ element.isActive ? 'Active' : 'InActive' }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef>ACTION</th>
         <td mat-cell *matCellDef="let element">
-          <span><img src="assets/icons/tick.png " alt="" /></span>
+          <!-- <span><img src="assets/icons/tick.png " alt="" /></span>
           &nbsp;
-          <span><img src="assets/icons/View.png" alt="" /></span>
+          <span><img src="assets/icons/View.png" alt="" style="cursor: pointer" (click)="performAction('view', element)" /></span> -->
+          <span
+            *ngIf="!element.isActive"
+            (click)="changeState(element.id, element.isActive)"
+          >
+            <img
+              src="../../../../assets/superadmin-icons/Active.png"
+              class="cursorPointer"
+              alt=""
+            />
+          </span>
+          <span
+            *ngIf="element.isActive"
+            (click)="changeState(element.id, element.isActive)"
+          >
+            <img
+              src="../../../../assets/icons/inactive.svg"
+              class="cursorPointer"
+              alt=""
+            />
+          </span>
+          <span style="margin: 7px;">
+            <img
+              src="../../../../assets/superadmin-icons/Edit.png"
+              alt=""
+              class="cursorPointer"
+              (click)="performAction('edit', element)"
+              title="Edit"
+            />
+          </span>
+          <!-- <span style="margin: 3px;"><img src="../../../../assets/superadmin-icons/Edit.png" alt="" /></span> -->
+          <span style="margin: 7px;">
+            <img
+              src="../../../../assets/superadmin-icons/View.png"
+              alt=""
+              class="cursorPointer"
+              title="View"
+              (click)="performAction('view', element)"
+            />
+          </span>
         </td>
       </ng-container>
 
@@ -196,10 +250,15 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
 
-
+    <ng-container *ngIf="isTableHasData">
+      <p class="text-center">No record found</p>
+    </ng-container>
   </div>
   <mat-paginator
-  [length]="100"
-  [pageSizeOptions]="[10, 20, 100]"
-></mat-paginator>
+    #paginator
+    (page)="pageChange($event)"
+    [length]="totalCount"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+  ></mat-paginator>
 </div>

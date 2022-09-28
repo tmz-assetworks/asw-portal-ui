@@ -1,0 +1,255 @@
+<div class="barbar-block10 layout">
+    <div class="barbar-flex layout">
+      <div class="barbar-block11 layout">
+        <h3 class="barbar-subtitle layout">{{addpricingTitle}}</h3>
+      </div>
+      <form [formGroup]="addpricingform">
+        <div class="barbar-block12 layout">
+          <div class="barbar-block13 layout">
+            <div class="barbar-block13-item mbottom">
+              <div class="barbar-block14 layout">
+                <h5 class="barbar-highlights layout">Customer Name</h5>
+                <mat-form-field class="barbar-box6 layout">
+                    <mat-select formControlName="customername">
+                      <mat-option value="Shane Waston & Sons">Shane Waston & Sons</mat-option>
+                      <mat-option value="Shane Sons">Shane Sons</mat-option>
+                      <mat-option value="Sons">Sons</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+              </div>
+            </div>
+            <div class="barbar-block13-spacer"></div>
+            <div class="barbar-block13-item">
+              <div class="barbar-block14 layout">
+                <h5 class="barbar-highlights layout">Pricing Plan Name</h5>
+                <div class="barbar-box6 layout">
+                    <input
+                      formControlName="pricingplanname"
+                      type="text"
+                      class="barbar-input-text"
+                    />
+                  </div>
+              </div>
+            </div>
+  
+            <div class="barbar-block13-spacer"></div>
+            <div class="barbar-block13-item">
+              <div class="barbar-block14 layout">
+                <h5 class="barbar-highlights layout">Location</h5>
+                <div class="barbar-box6 layout">
+                    <input
+                      formControlName="location"
+                      type="text"
+                      class="barbar-input-text"
+                    />
+                  </div>
+              </div>
+            </div>
+  
+            <div class="barbar-block13-spacer"></div>
+            <div class="barbar-block13-item">
+              <div class="barbar-block14 layout">
+                <h5 class="barbar-highlights layout">Description</h5>
+                <div class="barbar-box6 layout">
+                  <input
+                    formControlName="description"
+                    type="text"
+                    class="barbar-input-text"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="barbar-block13-spacer"></div>
+            <div class="barbar-block13-item mbottom">
+              <div class="barbar-block14 layout">
+                <h5 class="barbar-highlights layout">Currency Code</h5>
+                <mat-form-field class="barbar-box6 layout">
+                  <mat-select formControlName="currencycode">
+                    <mat-option value="Rupees">Rupees</mat-option>
+                    <mat-option value="Doller">Doller</mat-option>
+                
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="barbar-block13-spacer"></div>
+            <div class="barbar-block13-item">
+              <div class="barbar-block14 layout">
+                <h5 class="barbar-highlights layout">Valid From</h5>
+                <mat-form-field class="barbar-box6 layout">
+                  <mat-label>Choose a date</mat-label>
+                  <input matInput [matDatepicker]="picker" formControlName="validfrom">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="barbar-block13-spacer"></div>
+            <div class="barbar-block13-item">
+              <div class="barbar-block14 layout">
+                <h5 class="barbar-highlights layout">Valid To</h5>
+                <mat-form-field class="barbar-box6 layout">
+                  <mat-label>Choose a date</mat-label>
+                  <input matInput [matDatepicker]="picker1" formControlName="validto">
+                  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="barbar-block13-spacer"></div>
+            <div class="barbar-block13-item">
+              <div class="barbar-block14 layout">
+                <h5 class="barbar-highlights layout">Level</h5>
+                <mat-form-field class="barbar-box6 layout">
+                    <mat-select formControlName="level">
+                        <mat-option value="Level 1">Level 1</mat-option>
+                        <mat-option value="Level 2">Level 2</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+              </div>
+            </div>
+            <div class="barbar-block13-spacer"></div>
+            <div class="barbar-block13-item mbottom">
+              <div class="barbar-block14 layout">
+                <h5 class="barbar-highlights layout">Price Type</h5>
+                <mat-form-field class="barbar-box6 layout">
+                  <mat-select formControlName="pricetype">
+                      <mat-option value="Price Type 1">Price Type 1</mat-option>
+                      <mat-option value="Price Type 2">Price Type 2</mat-option>
+                  </mat-select>
+                   
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="barbar-block13-spacer"></div>
+            <div class="barbar-block13-item">
+              <div class="barbar-block14 layout">
+                <h5 class="barbar-highlights layout">Unit</h5>
+                <mat-form-field class="barbar-box6 layout">
+                  <mat-select formControlName="unit">
+                      <mat-option value="Unit 1">Unit 1</mat-option>
+                      <mat-option value="Unit 2">Unit 2</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="barbar-block13-spacer"></div>
+            <div class="barbar-block13-item">
+              <div class="barbar-block14 layout">
+                <h5 class="barbar-highlights layout">Price</h5>
+                <div class="barbar-box6 layout">
+                    <input
+                      formControlName="price"
+                      type="text"
+                      class="barbar-input-text"
+                    />
+                  </div>
+              </div>
+            </div>
+            <div class="barbar-block13-spacer"></div>
+            <div class="barbar-block13-item">
+              <div class="barbar-block14 layout">
+                <h5 class="barbar-highlights layout">Parking Fee (Per Minutes)</h5>
+                <div class="barbar-box6 layout">
+                    <input
+                      formControlName="parkingfee"
+                      type="text"
+                      class="barbar-input-text"
+                    />
+                  </div>
+              </div>
+            </div>
+            <div class="barbar-block13-spacer"></div>
+            <div class="barbar-block13-item mbottom">
+              <div class="barbar-block14 layout">
+                <h5 class="barbar-highlights layout">Grace Period (Per Minutes)</h5>
+                <div class="barbar-box6 layout">
+                    <input
+                      formControlName="graceperiod"
+                      type="text"
+                      class="barbar-input-text"
+                    />
+                  </div>
+              </div>
+            </div>
+            <div class="barbar-block13-spacer"></div>
+            <div class="barbar-block13-item">
+              <div class="barbar-block14 layout">
+                <h5 class="barbar-highlights layout">Transaction Fee</h5>
+                <div class="barbar-box6 layout">
+                    <input
+                      formControlName="transaction"
+                      type="text"
+                      class="barbar-input-text"
+                    />
+                  </div>
+              </div>
+            </div>
+            <div class="barbar-block13-spacer"></div>
+            <div class="barbar-block13-item">
+              <div class="barbar-block14 layout">
+                <h5 class="barbar-highlights layout">Tax (Processed Transactions Only)</h5>
+                <div class="barbar-box6 layout">
+                    <input type="text" formControlName="taxprocessed"  class="barbar-input-text"
+                    />
+                  </div>
+              </div>
+            </div>
+            <div class="barbar-block13-spacer"></div>
+            <div class="barbar-block13-item">
+              <div class="barbar-block14 layout">
+                <h5 class="barbar-highlights layout">Sales Tax</h5>
+                <div class="barbar-box6 layout">
+                    <input
+                      formControlName="salestax"
+                      type="text"
+                      class="barbar-input-text"
+                    />
+                  </div>
+              </div>
+            </div>
+            <div class="barbar-block13-spacer"></div>
+            <div class="barbar-block13-item">
+              <div class="barbar-block14 layout">
+                <h5 class="barbar-highlights layout">Process Payment</h5>
+                <section class="example-section">
+                  <mat-checkbox color="accent"> 
+                    Checked
+                  </mat-checkbox>
+                  </section>
+              </div>
+            </div>
+            <div class="barbar-block13-spacer"></div>
+            <div class="barbar-block13-item">
+              <div class="barbar-block14 layout">
+                <h5 class="barbar-highlights layout">Price Slot</h5>
+                <section class="example-section">
+                  <mat-checkbox color="primary"> 
+                    All Days (24 hours)
+                  </mat-checkbox>
+                   
+                  </section>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="barbar-flex1 layout">
+          <div class="barbar-flex1-item">
+            <div class="barbar-block17 layout">
+              <div class="barbar-text-body2 layout" [routerLink]="['../../pricing']">CANCEL</div>
+            </div>
+          </div>
+          <div class="barbar-flex1-spacer"></div>
+          <div class="barbar-flex1-item">
+            <div class="barbar-block16 layout">
+              <div class="barbar-text-body1 layout" (click)="alertWithSuccess()" *ngIf="isSaveBtn">
+                SAVE
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </form>
+    </div>
+  </div>
+  

@@ -1,16 +1,19 @@
-<div class="cust-list-flex1 layout">
+<div class="cust-list-flex1 layout manage-location">
   <h3 class="cust-list-subtitle layout">Locations</h3>
   <div class="cust-list-flex1-item">
     <div class="cust-list-block3 layout">
-      <div class="cust-list-block3-item">
+      <div class="cust-list-block3-item count-card">
         <div class="cust-list-block4 layout">
           <div class="cust-list-block4-item">
             <div class="cust-list-block5 layout">
               <div class="cust-list-block5-item">
                 <div class="cust-list-block6 layout">
                   <div class="cust-list-block7 layout">
-                    <div class="cust-list-block7-item">
-                      <div class="cust-list-block8 layout">
+                    <div class="cust-list-block7-item icon-box total-count">
+                      <div
+                        class="cust-list-block8 layout"
+                        [style.background-color]="statusData[0].color"
+                      >
                         <div class="cust-list-box7 layout">
                           <img src="assets/icons/l1.svg" />
                         </div>
@@ -18,9 +21,13 @@
                     </div>
                     <div class="cust-list-block7-spacer"></div>
                     <div class="cust-list-block7-item1">
-                      <div class="cust-list-block9 layout">
-                        <h1 class="cust-list-hero-title layout">100</h1>
-                        <div class="cust-list-text-body2 layout">Total Locations</div>
+                      <div class="cust-list-block9 layout mg-20">
+                        <h1 class="cust-list-hero-title layout">
+                          {{ statusData[0].value }}
+                        </h1>
+                        <div class="cust-list-text-body2 layout">
+                          {{ statusData[0].key }}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -43,8 +50,11 @@
               <div class="cust-list-block10-item">
                 <div class="cust-list-block11 layout">
                   <div class="cust-list-block12 layout">
-                    <div class="cust-list-block12-item">
-                      <div class="cust-list-block13 layout">
+                    <div class="cust-list-block12-item icon-box">
+                      <div
+                        class="cust-list-block13 layout"
+                        [style.background-color]="statusData[1].color"
+                      >
                         <div class="cust-list-box7 layout">
                           <img src="assets/icons/l2.svg" />
                         </div>
@@ -52,9 +62,13 @@
                     </div>
                     <div class="cust-list-block12-spacer"></div>
                     <div class="cust-list-block12-item1">
-                      <div class="cust-list-block14 layout">
-                        <h1 class="cust-list-hero-title layout">40</h1>
-                        <div class="cust-list-text-body2 layout1">Live</div>
+                      <div class="cust-list-block14 layout mg-20">
+                        <h1 class="cust-list-hero-title layout">
+                          {{ statusData[1].value }}
+                        </h1>
+                        <div class="cust-list-text-body2 layout1">
+                          {{ statusData[1].key }}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -76,9 +90,12 @@
             <div class="cust-list-block10 layout">
               <div class="cust-list-block10-item">
                 <div class="cust-list-block11 layout">
-                  <div class="cust-list-block12 layout">
-                    <div class="cust-list-block12-item">
-                      <div class="cust-list-block18 layout">
+                  <div class="cust-list-block12 layout under-maintenance">
+                    <div class="cust-list-block12-item icon-box">
+                      <div
+                        class="cust-list-block18 layout"
+                        [style.background-color]="statusData[2].color"
+                      >
                         <div class="cust-list-box7 layout">
                           <img src="assets/icons/l3.svg" />
                         </div>
@@ -86,9 +103,13 @@
                     </div>
                     <div class="cust-list-block12-spacer"></div>
                     <div class="cust-list-block12-item1">
-                      <div class="cust-list-block14 layout">
-                        <h1 class="cust-list-hero-title layout">10</h1>
-                        <div class="cust-list-text-body2 layout1">Under Maintenance</div>
+                      <div class="cust-list-block14 layout mg-20">
+                        <h1 class="cust-list-hero-title layout">
+                          {{ statusData[2].value }}
+                        </h1>
+                        <div class="cust-list-text-body2 layout1">
+                          {{ statusData[2].key }}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -106,13 +127,16 @@
             </div>
           </div>
           <div class="cust-list-block4-spacer"></div>
-          <div class="cust-list-block4-item1">
+          <div class="cust-list-block4-item1 upcoming">
             <div class="cust-list-block15 layout">
               <div class="cust-list-block15-item">
                 <div class="cust-list-block16 layout">
                   <div class="cust-list-block17 layout">
-                    <div class="cust-list-block17-item">
-                      <div class="cust-list-block18 layout lasticon">
+                    <div class="cust-list-block17-item icon-box">
+                      <div
+                        class="cust-list-block18 layout lasticon"
+                        [style.background-color]="statusData[3].color"
+                      >
                         <div class="cust-list-box7 layout">
                           <img src="assets/icons/l4.svg" />
                         </div>
@@ -120,9 +144,13 @@
                     </div>
                     <div class="cust-list-block17-spacer"></div>
                     <div class="cust-list-block17-item1">
-                      <div class="cust-list-block14 layout">
-                        <h1 class="cust-list-hero-title layout">50</h1>
-                        <div class="cust-list-text-body2 layout2">Upcoming</div>
+                      <div class="cust-list-block14 layout mg-20">
+                        <h1 class="cust-list-hero-title layout">
+                          {{ statusData[3].value }}
+                        </h1>
+                        <div class="cust-list-text-body2 layout2">
+                          {{ statusData[3].key }}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -147,7 +175,7 @@
     <div class="cust-list-flex3-item">
       <div class="cust-list-group layout">
         <div class="cust-list-block19 layout">
-          <div class="cust-list-box9 layout">
+          <div class="cust-list-box9 layout" (click)="applyFilter()">
             <img
               src="assets/images/serach.png"
               alt=""
@@ -158,8 +186,8 @@
           <div class="cust-list-block20 layout">
             <input
               class="cust-list-text-body21 layout"
-              (keyup)="applyFilter($event)"
-              placeholder="Search Location"
+              (keyup)="applyFilter()"
+              placeholder="Search by location name"
               #input
             />
           </div>
@@ -175,78 +203,91 @@
           </div>
         </div>
         <div class="cust-list-block23-spacer"></div>
-        <div
-          class="cust-list-text-body4 layout"
-          
-        >
-        ADD LOCATION
+        <div class="cust-list-text-body4 layout">
+          ADD LOCATION
         </div>
       </div>
     </div>
   </div>
   <div class="layout mat-data">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-      <ng-container matColumnDef="locationid">
+      <ng-container matColumnDef="locationId">
         <th mat-header-cell *matHeaderCellDef>LOCATION ID</th>
-        <td mat-cell *matCellDef="let element">{{ element.LocationId }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.locationId }}</td>
       </ng-container>
 
-      <ng-container matColumnDef="locationname">
+      <ng-container matColumnDef="locationName">
         <th mat-header-cell *matHeaderCellDef>LOCATION NAME</th>
-        <td mat-cell *matCellDef="let element">{{ element.LocationName }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.locationName }}</td>
       </ng-container>
 
-      <ng-container matColumnDef="locationaddresss">
-        <th mat-header-cell *matHeaderCellDef> LOCATION ADDRESS</th>
+      <ng-container matColumnDef="addressLine1">
+        <th mat-header-cell *matHeaderCellDef>LOCATION ADDRESS</th>
         <td mat-cell *matCellDef="let element">
-          {{ element.LocationAddress }}
+          {{ element.addressLine1 }} {{ element.addressLine2 }}
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="locationcontactname">
+      <ng-container matColumnDef="contactPersonName">
         <th mat-header-cell *matHeaderCellDef>LOCATION CONTACT NAME</th>
         <td mat-cell *matCellDef="let element">
-          {{ element.LocationContactName }}
+          {{ element.contactPersonName }}
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="locationstatus">
-        <th mat-header-cell *matHeaderCellDef> LOCATION STATUS</th>
-        <td mat-cell *matCellDef="let element">{{ element.LocationStatus }}</td>
+      <ng-container matColumnDef="locationStatusName">
+        <th mat-header-cell *matHeaderCellDef>LOCATION STATUS</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.locationStatusName }}
+        </td>
       </ng-container>
 
-      <ng-container matColumnDef="noofcharges">
-        <th mat-header-cell *matHeaderCellDef>NO.OF CHARGERS</th>
+      <ng-container matColumnDef="numberOfCharger">
+        <th mat-header-cell *matHeaderCellDef>NO. OF CHARGERS</th>
         <td mat-cell *matCellDef="let element">
-          {{ element.NumberOfCharger }}
+          <!--  {{ element.NumberOfCharger }} element.isActive -->
+          {{ element.numberOfCharger }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef>ACTION</th>
         <td mat-cell *matCellDef="let element">
-          <span><img src="../../../../assets/icons/charger.svg" alt="" title="Charger" style="cursor: pointer ; margin: 10px;" 
-            (click)="AddChareger()" [routerLink]="['../../add-chager']"
-            /></span>&nbsp;
-          <span
-            ><img
+          <!-- <span *ngIf="element.isActive"><img src="assets/icons/tick.png " alt="" title="Active" style="cursor: pointer;" 
+            (click)="changeState(element.id,element.isActive)"
+            /></span><span *ngIf="!element.isActive"><img src="assets/icons/inactive.svg " alt="" title="Inactive" style="cursor: pointer;" 
+              (click)="changeState(element.id,element.isActive)"
+              /></span>&nbsp; -->
+          <span>
+            <img
+              src="../../../../assets/icons/charger.svg"
+              alt=""
+              title="Charger"
+              style="cursor: pointer; margin: 10px;"
+              (click)="AddCharger()"
+              [routerLink]="['../../add-chager']"
+            />
+          </span>
+          &nbsp;
+          <span>
+            <img
               src="assets/icons/View.png"
-              alt="" title="View"
-              style="cursor: pointer ; margin: 10px;"
-              
-              (click)="viewLocation(element)" 
-             
-              /></span
-          >&nbsp;
-          <span
-            ><img
+              alt=""
+              title="View"
+              style="cursor: pointer; margin: 10px;"
+              (click)="viewLocation(element)"
+            />
+          </span>
+          &nbsp;
+          <span>
+            <img
               src="assets/icons/Edit.png"
-              alt="" title="Edit"
-              style="cursor: pointer ; margin: 10px;"
-              
+              alt=""
+              title="Edit"
+              style="cursor: pointer; margin: 10px;"
               (click)="editLocation(element)"
-            
-          /></span>
+            />
+          </span>
         </td>
       </ng-container>
 
@@ -258,9 +299,11 @@
     </ng-container>
   </div>
   <mat-paginator
-    [length]="100"
-    [pageSizeOptions]="[10, 20, 100]"
-    aria-label="Rows per page"
+    #paginator
+    (page)="pageChange($event)"
+    [length]="totalCount"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
   ></mat-paginator>
 </div>
 

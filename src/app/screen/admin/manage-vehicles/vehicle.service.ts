@@ -12,15 +12,13 @@ export class VehicleService {
     this.url = 'https://run.mocky.io/v3/e004a5eb-1108-461b-966b-53d621ff1a84'
   }
 
-
   /**
    *
    * @returns
    * Get Vehicle List
    */
 
-   public GetVehicleList(): Observable<any> {
+  public GetVehicleList(): Observable<any> {
     return this._http.get<any>(`${this.url}`)
   }
-  
 }

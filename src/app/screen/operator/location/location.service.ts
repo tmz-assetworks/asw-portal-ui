@@ -6,9 +6,10 @@ import { environment } from 'src/environments/environment'
 @Injectable({ providedIn: 'root' })
 export class LocationService {
   url: any
-  api: any
+  locationUrl: string
   constructor(private _http: HttpClient) {
     this.url = environment.origin + 'api/v1/OperatorDashboard/'
+    this.locationUrl = environment.origin + 'api/v1/LocationDashboard/'
   }
 
   /**
@@ -49,10 +50,7 @@ export class LocationService {
    */
 
   public GetLocationStatus(params: any): Observable<any> {
-    // let url =  environment.origin + 'v1/LocationDashboard/'
-    let url =
-      'https://asw-portal-rest-service.azurewebsites.net/api/v1/LocationDashboard/'
-    return this._http.post<any>(`${url}locationstatus`, params)
+    return this._http.post<any>(`${this.locationUrl}locationstatus`, params)
   }
 
   /**
@@ -69,38 +67,38 @@ export class LocationService {
     )
   }
 
-  // public locationChargerList(): Observable<any> {
-  //   return this._http.get(
-  //     'https://run.mocky.io/v3/56b06353-c2f1-48f5-b8bd-dede166a646e',
-  //   )
-  // }
   /**
-   * Location chager table data API
+   * Location Charger List
    * @returns
    *
    * */
-  // public locationChargerList(): Observable<any> {
-  //   return this._http.get(
-  //     'https://run.mocky.io/v3/56b06353-c2f1-48f5-b8bd-dede166a646e',
-  //   )
-  // }
+
   public GetlocationChargerList(params: any): Observable<any> {
-    // let url =  environment.origin + 'v1/LocationDashboard/'
-    let url =
-      'https://asw-portal-rest-service.azurewebsites.net/api/v1/LocationDashboard/'
-    return this._http.post<any>(`${url}GetDispenserByLocation`, params)
-  }
-  public locationStatusList(): Observable<any> {
-    return this._http.get(
-      'https://run.mocky.io/v3/08038385-f9cb-4a72-b80b-1ddb30d0eefb',
+    return this._http.post<any>(
+      `${this.locationUrl}GetDispenserByLocation`,
+      params,
     )
   }
 
-  /*
-     location deshboards table list
-  */
 
-  public getLocationTableData(params: any): Observable<any> {
+  public GetDispenserByLocation(params: any): Observable<any> {
+    return this._http.post<any>(
+      `${this.locationUrl}GetDispenserByLocation`,
+      params,
+    )
+  }
+  // public locationStatusList(): Observable<any> {
+  //   return this._http.get(
+  //     'https://run.mocky.io/v3/08038385-f9cb-4a72-b80b-1ddb30d0eefb',
+  //   )
+  // }
+  /**
+   *
+   * @param params
+   * @returns
+   */
+
+  public getlocationsdispenserdetails(params: any): Observable<any> {
     return this._http.post<any>(
       `${this.url}getlocationsdispenserdetails`,
       params,
@@ -124,16 +122,12 @@ export class LocationService {
   /**
    *
    * @param params
-   *
    * @returns
    *
-   * Get Charger chart data
    */
 
   getlocationInformationById(params: any): Observable<any> {
-    let url =
-      'https://asw-portal-rest-service.azurewebsites.net/api/v1/LocationDashboard/'
-    return this._http.get<any>(`${url}getlocatinbyid?id=${params}`)
+    return this._http.get<any>(`${this.locationUrl}getlocatinbyid?id=${params}`)
   }
 
   /**
@@ -148,22 +142,22 @@ export class LocationService {
     return this._http.post<any>(`${this.url}GetMilesAddedByLocation`, params)
   }
 
-  /*
-     location event log table list
-  */
+  /**
+   *
+   * @param params
+   * @returns
+   */
 
-  public getEventLogTableData(params: any): Observable<any> {
+  public GetEventLogByLocation(params: any): Observable<any> {
     return this._http.post<any>(`${this.url}GetEventLogByLocation`, params)
   }
-
-  /*
-     
-
-  */
+  /**
+   *
+   * @param params
+   * @returns
+   */
 
   public UpdateOcppEventLogIsRead(params: any): Observable<any> {
-    let url =
-      'https://asw-portal-rest-service.azurewebsites.net/api/v1/OperatorDashboard/'
-    return this._http.post<any>(`${url}UpdateOcppEventLogIsRead`, params)
+    return this._http.post<any>(`${this.url}UpdateOcppEventLogIsRead`, params)
   }
 }

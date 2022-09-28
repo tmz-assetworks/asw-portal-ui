@@ -323,18 +323,12 @@
                           </ng-container>
 
                           <mat-paginator
-                            #paginator
-                            (page)="
-                              getLocationEventLogTableData(
-                                $event,
-                                currentPage,
-                                totalRecords
-                              )
-                            "
-                            [length]="totalRecords"
-                            [pageSize]="pageSize"
-                            [pageSizeOptions]="[10, 20, 100]"
-                          ></mat-paginator>
+                          #paginator
+                          (page)="pageChange($event)"
+                          [length]="totalCount"
+                          [pageSize]="pageSize"
+                          [pageSizeOptions]="pageSizeOptions"
+                        ></mat-paginator>
                         </div>
                       </div>
                     </div>

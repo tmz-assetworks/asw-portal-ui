@@ -29,20 +29,22 @@ import { number } from 'echarts'
 export class ChargerEventComponent implements OnInit {
   UserId: string | null
   chargerName: string | null
-  selecteChargerIds: string | null
+  selectedChargerIds: string | null
   jsPDF: any
-  locationId: any
+
   searchParam = 'All'
   dataSource = new MatTableDataSource<any>()
-  displayedColumns: any
+
+  displayedColumns = ['Type', 'DateTime', 'Action']
   isTableHasData = false
   expandedElement: any
 
   arrKeys: any = [{ id: '0', value: 'All' }]
-  currentPage = 1
-  totalRecords: any
-  pageSize = 10
-  totalPages = 0
+  totalCount: any
+  pageSize: number = 10
+  currentPage: number = 1
+  totalPages: any
+  pageSizeOptions = [10, 20, 100]
   chargerBoxId: any
   eventLogList: any
   constructor(
@@ -52,14 +54,13 @@ export class ChargerEventComponent implements OnInit {
     private _chargerService: ChargerService,
   ) {
     this.UserId = this._storageService.getLocalData('user_id')
-    this.selecteChargerIds = this._storageService.getSessionData('chargerBoxId')
-
+    this.selectedChargerIds = this._storageService.getSessionData(
+      'chargerBoxId',
+    )
     this.chargerName = this._storageService.getSessionData('chargerName')
   }
   ngOnInit(): void {
-    // this.getAlertsList()
-    this.getChargerEventLogTable('', this.currentPage, this.totalRecords)
-
+    this.GetEventLogByLocation()
     this.getCommandList()
   }
 
@@ -69,87 +70,42 @@ export class ChargerEventComponent implements OnInit {
   pdfTable!: ElementRef
 
   ngAfterViewInit() {
-    // this.dataSource.paginator = this.paginator
     this.paginator._intl.itemsPerPageLabel = 'Rows per page'
   }
 
-  // dataSource = new MatTableDataSource<any>(this.AlertList)
-  columnsToDisplay = ['Reset', 'Datetime', 'action']
+  /**
+   *
+   * @param event
+   * Select charger
+   */
 
-  //displayedColumns = ['Reset', 'Datetime', 'action']
-  // expandedElement!: any | null
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value
-    this.dataSource.filter = filterValue.trim().toLowerCase()
+  selectOption(event: any) {
+    this.searchParam = event.target.value
+    this.GetEventLogByLocation()
   }
 
   /**
-   * Get Alerts List
+   * Get EventLogByLocation
    */
 
-  getAlertsList() {
-    this._alertsService.getAlertsList().subscribe((res) => {
-      // console.log(res)
-    })
-  }
-
-  selectOption(event: any) {
-    //getted from event
-    // console.log(id);
-    //getted from binding
-    this.searchParam = event.target.value
-    // console.log(this.searchParam)
-
-    this.getChargerEventLogTable('', this.currentPage, this.totalRecords)
-  }
-  // getChargerEventLogTable(){
-
-  //   this._locationService.getEventLogTableData().subscribe((res) => {
-  //      console.log(res)
-  //   })
-  // }
-
-  getChargerEventLogTable(event: any, currentPage: number, totalPage: number) {
-    // alert(this.selecteChargerIds)
-    this.pageSize = event !== undefined && event !== '' ? event.pageSize : 10
-    this.displayedColumns = ['Reset', 'Datetime', 'action']
-    this.currentPage =
-      event !== undefined && event !== ''
-        ? event.previousPageIndex < event.pageIndex
-          ? currentPage + 1
-          : currentPage - 1
-        : 1
-    if (this.currentPage == 0) {
-      this.currentPage = this.currentPage + 1
-    }
-
+  GetEventLogByLocation() {
     const body = {
       pageNumber: this.currentPage,
       searchParam: this.searchParam == 'All' ? '' : this.searchParam,
-      // searchParam: '',
       pageSize: this.pageSize,
       orderBy: '',
-      // locationIds: [],
-      locationIds: this.locationId ? [this.locationId] : [],
+      locationIds: [],
       opratorid: '',
-      chargerBoxIds: [
-        this.selecteChargerIds,
-        //  "CH01"
-      ],
+      chargerBoxIds: [this.selectedChargerIds],
     }
 
-    this._locationService.getEventLogTableData(body).subscribe((res: any) => {
+    this._locationService.GetEventLogByLocation(body).subscribe((res: any) => {
       if (res.data !== undefined && res.data != null && res.data.length > 0) {
-        // for (let i = 0; i < res.data.length; i++) {
-        //   if (this.arrKeys.indexOf(res.data[i].requestType) == -1) {
-        //     this.arrKeys.push(res.data[i].requestType)
-        //   }
-        // }
         this.eventLogList = res.data
-        this.totalRecords = res.paginationResponse.totalCount
+        this.totalCount = res.paginationResponse.totalCount
         this.totalPages = res.paginationResponse.totalPages
-        this.dataSource.data = res.data
+        this.pageSize = res.paginationResponse.pageSize
+        this.dataSource.data = this.eventLogList
         this.isTableHasData = false
       } else {
         this.dataSource.data = []
@@ -157,8 +113,10 @@ export class ChargerEventComponent implements OnInit {
       }
     })
   }
+  /**
+   * Download Pdf
+   */
 
-  /****Download Function***** ****/
   public downloadAsPDF() {
     var prepare: any = []
     this.eventLogList.forEach((e: any) => {
@@ -176,12 +134,34 @@ export class ChargerEventComponent implements OnInit {
     })
     doc.save('download' + '.pdf')
   }
+
   /**
-   * Get Command List
+   * Get command list
    */
   getCommandList() {
     this._chargerService.GetCommandList().subscribe((res) => {
       this.arrKeys.push(...res.data)
     })
+  }
+
+  /**
+   *
+   * @param event
+   * Page Event
+   */
+
+  pageChange(event: any) {
+    if (event.pageSize !== this.pageSize) {
+      this.currentPage = 1
+      this.pageSize = event.pageSize
+      this.paginator.pageIndex = 0
+    } else {
+      this.currentPage =
+        event.previousPageIndex < event.pageIndex
+          ? this.currentPage + 1
+          : this.currentPage - 1
+    }
+
+    this.GetEventLogByLocation()
   }
 }

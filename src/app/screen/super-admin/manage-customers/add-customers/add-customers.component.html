@@ -2,7 +2,7 @@
   <div class="barbar-flex layout">
     <div class="barbar-block11 layout">
       <h3 class="barbar-subtitle layout" style="margin-bottom: 25px;">
-        Add Customer
+        {{ title }}
       </h3>
     </div>
 
@@ -16,14 +16,45 @@
         <div class="barbar-block13 layout">
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">Organization Name</h5>
-              <div class="barbar-box6 layout">
+              <h5 class="barbar-highlights layout">
+                Organization Name
+                <span style="color: 'red';">*</span>
+              </h5>
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addCustomerProfile.get('userName')?.errors &&
+                    submitted == true
+                }"
+              >
                 <input
-                  formControlName="username"
+                  formControlName="userName"
                   type="text"
                   class="barbar-input-text"
+                  (keypress)="omit_special_char($event)"
                 />
               </div>
+              <span
+                *ngIf="
+                  !addCustomerProfile.get('userName')?.valid &&
+                  addCustomerProfile.get('userName')?.touched &&
+                  addCustomerProfile.get('userName')?.value.length > 20
+                "
+                class="error-mess"
+              >
+                Organization Name Must Be Between 5 To 20 Characters
+              </span>
+              <span
+                *ngIf="
+                  !addCustomerProfile.get('userName')?.valid &&
+                  addCustomerProfile.get('userName')?.touched &&
+                  addCustomerProfile.get('userName')?.value.length == 0
+                "
+                class="error-mess"
+              >
+                Organization Name Is Required
+              </span>
             </div>
           </div>
 
@@ -31,47 +62,158 @@
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">Notes</h5>
-              <div class="barbar-box6 layout">
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addCustomerProfile.get('notes')?.errors && submitted == true
+                }"
+              >
                 <input
-                  formControlName="description"
+                  formControlName="notes"
                   type="text"
                   class="barbar-input-text"
                 />
                 <!-- <mat-error>This Field is required</mat-error> -->
               </div>
+              <span
+                *ngIf="
+                  !addCustomerProfile.get('notes')?.valid &&
+                  addCustomerProfile.get('notes')?.touched &&
+                  addCustomerProfile.get('notes')?.value.length > 255
+                "
+                class="error-mess"
+              >
+                Notes Must Not Exceed More Than 255 Characters
+              </span>
             </div>
           </div>
 
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">Point of Contact</h5>
-              <div class="barbar-box6 layout">
-                <input type="text" class="barbar-input-text" />
+              <h5 class="barbar-highlights layout">
+                Point of Contact
+                <span style="color: 'red';">*</span>
+              </h5>
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addCustomerProfile.get('pointofcontact')?.errors &&
+                    submitted == true
+                }"
+              >
+                <input
+                  type="text"
+                  class="barbar-input-text"
+                  formControlName="pointofcontact"
+                />
                 <!-- <mat-error>This Field is required</mat-error> -->
               </div>
+              <span
+                *ngIf="
+                  !addCustomerProfile.get('pointofcontact')?.valid &&
+                  addCustomerProfile.get('pointofcontact')?.touched &&
+                  addCustomerProfile.get('pointofcontact')?.value.length > 0
+                "
+                class="error-mess"
+              >
+                Point of Contact Must Not Exceed More Than 20 Alphanumeric
+                Characters
+              </span>
             </div>
           </div>
 
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">Email ID</h5>
-              <div class="barbar-box6 layout">
-                <input type="text" class="barbar-input-text" />
+              <h5 class="barbar-highlights layout">
+                Email Id
+                <span style="color: 'red';">*</span>
+              </h5>
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addCustomerProfile.get('email')?.errors && submitted == true
+                }"
+              >
+                <input
+                  type="text"
+                  class="barbar-input-text"
+                  formControlName="email"
+                />
+
                 <!-- <mat-error>This Field is required</mat-error> -->
               </div>
+              <span
+                *ngIf="
+                  !addCustomerProfile.get('email')?.valid &&
+                  addCustomerProfile.get('email')?.touched &&
+                  addCustomerProfile.get('email')?.value.length == 0
+                "
+                class="error-mess"
+              >
+                Email Id Is Required
+              </span>
+              <span
+                *ngIf="
+                  !addCustomerProfile.get('email')?.valid &&
+                  addCustomerProfile.get('email')?.touched &&
+                  addCustomerProfile.get('email')?.value.length > 0
+                "
+                class="error-mess"
+              >
+                Please Enter Valid Email Id
+              </span>
             </div>
           </div>
 
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">Phone Number</h5>
-              <div class="barbar-box6 layout">
-                <input type="text" class="barbar-input-text" />
+              <h5 class="barbar-highlights layout">
+                Phone Number
+                <span style="color: 'red';">*</span>
+              </h5>
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addCustomerProfile.get('phoneNumber')?.errors &&
+                    submitted == true
+                }"
+              >
+                <input
+                  type="text"
+                  class="barbar-input-text"
+                  (keypress)="numberOnly($event)"
+                  formControlName="phoneNumber"
+                />
+
                 <!-- <mat-error>This Field is required</mat-error> -->
               </div>
+              <span
+                *ngIf="
+                  !addCustomerProfile.get('phoneNumber')?.valid &&
+                  addCustomerProfile.get('phoneNumber')?.touched &&
+                  addCustomerProfile.get('phoneNumber')?.value.length > 0
+                "
+                class="error-mess"
+              >
+                Phone Number Must Be Between 10 To 15 digits
+              </span>
+              <span
+                *ngIf="
+                  !addCustomerProfile.get('phoneNumber')?.valid &&
+                  addCustomerProfile.get('phoneNumber')?.touched &&
+                  addCustomerProfile.get('phoneNumber')?.value.length == 0
+                "
+                class="error-mess"
+              >
+                Phone Number Is Required
+              </span>
             </div>
           </div>
         </div>
@@ -82,11 +224,46 @@
         <div class="barbar-block13 layout">
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">Address Line1</h5>
-              <div class="barbar-box6 layout">
-                <input type="text" class="barbar-input-text" />
+              <h5 class="barbar-highlights layout">
+                Address Line1
+                <span style="color: 'red';">*</span>
+              </h5>
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addCustomerProfile.get('addressLine1')?.errors &&
+                    submitted == true
+                }"
+              >
+                <input
+                  type="text"
+                  class="barbar-input-text"
+                  formControlName="addressLine1"
+                />
+
                 <!-- <mat-error>This Field is required</mat-error> -->
               </div>
+              <span
+                *ngIf="
+                  !addCustomerProfile.get('addressLine1')?.valid &&
+                  addCustomerProfile.get('addressLine1')?.touched &&
+                  addCustomerProfile.get('addressLine1')?.value.length > 0
+                "
+                class="error-mess"
+              >
+                Address Line1 Must Not Exceed More Than 255 Characters
+              </span>
+              <span
+                *ngIf="
+                  !addCustomerProfile.get('addressLine1')?.valid &&
+                  addCustomerProfile.get('addressLine1')?.touched &&
+                  addCustomerProfile.get('addressLine1')?.value.length == 0
+                "
+                class="error-mess"
+              >
+                Address Line1 Is Required
+              </span>
             </div>
           </div>
 
@@ -94,88 +271,198 @@
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">Address Line2</h5>
-              <div class="barbar-box6 layout">
-                <input type="text" class="barbar-input-text" />
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addCustomerProfile.get('addressLine2')?.errors &&
+                    submitted == true
+                }"
+              >
+                <input
+                  type="text"
+                  class="barbar-input-text"
+                  formControlName="addressLine2"
+                />
                 <!-- <mat-error>This Field is required</mat-error> -->
               </div>
+              <span
+                *ngIf="
+                  !addCustomerProfile.get('addressLine2')?.valid &&
+                  addCustomerProfile.get('addressLine2')?.touched &&
+                  addCustomerProfile.get('addressLine2')?.value.length > 0
+                "
+                class="error-mess"
+              >
+                Address Line2 Must Not Exceed More Than 255 Characters
+              </span>
             </div>
           </div>
 
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">Country</h5>
-              <mat-form-field class="barbar-box6 layout">
+              <h5 class="barbar-highlights layout">
+                Country
+                <span style="color: 'red';">*</span>
+              </h5>
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addCustomerProfile.get('country')?.errors &&
+                    submitted == true
+                }"
+              >
                 <mat-label>Select</mat-label>
-                <mat-select>
-                  <mat-option>
-                    USA
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-          </div>
 
-          <div class="barbar-block13-spacer"></div>
-          <div class="barbar-block13-item">
-            <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">State</h5>
-              <mat-form-field class="barbar-box6 layout">
-                <mat-label>Select</mat-label>
-                <mat-select>
-                  <mat-option>
-                    California
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-              <!-- <div class="barbar-box6 layout">
-                <select
-                  required
+                <mat-select
+                  [value]="selectedCountryId"
                   formControlName="country"
-                  class="barbar-input-text"
                 >
-                  <option value="California">California</option>
-
-                 
-                </select>
-              </div> -->
-            </div>
-          </div>
-
-          <div class="barbar-block13-spacer"></div>
-          <div class="barbar-block13-item">
-            <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">City</h5>
-              <mat-form-field class="barbar-box6 layout">
-                <mat-label>Select</mat-label>
-                <mat-select>
-                  <mat-option>
-                    Los Angeles
+                  <mat-option
+                    *ngFor="let data of countryList"
+                    [value]="data.id"
+                    (onSelectionChange)="
+                      getSelected($event, data.id, 'Country')
+                    "
+                  >
+                    {{ data.countryName }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-              <!-- <div class="barbar-box6 layout">
-                <select
-                  required
-                  formControlName="country"
-                  class="barbar-input-text"
-                >
-                  <option value="LosAngeles">Los Angeles</option>
-
-                  
-                </select>
-              </div> -->
+              <span
+                *ngIf="
+                  !addCustomerProfile.get('country')?.valid &&
+                  addCustomerProfile.get('country')?.touched &&
+                  addCustomerProfile.get('country')?.value.length == 0
+                "
+                class="error-mess"
+              >
+                Country Is Required
+              </span>
             </div>
           </div>
 
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">Zip Code</h5>
-              <div class="barbar-box6 layout">
-                <input type="text" class="barbar-input-text" />
-                <!-- <mat-error>This Field is required</mat-error> -->
+              <h5 class="barbar-highlights layout">
+                State
+                <span style="color: 'red';">*</span>
+              </h5>
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addCustomerProfile.get('state')?.errors && submitted == true
+                }"
+              >
+                <mat-label>Select</mat-label>
+                <mat-select [value]="selectedStateId" formControlName="state">
+                  <mat-option
+                    *ngFor="let data of stateList"
+                    [value]="data.id"
+                    (onSelectionChange)="getSelected($event, data.id, 'State')"
+                  >
+                    {{ data.stateName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <span
+                *ngIf="
+                  !addCustomerProfile.get('state')?.valid &&
+                  addCustomerProfile.get('state')?.touched &&
+                  addCustomerProfile.get('state')?.value.length == 0
+                "
+                class="error-mess"
+              >
+                State Is Required
+              </span>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                City
+                <span style="color: 'red';">*</span>
+              </h5>
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addCustomerProfile.get('city')?.errors && submitted == true
+                }"
+              >
+                <mat-label>Select</mat-label>
+
+                <mat-select [value]="selectedCityId" formControlName="city">
+                  <mat-option
+                    *ngFor="let data of cityList"
+                    [value]="data.id"
+                    (onSelectionChange)="getSelected($event, data.id, '')"
+                  >
+                    {{ data.cityName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <span
+                *ngIf="
+                  !addCustomerProfile.get('city')?.valid &&
+                  addCustomerProfile.get('city')?.touched &&
+                  addCustomerProfile.get('city')?.value.length == 0
+                "
+                class="error-mess"
+              >
+                City Is Required
+              </span>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Zip Code
+                <span style="color: 'red';">*</span>
+              </h5>
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addCustomerProfile.get('zipCode')?.errors &&
+                    submitted == true
+                }"
+              >
+                <input
+                  type="text"
+                  maxlength="6"
+                  class="barbar-input-text"
+                  formControlName="zipCode"
+                />
               </div>
+              <span
+                *ngIf="
+                  !addCustomerProfile.get('zipCode')?.valid &&
+                  addCustomerProfile.get('zipCode')?.touched &&
+                  addCustomerProfile.get('zipCode')?.value.length > 0
+                "
+                class="error-mess"
+              >
+                Zip Code must be Between 0 to 6 Alphanumeric Characters
+              </span>
+              <span
+                *ngIf="
+                  !addCustomerProfile.get('zipCode')?.valid &&
+                  addCustomerProfile.get('zipCode')?.touched &&
+                  addCustomerProfile.get('zipCode')?.value.length == 0
+                "
+                class="error-mess"
+              >
+                Zip Code Is Required
+              </span>
             </div>
           </div>
         </div>
@@ -184,14 +471,30 @@
       <div class="barbar-flex1 layout">
         <div class="barbar-flex1-item">
           <div class="barbar-block17 layout">
-            <div class="barbar-text-body2 layout"   [routerLink]="['../../customer']">CANCEL</div>
+            <div
+              class="barbar-text-body2 layout"
+              [routerLink]="['../../customer']"
+            >
+              CANCEL
+            </div>
           </div>
         </div>
         <div class="barbar-flex1-spacer"></div>
         <div class="barbar-flex1-item">
           <div class="barbar-block16 layout">
-            <div class="barbar-text-body1 layout" (click)="alertWithSuccess()">
-              SAVE
+            <div
+              class="barbar-text-body1 layout"
+              *ngIf="isSaveBtn"
+              (click)="addCustomers()"
+            >
+              Save
+            </div>
+            <div
+              class="barbar-text-body1 layout"
+              *ngIf="isUpdateBtn"
+              (click)="UpdateCustomers()"
+            >
+              Save
             </div>
           </div>
         </div>

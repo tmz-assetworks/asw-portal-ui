@@ -93,6 +93,14 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     right: 55.5%;
   }
 }
+
+.tool_alignDiag {
+  position: absolute;
+  right: 19.9%;
+  z-index: 100000000;
+  top: 202px;
+}
+
 .close-icon {
   float: right;
   margin-top: -2%;
@@ -2566,7 +2574,7 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block9.layout {
     position: relative;
     height: min-content;
-    margin-left: 30px;
+    // margin-left: 30px;
     width: 125px;
   }
   &hero-title {
@@ -2715,8 +2723,8 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block12.layout {
     position: relative;
     height: min-content;
-    border-right: 1px dotted #70787f73;
-    border-left: 1px dotted #70787f73;
+    // border-right: 1px dotted #70787f73;
+    // border-left: 1px dotted #70787f73;
   }
   &block12-item {
     @include flex-column;
@@ -2733,7 +2741,7 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
     height: min-content;
     width: 77px;
     min-width: 77px;
-    margin: 0 20px 0 30px;
+    // margin: 0 20px 0 30px;
   }
   &block12-spacer {
     flex: 0 1 3px;
@@ -2866,7 +2874,7 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
     height: min-content;
     width: 77px;
     min-width: 77px;
-    margin: auto 20px;
+    // margin: auto 20px;
   }
   &block17-spacer {
     flex: 0 1 3px;
@@ -3548,6 +3556,13 @@ button {
   margin-top: -14%;
 }
 @media (max-width: 757px) {
+  .location-block4{
+    display: block;
+}
+.location-block4-item {
+  min-width: 590px;
+  max-width: 590px;
+}
   .title {
     font-size: 11px;
   }
@@ -3649,4 +3664,13 @@ button {
 span.close-icon.auth-close.ng-tns-c260-1 {
   position: absolute;
   right: 0px;
+}
+// .charger-diagnostics .tool-tip-11 .tool-tip-block1.layout {
+//   top: 146px !important;
+//   left: -5px !important;
+// }
+
+.tool-tip-11 .tool-tip-block1.layout {
+  top: 147px !important;
+  right: 7px !important;
 }

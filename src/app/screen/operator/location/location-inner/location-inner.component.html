@@ -1,9 +1,9 @@
-<div class="dashboard-block12 layout">
+<div class="dashboard-block12 layout location-dashboard">
   <h3 class="dashboard-subtitle layout">Locations</h3>
   <!-- <hr class="dashboard-line layout" /> -->
 </div>
 <div class="dashboard-block13 layout loctn-dashboard">
-  <div class="dashboard-block13-item">
+  <div class="dashboard-block13-item location-opt">
     <div class="dashboard-block14 layout">
       <div class="dashboard-block15 layout">
         <!-- <div *ngFor="let item of data; let i = index"> -->
@@ -247,12 +247,12 @@
                 </ng-container>
               </div>
               <mat-paginator
-                #paginator
-                (page)="getlocationTableData($event, currentPage, totalRecords)"
-                [length]="totalRecords"
-                [pageSize]="pageSize"
-                [pageSizeOptions]="[10, 20, 100]"
-              ></mat-paginator>
+              #paginator
+              (page)="pageChange($event)"
+              [length]="totalCount"
+              [pageSize]="pageSize"
+              [pageSizeOptions]="pageSizeOptions"
+            ></mat-paginator>
             </div>
           </div>
         </div>

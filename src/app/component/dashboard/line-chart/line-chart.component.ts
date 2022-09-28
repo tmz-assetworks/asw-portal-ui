@@ -10,6 +10,11 @@ export class LineChartComponent implements OnInit {
   energyUsedDataSet: any
   locationAnalyticsDataSet: any
   chartTypeData: any
+  reportSubscribeYearlyDataSet: any
+  reportUpcomingSessionDataSet: any
+  reportEnergyUsedDataSet: any
+  reportEnergyGasolineGallonDataSet: any
+  reportEnergyMilesAddedDataSet: any
   @Input() set chartType(value: any) {
     this.chartTypeData = value
 
@@ -42,6 +47,38 @@ export class LineChartComponent implements OnInit {
   @Input() set energyAnalticsUsedData(value: any) {
     if (value !== undefined) {
       this.locationAnalyticsDataSet = value
+      this.setChartOption(this.chartTypeData)
+    }
+  }
+  @Input() set reportSubscribeYearlyData(value: any) {
+    if (value !== undefined) {
+      this.reportSubscribeYearlyDataSet = value
+      this.setChartOption(this.chartTypeData)
+    }
+  }
+  @Input() set reportUpcomingSessionData(value: any) {
+    if (value !== undefined) {
+      this.reportUpcomingSessionDataSet = value
+      this.setChartOption(this.chartTypeData)
+    }
+  }
+  @Input() set reportEnergyUsedData(value: any) {
+    if (value !== undefined) {
+      this.reportEnergyUsedDataSet = value
+      this.setChartOption(this.chartTypeData)
+    }
+  }
+  @Input() set reportEnergyGasolineGallonData(value: any) {
+    if (value !== undefined) {
+      this.reportEnergyGasolineGallonDataSet = value
+      this.setChartOption(this.chartTypeData)
+    }
+  }
+
+  @Input() set reportEnergyMilesAddedData(value: any) {
+    if (value !== undefined) {
+      this.reportEnergyMilesAddedDataSet = value
+      this.setChartOption(this.chartTypeData)
     }
   }
   @Output() lineDetailPage: EventEmitter<any> = new EventEmitter<any>()
@@ -406,327 +443,113 @@ export class LineChartComponent implements OnInit {
         ],
       }
     } else if (chartType == 'reportSubscribeYearly') {
-      this.option = {
-        legend: {
-          // left: '82%',
-          right: '4%',
-          icon: 'square',
-        },
-        grid: {
-          left: '10%',
-          right: '4%',
-          // bottom: '8%',
-          top: 50,
-          containLabel: true,
-        },
-        tooltip: {
-          show: true,
-        },
-        background: 'transparent',
-        dataset: {
-          source: [
-            //   ['category', 'Energy Used'],
-            ['category', 'YEARLY SUBSCRIPTION'],
-            ['2022', 200],
-            ['2023', 300],
-            ['2024', 400],
-            ['2025', 450],
-            ['2026', 500],
-            ['2027', 550],
-            ['2028', 600],
-            ['2029', 650],
-            ['2030', 800],
-            ['2031', 900],
-          ],
-        },
-        /* xAxis: {
-          type: 'category',
-    
-        }, */
-        xAxis: [
-          {
-            type: 'category',
-            name: 'Yearly',
-            nameLocation: 'middle',
-            nameGap: 50,
-            axisTick: { show: false },
-            // axisLabel: {
-            //   rotate: 30,
-            // },
-          },
-        ],
-        yAxis: {
-          type: 'value',
-          // min: 0,
-          // max: 10000,
-          name: 'Yearly Subscription',
-          nameLocation: 'middle',
-          /* fontWeight: 'bolder', */
-          nameGap: 50,
-          nameTextStyle: {
-            // align: 'right',
-            // verticalAlign: 'top',
-            /**
-             * the top padding will shift the name down so that it does not overlap with the axis-labels
-             * t-l-b-r
-             */
-            // padding: [10, 0, 0, 0],
-            fontSize: 14,
-            // fontWeight: 800,
-            // fontStyle: 'italic',
-          },
-          axisLabel: {
-            formatter: '${value}',
-            // align: 'center'
-            // ...
-          },
-        },
-        series: [
-          {
-            /*  data: chartData.map(m=>({
-              value: m.value
-            })), */
-            type: 'line',
-          },
-        ],
+      if (this.reportSubscribeYearlyDataSet !== undefined) {
+        this.option = this.reportSubscribeYearlyChartOptions(
+          this.reportSubscribeYearlyDataSet,
+        ) as EChartsOption
       }
     } else if (chartType == 'reportUpcomingSession') {
-      this.option = {
-        legend: {
-          // left: '82%',
-          right: '4%',
-          icon: 'square',
-        },
-        grid: {
-          left: '10%',
-          right: '4%',
-          // bottom: '8%',
-          top: 50,
-          containLabel: true,
-        },
-        tooltip: {
-          show: true,
-        },
-        background: 'transparent',
-        dataset: {
-          source: [
-            //   ['category', 'Energy Used'],
-            ['category', 'UPCOMING SESSION - 24 HOURS'],
-            ['00:00', 10],
-            ['02:00', 20],
-            ['04:00', 40],
-            ['06:00', 50],
-            ['08:00', 60],
-            ['10:00', 30],
-            ['12:00', 60],
-            ['14:00', 80],
-          ],
-        },
-        /* xAxis: {
-          type: 'category',
-    
-        }, */
-        xAxis: [
-          {
-            type: 'category',
-            name: 'Time',
-            nameLocation: 'middle',
-            nameGap: 50,
-            axisTick: { show: false },
-            // axisLabel: {
-            //   rotate: 30,
-            // },
-          },
-        ],
-        yAxis: {
-          type: 'value',
-          // min: 0,
-          // max: 10000,
-          name: 'Charging Sessions',
-          nameLocation: 'middle',
-          /* fontWeight: 'bolder', */
-          nameGap: 50,
-          nameTextStyle: {
-            // align: 'right',
-            // verticalAlign: 'top',
-            /**
-             * the top padding will shift the name down so that it does not overlap with the axis-labels
-             * t-l-b-r
-             */
-            // padding: [10, 0, 0, 0],
-            fontSize: 14,
-            // fontWeight: 800,
-            // fontStyle: 'italic',
-          },
-        },
-        series: [
-          {
-            /*  data: chartData.map(m=>({
-              value: m.value
-            })), */
-            type: 'line',
-          },
-        ],
+      if (this.reportUpcomingSessionDataSet !== undefined) {
+        this.option = this.setUpcomingSessionChartOptions(
+          this.reportUpcomingSessionDataSet,
+        ) as EChartsOption
       }
+
+      // this.option = {
+      //   legend: {
+      //     // left: '82%',
+      //     right: '4%',
+      //     icon: 'square',
+      //   },
+      //   grid: {
+      //     left: '10%',
+      //     right: '4%',
+      //     // bottom: '8%',
+      //     top: 50,
+      //     containLabel: true,
+      //   },
+      //   tooltip: {
+      //     show: true,
+      //   },
+      //   background: 'transparent',
+      //   dataset: {
+      //     source: [
+      //       //   ['category', 'Energy Used'],
+      //       ['category', 'UPCOMING SESSION - 24 HOURS'],
+      //       ['00:00', 10],
+      //       ['02:00', 20],
+      //       ['04:00', 40],
+      //       ['06:00', 50],
+      //       ['08:00', 60],
+      //       ['10:00', 30],
+      //       ['12:00', 60],
+      //       ['14:00', 80],
+      //     ],
+      //   },
+      //   /* xAxis: {
+      //     type: 'category',
+
+      //   }, */
+      //   xAxis: [
+      //     {
+      //       type: 'category',
+      //       name: 'Time',
+      //       nameLocation: 'middle',
+      //       nameGap: 50,
+      //       axisTick: { show: false },
+      //       // axisLabel: {
+      //       //   rotate: 30,
+      //       // },
+      //     },
+      //   ],
+      //   yAxis: {
+      //     type: 'value',
+      //     // min: 0,
+      //     // max: 10000,
+      //     name: 'Charging Sessions',
+      //     nameLocation: 'middle',
+      //     /* fontWeight: 'bolder', */
+      //     nameGap: 50,
+      //     nameTextStyle: {
+      //       // align: 'right',
+      //       // verticalAlign: 'top',
+      //       /**
+      //        * the top padding will shift the name down so that it does not overlap with the axis-labels
+      //        * t-l-b-r
+      //        */
+      //       // padding: [10, 0, 0, 0],
+      //       fontSize: 14,
+      //       // fontWeight: 800,
+      //       // fontStyle: 'italic',
+      //     },
+      //   },
+      //   series: [
+      //     {
+      //       /*  data: chartData.map(m=>({
+      //         value: m.value
+      //       })), */
+      //       type: 'line',
+      //     },
+      //   ],
+      // }
     } else if (chartType == 'reportEnergyUsed') {
-      this.option = {
-        legend: {
-          // left: '82%',
-          right: '4%',
-          icon: 'square',
-        },
-        grid: {
-          left: '10%',
-          right: '4%',
-          // bottom: '8%',
-          top: 50,
-          containLabel: true,
-        },
-        tooltip: {
-          show: true,
-        },
-        background: 'transparent',
-        dataset: {
-          source: [
-            //   ['category', 'Energy Used'],
-            ['category', ' ENERGY USED'],
-            ['00:00', 0],
-            ['03:00', 10],
-            ['06:00', 40],
-            ['09:00', 50],
-            ['12:00', 60],
-            ['15:00'],
-            ['18:00'],
-            ['24:00'],
-          ],
-        },
-        /* xAxis: {
-          type: 'category',
-    
-        }, */
-        xAxis: [
-          {
-            type: 'category',
-            name: 'Time',
-            nameLocation: 'middle',
-            nameGap: 50,
-            axisTick: { show: false },
-            // axisLabel: {
-            //   rotate: 30,
-            // },
-          },
-        ],
-        yAxis: {
-          type: 'value',
-          // min: 0,
-          // max: 10000,
-          name: 'ENERGY USED (kwh)',
-          nameLocation: 'middle',
-          /* fontWeight: 'bolder', */
-          nameGap: 50,
-          nameTextStyle: {
-            // align: 'right',
-            // verticalAlign: 'top',
-            /**
-             * the top padding will shift the name down so that it does not overlap with the axis-labels
-             * t-l-b-r
-             */
-            // padding: [10, 0, 0, 0],
-            fontSize: 14,
-            // fontWeight: 800,
-            // fontStyle: 'italic',
-          },
-        },
-        series: [
-          {
-            /*  data: chartData.map(m=>({
-              value: m.value
-            })), */
-            type: 'line',
-          },
-        ],
+      if (this.reportEnergyUsedDataSet !== undefined) {
+        debugger
+        this.option = this.setreportEnergyUsedDataChartOptions(
+          this.reportEnergyUsedDataSet,
+        ) as EChartsOption
       }
     } else if (chartType == 'reportEnergyGasolineGallon') {
-      this.option = {
-        legend: {
-          // left: '82%',
-          right: '4%',
-          icon: 'square',
-        },
-        grid: {
-          left: '10%',
-          right: '4%',
-          // bottom: '8%',
-          top: 50,
-          containLabel: true,
-        },
-        tooltip: {
-          show: true,
-        },
-        background: 'transparent',
-        dataset: {
-          source: [
-            //   ['category', 'Energy Used'],
-            ['category', ' GGE of Gas Saved'],
-            ['July 20', 0],
-            ['Aug 20', 20],
-            ['Sep 20', 20],
-            ['Oct 20', 40],
-            ['Nov 20', 50],
-            ['Dec 20', 60],
-            ['Jan 21', 70],
-            ['Feb 21', 80],
-            ['Mar 21', 60],
-            ['Apr 21', 90],
-            ['May 21', 70],
-            ['Jun 21', 100],
-          ],
-        },
-        /* xAxis: {
-          type: 'category',
-    
-        }, */
-        xAxis: [
-          {
-            type: 'category',
-            name: 'Month',
-            nameLocation: 'middle',
-            nameGap: 50,
-            axisTick: { show: false },
-            // axisLabel: {
-            //   rotate: 30,
-            // },
-          },
-        ],
-        yAxis: {
-          type: 'value',
-          // min: 0,
-          // max: 10000,
-          name: 'GGE of Gas Saved',
-          nameLocation: 'middle',
-          /* fontWeight: 'bolder', */
-          nameGap: 50,
-          nameTextStyle: {
-            // align: 'right',
-            // verticalAlign: 'top',
-            /**
-             * the top padding will shift the name down so that it does not overlap with the axis-labels
-             * t-l-b-r
-             */
-            // padding: [10, 0, 0, 0],
-            fontSize: 14,
-            // fontWeight: 800,
-            // fontStyle: 'italic',
-          },
-        },
-        series: [
-          {
-            /*  data: chartData.map(m=>({
-              value: m.value
-            })), */
-            type: 'line',
-          },
-        ],
+      if (this.reportEnergyGasolineGallonDataSet !== undefined) {
+        this.option = this.setEnergyGasolineGallonDataChartOptions(
+          this.reportEnergyGasolineGallonDataSet,
+        ) as EChartsOption
+      }
+    } else if (chartType == 'reportEnergyMilesAdded') {
+      if (this.reportEnergyMilesAddedDataSet !== undefined) {
+        this.option = this.setReportEnergyMilesAddedOption(
+          this.reportEnergyMilesAddedDataSet,
+        ) as EChartsOption
       }
     }
   }
@@ -815,5 +638,467 @@ export class LineChartComponent implements OnInit {
 
   graphDetailPage() {
     this.lineDetailPage.emit(3)
+  }
+
+  reportSubscribeYearlyChartOptions(dataSet: any) {
+    let yearlyArray = dataSet.map((accu: any) => [
+      `${accu.year}`,
+      accu.yearlyPrice,
+    ])
+
+    return {
+      legend: {
+        // left: '82%',
+        right: '4%',
+        icon: 'square',
+      },
+      grid: {
+        left: '10%',
+        right: '4%',
+        // bottom: '8%',
+        top: 50,
+        containLabel: true,
+      },
+      tooltip: {
+        show: true,
+      },
+      background: 'transparent',
+      dataset: {
+        source: [
+          //   ['category', 'Energy Used'],
+          ['category', 'YEARLY SUBSCRIPTION'],
+          ...yearlyArray,
+          // ['2022', 200],
+          // ['2023', 300],
+          // ['2024', 400],
+          // ['2025', 450],
+          // ['2026', 500],
+          // ['2027', 550],
+          // ['2028', 600],
+          // ['2029', 650],
+          // ['2030', 800],
+          // ['2031', 900],
+        ],
+      },
+      /* xAxis: {
+        type: 'category',
+  
+      }, */
+      xAxis: [
+        {
+          type: 'category',
+          name: 'Yearly',
+          nameLocation: 'middle',
+          nameGap: 50,
+          axisTick: { show: false },
+          axisLabel: {
+            rotate: 30,
+          },
+        },
+      ],
+      yAxis: {
+        type: 'value',
+        // min: 0,
+        // max: 10000,
+        name: 'Yearly Subscription',
+        nameLocation: 'middle',
+        /* fontWeight: 'bolder', */
+        nameGap: 50,
+        nameTextStyle: {
+          // align: 'right',
+          // verticalAlign: 'top',
+          /**
+           * the top padding will shift the name down so that it does not overlap with the axis-labels
+           * t-l-b-r
+           */
+          // padding: [10, 0, 0, 0],
+          fontSize: 14,
+          // fontWeight: 800,
+          // fontStyle: 'italic',
+        },
+        axisLabel: {
+          formatter: '${value}',
+          // align: 'center'
+          // ...
+        },
+      },
+      series: [
+        {
+          /*  data: chartData.map(m=>({
+            value: m.value
+          })), */
+          type: 'line',
+        },
+      ],
+    }
+  }
+  /**
+   *
+   * @param dataSet
+   * Set upcomg Sesstion chart options
+   */
+  setUpcomingSessionChartOptions(dataSet: any) {
+    let sessionUpcomingArray = dataSet.map((accu: any) => [
+      `${accu.value}`,
+      accu.counts,
+    ])
+
+    return {
+      legend: {
+        // left: '82%',
+        right: '4%',
+        icon: 'square',
+      },
+      grid: {
+        left: '10%',
+        right: '4%',
+        // bottom: '8%',
+        top: 50,
+        containLabel: true,
+      },
+      tooltip: {
+        show: true,
+      },
+      background: 'transparent',
+      dataset: {
+        source: [
+          //   ['category', 'Energy Used'],
+          ['category', 'UPCOMING SESSION - 24 HOURS'],
+
+          ...sessionUpcomingArray,
+          // ['00:00', 10],
+          // ['02:00', 20],
+          // ['04:00', 40],
+          // ['06:00', 50],
+          // ['08:00', 60],
+          // ['10:00', 30],
+          // ['12:00', 60],
+          // ['14:00', 80],
+        ],
+      },
+      /* xAxis: {
+        type: 'category',
+  
+      }, */
+      xAxis: [
+        {
+          type: 'category',
+          name: 'Time',
+          nameLocation: 'middle',
+          nameGap: 50,
+          axisTick: { show: false },
+          axisLabel: {
+            rotate: 30,
+          },
+        },
+      ],
+      yAxis: {
+        type: 'value',
+        // min: 0,
+        // max: 10000,
+        name: 'Charging Sessions',
+        nameLocation: 'middle',
+        /* fontWeight: 'bolder', */
+        nameGap: 50,
+        nameTextStyle: {
+          // align: 'right',
+          // verticalAlign: 'top',
+          /**
+           * the top padding will shift the name down so that it does not overlap with the axis-labels
+           * t-l-b-r
+           */
+          // padding: [10, 0, 0, 0],
+          fontSize: 14,
+          // fontWeight: 800,
+          // fontStyle: 'italic',
+        },
+      },
+      series: [
+        {
+          /*  data: chartData.map(m=>({
+            value: m.value
+          })), */
+          type: 'line',
+        },
+      ],
+    }
+  }
+
+  setreportEnergyUsedDataChartOptions(dataSet: any) {
+    let enegyUsedArray = dataSet.map((accu: any) => [
+      `${accu.times}`,
+      accu.endMeterValue,
+    ])
+
+    return {
+      legend: {
+        // left: '82%',
+        right: '4%',
+        icon: 'square',
+      },
+      grid: {
+        left: '10%',
+        right: '4%',
+        // bottom: '8%',
+        top: 50,
+        containLabel: true,
+      },
+      tooltip: {
+        show: true,
+      },
+      background: 'transparent',
+      dataset: {
+        source: [
+          //   ['category', 'Energy Used'],
+          ['category', ' ENERGY USED'],
+          ...enegyUsedArray,
+          // ['00:00', 0],
+          // ['03:00', 10],
+          // ['06:00', 40],
+          // ['09:00', 50],
+          // ['12:00', 60],
+          // ['15:00'],
+          // ['18:00'],
+          // ['24:00'],
+        ],
+      },
+      /* xAxis: {
+        type: 'category',
+  
+      }, */
+      xAxis: [
+        {
+          type: 'category',
+          name: 'Time',
+          nameLocation: 'middle',
+          nameGap: 50,
+          nameTextStyle:{
+            fontSize: 14,
+          },
+          axisTick: { show: false },
+          axisLabel: {
+            rotate: 30,
+          },
+        },
+      ],
+      yAxis: {
+        type: 'value',
+        // min: 0,
+        // max: 10000,
+        name: 'ENERGY USED (kwh)',
+        nameLocation: 'middle',
+        /* fontWeight: 'bolder', */
+        nameGap: 60,
+        nameTextStyle: {
+          // align: 'right',
+          // verticalAlign: 'top',
+          /**
+           * the top padding will shift the name down so that it does not overlap with the axis-labels
+           * t-l-b-r
+           */
+          // padding: [10, 0, 0, 0],
+          fontSize: 14,
+          // fontWeight: 800,
+          // fontStyle: 'italic',
+        },
+      },
+      series: [
+        {
+          /*  data: chartData.map(m=>({
+            value: m.value
+          })), */
+          type: 'line',
+        },
+      ],
+    }
+  }
+
+  setEnergyGasolineGallonDataChartOptions(dataSet: any) {
+    // debugger
+
+    let gallonArray = dataSet.map((accu: any) => [
+      `${accu.times}`,
+      accu.gasolinegallon,
+    ])
+    return {
+      legend: {
+        // left: '82%',
+        right: '4%',
+        icon: 'square',
+      },
+      grid: {
+        left: '10%',
+        right: '4%',
+        // bottom: '8%',
+        top: 50,
+        containLabel: true,
+      },
+      tooltip: {
+        show: true,
+      },
+      background: 'transparent',
+      dataset: {
+        source: [
+          //   ['category', 'Energy Used'],
+          ['category', ' GGE of Gas Saved'],
+          ...gallonArray,
+          // ['July 20', 0],
+          // ['Aug 20', 20],
+          // ['Sep 20', 20],
+          // ['Oct 20', 40],
+          // ['Nov 20', 50],
+          // ['Dec 20', 60],
+          // ['Jan 21', 70],
+          // ['Feb 21', 80],
+          // ['Mar 21', 60],
+          // ['Apr 21', 90],
+          // ['May 21', 70],
+          // ['Jun 21', 100],
+        ],
+      },
+      /* xAxis: {
+        type: 'category',
+  
+      }, */
+      xAxis: [
+        {
+          type: 'category',
+          name: 'Month',
+          nameLocation: 'middle',
+          nameGap: 50,
+          nameTextStyle:{
+            fontSize: 14,
+          },
+          axisTick: { show: false },
+          axisLabel: {
+            rotate: 30,
+          },
+        },
+      ],
+      yAxis: {
+        type: 'value',
+        // min: 0,
+        // max: 10000,
+        name: 'GGE of Gas Saved',
+        nameLocation: 'middle',
+        /* fontWeight: 'bolder', */
+        nameGap: 50,
+        nameTextStyle: {
+          // align: 'right',
+          // verticalAlign: 'top',
+          /**
+           * the top padding will shift the name down so that it does not overlap with the axis-labels
+           * t-l-b-r
+           */
+          // padding: [10, 0, 0, 0],
+          fontSize: 14,
+          // fontWeight: 800,
+          // fontStyle: 'italic',
+        },
+      },
+      series: [
+        {
+          /*  data: chartData.map(m=>({
+            value: m.value
+          })), */
+          type: 'line',
+          itemStyle: {
+            color: '#27B406',
+          },
+        },
+      ],
+    }
+  }
+
+  setReportEnergyMilesAddedOption(dataSet: any) {
+    let dataArray = dataSet.map((accu: any) => [
+      `${accu.times}`,
+      accu.rangeAdded,
+    ])
+    return {
+      legend: {
+        // left: '82%',
+        right: '4%',
+        icon: 'square',
+      },
+      grid: {
+        left: '10%',
+        right: '4%',
+        // bottom: '8%',
+        top: 50,
+        containLabel: true,
+      },
+      tooltip: {
+        show: true,
+      },
+      background: 'transparent',
+      dataset: {
+        source: [
+          //   ['category', 'Energy Used'],
+          ['category', ' Miles Added'],
+          ...dataArray,
+          // ['July 20', 0],
+          // ['Aug 20', 20],
+          // ['Sep 20', 20],
+          // ['Oct 20', 40],
+          // ['Nov 20', 50],
+          // ['Dec 20', 60],
+          // ['Jan 21', 70],
+          // ['Feb 21', 80],
+          // ['Mar 21', 60],
+          // ['Apr 21', 90],
+          // ['May 21', 70],
+          // ['Jun 21', 100],
+        ],
+      },
+      /* xAxis: {
+        type: 'category',
+  
+      }, */
+      xAxis: [
+        {
+          type: 'category',
+          name: 'Time',
+          nameLocation: 'middle',
+          nameGap: 50,
+          nameTextStyle:{
+            fontSize: 14,
+          },
+          axisTick: { show: false },
+          axisLabel: {
+            rotate: 30,
+          },
+        },
+      ],
+      yAxis: {
+        type: 'value',
+        // min: 0,
+        // max: 10000,
+        name: 'Miles',
+        nameLocation: 'middle',
+        /* fontWeight: 'bolder', */
+        nameGap: 50,
+        nameTextStyle: {
+          // align: 'right',
+          // verticalAlign: 'top',
+          /**
+           * the top padding will shift the name down so that it does not overlap with the axis-labels
+           * t-l-b-r
+           */
+          // padding: [10, 0, 0, 0],
+          fontSize: 16,
+          // fontWeight: 800,
+          // fontStyle: 'italic',
+        },
+      },
+      series: [
+        {
+          /*  data: chartData.map(m=>({
+            value: m.value
+          })), */
+          type: 'line',
+        },
+      ],
+    }
   }
 }

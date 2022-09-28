@@ -1,4 +1,4 @@
-<div class="cust-list-flex1 layout">
+<div class="cust-list-flex1 layout alert-main">
   <h3 class="cust-list-subtitle layout">Alerts</h3>
   <div class="cust-list-flex3 layout">
     <div class="cust-list-flex3-item">
@@ -147,8 +147,6 @@
             >
               <div class="example-element-description textleftcollapse">
                 <div class="">
-                  <!-- <pre {{element.requestPayload}}></pre> -->
-
                   <div style="text-transform: none;">
                     {{ element.requestPayload }}
                   </div>
@@ -179,15 +177,15 @@
         ></tr>
       </table>
       <ng-container *ngIf="isTableHasData">
-        <p class="text-center">No record found</p>
+        <p class="text-center">No record found.</p>
       </ng-container>
     </div>
     <mat-paginator
       #paginator
-      (page)="GetOperatorAlerts($event, currentPage, totalRecords)"
-      [length]="totalRecords"
+      (page)="pageChange($event)"
+      [length]="totalCount"
       [pageSize]="pageSize"
-      [pageSizeOptions]="[10, 20, 100]"
+      [pageSizeOptions]="pageSizeOptions"
     ></mat-paginator>
   </div>
 </div>

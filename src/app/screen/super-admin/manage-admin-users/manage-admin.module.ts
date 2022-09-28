@@ -6,11 +6,14 @@ import { ManageAdminUsersComponent } from './manage-admin-users.component';
 
 import { CreateAdminComponent } from './create-admin/create-admin.component';
 import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field'
 const routes: Routes = [{ path: '', component: ManageAdminUsersComponent },
-{ path: 'createadmin', component: CreateAdminComponent }]
+{ path: 'createadmin', component: CreateAdminComponent },
+{ path: 'viewadmin', component: CreateAdminComponent },
+  { path: 'editadmin', component: CreateAdminComponent }]
 
 @NgModule({
-  imports: [CommonModule, SharedMaterialModule, SharedModule,RouterModule.forChild(routes)],
+  imports: [CommonModule,MatFormFieldModule, SharedMaterialModule, SharedModule,RouterModule.forChild(routes)],
   declarations: [ManageAdminUsersComponent, CreateAdminComponent,],
   providers: [],
 })

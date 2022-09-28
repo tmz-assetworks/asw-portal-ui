@@ -1,4 +1,4 @@
-<div class="cust-list-flex1 layout">
+<div class="cust-list-flex1 layout manage-charger-main">
   <h3 class="cust-list-subtitle layout">Chargers</h3>
   <div class="cust-list-flex1-item">
     <div class="cust-list-block3 layout">
@@ -10,18 +10,25 @@
                 <div class="cust-list-block6 layout">
                   <div class="cust-list-block7 layout">
                     <div class="cust-list-block7-item">
-                      <div class="cust-list-block8 layout">
+                      <div
+                        class="cust-list-block8 layout"
+                        [style.background-color]="
+                          portType[portType.length - 1].color
+                        "
+                      >
                         <div class="cust-list-box7 layout">
-                          <img src="assets/icons/c1.png" />
+                          <img src="../../../../assets/icons/c1.png" />
                         </div>
                       </div>
                     </div>
                     <div class="cust-list-block7-spacer"></div>
                     <div class="cust-list-block7-item1">
                       <div class="cust-list-block9 layout">
-                        <h1 class="cust-list-hero-title layout mt_zero">100</h1>
+                        <h1 class="cust-list-hero-title layout mt_zero">
+                          {{ portType[portType.length - 1]?.count }}
+                        </h1>
                         <div class="cust-list-text-body2 layout">
-                          Total Ports
+                          {{ portType[portType.length - 1]?.portType }}
                         </div>
                       </div>
                     </div>
@@ -46,7 +53,10 @@
                 <div class="cust-list-block11 layout">
                   <div class="cust-list-block12 layout">
                     <div class="cust-list-block12-item">
-                      <div class="cust-list-block13 layout">
+                      <div
+                        class="cust-list-block13 layout"
+                        [style.background-color]="portType[0].color"
+                      >
                         <div class="cust-list-box7 layout">
                           <img src="assets/icons/c2.png" />
                         </div>
@@ -55,8 +65,12 @@
                     <div class="cust-list-block12-spacer"></div>
                     <div class="cust-list-block12-item1">
                       <div class="cust-list-block14 layout">
-                        <h1 class="cust-list-hero-title layout">40</h1>
-                        <div class="cust-list-text-body2 layout1">Level 2 Ports</div>
+                        <h1 class="cust-list-hero-title layout">
+                          {{ portType[0]?.count }}
+                        </h1>
+                        <div class="cust-list-text-body2 layout1">
+                          {{ portType[0]?.portType }}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -80,7 +94,10 @@
                 <div class="cust-list-block16 layout">
                   <div class="cust-list-block17 layout">
                     <div class="cust-list-block17-item">
-                      <div class="cust-list-block18 layout">
+                      <div
+                        class="cust-list-block18 layout"
+                        [style.background-color]="portType[1].color"
+                      >
                         <div class="cust-list-box7 layout">
                           <img src="assets/icons/c3.png" />
                         </div>
@@ -89,8 +106,12 @@
                     <div class="cust-list-block17-spacer"></div>
                     <div class="cust-list-block17-item1">
                       <div class="cust-list-block14 layout">
-                        <h1 class="cust-list-hero-title layout">60</h1>
-                        <div class="cust-list-text-body2 layout2">DCFC PORTS</div>
+                        <h1 class="cust-list-hero-title layout">
+                          {{ portType[1]?.count }}
+                        </h1>
+                        <div class="cust-list-text-body2 layout2">
+                          {{ portType[1]?.portType }}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -127,11 +148,11 @@
             <input
               class="cust-list-text-body21 layout"
               (keyup)="applyFilter($event)"
-              placeholder="Search By Chargers"
+              placeholder="Search by chargebox id"
               #input
             />
           </div>
-        </div> 
+        </div>
       </div>
     </div>
     <div class="cust-list-flex3-spacer"></div>
@@ -147,96 +168,104 @@
           </div>
         </div>
         <div class="cust-list-block23-spacer"></div>
-        <div class="cust-list-text-body4 layout" >
-          ADD CHARGERS
-        </div>
+        <div class="cust-list-text-body4 layout">ADD CHARGER</div>
       </div>
     </div>
   </div>
   <div class="layout mat-data">
-      <table mat-table [dataSource]="dataSource"  class="mat-elevation-z8">
-          <ng-container matColumnDef="VIN">
-            <th mat-header-cell *matHeaderCellDef>CHARGERS BOX ID</th>
-            <td mat-cell *matCellDef="let element">
-              {{ element.VIN }}
-            </td>
-          </ng-container>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="chargeBoxId">
+        <th mat-header-cell *matHeaderCellDef>CHARGE BOX ID</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.chargeBoxId }}
+        </td>
+      </ng-container>
 
-          <!-- Name Column -->
-          <ng-container matColumnDef="ModelYear">
-            <th mat-header-cell *matHeaderCellDef>LOCATION NAME</th>
-            <td mat-cell *matCellDef="let element">
-              {{ element.ModelYear }}
-            </td>
-          </ng-container>
+      <!-- Name Column -->
+      <ng-container matColumnDef="locationName">
+        <th mat-header-cell *matHeaderCellDef>LOCATION NAME</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.locationName }}
+        </td>
+      </ng-container>
 
-          <!-- Weight Column -->
-          <ng-container matColumnDef="Name">
-            <th mat-header-cell *matHeaderCellDef>
-              MAKE
-            </th>
-            <td mat-cell *matCellDef="let element">
-              {{ element.Name }}
-            </td>
-          </ng-container>
+      <!-- Weight Column -->
+      <ng-container matColumnDef="make">
+        <th mat-header-cell *matHeaderCellDef>MAKE</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.make }}
+        </td>
+      </ng-container>
 
-          <!-- Symbol Column -->
-          <ng-container matColumnDef="Modal">
-            <th mat-header-cell *matHeaderCellDef>MODEL</th>
-            <td mat-cell *matCellDef="let element">
-              {{ element.Modal }}
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="LicencePlate">
-            <th mat-header-cell *matHeaderCellDef>SWITCHER GEAR</th>
-            <td mat-cell *matCellDef="let element">
-              {{ element.LicencePlate }}
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="Department">
-            <th mat-header-cell *matHeaderCellDef>RFID READER</th>
-            <td mat-cell *matCellDef="let element">
-              {{ element.Department }}
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="Status">
-            <th mat-header-cell *matHeaderCellDef>STATUS</th>
-            <td mat-cell *matCellDef="let element">
-              {{ element.Status }}
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="protocol">
-            <th mat-header-cell *matHeaderCellDef>PROTOCOL</th>
-            <td mat-cell *matCellDef="let element">
-              {{ element.Department }}
-            </td>
-          </ng-container>
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="model">
+        <th mat-header-cell *matHeaderCellDef>MODEL</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.model }}
+        </td>
+      </ng-container>
+      <!-- <ng-container matColumnDef="switchGear">
+        <th mat-header-cell *matHeaderCellDef>SWITCH GEAR</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.switchGear }}
+        </td>
+      </ng-container> -->
+      <ng-container matColumnDef="rfidReader">
+        his.
+        <th mat-header-cell *matHeaderCellDef>RFID READER</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.rfidReader }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>STATUS</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.status }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="protocol">
+        id
+        <th mat-header-cell *matHeaderCellDef>PROTOCOL</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.protocolName }}
+        </td>
+      </ng-container>
 
-          <!-- Symbol Column -->
-          <ng-container matColumnDef="Action">
-            <th mat-header-cell *matHeaderCellDef>ACTION</th>
-            <td
-              mat-cell
-              *matCellDef="let element"
-              
-              style="cursor: pointer;"
-            >
-              <img src="../../../../assets/icons/view-icon.png"  [routerLink]="['add-chargers']"/>&nbsp;
-              <img src="assets/icons/Edit.png" alt="" style="cursor: pointer" [routerLink]="['add-chargers']">
-              
-            </td>
-          </ng-container>
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="Action">
+        <th mat-header-cell *matHeaderCellDef>ACTION</th>
+        <td mat-cell *matCellDef="let element" style="cursor: pointer;">
+          <img
+            src="../../../../assets/icons/view-icon.png"
+            alt=""
+            title="View"
+            style="cursor: pointer;"
+            (click)="viewCharger(element.id)"
+          />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <img
+            src="assets/icons/Edit.png"
+            alt=""
+            title="Edit"
+            style="cursor: pointer;"
+            (click)="editCharger(element.id)"
+          />
+        </td>
+      </ng-container>
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr
-            mat-row
-            *matRowDef="let row; columns: displayedColumns"
-          ></tr>
-        </table>
-
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <ng-container *ngIf="isTableHasData">
+      <p class="text-center">No record found</p>
+    </ng-container>
   </div>
+
   <mat-paginator
-  [length]="100"
-  [pageSizeOptions]="[10, 20, 100]"
-></mat-paginator>
+    #paginator
+    (page)="pageChange($event)"
+    [length]="totalCount"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+  ></mat-paginator>
 </div>

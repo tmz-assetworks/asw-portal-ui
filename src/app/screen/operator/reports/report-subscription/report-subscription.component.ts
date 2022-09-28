@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { FormControl } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
+import { StorageService } from 'src/app/service/storage.service'
+import { ReportService } from '../reports.service'
 
 @Component({
   selector: 'app-report-subscription',
@@ -9,13 +11,31 @@ import { ActivatedRoute, Router } from '@angular/router'
 })
 export class ReportSubscriptionComponent implements OnInit {
   filterToggle = new FormControl('1')
+  UserId: string | null
+  selectedDuration: number = 1
+  reportSubscribeMonthlyData = ''
+  reportSubscribeYearlyData = ''
+  reportSubscribeTypeData = ''
 
-  constructor(private _router: Router, private _route: ActivatedRoute) {}
+  constructor(
+    private _router: Router,
+    private _route: ActivatedRoute,
+    private _reportService: ReportService,
+    private _storageService: StorageService,
+  ) {
+    this.UserId = this._storageService.getLocalData('user_id')
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getSubscriptions(this.UserId, [], 1)
+  }
 
-  setTime(event: any) {}
-
+  setTime(event: any) {
+    if (event.value) {
+      this.selectedDuration = event.value
+      this.getSubscriptions(this.UserId, [], this.selectedDuration)
+    }
+  }
   openDetailPage(
     event: any,
     graphHeading: string,
@@ -28,6 +48,25 @@ export class ReportSubscriptionComponent implements OnInit {
     this._router.navigate(['detail'], {
       relativeTo: this._route,
       queryParams: { id: event },
+    })
+  }
+
+  /**
+   * Get Subscription
+   * @param data
+   */
+  getSubscriptions(operatorId: any, locationId: any, duration: any) {
+    const pBbody = {
+      operatorId: '2',
+      locationId: locationId,
+      duration: '',
+    }
+    this._reportService.Subscription(pBbody).subscribe((res) => {
+      if (res.data) {
+        this.reportSubscribeMonthlyData = res.data[0].monthlydata
+        this.reportSubscribeYearlyData = res.data[0].yearlydata
+        this.reportSubscribeTypeData = res.data[0].datatype
+      }
     })
   }
 }

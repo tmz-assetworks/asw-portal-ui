@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
 import { FormControl } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
-import { EChartsOption } from 'echarts'
+
 import { AuthService } from 'src/app/service/auth/auth.service'
+import { StorageService } from 'src/app/service/storage.service'
+import { ReportService } from '../reports.service'
 
 @Component({
   selector: 'app-report-session',
@@ -10,23 +12,110 @@ import { AuthService } from 'src/app/service/auth/auth.service'
   styleUrls: ['./report-session.component.scss'],
 })
 export class ReportSessionComponent implements OnInit {
-  reportChargingSession = 'reportSession'
-  reportChargingSessionTitle = 'Session Length'
-
-  reportLineSession = 'reportLineSession'
-  reportLineSessionTitle = 'Upcoming Session - 24 Hours'
-
   filterToggle = new FormControl('1')
+  selectedDuration: string = '1'
+  reportUpcomingSessionData = ''
+  UserId: string | null
+  reportSessionLengthData = ''
+  reportSessionData = ''
 
   constructor(
     private _router: Router,
     private _route: ActivatedRoute,
-    private _auth: AuthService,
-  ) {}
 
-  ngOnInit(): void {}
+    private __reportService: ReportService,
+    private _storageService: StorageService,
+  ) {
+    this.UserId = this._storageService.getLocalData('user_id')
+  }
 
-  setTime(event: any) {}
+  ngOnInit(): void {
+    this.GetUpComingSession(this.UserId, '', this.selectedDuration)
+    this.GetChargingSessionlength(this.UserId, '', this.selectedDuration)
+    this.GetChargingSessionData(this.UserId, '', this.selectedDuration)
+  }
+
+  /**
+   *
+   * @param event
+   *
+   * Select Duration
+   */
+  setTime(event: any) {
+    if (event.value) {
+      this.selectedDuration = event.value
+      this.GetUpComingSession(this.UserId, '', this.selectedDuration)
+      this.GetChargingSessionlength(this.UserId, '', this.selectedDuration)
+      this.GetChargingSessionData(this.UserId, '', this.selectedDuration)
+    }
+  }
+
+  /**
+   *
+   * @param operatorId
+   * @param locationId
+   * @param duration
+   *
+   * Get upcoming session
+   */
+  GetUpComingSession(operatorId: any, locationId: any, duration: any) {
+    const pBody = {
+      locationIds: [],
+      operatorId: operatorId,
+      // duration: duration,
+    }
+
+    this.__reportService.GetUpComingSession(pBody).subscribe((res) => {
+      if (res.data) {
+        this.reportUpcomingSessionData = res.data
+      }
+    })
+  }
+  /**
+   *
+   * @param operatorId
+   * @param locationId
+   * @param duration
+   *
+   * Get Charging Session Length
+   */
+  GetChargingSessionlength(operatorId: any, locationId: any, duration: any) {
+    const pBody = {
+      locationIds: [],
+      chargerBoxId: '',
+      duration: duration,
+      operatorId: operatorId,
+    }
+
+    this.__reportService.ChargingSessionlength(pBody).subscribe((res) => {
+      if (res.data) {
+        this.reportSessionLengthData = res.data
+      }
+    })
+  }
+
+  /**
+   * Get Charging Session Data
+   * @param operatorId
+   * @param locationId
+   * @param duration
+   */
+
+  GetChargingSessionData(operatorId: any, locationId: any, duration: any) {
+    const pBody = {
+      locationIds: [],
+      chargerBoxId: '',
+      duration: duration,
+      operatorId: operatorId,
+    }
+
+    this.__reportService.ChargingSession(pBody).subscribe((res) => {
+      if (res.data) {
+        this.reportSessionData = res.data
+      }
+    })
+  }
+
   openDetailPage(
     event: any,
     graphHeading: string,
@@ -41,6 +130,5 @@ export class ReportSessionComponent implements OnInit {
       relativeTo: this._route,
       queryParams: { id: event },
     })
-    //this._router.navigate(['detail'],{relativeTo: this._route});
   }
 }

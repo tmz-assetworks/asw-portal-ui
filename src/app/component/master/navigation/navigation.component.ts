@@ -133,16 +133,16 @@ export class NavigationComponent implements OnInit {
     } else if (role == 'Admin') {
       this.menuItems = [
         {
-          routerLink: ['customer'],
-          text: 'Customers',
+          routerLink: ['profile'],
+          text: 'Profile',
           icon: '../../../../assets/icons/customers.png',
         },
         {
-          routerLink: ['operator-user'],
-          text: 'Operator Users',
+          routerLink: ['users'],
+          text: 'Users',
           icon: '../../../../assets/icons/operator.png',
         },
-        
+
         {
           routerLink: ['locations'],
           text: 'Locations',
@@ -195,7 +195,7 @@ export class NavigationComponent implements OnInit {
     } else if (role === 'SuperAdmin') {
       this._router.navigateByUrl('superadmin')
     } else {
-      this._router.navigateByUrl('admin')
+      this._router.navigateByUrl('admin/profile')
     }
   }
   ngAfterViewInit() {}

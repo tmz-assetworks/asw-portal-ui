@@ -1,4 +1,4 @@
-<div class="cust-list-flex1 layout">
+<div class="cust-list-flex1 layout manage-admin-main">
   <h3 class="cust-list-subtitle layout">AssetWorks Staff Admin Users</h3>
   <div class="cust-list-flex1-item">
     <div class="cust-list-block3 layout">
@@ -10,7 +10,7 @@
                 <div class="cust-list-block6 layout">
                   <div class="cust-list-block7 layout">
                     <div class="cust-list-block7-item">
-                      <div class="cust-list-block8 layout">
+                      <div class="cust-list-block8 layout" [style.background-color]="statusData[0].color">
                         <div class="cust-list-box7 layout">
                           <img
                             src="../../../../assets/superadmin-icons/Group.png"
@@ -23,7 +23,7 @@
                     <div class="cust-list-block7-spacer"></div>
                     <div class="cust-list-block7-item1">
                       <div class="cust-list-block9 layout">
-                        <h1 class="cust-list-hero-title layout mt_zero">100</h1>
+                        <h1 class="cust-list-hero-title layout mt_zero">{{statusData[0].value}}</h1>
                         <div class="cust-list-text-body2 layout">
                           Total Admin Users
                         </div>
@@ -45,12 +45,12 @@
           </div>
           <div class="cust-list-block4-spacer"></div>
           <div class="cust-list-block4-item">
-            <div class="cust-list-block10 layout">
+            <div class="cust-list-block10 layout active-status">
               <div class="cust-list-block10-item">
                 <div class="cust-list-block11 layout">
                   <div class="cust-list-block12 layout">
                     <div class="cust-list-block12-item">
-                      <div class="cust-list-block13 layout">
+                      <div class="cust-list-block13 layout" [style.background-color]="statusData[1].color">
                         <div class="cust-list-box7 layout">
                           <img
                             src="../../../../assets//superadmin-icons//active-icon.png"
@@ -62,8 +62,10 @@
                     <div class="cust-list-block12-spacer"></div>
                     <div class="cust-list-block12-item1">
                       <div class="cust-list-block14 layout">
-                        <h1 class="cust-list-hero-title layout">40</h1>
-                        <div class="cust-list-text-body2 layout1 act-value">Active</div>
+                        <h1 class="cust-list-hero-title layout">{{statusData[1].value}}</h1>
+                        <div class="cust-list-text-body2 layout1 act-value">
+                          {{statusData[1].key}}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -87,7 +89,7 @@
                 <div class="cust-list-block16 layout">
                   <div class="cust-list-block17 layout">
                     <div class="cust-list-block17-item">
-                      <div class="cust-list-block18 layout">
+                      <div class="cust-list-block18 layout" [style.background-color]="statusData[2].color">
                         <div class="cust-list-box7 layout">
                           <img
                             src="../../../../assets/superadmin-icons/inactive.png"
@@ -99,8 +101,8 @@
                     <div class="cust-list-block17-spacer"></div>
                     <div class="cust-list-block17-item1">
                       <div class="cust-list-block14 layout">
-                        <h1 class="cust-list-hero-title layout">60</h1>
-                        <div class="cust-list-text-body2 layout2">Inactive</div>
+                        <h1 class="cust-list-hero-title layout">{{statusData[2].value}}</h1>
+                        <div class="cust-list-text-body2 layout2">{{statusData[2].key}}</div>
                       </div>
                     </div>
                   </div>
@@ -137,7 +139,7 @@
             <input
               class="cust-list-text-body21 layout"
               (keyup)="applyFilter($event)"
-              placeholder="Search"
+              placeholder="Search by admin name"
               #input
             />
           </div>
@@ -146,7 +148,11 @@
     </div>
     <div class="cust-list-flex3-spacer"></div>
     <div class="cust-list-flex3-item1">
-      <div class="cust-list-block23 layout" [routerLink]="['createadmin']">
+      <!-- <div class="cust-list-block23 layout" [routerLink]="['createadmin']"> -->
+      <div
+        class="cust-list-block23 layout"
+        (click)="performAction('create', '')"
+      >
         <div class="cust-list-block23-item">
           <div class="cust-list-box10 layout">
             <img
@@ -157,11 +163,7 @@
           </div>
         </div>
         <div class="cust-list-block23-spacer"></div>
-        <div
-          class="cust-list-text-body4 layout"
-          
-          
-        >
+        <div class="cust-list-text-body4 layout">
           ADD ADMIN USER
         </div>
       </div>
@@ -170,40 +172,66 @@
   <div class="layout mat-data">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       <ng-container matColumnDef="CustomerName">
-        <th mat-header-cell *matHeaderCellDef class="textalign">ORGANIZATION NAME</th>
-        <td mat-cell *matCellDef="let element">{{ element.CustomerName }}</td>
+        <th mat-header-cell *matHeaderCellDef class="textalign">
+          ORGANIZATION NAME
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.customername }}</td>
       </ng-container>
 
       <ng-container matColumnDef="AdminName">
         <th mat-header-cell *matHeaderCellDef>ADMIN NAME</th>
         >
-        <td mat-cell *matCellDef="let element">{{ element.AdminName }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.adminName }}</td>
       </ng-container>
 
       <ng-container matColumnDef="EmailId">
         <th mat-header-cell *matHeaderCellDef>EMAIL ID</th>
-        <td mat-cell *matCellDef="let element">{{ element.EmailId }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.emailId }}</td>
       </ng-container>
 
       <ng-container matColumnDef="Country">
         <th mat-header-cell *matHeaderCellDef>COUNTRY</th>
-        <td mat-cell *matCellDef="let element">{{ element.Country }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.countryName }}</td>
       </ng-container>
 
       <ng-container matColumnDef="Status">
         <th mat-header-cell *matHeaderCellDef>STATUS</th>
-        <td mat-cell *matCellDef="let element">{{ element.Status }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.isActive ? 'Active' : 'Inactive' }}</td>
       </ng-container>
 
       <ng-container matColumnDef="Action">
         <th mat-header-cell *matHeaderCellDef>ACTION</th>
         <td mat-cell *matCellDef="let element">
-          <span>
-            <img src="../../../../assets/superadmin-icons/Active.png" alt="" />
+          <span *ngIf="!element.isActive" (click)="changeState(element.id,element.isActive)">
+            <img 
+              src="../../../../assets/superadmin-icons/Active.png"
+              class="cursorPointer"
+              alt=""
+            /></span>
+           <span *ngIf="element.isActive" (click)="changeState(element.id,element.isActive)"><img 
+              src="../../../../assets/icons/inactive.svg"
+              class="cursorPointer"
+              alt=""
+            />
+          </span>
+          <span style="margin: 7px;">
+            <img
+              src="../../../../assets/superadmin-icons/Edit.png"
+              alt=""
+              class="cursorPointer"
+              (click)="performAction('edit', element)"
+              title="Edit"
+            />
           </span>
           <!-- <span style="margin: 3px;"><img src="../../../../assets/superadmin-icons/Edit.png" alt="" /></span> -->
-          <span style="margin: 17px;">
-            <img src="../../../../assets/superadmin-icons/View.png" alt="" />
+          <span style="margin: 7px;">
+            <img
+              src="../../../../assets/superadmin-icons/View.png"
+              alt=""
+              class="cursorPointer"
+              title="View"
+              (click)="performAction('view', element)"
+            />
           </span>
           <!-- <span style="margin: 3px;"><img src="../../../../assets/superadmin-icons/Add-Admin.png" alt="" /></span> -->
         </td>
@@ -212,12 +240,15 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
-
-
+    <ng-container *ngIf="isTableHasData">
+      <p class="text-center">No record found</p>
+    </ng-container>
   </div>
   <mat-paginator
-  [length]="100"
-  [pageSizeOptions]="[10, 20, 100]"
-  aria-label="Rows per page"
+  #paginator
+  (page)="pageChange($event)"
+  [length]="totalCount"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="pageSizeOptions"
 ></mat-paginator>
 </div>

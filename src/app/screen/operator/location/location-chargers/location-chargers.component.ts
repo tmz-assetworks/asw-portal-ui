@@ -18,17 +18,23 @@ export class LocationChargersComponent implements OnInit {
   UserId: any
   selectedLocationId: any
   locationName: string | null
-  isTableHasData = false
 
-  displayedColumns: any
   expandedElement: any
-  searchParam = 'All'
+
   arrKeys: any = ['All']
-  currentPage = 1
+
   totalRecords = 30
-  pageSize = 10
-  totalPages = 0
+
   showLoader: boolean = false
+  statusList: any
+  pageNumber: any
+  isTableHasData: any
+  totalCount: any
+  pageSize: number = 10
+  currentPage: number = 1
+  totalPages: any
+  pageSizeOptions = [10, 20, 100]
+  searchParam = ''
   constructor(
     public _locationService: LocationService,
     private _storageService: StorageService,
@@ -45,78 +51,78 @@ export class LocationChargersComponent implements OnInit {
     throw new Error('Method not implemented.')
   }
 
+  displayedColumns = [
+    'chargeBoxId',
+
+    'dispenserMake',
+    'dispenserModel',
+    'connectorType',
+    'protocolName',
+    'chargerStatus',
+    'noofPort',
+    'action',
+  ]
+  dataSource = new MatTableDataSource()
+
   @ViewChild(MatPaginator) paginator!: MatPaginator
 
   ngOnInit() {
-    this.locationChargerList(
-      '',
-      this.currentPage,
-      this.totalRecords,
-      this.selectedLocationId,
-    )
+    this.GetDispenserByLocation(this.selectedLocationId)
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator
+    // this.dataSource.paginator = this.paginator;
     this.paginator._intl.itemsPerPageLabel = 'Rows per page'
   }
 
   selectOption(event: any) {
     this.searchParam = event.target.value
-    this.locationChargerList(
-      '',
-      this.currentPage,
-      this.totalRecords,
-      this.selectedLocationId,
-    )
+    this.GetDispenserByLocation(this.selectedLocationId)
   }
 
-  locationChargerList(
-    event: any,
-    currentPage: number,
-    totalPage: number,
-    locationIds: any,
-  ) {
-    this.pageSize = event !== undefined && event !== '' ? event.pageSize : 10
-    this.displayedColumns = [
-      'chargeBoxId',
-      'dispenserName',
-      'dispenserMake',
-      'dispenserModel',
-      'connectorType',
-      'protocolName',
-      'chargerStatus',
-      'noofPort',
-      'action',
-    ]
-    this.currentPage =
-      event !== undefined && event !== ''
-        ? event.previousPageIndex < event.pageIndex
-          ? currentPage + 1
-          : currentPage - 1
-        : 1
-    if (this.currentPage == 0) {
-      this.currentPage = this.currentPage + 1
-    }
-    const body = {
+  GetDispenserByLocation(locationId: any) {
+    const pBody = {
       pageNumber: this.currentPage,
-      searchParam: this.searchParam == 'All' ? '' : this.searchParam,
+      searchParam: this.searchParam,
       pageSize: this.pageSize,
       orderBy: '',
-      locationIds: [],
-      selectedLocationId: [],
-      // locationIds: this.locationId ? [this.locationId] : [],
-      opratorid: '',
-      chargerBoxIds: [],
+      locationIds: [locationId],
     }
+
     this._locationService
-      .GetlocationChargerList([locationIds])
-      .subscribe((data: any) => {
-        this.dataSource.data = data.data
+      .GetDispenserByLocation(pBody)
+      .subscribe((res: any) => {
+        //this.dataSource.data = data.data;
+        if (res.data !== undefined && res.data != null && res.data.length > 0) {
+          this.totalCount = res.paginationResponse.totalCount
+          this.totalPages = res.paginationResponse.totalPages
+          this.pageSize = res.paginationResponse.pageSize
+
+          this.dataSource.data = res.data
+
+          this.statusList = res.statusList
+          this.isTableHasData = false
+        } else {
+          this.dataSource.data = []
+          this.isTableHasData = true
+        }
       })
   }
 
-  dataSource = new MatTableDataSource()
+  pageChange(event: any) {
+    if (event.pageSize !== this.pageSize) {
+      this.currentPage = 1
+      this.pageSize = event.pageSize
+      this.paginator.pageIndex = 0
+    } else {
+      this.currentPage =
+        event.previousPageIndex < event.pageIndex
+          ? this.currentPage + 1
+          : this.currentPage - 1
+    }
+
+    this.GetDispenserByLocation(this.selectedLocationId)
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value

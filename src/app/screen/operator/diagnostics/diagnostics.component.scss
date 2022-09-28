@@ -552,7 +552,7 @@ $color_type_9: rgb(255, 255, 255);
   &block9.layout {
     position: relative;
     height: min-content;
-    margin-left: 30px;
+    // margin-left: 30px;
     width: 125px;
   }
   &hero-title {
@@ -719,7 +719,7 @@ $color_type_9: rgb(255, 255, 255);
     height: min-content;
     width: 77px;
     min-width: 77px;
-    margin: 0 20px 0 30px;
+    // margin: 0 20px 0 30px;
   }
   &block12-spacer {
     flex: 0 1 3px;
@@ -852,7 +852,7 @@ $color_type_9: rgb(255, 255, 255);
     height: min-content;
     width: 77px;
     min-width: 77px;
-    margin: auto 20px;
+    // margin: auto 20px;
   }
   &block17-spacer {
     flex: 0 1 3px;
@@ -1465,6 +1465,13 @@ tr.example-element-row:not(.example-expanded-row):active {
   }
 }
 
+.tool_alignDiag {
+  position: absolute;
+  right: 19.9%;
+  z-index: 100000000;
+  top: 202px;
+}
+
 .wd_sub_1 {
   @include sm {
     width: auto;
@@ -1800,4 +1807,49 @@ button {
 span.close-icon.auth-close.ng-tns-c260-1 {
   position: absolute;
   right: 0px;
+}
+
+
+// .form-fields .tool_alignP{
+//   z-index: 1 !important;
+// }
+
+
+@media (max-width: 1920px){
+  .tool-tip-block1.layout {
+    position: relative;
+    top: 130px;
+    right: 239px;
+}
+  // Diagnostics card UI
+  .charger-diagnostics .tool-tip-11 .tool-tip-block1.layout {
+    top: 210px !important;
+    right: 219px !important;
+  }
+  .tool-tip-1 .tool-tip-block1.layout {
+    position: relative;
+    top: 132px;
+    right: 242px;
+}
+
+  .tool-tip-2 .tool-tip-block1.layout {
+    position: relative;
+    right: 26px;
+}
+.tool_alignRC.tool-tip-3{
+  right: 61.5%;
+
+}
+.tool-tip-4 .tool-tip-block1.layout {
+  position: relative;
+  left: 12px;
+}
+.tool-tip-5 .tool-tip-block1.layout {
+  position: relative;
+  left: 32px;
+}
+.tool-tip-6 .tool-tip-block1.layout {
+  position: relative;
+  right: 44px;
+}
 }

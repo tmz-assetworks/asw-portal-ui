@@ -1,10 +1,15 @@
- <!-- loader -->
- <div class="loader" *ngIf="showLoader">
+<!-- loader -->
+<div class="loader" *ngIf="showLoader">
   <div>
-  <img src="../../../assets/images/myloader.gif" class="margin" width="18%" height="22%">
+    <img
+      src="../../../assets/images/myloader.gif"
+      class="margin"
+      width="18%"
+      height="22%"
+    />
   </div>
-  </div>
-  <div class="login login-block layout">
+</div>
+<div class="login login-block layout">
   <div class="login-block1 layout">
     <div class="login-block1-item bg_img_left">
       <div class="login-box layout"></div>
@@ -13,77 +18,103 @@
       <div class="login-block2 layout">
         <div class="login-block2-spacer"></div>
         <div class="login-block2-item">
-          <form  [formGroup]="verifyOTPForm">
-          <div class="login-block3 layout">
-            <div class="login-block12 layout">
-              <img src="../../../../assets/images/logo_asset.png" />
-            </div>
-            <div class="login-block4 layout para_txt">
-              <h1 class="login-hero-title layout">Enter Verification Code</h1>
-            </div>
-            <div class="login-box3 layout"></div>
-            <div class="login-block11 layout">
-              <h3 class="login-subtitle layout">
-                We have just sent a verification code to email and phone number
-              </h3>
-            </div>
-            <div class="login-box4 layout"></div>
+          <form [formGroup]="verifyOTPForm">
+            <div class="login-block3 layout">
+              <div class="login-block12 layout">
+                <img src="../../../../assets/images/logo_asset.svg" />
+              </div>
+              <div class="login-block4 layout para_txt">
+                <h1 class="login-hero-title layout">Enter Verification Code</h1>
+              </div>
+              <div class="login-box3 layout"></div>
+              <div class="login-block11 layout">
+                <h3 class="login-subtitle layout">
+                  We have just sent a verification code to email and phone
+                  number
+                </h3>
+              </div>
+              <div class="login-box4 layout"></div>
 
-            <div class="mt_top_map">
-              <div class="f_bar pass_verify">
-                <input type="password" formControlName="code1"  maxlength="1"/>
+              <div class="mt_top_map">
+                <div class="f_bar pass_verify">
+                  <input
+                    type="password"
+                    formControlName="code1"
+                    maxlength="1"
+                  />
+                </div>
+                <div class="f_bar pass_verify">
+                  <input
+                    type="password"
+                    formControlName="code2"
+                    maxlength="1"
+                  />
+                </div>
+                <div class="f_bar pass_verify">
+                  <input
+                    type="password"
+                    formControlName="code3"
+                    maxlength="1"
+                  />
+                </div>
+                <div class="f_bar pass_verify">
+                  <input
+                    type="password"
+                    formControlName="code4"
+                    maxlength="1"
+                  />
+                </div>
+                <div class="f_bar pass_verify">
+                  <input
+                    type="password"
+                    formControlName="code5"
+                    maxlength="1"
+                  />
+                </div>
+                <div class="f_bar pass_verify">
+                  <input
+                    type="password"
+                    formControlName="code6"
+                    maxlength="1"
+                  />
+                </div>
+                <div class="error_msg">
+                  <!-- <span *ngIf="!myLoginForm?.get('email')?.valid && myLoginForm?.get('email')?.touched">Enter Valid Email ID </span>  -->
+                </div>
               </div>
-              <div class="f_bar pass_verify">
-                  <input type="password" formControlName="code2"   maxlength="1"/>
-                </div>
-                <div class="f_bar pass_verify">
-                  <input type="password" formControlName="code3"  maxlength="1" />
-                </div>
-                <div class="f_bar pass_verify">
-                  <input type="password" formControlName="code4"   maxlength="1"/>
-                </div>
-                <div class="f_bar pass_verify">
-                  <input type="password" formControlName="code5"  maxlength="1"/>
-                </div>
-                <div class="f_bar pass_verify">
-                  <input type="password" formControlName="code6"  maxlength="1"/>
-                </div>
-              <div class="error_msg">
-                <!-- <span *ngIf="!myLoginForm?.get('email')?.valid && myLoginForm?.get('email')?.touched">Enter Valid Email ID </span>  -->
-              </div>
-            </div>
-            <div class="login-block8 layout">
-              <div class="login-block9 layout">
-                <div class="login-block9-spacer"></div>
-                <div class="login-block9-item"></div>
-                <!-- <div class="login-block9-spacer1"></div>
+              <div class="login-block8 layout">
+                <div class="login-block9 layout">
+                  <div class="login-block9-spacer"></div>
+                  <div class="login-block9-item"></div>
+                  <!-- <div class="login-block9-spacer1"></div>
                   <input type="checkbox" class="login-medium-title11 layout"/>
                   <input type="checkbox" formControlName="rememeberMe" class="login-medium-title11 layout" (click)="rememberMe($event)"/>
                  <h2 class="login-medium-title11 layout">Remember Me</h2>
-                -->
-              </div>
+                --></div>
 
-             <!--  <a  class="link_txt" routerLink="../verifyOTP">
+                <!--  <a  class="link_txt" routerLink="../verifyOTP">
                 Send the code again
               </a> -->
-              <a  class="link_txt cursorPointer" (click)="sendCodeAgain()">
-                Send the code again
-              </a>
-              <!--  <a class="login-medium-title2 layout" routerLink="/forgotPassword">Forgot Password?</a> -->
-            </div>
-            <!-- <div class="login-block10 layout"> -->
-            <button type="submit" class="login-block10 layout">
-              <div>
-                <h2 class="login-medium-title3 layout" (click)="verifyOTP()">Verify</h2>
+                <a class="link_txt cursorPointer" (click)="sendCodeAgain()">
+                  Send the code again
+                </a>
+                <!--  <a class="login-medium-title2 layout" routerLink="/forgotPassword">Forgot Password?</a> -->
               </div>
+              <!-- <div class="login-block10 layout"> -->
+              <button type="submit" class="login-block10 layout">
+                <div>
+                  <h2 class="login-medium-title3 layout" (click)="verifyOTP()">
+                    Verify
+                  </h2>
+                </div>
+                <!-- <button type="submit">Login</button> -->
+              </button>
+              <!--  <h2 class="login-medium-title3 layout" (click)="saveForm()">Login</h2>  -->
               <!-- <button type="submit">Login</button> -->
-            </button>
-            <!--  <h2 class="login-medium-title3 layout" (click)="saveForm()">Login</h2>  -->
-            <!-- <button type="submit">Login</button> -->
-            <!-- </div> -->
-            <div class="login-block3-spacer1"></div>
-          </div>
-         </form> 
+              <!-- </div> -->
+              <div class="login-block3-spacer1"></div>
+            </div>
+          </form>
         </div>
         <div class="login-block2-spacer"></div>
       </div>

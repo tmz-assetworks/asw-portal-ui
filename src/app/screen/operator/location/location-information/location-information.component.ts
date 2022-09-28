@@ -27,6 +27,7 @@ export class LocationInformationComponent implements OnInit {
   initMapFunc: any
   locationTitleName: string | null
   locationScheduleSaturday: any
+  contactPersonNumber: any
 
   constructor(
     private _storageService: StorageService,
@@ -85,7 +86,7 @@ export class LocationInformationComponent implements OnInit {
       .subscribe((res) => {
         this.contactPersonName = res.data.contactPersonName
 
-        this.mobileNumber = res.data.locationAddress.mobileNumber
+        this.contactPersonNumber = res.data.contactPersonNumber
         this.emailId = res.data.locationAddress.email
 
         this.departmentName = res.data.department.departmentName

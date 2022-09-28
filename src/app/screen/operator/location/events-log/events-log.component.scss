@@ -5356,3 +5356,13 @@ tr.example-detail-row {
   top: 8px;
   position: relative;
 }
+
+@media all and (min-width: 768px) and (max-width: 1024px) {
+  .dashboard-block13.layout{
+    flex-wrap: wrap;
+} 
+.dashboard-block13-item1 {
+  min-width: 100%;
+}
+}
+

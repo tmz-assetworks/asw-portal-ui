@@ -71,16 +71,13 @@
       <div class="dashboard-block14 layout">
         <div class="dashboard-block15 layout"></div>
         <div class="dashboard-block32 layout">
-          <div class="dashboard-block33 layout">
+          <!-- <div class="dashboard-block33 layout">
             <mat-button-toggle-group
               [formControl]="filterToggle"
               (change)="setTime($event)"
             >
               <div class="dashboard-block33-item">
-                <!-- <div class="dashboard-block34 layout">
-
-
-        </div> -->
+            
               </div>
               <div class="dashboard-block33-item1">
                 <div class="dashboard-block35 layout space-between">
@@ -90,18 +87,15 @@
                   >
                     Last 24 Hours
                   </mat-button-toggle>
-                  <!-- <div class="dashboard-text-body2 layout">Last 24 Hours</div> -->
                 </div>
               </div>
               <div class="dashboard-block33-item2">
                 <div class="dashboard-block36 layout space-between">
-                  <!-- <div class="dashboard-text-body3 layout">One Week</div> -->
                   <mat-button-toggle value="7">One Week</mat-button-toggle>
                 </div>
               </div>
               <div class="dashboard-block33-item3">
                 <div class="dashboard-block37 layout space-between">
-                  <!-- <div class="dashboard-text-body3 layout1">Current Month</div> -->
                   <mat-button-toggle value="30">
                     Current Month
                   </mat-button-toggle>
@@ -110,18 +104,19 @@
 
               <div class="dashboard-block33-item4">
                 <div class="dashboard-block38 layout space-between">
-                  <!-- <div class="dashboard-text-body3 layout2">Last 3 Months</div> -->
                   <mat-button-toggle value="90">
                     Last 3 Months
                   </mat-button-toggle>
                 </div>
               </div>
             </mat-button-toggle-group>
-          </div>
+          </div> -->
         </div>
         <div class="dashboard-block42 layout">
           <div class="dashboard-block42-item">
             <app-bar-chart
+              *ngIf="reportSubscribeMonthlyData !== ''"
+              [reportSubscribeMonthlyData]="reportSubscribeMonthlyData"
               [chartType]="'reportSubscribeMonthly'"
               [chartTitle]="'Monthly Subscription'"
               (barDetailPage)="
@@ -132,6 +127,8 @@
           <div class="dashboard-block42-spacer"></div>
           <div class="dashboard-block42-item">
             <app-line-chart
+              *ngIf="reportSubscribeYearlyData !== ''"
+              [reportSubscribeYearlyData]="reportSubscribeYearlyData"
               [chartType]="'reportSubscribeYearly'"
               [chartTitle]="'Yearly Subscription'"
               (lineDetailPage)="
@@ -143,6 +140,8 @@
         <div class="dashboard-block42 layout">
           <div class="dashboard-block42-item">
             <app-bar-chart
+              *ngIf="reportSubscribeTypeData !== ''"
+              [reportSubscribeTypeData]="reportSubscribeTypeData"
               [chartType]="'reportSubscribeType'"
               [chartTitle]="'Type'"
               (barDetailPage)="openDetailPage(1, 'Type', 'REPORTS', 90)"

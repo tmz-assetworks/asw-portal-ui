@@ -174,7 +174,6 @@ export class DashboardComponent implements OnInit {
       });
   */
   }
-
   /**
    * Initializes the map
    */
@@ -192,6 +191,7 @@ export class DashboardComponent implements OnInit {
         zoom: 5,
         center: center,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
+        mapTypeControl: false,
       })
 
       var opt = {
@@ -205,116 +205,61 @@ export class DashboardComponent implements OnInit {
 
         legend: {
           Available: '#18A558',
-          Unavailable: '#FFA12D',
+          Connected: '#FFA12D',
           Offline: '#757575',
-          Busy: '#e97300',
           Occupied: '#000C66',
           Faulted: '#ea002a',
-          'EV Disconnected': '#a7360e',
+          Busy: '#ea0088',
         },
       }
 
       var markers = []
-      for (var i = 0; i < this.mapstatusdata.length; i++) {
-        //var accident_injuries = this.mapstatusdata[i].charger[0]
-        var accident_title = this.mapstatusdata[i].status
-        // var accident_lnglat = this.mapstatusdata[i].coordinates
-        // switch (Number(accident_injuries)) {
-        //   case 1:
-        //     accident_title = 'Available'
-        //     break
-        //   case 3:
-        //     accident_title = 'Unavailable'
-        //     break
-        //   case 2:
-        //     accident_title = 'Offline'
-        //     break
-        //   case 5:
-        //     accident_title = 'Busy'
-        //     break
-        //   case 4:
-        //     accident_title = 'Occupied'
-        //     break
-        //   case 6:
-        //     accident_title = 'Faulted'
-        //     break
-        //   case 7:
-        //     accident_title = 'EV Disconnected'
-        //     break
-        // }
 
-        var accident_LatLng = new google.maps.LatLng(
+      for (var i = 0; i < this.mapstatusdata.length; i++) {
+        const accident_title = this.mapstatusdata[i].status
+        const chargeBoxId = this.mapstatusdata[i].chargeBoxid
+
+        const accident_LatLng = new google.maps.LatLng(
           this.mapstatusdata[i].latitude,
           this.mapstatusdata[i].longitude,
         )
+        let newLat = accident_LatLng.lat() + (Math.random() - 0.5) / 1500 // * (Math.random() * (max - min) + min);
+        let newLng = accident_LatLng.lng() + (Math.random() - 0.5) / 1500 // * (Math.random() * (max - min) + min);
+        let finalLatLng = new google.maps.LatLng(newLat, newLng)
 
-        const info =
-          '<div id="content">' +
-          '<div id="siteNotice">' +
-          '</div>' +
-          '<h1 id="firstHeading" class="firstHeading">Uluru</h1>' +
-          '<div id="bodyContent">' +
-          '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
-          'sandstone rock formation in the southern part of the ' +
-          'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) ' +
-          'south west of the nearest large town, Alice Springs; 450&#160;km ' +
-          '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major ' +
-          'features of the Uluru - Kata Tjuta National Park. Uluru is ' +
-          'sacred to the Pitjantjatjara and Yankunytjatjara, the ' +
-          'Aboriginal people of the area. It has many springs, waterholes, ' +
-          'rock caves and ancient paintings. Uluru is listed as a World ' +
-          'Heritage Site.</p>' +
-          '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">' +
-          'https://en.wikipedia.org/w/index.php?title=Uluru</a> ' +
-          '(last visited June 22, 2009).</p>' +
-          '</div>' +
-          '</div>'
+        let marker = new google.maps.Marker({
+          position: finalLatLng,
+          title: accident_title,
+          map: map,
+        })
+
+        const contentString =
+          '<p><b style="color:blue">' +
+          chargeBoxId +
+          '</b><br/>Status:' +
+          accident_title +
+          ''
 
         var infoWindow = new google.maps.InfoWindow({
-          content:
-            '<p><b style="color:blue">' +
-            accident_LatLng +
-            '</b><br/>Status:' +
-            accident_title +
-            '',
-        })
-        var marker = new google.maps.Marker({
-          position: accident_LatLng,
-          title: accident_title,
-          clickable: true,
+          content: contentString,
         })
 
-        // google.maps.event.addEventListener(marker, 'click', function () {
-        //   console.log('test')
-        // })
+        marker.addListener('click', () => {
+          console.log(accident_title)
 
-        // google.maps.event.addListener(marker, 'click', function () {
-        //   console.log('hello ')
-
-        //   return function () {
-        //     var content = ['jhello']
-        //     infoWindow.setContent(content)
-        //     infoWindow.open(map, marker)
-        //   }
-        infoWindow.open(map, marker)
-        // })
-
-        // google.maps.event.addListener(marker, 'click', function () {
-        //   infoWindow.open({
-        //     map,
-        //     // shouldFocus: false,\
-        //     marker,
-        //   })
-        // })
-
-        // new google.maps.event.addListener(marker, 'click', function () {
-        //   infoWindow.open(map, marker)
-        // })
+          if (accident_title == 'Faulted') {
+            this._storageService.setSessionData('chargerBoxId', chargeBoxId)
+            this._storageService.setSessionData('chargerName', chargeBoxId)
+            this._router.navigate(['operator/charger/chargers-diagnostic'])
+          }
+          infoWindow.setContent(contentString)
+          infoWindow.open(map, marker)
+        })
 
         markers.push(marker)
       }
 
-      var markerCluster = new MarkerClusterer(map, markers, opt)
+      new MarkerClusterer(map, markers, opt)
     }
 
     google.load('visualization', '1', { packages: ['corechart'] })

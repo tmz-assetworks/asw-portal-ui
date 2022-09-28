@@ -4288,7 +4288,7 @@ $color_type_4: rgb(255, 255, 255);
   &block9.layout {
     position: relative;
     height: min-content;
-    margin-left: 30px;
+    // margin-left: 30px;
     width: 125px;
   }
   &hero-title {
@@ -4437,8 +4437,8 @@ $color_type_4: rgb(255, 255, 255);
   &block12.layout {
     position: relative;
     height: min-content;
-    border-right: 1px dotted #70787f73;
-    border-left: 1px dotted #70787f73;
+    // border-right: 1px dotted #70787f73;
+    // border-left: 1px dotted #70787f73;
   }
   &block12-item {
     @include flex-column;
@@ -4455,7 +4455,7 @@ $color_type_4: rgb(255, 255, 255);
     height: min-content;
     width: 77px;
     min-width: 77px;
-    margin: 0 20px 0 30px;
+    // margin: 0 20px 0 30px;
   }
   &block12-spacer {
     flex: 0 1 3px;
@@ -4588,7 +4588,7 @@ $color_type_4: rgb(255, 255, 255);
     height: min-content;
     width: 77px;
     min-width: 77px;
-    margin: auto 20px;
+    // margin: auto 20px;
   }
   &block17-spacer {
     flex: 0 1 3px;
@@ -5088,7 +5088,12 @@ tr.mat-row:last-of-type {
 }
 @media (max-width: 1366px) {
   .mat-data {
-    overflow: auto;
-    width: 80vw;
+    display: block;
+    margin: 20px -15px 0;
   }
+}
+@media (max-width: 1920px) {
+  .cust-list-flex3-spacer{
+    flex: 0 1 1070px;
+}
 }

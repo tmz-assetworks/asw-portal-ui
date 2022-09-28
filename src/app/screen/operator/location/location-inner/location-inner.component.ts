@@ -23,26 +23,34 @@ export class LocationInnerComponent implements OnInit {
   dataSet: any
   chartOption: any
   locationId: any
-  searchParam: string = ''
   isTableHasData = false
-
-  currentPage = 1
-  totalRecords = 30
-  pageSize = 10
-  totalPages = 0
-
+  UserId: string | null
+  statusList: any
+  
+ 
   selectedTime: number = 1
   @ViewChild(MatPaginator) paginator!: MatPaginator
   @ViewChild(MatSort)
-  sort!: MatSort
+  
   locationStatusData: any = ''
   locationPerformingData = ''
 
   dataSource = new MatTableDataSource<any>()
 
-  locationList: any
+  /**
+   * Paginator variable declare
+   *
+   */
 
-  UserId: string | null
+   totalCount: any
+  pageSize: number = 10
+  currentPage: number = 1
+  totalPages: any
+  pageSizeOptions = [10, 20, 100]
+  searchParam = ''
+
+
+  locationList: any
   toggleValue: number = 1
   displayedColumns = [
     'locationName',
@@ -91,7 +99,7 @@ export class LocationInnerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getlocationTableData('', this.currentPage, this.totalRecords)
+    this.getlocationsdispenserdetails()
     this.getSummaryStatus()
     // this.locationStatus()
 
@@ -123,13 +131,13 @@ export class LocationInnerComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value
     this.searchParam = filterValue
-    this.getlocationTableData('', this.currentPage, this.totalRecords)
-    this.dataSource.filter = filterValue.trim().toLowerCase()
-    if (this.dataSource.filteredData.length > 0) {
-      this.isTableHasData = false
-    } else {
-      this.isTableHasData = true
-    }
+    this.getlocationsdispenserdetails()
+    // this.dataSource.filter = filterValue.trim().toLowerCase()
+    // if (this.dataSource.filteredData.length > 0) {
+    //   this.isTableHasData = false
+    // } else {
+    //   this.isTableHasData = true
+    // }
   }
 
   /**
@@ -200,64 +208,57 @@ export class LocationInnerComponent implements OnInit {
       this.locationPerformingData = res.data
     })
   }
-
-  getlocationTableData(event: any, currentPage: number, totalPage: number) {
-    if (this.pageSize !== event.pageSize) {
-      this.currentPage = 1
-    } else {
-      this.currentPage =
-        event !== undefined && event !== ''
-          ? event.previousPageIndex < event.pageIndex
-            ? currentPage + 1
-            : currentPage - 1
-          : 1
-      if (this.currentPage == 0) {
-        this.currentPage = this.currentPage + 1
-      }
-    }
-    this.pageSize = event !== undefined && event !== '' ? event.pageSize : 10
-    const body = {
+  /**********************************************Getlocationsdispenserdetails Function************************************************** */
+   
+  getlocationsdispenserdetails() {
+    const pBody = {
       pageNumber: this.currentPage,
       searchParam: this.searchParam,
       pageSize: this.pageSize,
       orderBy: '',
       locationIds: [],
-      opratorid: this.UserId,
+      operatorid: this.UserId,
     }
-    this._locationService.getLocationTableData(body).subscribe((res: any) => {
+    this._locationService.getlocationsdispenserdetails(pBody).subscribe((res) => {
       if (res.data !== undefined && res.data != null && res.data.length > 0) {
-        this.totalRecords = res.paginationResponse.totalCount
+        this.totalCount = res.paginationResponse.totalCount
         this.totalPages = res.paginationResponse.totalPages
+        this.pageSize = res.paginationResponse.pageSize
+
         this.dataSource.data = res.data
+        this.statusList = res.statusList
         this.isTableHasData = false
       } else {
         this.dataSource.data = []
         this.isTableHasData = true
       }
     })
-  }
-  /**
-   * Emit Toggle event
-   */
-  changeToggleValue(event: any) {
-    this.toggleValue = event
+    }
+    
 
-    this.getLocationPerforming(
-      '',
-      this.selectedTime,
-      this.UserId,
-      this.toggleValue,
-    )
-  }
 
-  /**
-   * Set time to show
-   */
-
-  setTime(event: any) {
-    if (event.value) {
-      this.selectedTime = event.value
-      this.locationStatus('', this.selectedTime, this.UserId)
+    pageChange(event: any) {
+      if (event.pageSize !== this.pageSize) {
+        this.currentPage = 1
+        this.pageSize = event.pageSize
+        this.paginator.pageIndex = 0
+      } else {
+        this.currentPage =
+          event.previousPageIndex < event.pageIndex
+            ? this.currentPage + 1
+            : this.currentPage - 1
+      }
+  
+      this.getlocationsdispenserdetails()
+    }
+  
+  
+    /**
+     * Emit Toggle event
+     */
+    changeToggleValue(event: any) {
+      this.toggleValue = event
+  
       this.getLocationPerforming(
         '',
         this.selectedTime,
@@ -265,5 +266,24 @@ export class LocationInnerComponent implements OnInit {
         this.toggleValue,
       )
     }
+  
+    /**
+     * Set time to show
+     */
+  
+    setTime(event: any) {
+      if (event.value) {
+        this.selectedTime = event.value
+        this.locationStatus('', this.selectedTime, this.UserId)
+        this.getLocationPerforming(
+          '',
+          this.selectedTime,
+          this.UserId,
+          this.toggleValue,
+        )
+      }
+    }
   }
-}
+
+ 
+

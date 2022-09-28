@@ -58,6 +58,7 @@ export class LoginComponent implements OnInit {
     localStorage.removeItem('token_id')
     localStorage.removeItem('token_expires_on')
     localStorage.removeItem('refreshToken_expires_on')
+    localStorage.removeItem('handleErrorCalled')
   }
 
   rememberMe(event: any) {
@@ -106,7 +107,7 @@ export class LoginComponent implements OnInit {
         this.myLoginForm.value.password.trim(),
       )
       this.showLoader = true
-
+      sessionStorage.setItem('enpass', encryptedPassword)
       const pBody = {
         username: this.myLoginForm.value.email.trim(),
         password: encryptedPassword,
@@ -116,12 +117,15 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('userEmail', this.myLoginForm.value.email)
           const d = new Date()
           let time = d.getTime()
-          //  res.data.expires_on = time + 120000; // 2 min
-          //  res.data.not_before = time + 240000 // 4 min
+          //  res.data[0].expires_on = time + 120000; // 2 min
+          //  res.data[0].not_before = time + 240000 // 4 min
+
+          // accesstoken   exp
           localStorage.setItem('token_operator', res.data[0].access_token)
           localStorage.setItem('token_refresh', res.data[0].refresh_token)
           localStorage.setItem('token_id', res.data[0].id_token) // for role
-          localStorage.setItem('token_expires_on', res.data[0].expires_on)
+          //  console.log('idTokenlogin',res.data[0].id_token);
+          // localStorage.setItem('token_expires_on', res.data[0].expires_on)
           localStorage.setItem(
             'refreshToken_expires_on',
             res.data[0].not_before,
@@ -129,7 +133,11 @@ export class LoginComponent implements OnInit {
           const decodeData = this._loginService.getDecodedAccessToken(
             res.data[0].id_token,
           )
+          const decodeDataTime = this._loginService.getDecodedAccessToken(
+            res.data[0].access_token,
+          )
 
+          localStorage.setItem('token_expires_on', decodeDataTime.exp)
           this._storageService.setLocalData('user_id', decodeData.oid)
 
           this.showLoader = false
@@ -139,7 +147,7 @@ export class LoginComponent implements OnInit {
           } else if (decodeData.roles == 'Admin') {
             localStorage.setItem('role', 'Admin')
             // admin/customer
-            this._router.navigate(['/admin/customer'])
+            this._router.navigate(['/admin/profile'])
           } else if (decodeData.roles == 'SuperAdmin') {
             localStorage.setItem('role', 'SuperAdmin')
             this._router.navigate(['/superadmin/customer'])
@@ -147,7 +155,7 @@ export class LoginComponent implements OnInit {
         },
         error: (err) => {
           this.showLoader = false
-          this.toastr.error('Something Went Wrong', 'Please Try Again')
+          this.toastr.error('Please Enter the Correct Username / Password')
         },
       })
     }

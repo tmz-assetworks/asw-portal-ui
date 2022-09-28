@@ -1,8 +1,7 @@
 <div class="header header-block layout">
   <div class="header-block1 layout">
     <div class="header-flex layout">
-      <h3 class="header-subtitle-box layout">{{ chargerName }}</h3>
-
+      <h3 class="header-subtitle-box layout">{{ selectedChargerIds }}</h3>
       <div class="location-block2 layout">
         <div class="location-block2-item">
           <div class="location-block4 layout">
@@ -71,21 +70,10 @@
       </div>
       <div>
         <div class="cust-list-flex1 layout">
-          <!-- <h3 class="cust-list-subtitle layout">Alerts</h3> -->
           <div class="cust-list-flex3 layout">
             <div class="cust-list-flex3-item">
               <div class="cust-list-group layout">
                 <div class="cust-list-block19 layout">
-                  <!-- <div style="text-align: left; margin: 12px 0px 0px 17px;;">{{selecteChargerIds}}</div> -->
-                  <!-- <mat-form-field class="cust-list-block20 layout">
-                  <mat-label>Cars</mat-label>
-                  <select matNativeControl required>
-                    <option value="volvo">Charge Box ID</option>
-                    <option value="saab">Saab</option>
-                    <option value="mercedes">Mercedes</option>
-                    <option value="audi">Audi</option>
-                  </select>
-                </mat-form-field> -->
                   <mat-form-field class="barbar-box6 layout">
                     <select
                       matNativeControl
@@ -141,7 +129,7 @@
             matSort
             class="mat-elevation-z8"
           >
-            <ng-container matColumnDef="Reset">
+            <ng-container matColumnDef="Type">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>
                 TYPE
               </th>
@@ -149,7 +137,7 @@
                 {{ element.requestType }}
               </td>
             </ng-container>
-            <ng-container matColumnDef="Datetime">
+            <ng-container matColumnDef="DateTime">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>
                 Date/ Time
               </th>
@@ -158,7 +146,7 @@
               </td>
             </ng-container>
 
-            <ng-container matColumnDef="action">
+            <ng-container matColumnDef="Action">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>
                 ACTION
               </th>
@@ -222,15 +210,11 @@
           </ng-container>
           <mat-paginator
             #paginator
-            (page)="getChargerEventLogTable($event, currentPage, totalRecords)"
-            [length]="totalRecords"
+            (page)="pageChange($event)"
+            [length]="totalCount"
             [pageSize]="pageSize"
-            [pageSizeOptions]="[10, 20, 100]"
+            [pageSizeOptions]="pageSizeOptions"
           ></mat-paginator>
-          <!-- <mat-paginator
-            [length]="100"
-            [pageSizeOptions]="[10, 20, 100]"
-          ></mat-paginator> -->
         </div>
       </div>
     </div>

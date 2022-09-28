@@ -32,14 +32,18 @@ declare let jsPDF: new () => any
 })
 export class ChargerDiagnosticComponent implements OnInit {
   diagnosticList = []
-
   chargerName: string | null
-  // selecteChargerIds: string | null
   isFireWareItem = false
   isProvisioning = false
   isRemoteControl = false
   isSmartCharging = false
   isAuthorization = false
+  isDiagnosticsItem = false
+  isUnlock = false
+  isCancelReservation = false
+  isReserveNow = false
+  isTriggerMess = false
+  digitValidate = new RegExp('^[0-9]+$');
   chargerId: any = ''
   isTableHasData = false
   chargerType = ''
@@ -50,13 +54,21 @@ export class ChargerDiagnosticComponent implements OnInit {
   inputKeyConfig = ''
   inputValueConfig = ''
   inputDurationValue = 0
-  currentPage = 1
-  totalRecords = 30
-  pageSize = 10
-  totalPages = 0
+  inputReserveTag = ''
+  enterLocationValue = ''
   UserId: any
   selectConnectorIds: any
-
+  totalCount: any
+  pageSize: number = 10
+  currentPage: number = 1
+  totalPages: any
+  pageSizeOptions = [10, 20, 100]
+  reqMessType = ''
+  expiryDate: any;
+  requestMessTypes: any;
+  currentDate: any;
+  randomSixDigit: number = 0;
+  
   constructor(
     public _alertsService: AlertsService,
     private _storageService: StorageService,
@@ -65,23 +77,21 @@ export class ChargerDiagnosticComponent implements OnInit {
     public _chargerService: ChargerService,
     public dialog: MatDialog,
   ) {
+    this.requestMessTypes = ['BootNotification','DiagnosticsStatusNotification','FirmwareStatusNotification','Heartbeat',
+  'MeterValues','StatusNotification'];
+  this.currentDate = this._diagnosticsService.currentDate() + 'T00:00'
     this.UserId = this._storageService.getLocalData('user_id')
     this.chargerId = this._storageService.getSessionData('chargerBoxId')
 
     this.chargerName = this._storageService.getSessionData('chargerName')
-
-    // this.selecteLocationIds = this._storageService.getSessionData('locationId')
-
-    //this.locationName = this._storageService.getSessionData('locationName')
   }
   ngOnInit(): void {
     this.getConnectorIds('')
-    this.GetOcppEventLog('', this.currentPage, this.totalRecords)
+    this.GetOcppEventLog()
     this.filteredStreets = this.control.valueChanges.pipe(
       startWith(''),
       map((value) => (value && value.length >= 0 ? this._filter(value) : [])),
     )
-    this.GetOcppEventLog('', this.currentPage, this.totalRecords)
   }
 
   jsPDF: any
@@ -100,6 +110,9 @@ export class ChargerDiagnosticComponent implements OnInit {
   @ViewChild('inputKey') inputKey: any
   @ViewChild('inputValue') inputValue: any
   @ViewChild('inputDuration') inputDuration: any
+  @ViewChild('inputReserveTag') inputReserveTagValue: any
+  @ViewChild('inputretries') inputretriesValue: any
+  @ViewChild('enterLocation') enterLocation: any
 
   public downloadAsPDF() {
     const doc = new jsPDF()
@@ -119,20 +132,15 @@ export class ChargerDiagnosticComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator
-    if (this.paginator !== undefined && this.paginator._intl !== undefined) {
-      this.paginator._intl.itemsPerPageLabel = 'Rows per page'
-    }
+    this.paginator._intl.itemsPerPageLabel = 'Rows per page'
   }
 
   viewCharger(data: any) {
     this._storageService.setSessionData('chargerBoxId', data.chargerBoxId)
     this._storageService.setSessionData('chargerName', data.chargerName)
-    // this._router.navigate(['operator/charger/chargers-analytics'])
   }
 
   dataSource = new MatTableDataSource<any>(this.diagnosticList)
-  columnsToDisplay = ['OperatorType', 'Datetime', 'action']
 
   displayedColumns = ['OperatorType', 'Datetime', 'action']
   expandedElement!: any | null
@@ -149,36 +157,50 @@ export class ChargerDiagnosticComponent implements OnInit {
       this.isRemoteControl = false
       this.isSmartCharging = false
       this.isAuthorization = false
+      this.isDiagnosticsItem = false
     } else if (tileType == 'provisioning') {
       this.isFireWareItem = false
       this.isProvisioning = true
       this.isRemoteControl = false
       this.isSmartCharging = false
       this.isAuthorization = false
+      this.isDiagnosticsItem = false
     } else if (tileType == 'remoteControl') {
       this.isFireWareItem = false
       this.isProvisioning = false
       this.isSmartCharging = false
       this.isRemoteControl = true
       this.isAuthorization = false
+      this.isDiagnosticsItem = false
     } else if (tileType == 'smartcharging') {
       this.isFireWareItem = false
       this.isProvisioning = false
       this.isRemoteControl = false
       this.isSmartCharging = true
       this.isAuthorization = false
+      this.isDiagnosticsItem = false
     } else if (tileType == 'authorization') {
       this.isFireWareItem = false
       this.isProvisioning = false
       this.isRemoteControl = false
       this.isSmartCharging = false
       this.isAuthorization = true
+      this.isDiagnosticsItem = false
+    }
+    else if (tileType == 'diagnostics') {
+      this.isFireWareItem = false
+      this.isProvisioning = false
+      this.isRemoteControl = false
+      this.isSmartCharging = false
+      this.isAuthorization = false
+      this.isDiagnosticsItem = true
+      this.isTriggerMess = false
     }
   }
   /**
    * Get Configurations
    */
-  getConfiguration(cmdTye: string) {
+   getConfiguration(cmdTye: string) {
     this.count = 1
     if (cmdTye == 'changeconfig') {
       this.changeConfiguration()
@@ -192,6 +214,21 @@ export class ChargerDiagnosticComponent implements OnInit {
     } else if (this.commandType == 'reset') {
       this.reset(this.chargerType)
       return
+    } else if (this.commandType == 'unlock') {
+      this.unlock(this.connectorID)
+      return
+    } else if (this.commandType == 'isCancelReservation') {
+      this.cancelReservation()
+      return
+    } else if (this.commandType == 'isReserveNow') {
+      this.reserveNow(this.connectorID)
+      return // triggerMessage
+    } else if (this.commandType == 'triggerMessage') {
+      this.triggerMessage(this.connectorID)
+      return // triggerMessage
+    } else if (this.commandType == 'updatefirmware') {
+      this.updateFirmware(this.connectorID)
+      return 
     }
     this.inputKeyConfig = ''
     this.inputKeyConfig =
@@ -256,16 +293,6 @@ export class ChargerDiagnosticComponent implements OnInit {
           // alert(JSON.stringify(res))
           this.isProvisioning = false
           this.setCallFunction(res, 'clear')
-          /* this._diagnosticsService
-            .CmsReply(cmsRequestPayload)
-            .subscribe((res) => {
-              this.commandType = ''
-              if (res == 404) {
-                alert('Error Connecting...')
-              } else {
-                this.GetOcppEventLog('',this.currentPage,this.totalRecords)
-              }
-            }) */
         }
       })
   }
@@ -292,18 +319,6 @@ export class ChargerDiagnosticComponent implements OnInit {
         //alert(JSON.stringify(res))
         this.isProvisioning = false
         this.setCallFunction(res, 'reset')
-        // this.commandType = ''
-        /* this._diagnosticsService
-          .CmsReply(cmsRequestPayload)
-          .subscribe((res) => {
-            this.commandType = ''
-            if (res == 404) {
-              alert('Error Connecting...')
-
-            } else {
-              this.GetOcppEventLog('',this.currentPage,this.totalRecords)
-            }
-          }) */
       }
     })
   }
@@ -311,27 +326,14 @@ export class ChargerDiagnosticComponent implements OnInit {
   /**
    * Get Ocpp Event Log List
    */
-  GetOcppEventLog(event: any, currentPage: number, totalPage: number) {
-    this.pageSize = event !== undefined && event !== '' ? event.pageSize : 10
-    this.currentPage =
-      event !== undefined && event !== ''
-        ? event.previousPageIndex < event.pageIndex
-          ? currentPage + 1
-          : currentPage - 1
-        : 1
-    if (this.currentPage == 0) {
-      this.currentPage = this.currentPage + 1
-    }
-
+  GetOcppEventLog() {
     const pBody = {
       pageNumber: this.currentPage,
-      pageSize: this.pageSize,
-      // pageNumber: 1,
       searchParam: '',
-      // pageSize: 10,
+      pageSize: this.pageSize,
       orderBy: '',
       locationIds: [],
-      opratorid: '',
+      opratorid: this.UserId,
       chargerBoxIds: this.chargerId == '' ? [] : [this.chargerId.toString()],
     }
 
@@ -345,9 +347,9 @@ export class ChargerDiagnosticComponent implements OnInit {
         res.data.length > 0
       ) {
         this.isTableHasData = true
-        this.totalRecords = res.paginationResponse.totalCount
+        this.totalCount = res.paginationResponse.totalCount
         this.totalPages = res.paginationResponse.totalPages
-        this.pageSize = res.pageSize
+        this.pageSize = res.paginationResponse.pageSize
         // this.transactionId
         // let a = '[3,\r\n"StartTransaction",\r\n{\n  "idTagInfo": {\n    "status": "Accepted",\r\n\n    "expiryDate": "2024-06-27T12:15:44.557",\r\n\n    "parentIdTag": {\n      "IdToken": "RFID_CB011"\n    }\n  },\r\n\n  "transactionId": 3104\n}]'
         this.diagnosticList = res.data
@@ -406,25 +408,12 @@ export class ChargerDiagnosticComponent implements OnInit {
         if (res) {
           this.isProvisioning = false
           this.setCallFunction(res, 'changeconfig')
-          /* this.commandType = ''
-          let cmsRequestPayload = res
-          alert(JSON.stringify(res))
-          this.isProvisioning = false
-          this._diagnosticsService
-            .CmsReply(cmsRequestPayload)
-            .subscribe((res) => {
-              if (res == 404) {
-                alert('Error Connecting...')
-              } else {
-                this.GetOcppEventLog('',this.currentPage,this.totalRecords)
-              }
-            }) */
         }
       })
   }
 
   /**
-   * changeAvailability
+   * Change Availability
    */
   changeAvailability(chargerType: string, connectorID: any) {
     this.count = 1
@@ -448,20 +437,8 @@ export class ChargerDiagnosticComponent implements OnInit {
       .subscribe((res) => {
         this.commandType = ''
         if (res) {
-          // let cmsRequestPayload = res
-          // alert(JSON.stringify(res))
           this.isProvisioning = false
           this.setCallFunction(res, 'change')
-          /* this.commandType = ''
-          this._diagnosticsService
-            .CmsReply(cmsRequestPayload)
-            .subscribe((res) => {
-              if (res == 404) {
-                alert('Error Connecting...')
-              } else {
-                this.GetOcppEventLog('',this.currentPage,this.totalRecords)
-              }
-            }) */
         }
       })
   }
@@ -480,6 +457,14 @@ export class ChargerDiagnosticComponent implements OnInit {
     this.isReset = false
     this.isChangeConfiguration = false
     this.isChangeAvailability = false
+    this.isFireWareItem = false
+    this.isDiagnosticsItem = false
+    this.isUpdateFirmware = false
+    this.isReserveNow = false
+    this.isUnlock = false
+    this.isCancelReservation = false
+    this.isTriggerMess = false
+    this.isRemoteStartTransaction = false
   }
 
   /**
@@ -571,6 +556,11 @@ export class ChargerDiagnosticComponent implements OnInit {
           } 
           },6000)
         } */
+      }, (error) => {
+        if(error !== undefined && error.url !== null  && error.url.includes('RemoteStartTransaction') && error.error !== undefined) {
+          this.toastr.error(JSON.stringify(error.error.error));
+          
+        }
       })
   }
   /**
@@ -584,10 +574,13 @@ export class ChargerDiagnosticComponent implements OnInit {
       this.toastr.error('Please Enter Charger Id')
       return
     }
-    if (this.inputDuration.nativeElement.value.length == 0 || this.inputDuration.nativeElement.value == 0) {
+    if (
+      this.inputDuration.nativeElement.value.length == 0 ||
+      this.inputDuration.nativeElement.value == 0
+    ) {
       this.toastr.error('Duration Must Be Greater Than 0')
       return
-    } 
+    }
     this.inputDurationValue = this.inputDuration.nativeElement.value
 
     let pBody = this.charingRateUnit
@@ -672,25 +665,11 @@ export class ChargerDiagnosticComponent implements OnInit {
       this.toastr.error('Please Enter Charger Id')
       return
     }
-    /* else if (cmdType == 'change') {
-      this.toastr.success('Please Select Type And Connector Id')
-    }
-    else if (cmdType == 'start') {
-       this.toastr.success('Please Select Connector Id And Enter ID Tag')
-     this.toastr.success('Please Enter RFID Tag')
-    }  else if (cmdType == 'getconfig') {
-      this.toastr.success('Please Enter Key')
-    }    else if (cmdType == 'changeconfig') {
-     this.toastr.success('Please Enter Key And Value')
-    } else if (cmdType == 'getComposite') {
-     this.toastr.success('Please Select Connector Id And Enter Duration')
-    } else if (cmdType == 'reset') {
-     this.toastr.success('Please Select Type')
-    }*/
+   
 
     this.commandType = cmdType
 
-    if (this.commandType == 'start') {
+    if (this.commandType == 'start' || this.commandType == 'unlock' || this.commandType == 'isReserveNow' || this.commandType == 'triggerMessage') {
       this.getConnectorIds('remoteStart')
     } else {
       this.getConnectorIds('')
@@ -723,7 +702,11 @@ export class ChargerDiagnosticComponent implements OnInit {
   selectConnectorID(event: any) {
     this.connectorID = 0
     this.connectorID = event.target.value
-    if (this.connectorID == 0 && this.commandType !== 'change' && this.commandType !== 'getComposite') {
+    if (
+      this.connectorID == 0 &&
+      this.commandType !== 'change' &&
+      this.commandType !== 'getComposite' && this.commandType !== 'isReserveNow'
+    ) {
       this.toastr.error('Please Select Connector ID')
       return
     }
@@ -732,12 +715,25 @@ export class ChargerDiagnosticComponent implements OnInit {
     }  */
   }
 
+  selectRequestMessage(event: any) {
+    //alert(this.commandType);
+    this.reqMessType = event.target.value
+    if (
+      this.reqMessType == ''
+    ) {
+      this.toastr.error('Please Select RequestMessage')
+      return
+    }
+    
+  }
+
   /**
    * Remote Stop Transaction
    */
 
   remoteStopTransaction() {
     this.count = 1
+    this.commandType = ''
     if (this.chargerId == '') {
       this.toastr.error('Please Enter Charger Id')
       return
@@ -757,7 +753,7 @@ export class ChargerDiagnosticComponent implements OnInit {
           // let cmsRequestPayload = res
           // alert(JSON.stringify(res))
           this.isRemoteControl = false
-          this.setCallFunction(res,'stop')
+          this.setCallFunction(res, 'stop')
           /* this._diagnosticsService
             .CmsReply(cmsRequestPayload)
             .subscribe((res) => {
@@ -783,7 +779,7 @@ export class ChargerDiagnosticComponent implements OnInit {
     }
     this._diagnosticsService.getConnectorId(pBody).subscribe({
       next: (res) => {
-        if (type == 'remoteStart' && type !== '') {
+        if ((type == 'remoteStart' || type == 'unlock' || type == 'triggerMessage') && type !== '') {
           if (res.data.connectorIds !== '')
             this.selectConnectorIds = res.data.connectorIds
               .split(',')
@@ -809,7 +805,7 @@ export class ChargerDiagnosticComponent implements OnInit {
         // }
       },
       error: (err) => {
-        alert('No conmector Id Found')
+       // this.toastr.error('No conmector Id Found')
       },
     })
   }
@@ -838,34 +834,35 @@ export class ChargerDiagnosticComponent implements OnInit {
               cmdType == 'reset' ||
               cmdType == 'changeconfig' ||
               cmdType == 'change' ||
-              cmdType == 'composite' || cmdType == 'stop'
+              cmdType == 'composite' ||
+              cmdType == 'stop' || cmdType == 'unlock' || cmdType == 'isReserveNow' || 
+              cmdType == 'triggerMessage' || cmdType == 'cancel'
             ) {
               if (res !== undefined && res.status !== undefined) {
                 this.showLoader = false
                 this.toastr.success(res.status)
                 this.count = 4
-                this.GetOcppEventLog('', this.currentPage, this.totalRecords)
+                this.GetOcppEventLog()
               } else if (res !== undefined && res.meterStart !== undefined) {
                 this.showLoader = false
                 this.toastr.success(JSON.stringify(res))
                 this.count = this.count + 1
-                this.GetOcppEventLog('', this.currentPage, this.totalRecords)
+                this.GetOcppEventLog()
               }
             } else if (cmdType == 'getConfig') {
               // unknownKey
               if (res !== undefined && res.unknownKey !== undefined) {
                 this.count = 4
               }
-              this.GetOcppEventLog('', this.currentPage, this.totalRecords)
+              this.GetOcppEventLog()
             } else if (cmdType == 'localList') {
               // unknownKey
               if (res !== undefined && res.listVersion !== undefined) {
                 this.count = 4
               }
-              this.GetOcppEventLog('', this.currentPage, this.totalRecords)
-            } else if (cmdType == 'reset66') {
-              // unknownKey
-              if (res !== undefined && res.unknownKey !== undefined) {
+              this.GetOcppEventLog()
+            }  else if(cmdType == 'update') {
+              if (res == '{}') {
                 this.count = 4
               }
             }
@@ -889,6 +886,8 @@ export class ChargerDiagnosticComponent implements OnInit {
   isRemoteStartTransaction = false
   isGetCompositeSchedule = false
   isGetLocalListVersion = false
+  isUpdateFirmware = false
+  isPublishFirmware = false
   viewToolTipTtem(type: any) {
     if (this.chargerId == '') {
       return
@@ -903,6 +902,10 @@ export class ChargerDiagnosticComponent implements OnInit {
       this.isRemoteStopTransaction = false
       this.isRemoteStartTransaction = false
       this.isGetCompositeSchedule = false
+      this.isUnlock = false
+      this.isCancelReservation = false
+      this.isReserveNow = false
+      this.isDiagnosticsItem = false
     } else if (type == 'isClearCache') {
       this.isClearCache = true
       this.isGetConfig = false
@@ -912,6 +915,10 @@ export class ChargerDiagnosticComponent implements OnInit {
       this.isRemoteStopTransaction = false
       this.isRemoteStartTransaction = false
       this.isGetCompositeSchedule = false
+      this.isUnlock = false
+      this.isCancelReservation = false
+      this.isReserveNow = false
+      this.isDiagnosticsItem = false
     } else if (type == 'isReset') {
       this.isReset = true
       this.isGetConfig = false
@@ -921,6 +928,10 @@ export class ChargerDiagnosticComponent implements OnInit {
       this.isRemoteStopTransaction = false
       this.isRemoteStartTransaction = false
       this.isGetCompositeSchedule = false
+      this.isUnlock = false
+      this.isCancelReservation = false
+      this.isReserveNow = false
+      this.isDiagnosticsItem = false
     } else if (type == 'isChangeConfiguration') {
       this.isChangeConfiguration = true
       this.isGetConfig = false
@@ -930,6 +941,10 @@ export class ChargerDiagnosticComponent implements OnInit {
       this.isRemoteStopTransaction = false
       this.isRemoteStartTransaction = false
       this.isGetCompositeSchedule = false
+      this.isUnlock = false
+      this.isCancelReservation = false
+      this.isReserveNow = false
+      this.isDiagnosticsItem = false
     } else if (type == 'isChangeAvailability') {
       this.isChangeAvailability = true
       this.isGetConfig = false
@@ -939,6 +954,10 @@ export class ChargerDiagnosticComponent implements OnInit {
       this.isRemoteStopTransaction = false
       this.isRemoteStartTransaction = false
       this.isGetCompositeSchedule = false
+      this.isUnlock = false
+      this.isCancelReservation = false
+      this.isReserveNow = false
+      this.isDiagnosticsItem = false
     } else if (type == 'isRemoteStopTransaction') {
       this.isChangeAvailability = false
       this.isGetConfig = false
@@ -948,6 +967,10 @@ export class ChargerDiagnosticComponent implements OnInit {
       this.isRemoteStartTransaction = false
       this.isRemoteStopTransaction = true
       this.isGetCompositeSchedule = false
+      this.isUnlock = false
+      this.isCancelReservation = false
+      this.isReserveNow = false
+      this.isDiagnosticsItem = false
     } else if (type == 'isRemoteStartTransaction') {
       this.isChangeAvailability = false
       this.isGetConfig = false
@@ -957,6 +980,10 @@ export class ChargerDiagnosticComponent implements OnInit {
       this.isRemoteStopTransaction = false
       this.isRemoteStartTransaction = true
       this.isGetCompositeSchedule = false
+      this.isUnlock = false
+      this.isCancelReservation = false
+      this.isReserveNow = false
+      this.isDiagnosticsItem = false
     } else if (type == 'isGetCompositeSchedule') {
       this.isRemoteStopTransaction = false
       this.isRemoteStartTransaction = false
@@ -966,6 +993,10 @@ export class ChargerDiagnosticComponent implements OnInit {
       this.isClearCache = false
       this.isChangeConfiguration = false
       this.isGetCompositeSchedule = true
+      this.isUnlock = false
+      this.isCancelReservation = false
+      this.isReserveNow = false
+      this.isDiagnosticsItem = false
     } else if (type == 'isGetLocalListVersion') {
       this.isGetLocalListVersion = true
       this.isRemoteStopTransaction = false
@@ -976,7 +1007,88 @@ export class ChargerDiagnosticComponent implements OnInit {
       this.isClearCache = false
       this.isChangeConfiguration = false
       this.isGetCompositeSchedule = false
-    }
+      this.isUnlock = false
+      this.isCancelReservation = false
+      this.isReserveNow = false
+      this.isDiagnosticsItem = false
+    } else if (type == 'updatefirmware') {
+      this.isUpdateFirmware = true
+      this.isPublishFirmware = false
+      this.isGetLocalListVersion = false
+      this.isRemoteStopTransaction = false
+      this.isRemoteStartTransaction = false
+      this.isChangeAvailability = false
+      this.isGetConfig = false
+      this.isReset = false
+      this.isClearCache = false
+      this.isChangeConfiguration = false
+      this.isGetCompositeSchedule = false
+      this.isUnlock = false
+      this.isDiagnosticsItem = false
+      this.isCancelReservation = false
+      this.isReserveNow = false
+    } else if (type == 'isPublishFirmware') {
+      this.isPublishFirmware = true
+      this.isUpdateFirmware = false
+    } else if (type == 'isUnlock') {
+      this.isGetLocalListVersion = false
+      this.isRemoteStopTransaction = false
+      this.isRemoteStartTransaction = false
+      this.isChangeAvailability = false
+      this.isGetConfig = false
+      this.isReset = false
+      this.isClearCache = false
+      this.isChangeConfiguration = false
+      this.isGetCompositeSchedule = false
+      this.isUnlock = true
+      this.isDiagnosticsItem = false
+      this.isCancelReservation = false
+      this.isReserveNow = false
+    } else if (type == 'isCancelReservation') {
+      this.isGetLocalListVersion = false
+      this.isRemoteStopTransaction = false
+      this.isRemoteStartTransaction = false
+      this.isChangeAvailability = false
+      this.isGetConfig = false
+      this.isReset = false
+      this.isClearCache = false
+      this.isChangeConfiguration = false
+      this.isGetCompositeSchedule = false
+      this.isUnlock = false
+      this.isCancelReservation = true
+      this.isDiagnosticsItem = false
+      this.isReserveNow = false
+    } else if (type == 'isReserveNow') {
+      this.randomSixDigit = Math.floor(100000 + Math.random() * 900000);
+      this.isGetLocalListVersion = false
+      this.isRemoteStopTransaction = false
+      this.isRemoteStartTransaction = false
+      this.isChangeAvailability = false
+      this.isGetConfig = false
+      this.isReset = false
+      this.isClearCache = false
+      this.isChangeConfiguration = false
+      this.isGetCompositeSchedule = false
+      this.isUnlock = false
+      this.isCancelReservation = false
+      this.isReserveNow = true
+      this.isDiagnosticsItem = false
+    } else if (type == 'triggerMessage') {
+      this.isGetLocalListVersion = true
+      this.isRemoteStopTransaction = false
+      this.isRemoteStartTransaction = false
+      this.isChangeAvailability = false
+      this.isGetConfig = false
+      this.isReset = false
+      this.isClearCache = false
+      this.isChangeConfiguration = false
+      this.isGetCompositeSchedule = false
+      this.isUnlock = false
+      this.isCancelReservation = false
+      this.isReserveNow = false
+      this.isDiagnosticsItem = true
+      this.isTriggerMess = true
+    } 
   }
 
   control = new FormControl('')
@@ -994,7 +1106,7 @@ export class ChargerDiagnosticComponent implements OnInit {
     if (event.isUserInput) {
       this.chargerId = value
       this.getConnectorIds('')
-      this.GetOcppEventLog('', this.currentPage, this.totalRecords)
+      this.GetOcppEventLog()
     }
   }
 
@@ -1019,13 +1131,13 @@ export class ChargerDiagnosticComponent implements OnInit {
     if (isCharger) {
       this.chargerId = chargerId.value
       this.getConnectorIds('')
-      this.GetOcppEventLog('', this.currentPage, this.totalRecords)
+      this.GetOcppEventLog()
     } else {
       if (chargerId.value == '') {
         this.chargerId = ''
 
         this.selectConnectorIds = [0]
-        this.GetOcppEventLog('', this.currentPage, this.totalRecords)
+        this.GetOcppEventLog()
       } else {
         this.chargerId = chargerId.value
         this.selectConnectorIds = [0]
@@ -1035,5 +1147,280 @@ export class ChargerDiagnosticComponent implements OnInit {
 
       // this.get
     }
+  }
+  /**
+   *
+   * @param event
+   * Page Event
+   */
+
+  pageChange(event: any) {
+    if (event.pageSize !== this.pageSize) {
+      this.currentPage = 1
+      this.pageSize = event.pageSize
+      this.paginator.pageIndex = 0
+    } else {
+      this.currentPage =
+        event.previousPageIndex < event.pageIndex
+          ? this.currentPage + 1
+          : this.currentPage - 1
+    }
+
+    this.GetOcppEventLog()
+  }
+
+   /**
+   * Unlock
+   */
+    unlock(connectorID: number) {
+      if (this.chargerId == '') {
+        this.toastr.error('Please Enter Charger Id')
+        return
+      } else if (connectorID == 0) {
+        this.toastr.error('Please Select Connector ID')
+        return
+      }
+  
+      const pBody = {
+        connectorId: connectorID,
+      }
+  
+      this._diagnosticsService.unlock(this.chargerId, pBody).subscribe((res) => {
+        if (res) {
+          //let cmsRequestPayload = res
+          //alert(JSON.stringify(res))
+          this.isRemoteControl = false
+          this.commandType = ''
+          this.isUnlock = false
+          this.setCallFunction(res, 'unlock');
+        }
+      },(error) => {
+        this.handleError(error)
+      })
+    }
+
+    /**
+   * CancelReservation
+   */
+     cancelReservation() {
+      this.inputReserveTag = this.inputReserveTagValue.nativeElement.value
+      if (this.chargerId == '') {
+        this.toastr.error('Please Enter Charger Id')
+        return
+      } else if (this.inputReserveTag.length == 0) {
+        this.toastr.error('Please Enter ReservationId')
+        return
+      }
+     let digitValidate = this.inputReserveTag.trim();
+    if(!this.digitValidate.test(digitValidate)) {
+      this.toastr.error('Please Enter Numbers Only')
+    } if (parseInt(digitValidate) == 0) {
+      this.toastr.error('Please Enter Number Greater Than 0')
+      return
+    }
+   // return
+      const pBody = {
+        reservationId: parseInt(digitValidate)
+      }
+  
+      this._diagnosticsService.cancelReservation(this.chargerId, pBody).subscribe((res) => {
+        if (res) {
+          //let cmsRequestPayload = res
+          //alert(JSON.stringify(res))
+          this.isRemoteControl = false
+          this.commandType = ''
+          this.isCancelReservation = false
+          this.setCallFunction(res, 'cancel');
+        }
+      },(error) => {
+        this.handleError(error);
+      })
+    }
+
+ /**
+   * reserveNow
+   */
+  reserveNow(connectorID: any) {
+    // SET RANDOM NUMBER FOR RESERVATION ID
+    
+    this.inputReserveTag = this.inputReserveTagValue.nativeElement.value
+    this.idTag = this.inputTag.nativeElement.value
+    this.inputKeyConfig = ''
+    this.inputKeyConfig =
+      this.inputKey.nativeElement.value.length == 0
+        ? ''
+        : this.inputKey.nativeElement.value
+
+   if (this.chargerId == '') {
+        this.toastr.error('Please Enter Charger Id')
+        return
+      } else if(this.expiryDate == '') {
+      this.toastr.error('Please Select Expiry Date')
+    }
+  else if (this.idTag == '') {
+      this.toastr.error('Please Enter RFID')
+      return
+    } else if (this.idTag.length > 20) {
+      this.toastr.error('RFID Must Be Less Than 20 Characters')
+      return
+    } else if (this.inputKeyConfig.length > 20) {
+      this.toastr.error('ParentId Tag Must Be Less Than 20 Characters')
+      return
+    }
+    else if (this.inputReserveTag.length == 0) {
+      this.toastr.error('Please Enter ReservationId')
+      return
+    }
+   let digitValidate = this.inputReserveTag.trim();
+  if(!this.digitValidate.test(digitValidate)) {
+    this.toastr.error('Please Enter Numbers Only')
+  } if (parseInt(digitValidate) == 0) {
+    this.toastr.error('Please Enter Number Greater Than 0')
+    return
+  }
+ // return
+    const pBody = {
+      connectorId: connectorID,
+      reservationId: digitValidate,
+      expiryDate: this.expiryDate,
+      idTag: this.idTag,
+      parentIdTag: this.inputKeyConfig
+
+    }
+
+    this._diagnosticsService.reserveNow(this.chargerId, pBody).subscribe({next: (res) => {
+      if (res) {
+        
+        this.isRemoteControl = false
+        this.commandType = ''
+       // this.isCancelReservation = false
+       this.isReserveNow = false;
+        this.setCallFunction(res, 'isReserveNow');
+      }
+    },error: (error) => {
+      if(error !== undefined && error.error !== undefined) {
+        this.toastr.error(JSON.stringify(error.error.error));
+        
+      }
+    } })
+  } 
+
+  /**
+   * triggerMessage
+   */
+   triggerMessage(connectorID: any) {
+    if (this.chargerId == '') {
+      this.toastr.error('Please Enter Charger Id')
+      return
+    } else if (
+      this.reqMessType == ''
+    ) {
+      this.toastr.error('Please Select RequestMessage')
+      return
+    }
+  // return
+  let pBody: any;
+   pBody = connectorID > 0 ? {
+      connectorId: connectorID,
+      requestedMessage: this.reqMessType
+    } : {
+      requestedMessage: this.reqMessType
+    }
+
+    this._diagnosticsService.triggerMessage(this.chargerId, pBody).subscribe((res) => {
+      if (res) {
+        //let cmsRequestPayload = res
+        //alert(JSON.stringify(res))
+        this.isDiagnosticsItem = false
+        this.commandType = ''
+        this.isTriggerMess = false;
+        
+        this.setCallFunction(res, 'cancel');
+      }
+    }/* ,(error) => {
+      if(error !== undefined && error.error !== undefined) {
+        this.toastr.error(JSON.stringify(error.error.error));
+        
+      }
+    } */)
+  }   
+
+  /**
+   * updateFirmware
+   */
+   updateFirmware(connectorID: any) {
+    var urlPattern = new RegExp('^(https?:\\/\\/)?'+ // validate protocol
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // validate domain name
+    '((\\d{1,3}\\.){3}\\d{1,3}))'+ // validate OR ip (v4) address
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // validate port and path
+    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // validate query string
+    '(\\#[-a-z\\d_]*)?$','i'); // validate fragment locator
+    this.inputReserveTag = this.inputReserveTagValue.nativeElement.value // Retry Interval
+    let retryValue = this.inputretriesValue.nativeElement.value // retries
+    this.enterLocationValue = this.enterLocation.nativeElement.value
+    let digitValidate = this.inputReserveTag.trim();
+   let retryKeyValue = retryValue.trim()
+    if (this.chargerId == '') {
+      this.toastr.error('Please Enter Charger Id')
+      return
+    } else if (this.enterLocationValue.length == 0) {
+      this.toastr.error('Please Enter Location')
+      return
+    } else if (!this.enterLocationValue.match(urlPattern)) {
+      this.toastr.error('Please Enter Valid URL')
+      return
+    }  else if (this.selectedDate == undefined) {
+      this.toastr.error('Please Enter Retrieve Date')
+      return
+    } else if (this.selectedDate !== undefined && this.selectedDate.length == 0) {
+      this.toastr.error('Please Enter Retrieve Date')
+      return
+    } if(this.selectedDate <= this._diagnosticsService.currentDate()) {
+      this.toastr.error('Date Must Not Less Than Current Date')
+      return
+    }
+   
+  else if(this.inputReserveTag.length > 0 && !this.digitValidate.test(digitValidate)) {
+    this.toastr.error('Please Enter Numbers Only For Retry Interval')
+  } if (parseInt(digitValidate) == 0) {
+    this.toastr.error('Please Enter Number Greater Than 0 For RetryInterval')
+    return
+  }
+  if(retryKeyValue.length > 0 && !this.digitValidate.test(retryKeyValue)) {
+    this.toastr.error('Please Enter Numbers Only For Retries ')
+  } if (parseInt(retryKeyValue) == 0) {
+    this.toastr.error('Please Enter Number Greater Than 0 For Retries')
+    return
+  }
+  // return
+  const  pBody = {
+    location: this.enterLocationValue,
+    retries: retryKeyValue.length == 0 ? 0 : parseInt(retryKeyValue),
+    retrieveDate: this.expiryDate,
+    retryInterval: this.inputReserveTag.length == 0 ? 0 : parseInt(this.inputReserveTag)
+  }
+    this._diagnosticsService.updateFirmware(this.chargerId, pBody).subscribe((res) => {
+      if (res) {
+        this.isFireWareItem = false
+        this.commandType = ''
+        this.isUpdateFirmware = false
+        this.setCallFunction(res, 'update');
+      }
+    })
+  } 
+  selectedDate: any
+  
+ selectDate(event: any) {
+  this.selectedDate = event.target.value;
+  var date = new Date(this.selectedDate);
+  this.expiryDate = new Date(date.getTime() - date.getTimezoneOffset() * 60000).toISOString()
+
+  }
+
+  handleError(error: any) {
+     if(error !== undefined && error.error !== undefined && error.error.error !== undefined && error.error.error.length > 0) {
+      this.toastr.error(JSON.stringify(error.error.error));
+      
+    } 
   }
 }

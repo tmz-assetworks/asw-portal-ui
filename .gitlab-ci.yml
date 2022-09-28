@@ -1,0 +1,81 @@
+stages:
+  - Tag_Release
+  - Sonarqube
+  - Angular_Build
+  - Docker_Image_Build
+
+Tag_Release:
+  stage: Tag_Release
+  image: registry.gitlab.com/gitlab-org/release-cli:latest 
+  rules:
+    - if: $CI_COMMIT_BRANCH == "m5_qa_release"
+      when: always    
+  script:
+    - tag_time=`date "+%d-%m-%Y-%H-%M-%S"`
+    - export COMMIT_TAG="m5_qa_release-$tag_time"
+    - release-cli create --name "Release $COMMIT_TAG" --tag-name $COMMIT_TAG
+
+
+sonarqube-check:
+  stage: Sonarqube  
+  image: 
+    name: sonarsource/sonar-scanner-cli:latest
+    entrypoint: [""]
+  variables:
+    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
+    GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .sonar/cache
+  script: 
+    - sonar-scanner
+  allow_failure: true
+  only:
+    - /^(m5_qa_release)+-?.*$/
+  except:
+    - branches
+  tags:
+    - portal-ui    
+
+
+Angular_Build:
+  stage: Angular_Build
+  image: trion/ng-cli
+  script:
+    - npm install -g @angular/cli
+    - npm i
+    - ng build
+  artifacts:
+    paths:
+     - dist/asset-works/
+  tags:
+   - portal-ui
+  only:
+    - /^(m5_qa_release)+-?.*$/
+  except:
+    - branches
+  when: on_success
+  timeout: 15 minute 
+
+
+Docker_Image_Build:
+  image: docker:latest
+  stage: Docker_Image_Build
+  services:
+      - docker:dind
+  dependencies:
+      - Angular_Build    
+  tags: 
+      - portal-ui
+  script:
+      - docker build -t $QA_IMAGE_TAG .
+      - docker login -u $AZ_TOKEN_NAME -p $AZ_LOGIN_TOKEN $AZ_ECR_REPO
+      - docker push $QA_IMAGE_TAG
+  only:
+    - /^(m5_qa_release)+-?.*$/
+  except:
+    - branches
+  when: manual
+  timeout: 5 minute
+

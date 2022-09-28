@@ -17,6 +17,9 @@ export class BarChartComponent implements OnInit {
   orderBy = 0
   chargerData: any
   chartTypeData: any
+  reportSubscribeMonthlyDataSet: any
+  reportSubscribeTypeDataSet: any
+  reportSessionDataSet: any
 
   @Input() set locationStatusData(res: any) {
     if (res !== undefined) {
@@ -50,6 +53,35 @@ export class BarChartComponent implements OnInit {
     }
   }
 
+  @Input() set reportSessionData(res: any) {
+    if (res !== undefined) {
+      this.reportSessionDataSet = res
+      /**
+       * Set Chart type
+       */
+      this.setChartOption(this.chartTypeData)
+    }
+  }
+
+  @Input() set reportSubscribeMonthlyData(res: any) {
+    if (res !== undefined) {
+      this.reportSubscribeMonthlyDataSet = res
+      /**
+       * Set Chart type
+       */
+      this.setChartOption(this.chartTypeData)
+    }
+  }
+
+  @Input() set reportSubscribeTypeData(res: any) {
+    if (res !== undefined) {
+      this.reportSubscribeTypeDataSet = res
+      /**
+       * Set Chart type
+       */
+      this.setChartOption(this.chartTypeData)
+    }
+  }
   color: ThemePalette = 'primary'
   checked = false
   disabled = false
@@ -88,38 +120,39 @@ export class BarChartComponent implements OnInit {
       let seriesData: any[] = []
       let legendColorData: any[] = []
       let legendData: any[] = ['Time']
-      let svalueData: any[] =[];
+      let svalueData: any[] = []
       for (let i = 0; i < arr.length; i++) {
         legendData.push(arr[i].chargeStatus)
       }
       legendData = [...new Set(legendData)]
-    
+
       for (let i = 0; i < arr.length; i++) {
         svalueData.push(arr[i].times)
       }
       svalueData = [...new Set(svalueData)]
-      // FIND COLOR ACC TO LEGEND DATA 
-       for(let i=1;i<legendData.length;i++) {
-          let ind = arr.findIndex((x: any) => x.chargeStatus == legendData[i]);
-         if(ind >= 0) {
-           legendColorData.push((arr[ind].color !== undefined ? arr[ind].color : '#90993F' ));
-         } 
-         
-       }
-      arrObject.push(legendData);
-       for(let i=0;i<svalueData.length;i++) {
-        let xvalueData: any[] =[svalueData[i]];
-       for(let j=1;j<legendData.length;j++) {
-       let ind = arr.findIndex((x: any) => x.chargeStatus == legendData[j] && x.times == svalueData[i]);
-       let arrOb =  ind >= 0 ? arr[ind].counts : 0;
-       xvalueData.push(arrOb);
-         
-       }
-       // console.log(xvalueData);
-        arrObject.push(xvalueData);
-       
+      // FIND COLOR ACC TO LEGEND DATA
+      for (let i = 1; i < legendData.length; i++) {
+        let ind = arr.findIndex((x: any) => x.chargeStatus == legendData[i])
+        if (ind >= 0) {
+          legendColorData.push(
+            arr[ind].color !== undefined ? arr[ind].color : '#90993F',
+          )
         }
-
+      }
+      arrObject.push(legendData)
+      for (let i = 0; i < svalueData.length; i++) {
+        let xvalueData: any[] = [svalueData[i]]
+        for (let j = 1; j < legendData.length; j++) {
+          let ind = arr.findIndex(
+            (x: any) =>
+              x.chargeStatus == legendData[j] && x.times == svalueData[i],
+          )
+          let arrOb = ind >= 0 ? arr[ind].counts : 0
+          xvalueData.push(arrOb)
+        }
+        // console.log(xvalueData);
+        arrObject.push(xvalueData)
+      }
 
       // CREATE OBJECT FOR DIFF ELEMENT
       // console.log(legendData,'legend data');
@@ -164,7 +197,6 @@ export class BarChartComponent implements OnInit {
             axisLabel: {
               rotate: 25,
             },
-           
           },
         ],
         yAxis: [
@@ -487,124 +519,17 @@ export class BarChartComponent implements OnInit {
           this.performingDataSet,
         ) as EChartsOption
       }
-    } else if (chartType == 'reportSubscribeMonthly') {
-      this.option = {
-        legend: {
-          right: '4%',
-          icon: 'square',
-        },
-        grid: {
-          left: '12%',
-        },
-        tooltip: {
-          show: true,
-        },
-        xAxis: {
-          type: 'category',
-          data: [
-            'July 20',
-            'Aug 20',
-            'Sept 20',
-            'Oct 20',
-            'Nov 20',
-            'Dec 20',
-            'Jan 21',
-            'Feb 21',
-            'Mar 21',
-            'Apr 21',
-            'May 21',
-            'Jun 21',
-            'July 21',
-          ],
-          name: 'Month',
-          nameLocation: 'middle',
-          nameGap: 45,
-          //nameGap: 25,
-          axisTick: { show: false },
-
-          // axisLabel: {
-          //   rotate: 30,
-          // },
-        },
-        yAxis: {
-          type: 'value',
-          name: 'Monthly Subscription',
-          nameLocation: 'middle',
-          nameGap: 50,
-          nameTextStyle: {
-            // align: 'right',
-            verticalAlign: 'top',
-            fontSize: 14,
-          },
-          axisLabel: {
-            formatter: '${value}',
-            // align: 'center'
-            // ...
-          },
-        },
-        series: [
-          {
-            name: 'MONTHLY SUBSCRIPTION',
-            data: [120, 200, 150, 80, 70, 110, 130, 80, 70, 110, 130, 110, 130],
-            type: 'bar',
-            // itemStyle:{color:'#FFA12D'}
-          },
-        ],
+    } else if (chartType === 'reportSubscribeMonthly') {
+      if (this.reportSubscribeMonthlyDataSet !== undefined) {
+        this.option = this.reportSubscribeMonthlyChartOptions(
+          this.reportSubscribeMonthlyDataSet,
+        ) as EChartsOption
       }
     } else if (chartType == 'reportSubscribeType') {
-      this.option = {
-        legend: {
-          right: '4%',
-          icon: 'square',
-        },
-        grid: {
-          left: '12%',
-        },
-        tooltip: {
-          show: true,
-        },
-        xAxis: {
-          type: 'category',
-          data: [
-            'Service Plan 1',
-            'Service Plan 2',
-            'Service Plan 3',
-            'Service Plan 4',
-          ],
-          name: 'Month',
-          nameLocation: 'middle',
-          nameGap: 45,
-          //nameGap: 25,
-          axisTick: { show: false },
-
-          // axisLabel: {
-          //   rotate: 30,
-          // },
-        },
-        yAxis: {
-          type: 'value',
-          name: 'Count',
-          nameLocation: 'middle',
-          nameGap: 50,
-          nameTextStyle: {
-            // align: 'right',
-            verticalAlign: 'top',
-            fontSize: 14,
-          },
-          axisLabel: {
-            formatter: '${value}',
-            // align: 'center'
-            // ...
-          },
-        },
-        series: [
-          {
-            name: 'TYPE',
-            data: [120, 200, 150, 80],
-            type: 'bar',
-            itemStyle: { color: '#90993F' },
-          },
-        ],
+      if (this.reportSubscribeTypeDataSet !== undefined) {
+        this.option = this.reportSubscribeTypeChartOptions(
+          this.reportSubscribeTypeDataSet,
+        ) as EChartsOption
       }
     } else if (chartType == 'reportTransaction') {
       this.option = {
@@ -695,99 +620,10 @@ export class BarChartComponent implements OnInit {
         ],
       }
     } else if (chartType == 'reportSession') {
-      this.option = {
-        grid: {
-          left: '8%',
-          right: '6%',
-          bottom: '8%',
-          top: 50,
-          containLabel: true,
-        },
-        legend: {
-          // left: '63%',
-          right: '4%',
-          icon: 'square',
-        },
-        tooltip: {},
-        dataset: {
-          source: [
-            ['Time', 'Available', 'Connected', 'Offline'],
-            ['July 20', 26, 18, 25],
-            ['Aug 20', 47, 173, 55.1],
-            ['Sep 20', 60, 65.2, 82.5],
-            ['Oct 20', 70, 53.9, 39.1],
-            ['Nov 20', 80, 53.9, 39.1],
-            ['Dec 20', 92.4, 53.9, 39.1],
-            ['Jan 21', 72.4, 53.9, 39.1],
-            ['Fab 21', 72.4, 53.9, 39.1],
-            ['Mar 21', 72.4, 53.9, 39.1],
-            ['Apr 21', 72.4, 53.9, 39.1],
-            ['May 21', 72.4, 53.9, 39.1],
-            ['Jun 21', 72.4, 53.9, 39.1],
-          ],
-        },
-        xAxis: [
-          {
-            type: 'category',
-            name: 'Months',
-            nameLocation: 'middle',
-            nameGap: 50,
-            axisTick: { show: false },
-
-            axisLabel: {
-              rotate: 30,
-            },
-          },
-        ],
-        yAxis: [
-          {
-            type: 'value',
-            name: 'Charging Session',
-            nameLocation: 'middle',
-
-            /* fontWeight: 'bolder', */
-            nameGap: 60,
-            min: 0,
-            max: 300,
-            nameTextStyle: {
-              // align: 'right',
-              verticalAlign: 'top',
-              /**
-               * the top padding will shift the name down so that it does not overlap with the axis-labels
-               * t-l-b-r
-               */
-              // padding: [20, 0, 0, 0],
-              fontSize: 14,
-              // fontWeight: 800,
-              // fontStyle: 'italic',
-            },
-          },
-        ],
-        // Declare several bar series, each will be mapped
-        // to a column of dataset.source by default.
-        series: [
-          {
-            type: 'bar',
-            barWidth: '10%',
-            itemStyle: {
-              color: '#90993F',
-            },
-          },
-          {
-            type: 'bar',
-            barWidth: '10%',
-            itemStyle: {
-              color: '#E97300',
-            },
-          },
-          {
-            type: 'bar',
-            barWidth: '10%',
-            itemStyle: {
-              color: '#757575',
-            },
-          },
-        ],
+      if (this.reportSessionDataSet !== undefined) {
+        this.option = this.reportSessionDataChartOptions(
+          this.reportSessionDataSet,
+        ) as EChartsOption
       }
     }
   }
@@ -1009,7 +845,294 @@ export class BarChartComponent implements OnInit {
     }
   }
 
-  /*  Array.prototype.insert = function ( index, item ) {
-    this.splice( index, 0, item );
-}; */
+  reportSubscribeMonthlyChartOptions(dataSet: any) {
+    let xAxisData = dataSet.map((accu: any) => `${accu.monthYear}`)
+    let montlyPriceData = dataSet.map((accu: any) => `${accu.montlyPrice}`)
+
+    return {
+      legend: {
+        right: '4%',
+        icon: 'square',
+      },
+      grid: {
+        left: '12%',
+      },
+      tooltip: {
+        show: true,
+      },
+      xAxis: {
+        type: 'category',
+        data: xAxisData,
+        // data: [
+        //   'July 20',
+        //   'Aug 20',
+        //   'Sept 20',
+        //   'Oct 20',
+        //   'Nov 20',
+        //   'Dec 20',
+        //   'Jan 21',
+        //   'Feb 21',
+        //   'Mar 21',
+        //   'Apr 21',
+        //   'May 21',
+        //   'Jun 21',
+        //   'July 21',
+        // ],
+        name: 'Month',
+        nameLocation: 'middle',
+        nameGap: 45,
+        //nameGap: 25,
+        axisTick: { show: false },
+
+        axisLabel: {
+          rotate: 30,
+        },
+      },
+      yAxis: {
+        type: 'value',
+        name: 'Monthly Subscription',
+        nameLocation: 'middle',
+        nameGap: 50,
+        nameTextStyle: {
+          // align: 'right',
+          verticalAlign: 'top',
+          fontSize: 14,
+        },
+        axisLabel: {
+          formatter: '${value}',
+          // align: 'center'
+          // ...
+        },
+      },
+      series: [
+        {
+          name: 'MONTHLY SUBSCRIPTION',
+          // data: [120, 200, 150, 80, 70, 110, 130, 80, 70, 110, 130, 110, 130],
+          data: montlyPriceData,
+          type: 'bar',
+          // itemStyle:{color:'#FFA12D'}
+        },
+      ],
+    }
+  }
+
+  reportSubscribeTypeChartOptions(dataSet: any) {
+    let xAxisData = dataSet.map((accu: any) => `${accu.subType}`)
+    let subPriceData = dataSet.map((accu: any) => `${accu.subPrice}`)
+
+    return {
+      legend: {
+        right: '4%',
+        icon: 'square',
+      },
+      grid: {
+        left: '12%',
+      },
+      tooltip: {
+        show: true,
+      },
+      xAxis: {
+        type: 'category',
+        // data: [
+        //   'Service Plan 1',
+        //   'Service Plan 2',
+        //   'Service Plan 3',
+        //   'Service Plan 4',
+        // ],
+        data: xAxisData,
+        name: 'Month',
+        nameLocation: 'middle',
+        nameGap: 45,
+        //nameGap: 25,
+        axisTick: { show: false },
+
+        axisLabel: {
+          rotate: 30,
+        },
+      },
+      yAxis: {
+        type: 'value',
+        name: 'Count',
+        nameLocation: 'middle',
+        nameGap: 65,
+        nameTextStyle: {
+          // align: 'right',
+          verticalAlign: 'top',
+          fontSize: 14,
+        },
+        axisLabel: {
+          formatter: '${value}',
+          // align: 'center'
+          // ...
+        },
+      },
+      series: [
+        {
+          name: 'TYPE',
+          // data: [120, 200, 150, 80],
+          data: subPriceData,
+          type: 'bar',
+          itemStyle: { color: '#90993F' },
+        },
+      ],
+    }
+  }
+
+  reportSessionDataChartOptions(dataSet: any) {
+    //console.log(arr);
+    const maxValue = dataSet.map((accu: any) => `${accu.counts}`)
+
+    const maxCountValue = Math.max(...maxValue)
+    let arrObject: any[] = []
+    let seriesData: any[] = []
+    let legendColorData: any[] = []
+    let legendData: any[] = ['Time']
+    let svalueData: any[] = []
+    for (let i = 0; i < dataSet.length; i++) {
+      legendData.push(dataSet[i].chargingStatus)
+    }
+    legendData = [...new Set(legendData)]
+
+    for (let i = 0; i < dataSet.length; i++) {
+      svalueData.push(dataSet[i].times)
+    }
+    svalueData = [...new Set(svalueData)]
+    // FIND COLOR ACC TO LEGEND DATA
+    for (let i = 1; i < legendData.length; i++) {
+      let ind = dataSet.findIndex((x: any) => x.chargingStatus == legendData[i])
+      if (ind >= 0) {
+        legendColorData.push(
+          dataSet[ind].color !== undefined ? dataSet[ind].color : '#90993F',
+        )
+      }
+    }
+    arrObject.push(legendData)
+    for (let i = 0; i < svalueData.length; i++) {
+      let xvalueData: any[] = [svalueData[i]]
+      for (let j = 1; j < legendData.length; j++) {
+        let ind = dataSet.findIndex(
+          (x: any) =>
+            x.chargingStatus == legendData[j] && x.times == svalueData[i],
+        )
+        let arrOb = ind >= 0 ? dataSet[ind].counts : 0
+        xvalueData.push(arrOb)
+      }
+      // console.log(xvalueData);
+      arrObject.push(xvalueData)
+    }
+
+    // CREATE OBJECT FOR DIFF ELEMENT
+    // console.log(legendData,'legend data');
+    let legendDataLenghth = legendData.length - 1
+    for (let j = 0; j < legendDataLenghth; j++) {
+      if (legendColorData[j] !== undefined) {
+        let obj = {
+          type: 'bar',
+          barWidth: '10%',
+          itemStyle: {
+            color: legendColorData[j],
+          },
+        }
+
+        seriesData.push(obj)
+      }
+    }
+
+    return {
+      grid: {
+        left: '8%',
+        right: '6%',
+        bottom: '8%',
+        top: 50,
+        containLabel: true,
+      },
+      legend: {
+        // left: '63%',
+        right: '4%',
+        icon: 'square',
+      },
+      tooltip: {},
+      dataset: {
+        source: arrObject,
+        // [
+        //   ['Time', 'Available', 'Connected', 'Offline'],
+        //   ['July 20', 26, 18, 25],
+        //   ['Aug 20', 47, 173, 55.1],
+        //   ['Sep 20', 60, 65.2, 82.5],
+        //   ['Oct 20', 70, 53.9, 39.1],
+        //   ['Nov 20', 80, 53.9, 39.1],
+        //   ['Dec 20', 92.4, 53.9, 39.1],
+        //   ['Jan 21', 72.4, 53.9, 39.1],
+        //   ['Fab 21', 72.4, 53.9, 39.1],
+        //   ['Mar 21', 72.4, 53.9, 39.1],
+        //   ['Apr 21', 72.4, 53.9, 39.1],
+        //   ['May 21', 72.4, 53.9, 39.1],
+        //   ['Jun 21', 72.4, 53.9, 39.1],
+        // ],
+      },
+      xAxis: [
+        {
+          type: 'category',
+          name: 'Month',
+          nameLocation: 'middle',
+          nameGap: 43,
+          axisTick: { show: false },
+
+          axisLabel: {
+            rotate: 30,
+          },
+        },
+      ],
+      yAxis: [
+        {
+          type: 'value',
+          name: 'Charging Session',
+          nameLocation: 'middle',
+
+          /* fontWeight: 'bolder', */
+          nameGap: 60,
+          min: 0,
+          max: 300,
+          nameTextStyle: {
+            // align: 'right',
+            verticalAlign: 'top',
+            /**
+             * the top padding will shift the name down so that it does not overlap with the axis-labels
+             * t-l-b-r
+             */
+            // padding: [20, 0, 0, 0],
+            fontSize: 14,
+            // fontWeight: 800,
+            // fontStyle: 'italic',
+          },
+        },
+      ],
+      // Declare several bar series, each will be mapped
+      // to a column of dataset.source by default.
+      series: seriesData,
+      // [
+      //   {
+      //     type: 'bar',
+      //     barWidth: '10%',
+      //     itemStyle: {
+      //       color: '#90993F',
+      //     },
+      //   },
+      //   {
+      //     type: 'bar',
+      //     barWidth: '10%',
+      //     itemStyle: {
+      //       color: '#E97300',
+      //     },
+      //   },
+      //   {
+      //     type: 'bar',
+      //     barWidth: '10%',
+      //     itemStyle: {
+      //       color: '#757575',
+      //     },
+      //   },
+      // ],
+    }
+  }
 }

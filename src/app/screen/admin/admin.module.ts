@@ -8,12 +8,12 @@ import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 import { RouterModule, Routes } from '@angular/router'
 import { MasterComponent } from '../master/master.component'
 import { SharedModule } from 'src/app/shared/shared.module'
-import { AuthGuard } from 'src/app/gurads/auth.guard'
+
 import { RoleAuthGuard } from 'src/app/gurads/role.auth.guard'
 import { HelpComponent } from '../operator/help/help.component'
-import { AddLocationComponent } from './manage-locations/add-location/add-location.component'
+
 import { ManageLocationModule } from './manage-locations/manage-locations.module'
-import { ManageVehiclesComponent } from './manage-vehicles/manage-vehicles.component'
+import { ManageAsstesModule } from './manage-assets/manage-assets.module'
 
 const routes: Routes = [
   {
@@ -23,17 +23,17 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'customer',
+        redirectTo: 'profile',
         pathMatch: 'full',
       },
       {
-        path: 'customer',
+        path: 'profile',
         component: CustomersComponent,
         pathMatch: 'full',
       },
 
       {
-        path: 'operator-user',
+        path: 'users',
         loadChildren: () =>
           import(
             '../admin/manage-operator-users/manage-operator-users.module'
@@ -51,27 +51,31 @@ const routes: Routes = [
       {
         path: 'vehicles',
         loadChildren: () =>
-          import(
-            '../admin/manage-vehicles/manage-vehicles.module'
-          ).then((m) => m.ManageVehiclesModule),
+          import('../admin/manage-vehicles/manage-vehicles.module').then(
+            (m) => m.ManageVehiclesModule,
+          ),
       },
-      
+
       {
         path: 'chargers',
         loadChildren: () =>
-          import(
-            '../admin/manage-chargers/manage-charger.module'
-          ).then((m) => m.ManageVehiclesModule),
+          import('../admin/manage-chargers/manage-charger.module').then(
+            (m) => m.ManageVehiclesModule,
+          ),
       },
       {
         path: 'assets',
-        component: ManageAssetsComponent,
-        pathMatch: 'full',
+        loadChildren: () =>
+          import('../admin/manage-assets/manage-assets.module').then(
+            (m) => m.ManageAsstesModule,
+          ),
       },
       {
         path: 'pricing',
-        component: ManagePricingComponent,
-        pathMatch: 'full',
+        loadChildren: () =>
+          import('../admin/manage-pricing/manage-pricing.module').then(
+            (m) => m.ManagePricingModule,
+          ),
       },
       {
         path: 'subscriptions-plans',
@@ -91,16 +95,12 @@ const routes: Routes = [
   imports: [
     ManageLocationModule,
     SharedMaterialModule,
+    ManageAsstesModule,
     RouterModule.forChild(routes),
     SharedModule,
   ],
   exports: [],
-  declarations: [
-    CustomersComponent,
-    ManageAssetsComponent,
-    ManagePricingComponent,
-    ManageSubscriptionsComponent,
-  ],
+  declarations: [CustomersComponent, ManageSubscriptionsComponent],
   providers: [],
 })
 export class AdminModule {}

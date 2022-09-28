@@ -1,0 +1,1656 @@
+<div class="barbar-block10 layout add-assets-main">
+  <div class="barbar-flex layout">
+    <div class="barbar-block11 layout">
+      <h3 class="barbar-subtitle layout">{{ assetTitle }}</h3>
+    </div>
+
+    <form [formGroup]="addAssetsForm">
+      <div class="barbar-block12 layout">
+        <!-- <h4 class="barbar-highlights1 layout">Customer Information</h4> -->
+        <div class="barbar-block13 layout" formGroupName="assetDetails">
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Asset Category
+                <span style="color: 'red';">*</span>
+              </h5>
+
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetDetails.AssetCategory')?.errors &&
+                    submitted == true
+                }"
+              >
+                <!-- <mat-label>Select</mat-label> -->
+                <mat-select
+                  [value]="selectedType"
+                  formControlName="AssetCategory"
+                >
+                  <mat-option
+                    *ngFor="let item of assetType"
+                    [value]="item.name"
+                    (onSelectionChange)="selectType($event, item.id)"
+                  >
+                    {{ item.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <span
+                class="is-error"
+                *ngIf="
+                  addAssetsForm.get('assetDetails.AssetCategory')?.errors &&
+                  addAssetsForm.get('assetDetails.AssetCategory')?.touched &&
+                  addAssetsForm.get('assetDetails.AssetCategory')?.value
+                    .length == 0
+                "
+              >
+                Asset Category is Required
+              </span>
+            </div>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Serial Number
+                <span style="color: 'red';">*</span>
+              </h5>
+              <!-- <div class="barbar-box6 layout"> -->
+              <input
+                formControlName="SerialNumber"
+                type="text"
+                (keypress)="omit_special_char($event)"
+                class="barbar-box6 layout barbar-input-text"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetDetails.SerialNumber')?.errors &&
+                    submitted == true
+                }"
+              />
+              <span
+                class="is-error"
+                *ngIf="
+                  !addAssetsForm.get('assetDetails.SerialNumber')?.valid &&
+                  addAssetsForm.get('assetDetails.SerialNumber')?.touched &&
+                  addAssetsForm.get('assetDetails.SerialNumber')?.value.length >
+                    20
+                "
+              >
+                Serial Number must be between 0 to 20 Alphanumeric
+              </span>
+              <span
+                class="is-error"
+                *ngIf="
+                  !addAssetsForm.get('assetDetails.SerialNumber')?.valid &&
+                  addAssetsForm.get('assetDetails.SerialNumber')?.touched &&
+                  addAssetsForm.get('assetDetails.SerialNumber')?.value
+                    .length == 0
+                "
+              >
+                Serial Number is Required
+              </span>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Asset ID
+                <span style="color: 'red';">*</span>
+              </h5>
+              <!-- <div class="barbar-box6 layout"> -->
+              <input
+                formControlName="AssetID"
+                type="text"
+                maxlength="50"
+                (keypress)="omit_special_char($event)"
+                class="barbar-box6 layout barbar-input-text"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetDetails.AssetID')?.errors &&
+                    submitted == true
+                }"
+              />
+              <span
+                class="is-error"
+                *ngIf="
+                  addAssetsForm.get('assetDetails.AssetID')?.errors &&
+                  addAssetsForm.get('assetDetails.AssetID')?.touched &&
+                  addAssetsForm.get('assetDetails.AssetID')?.value.length > 50
+                "
+              >
+                Asset ID must be between 0 to 50 Alphanumeric
+              </span>
+              <span
+                class="is-error"
+                *ngIf="
+                  addAssetsForm.get('assetDetails.AssetID')?.errors &&
+                  addAssetsForm.get('assetDetails.AssetID')?.touched &&
+                  addAssetsForm.get('assetDetails.AssetID')?.value.length == 0
+                "
+              >
+                Asset ID Field is Required
+              </span>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Location
+                <span style="color: 'red';">*</span>
+              </h5>
+
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetDetails.Location')?.errors &&
+                    submitted == true
+                }"
+              >
+                <!-- <mat-label>Select</mat-label> -->
+                <mat-select
+                  [value]="selectedLocation"
+                  formControlName="Location"
+                >
+                  <mat-option
+                    *ngFor="let item of locationList"
+                    [value]="item.id"
+                    (onSelectionChange)="selectLocation($event, item.id)"
+                  >
+                    {{ item.locationName }}
+                  </mat-option>
+                </mat-select>
+                <!-- <mat-error
+                  *ngIf="addAssetsForm.get('assetDetails.Location')?.invalid"
+                >
+                  Location Name is required
+                </mat-error> -->
+              </mat-form-field>
+              <span
+                class="is-error"
+                *ngIf="
+                  addAssetsForm.get('assetDetails.Location')?.errors &&
+                  addAssetsForm.get('assetDetails.Location')?.touched &&
+                  addAssetsForm.get('assetDetails.Location')?.value.length == 0
+                "
+              >
+                Location Name is Required
+              </span>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Status
+                <span style="color: 'red';">*</span>
+              </h5>
+              <!-- <div class="barbar-box6 layout"> -->
+
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetDetails.Status')?.errors &&
+                    submitted == true
+                }"
+              >
+                <!-- <mat-label>Select</mat-label> -->
+                <mat-select [value]="selectedStatus" formControlName="Status">
+                  <mat-option
+                    *ngFor="let item of statusList"
+                    [value]="item.id"
+                    (onSelectionChange)="selectStatus($event, item.id)"
+                  >
+                    {{ item.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <span
+                class="is-error"
+                *ngIf="
+                  addAssetsForm.get('assetDetails.Status')?.errors &&
+                  addAssetsForm.get('assetDetails.Status')?.touched &&
+                  addAssetsForm.get('assetDetails.Status')?.value.length == 0
+                "
+              >
+                Status is Required
+              </span>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Isactive
+              </h5>
+              <mat-checkbox
+                formControlName="IsActive"
+                class="checkbox-style"
+              ></mat-checkbox>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="barbar-block12 layout"
+        formGroupName="assetCableDetails"
+        *ngIf="showCableForm"
+      >
+        <h4 class="barbar-highlights1 layout">Cable</h4>
+        <div class="barbar-block13 layout">
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Make
+                <span style="color: 'red';">*</span>
+              </h5>
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetCableDetails.Make')?.errors &&
+                    submitted == true
+                }"
+              >
+                <!-- <mat-label>Select</mat-label> -->
+                <mat-select [value]="selectedMakeCable" formControlName="Make">
+                  <mat-option
+                    *ngFor="let item of makeList"
+                    [value]="item.id"
+                    (onSelectionChange)="selectMakeCable($event, item.id)"
+                  >
+                    {{ item.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <span
+              class="is-error"
+              *ngIf="
+                addAssetsForm.get('assetCableDetails.Make')?.errors &&
+                addAssetsForm.get('assetCableDetails.Make')?.touched &&
+                addAssetsForm.get('assetCableDetails.Make')?.value.length == 0
+              "
+            >
+              Make is Required
+            </span>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Model
+                <span style="color: 'red';">*</span>
+              </h5>
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetCableDetails.Model')?.errors &&
+                    submitted == true
+                }"
+              >
+                <!-- <mat-label>Select</mat-label> -->
+                <mat-select
+                  [value]="selectedModelCable"
+                  formControlName="Model"
+                >
+                  <mat-option
+                    *ngFor="let item of modelList"
+                    [value]="item.id"
+                    (onSelectionChange)="selectModelCable($event, item.id)"
+                  >
+                    {{ item.modelName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <span
+              class="is-error"
+              *ngIf="
+                addAssetsForm.get('assetCableDetails.Model')?.errors &&
+                addAssetsForm.get('assetCableDetails.Model')?.touched &&
+                addAssetsForm.get('assetCableDetails.Model')?.value.length == 0
+              "
+            >
+              Model is Required
+            </span>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Warranty Start
+                <span style="color: 'red';">*</span>
+              </h5>
+
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetCableDetails.WarrantyStart')
+                      ?.errors && submitted == true
+                }"
+              >
+                <!-- <mat-label>Choose a date</mat-label> -->
+                <input
+                  matInput
+                  [matDatepicker]="WarrantyStart"
+                  formControlName="WarrantyStart"
+                  readonly
+                  (dateChange)="calDurationStart($event, 'cable')"
+                />
+                <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="WarrantyStart"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #WarrantyStart></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Warranty End
+                <span style="color: 'red';">*</span>
+              </h5>
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetCableDetails.WarrantyEnd')
+                      ?.errors && submitted == true
+                }"
+              >
+                <!-- <mat-label>Choose a date</mat-label> -->
+                <input
+                  matInput
+                  [matDatepicker]="WarrantyEnd"
+                  formControlName="WarrantyEnd"
+                  readonly
+                  (dateChange)="calDuration($event, 'cable')"
+                />
+                <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="WarrantyEnd"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #WarrantyEnd></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Warranty Duration (In Days)
+                <span style="color: 'red';">*</span>
+              </h5>
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetCableDetails.WarrantyDuration')
+                      ?.errors && submitted == true
+                }"
+              >
+                <input
+                  formControlName="WarrantyDuration"
+                  type="text"
+                  class="barbar-input-text"
+                  readonly
+                />
+                <!-- <mat-error>This Field is required</mat-error> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="barbar-block12 layout"
+        formGroupName="assetModemDetails"
+        *ngIf="showModemForm"
+      >
+        <h4 class="barbar-highlights1 layout">Modem</h4>
+        <div class="barbar-block13 layout">
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Carrier
+                <span style="color: 'red';">*</span>
+              </h5>
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetModemDetails.Carrier')?.errors &&
+                    submitted == true
+                }"
+              >
+                <input
+                  type="text"
+                  class="barbar-input-text"
+                  formControlName="Carrier"
+                  (keypress)="omit_special_char($event)"
+                  maxlength="50"
+                />
+                <!-- <mat-error>This Field is required</mat-error> -->
+              </div>
+            </div>
+            <span
+              class="is-error"
+              *ngIf="
+                addAssetsForm.get('assetModemDetails.Carrier')?.errors &&
+                addAssetsForm.get('assetModemDetails.Carrier')?.touched &&
+                addAssetsForm.get('assetModemDetails.Carrier')?.value.length >
+                  50
+              "
+            >
+              Carrier must be between 0 to 50 Alphanumeric
+            </span>
+            <span
+              class="is-error"
+              *ngIf="
+                addAssetsForm.get('assetModemDetails.Carrier')?.errors &&
+                addAssetsForm.get('assetModemDetails.Carrier')?.touched &&
+                addAssetsForm.get('assetModemDetails.Carrier')?.value.length ==
+                  0
+              "
+            >
+              Carrier is Required
+            </span>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Imei Number
+                <span style="color: 'red';">*</span>
+              </h5>
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetModemDetails.ImeiNumber')?.errors &&
+                    submitted == true
+                }"
+              >
+                <input
+                  type="text"
+                  class="barbar-input-text"
+                  formControlName="ImeiNumber"
+                />
+              </div>
+              <span
+                class="is-error"
+                *ngIf="
+                  addAssetsForm.get('assetModemDetails.ImeiNumber')?.invalid &&
+                  addAssetsForm.get('assetModemDetails.ImeiNumber')?.touched &&
+                  addAssetsForm.get('assetModemDetails.ImeiNumber')?.value
+                    .length > 50
+                "
+              >
+                Imei Number must be between 0 to 50 Alphanumeric
+              </span>
+              <span
+                class="is-error"
+                *ngIf="
+                  addAssetsForm.get('assetModemDetails.ImeiNumber')?.invalid &&
+                  addAssetsForm.get('assetModemDetails.ImeiNumber')?.touched &&
+                  addAssetsForm.get('assetModemDetails.ImeiNumber')?.value
+                    .length == 0
+                "
+              >
+                Imei Number is Required
+              </span>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                IP Address
+                <span style="color: 'red';">*</span>
+              </h5>
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetModemDetails.IpAddress')?.errors &&
+                    submitted == true
+                }"
+              >
+                <input
+                  type="text"
+                  class="barbar-input-text"
+                  formControlName="IpAddress"
+                />
+
+                <!-- <mat-error>This Field is required</mat-error> -->
+              </div>
+              <span
+                class="is-error"
+                *ngIf="
+                  addAssetsForm.get('assetModemDetails.IpAddress')?.errors &&
+                  addAssetsForm.get('assetModemDetails.IpAddress')?.touched &&
+                  addAssetsForm.get('assetModemDetails.IpAddress')?.value
+                    .length > 15
+                "
+              >
+                Ip Address must be between 0 to 15 Alphanumeric
+              </span>
+              <span
+                class="is-error"
+                *ngIf="
+                  addAssetsForm.get('assetModemDetails.IpAddress')?.errors &&
+                  addAssetsForm.get('assetModemDetails.IpAddress')?.touched &&
+                  addAssetsForm.get('assetModemDetails.IpAddress')?.value
+                    .length == 0
+                "
+              >
+                Ip Address is Required
+              </span>
+            </div>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Make
+                <span style="color: 'red';">*</span>
+              </h5>
+
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetModemDetails.Make')?.errors &&
+                    submitted == true
+                }"
+              >
+                <!-- <mat-label>Select</mat-label> -->
+                <mat-select [value]="selectedMakeModem" formControlName="Make">
+                  <mat-option
+                    *ngFor="let item of makeList"
+                    [value]="item.id"
+                    (onSelectionChange)="selectMakeModem($event, item.id)"
+                  >
+                    {{ item.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <span
+              class="is-error"
+              *ngIf="
+                addAssetsForm.get('assetModemDetails.Make')?.errors &&
+                addAssetsForm.get('assetModemDetails.Make')?.touched &&
+                addAssetsForm.get('assetModemDetails.Make')?.value.length == 0
+              "
+            >
+              Make is Required
+            </span>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Model
+                <span style="color: 'red';">*</span>
+              </h5>
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetModemDetails.Model')?.errors &&
+                    submitted == true
+                }"
+              >
+                <!-- <mat-label>Select</mat-label> -->
+                <mat-select
+                  [value]="selectedModelModem"
+                  formControlName="Model"
+                >
+                  <mat-option
+                    *ngFor="let item of modelList"
+                    [value]="item.id"
+                    (onSelectionChange)="selectModelModem($event, item.id)"
+                  >
+                    {{ item.modelName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <!-- <mat-error>This Field is required</mat-error> -->
+            </div>
+            <span
+              class="is-error"
+              *ngIf="
+                addAssetsForm.get('assetModemDetails.Model')?.errors &&
+                addAssetsForm.get('assetModemDetails.Model')?.touched &&
+                addAssetsForm.get('assetModemDetails.Model')?.value.length == 0
+              "
+            >
+              Model is Required
+            </span>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Sim Number
+                <span style="color: 'red';">*</span>
+              </h5>
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetModemDetails.SimNumber')?.errors &&
+                    submitted == true
+                }"
+              >
+                <input
+                  type="text"
+                  class="barbar-input-text"
+                  formControlName="SimNumber"
+                  maxlength="20"
+                />
+              </div>
+              <span
+                class="is-error"
+                *ngIf="
+                  addAssetsForm.get('assetModemDetails.SimNumber')?.errors &&
+                  addAssetsForm.get('assetModemDetails.SimNumber')?.touched &&
+                  addAssetsForm.get('assetModemDetails.SimNumber')?.value
+                    .length > 15
+                "
+              >
+                Sim Number must be between 0 to 15 Alphanumeric
+              </span>
+              <span
+                class="is-error"
+                *ngIf="
+                  addAssetsForm.get('assetModemDetails.SimNumber')?.errors &&
+                  addAssetsForm.get('assetModemDetails.SimNumber')?.touched &&
+                  addAssetsForm.get('assetModemDetails.SimNumber')?.value
+                    .length == 0
+                "
+              >
+                Sim Number is Required
+              </span>
+            </div>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Modem Type
+                <span style="color: 'red';">*</span>
+              </h5>
+
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetModemDetails.ModemType')?.errors &&
+                    submitted == true
+                }"
+              >
+                <!-- <mat-label>Select</mat-label> -->
+                <mat-select
+                  [value]="selectedModemType"
+                  formControlName="ModemType"
+                >
+                  <mat-option
+                    *ngFor="let item of modemTypeList"
+                    [value]="item.id"
+                    (onSelectionChange)="selectModemType($event, item.id)"
+                  >
+                    {{ item.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <span
+              class="is-error"
+              *ngIf="
+                addAssetsForm.get('assetModemDetails.ModemType')?.errors &&
+                addAssetsForm.get('assetModemDetails.ModemType')?.touched &&
+                addAssetsForm.get('assetModemDetails.ModemType')?.value
+                  .length == 0
+              "
+            >
+              Modem Type is Required
+            </span>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Warranty Start
+                <span style="color: 'red';">*</span>
+              </h5>
+
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetModemDetails.WarrantyStart')
+                      ?.errors && submitted == true
+                }"
+              >
+                <!-- <mat-label>Choose a date</mat-label> -->
+                <input
+                  matInput
+                  [matDatepicker]="WarrantyStart"
+                  formControlName="WarrantyStart"
+                  readonly
+                  (dateChange)="calDurationStart($event, 'modem')"
+                />
+
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="WarrantyStart"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #WarrantyStart></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Warranty End
+                <span style="color: 'red';">*</span>
+              </h5>
+
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetModemDetails.WarrantyEnd')
+                      ?.errors && submitted == true
+                }"
+              >
+                <!-- <mat-label>Choose a date</mat-label> -->
+                <input
+                  matInput
+                  [matDatepicker]="WarrantyEnd"
+                  formControlName="WarrantyEnd"
+                  readonly
+                  (dateChange)="calDuration($event, 'modem')"
+                />
+                <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="WarrantyEnd"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #WarrantyEnd></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Warranty Duration (In Days)
+                <span style="color: 'red';">*</span>
+              </h5>
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetModemDetails.WarrantyDuration')
+                      ?.errors && submitted == true
+                }"
+              >
+                <input
+                  type="text"
+                  class="barbar-input-text"
+                  formControlName="WarrantyDuration"
+                  readonly
+                />
+                <!-- <mat-error>This Field is required</mat-error> -->
+              </div>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Installation Date
+                <span style="color: 'red';">*</span>
+              </h5>
+
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetModemDetails.InstallationDate')
+                      ?.errors && submitted == true
+                }"
+              >
+                <!-- <mat-label>Choose a date</mat-label> -->
+                <input
+                  matInput
+                  [matDatepicker]="InstallationDate"
+                  formControlName="InstallationDate"
+                  readonly
+                  (dateChange)="checkInstallationDate($event, 'modem')"
+                />
+                <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="InstallationDate"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #InstallationDate></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="barbar-block12 layout"
+        formGroupName="assetPadDetails"
+        *ngIf="showPadsForm"
+      >
+        <h4 class="barbar-highlights1 layout">Pads</h4>
+        <div class="barbar-block13 layout">
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Installation Date
+                <span style="color: 'red';">*</span>
+              </h5>
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetPadDetails.InstallationDate')
+                      ?.errors && submitted == true
+                }"
+              >
+                <!-- <mat-label>Choose a date</mat-label> -->
+                <input
+                  matInput
+                  [matDatepicker]="InstallationDate"
+                  formControlName="InstallationDate"
+                  readonly
+                />
+                <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="InstallationDate"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #InstallationDate></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Pad Name
+                <span style="color: 'red';">*</span>
+              </h5>
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetPadDetails.PadName')?.errors &&
+                    submitted == true
+                }"
+              >
+                <input
+                  formControlName="PadName"
+                  type="text"
+                  class="barbar-input-text"
+                  maxlength="20"
+                />
+              </div>
+              <span
+                class="is-error"
+                *ngIf="
+                  addAssetsForm.get('assetPadDetails.PadName')?.invalid &&
+                  addAssetsForm.get('assetPadDetails.PadName')?.touched &&
+                  addAssetsForm.get('assetPadDetails.PadName')?.value.length ==
+                    0
+                "
+              >
+                Pad Name is Required
+              </span>
+              <span
+                class="is-error"
+                *ngIf="
+                  addAssetsForm.get('assetPadDetails.PadName')?.invalid &&
+                  addAssetsForm.get('assetPadDetails.PadName')?.touched &&
+                  addAssetsForm.get('assetPadDetails.PadName')?.value.length >
+                    20
+                "
+              >
+                Pad Name must be between 0 to 20 Alphanumeric
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="barbar-block12 layout"
+        formGroupName="assetPowerCabinetDetails"
+        *ngIf="showPowerCabinetForm"
+      >
+        <h4 class="barbar-highlights1 layout">Power Cabinet</h4>
+        <div class="barbar-block13 layout">
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Breaker Rating
+                <span style="color: 'red';">*</span>
+              </h5>
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetPowerCabinetDetails.BreakerRating')
+                      ?.errors && submitted == true
+                }"
+              >
+                <input
+                  formControlName="BreakerRating"
+                  type="text"
+                  class="barbar-input-text"
+                  (keypress)="numberOnly($event)"
+                />
+              </div>
+              <span
+                class="is-error"
+                *ngIf="
+                  addAssetsForm.get('assetPowerCabinetDetails.BreakerRating')
+                    ?.errors &&
+                  addAssetsForm.get('assetPowerCabinetDetails.BreakerRating')
+                    ?.touched &&
+                  addAssetsForm.get('assetPowerCabinetDetails.BreakerRating')
+                    ?.value.length == 0
+                "
+              >
+                Breaker Rating is Required
+              </span>
+              <span
+                class="is-error"
+                *ngIf="
+                  addAssetsForm.get('assetPowerCabinetDetails.BreakerRating')
+                    ?.errors &&
+                  addAssetsForm.get('assetPowerCabinetDetails.BreakerRating')
+                    ?.touched &&
+                  addAssetsForm.get('assetPowerCabinetDetails.BreakerRating')
+                    ?.value.length > 5
+                "
+              >
+                Breaker Rating must be between 0 to 5 Numeric
+              </span>
+            </div>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                DC Port Quantity Rating
+                <span style="color: 'red';">*</span>
+              </h5>
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetPowerCabinetDetails.DCPortQuantity')
+                      ?.errors && submitted == true
+                }"
+              >
+                <input
+                  formControlName="DCPortQuantity"
+                  type="text"
+                  class="barbar-input-text"
+                  (keypress)="numberOnly($event)"
+                />
+
+                <!-- <mat-error>This Field is required</mat-error> -->
+              </div>
+              <span
+                class="is-error"
+                *ngIf="
+                  addAssetsForm.get('assetPowerCabinetDetails.DCPortQuantity')
+                    ?.errors &&
+                  addAssetsForm.get('assetPowerCabinetDetails.DCPortQuantity')
+                    ?.touched &&
+                  addAssetsForm.get('assetPowerCabinetDetails.DCPortQuantity')
+                    ?.value.length == 0
+                "
+              >
+                DC Port Quantity Rating is Required
+              </span>
+              <span
+                class="is-error"
+                *ngIf="
+                  addAssetsForm.get('assetPowerCabinetDetails.DCPortQuantity')
+                    ?.errors &&
+                  addAssetsForm.get('assetPowerCabinetDetails.DCPortQuantity')
+                    ?.touched &&
+                  addAssetsForm.get('assetPowerCabinetDetails.DCPortQuantity')
+                    ?.value.length > 5
+                "
+              >
+                DC Port Quantity Rating must be between 0 and 5 Numeric
+              </span>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Make
+                <span style="color: 'red';">*</span>
+              </h5>
+
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetPowerCabinetDetails.Make')
+                      ?.errors && submitted == true
+                }"
+              >
+                <!-- <mat-label>Select</mat-label> -->
+                <mat-select
+                  [value]="selectedMakePowerCabinet"
+                  formControlName="Make"
+                >
+                  <mat-option
+                    *ngFor="let item of makeList"
+                    [value]="item.id"
+                    (onSelectionChange)="
+                      selectMakePowerCabinet($event, item.id)
+                    "
+                  >
+                    {{ item.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <span
+              class="is-error"
+              *ngIf="
+                addAssetsForm.get('assetPowerCabinetDetails.Make')?.errors &&
+                addAssetsForm.get('assetPowerCabinetDetails.Make')?.touched &&
+                addAssetsForm.get('assetPowerCabinetDetails.Make')?.value
+                  .length == 0
+              "
+            >
+              Make is Required
+            </span>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Model
+                <span style="color: 'red';">*</span>
+              </h5>
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetPowerCabinetDetails.Model')
+                      ?.errors && submitted == true
+                }"
+              >
+                <!-- <mat-label>Select</mat-label> -->
+                <mat-select
+                  [value]="selectedModelPowerCabinet"
+                  formControlName="Model"
+                >
+                  <mat-option
+                    *ngFor="let item of modelList"
+                    [value]="item.id"
+                    (onSelectionChange)="
+                      selectModelPowerCabinet($event, item.id)
+                    "
+                  >
+                    {{ item.modelName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <span
+              class="is-error"
+              *ngIf="
+                addAssetsForm.get('assetPowerCabinetDetails.Model')?.errors &&
+                addAssetsForm.get('assetPowerCabinetDetails.Model')?.touched &&
+                addAssetsForm.get('assetPowerCabinetDetails.Model')?.value
+                  .length == 0
+              "
+            >
+              Model is Required
+            </span>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Peak Current
+                <span style="color: 'red';">*</span>
+              </h5>
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetPowerCabinetDetails.PeakCurrent')
+                      ?.errors && submitted == true
+                }"
+              >
+                <input
+                  type="text"
+                  class="barbar-input-text"
+                  formControlName="PeakCurrent"
+                  (keypress)="numberOnly($event)"
+                />
+                <!-- <mat-error>This Field is required</mat-error> -->
+              </div>
+              <span
+                class="is-error"
+                *ngIf="
+                  addAssetsForm.get('assetPowerCabinetDetails.PeakCurrent')
+                    ?.errors &&
+                  addAssetsForm.get('assetPowerCabinetDetails.PeakCurrent')
+                    ?.touched &&
+                  addAssetsForm.get('assetPowerCabinetDetails.PeakCurrent')
+                    ?.value.length == 0
+                "
+              >
+                Peak Current is Required
+              </span>
+              <span
+                class="is-error"
+                *ngIf="
+                  addAssetsForm.get('assetPowerCabinetDetails.PeakCurrent')
+                    ?.errors &&
+                  addAssetsForm.get('assetPowerCabinetDetails.PeakCurrent')
+                    ?.touched &&
+                  addAssetsForm.get('assetPowerCabinetDetails.PeakCurrent')
+                    ?.value.length > 5
+                "
+              >
+                Peak Current must be between 0 and 5 Numeric
+              </span>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Service Volts
+                <span style="color: 'red';">*</span>
+              </h5>
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetPowerCabinetDetails.ServiceVolts')
+                      ?.errors && submitted == true
+                }"
+              >
+                <input
+                  (keypress)="numberOnly($event)"
+                  type="text"
+                  class="barbar-input-text"
+                  formControlName="ServiceVolts"
+                />
+
+                <!-- <mat-error>This Field is required</mat-error> -->
+              </div>
+              <span
+                class="is-error"
+                *ngIf="
+                  addAssetsForm.get('assetPowerCabinetDetails.ServiceVolts')
+                    ?.errors &&
+                  addAssetsForm.get('assetPowerCabinetDetails.ServiceVolts')
+                    ?.touched &&
+                  addAssetsForm.get('assetPowerCabinetDetails.ServiceVolts')
+                    ?.value.length == 0
+                "
+              >
+                Service Volts is Required
+              </span>
+              <span
+                class="is-error"
+                *ngIf="
+                  addAssetsForm.get('assetPowerCabinetDetails.ServiceVolts')
+                    ?.errors &&
+                  addAssetsForm.get('assetPowerCabinetDetails.ServiceVolts')
+                    ?.touched &&
+                  addAssetsForm.get('assetPowerCabinetDetails.ServiceVolts')
+                    ?.value.length > 5
+                "
+              >
+                Service Volts must be between 0 to 5 Numeric
+              </span>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Warranty Start
+                <span style="color: 'red';">*</span>
+              </h5>
+
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetPowerCabinetDetails.WarrantyStart')
+                      ?.errors && submitted == true
+                }"
+              >
+                <!-- <mat-label>Choose a date</mat-label> -->
+                <input
+                  matInput
+                  [matDatepicker]="WarrantyStart"
+                  formControlName="WarrantyStart"
+                  readonly
+                  (dateChange)="calDurationStart($event, 'power-cabinet')"
+                />
+                <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="WarrantyStart"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #WarrantyStart></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Warranty End
+                <span style="color: 'red';">*</span>
+              </h5>
+
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetPowerCabinetDetails.WarrantyEnd')
+                      ?.errors && submitted == true
+                }"
+              >
+                <!-- <mat-label>Choose a date</mat-label> -->
+                <input
+                  matInput
+                  [matDatepicker]="WarrantyEnd"
+                  formControlName="WarrantyEnd"
+                  readonly
+                  (dateChange)="calDuration($event, 'power-cabinet')"
+                />
+                <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="WarrantyEnd"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #WarrantyEnd></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Warranty Duration (In Days)
+                <span style="color: 'red';">*</span>
+              </h5>
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get(
+                      'assetPowerCabinetDetails.WarrantyDuration'
+                    )?.errors && submitted == true
+                }"
+              >
+                <input
+                  type="text"
+                  class="barbar-input-text"
+                  formControlName="WarrantyDuration"
+                  readonly
+                />
+                <!-- <mat-error>This Field is required</mat-error> -->
+              </div>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Installation Date
+                <span style="color: 'red';">*</span>
+              </h5>
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get(
+                      'assetPowerCabinetDetails.InstallationDate'
+                    )?.errors && submitted == true
+                }"
+              >
+                <input
+                  matInput
+                  [matDatepicker]="InstallationDate"
+                  formControlName="InstallationDate"
+                  readonly
+                  (dateChange)="checkInstallationDate($event, 'power-cabinet')"
+                />
+
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="InstallationDate"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #InstallationDate></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="barbar-block12 layout"
+        formGroupName="assetRFIDReaderDetails"
+        *ngIf="showRFIDForm"
+      >
+        <h4 class="barbar-highlights1 layout">RFID Readers</h4>
+        <div class="barbar-block13 layout">
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Card Reader
+                <span style="color: 'red';">*</span>
+              </h5>
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetRFIDReaderDetails.CardReader')
+                      ?.errors && submitted == true
+                }"
+              >
+                <input
+                  type="text"
+                  class="barbar-input-text"
+                  formControlName="CardReader"
+                  maxlength="20"
+                  (keypress)="omit_special_char($event)"
+                />
+              </div>
+              <span
+                class="is-error"
+                *ngIf="
+                  addAssetsForm.get('assetRFIDReaderDetails.CardReader')
+                    ?.errors &&
+                  addAssetsForm.get('assetRFIDReaderDetails.CardReader')
+                    ?.touched &&
+                  addAssetsForm.get('assetRFIDReaderDetails.CardReader')?.value
+                    .length == 0
+                "
+              >
+                Card Reader is Required
+              </span>
+              <span
+                class="is-error"
+                *ngIf="
+                  addAssetsForm.get('assetRFIDReaderDetails.CardReader')
+                    ?.errors &&
+                  addAssetsForm.get('assetRFIDReaderDetails.CardReader')
+                    ?.touched &&
+                  addAssetsForm.get('assetRFIDReaderDetails.CardReader')?.value
+                    .length > 20
+                "
+              >
+                Card Reader must be between 0 to 20 Alphanumeric
+              </span>
+            </div>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Make
+                <span style="color: 'red';">*</span>
+              </h5>
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetRFIDReaderDetails.Make')?.errors &&
+                    submitted == true
+                }"
+              >
+                <!-- <mat-label>Select</mat-label> -->
+                <mat-select [value]="selectedMakeRFID" formControlName="Make">
+                  <mat-option
+                    *ngFor="let item of makeList"
+                    [value]="item.id"
+                    (onSelectionChange)="selectMakeRFID($event, item.id)"
+                  >
+                    {{ item.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <span
+              class="is-error"
+              *ngIf="
+                addAssetsForm.get('assetRFIDReaderDetails.Make')?.errors &&
+                addAssetsForm.get('assetRFIDReaderDetails.Make')?.touched &&
+                addAssetsForm.get('assetRFIDReaderDetails.Make')?.value
+                  .length == 0
+              "
+            >
+              Make is Required
+            </span>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Model
+                <span style="color: 'red';">*</span>
+              </h5>
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetRFIDReaderDetails.Model')?.errors &&
+                    submitted == true
+                }"
+              >
+                <!-- <mat-label>Select</mat-label> -->
+                <mat-select [value]="selectedModelRFID" formControlName="Model">
+                  <mat-option
+                    *ngFor="let item of modelList"
+                    [value]="item.id"
+                    (onSelectionChange)="selectModelRFID($event, item.id)"
+                  >
+                    {{ item.modelName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <span
+              class="is-error"
+              *ngIf="
+                addAssetsForm.get('assetRFIDReaderDetails.Model')?.errors &&
+                addAssetsForm.get('assetRFIDReaderDetails.Model')?.touched &&
+                addAssetsForm.get('assetRFIDReaderDetails.Model')?.value
+                  .length == 0
+              "
+            >
+              Model is Required
+            </span>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Warranty Start
+                <span style="color: 'red';">*</span>
+              </h5>
+
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetRFIDReaderDetails.WarrantyStart')
+                      ?.errors && submitted == true
+                }"
+              >
+                <!-- <mat-label>Choose a date</mat-label> -->
+                <input
+                  matInput
+                  [matDatepicker]="WarrantyStart"
+                  formControlName="WarrantyStart"
+                  readonly
+                  (dateChange)="calDurationStart($event, 'rfid')"
+                />
+                <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="WarrantyStart"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #WarrantyStart></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Warranty End
+                <span style="color: 'red';">*</span>
+              </h5>
+
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetRFIDReaderDetails.WarrantyEnd')
+                      ?.errors && submitted == true
+                }"
+              >
+                <!-- <mat-label>Choose a date</mat-label> -->
+                <input
+                  matInput
+                  [matDatepicker]="WarrantyEnd"
+                  formControlName="WarrantyEnd"
+                  readonly
+                  (dateChange)="calDuration($event, 'rfid')"
+                />
+                <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="WarrantyEnd"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #WarrantyEnd></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Warranty Duration (In Days)
+                <span style="color: 'red';">*</span>
+              </h5>
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetRFIDReaderDetails.WarrantyDuration')
+                      ?.errors && submitted == true
+                }"
+              >
+                <input
+                  type="text"
+                  class="barbar-input-text"
+                  formControlName="WarrantyDuration"
+                  readonly
+                />
+                <!-- <mat-error>This Field is required</mat-error> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="barbar-flex1 layout">
+        <div class="barbar-flex1-item">
+          <div class="barbar-block17 layout">
+            <div
+              class="barbar-text-body2 layout"
+              [routerLink]="['../../assets']"
+            >
+              CANCEL
+            </div>
+          </div>
+        </div>
+        <div class="barbar-flex1-spacer"></div>
+        <div class="barbar-flex1-item">
+          <div class="barbar-block16 layout">
+            <div
+              class="barbar-text-body1 layout"
+              (click)="addAssets()"
+              *ngIf="isSave"
+            >
+              SAVE
+            </div>
+            <div
+              class="barbar-text-body1 layout"
+              (click)="updateAssets()"
+              *ngIf="isUpdate"
+            >
+              UPDATE
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

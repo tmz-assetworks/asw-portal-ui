@@ -6,9 +6,9 @@ import { Observable } from 'rxjs'
   providedIn: 'root',
 })
 export class DiagnosticsService {
-  url: any
+  url: any;
   constructor(private _http: HttpClient) {
-    this.url = environment.originDiagnostic
+    this.url = environment.originDiagnostic;
   }
 
   /**
@@ -21,8 +21,8 @@ export class DiagnosticsService {
   GetConfiguration(params: any, requestbody: any): any {
     return this._http.post<any>(
       `${this.url}GetConfiguration/${params}`,
-      requestbody,
-    )
+      requestbody
+    );
   }
   /**
    * Change Configuration
@@ -34,8 +34,8 @@ export class DiagnosticsService {
   ChangeConfiguration(params: any, requestbody: any) {
     return this._http.post<any>(
       `${this.url}ChangeConfiguration/${params}`,
-      requestbody,
-    )
+      requestbody
+    );
   }
 
   /**
@@ -45,7 +45,7 @@ export class DiagnosticsService {
    */
 
   CmsReply(params: any) {
-    return this._http.post<any>(`${this.url}CmsReply`, params)
+    return this._http.post<any>(`${this.url}CmsReply`, params);
   }
 
   /**
@@ -58,8 +58,8 @@ export class DiagnosticsService {
   GetLocalListVersion(params: any, requestbody: any) {
     return this._http.post<any>(
       `${this.url}GetLocalListVersion/${params}`,
-      requestbody,
-    )
+      requestbody
+    );
   }
 
   /**
@@ -69,7 +69,7 @@ export class DiagnosticsService {
    * @returns
    */
   ClearCache(params: any, requestbody: any) {
-    return this._http.post<any>(`${this.url}ClearCache/${params}`, requestbody)
+    return this._http.post<any>(`${this.url}ClearCache/${params}`, requestbody);
   }
 
   /**
@@ -80,8 +80,8 @@ export class DiagnosticsService {
   RemoteStartTransaction(params: any, requestbody: any) {
     return this._http.post<any>(
       `${this.url}RemoteStartTransaction/${params}`,
-      requestbody,
-    )
+      requestbody
+    );
   }
   /**
    * GetCompositeSchedule
@@ -93,8 +93,8 @@ export class DiagnosticsService {
   GetCompositeSchedule(params: any, requestbody: any) {
     return this._http.post<any>(
       `${this.url}GetCompositeSchedule/${params}`,
-      requestbody,
-    )
+      requestbody
+    );
   }
 
   /**
@@ -106,8 +106,8 @@ export class DiagnosticsService {
   RemoteStopTransaction(params: any, requestbody: any) {
     return this._http.post<any>(
       `${this.url}RemoteStopTransaction/${params}`,
-      requestbody,
-    )
+      requestbody
+    );
   }
   /**
    * Reset
@@ -117,7 +117,7 @@ export class DiagnosticsService {
    */
 
   Reset(params: any, requestbody: any) {
-    return this._http.post<any>(`${this.url}Reset/${params}`, requestbody)
+    return this._http.post<any>(`${this.url}Reset/${params}`, requestbody);
   }
   /**
    * Get EventLogByLocation
@@ -126,8 +126,8 @@ export class DiagnosticsService {
    */
 
   GetEventLogByLocation(params: any) {
-    let url = environment.origin + 'api/v1/OperatorDashboard/'
-    return this._http.post<any>(`${url}GetEventLogByLocation`, params)
+    let url = environment.origin + 'api/v1/OperatorDashboard/';
+    return this._http.post<any>(`${url}GetEventLogByLocation`, params);
   }
 
   /**
@@ -140,8 +140,8 @@ export class DiagnosticsService {
   changeConfiguration(params: any, requestbody: any) {
     return this._http.post<any>(
       `${this.url}ChangeConfiguration/${params}`,
-      requestbody,
-    )
+      requestbody
+    );
   }
 
   /**
@@ -153,8 +153,8 @@ export class DiagnosticsService {
   ChangeAvailability(params: any, requestbody: any) {
     return this._http.post<any>(
       `${this.url}ChangeAvailability/${params}`,
-      requestbody,
-    )
+      requestbody
+    );
   }
 
   /**
@@ -166,8 +166,8 @@ export class DiagnosticsService {
   getLocalListVersion(params: any, requestbody: any) {
     return this._http.post<any>(
       `${this.url}GetLocalListVersion/${params}`,
-      requestbody,
-    )
+      requestbody
+    );
   }
 
   /**
@@ -177,9 +177,88 @@ export class DiagnosticsService {
    * @returns
    */
   getConnectorId(requestbody: any) {
-    const url = environment.origin + 'api/v1/Charger/'
-    return this._http.post<any>(`${url}GetChargerInformation`, requestbody)
+    const url = environment.origin + 'api/v1/Charger/';
+    return this._http.post<any>(`${url}GetChargerInformation`, requestbody);
   }
 
- 
+  /**
+   * Unlock
+   * @param params
+   * @param requestbody
+   * @returns
+   */
+
+  unlock(params: any, requestbody: any) {
+    return this._http.post<any>(
+      `${this.url}UnlockConnector/${params}`,
+      requestbody
+    );
+  }
+
+  /**
+   * cancelReservation
+   * @param params
+   * @param requestbody
+   * @returns
+   */
+
+  cancelReservation(params: any, requestbody: any) {
+    return this._http.post<any>(
+      `${this.url}CancelReservation/${params}`,
+      requestbody
+    );
+  }
+
+  /**
+   * reserveNow
+   * @param params
+   * @param requestbody
+   * @returns
+   */
+
+  reserveNow(params: any, requestbody: any) {
+    return this._http.post<any>(`${this.url}ReserveNow/${params}`, requestbody);
+  }
+
+  /**
+   * triggerMessage
+   * @param params
+   * @param requestbody
+   * @returns
+   */
+
+  triggerMessage(params: any, requestbody: any) {
+    return this._http.post<any>(
+      `${this.url}TriggerMessage/${params}`,
+      requestbody
+    );
+  } 
+
+  /**
+   * updateFirmware
+   * @param params
+   * @param requestbody
+   * @returns
+   */
+
+   updateFirmware(params: any, requestbody: any) {
+    return this._http.post<any>(
+      `${this.url}api/UpdateFirmware/${params}`,
+      requestbody
+    );
+  }
+
+  currentDate() {
+    let date = new Date();
+
+    // Get year, month, and day part from the date
+    let year = date.toLocaleString('default', { year: 'numeric' });
+    let month = date.toLocaleString('default', { month: '2-digit' });
+    let day = date.toLocaleString('default', { day: '2-digit' });
+
+    // Generate yyyy-mm-dd date string
+    var formattedDate = year + '-' + month + '-' + day;
+
+    return formattedDate;
+  }
 }

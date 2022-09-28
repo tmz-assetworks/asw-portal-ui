@@ -3,7 +3,7 @@
   font-family: 'Roboto';
 }
 .bg_img_left {
- // background-image: url(../../../assets//images/vehicle.png);
+  // background-image: url(../../../assets//images/vehicle.png);
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover; /* Resize the background image to cover the entire container */
@@ -22,7 +22,7 @@
   }
 }
 .link_txt {
-  color: #6300c6;
+  color: #0062a6;
   font-size: 20px;
   text-decoration: none;
   font-weight: 300;
@@ -134,7 +134,7 @@
     left: 0px;
     right: 0px;
     padding: 80px;
-  //  background-image: url(../../../assets//images/login_bg.png);
+    //  background-image: url(../../../assets//images/login_bg.png);
     background-repeat: no-repeat;
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
@@ -188,7 +188,7 @@
     max-width: 42.7%;
   }
   &box {
-   /*  background-color: #00000073; */
+    /*  background-color: #00000073; */
     img {
       max-width: 100%;
     }
@@ -215,7 +215,7 @@
     right: 0px;
   }
   &block2-spacer {
-   /*  flex: 1 1 5px; */
+    /*  flex: 1 1 5px; */
   }
   &block2-item {
     @include flex-column;
@@ -835,5 +835,5 @@
 }
 
 .login-customh1 {
-    margin-top: 20%;
+  margin-top: 20%;
 }

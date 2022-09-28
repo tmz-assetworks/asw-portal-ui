@@ -397,8 +397,8 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block9.layout {
     position: relative;
     height: min-content;
-    margin-left: 30px;
-    width: 125px;
+    // margin-left: 30px;
+    width: 64px;
   }
   &hero-title {
     display: flex;
@@ -430,7 +430,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &hero-title.layout {
     position: relative;
     height: min-content;
-    margin: 0 auto;
+  //  margin: 0 auto; 
     &.mt_zero {
       margin: 0;
     }
@@ -551,8 +551,8 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block12.layout {
     position: relative;
     height: min-content;
-    border-right: 1px dotted #70787f73;
-    border-left: 1px dotted #70787f73;
+    // border-right: 1px dotted #70787f73;
+    // border-left: 1px dotted #70787f73;
   }
   &block12-item {
     @include flex-column;
@@ -569,7 +569,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     height: min-content;
     width: 89px;
     min-width: 89px;
-    margin: 0 20px 0 30px;
+    // margin: 0 20px 0 30px;
   }
   &block12-spacer {
     flex: 0 1 3px;
@@ -585,7 +585,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block14.layout {
     position: relative;
     height: min-content;
-    margin: 0 auto;
+  //  margin: 0 auto; 
     @include lg {
       margin: 5px 0px 0px;
     }
@@ -702,7 +702,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     height: min-content;
     width: 89px;
     min-width: 89px;
-    margin: auto 20px;
+    // margin: auto 20px;
   }
   &block17-spacer {
     flex: 0 1 3px;
@@ -715,7 +715,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &text-body2.layout2 {
     position: relative;
     height: min-content;
-    margin: 0 auto;
+    // margin: 0 auto;
     @include lg {
       margin: 0px 27px 0px 35px;
     }
@@ -1233,7 +1233,11 @@ tr.mat-row:last-of-type {
   margin: 0 20px;
 }  
 
- 
+td.mat-cell:last-of-type{
+  min-width: 107px;
+
+}
+th.mat-header-cell{padding: 0 10px;}
 
 
 @media screen and (max-width: 960px) {
@@ -1243,3 +1247,43 @@ tr.mat-row:last-of-type {
   }
 
 }
+td.mat-cell.cdk-cell.cdk-column-RFIDCardAssigned.mat-column-RFIDCardAssigned.ng-star-inserted {
+  word-break: break-word;
+}
+@media screen and (max-width: 1366px){
+  .karkar-block6 .layout.mat-data {
+    width: 77vw !important;
+    min-width: -webkit-fill-available;
+}
+.manage-vehicles .mat-data{
+  display: block;
+  width: 78vw;
+  overflow: auto;
+}
+// table.mat-table.cdk-table.mat-elevation-z8{
+//   min-width: 1200px;
+//   overflow: auto;
+//   display: inline-table;
+// }
+}
+
+.layout.mat-data {
+  min-width: -webkit-fill-available;
+}
+
+.icon-box {
+  margin-right: 30px;
+  margin-left: 30px;
+}
+
+.manage-vehicles .total-count .icon-box{margin-left: 0px;}
+.cust-list-block13.layout {
+  margin-left: 30px;
+}
+
+.manage-vehicles .cust-list-block6{flex-direction: unset;}
+
+
+// table.mat-table.cdk-table.mat-elevation-z8{
+//   display: block !important;
+// }

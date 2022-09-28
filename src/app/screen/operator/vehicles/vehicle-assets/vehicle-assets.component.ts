@@ -15,19 +15,15 @@ export class VehicleAssetsComponent implements OnInit {
 
   vehicleList = []
 
-  searchParam: string = ''
-  //isTableHasData = false
-  expandedElement: any
-  currentPage = 1
-  totalRecords = 30
-  pageSize = 10
-  totalPages = 0
-
+  totalCount: any
+  pageSize: number = 10
+  currentPage: number = 1
+  totalPages: any
+  pageSizeOptions = [10, 20, 100]
+  searchParam = ''
   @ViewChild(MatPaginator) paginator!: MatPaginator
-  dataSource = new MatTableDataSource<Element>(this.vehicleList)
-  UserId: string | null
-  statusList: any
-  isTableHasData = false
+  dataSource = new MatTableDataSource<any>(this.vehicleList)
+
   displayedColumns = [
     'VIN',
     'ModelYear',
@@ -41,6 +37,10 @@ export class VehicleAssetsComponent implements OnInit {
     'Status',
     'Action',
   ]
+  UserId: string | null
+  statusList: any
+  isTableHasData = false
+
   constructor(
     public _vehicleService: VehicleService,
     private _router: Router,
@@ -54,31 +54,12 @@ export class VehicleAssetsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAllVehicle('', this.currentPage, this.totalRecords)
+    this.getAllVehicle()
   }
 
   ngAfterViewInit() {
-    //this.dataSource.paginator = this.paginator
     this.paginator._intl.itemsPerPageLabel = 'Rows per page'
   }
-  // data = [
-  //   {
-  //     Type: 'Vehicles',
-  //     Count: 26,
-  //     StatusData: [
-  //       {
-  //         Key: 'Active',
-  //         value: 10,
-  //         Color: '#90993F',
-  //       },
-  //       {
-  //         Key: 'Inactive',
-  //         value: 15,
-  //         Color: '#775577',
-  //       },
-  //     ],
-  //   },
-  // ]
 
   /**
    * Search Vehicle
@@ -88,14 +69,13 @@ export class VehicleAssetsComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value
     this.searchParam = filterValue
-    this.getAllVehicle('', this.currentPage, this.totalRecords)
+    this.getAllVehicle()
   }
 
   /**
    * View Vehicle Details
    */
   viewVehicleDetails(data: any) {
-    console.log(data)
     this._storageService.setSessionData('vehicleId', data.id)
 
     this._router.navigate(['operator/vehicles/vehicle-details'])
@@ -104,21 +84,7 @@ export class VehicleAssetsComponent implements OnInit {
   /**
    * Get Vehicle List
    */
-  getAllVehicle(event: any, currentPage: number, totalPage: number) {
-    if (this.pageSize !== event.pageSize) {
-      this.currentPage = 1
-    } else {
-      this.currentPage =
-        event !== undefined && event !== ''
-          ? event.previousPageIndex < event.pageIndex
-            ? currentPage + 1
-            : currentPage - 1
-          : 1
-      if (this.currentPage == 0) {
-        this.currentPage = this.currentPage + 1
-      }
-    }
-    this.pageSize = event !== undefined && event !== '' ? event.pageSize : 10
+  getAllVehicle() {
     const pBody = {
       pageNumber: this.currentPage,
       searchParam: this.searchParam,
@@ -129,16 +95,38 @@ export class VehicleAssetsComponent implements OnInit {
     }
     this._vehicleService.getAllVehicle(pBody).subscribe((res) => {
       if (res.data !== undefined && res.data != null && res.data.length > 0) {
-        this.statusList = res.statusList
-        this.totalRecords = res.paginationResponse.totalCount
+        this.totalCount = res.paginationResponse.totalCount
         this.totalPages = res.paginationResponse.totalPages
-        this.vehicleList = res.data
-        this.dataSource.data = this.vehicleList
+        this.pageSize = res.paginationResponse.pageSize
+
+        this.dataSource.data = res.data
+        this.statusList = res.statusList
         this.isTableHasData = false
       } else {
         this.dataSource.data = []
         this.isTableHasData = true
       }
     })
+  }
+
+  /**
+   *
+   * @param event
+   * Page Event
+   */
+
+  pageChange(event: any) {
+    if (event.pageSize !== this.pageSize) {
+      this.currentPage = 1
+      this.pageSize = event.pageSize
+      this.paginator.pageIndex = 0
+    } else {
+      this.currentPage =
+        event.previousPageIndex < event.pageIndex
+          ? this.currentPage + 1
+          : this.currentPage - 1
+    }
+
+    this.getAllVehicle()
   }
 }

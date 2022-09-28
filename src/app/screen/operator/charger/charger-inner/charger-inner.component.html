@@ -118,8 +118,8 @@
                     )
                   "
                   [chargingSessionData]="chargingSessionData"
-                  [chartType]="dashboardChargingSession"
-                  [chartTitle]="dashboardChargingSessionTitle"
+                  [chartType]="'dashboardChargingSession'"
+                  [chartTitle]="'Charging Session'"
                 ></app-area-chart>
               </div>
             </div>
@@ -168,19 +168,19 @@
                         [dataSource]="dataSource"
                         class="mat-elevation-z8"
                       >
-                        <ng-container matColumnDef="chargerName">
+                        <!-- <ng-container matColumnDef="chargerName">
                           <th mat-header-cell *matHeaderCellDef>
                             CHARGER NAME
                           </th>
                           <td mat-cell *matCellDef="let element">
                             {{ element.chargerName }}
                           </td>
-                        </ng-container>
+                        </ng-container> -->
 
                         <!-- Name Column -->
                         <ng-container matColumnDef="chargerBoxId">
                           <th mat-header-cell *matHeaderCellDef>
-                            CHARGER BOX ID
+                            CHARGE BOX ID
                           </th>
                           <td mat-cell *matCellDef="let element">
                             {{ element.chargerBoxId }}
@@ -206,7 +206,7 @@
                         </ng-container>
                         <ng-container matColumnDef="locationcontactname">
                           <th mat-header-cell *matHeaderCellDef>
-                            LOCATIONS CONTACT NAME
+                            LOCATIONS NAME
                           </th>
                           <td mat-cell *matCellDef="let element">
                             {{ element.locationContactName }}
@@ -236,7 +236,7 @@
                         </ng-container>
                         <ng-container matColumnDef="locationcontactnumber">
                           <th mat-header-cell *matHeaderCellDef>
-                            LOCATION CONTACT NUMBER
+                            LOCATION CONTACT NAME
                           </th>
                           <td mat-cell *matCellDef="let element">
                             {{ element.locationContactNumber }}
@@ -269,14 +269,13 @@
                         <p class="text-center">No record found</p>
                       </ng-container>
                     </div>
+
                     <mat-paginator
                       #paginator
-                      (page)="
-                        getDispensersDetail($event, currentPage, totalRecords)
-                      "
-                      [length]="totalRecords"
+                      (page)="pageChange($event)"
+                      [length]="totalCount"
                       [pageSize]="pageSize"
-                      [pageSizeOptions]="[10, 20, 100]"
+                      [pageSizeOptions]="pageSizeOptions"
                     ></mat-paginator>
                   </div>
                 </div>

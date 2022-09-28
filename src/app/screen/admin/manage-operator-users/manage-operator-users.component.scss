@@ -397,7 +397,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block9.layout {
     position: relative;
     height: min-content;
-    margin-left: 30px;
+    // margin-left: 30px;
     width: 125px;
     @include xxs{
       margin-left: 0px;
@@ -433,11 +433,11 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &hero-title.layout {
     position: relative;
     height: min-content;
-    margin: 0 auto;
+    // margin: 0 auto;
     &.mt_zero {
       margin: 0;
       @include xxs{
-        margin: 0 auto;
+        // margin: 0 auto;
       }
     }
   }
@@ -557,8 +557,8 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block12.layout {
     position: relative;
     height: min-content;
-    border-right: 1px dotted #70787f73;
-    border-left: 1px dotted #70787f73;
+    // border-right: 1px dotted #70787f73;
+    // border-left: 1px dotted #70787f73;
   }
   &block12-item {
     @include flex-column;
@@ -575,7 +575,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     height: min-content;
     width: 77px;
     min-width: 77px;
-    margin: 0 20px 0 30px;
+    // margin: 0 20px 0 30px;
     @include xs{
       margin: 0;
     }
@@ -711,7 +711,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     height: min-content;
     width: 77px;
     min-width: 77px;
-    margin: auto 20px;
+    // margin: auto 20px;
     @include xs{
       margin: 0;
     }
@@ -727,7 +727,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &text-body2.layout2 {
     position: relative;
     height: min-content;
-    margin: 0 auto;
+    // margin: 0 auto;
     @include lg {
       margin: 0px 27px 0px 35px;
     }
@@ -1252,4 +1252,55 @@ tr.mat-row:last-of-type {
     vertical-align: middle
   }
 
+}
+@media screen and (max-width: 568px) {
+.layout.mat-data.table-responsive{
+    width: 80vw !important;
+    min-width: -webkit-fill-available;
+}
+}
+@media screen and (max-width: 767px) {
+.layout.mat-data.table-responsive{
+    width: 83vw !important;
+    min-width: -webkit-fill-available;
+}
+}
+@media screen and (max-width: 768px) {
+//   .cust-list-block4.layout {
+//     flex-wrap: wrap;
+// }
+.top-box .cust-list-block15 .cust-list-block17 .cust-list-block17-item{
+  margin-right: 0px;
+}
+.cust-list-block3-item {
+  width: 620px;
+}
+.layout.mat-data.table-responsive{
+    width: 83vw !important;
+    min-width: -webkit-fill-available;
+}
+}
+@media screen and (max-width: 1024px) {
+.layout.mat-data.table-responsive{
+    width: 72vw !important;
+    min-width: -webkit-fill-available;
+}
+}
+@media screen and (max-width: 1200px) {
+.layout.mat-data.table-responsive{
+    width: 77vw !important;
+    min-width: -webkit-fill-available;
+}
+}
+// .cust-list-block12-item1.mg-20{margin-right: 20px;}
+.cust-list-block10.layout {
+  border-right: 1px dotted #70787f73;
+  border-left: 1px dotted #70787f73;
+}
+
+.cust-list-block12-item1.mg-20 {
+  margin-left: 15px;
+}
+table.mat-table.cdk-table.mat-elevation-z8 {
+  min-width: -webkit-fill-available;
 }

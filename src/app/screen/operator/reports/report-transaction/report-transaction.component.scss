@@ -3722,9 +3722,17 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   color: #fff !important;
 }
 
-@media (max-width: 568px){
- .report-main .dashboard-block33-item{
+@media (max-width: 568px) {
+  .report-main .dashboard-block33-item {
     flex: 0 0 0%;
   }
 }
 
+.mat-button-toggle-appearance-standard:hover {
+  border: 1px solid #0062a6;
+  //background-color: #fff;
+}
+.dashboard-block35:hover {
+  border: 1px solid #0062a6;
+  border-left: 1px solid #0062a6;
+}

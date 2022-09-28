@@ -1,8 +1,8 @@
-<div class="cust-list-flex1 layout">
-  <h3 class="cust-list-subtitle layout">Customers</h3>
+<div class="cust-list-flex1 layout manage-customer">
+  <h3 class="cust-list-subtitle layout">Organization</h3>
   <div class="cust-list-flex1-item">
     <div class="cust-list-block3 layout">
-      <div class="cust-list-block3-item">
+      <div class="cust-list-block3-item status-card">
         <div class="cust-list-block4 layout">
           <div class="cust-list-block4-item">
             <div class="cust-list-block5 layout">
@@ -10,7 +10,11 @@
                 <div class="cust-list-block6 layout">
                   <div class="cust-list-block7 layout">
                     <div class="cust-list-block7-item">
-                      <div class="cust-list-block8 layout">
+                      <div class="cust-list-block8 layout"[ngStyle]="{
+                        'background-color':
+                          (statusData[0].color)
+                      }"
+                      >
                         <div class="cust-list-box7 layout">
                           <img
                             src="../../../../assets/superadmin-icons/Group.png"
@@ -23,9 +27,11 @@
                     <div class="cust-list-block7-spacer"></div>
                     <div class="cust-list-block7-item1">
                       <div class="cust-list-block9 layout">
-                        <h1 class="cust-list-hero-title layout mt_zero">100</h1>
+                        <h1 class="cust-list-hero-title layout mt_zero">{{statusData[0].value}}
+                          
+                        </h1>
                         <div class="cust-list-text-body2 layout">
-                          Total Customers
+                          {{statusData[0].key}}
                         </div>
                       </div>
                     </div>
@@ -46,11 +52,14 @@
           <div class="cust-list-block4-spacer"></div>
           <div class="cust-list-block4-item">
             <div class="cust-list-block10 layout">
-              <div class="cust-list-block10-item">
+              <div class="cust-list-block10-item act-status">
                 <div class="cust-list-block11 layout">
                   <div class="cust-list-block12 layout">
                     <div class="cust-list-block12-item">
-                      <div class="cust-list-block13 layout">
+                      <div class="cust-list-block13 layout" [ngStyle]="{
+                        'background-color':
+                          (statusData[1].color)
+                      }">
                         <div class="cust-list-box7 layout">
                           <img
                             src="../../../../assets/superadmin-icons/active-icon.png"
@@ -63,8 +72,8 @@
                     <div class="cust-list-block12-spacer"></div>
                     <div class="cust-list-block12-item1">
                       <div class="cust-list-block14 layout">
-                        <h1 class="cust-list-hero-title layout">40</h1>
-                        <div class="cust-list-text-body2 layout1">Active</div>
+                        <h1 class="cust-list-hero-title layout">{{statusData[1].value}}</h1>
+                        <div class="cust-list-text-body2 layout1">{{statusData[1].key}}</div>
                       </div>
                     </div>
                   </div>
@@ -88,7 +97,10 @@
                 <div class="cust-list-block16 layout">
                   <div class="cust-list-block17 layout">
                     <div class="cust-list-block17-item">
-                      <div class="cust-list-block18 layout">
+                      <div class="cust-list-block18 layout"[ngStyle]="{
+                        'background-color':
+                          (statusData[2].color)
+                      }">
                         <div class="cust-list-box7 layout">
                           <img
                             src="../../../../assets/superadmin-icons/inactive.png"
@@ -98,11 +110,11 @@
                         </div>
                       </div>
                     </div>
-                    <div class="cust-list-block17-spacer"></div>
+                    <div class="cust-list-block17-spacer status-state"></div>
                     <div class="cust-list-block17-item1">
                       <div class="cust-list-block14 layout">
-                        <h1 class="cust-list-hero-title layout">60</h1>
-                        <div class="cust-list-text-body2 layout2">Inactive</div>
+                        <h1 class="cust-list-hero-title layout">{{statusData[2].value}}</h1>
+                        <div class="cust-list-text-body2 layout2">{{statusData[2].key}}</div>
                       </div>
                     </div>
                   </div>
@@ -139,7 +151,7 @@
             <input
               class="cust-list-text-body21 layout"
               (keyup)="applyFilter($event)"
-              placeholder="Search"
+              placeholder="Search by organization name"
               #input
             />
           </div>
@@ -148,7 +160,8 @@
     </div>
     <div class="cust-list-flex3-spacer"></div>
     <div class="cust-list-flex3-item1">
-      <div class="cust-list-block23 layout" [routerLink]="['createcustomer']">
+      <!-- <div class="cust-list-block23 layout" [routerLink]="['createcustomer']">  niharika commented-->
+      <div class="cust-list-block23 layout" [routerLink]="['create-customer']">
         <div class="cust-list-block23-item">
           <div class="cust-list-box10 layout">
             <img
@@ -159,83 +172,98 @@
           </div>
         </div>
         <div class="cust-list-block23-spacer"></div>
-        <div
-          class="cust-list-text-body4 layout"
-          
-      
-        >
-          ADD CUSTOMER
-        </div>
+        <div class="cust-list-text-body4 layout">ADD CUSTOMER</div>
       </div>
     </div>
   </div>
   <div class="layout mat-data">
-    <table mat-table [dataSource]="dataSource"  class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       <ng-container matColumnDef="OrganisationName">
         <th mat-header-cell *matHeaderCellDef>ORGANIZATION NAME</th>
         <td mat-cell *matCellDef="let element">
-          {{ element.OrganisationName }}
+          {{ element.userName }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="OrganisationId">
         <th mat-header-cell *matHeaderCellDef>ORGANIZATION ID</th>
-        <td mat-cell *matCellDef="let element">{{ element.OrganisationId }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.id }}</td>
       </ng-container>
 
       <ng-container matColumnDef="PointOfContact">
         <th mat-header-cell *matHeaderCellDef>POINT OF CONTACT</th>
-        <td mat-cell *matCellDef="let element">{{ element.PointOfContact }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.pointofcontact }}</td>
       </ng-container>
 
       <ng-container matColumnDef="CustomerEmail">
         <th mat-header-cell *matHeaderCellDef>CUSTOMER EMAIL</th>
-        <td mat-cell *matCellDef="let element">{{ element.CustomerEmail }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.email }}</td>
       </ng-container>
       <ng-container matColumnDef="PhoneNumber">
         <th mat-header-cell *matHeaderCellDef>PHONE NUMBER</th>
-        <td mat-cell *matCellDef="let element">{{ element.PhoneNumber }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.phoneNumber }}</td>
       </ng-container>
 
       <ng-container matColumnDef="Status">
         <th mat-header-cell *matHeaderCellDef>STATUS</th>
-        <td mat-cell *matCellDef="let element">{{ element.Status }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.isActive?'Active':'Inactive' }}</td>
       </ng-container>
 
       <ng-container matColumnDef="NumberOfEvChargers">
         <th mat-header-cell *matHeaderCellDef>NUMBER OF EV CHARGERS</th>
         <td mat-cell *matCellDef="let element">
-          {{ element.NumberOfEvChargers }}
+          {{ element.noofevcharger }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="Assets">
         <th mat-header-cell *matHeaderCellDef>ASSETS</th>
-        <td mat-cell *matCellDef="let element">{{ element.Assets }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.assets }}</td>
       </ng-container>
 
       <ng-container matColumnDef="User">
         <th mat-header-cell *matHeaderCellDef>USERS</th>
-        <td mat-cell *matCellDef="let element">{{ element.User }}</td>
+        <td mat-cell *matCellDef="let element">{{ element.users }}</td>
       </ng-container>
 
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef>ACTION</th>
         <td mat-cell *matCellDef="let element">
           {{ element.action }}
-          <span style="margin: 7px;">
-            <img src="../../../../assets/superadmin-icons/Active.png" alt="" />
-          </span>
-          <span style="margin: 7px;">
-            <img src="../../../../assets/superadmin-icons/Edit.png" alt="" />
-          </span>
-          <span style="margin: 7px;">
-            <img src="../../../../assets/superadmin-icons/View.png" alt="" />
-          </span>
-          <span style="margin: 7px;">
+          <span style="margin: 7px">
             <img
-              src="../../../../assets/superadmin-icons/Add-Admin.png"
+              src="../../../../assets/superadmin-icons/Active.png"
+              class="cursorPointer"
               alt=""
+            />
+          </span>
+          <span style="margin: 7px">
+            <img
+              src="../../../../assets/superadmin-icons/Edit.png"
+              alt=""
+              title="Edit"
+              class="cursorPointer"
+              (click)="editCusotmer(element.id)"
+              style="cursor: pointer"
+            />
+          </span>
+          <span style="margin: 7px">
+            <img
+              src="../../../../assets/superadmin-icons/View.png"
+              alt=""
+              title="View"
+              class="cursorPointer"
+              (click)="viewCustomer(element.id)"
+            />
+          </span>
+          <span style="margin: 7px">
+            <img
+              class="cursorPointer"
+              src="../../../../assets/superadmin-icons/Add-Admin.png"
+              title="Add"
+              alt=""
+              (click)="AddCustomer()"
+              [routerLink]="['../../createcustomer']"
             />
           </span>
         </td>
@@ -243,17 +271,12 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
-
-    <!-- <mat-paginator
-      [pageSizeOptions]="[5, 10, 20]"
-      showFirstLastButtons
-      aria-label="Select page of periodic elements"
-    ></mat-paginator> -->
-
-    
   </div>
   <mat-paginator
-      [length]="100"
-      [pageSizeOptions]="[10, 20, 100]"
-    ></mat-paginator>
+    #paginator
+    (page)="pageChange($event)"
+    [length]="totalCount"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+  ></mat-paginator>
 </div>

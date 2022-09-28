@@ -1,0 +1,1304 @@
+@import '../../../../styles.scss';
+
+$color_type_0: rgb(0, 98, 166);
+$color_type_1: rgb(112, 120, 127);
+$color_type_2: rgb(117, 117, 117);
+$color_type_3: rgb(144, 153, 63);
+$color_type_4: rgb(19, 27, 33);
+$color_type_5: rgb(217, 217, 217);
+$color_type_6: rgb(233, 115, 0);
+$color_type_7: rgb(245, 245, 245);
+$color_type_8: rgb(255, 255, 255);
+
+$font_type_0: 700 50px/1.2 'Roboto', Helvetica, Arial, serif;
+$font_type_1: 700 20px/1.2 'Roboto', Helvetica, Arial, serif;
+$font_type_2: 600 13px/1.2 'Roboto', Helvetica, Arial, serif;
+$font_type_3: 13px/1.2 'Roboto', Helvetica, Arial, serif;
+$font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
+.mt_zero {
+  margin: 0;
+}
+.cust-list- {
+  &group {
+    @include flex-column;
+  }
+  &group.layout1 {
+    position: relative;
+    height: min-content;
+  }
+  &box5 {
+    background-color: $color_type_7;
+  }
+  &box5.layout {
+    position: absolute;
+    top: 61px;
+    height: 1059px;
+    width: 1642px;
+    right: 0px;
+  }
+  &flex1 {
+    @include flex-column;
+  }
+  &flex1.layout {
+    position: relative;
+    height: min-content;
+  }
+  &group1 {
+    @include flex-column;
+    background-color: $color_type_8;
+    box-shadow: 0px 4px 10px 0px rgba(200, 200, 200, 0.24705882352941178);
+  }
+  &group1.layout {
+    position: relative;
+    height: min-content;
+  }
+  &flex2 {
+    display: flex;
+    @include xxs {
+      flex-wrap: wrap;
+      row-gap: 16px;
+    }
+  }
+  &flex2.layout {
+    position: relative;
+    height: min-content;
+    margin: 11px 20px;
+    @include lg {
+      margin: 10px 18px;
+    }
+    @include md {
+      margin: 8px 15px;
+    }
+    @include sm {
+      margin: 7px 13px;
+    }
+    @include xs {
+      margin: 6px 11px;
+    }
+    @include xxs {
+      margin: 6px 10px;
+    }
+    @include tn {
+      margin: 5px 10px;
+    }
+  }
+  &flex2-item {
+    @include flex-column;
+    position: relative;
+    flex: 1 1 24px;
+    @include xxs {
+      flex: 0 0 100%;
+    }
+  }
+  &box12 {
+    background-color: $color_type_5;
+  }
+  &box12.layout {
+    position: relative;
+    height: 16px;
+    margin: 11px 0px;
+    @include lg {
+      margin: 10px 0px;
+    }
+    @include md {
+      margin: 8px 0px;
+    }
+    @include sm {
+      margin: 7px 0px;
+    }
+    @include xs {
+      margin: 6px 0px;
+    }
+    @include tn {
+      margin: 5px 0px;
+    }
+  }
+  &flex2-spacer {
+    flex: 0 1 1419px;
+    @include xxs {
+      display: none;
+    }
+  }
+  &flex2-item1 {
+    @include flex-column;
+    position: relative;
+    flex: 1 0 auto;
+    min-width: 1px;
+    @include xxs {
+      flex: 0 0 100%;
+      min-width: unset;
+    }
+  }
+  &image4 {
+    background: var(--src) center center / contain no-repeat;
+  }
+  &image4.layout {
+    position: relative;
+    height: 22px;
+    width: 1px;
+    min-width: 1px;
+    margin: 8px 0px;
+    @include lg {
+      margin: 7px 0px;
+    }
+    @include md {
+      margin: 6px 0px;
+    }
+    @include sm {
+      margin: 5px 0px;
+    }
+  }
+  &flex2-spacer1 {
+    flex: 0 1 17px;
+    @include xxs {
+      display: none;
+    }
+  }
+  &flex2-item2 {
+    @include flex-column;
+    position: relative;
+    flex: 1 0 auto;
+    @include xxs {
+      flex: 0 0 100%;
+    }
+  }
+  &text-body5 {
+    @include font-face($font_type_2, $color_type_4, 0px);
+    @include md {
+      font-size: 11px;
+      text-align: left;
+    }
+  }
+  &text-body5.layout {
+    position: relative;
+    height: min-content;
+    margin: 10px 0px 12px;
+    @include lg {
+      margin: 9px 0px 11px;
+    }
+    @include md {
+      margin: 7px 0px 9px;
+    }
+    @include sm {
+      margin: 6px 0px 8px;
+    }
+    @include xs {
+      margin: 6px 0px 7px;
+    }
+    @include xxs {
+      margin: 5px 0px 6px;
+    }
+  }
+  &flex2-spacer2 {
+    flex: 0 1 1px;
+    @include xxs {
+      display: none;
+    }
+  }
+  &flex2-item3 {
+    @include flex-column;
+    position: relative;
+    flex: 1 1 46px;
+    @include xxs {
+      flex: 0 0 100%;
+    }
+  }
+  &icon1 {
+    background: var(--src) center center / contain no-repeat;
+  }
+  &icon1.layout {
+    position: relative;
+    height: 36px;
+    width: 36px;
+    min-width: 36px;
+    margin: 0px 10px 2px 0px;
+    @include lg {
+      margin: 0px 9px 5px 0px;
+    }
+    @include md {
+      margin: 0px 7px 5px 0px;
+    }
+    @include sm {
+      margin: 0px 6px 5px 0px;
+    }
+    @include xxs {
+      margin: 0px 5px 5px;
+    }
+  }
+  &subtitle {
+    @include font-face($font_type_1, $color_type_4, 0px);
+    @include lg {
+      font-size: 19px;
+      text-align: left;
+    }
+    @include md {
+      font-size: 18px;
+    }
+    @include sm {
+      font-size: 17px;
+    }
+    @include xxs {
+      font-size: 16px;
+    }
+  }
+  &subtitle.layout {
+    position: relative;
+    height: min-content;
+    margin: 33px 22px 0px;
+    @include lg {
+      margin: 29px 19px 0px;
+    }
+    @include md {
+      margin: 24px 16px 0px;
+    }
+    @include sm {
+      margin: 20px 14px 0px;
+    }
+    @include xs {
+      margin: 18px 13px 0px;
+    }
+    @include xxs {
+      margin: 16px 11px 0px;
+    }
+    @include tn {
+      margin: 15px 10px 0px;
+    }
+  }
+  &flex1-item {
+    @include flex-column;
+    position: relative;
+    flex: 0 0 auto;
+    min-height: 140px;
+  }
+  &block3 {
+    display: flex;
+    background-color: $color_type_8;
+    border-radius: 10px 10px 10px 10px;
+  }
+  &block3.layout {
+    position: relative;
+    height: min-content;
+    min-width: 0px;
+    width: fit-content;
+    margin: 25px 0px 0px 22px;
+  }
+  &block3-item {
+    @include flex-column;
+    position: relative;
+    flex: 1 1 auto;
+  }
+  &block4 {
+    display: flex;
+    @include sm {
+      flex-wrap: wrap;
+      row-gap: 16px;
+    }
+  }
+  &block4.layout {
+    position: relative;
+    height: min-content;
+    min-width: 0px;
+    width: fit-content;
+    margin: 19px 0px 18px 26px;
+  }
+  &block4-item {
+    @include flex-column;
+    position: relative;
+    flex: 0 0 auto;
+    @include sm {
+      flex: 0 0 calc(33.33333333333333% - 10.666666666666666px);
+    }
+    @include xxs {
+      flex: 0 0 100%;
+    }
+  }
+  &block5 {
+    display: flex;
+  }
+  &block5.layout {
+    position: relative;
+    height: min-content;
+  }
+  &block5-item {
+    @include flex-column;
+    position: relative;
+    flex: 0 1 192px;
+  }
+  &block6 {
+    @include flex-column;
+  }
+  &block6.layout {
+    position: relative;
+    height: min-content;
+  }
+  &block7 {
+    display: flex;
+  }
+  &block7.layout {
+    position: relative;
+    height: min-content;
+  }
+  &block7-item {
+    @include flex-column;
+    position: relative;
+    flex: 0 1 77px;
+  }
+  &block8 {
+    @include flex-column;
+    background-color: $color_type_6;
+    border-radius: 10px 10px 10px 10px;
+  }
+  &block8.layout {
+    position: relative;
+    height: min-content;
+    width: 89px;
+    min-width: 89px;
+    margin: 0px 0px 1px;
+    @include lg {
+      margin: 0px 0px 5px;
+    }
+  }
+  &box7 {
+    // background-color: $color_type_5;
+  }
+  &box7.layout {
+    position: relative;
+    height: 45px;
+    width: 45px;
+    min-width: 45px;
+    margin: 16px;
+    @include lg {
+      margin: 14px;
+    }
+    @include md {
+      margin: 12px;
+    }
+    @include sm {
+      margin: 10px;
+    }
+    @include xs {
+      margin: 9px;
+    }
+    @include xxs {
+      margin: 8px;
+    }
+  }
+  &block7-spacer {
+    flex: 0 1 3px;
+  }
+  &block7-item1 {
+    @include flex-column;
+    position: relative;
+    flex: 0 1 112px;
+  }
+  &block9 {
+    @include flex-column;
+  }
+  &block9.layout {
+    position: relative;
+    height: min-content;
+    // margin-left: 30px;
+    width: 91px;
+  }
+  &hero-title {
+    display: flex;
+    justify-content: flex-end;
+    font: $font_type_0;
+    color: $color_type_4;
+    text-align: right;
+    letter-spacing: 0px;
+    @include lg {
+      font-size: 44px;
+      text-align: right;
+    }
+    @include md {
+      font-size: 38px;
+    }
+    @include sm {
+      font-size: 33px;
+    }
+    @include xs {
+      font-size: 30px;
+    }
+    @include xxs {
+      font-size: 28px;
+    }
+    @include tn {
+      font-size: 26px;
+    }
+  }
+  &hero-title.layout {
+    position: relative;
+    height: min-content;
+   // margin: 0 auto;
+   margin: 0px 25px;
+    &.mt_zero {
+      margin: 0;
+    }
+  }
+  &text-body2 {
+    display: flex;
+    justify-content: flex-end;
+    font: $font_type_3;
+    color: $color_type_1;
+    text-align: right;
+    letter-spacing: 0px;
+    @include md {
+      font-size: 12px;
+      text-align: right;
+    }
+  }
+  &text-body2.layout {
+    position: relative;
+    height: min-content;
+    @include lg {
+      margin: 5px 27px 0px 35px;
+    }
+    @include md {
+      margin: 5px 23px 0px 29px;
+    }
+    @include sm {
+      margin: 5px 19px 0px 24px;
+    }
+    @include xs {
+      margin: 5px 18px 0px 21px;
+    }
+    @include xxs {
+      margin: 5px 16px 0px 19px;
+    }
+    @include tn {
+      margin: 5px 15px 0px 17px;
+    }
+  }
+  &block5-spacer {
+    flex: 0 1 29px;
+  }
+  &block5-item1 {
+    @include flex-column;
+    position: relative;
+    flex: 0 0 auto;
+    min-width: 1px;
+  }
+  &image {
+    background: var(--src) center center / contain no-repeat;
+  }
+  &image.layout {
+    position: relative;
+    height: 51px;
+    width: 1px;
+    min-width: 1px;
+    margin: 13px 0px 14px;
+    @include lg {
+      margin: 11px 0px 12px;
+    }
+    @include md {
+      margin: 10px 0px;
+    }
+    @include sm {
+      margin: 8px 0px 9px;
+    }
+    @include xs {
+      margin: 7px 0px 8px;
+    }
+    @include xxs {
+      margin: 7px 0px;
+    }
+    @include tn {
+      margin: 6px 0px 7px;
+    }
+  }
+  &block4-spacer {
+    flex: 0 0 auto;
+    min-width: 30px;
+    @include sm {
+      flex: 0 0 16px;
+      min-width: unset;
+    }
+    @include xxs {
+      display: none;
+    }
+
+    @include md {
+      flex: 0 0 16px;
+      min-width: unset;
+    }
+  }
+  &block10 {
+    display: flex;
+  }
+  &block10.layout {
+    position: relative;
+    height: min-content;
+    margin: 0px 0px 1px;
+    @include lg {
+      margin: 0px 0px 5px;
+    }
+  }
+  &block10-item {
+    @include flex-column;
+    position: relative;
+    flex: 0 1 192px;
+  }
+  &block11 {
+    @include flex-column;
+  }
+  &block11.layout {
+    position: relative;
+    height: min-content;
+  }
+  &block12 {
+    display: flex;
+  }
+  &block12.layout {
+    position: relative;
+    height: min-content;
+    // border-right: 1px dotted #70787f73;
+    // border-left: 1px dotted #70787f73;
+  }
+  &block12-item {
+    @include flex-column;
+    position: relative;
+    flex: 0 1 77px;
+  }
+  &block13 {
+    @include flex-column;
+    background-color: $color_type_3;
+    border-radius: 10px 10px 10px 10px;
+  }
+  &block13.layout {
+    position: relative;
+    height: min-content;
+    width: 89px;
+    min-width: 89px;
+    // margin: 0 20px 0 30px;
+  }
+  &block12-spacer {
+    flex: 0 1 3px;
+  }
+  &block12-item1 {
+    @include flex-column;
+    position: relative;
+    flex: 0 1 112px;
+  }
+  &block14 {
+    @include flex-column;
+  }
+  &block14.layout {
+    position: relative;
+    height: min-content;
+    margin: 0 auto;
+    @include lg {
+      margin: 5px 0px 0px;
+    }
+  }
+  &text-body2.layout1 {
+    position: relative;
+    height: min-content;
+    margin: 0px 31px 0px 40px;
+    @include lg {
+      margin: 0px 27px 0px 35px;
+    }
+    @include md {
+      margin: 0px 23px 0px 29px;
+    }
+    @include sm {
+      margin: 0px 19px 0px 24px;
+    }
+    @include xs {
+      margin: 0px 18px 0px 21px;
+    }
+    @include xxs {
+      margin: 0px 16px 0px 19px;
+    }
+    @include tn {
+      margin: 0px 15px 0px 17px;
+    }
+  }
+  &block10-spacer {
+    flex: 0 1 29px;
+  }
+  &block10-item1 {
+    @include flex-column;
+    position: relative;
+    flex: 0 0 auto;
+    min-width: 1px;
+  }
+  &image.layout1 {
+    position: relative;
+    height: 51px;
+    width: 1px;
+    min-width: 1px;
+    margin: 13px 0px;
+    @include lg {
+      margin: 11px 0px;
+    }
+    @include md {
+      margin: 10px 0px;
+    }
+    @include sm {
+      margin: 8px 0px;
+    }
+    @include xs {
+      margin: 7px 0px;
+    }
+    @include tn {
+      margin: 6px 0px;
+    }
+  }
+  &block4-item1 {
+    @include flex-column;
+    position: relative;
+    flex: 0 0 auto;
+    min-width: 222px;
+    @include sm {
+      flex: 0 0 calc(33.33333333333333% - 10.666666666666666px);
+      min-width: unset;
+    }
+    @include xxs {
+      flex: 0 0 100%;
+    }
+  }
+  &block15 {
+    display: flex;
+  }
+  &block15.layout {
+    position: relative;
+    height: min-content;
+    margin: 0px 0px 1px;
+    @include lg {
+      margin: 0px 0px 5px;
+    }
+  }
+  &block15-item {
+    @include flex-column;
+    position: relative;
+    flex: 0 1 192px;
+  }
+  &block16 {
+    @include flex-column;
+  }
+  &block16.layout {
+    position: relative;
+    height: min-content;
+  }
+  &block17 {
+    display: flex;
+  }
+  &block17.layout {
+    position: relative;
+    height: min-content;
+  }
+  &block17-item {
+    @include flex-column;
+    position: relative;
+    flex: 0 1 77px;
+  }
+  &block18 {
+    @include flex-column;
+    background-color: $color_type_2;
+    border-radius: 10px 10px 10px 10px;
+  }
+  &block18.layout {
+    position: relative;
+    height: min-content;
+    width: 89px;
+    min-width: 89px;
+    // margin: auto 20px;
+  }
+  &block17-spacer {
+    flex: 0 1 3px;
+  }
+  &block17-item1 {
+    @include flex-column;
+    position: relative;
+    flex: 0 1 112px;
+  }
+  &text-body2.layout2 {
+    position: relative;
+    height: min-content;
+    // margin: 0 auto;
+    @include lg {
+      margin: 0px 27px 0px 35px;
+    }
+    @include md {
+      margin: 0px 23px 0px 29px;
+    }
+    @include sm {
+      margin: 0px 19px 0px 24px;
+    }
+    @include xs {
+      margin: 0px 18px 0px 21px;
+    }
+    @include xxs {
+      margin: 0px 16px 0px 19px;
+    }
+    @include tn {
+      margin: 0px 15px 0px 17px;
+    }
+  }
+  &block15-spacer {
+    flex: 0 1 29px;
+  }
+  &block15-item1 {
+    @include flex-column;
+    position: relative;
+    flex: 0 0 auto;
+    min-width: 1px;
+  }
+  &image.layout2 {
+    position: relative;
+    height: 51px;
+    width: 1px;
+    min-width: 1px;
+    margin: 13px 0px;
+    @include lg {
+      margin: 11px 0px;
+    }
+    @include md {
+      margin: 10px 0px;
+    }
+    @include sm {
+      margin: 8px 0px;
+    }
+    @include xs {
+      margin: 7px 0px;
+    }
+    @include tn {
+      margin: 6px 0px;
+    }
+  }
+  &flex3 {
+    display: flex;
+    @include sm {
+      flex-wrap: wrap;
+      row-gap: 16px;
+    }
+  }
+  &flex3.layout {
+    position: relative;
+    height: min-content;
+    margin: 50px 22px 0px;
+    @include lg {
+      margin: 43px 19px 0px;
+    }
+    @include md {
+      margin: 35px 16px 0px;
+    }
+    @include sm {
+      margin: 28px 14px 0px;
+    }
+    @include xs {
+      margin: 24px 13px 0px;
+    }
+    @include xxs {
+      margin: 21px 11px 0px;
+    }
+    @include tn {
+      margin: 19px 10px 0px;
+    }
+  }
+  &flex3-item {
+    @include flex-column;
+    position: relative;
+    flex: 1 1 400px;
+    @include sm {
+      flex: 0 0 100%;
+    }
+  }
+  &group.layout {
+    position: relative;
+    height: 49px;
+    width: 400px;
+    max-width: 400px;
+  }
+  &block19 {
+    @include flex-column;
+    flex-direction: row-reverse;
+    background-color: $color_type_8;
+    border: 1px solid rgb(173, 173, 173);
+    border-radius: 5px 5px 5px 5px;
+  }
+  &block19.layout {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+  }
+  &box9 {
+    background-color: $color_type_0;
+    border-radius: 0px 4px 4px 0px;
+    // transition-duration: 0.3s;
+    // transition-property: transform;
+  }
+  // &box9:hover {
+  //   transform: scale(1.1);
+  // }
+  &box9.layout {
+    position: relative;
+    height: 47px;
+    width: 54px;
+    min-width: 54px;
+    /*
+    @include lg {
+      margin: 5px 0px 5px 5px;
+    }
+    */
+  }
+  &icon {
+    width: 100%;
+    height: auto;
+    vertical-align: top;
+    object-fit: contain;
+    object-position: center top;
+  }
+  &icon.layout {
+    position: absolute;
+    top: 16px;
+    bottom: 16px;
+    left: 0px;
+    right: 0px;
+    width: 4.31%;
+    margin: 0px 4.82% 0px 90.86%;
+    /*
+    @include lg {
+      top: 15px;
+      bottom: 14px;
+    }
+    @include md {
+      top: 13px;
+      bottom: 12px;
+    }
+    @include sm {
+      top: 11px;
+      bottom: 10px;
+    }
+    @include xs {
+      top: 10px;
+      bottom: 9px;
+    }
+    @include xxs {
+      top: 9px;
+      bottom: 8px;
+    }
+    @include tn {
+      top: 8px;
+    }
+    */
+  }
+  &block20 {
+    @include flex-column;
+  }
+  &block20.layout {
+    position: relative;
+    height: min-content;
+    width: 81.73%;
+    margin: 8px 0.5% 7px 2.54%;
+    @include lg {
+      margin: 7px 0.5% 6px 2.54%;
+    }
+    @include md {
+      margin: 6px 0.5% 5px 2.54%;
+    }
+    @include sm {
+      margin: 5px 0.5% 5px 2.54%;
+    }
+  }
+  &text-body21 {
+    @include font-face($font_type_3, $color_type_1, 0px);
+    @include md {
+      font-size: 14px;
+      text-align: left;
+    }
+  }
+  &text-body21.layout {
+    position: relative;
+    height: min-content;
+    margin: 10px 10px 9px;
+    border: none;
+    background-color: transparent;
+    resize: none;
+    outline: none;
+    @include lg {
+      margin: 9px 9px 8px;
+    }
+    @include md {
+      margin: 7px;
+    }
+    @include sm {
+      margin: 6px;
+    }
+    @include xs {
+      margin: 6px 6px 5px;
+    }
+    @include xxs {
+      margin: 5px;
+    }
+  }
+  &flex3-spacer {
+    flex: 0 1 1042px;
+    @include sm {
+      display: none;
+    }
+  }
+  &flex3-item1 {
+    @include flex-column;
+    position: relative;
+    flex: 1 1 161px;
+    cursor: pointer;
+    @include sm {
+      flex: 0 0 100%;
+    }
+  }
+  &block23 {
+    display: flex;
+    background-color: $color_type_0;
+    border-radius: 5px 5px 5px 5px;
+    transition-duration: 0.3s;
+    transition-property: transform;
+  }
+  &block23:hover {
+    transform: scale(1.05);
+  }
+  &block23.layout {
+    position: relative;
+    height: min-content;
+    width: 178px;
+    min-width: 161px;
+  }
+  &block23-item {
+    @include flex-column;
+    position: relative;
+    flex: 0 1 36px;
+  }
+  &box10 {
+    // background-color: $color_type_8;
+  }
+  &box10.layout {
+    position: relative;
+    height: 18px;
+    margin: 16px 15px 16px 15px;
+    @include lg {
+      margin: 14px 0px 14px 16px;
+    }
+    @include md {
+      margin: 12px 0px 12px 13px;
+    }
+    @include sm {
+      margin: 10px 0px 10px 11px;
+    }
+    @include xs {
+      margin: 9px 0px 9px 10px;
+    }
+    @include xxs {
+      margin: 8px 0px 8px 9px;
+    }
+  }
+  &block23-spacer {
+    flex: 0 1 10px;
+  }
+  &text-body4 {
+    @include font-face($font_type_3, $color_type_8, 0px);
+    @include md {
+      font-size: 12px;
+      text-align: left;
+    }
+  }
+  &text-body4.layout {
+    position: relative;
+    flex: 0 0 auto;
+    height: min-content;
+    margin: 18px 29px 16px -7px;
+    @include lg {
+      margin: 16px 25px 14px 0px;
+    }
+    @include md {
+      margin: 13px 22px 12px 0px;
+    }
+    @include sm {
+      margin: 11px 18px 10px 0px;
+    }
+    @include xs {
+      margin: 10px 17px 9px 0px;
+    }
+    @include xxs {
+      margin: 9px 15px 8px 0px;
+    }
+    @include tn {
+      margin: 9px 14px 8px 0px;
+    }
+  }
+  &group2 {
+    @include flex-column;
+    background-color: $color_type_5;
+  }
+  &group2.layout {
+    position: relative;
+    height: min-content;
+    margin: 28px 23px 0px 22px;
+    @include lg {
+      margin: 43px 20px 0px 19px;
+    }
+    @include md {
+      margin: 35px 17px 0px 16px;
+    }
+    @include sm {
+      margin: 28px 14px 0px;
+    }
+    @include xs {
+      margin: 24px 13px 0px;
+    }
+    @include xxs {
+      margin: 21px 12px 0px 11px;
+    }
+    @include tn {
+      margin: 19px 11px 0px 10px;
+    }
+  }
+}
+
+.example-container .mat-form-field + .mat-form-field {
+  margin-left: 20px;
+}
+table {
+  // width: 100%;
+  background: #ffffff;
+  border: 1px solid #aea4a4;
+  box-sizing: border-box;
+}
+section {
+  display: table;
+}
+
+.example-label {
+  display: table-cell;
+  font-size: 14px;
+  margin-left: 8px;
+  min-width: 120px;
+}
+
+.example-button-row {
+  display: table-cell;
+  width: 490px;
+}
+
+.example-button-row .mat-button-base {
+  margin: 8px 8px 8px 0;
+}
+
+.example-flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.example-button-container {
+  display: flex;
+  justify-content: center;
+  width: 120px;
+}
+
+/* Structure */
+.example-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+}
+
+.example-header {
+  min-height: 64px;
+  padding: 8px 24px 0;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.mat-table {
+  // overflow: auto;
+  max-height: 500px;
+}
+
+.mat-header-row {
+  background-color: #70787f;
+}
+
+.cust-list-icon.layout {
+  left: -33px;
+  width: 29%;
+}
+.mat-header-cell {
+  color: #fff;
+}
+.mat-row:nth-child(even) {
+  background-color: #f5f5f5;
+}
+.mat-paginator-outer-container {
+  background: #f5f5f5;
+}
+
+cust-list-icon.layout {
+  left: -29px;
+  width: 29%;
+}
+.mat-header-cell {
+  color: #fff;
+  font-size: 14px !important;
+}
+.mat-row:nth-child(even) {
+  background-color: #f5f5f5;
+}
+
+.mat-table {
+  background: white;
+  border: 1px solid #8f8f8f;
+}
+
+th.mat-header-cell {
+  border-right: 1px solid #e6e6e6;
+  text-align: center;
+}
+.mat-cell,
+.mat-footer-cell {
+  border-right: 1px solid #e6e6e6;
+}
+.mat-cell {
+  text-align: center;
+}
+
+th.mat-header-cell:last-of-type,
+td.mat-cell:last-of-type,
+td.mat-footer-cell:last-of-type {
+  padding-right: 0px;
+}
+mat-row,
+mat-header-row,
+mat-footer-row,
+th.mat-header-cell,
+td.mat-cell,
+td.mat-footer-cell {
+  border-bottom: 1px solid #8f8f8f;
+  text-align: center;
+  padding: 0 20px;
+}
+tr.mat-row:last-of-type {
+  td.mat-cell {
+    border-bottom: 0px solid #8f8f8f;
+  }
+}
+.mat-cell {
+  font-size: 13px;
+  color: #323e48;
+}
+// .mat-paginator-page-size-select {
+//   margin: inherit;
+//   width: 56px;
+// }
+
+.mat-elevation-z8 {
+  box-shadow: 0px 0px 0px 0px rgb(0 0 0 / 20%), 
+  0px 0px 0px 0px rgb(0 0 0 / 14%), 
+  0px 0px 0px 0px rgb(0 0 0 / 12%);
+}
+.mat-data{
+  display: block;
+  margin: 20px 20px 0;
+
+  @include lg{
+    display: block;
+    width: 90vw;
+    overflow: auto;
+  }
+  @include md{
+    width: 86vw;
+  }
+  @include sm{
+    width: 90vw;
+  }
+
+  .mat-elevation-z8{
+    width: 100%;
+
+    @include lg{
+      width: 100vw;
+      // max-width: 100%;
+      overflow: auto;
+      // margin-bottom: 10px;
+      display:inline-table;
+      // border-collapse: collapse;
+    }
+  }
+}
+.mat-paginator{
+  margin: 0 20px;
+}  
+
+td.mat-cell:last-of-type{
+  min-width: 105px;
+  img{
+    margin: 0 5px;
+  }
+}
+@media screen and (max-width: 1366px) {
+  td.mat-cell:last-of-type{
+    min-width: 105px;
+    img{
+      margin: 0;
+    }
+  }
+}
+@media screen and (max-width: 1200px) {
+  .cust-list-flex1 .mat-data{
+    overflow: auto;
+    width: 76vw;
+}
+}
+@media screen and (max-width: 1024px) {
+.manage-pricing-main .cust-list-flex1 .mat-data{
+    overflow: auto;
+    width: 67vw !important;
+}
+.cust-list-text-body2.layout1 {
+  justify-content: start;
+}
+.cust-list-text-body2.layout2 {
+  justify-content: start;
+}
+}
+@media screen and (max-width: 568px){
+  .cust-list-flex1 .mat-data{
+    overflow: auto;
+    width: 82vw;
+}
+.manage-pricing-main .cust-list-group.layout{
+  width: auto;
+}
+}
+@media screen and (max-width: 768px){
+  .cust-list-flex1 .mat-data{
+    overflow: auto;
+    width: 83vw;
+}
+.cust-list-text-body2.layout1 {
+  justify-content: start;
+}
+.upcoming .cust-list-block17-item{
+  padding-left: 0px;
+}
+}
+
+@media screen and (max-width: 960px) {
+  .mat-table {
+    border: 0;
+    vertical-align: middle
+  }
+
+}
+.manage-pricing-main .cust-list-hero-title.layout{
+  margin: 0;
+}
+.manage-pricing-main .cust-list-block12-item{
+  margin-right: 30px;
+  margin-left: 20px;
+}

@@ -161,7 +161,7 @@ export class GraphDetailComponent implements OnInit {
 
       //EnergyPoints
       this.energyPoints = this.summaryData.energyPoints[0]
-      this.energyPointskey0 = this.energyPoints.key
+      this.energyPointskey0 = this.energyPoints.key.replace('MT', 'Metric Tons')
       this.energyPointsvalue0 = this.energyPoints.value
 
       this.energyPoints = this.summaryData.energyPoints[1]
@@ -195,9 +195,13 @@ export class GraphDetailComponent implements OnInit {
       },
       xAxis: {
         type: 'category',
+        // name: 'USD',
+        // nameLocation: 'middle',
+        // nameGap: 50,
         data: values,
         axisLabel: {
           rotate: 30,
+          formatter: '${value}',
         },
       },
       yAxis: {

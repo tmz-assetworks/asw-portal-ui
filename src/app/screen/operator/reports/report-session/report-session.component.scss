@@ -1273,7 +1273,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
   &block36.layout {
     position: relative;
-   // height: 50px;
+    // height: 50px;
     @include xl {
     }
   }
@@ -3721,5 +3721,11 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
 .mat-button-toggle-checked.mat-button-toggle-appearance-standard {
   color: #fff !important;
 }
-
-
+.mat-button-toggle-appearance-standard:hover {
+  border: 1px solid #0062a6;
+  //background-color: #fff;
+}
+.dashboard-block35:hover {
+  border: 1px solid #0062a6;
+  border-left: 1px solid #0062a6;
+}

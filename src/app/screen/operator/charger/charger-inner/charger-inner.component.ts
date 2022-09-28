@@ -24,21 +24,16 @@ export class ChargerInnerComponent implements OnInit {
   chargingSessionData = ''
   dashboardChargingSession = 'dashboardChargingSession'
   dashboardChargingSessionTitle = 'Charging Session'
-
-  currentPage = 1
-  totalRecords = 30
-  pageSize = 10
-  totalPages = 0
-  searchParam = ''
   locationId: any
+  totalCount: any
+  pageSize: number = 10
+  currentPage: number = 1
+  totalPages: any
+  pageSizeOptions = [10, 20, 100]
+  searchParam = ''
 
   @ViewChild(MatPaginator) paginator!: MatPaginator
   data = []
-
-  ngAfterViewInit() {
-    // this.dataSource.paginator = this.paginator
-    this.paginator._intl.itemsPerPageLabel = 'Rows per page'
-  }
 
   viewCharger(data: any) {
     this._storageService.setSessionData('chargerBoxId', data.chargerBoxId)
@@ -50,7 +45,6 @@ export class ChargerInnerComponent implements OnInit {
    * Displayed Columns
    */
   displayedColumns: string[] = [
-    'chargerName',
     'chargerBoxId',
     'chargertype',
     'faultisince',
@@ -98,6 +92,10 @@ export class ChargerInnerComponent implements OnInit {
     this.UserId = this._storageService.getLocalData('user_id')
   }
 
+  ngAfterViewInit() {
+    this.paginator._intl.itemsPerPageLabel = 'Rows per page'
+  }
+
   ngOnInit(): void {
     let isDuration = this._storageService.getSessionData('duration')
     let isLocation = this._storageService.getSessionData('locationId')
@@ -122,7 +120,7 @@ export class ChargerInnerComponent implements OnInit {
       this.UserId,
     )
     this.getSummaryStatus()
-    this.getDispensersDetail('', this.currentPage, this.totalRecords)
+    this.getDispensersDetail()
   }
   /**
    *
@@ -133,7 +131,7 @@ export class ChargerInnerComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value
     this.searchParam = filterValue
-    this.getDispensersDetail('', this.currentPage, this.totalRecords)
+    this.getDispensersDetail()
   }
 
   /**
@@ -142,7 +140,6 @@ export class ChargerInnerComponent implements OnInit {
   getSummaryStatus() {
     this._chargerService.GetSummaryStatus().subscribe((res) => {
       this.data = res.data
-      //console.log(this.data, 'Hi Rehanulh');
     })
   }
 
@@ -185,10 +182,6 @@ export class ChargerInnerComponent implements OnInit {
       opratorid: operatorId,
     }
     this._dashboardService.GetAreachartdataData(body).subscribe((res) => {
-      // console.log(
-      //   'charging session graph on dashboard for location' + locationIds,
-      //   res.data.length,
-      // )
       this.chargingSessionData = res.data
     })
   }
@@ -206,57 +199,26 @@ export class ChargerInnerComponent implements OnInit {
       relativeTo: this._route,
       queryParams: { id: event },
     })
-    //this._router.navigate(['detail'],{relativeTo: this._route});
   }
 
-  /***********************************Get Charger landing page table Data************************************************ */
-
-  // GetChargerTableData(){
-  //   const body = {
-  //     pageNumber: 1,
-  //     searchParam: '',
-  //     pageSize: 10,
-  //     orderBy: 'chargerBoxId',
-  //     locationIds: [],
-  //     opratorid: this.UserId,
-  //   }
-  //   this._chargerService.GetChargerTableData(body).subscribe((res: any) => {
-
-  //    this.dataSource.data = res.data
-
-  //   })
-  // }
-
-  getDispensersDetail(event: any, currentPage: number, totalPage: number) {
-    if (this.pageSize !== event.pageSize) {
-      this.currentPage = 1
-    } else {
-      this.currentPage =
-        event !== undefined && event !== ''
-          ? event.previousPageIndex < event.pageIndex
-            ? currentPage + 1
-            : currentPage - 1
-          : 1
-      if (this.currentPage == 0) {
-        this.currentPage = this.currentPage + 1
-      }
-    }
-    this.pageSize = event !== undefined && event !== '' ? event.pageSize : 10
-
-    // this.currentPage = event !== undefined && event !== '' ? event.pageIndex : 1
-
+  /**
+   * Get Dispenser Details
+   */
+  getDispensersDetail() {
     const body = {
       pageNumber: this.currentPage,
       searchParam: this.searchParam,
       pageSize: this.pageSize,
       orderBy: '',
-      operatorId: this.UserId,
+      operatorid: this.UserId,
     }
 
     this._chargerService.GetDispensersDetail(body).subscribe((res: any) => {
       if (res.data !== undefined && res.data != null && res.data.length > 0) {
-        this.totalRecords = res.paginationResponse.totalCount
+        this.totalCount = res.paginationResponse.totalCount
         this.totalPages = res.paginationResponse.totalPages
+        this.pageSize = res.paginationResponse.pageSize
+
         this.dataSource.data = res.data
         this.isTableHasData = false
       } else {
@@ -264,5 +226,26 @@ export class ChargerInnerComponent implements OnInit {
         this.isTableHasData = true
       }
     })
+  }
+
+  /**
+   *
+   * @param event
+   * Page Event
+   */
+
+  pageChange(event: any) {
+    if (event.pageSize !== this.pageSize) {
+      this.currentPage = 1
+      this.pageSize = event.pageSize
+      this.paginator.pageIndex = 0
+    } else {
+      this.currentPage =
+        event.previousPageIndex < event.pageIndex
+          ? this.currentPage + 1
+          : this.currentPage - 1
+    }
+
+    this.getDispensersDetail()
   }
 }

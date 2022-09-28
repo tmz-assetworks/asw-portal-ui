@@ -6,8 +6,10 @@ import { environment } from 'src/environments/environment'
 @Injectable({ providedIn: 'root' })
 export class ChargerService {
   url: any
+  chargerUrl: string
   constructor(private _http: HttpClient) {
     this.url = environment.origin + 'api/v1/OperatorDashboard/'
+    this.chargerUrl = environment.origin + 'api/v1/Charger/'
   }
 
   /**
@@ -21,22 +23,30 @@ export class ChargerService {
   }
 
   public GetDispensersDetail(params: any): Observable<any> {
-    let url =
-      'https://asw-portal-rest-service.azurewebsites.net/api/v1/Charger/'
-    return this._http.post<any>(`${url}GetDispensersDetail`, params)
+    return this._http.post<any>(`${this.chargerUrl}GetDispensersDetail`, params)
   }
-  /***** ********************************Charger Session API****************************************/
-
+  /**
+   * Charger Session Details
+   * @param params
+   * @returns
+   */
   public GetChargerSessionDetailsList(params: any): Observable<any> {
-    let url =
-      'https://asw-portal-rest-service.azurewebsites.net/api/v1/Charger/'
-    return this._http.post<any>(`${url}GetChargerSessionDetailsList`, params)
+    return this._http.post<any>(
+      `${this.chargerUrl}GetChargerSessionDetailsList`,
+      params,
+    )
   }
-  /******************************************Charger information API****************************************************** */
+
+  /**
+   * Get charger info
+   * @param params
+   * @returns
+   */
   public GetChargerInformation(params: any) {
-    let url =
-      ' https://asw-portal-rest-service.azurewebsites.net/api/v1/Charger/'
-    return this._http.post<any>(`${url}GetChargerInformation`, params)
+    return this._http.post<any>(
+      `${this.chargerUrl}GetChargerInformation`,
+      params,
+    )
   }
   /**
    * Get Command list
@@ -45,14 +55,10 @@ export class ChargerService {
    */
 
   public GetCommandList() {
-    let url =
-      ' https://asw-portal-rest-service.azurewebsites.net/api/v1/Charger/'
-    return this._http.get<any>(`${url}GetCommandList`)
+    return this._http.get<any>(`${this.chargerUrl}GetCommandList`)
   }
 
   public GetChargeBoxIDList(): Observable<any> {
-    let url =
-    ' https://asw-portal-rest-service.azurewebsites.net/api/v1/Charger/'
-    return this._http.get<any>(`${url}GetChargeBoxIDList`)
+    return this._http.get<any>(`${this.chargerUrl}GetChargeBoxIDList`)
   }
 }

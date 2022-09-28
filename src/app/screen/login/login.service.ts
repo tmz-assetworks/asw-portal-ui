@@ -43,7 +43,27 @@ export class LoginService {
    */
   changePassword(email: string, password: string) {
     let params = '?emailid=' + email + '&password=' + password
-    return this._http.get<any>(`${this.url}ChangePassword${params}`)
+     const body = {
+      emailid: email,
+      password: password
+    }
+    return this._http.post<any>(`${this.url}ChangePassword`,body) 
+  //  return this._http.get<any>(`${this.url}ChangePassword${params}`)
+  }
+
+  /**
+   * Change Password
+   * @param email
+   * @param password
+   */
+   changePasswordObjectId(uname: string, password: string) {
+   // let params = '?userName=' + uname + '&password=' + password
+    const body = {
+      emailid: uname,
+      password: password
+    }
+    return this._http.post<any>(`${this.url}ResetPassword`,body)
+    //return this._http.get<any>(`${this.url}ResetPassword${params}`)
   }
 
   /**
@@ -124,6 +144,7 @@ export class LoginService {
    * @returns
    */
   refreshToken() {
+    
     let refreshToken =
       JSON.parse(JSON.stringify(localStorage.getItem('token_refresh'))) || ''
     let params = '?refreshToken=' + refreshToken

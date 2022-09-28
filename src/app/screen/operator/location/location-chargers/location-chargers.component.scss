@@ -5301,15 +5301,18 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
 }
 
 
-@media screen and (max-width: 768px) {
-.widgets-block28.layout{
-    max-width: 637px;
-  }
-.dashboard-block33{
-    justify-content: end;
+
+
+@media all and (min-width: 768px) and (max-width: 1024px) {
+  .dashboard-block13.layout.location-charger_2 {
+    flex-wrap: wrap;
 } 
-.dashboard-block42.layout {
-  width: 650px;
-} 
+.dashboard-block13-item1 {
+  min-width: 100%;
+}
+}
+
+.location-charge-main .cust-list-group2.layout.mat-data {
+  width: 100%;
 }
 

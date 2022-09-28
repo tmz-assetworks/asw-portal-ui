@@ -6,8 +6,10 @@ import { forkJoin, Observable } from 'rxjs'
 @Injectable({ providedIn: 'root' })
 export class DashboardService {
   url: string
+  chargerUrl: string
   constructor(private _http: HttpClient) {
     this.url = environment.origin + 'api/v1/OperatorDashboard/'
+    this.chargerUrl = environment.origin + 'api/v1/Charger/'
   }
 
   /**
@@ -76,8 +78,7 @@ export class DashboardService {
   }
 
   GetChartDetailsList(param: any): Observable<any> {
-    let url ='https://asw-portal-rest-service.azurewebsites.net/api/v1/Charger/'
-    return this._http.post<any>(`${url}GetChartDetailsList`, param)
+    return this._http.post<any>(`${this.chargerUrl}GetChartDetailsList`, param)
   }
   /**
    *

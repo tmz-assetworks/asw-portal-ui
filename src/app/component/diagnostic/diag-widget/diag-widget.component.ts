@@ -44,6 +44,14 @@ export class DiagWidgetComponent implements OnInit {
       this.showToolTipData = value
     }
   }
+  
+  @Input() set isDiagnosticsItem(value: boolean) {
+    if (value !== undefined) {
+     // console.log(value, 'value getting')
+
+      this.showToolTipData = value
+    }
+  }
 
   constructor() {}
 
