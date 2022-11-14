@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table'
 import { Router } from '@angular/router'
 import { StorageService } from 'src/app/service/storage.service'
 import { data } from '../../operator/dashboard/locations'
-import { OperatorService } from '../operator.service'
+
 import { AdminService } from '../admin.service'
 @Component({
   selector: 'app-manage-locations',
@@ -42,7 +42,6 @@ export class ManageLocationsComponent implements OnInit {
   @ViewChild('input') inputValue: any
   @ViewChild(MatPaginator) paginator!: MatPaginator
   constructor(
-    private operatorService: OperatorService,
     private _router: Router,
     private _storageService: StorageService,
     public _adminService: AdminService,
@@ -56,11 +55,16 @@ export class ManageLocationsComponent implements OnInit {
       this._storageService.removeSessionData('LocationData')
       this._storageService.removeSessionData('IsSaveBtn')
     }
+    let addChargerLocation = this._storageService.getSessionData(
+      'addChargerLocation',
+    )
+
+    if (addChargerLocation) {
+      this._storageService.removeSessionData('addChargerLocation')
+    }
   }
 
   ngOnInit() {
-    // this.adminLocationTableData()
-    // this.GetLocationList()
     this.GetLocationList()
   }
 
@@ -76,17 +80,6 @@ export class ManageLocationsComponent implements OnInit {
     const filterValue = this.inputValue.nativeElement.value.toLowerCase()
     this.locationName = filterValue
     this.GetLocationList()
-
-    //this.dataSource.filter = filterValue.trim().toLowerCase()
-  }
-
-  adminLocationTableData() {
-    this.operatorService.adminLocationTableData().subscribe((data) => {
-      this.adminList = data.Data
-      // console.log(this.adminList,"data coming")
-
-      this.dataSource.data = this.adminList
-    })
   }
 
   /**
@@ -113,7 +106,11 @@ export class ManageLocationsComponent implements OnInit {
   /**
    * AddCharger-icon clicked
    */
-  AddCharger() {
+  AddCharger(data: any) {
+    this._storageService.setSessionData(
+      'addChargerLocation',
+      JSON.stringify(data),
+    )
     this._router.navigateByUrl('admin/chargers/add-chargers')
   }
   statusData: any
@@ -162,20 +159,20 @@ export class ManageLocationsComponent implements OnInit {
     this.GetLocationList()
   }
 
-  changeState(id: number, state: boolean) {
-    // alert(state);
-    let isActive = !state
-    //
-    const body = { id: id, isActive: isActive, userId: this.UserId }
-    this._adminService.ChangeState(body).subscribe({
-      next: (res) => {
-        if (res.id !== undefined) {
-          this.GetLocationList()
-        }
-      },
-      error: (error) => {
-        // console.log('error in api');
-      },
-    })
-  }
+  // changeState(id: number, state: boolean) {
+  //   // alert(state);
+  //   let isActive = !state
+  //   //
+  //   const body = { id: id, isActive: isActive, userId: this.UserId }
+  //   this._adminService.ChangeState(body).subscribe({
+  //     next: (res) => {
+  //       if (res.id !== undefined) {
+  //         this.GetLocationList()
+  //       }
+  //     },
+  //     error: (error) => {
+  //       // console.log('error in api');
+  //     },
+  //   })
+  // }
 }

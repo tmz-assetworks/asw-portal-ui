@@ -3,39 +3,27 @@ import { Injectable } from '@angular/core'
 import { Observable, observable } from 'rxjs'
 import { environment } from 'src/environments/environment'
 
-
 @Injectable({ providedIn: 'root' })
 export class SuperAdminService {
-  url: any
-  urlBase: any
-  baseUrl: string = 'https://run.mocky.io/v3/'
-  
+  userUrl: string
+  assetUrl: string
 
   constructor(private _http: HttpClient) {
-    this.url = environment.assetLocalOrigin
-    this.urlBase = environment.localOrigin
+    this.assetUrl = environment.assetLocalOrigin
+    this.userUrl = environment.localOrigin
   }
-  public adminList(params: any): Observable<any> {
-    return this._http.post<any>(`${this.urlBase}User/GetAllUsers`, params)
-   
-
-  }
-  /* public adminList(): Observable<any> {
-    return this._http.get(this.baseUrl + '593a4b0e-b85e-4eee-9bbb-13d8629cee96')
-  } */
-
-  public getCustomertList(): Observable<any> {
-    return this._http.get(this.baseUrl + '6e1735bd-a12f-4c57-9790-1a9be5b013b6')
+  public GetAllUsers(params: any): Observable<any> {
+    return this._http.post<any>(`${this.userUrl}User/GetAllUsers`, params)
   }
 
-  public createAdmin(params: any): Observable<any> {
-    return this._http.post<any>(`${this.urlBase}User/CreateUser`, params)
+  public CreateUser(params: any): Observable<any> {
+    return this._http.post<any>(`${this.userUrl}User/CreateUser`, params)
   }
 
-  public updateAdmin(params: any): Observable<any> {
-    return this._http.put<any>(`${this.urlBase}User/UpdateUser`, params)
+  public UpdateUser(params: any): Observable<any> {
+    return this._http.put<any>(`${this.userUrl}User/UpdateUser`, params)
   }
-  
+
   public getListApi(
     type: string,
     id?: number,
@@ -43,51 +31,61 @@ export class SuperAdminService {
   ): Observable<any> {
     if (type == 'state') {
       return this._http.get<any>(
-        `${this.url}Country/getAllStateByCountryId?Id=${id}`,
+        `${this.assetUrl}Country/getAllStateByCountryId?Id=${id}`,
       )
     } else if (type == 'city') {
       return this._http.get<any>(
-        `${this.url}Country/getAllCityByStateId?Id=${stateId}`,
+        `${this.assetUrl}Country/getAllCityByStateId?Id=${stateId}`,
       )
     } else if (type == 'admin') {
-      return this._http.get<any>(
-        `${this.urlBase}User/GetUserById?id=${id}`,
-      )
+      return this._http.get<any>(`${this.userUrl}User/GetUserById?id=${id}`)
     } else if (type == 'org') {
-      return this._http.get<any>(`${this.urlBase}User/CustomerDDL`)
-    } 
-    return this._http.get<any>(`${this.url}Country/getallcountry`)
+      return this._http.get<any>(`${this.userUrl}User/CustomerDDL`)
+    }
+    return this._http.get<any>(`${this.assetUrl}Country/getallcountry`)
   }
 
   public ChangeState(params: any): Observable<any> {
-    // return this._http.delete<any>(`${this.url}Location/DeleteLocation`, params);
-    return this._http.request('delete', `${this.urlBase}User/DeleteUser`, {
+    return this._http.request('delete', `${this.userUrl}User/DeleteUser`, {
       body: params,
     })
-  //  https://run.mocky.io/v3/41a2b03f-df8e-4db3-bda2-4b823b8ecee9
-
   }
 
   /*
-  * Manage Customer
-  */
+   * Manage Customer
+   */
 
-  public GetAllCustomer(params:any): Observable<any> {
-    return this._http.post<any>(`${this.urlBase}Customer/GetAllCustomer`,params)
+  public GetAllCustomer(params: any): Observable<any> {
+    return this._http.post<any>(
+      `${this.userUrl}Customer/GetAllCustomer`,
+      params,
+    )
   }
 
   public GetCustomerbyID(id: any): Observable<any> {
-    return this._http.get<any>(`${this.urlBase}Customer/GetCustomerbyID?id=${id}`)
+    return this._http.get<any>(
+      `${this.userUrl}Customer/GetCustomerbyID?id=${id}`,
+    )
   }
 
   public CreateCustomer(params: any): Observable<any> {
     return this._http.post<any>(
-      `${this.urlBase}Customer/CreateCustomer`,
+      `${this.userUrl}Customer/CreateCustomer`,
       params,
     )
   }
   public UpdateCustomer(params: any): Observable<any> {
-    return this._http.put<any>(`${this.urlBase}Customer/UpdateCustomer`, params)
+    return this._http.put<any>(`${this.userUrl}Customer/UpdateCustomer`, params)
+  }
+
+
+  public getAllCountry(): Observable<any> {
+    return this._http.get<any>(`${this.assetUrl}Country/getallcountry`)
+  }
+  public getAllStateByCountryId(id: any): Observable<any> {
+    return this._http.get<any>(`${this.assetUrl}Country/getAllStateByCountryId?Id=${id}`)
+  }
+  public getAllCityByStateId(id: any): Observable<any> {
+    return this._http.get<any>(`${this.assetUrl}Country/getAllCityByStateId?Id=${id}`)
   }
 }
-

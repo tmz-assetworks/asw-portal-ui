@@ -5,7 +5,6 @@ import { Router } from '@angular/router'
 import { ToastrService } from 'ngx-toastr'
 import { StorageService } from 'src/app/service/storage.service'
 import { AdminService } from '../admin.service'
-import { VehicleService } from '../manage-vehicles/vehicle.service'
 
 @Component({
   selector: 'app-manage-assets',

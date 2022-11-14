@@ -77,10 +77,10 @@
           <app-bar-chart
             *ngIf="locationStatusData !== ''"
             [chartType]="basicStatus"
-            [chartTitle]="locationStatusTitle"
+            [chartTitle]="'Locations Status'"
             [locationStatusData]="locationStatusData"
             (barDetailPage)="
-              openDetailPage(4, 'Location Status', 'LOCATIONS', selectedTime)
+              openDetailPage(4, 'Locations Status', 'LOCATIONS', selectedTime)
             "
           ></app-bar-chart>
         </div>
@@ -89,7 +89,7 @@
           <app-bar-chart
             *ngIf="locationPerformingData !== ''"
             [chartType]="locationPerform"
-            [chartTitle]="locationPerormTitle"
+            [chartTitle]="'Locations  Performing'"
             [toggle]="true"
             [locationPerformingData]="locationPerformingData"
             (toggleValueChanges)="changeToggleValue($event)"
@@ -108,7 +108,7 @@
                     <div class="cust-list-block19 layout">
                       <div class="cust-list-box9 layout">
                         <img
-                          src="../../../../assets/icons/search.png"
+                          src="../../../../../assets/Operator/Search.svg"
                           alt=""
                           class="cust-list-icon layout"
                         />
@@ -118,7 +118,7 @@
                         <input
                           class="cust-list-text-body21 layout"
                           (keyup)="applyFilter($event)"
-                          placeholder="Search Locations"
+                          placeholder="Search by location name"
                           #input
                         />
                       </div>
@@ -145,7 +145,7 @@
                 >
                   <ng-container matColumnDef="locationName">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                      Location Name
+                      Locations Name
                     </th>
                     <td mat-cell *matCellDef="let element">
                       {{ element.locationName }}
@@ -183,7 +183,7 @@
                   </ng-container>
                   <ng-container matColumnDef="locationStatus">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                      Location Status
+                      Locations Status
                     </th>
                     <td mat-cell *matCellDef="let element">
                       {{ element.status }}
@@ -247,12 +247,12 @@
                 </ng-container>
               </div>
               <mat-paginator
-              #paginator
-              (page)="pageChange($event)"
-              [length]="totalCount"
-              [pageSize]="pageSize"
-              [pageSizeOptions]="pageSizeOptions"
-            ></mat-paginator>
+                #paginator
+                (page)="pageChange($event)"
+                [length]="totalCount"
+                [pageSize]="pageSize"
+                [pageSizeOptions]="pageSizeOptions"
+              ></mat-paginator>
             </div>
           </div>
         </div>

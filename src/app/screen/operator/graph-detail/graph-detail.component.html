@@ -51,6 +51,7 @@
                         class="cust-list-group2 layout"
                         id="pdfTable"
                         #pdfTable
+                        *ngIf="!isCharger"
                       >
                         <div class="layout mat-data">
                           <table
@@ -76,8 +77,7 @@
                                 UID
                               </th>
                               <td mat-cell *matCellDef="let element">
-                                <!-- {{ element.uid }} -->
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                {{ element.uid }}
                               </td>
                             </ng-container>
 
@@ -132,6 +132,276 @@
 
                             <tr
                               mat-header-row
+                              *matHeaderRowDef="displayedColumnsLocation"
+                            ></tr>
+                            <tr
+                              mat-row
+                              *matRowDef="
+                                let row;
+                                columns: displayedColumnsLocation
+                              "
+                            ></tr>
+                          </table>
+                          <ng-container *ngIf="isTableHasData">
+                            <p class="text-center">No record found</p>
+                          </ng-container>
+                        </div>
+
+                        <mat-paginator
+                          #paginator
+                          (page)="pageChange($event)"
+                          [length]="totalCount"
+                          [pageSize]="pageSize"
+                          [pageSizeOptions]="pageSizeOptions"
+                        ></mat-paginator>
+                      </div>
+                      <div
+                        class="cust-list-group2 layout"
+                        id="pdfTable"
+                        #pdfTable
+                        *ngIf="isCharger"
+                      >
+                        <div class="layout mat-data">
+                          <ng-container>
+                            <form
+                              [formGroup]="searchFilter"
+                              (ngSubmit)="filter()"
+                            >
+                         
+                            <div class="barbar-block13 layout">
+                              <div class="barbar-block13-item mbottom">
+                                <div class="barbar-block14 layout">
+                                  <h5 class="barbar-highlights layout">Start Date</h5>
+                                  <div class="barbar-box6 layout">
+                                    <div class="mat-form-field-datepicker">
+                                      <mat-form-field>
+                                        <input
+                                          matInput
+                                          [matDatepicker]="fromDate"
+                                          formControlName="fromDate"
+                                          readonly
+                                        />
+        
+                                        <mat-datepicker-toggle
+                                          matSuffix
+                                          [for]="fromDate"
+                                        ></mat-datepicker-toggle>
+                                        <mat-datepicker #fromDate></mat-datepicker>
+                                      </mat-form-field>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                             
+                              <div class="barbar-block13-item mbottom">
+                                <div class="barbar-block14 layout">
+                                  <h5 class="barbar-highlights layout">End Date</h5>
+                                  <div class="barbar-box6 layout">
+                                    <div class="mat-form-field-datepicker">
+                                      <mat-form-field>
+                                        <input
+                                          matInput
+                                          [matDatepicker]="toDate"
+                                          formControlName="toDate"
+                                          readonly
+                                        />
+        
+                                        <mat-datepicker-toggle
+                                          matSuffix
+                                          [for]="toDate"
+                                        ></mat-datepicker-toggle>
+                                        <mat-datepicker #toDate></mat-datepicker>
+                                      </mat-form-field>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="barbar-block13-item mbottom">
+                                <div class="barbar-block14 layout">
+                                  <h5 class="barbar-highlights layout"> Select Status</h5>
+                                  <div class="barbar-box6 layout">
+                                    <div class="mat-form-field-infix">
+                                      <mat-select multiple formControlName="status" class="barbar-input-text">
+                                        <mat-option
+                                          *ngFor="let item of statusList"
+                                          [value]="item.name"
+                                        >
+                                          {{ item.name }}
+                                        </mat-option>
+                                      </mat-select>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- <mat-form-field
+                                class="dashboard-text-body1 layout9"
+                              >
+                                <mat-label>Select Status</mat-label>
+                                <mat-select multiple formControlName="status" class="barbar-input-text">
+                                  <mat-option
+                                    *ngFor="let item of statusList"
+                                    [value]="item.name"
+                                  >
+                                    {{ item.name }}
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field> -->
+                            </div>
+                            <div class="barbar-flex1 layout">
+                              <div class="barbar-flex1-item">
+                                <div class="barbar-block17 layout">
+                                  <div class="barbar-text-body2 layout">
+                                    <button (click)="resetFilter()">Reset</button>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="barbar-flex1-spacer"></div>
+                              <div class="barbar-flex1-item">
+                                <div class="barbar-block16 layout">
+                                  <div class="barbar-text-body1 layout submit-action">
+                                    <input type="submit" />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            </form>
+                          </ng-container>
+
+                          <table
+                            mat-table
+                            [dataSource]="dataSource"
+                            class="mat-elevation-z8"
+                          >
+                            <ng-container matColumnDef="chargerName">
+                              <th mat-header-cell *matHeaderCellDef>
+                                CHARGER NAME
+                              </th>
+                              <td mat-cell *matCellDef="let element">
+                                {{ element.chargerName }}
+                              </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="uid">
+                              <th
+                                mat-header-cell
+                                *matHeaderCellDef
+                                style="width: 70px;"
+                              >
+                                UID
+                              </th>
+                              <td mat-cell *matCellDef="let element">
+                                {{ element.uid }}
+                              </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="chargerType">
+                              <th mat-header-cell *matHeaderCellDef>
+                                CHARGER TYPE
+                              </th>
+                              <td mat-cell *matCellDef="let element">
+                                {{ element.chargerType }}
+                              </td>
+                            </ng-container>
+                            <ng-container matColumnDef="faultSince">
+                              <th mat-header-cell *matHeaderCellDef>
+                                FAULT SINCE
+                              </th>
+                              <td mat-cell *matCellDef="let element">
+                                {{ element.faultSince }}
+                              </td>
+                            </ng-container>
+                            <ng-container matColumnDef="faultDescription">
+                              <th mat-header-cell *matHeaderCellDef>
+                                FAULT DESCRIPTION
+                              </th>
+                              <td mat-cell *matCellDef="let element">
+                                {{ element.faultDescription }}
+                              </td>
+                            </ng-container>
+                            <ng-container matColumnDef="timeReported">
+                              <th mat-header-cell *matHeaderCellDef>
+                                TIME REPORTED
+                              </th>
+                              <td mat-cell *matCellDef="let element">
+                                {{ element.timeReported }}
+                              </td>
+                            </ng-container>
+                            <ng-container matColumnDef="locationId">
+                              <th mat-header-cell *matHeaderCellDef>
+                                LOCATION ID
+                              </th>
+                              <td mat-cell *matCellDef="let element">
+                                {{ element.locationId }}
+                              </td>
+                            </ng-container>
+                            <ng-container matColumnDef="locationName">
+                              <th mat-header-cell *matHeaderCellDef>
+                                LOCATION NAME
+                              </th>
+                              <td mat-cell *matCellDef="let element">
+                                {{ element.locationName }}
+                              </td>
+                            </ng-container>
+                            <ng-container matColumnDef="chargingStatus">
+                              <th mat-header-cell *matHeaderCellDef>
+                                CHARGING STATUS
+                              </th>
+                              <td mat-cell *matCellDef="let element">
+                                {{ element.chargingStatus }}
+                              </td>
+                            </ng-container>
+                            <ng-container matColumnDef="startTime">
+                              <th mat-header-cell *matHeaderCellDef>
+                                START TIME
+                              </th>
+                              <td mat-cell *matCellDef="let element">
+                                {{
+                                  element.startTime
+                                    | date: 'dd MMMM yyyy hh:mm:ss'
+                                }}
+                              </td>
+                            </ng-container>
+                            <ng-container matColumnDef="endTime">
+                              <th mat-header-cell *matHeaderCellDef>
+                                END TIME
+                              </th>
+                              <td mat-cell *matCellDef="let element">
+                                {{
+                                  element.endTime
+                                    | date: 'dd MMMM yyyy hh:mm:ss'
+                                }}
+                              </td>
+                            </ng-container>
+                            <ng-container matColumnDef="startmetervalue">
+                              <th mat-header-cell *matHeaderCellDef>
+                                START METER VALUE
+                              </th>
+                              <td mat-cell *matCellDef="let element">
+                                {{ element.startmetervalue }}
+                              </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="endmetervalue">
+                              <th mat-header-cell *matHeaderCellDef>
+                                END METER VALUE
+                              </th>
+                              <td mat-cell *matCellDef="let element">
+                                {{ element.endmetervalue }}
+                              </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="reasoneForStop">
+                              <th mat-header-cell *matHeaderCellDef>
+                                REASON FOR STOP
+                              </th>
+                              <td mat-cell *matCellDef="let element">
+                                {{ element.reasoneForStop }}
+                              </td>
+                            </ng-container>
+
+                            <tr
+                              mat-header-row
                               *matHeaderRowDef="displayedColumns"
                             ></tr>
                             <tr
@@ -143,19 +413,13 @@
                             <p class="text-center">No record found</p>
                           </ng-container>
                         </div>
+
                         <mat-paginator
                           #paginator
-                          (page)="
-                            GetChartDetailsList(
-                              $event,
-                              currentPage,
-                              totalRecords,
-                              flag
-                            )
-                          "
-                          [length]="totalRecords"
+                          (page)="pageChange($event)"
+                          [length]="totalCount"
                           [pageSize]="pageSize"
-                          [pageSizeOptions]="[10, 20, 100]"
+                          [pageSizeOptions]="pageSizeOptions"
                         ></mat-paginator>
                       </div>
                     </div>
@@ -165,269 +429,6 @@
             </div>
           </div>
           <div class="dashboard-block13-spacer"></div>
-          <div class="dashboard-block13-item1">
-            <div class="statuspanel-block43 layout">
-              <div class="statuspanel-block46 layout">
-                <div class="statuspanel-block47 layout">
-                  <div class="statuspanel-block45 layout1">
-                    <div class="statuspanel-block45-item">
-                      <div class="statuspanel-group layout2">
-                        <h4 class="statuspanel-highlights2 layout">
-                          Charging Infrastructure
-                        </h4>
-                      </div>
-                    </div>
-                    <div class="statuspanel-block45-spacer1"></div>
-                    <div class="statuspanel-block45-item2">
-                      <img
-                        src="../../../../../assets/locationcharger-icon/charging-infa.svg"
-                        class="statuspanel-box16 layout"
-                        alt=""
-                      />
-                    </div>
-                  </div>
-
-                  <!-- add the content here -->
-
-                  <div class="box-element-block2 layout">
-                    <div class="box-element-block5 layout">
-                      <img
-                        src="../../../../../assets/status-panel-icon/sites.png"
-                        class="box-element-box2 layout"
-                      />
-                      <div class="box-element-block6 layout">
-                        <h3 class="box-element-subtitle layout">
-                          {{ infraValue }}
-                        </h3>
-                        <div class="box-element-text-body layout">
-                          {{ infrakey }}
-                        </div>
-                      </div>
-                    </div>
-                    <div class="box-element-block2-spacer dotted_line">
-                      <hr />
-                    </div>
-                    <div class="box-element-block5 layout1">
-                      <img
-                        src="../../../../../assets/status-panel-icon/chargers.png"
-                        class="box-element-box2 layout"
-                      />
-                      <div class="box-element-block6 layout">
-                        <h3 class="box-element-subtitle layout">
-                          {{ chargervalue }}
-                        </h3>
-                        <div class="box-element-text-body layout">
-                          {{ chargerkey }}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- chargibng infra end here -->
-
-              <div class="statuspanel-block46 layout">
-                <div class="statuspanel-block47 layout">
-                  <div class="statuspanel-block45 layout1">
-                    <div class="statuspanel-block45-item">
-                      <div class="statuspanel-group layout2">
-                        <h4 class="statuspanel-highlights2 layout">
-                          Cost to Charge (USD)
-                        </h4>
-                      </div>
-                    </div>
-                    <div class="statuspanel-block45-spacer1"></div>
-                    <div class="statuspanel-block45-item2">
-                      <img
-                        src="../../../../../assets/status-panel-icon/revenue.png"
-                        class="statuspanel-box16 layout"
-                        alt=""
-                      />
-                    </div>
-                  </div>
-
-                  <div
-                    echarts
-                    [options]="chartOption"
-                    class="echart-item"
-                  ></div>
-                </div>
-              </div>
-
-              <!-- revenue end here -->
-
-              <!-- energy used start here  -->
-
-              <div class="statuspanel-block46 layout">
-                <div class="statuspanel-block47 layout">
-                  <div class="statuspanel-block45 layout1">
-                    <div class="statuspanel-block45-item">
-                      <div class="statuspanel-group layout2">
-                        <h4 class="statuspanel-highlights2 layout">
-                          Energy Used
-                        </h4>
-                      </div>
-                    </div>
-                    <div class="statuspanel-block45-spacer1"></div>
-                    <div class="statuspanel-block45-item2">
-                      <img
-                        class="statuspanel-box16 layout"
-                        src="../../../../assets/status-panel-icon/energy_used.png"
-                        alt=""
-                      />
-                    </div>
-                  </div>
-
-                  <!-- app list start -->
-                  <div class="list-element-block2 layout">
-                    <div class="list-element-block6 layout zero_br">
-                      <div class="list-element-block3 layout">
-                        <div class="list-element-block3-item">
-                          <div class="list-element-block4 layout">
-                            <img
-                              src="../../../../../assets/status-panel-icon/total-energy.png"
-                              class="list-element-box3 layout"
-                              alt=""
-                            />
-                          </div>
-                        </div>
-                        <div class="list-element-block3-spacer"></div>
-                        <div class="list-element-block3-item1">
-                          <div class="list-element-block5 layout">
-                            <h3 class="list-element-subtitle layout">
-                              {{ energyUsedvalue0 }}
-                            </h3>
-                            <div class="list-element-text-body layout">
-                              {{ energyUsedkey0 }}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="list-element-block2 layout">
-                    <div class="list-element-block6 layout zero_br">
-                      <div class="list-element-block3 layout">
-                        <div class="list-element-block3-item">
-                          <div class="list-element-block4 layout">
-                            <img
-                              src="../../../../../assets/status-panel-icon/daily_average.png"
-                              class="list-element-box3 layout"
-                              alt=""
-                            />
-                          </div>
-                        </div>
-                        <div class="list-element-block3-spacer"></div>
-                        <div class="list-element-block3-item1">
-                          <div class="list-element-block5 layout">
-                            <h3 class="list-element-subtitle layout">
-                              {{ energyUsedvalue1 }}
-                            </h3>
-                            <div class="list-element-text-body layout">
-                              {{ energyUsedkey1 }}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="list-element-block2 layout">
-                    <div class="list-element-block6 layout">
-                      <div class="list-element-block3 layout">
-                        <div class="list-element-block3-item">
-                          <div class="list-element-block4 layout">
-                            <img
-                              src="../../../../../assets/status-panel-icon/calender.png"
-                              class="list-element-box3 layout"
-                              alt=""
-                            />
-                          </div>
-                        </div>
-                        <div class="list-element-block3-spacer"></div>
-                        <div class="list-element-block3-item1">
-                          <div class="list-element-block5 layout">
-                            <h3 class="list-element-subtitle layout">
-                              {{ energyUsedvalue2 }}
-                            </h3>
-                            <div class="list-element-text-body layout">
-                              {{ energyUsedkey2 }}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- app list end -->
-                </div>
-              </div>
-              <!-- enegy used end -->
-
-              <!-- status box points start -->
-              <div class="statuspanel-block46 layout">
-                <div class="statuspanel-block47 layout">
-                  <div class="statuspanel-block45 layout1">
-                    <div class="statuspanel-block45-item">
-                      <div class="statuspanel-group layout2">
-                        <h4 class="statuspanel-highlights2 layout">
-                          Energy Points
-                        </h4>
-                      </div>
-                    </div>
-                    <div class="statuspanel-block45-spacer1"></div>
-                    <div class="statuspanel-block45-item2">
-                      <img
-                        src="../../../../../assets/status-panel-icon/energy_points.png"
-                        class="statuspanel-box16 layout"
-                        alt=""
-                      />
-                    </div>
-                  </div>
-
-                  <!-- add the content here -->
-
-                  <div class="box-element-block2 layout">
-                    <div class="box-element-block5 layout">
-                      <img
-                        src="../../../../../assets/status-panel-icon/saved.png"
-                        class="box-element-box2 layout"
-                      />
-                      <div class="box-element-block6 layout">
-                        <h3 class="box-element-subtitle layout">
-                          {{ energyPointsvalue0 }}
-                        </h3>
-                        <div class="box-element-text-body layout">
-                          {{ energyPointskey0 }}
-                        </div>
-                      </div>
-                    </div>
-                    <div class="box-element-block2-spacer dotted_line">
-                      <hr />
-                    </div>
-                    <div class="box-element-block5 layout1">
-                      <img
-                        src="../../../../../assets/status-panel-icon/gallon-1.svg"
-                        class="box-element-box2 layout"
-                      />
-                      <div class="box-element-block6 layout">
-                        <h3 class="box-element-subtitle layout">
-                          {{ energyPointsvalue1 }}
-                        </h3>
-                        <div class="box-element-text-body layout">
-                          {{ energyPointskey1 }}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- status box points end -->
-            </div>
-          </div>
         </div>
       </div>
     </div>

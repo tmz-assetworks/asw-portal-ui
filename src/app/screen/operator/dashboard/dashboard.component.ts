@@ -17,26 +17,14 @@ declare const MarkerClusterer: any
 })
 export class DashboardComponent implements OnInit {
   myparams: any
-  locations = '../../../assets/widget-icon/location.png'
-  chargers = '../../../assets/widget-icon/chargers.png'
-  charging_session = '../../../assets/widget-icon/charging-sessions.png'
-  errors = '../../../assets/widget-icon/erorrs.png'
-
-  basic = 'basic'
-  bar = 'bar'
-  barTitle = 'Chargers'
+  locations = '../../../../assets/Operator/Location-Icons.svg'
+  chargers = '../../../../assets/Operator/Chargers.svg'
+  charging_session = '../../../../assets/Operator/Charger-Seesion.svg'
+  errors = '../../../../assets/Operator/Error.svg'
 
   locationPerformingData = ''
-  dashboardlocationPerform = 'dashboardlocationPerform'
-  locationPerormTitle = 'Locations Performing '
-
   energyUsedData = ''
-  dashboardEnergyUsed = 'dashboardEnergyUsed'
-  dashboardEnergyUsedTitle = 'Energy Demand Over Time'
-
   locationList: any
-
-  location_list: any
   summaryStatus = []
 
   locationIds = new FormControl([])
@@ -46,17 +34,12 @@ export class DashboardComponent implements OnInit {
   selecteLocationIds = ''
   UserId: any
   chargersChartData = ''
-  locationsPerReq: any // niharika
-  energyUsedReq: any // niharika
-  chargersGraphReq: any // niharika
 
   /**
    * declare variables for charging session
    */
 
   chargingSessionData = ''
-  dashboardChargingSession = 'dashboardChargingSession'
-  dashboardChargingSessionTitle = 'Charging Session'
 
   mapstatusdata: any
   initMapFunc: any
@@ -138,53 +121,12 @@ export class DashboardComponent implements OnInit {
       this.selectedTime,
       this.UserId,
     )
-    /* 
-    // FORK JOIN CODE
-    this.locationsPerReq = {
-      locationIds: this.selecteLocationIds ? this.selecteLocationIds : [],
-      duration: this.selectedTime.toString(),
-      opratorid: this.UserId,
-      orderby: 1,
-    }
-
-   this.energyUsedReq = {
-    locationIds: this.selecteLocationIds ? this.selecteLocationIds : [],
-    duration: this.selectedTime.toString(),
-    opratorid: this.UserId,
-    }
-
-    this.chargersGraphReq =  {
-      locationIds: this.selecteLocationIds ? this.selecteLocationIds : [],
-      duration: this.selectedTime.toString(),
-      opratorid: this.UserId,
-    }
-   
-      this._dashboardService.requestDataFromMultipleSources(this.locationsPerReq,this.energyUsedReq,this.chargersGraphReq).subscribe({
-        next: (responseList) => {
-          
-          
-          this.summaryStatus = responseList[0].data
-          this.locationPerformingData = responseList[1].data
-          this.energyUsedData = responseList[2].data
-          this.chargersChartData = responseList[3]
-        },
-        error: (err) => {
-         
-        }
-      });
-  */
   }
   /**
    * Initializes the map
    */
 
   initMap() {
-    // let latlng=new google.maps.LatLng(-34.397, 150.644);
-    // this.map = new google.maps.Map(document.getElementById('map') as any, {
-    //   center: latlng,
-    //   zoom: 5,
-    // });
-
     const initialize = () => {
       var center = new google.maps.LatLng(36.2082629, -113.737393)
       var map = new google.maps.Map(document.getElementById('map'), {
@@ -204,13 +146,16 @@ export class DashboardComponent implements OnInit {
         // ],
 
         legend: {
-          Available: '#18A558',
-          Connected: '#FFA12D',
-          Offline: '#757575',
+          Available: '#90993F',
+          Connected: '#ea0088',
+          Offline: '#ea002a',
           Occupied: '#000C66',
-          Faulted: '#ea002a',
-          Busy: '#ea0088',
+          Faulted: '#757575',
+          Busy: '#E97300',
+          'EV Disconnected': '#0000FF',
         },
+
+        styles: [{ width: 80, height: 80 }],
       }
 
       var markers = []
@@ -244,16 +189,23 @@ export class DashboardComponent implements OnInit {
           content: contentString,
         })
 
-        marker.addListener('click', () => {
-          console.log(accident_title)
-
-          if (accident_title == 'Faulted') {
-            this._storageService.setSessionData('chargerBoxId', chargeBoxId)
-            this._storageService.setSessionData('chargerName', chargeBoxId)
-            this._router.navigate(['operator/charger/chargers-diagnostic'])
-          }
+        marker.addListener('mouseover', () => {
           infoWindow.setContent(contentString)
           infoWindow.open(map, marker)
+        })
+
+        marker.addListener('mouseout', function () {
+          infoWindow.close()
+        })
+
+        marker.addListener('click', () => {
+          // if (accident_title == 'Faulted') {
+          this._storageService.setSessionData('chargerBoxId', chargeBoxId)
+          this._storageService.setSessionData('chargerName', chargeBoxId)
+          this._router.navigate(['operator/charger/chargers-diagnostic'])
+          // }
+          // infoWindow.setContent(contentString)
+          // infoWindow.open(map, marker)
         })
 
         markers.push(marker)
@@ -333,9 +285,14 @@ export class DashboardComponent implements OnInit {
       )
     }
   }
-
   /**
-   * Get Location performing data
+   *
+   * @param locationIds
+   * @param duration
+   * @param operatorId
+   * @param orderBy
+   *
+   * GET LOCATION PERFORMING DATA
    */
 
   getLocationPerforming(
@@ -352,17 +309,9 @@ export class DashboardComponent implements OnInit {
     }
 
     this._dashboardService.GetLocationPerforming(body).subscribe((res) => {
-      // console.log(
-      //   'loactions performing api on dashboard for location' + locationIds,
-      //   res.data.length,
-      // )
       this.locationPerformingData = res.data
     })
   }
-
-  /**
-   * Get Location area data
-   */
 
   /**
    * Emit Toggle event
@@ -382,7 +331,7 @@ export class DashboardComponent implements OnInit {
    * @param duration
    * @param operatorId
    *
-   * Get Energy Used data
+   * ECALL ENERGY USED DATA
    */
 
   getEnergyUsedByLocationId(locationIds: any, duration: any, operatorId: any) {
@@ -392,10 +341,6 @@ export class DashboardComponent implements OnInit {
       opratorid: operatorId,
     }
     this._dashboardService.GetEnergyUsedByLocationID(body).subscribe((res) => {
-      // console.log(
-      //   'energy used api on dashboard for location' + locationIds,
-      //   res.data.length,
-      // )
       this.energyUsedData = res.data
     })
   }
@@ -403,14 +348,9 @@ export class DashboardComponent implements OnInit {
   /**
    *
    * @param event
-   *
-   * select location data
+   *  SELECT LOCATION
    */
   onSelectLocation(event: any) {
-    // if (!event.isUserInput) {
-    //   return
-    // }
-
     let locationIds = this.locationIds.value
 
     this.selecteLocationIds = locationIds
@@ -446,7 +386,7 @@ export class DashboardComponent implements OnInit {
   }
 
   /**
-   * Get Charger Graph
+   * CHARGER GRAPH DATA
    */
 
   getChargerGraph(locationIds: any, duration: any, operatorId: any) {
@@ -457,11 +397,7 @@ export class DashboardComponent implements OnInit {
     }
     this._dashboardService.getChargerChartData(body).subscribe({
       next: (response) => {
-        // console.log(
-        //   'chargers api on dashboard for location' + locationIds,
-        //   response.data.length,
-        // )
-        this.chargersChartData = response
+        this.chargersChartData = response.data
       },
       error: (err) => {
         console.log('no response for chargers graph')
@@ -475,7 +411,7 @@ export class DashboardComponent implements OnInit {
    * @param duration
    * @param operatorId
    *
-   * Get charging session data
+   *  CHARGING SESSION DATA
    */
   getChargingSessionChartData(
     locationIds: any,
@@ -488,13 +424,15 @@ export class DashboardComponent implements OnInit {
       opratorid: operatorId,
     }
     this._dashboardService.GetAreachartdataData(body).subscribe((res) => {
-      // console.log(
-      //   'charging session graph on dashboard for location' + locationIds,
-      //   res.data.length,
-      // )
       this.chargingSessionData = res.data
     })
   }
+  /**
+   *
+   * @param locationIds
+   * @param operatorId
+   * GET MAP LOCATIONS
+   */
 
   getMapLocations(locationIds: any, operatorId: any) {
     const body = {

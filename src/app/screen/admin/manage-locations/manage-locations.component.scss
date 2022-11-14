@@ -1297,11 +1297,20 @@ tr.mat-row:last-of-type {
 }
 
 @media screen and (max-width: 768px) {
+  .cust-list-block9.layout.mg-20 {
+    margin-left: 10px !important;
+}
+  .cust-list-block10.layout {
+    border: 0 !important;
+}
 //   .count-card .cust-list-block18.layout {
 //     margin-left: 0px !important;
 // }
 .count-card .cust-list-block17-item{
   margin-right: 4px !important; 
+}
+.cust-list-block17-item1 {
+  margin-left: 10px;
 }
 .count-card .cust-list-block7-item{
   margin-right: 20px !important;
@@ -1482,3 +1491,13 @@ tr.mat-row:last-of-type {
 .cust-list-block10-spacer {
   display: none;
 }
+
+@media (min-width: 480px) and (max-width: 767px){ 
+  .manage-location .layout.mat-data{
+    min-width: -webkit-fill-available;
+}
+
+.cust-list-block17 .cust-list-block17-item1{
+  margin-left: 25px;
+}
+    }

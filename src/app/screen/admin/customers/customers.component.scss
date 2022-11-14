@@ -228,7 +228,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
       margin: 8px 13px 8px 8px;
     }
   }
-  
+
   &block2-spacer {
     flex: 1 1 auto;
     @include xs {
@@ -2249,10 +2249,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
       flex: 0 0 14.285714285714285%;
     }
   }
- 
 }
-
-
 
 // @media only screen and (min-width: 1920px) {
 //   .resposiveclass {
@@ -2262,4 +2259,16 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
 //   }
 // }
 
+.fill-text-body1.layout {
+  margin: 0;
+}
+@media all and (min-width: 768px) and (max-width: 1024px) {
+  .fill-block5-item {
+    min-width: 254px;
+    margin-top: 20px;
+  }
 
+  .fill-block5.layout {
+    flex-wrap: wrap;
+  }
+}

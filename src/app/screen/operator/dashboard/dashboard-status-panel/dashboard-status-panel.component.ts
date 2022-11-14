@@ -114,13 +114,12 @@ export class DashboardStatusPanelComponent implements OnInit {
       legend: {
         data: legends,
         icon: 'circle',
-        right: 10,
+        // right: 5,
         top: 'bottom',
       },
       grid: {
-        left: '-10%',
-        right: '20%',
-
+        left: '20%',
+        right: '10%',
         top: '0%',
         bottom: '25%',
         containLabel: true,
@@ -159,7 +158,7 @@ export class DashboardStatusPanelComponent implements OnInit {
           },
         },
         {
-          name: 'Total Revenue',
+          name: 'Total Cost',
           type: 'bar',
           stack: 'Total',
           itemStyle: {
@@ -168,7 +167,7 @@ export class DashboardStatusPanelComponent implements OnInit {
           data: [values[0], '-', '-'],
         },
         {
-          name: 'Daily Revenue',
+          name: 'Daily Cost',
           type: 'bar',
           stack: 'Total',
           itemStyle: {
@@ -177,7 +176,7 @@ export class DashboardStatusPanelComponent implements OnInit {
           data: ['-', values[1], '-'],
         },
         {
-          name: "Today's Revenue",
+          name: "Today's Cost",
           type: 'bar',
           stack: 'Total',
           itemStyle: {

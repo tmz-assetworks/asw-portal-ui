@@ -16,7 +16,9 @@ import { GraphDetailComponent } from '../graph-detail/graph-detail.component'
 // import { DiagWidgetComponent } from '../../../component/diagnostic/diag-widget/diag-widget.component'
 // import { DiagTableComponent } from '../../../component/diagnostic/diag-table/diag-table.component'
 // import { DiagWidgetBarComponent } from '../../../component/diagnostic/diag-widget-bar/diag-widget-bar.component';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { NgxMatDatetimePickerModule, NgxMatTimepickerModule,NgxMatNativeDateModule  } from '@angular-material-components/datetime-picker';
 const routes: Routes = [
   {
     path: '',
@@ -71,6 +73,10 @@ const routes: Routes = [
     ChargerDiagnosticComponent,
     ChargerEventComponent
   ],
-  imports: [CommonModule, RouterModule.forChild(routes) ,SharedModule, SharedMaterialModule],
+  imports: [CommonModule, RouterModule.forChild(routes) ,SharedModule, SharedMaterialModule,MatDatepickerModule,
+    MatInputModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule],
 })
 export class ChargerModule {}

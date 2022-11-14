@@ -1304,3 +1304,30 @@ tr.mat-row:last-of-type {
 table.mat-table.cdk-table.mat-elevation-z8 {
   min-width: -webkit-fill-available;
 }
+
+@media all and (min-width: 480px) and (max-width: 767px) {
+  .cust-list-block12-item.icon-box {
+    margin-left: 0px;
+}
+.cust-list-block4.layout {
+  flex-wrap: wrap;
+}
+.cust-list-block17-item.icon-box {
+  margin-left: 0px;
+}
+.cust-list-block12-item1 {
+  margin-left: 0px !important;
+}
+.cust-list-block17-item1 {
+  margin-left: 30px;
+}
+.cust-list-block3.layout {
+  width: 55%;
+}
+.cust-list-block10{
+  border: 0 !important 
+}
+}
+@media screen and (max-width: 768px) {
+
+}

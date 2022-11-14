@@ -12,7 +12,9 @@
                     <div class="cust-list-block7-item icon-box total-count">
                       <div class="cust-list-block8 layout">
                         <div class="cust-list-box7 layout">
-                          <img src="assets/images/Group.png" />
+                          <img
+                            src="../../../../assets/Super-Admin-icons/Total.svg"
+                          />
                         </div>
                       </div>
                     </div>
@@ -50,7 +52,9 @@
                     <div class="cust-list-block12-item icon-box">
                       <div class="cust-list-block13 layout">
                         <div class="cust-list-box7 layout">
-                          <img src="assets/images/Group1.png" />
+                          <img
+                            src="../../../../assets/Super-Admin-icons/Activelogo.svg"
+                          />
                         </div>
                       </div>
                     </div>
@@ -89,7 +93,9 @@
                     <div class="cust-list-block17-item icon-box">
                       <div class="cust-list-block18 layout">
                         <div class="cust-list-box7 layout">
-                          <img src="assets/icons/inactive.png" />
+                          <img
+                            src="../../../../assets/Super-Admin-icons/inactive-Customer.svg"
+                          />
                         </div>
                       </div>
                     </div>
@@ -128,7 +134,7 @@
         <div class="cust-list-block19 layout">
           <div class="cust-list-box9 layout">
             <img
-              src="assets/images/serach.png"
+              src="../../../../assets/Super-Admin-icons/Search.svg"
               alt=""
               class="cust-list-icon layout"
             />
@@ -138,7 +144,7 @@
             <input
               class="cust-list-text-body21 layout"
               (keyup)="applyFilter($event)"
-              placeholder="Search"
+              placeholder="Search by name"
               #input
             />
           </div>
@@ -154,7 +160,7 @@
         <div class="cust-list-block23-item">
           <div class="cust-list-box10 layout">
             <img
-              src="../../../../assets/superadmin-icons/add-icon.png"
+              src="../../../../assets/Super-Admin-icons/Add.svg"
               alt=""
               srcset=""
             />
@@ -169,53 +175,47 @@
   </div>
   <div class="layout mat-data table-responsive">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-      <ng-container matColumnDef="customername">
+      <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef>NAME</th>
         <td mat-cell *matCellDef="let element">{{ element.adminName }}</td>
       </ng-container>
 
-      <ng-container matColumnDef="customerid">
+      <ng-container matColumnDef="email">
         <th mat-header-cell *matHeaderCellDef>EMAIL ID</th>
         <td mat-cell *matCellDef="let element">{{ element.emailId }}</td>
       </ng-container>
 
-      <ng-container matColumnDef="customeremail">
+      <ng-container matColumnDef="status">
         <th mat-header-cell *matHeaderCellDef>STATUS</th>
         <td mat-cell *matCellDef="let element">
-          {{ element.isActive ? 'Active' : 'InActive' }}
+          {{ element.isActive ? 'Active' : 'Inactive' }}
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="phonenumber">
+      <ng-container matColumnDef="associatedSite">
         <th mat-header-cell *matHeaderCellDef>ASSOCIATED SITES</th>
         <td mat-cell *matCellDef="let element">{{ element.customerID }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef>Status</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.isActive ? 'Active' : 'InActive' }}
-        </td>
       </ng-container>
 
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef>ACTION</th>
         <td mat-cell *matCellDef="let element">
-          <!-- <span><img src="assets/icons/tick.png " alt="" /></span>
-          &nbsp;
-          <span><img src="assets/icons/View.png" alt="" style="cursor: pointer" (click)="performAction('view', element)" /></span> -->
           <span
+            style="margin: 7px;"
             *ngIf="!element.isActive"
+            title="Active"
             (click)="changeState(element.id, element.isActive)"
           >
             <img
-              src="../../../../assets/superadmin-icons/Active.png"
+              src="../../../../assets/Admin-SideNav/Active.svg"
               class="cursorPointer"
               alt=""
             />
           </span>
           <span
+            style="margin: 7px;"
             *ngIf="element.isActive"
+            title="Inactive"
             (click)="changeState(element.id, element.isActive)"
           >
             <img
@@ -226,7 +226,7 @@
           </span>
           <span style="margin: 7px;">
             <img
-              src="../../../../assets/superadmin-icons/Edit.png"
+              src="../../../../assets/icons/edit.svg"
               alt=""
               class="cursorPointer"
               (click)="performAction('edit', element)"
@@ -236,7 +236,7 @@
           <!-- <span style="margin: 3px;"><img src="../../../../assets/superadmin-icons/Edit.png" alt="" /></span> -->
           <span style="margin: 7px;">
             <img
-              src="../../../../assets/superadmin-icons/View.png"
+              src="../../../../assets/icons/view.svg"
               alt=""
               class="cursorPointer"
               title="View"

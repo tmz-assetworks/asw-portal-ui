@@ -84,7 +84,7 @@ export class LineChartComponent implements OnInit {
   @Output() lineDetailPage: EventEmitter<any> = new EventEmitter<any>()
   constructor() {}
 
-  icon = '../../../../assets/chart-icon.png'
+  icon = '../../../../assets/chart-icon.svg'
 
   dataSet = []
   option: EChartsOption = {}
@@ -184,6 +184,10 @@ export class LineChartComponent implements OnInit {
       //   ],
       // }
     } else if (chartType === 'dashboardEnergyUsed') {
+      if (this.energyUsedDataSet.length === 0) {
+        this.option = {}
+        return
+      }
       this.option = this.setLineChartOption(
         this.energyUsedDataSet,
       ) as EChartsOption
@@ -308,7 +312,7 @@ export class LineChartComponent implements OnInit {
         xAxis: [
           {
             type: 'category',
-            name: 'Time',
+            name: 'Duration',
             nameLocation: 'middle',
             nameGap: 42,
             axisTick: { show: false },
@@ -348,6 +352,10 @@ export class LineChartComponent implements OnInit {
         ],
       }
     } else if (chartType == 'energyAnalyticsUsed') {
+      if (this.energyUsedDataSet.length == 0) {
+        this.option = {}
+        return
+      }
       this.option = this.setLineChartOption(
         this.energyUsedDataSet,
       ) as EChartsOption
@@ -444,12 +452,20 @@ export class LineChartComponent implements OnInit {
       }
     } else if (chartType == 'reportSubscribeYearly') {
       if (this.reportSubscribeYearlyDataSet !== undefined) {
+        if (this.reportSubscribeYearlyDataSet.length === 0) {
+          this.option = {}
+          return
+        }
         this.option = this.reportSubscribeYearlyChartOptions(
           this.reportSubscribeYearlyDataSet,
         ) as EChartsOption
       }
     } else if (chartType == 'reportUpcomingSession') {
       if (this.reportUpcomingSessionDataSet !== undefined) {
+        if (this.reportUpcomingSessionDataSet.length === 0) {
+          this.option = {}
+          return
+        }
         this.option = this.setUpcomingSessionChartOptions(
           this.reportUpcomingSessionDataSet,
         ) as EChartsOption
@@ -534,19 +550,30 @@ export class LineChartComponent implements OnInit {
       // }
     } else if (chartType == 'reportEnergyUsed') {
       if (this.reportEnergyUsedDataSet !== undefined) {
-        debugger
+        if (this.reportEnergyUsedDataSet.length == 0) {
+          this.option = {}
+          return
+        }
         this.option = this.setreportEnergyUsedDataChartOptions(
           this.reportEnergyUsedDataSet,
         ) as EChartsOption
       }
     } else if (chartType == 'reportEnergyGasolineGallon') {
       if (this.reportEnergyGasolineGallonDataSet !== undefined) {
+        if (this.reportEnergyGasolineGallonDataSet.length == 0) {
+          this.option = {}
+          return
+        }
         this.option = this.setEnergyGasolineGallonDataChartOptions(
           this.reportEnergyGasolineGallonDataSet,
         ) as EChartsOption
       }
     } else if (chartType == 'reportEnergyMilesAdded') {
       if (this.reportEnergyMilesAddedDataSet !== undefined) {
+        if (this.reportEnergyMilesAddedDataSet.length == 0) {
+          this.option = {}
+          return
+        }
         this.option = this.setReportEnergyMilesAddedOption(
           this.reportEnergyMilesAddedDataSet,
         ) as EChartsOption
@@ -567,9 +594,6 @@ export class LineChartComponent implements OnInit {
     const maxValue = dataSet.map((acc: any) => `${acc.endMeterValue}`)
 
     const maxEndMeterValue = Math.max(...maxValue)
-
-    // let maxValue = Math.max(dataSet.map((acc: any) => [`${acc.endMeterValue}`]))
-    // console.log(maxValue, 'max value')
 
     return {
       legend: {
@@ -607,7 +631,7 @@ export class LineChartComponent implements OnInit {
       xAxis: [
         {
           type: 'category',
-          name: 'Time',
+          name: 'Duration',
           nameLocation: 'middle',
           nameGap: 42,
           axisTick: { show: false },
@@ -618,12 +642,9 @@ export class LineChartComponent implements OnInit {
       ],
       yAxis: {
         type: 'value',
-        // min: 0,
-        // max: maxEndMeterValue,
         name: 'Energy Used (Kwh)',
         nameLocation: 'middle',
-        /* fontWeight: 'bolder', */
-        nameGap: 70, // 50
+        nameGap: 70,
         nameTextStyle: {
           fontSize: 14,
         },
@@ -648,14 +669,13 @@ export class LineChartComponent implements OnInit {
 
     return {
       legend: {
-        // left: '82%',
         right: '4%',
         icon: 'square',
       },
       grid: {
         left: '10%',
         right: '4%',
-        // bottom: '8%',
+
         top: 50,
         containLabel: true,
       },
@@ -664,26 +684,9 @@ export class LineChartComponent implements OnInit {
       },
       background: 'transparent',
       dataset: {
-        source: [
-          //   ['category', 'Energy Used'],
-          ['category', 'YEARLY SUBSCRIPTION'],
-          ...yearlyArray,
-          // ['2022', 200],
-          // ['2023', 300],
-          // ['2024', 400],
-          // ['2025', 450],
-          // ['2026', 500],
-          // ['2027', 550],
-          // ['2028', 600],
-          // ['2029', 650],
-          // ['2030', 800],
-          // ['2031', 900],
-        ],
+        source: [['category', 'YEARLY SUBSCRIPTION'], ...yearlyArray],
       },
-      /* xAxis: {
-        type: 'category',
-  
-      }, */
+
       xAxis: [
         {
           type: 'category',
@@ -698,20 +701,12 @@ export class LineChartComponent implements OnInit {
       ],
       yAxis: {
         type: 'value',
-        // min: 0,
-        // max: 10000,
+
         name: 'Yearly Subscription',
         nameLocation: 'middle',
         /* fontWeight: 'bolder', */
         nameGap: 50,
         nameTextStyle: {
-          // align: 'right',
-          // verticalAlign: 'top',
-          /**
-           * the top padding will shift the name down so that it does not overlap with the axis-labels
-           * t-l-b-r
-           */
-          // padding: [10, 0, 0, 0],
           fontSize: 14,
           // fontWeight: 800,
           // fontStyle: 'italic',
@@ -719,7 +714,6 @@ export class LineChartComponent implements OnInit {
         axisLabel: {
           formatter: '${value}',
           // align: 'center'
-          // ...
         },
       },
       series: [
@@ -745,14 +739,13 @@ export class LineChartComponent implements OnInit {
 
     return {
       legend: {
-        // left: '82%',
         right: '4%',
         icon: 'square',
       },
       grid: {
         left: '10%',
         right: '4%',
-        // bottom: '8%',
+
         top: 50,
         containLabel: true,
       },
@@ -762,7 +755,6 @@ export class LineChartComponent implements OnInit {
       background: 'transparent',
       dataset: {
         source: [
-          //   ['category', 'Energy Used'],
           ['category', 'UPCOMING SESSION - 24 HOURS'],
 
           ...sessionUpcomingArray,
@@ -776,14 +768,11 @@ export class LineChartComponent implements OnInit {
           // ['14:00', 80],
         ],
       },
-      /* xAxis: {
-        type: 'category',
-  
-      }, */
+
       xAxis: [
         {
           type: 'category',
-          name: 'Time',
+          name: 'Locations',
           nameLocation: 'middle',
           nameGap: 50,
           axisTick: { show: false },
@@ -869,10 +858,10 @@ export class LineChartComponent implements OnInit {
       xAxis: [
         {
           type: 'category',
-          name: 'Time',
+          name: 'Duration',
           nameLocation: 'middle',
           nameGap: 50,
-          nameTextStyle:{
+          nameTextStyle: {
             fontSize: 14,
           },
           axisTick: { show: false },
@@ -914,8 +903,6 @@ export class LineChartComponent implements OnInit {
   }
 
   setEnergyGasolineGallonDataChartOptions(dataSet: any) {
-    // debugger
-
     let gallonArray = dataSet.map((accu: any) => [
       `${accu.times}`,
       accu.gasolinegallon,
@@ -963,10 +950,10 @@ export class LineChartComponent implements OnInit {
       xAxis: [
         {
           type: 'category',
-          name: 'Month',
+          name: 'Duration',
           nameLocation: 'middle',
           nameGap: 50,
-          nameTextStyle:{
+          nameTextStyle: {
             fontSize: 14,
           },
           axisTick: { show: false },
@@ -1058,10 +1045,10 @@ export class LineChartComponent implements OnInit {
       xAxis: [
         {
           type: 'category',
-          name: 'Time',
+          name: 'Duration',
           nameLocation: 'middle',
           nameGap: 50,
-          nameTextStyle:{
+          nameTextStyle: {
             fontSize: 14,
           },
           axisTick: { show: false },

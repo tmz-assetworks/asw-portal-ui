@@ -1,0 +1,188 @@
+<div class="barbar-block10 layout">
+  <div class="barbar-flex layout">
+    <div class="barbar-block11 layout">
+      <h3 class="barbar-subtitle layout">{{ Title }}</h3>
+    </div>
+    <form [formGroup]="addSubscriptionPlanForm">
+      <div class="barbar-block12 layout">
+        <div class="barbar-block13 layout">
+          <div class="barbar-block13-item mbottom">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Customer Name</h5>
+              <mat-form-field class="barbar-box6 layout">
+                <mat-select formControlName="customerName">
+                  <mat-option value="Shane Waston & Sons">
+                    Shane Waston & Sons
+                  </mat-option>
+                  <mat-option value="Shane Sons">Shane Sons</mat-option>
+                  <mat-option value="Sons">Sons</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Subscription Plans Name</h5>
+              <div class="barbar-box6 layout">
+                <input
+                  formControlName="subscriptionPlanName"
+                  type="text"
+                  class="barbar-input-text"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Location</h5>
+              <div class="barbar-box6 layout">
+                <input
+                  formControlName="location"
+                  type="text"
+                  class="barbar-input-text"
+                />
+              </div>
+            </div>
+          </div> -->
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Description</h5>
+              <div class="barbar-box6 layout">
+                <input
+                  formControlName="description"
+                  type="text"
+                  class="barbar-input-text"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item mbottom">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Currency Code</h5>
+              <mat-form-field class="barbar-box6 layout">
+                <mat-select formControlName="currencyCode">
+                  <mat-option value="Rupees">Rupees</mat-option>
+                  <mat-option value="Doller">Doller</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Valid From</h5>
+              <mat-form-field class="barbar-box6 layout">
+                <mat-label>Choose a date</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="picker"
+                  formControlName="validfrom"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Valid To</h5>
+              <mat-form-field class="barbar-box6 layout">
+                <mat-label>Choose a date</mat-label>
+                <input
+                  matInput
+                  [matDatepicker]="picker1"
+                  formControlName="validto"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="picker1"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item mbottom">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Type</h5>
+              <mat-form-field class="barbar-box6 layout">
+                <mat-select formControlName="type">
+                  <mat-option value="Price Type 1">Type 1</mat-option>
+                  <mat-option value="Price Type 2">Type 2</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Value</h5>
+              <div class="barbar-box6 layout">
+                <input
+                  formControlName="value"
+                  type="text"
+                  class="barbar-input-text"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Subscription Group</h5>
+              <mat-form-field class="barbar-box6 layout">
+                <mat-select formControlName="subGroup">
+                  <mat-option value="Unit 1">30 minutes free group</mat-option>
+                  <mat-option value="Unit 2">Unit 2</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="barbar-flex1 layout">
+        <div class="barbar-flex1-item">
+          <div class="barbar-block17 layout">
+            <div
+              class="barbar-text-body2 layout"
+              [routerLink]="['../../subscriptions-plans']"
+            >
+              CANCEL
+            </div>
+          </div>
+        </div>
+        <div class="barbar-flex1-spacer"></div>
+        <div class="barbar-flex1-item">
+          <div class="barbar-block16 layout">
+            <div
+              class="barbar-text-body1 layout"
+              (click)="alertWithSuccess()"
+              *ngIf="isSaveBtn"
+            >
+              SAVE
+            </div>
+            <div
+              class="barbar-text-body1 layout"
+              *ngIf="isUpdateBtn"
+              (click)="alertWithSuccess()"
+            >
+              UPDATE
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

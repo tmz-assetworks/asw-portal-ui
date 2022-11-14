@@ -17,26 +17,11 @@ export class AnalyticsComponent implements OnInit {
   UserId: any
   selecteLocationIds: any
   energyAnalyticsUsedData = ''
-  energyAnalyticsUsedTitle = 'Energy Demand Over Time'
-  energyAnalyticsUsed = 'energyAnalyticsUsed'
-
   chargersChartData = ''
-
-  locationAnalyticsMilesAdd = 'locationAnalyticsMilesAdd'
-  locationAnalyticsMilesAddTitle = 'Miles Added'
-  bar = 'bar'
-  barTitle = 'Chargers'
   chargingSessionData = ''
-
-  chargingSessionTitle = 'Charging Session'
-  chargingSession = 'chargingSession'
-
   locationAnalyticsMilesAddData = ''
-
   summaryData: any
   locationName: string | null
-
-  // private _router: any
 
   constructor(
     private _locationService: LocationService,
@@ -196,7 +181,6 @@ export class AnalyticsComponent implements OnInit {
     pageHeading: string,
     duration: any,
   ) {
-    //alert('derails page');
     sessionStorage.setItem('graphHeading', graphHeading)
     sessionStorage.setItem('pageHeading', pageHeading)
     sessionStorage.setItem('duration', duration)
@@ -205,7 +189,6 @@ export class AnalyticsComponent implements OnInit {
       relativeTo: this._route,
       queryParams: { id: event },
     })
-    //this._router.navigate(['detail'],{relativeTo: this._route});
   }
   /**
    * Set time to show
@@ -264,9 +247,6 @@ export class AnalyticsComponent implements OnInit {
    */
 
   getChargerGraph(locationIds: any, duration: any, operatorId: any) {
-    //alert('remove hardcode');
-    // this.chargersChartData = ''
-    //alert(duration);
     const body = {
       //locationIds: [locationIds],
       locationIds: locationIds ? [locationIds] : [],
@@ -275,7 +255,7 @@ export class AnalyticsComponent implements OnInit {
     }
     this._locationService.getChargerChartData(body).subscribe({
       next: (response) => {
-        this.chargersChartData = response
+        this.chargersChartData = response.data
       },
       error: (_err) => {
         console.log('no response for chargers graph')
@@ -302,7 +282,6 @@ export class AnalyticsComponent implements OnInit {
     }
     this._dashboardService.GetAreachartdataData(body).subscribe((res) => {
       this.chargingSessionData = res.data
-      console.log(this.chargingSessionData, 'hello session chart')
     })
   }
 

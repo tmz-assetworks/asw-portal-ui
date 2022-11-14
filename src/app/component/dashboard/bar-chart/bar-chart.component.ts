@@ -43,7 +43,7 @@ export class BarChartComponent implements OnInit {
   @Input() set chargersData(value: any) {
     if (value !== undefined && value !== '') {
       this.chargerData = value
-      this.setChartOption('bar')
+      this.setChartOption(this.chartTypeData)
     }
   }
 
@@ -102,17 +102,21 @@ export class BarChartComponent implements OnInit {
   }
 
   constructor(private _router: Router) {}
-  icon = '../../../../assets/chart-icon.png'
+  icon = '../../../../assets/chart-icon.svg'
 
   option: EChartsOption = {}
 
   setChartOption(chartType: string) {
     if (chartType === 'bar' && this.chargerData !== undefined) {
-      // alert('bar');
       this.barChartId = 1
+      if (this.chargerData.length == 0) {
+        this.option = {}
+        return
+      }
+
       let arr: any
-      arr = this.chargerData.data
-      //console.log(arr);
+      arr = this.chargerData
+
       const maxValue = arr.map((accu: any) => `${accu.counts}`)
 
       const maxCountValue = Math.max(...maxValue)
@@ -150,12 +154,11 @@ export class BarChartComponent implements OnInit {
           let arrOb = ind >= 0 ? arr[ind].counts : 0
           xvalueData.push(arrOb)
         }
-        // console.log(xvalueData);
         arrObject.push(xvalueData)
       }
 
       // CREATE OBJECT FOR DIFF ELEMENT
-      // console.log(legendData,'legend data');
+
       let legendDataLenghth = legendData.length - 1
       for (let j = 0; j < legendDataLenghth; j++) {
         if (legendColorData[j] !== undefined) {
@@ -189,7 +192,7 @@ export class BarChartComponent implements OnInit {
         xAxis: [
           {
             type: 'category',
-            name: 'Time',
+            name: 'Duration',
             nameLocation: 'middle',
             nameGap: 42,
             axisTick: { show: false },
@@ -405,6 +408,11 @@ export class BarChartComponent implements OnInit {
       //alert(4);
       if (this.performingDataSet !== undefined) {
         this.barChartId = 4
+
+        if (this.performingDataSet.length == 0) {
+          this.option = {}
+          return
+        }
         this.option = this.setPerformChartOptions(
           this.performingDataSet,
         ) as EChartsOption
@@ -515,18 +523,31 @@ export class BarChartComponent implements OnInit {
       this.barChartId = 2
 
       if (this.performingDataSet !== undefined) {
+        if (this.performingDataSet.length == 0) {
+          this.option = {}
+          return
+        }
+
         this.option = this.setPerformChartOptions(
           this.performingDataSet,
         ) as EChartsOption
       }
     } else if (chartType === 'reportSubscribeMonthly') {
       if (this.reportSubscribeMonthlyDataSet !== undefined) {
+        if (this.reportSubscribeMonthlyDataSet.length == 0) {
+          this.option = {}
+          return
+        }
         this.option = this.reportSubscribeMonthlyChartOptions(
           this.reportSubscribeMonthlyDataSet,
         ) as EChartsOption
       }
     } else if (chartType == 'reportSubscribeType') {
       if (this.reportSubscribeTypeDataSet !== undefined) {
+        if (this.reportSubscribeTypeDataSet.length == 0) {
+          this.option = {}
+          return
+        }
         this.option = this.reportSubscribeTypeChartOptions(
           this.reportSubscribeTypeDataSet,
         ) as EChartsOption
@@ -621,6 +642,10 @@ export class BarChartComponent implements OnInit {
       }
     } else if (chartType == 'reportSession') {
       if (this.reportSessionDataSet !== undefined) {
+        if (this.reportSessionDataSet.length == 0) {
+          this.option = {}
+          return
+        }
         this.option = this.reportSessionDataChartOptions(
           this.reportSessionDataSet,
         ) as EChartsOption
@@ -940,7 +965,7 @@ export class BarChartComponent implements OnInit {
         //   'Service Plan 4',
         // ],
         data: xAxisData,
-        name: 'Month',
+        name: 'Plans',
         nameLocation: 'middle',
         nameGap: 45,
         //nameGap: 25,
@@ -979,10 +1004,8 @@ export class BarChartComponent implements OnInit {
   }
 
   reportSessionDataChartOptions(dataSet: any) {
-    //console.log(arr);
-    const maxValue = dataSet.map((accu: any) => `${accu.counts}`)
-
-    const maxCountValue = Math.max(...maxValue)
+    // const maxValue = dataSet.map((accu: any) => `${accu.counts}`)
+    // const maxCountValue = Math.max(...maxValue)
     let arrObject: any[] = []
     let seriesData: any[] = []
     let legendColorData: any[] = []
@@ -1017,12 +1040,12 @@ export class BarChartComponent implements OnInit {
         let arrOb = ind >= 0 ? dataSet[ind].counts : 0
         xvalueData.push(arrOb)
       }
-      // console.log(xvalueData);
+
       arrObject.push(xvalueData)
     }
 
     // CREATE OBJECT FOR DIFF ELEMENT
-    // console.log(legendData,'legend data');
+
     let legendDataLenghth = legendData.length - 1
     for (let j = 0; j < legendDataLenghth; j++) {
       if (legendColorData[j] !== undefined) {
@@ -1073,7 +1096,7 @@ export class BarChartComponent implements OnInit {
       xAxis: [
         {
           type: 'category',
-          name: 'Month',
+          name: 'Duration',
           nameLocation: 'middle',
           nameGap: 43,
           axisTick: { show: false },

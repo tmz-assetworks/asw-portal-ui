@@ -27,7 +27,6 @@ export class CommandDialogComponent implements OnInit {
     public _toastr: ToastrService,
     private _storageService: StorageService,
   ) {
-    // console.log(data)
     this.UserId = this._storageService.getLocalData('user_id')
     this.chargerId = data.chargeBoxId
     this.commandType = data.commandType
@@ -205,8 +204,6 @@ export class CommandDialogComponent implements OnInit {
   cmsReply(cmsRequestPayload: any) {
     const source = interval(3000)
     const subscribe = source.subscribe((val) => {
-      console.log(val, 'value')
-
       if (val <= 2) {
         this._diagnosticsService
           .CmsReply(cmsRequestPayload)

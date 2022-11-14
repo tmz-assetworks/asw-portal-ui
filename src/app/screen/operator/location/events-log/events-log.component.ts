@@ -1,7 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
-import { EChartsOption } from 'echarts'
 import { LocationService } from './../location.service'
 import { animate, state, style, transition, trigger } from '@angular/animations'
 import { StorageService } from 'src/app/service/storage.service'
@@ -9,7 +8,6 @@ import { StorageService } from 'src/app/service/storage.service'
 import { ChargerService } from '../../charger/charger.service'
 import jsPDF from 'jspdf'
 import 'jspdf-autotable'
-
 
 @Component({
   selector: 'app-events-log',
@@ -41,9 +39,12 @@ export class EventsLogComponent implements OnInit {
   currentPage: number = 1
   totalPages: any
   pageSizeOptions = [10, 20, 100]
- 
-  @ViewChild(MatPaginator) paginator!: MatPaginator
   eventLogList: any
+
+  @ViewChild(MatPaginator) paginator: any
+  @ViewChild('pdfTable', { static: false })
+  pdfTable!: ElementRef
+
   constructor(
     public _locationService: LocationService,
     private _storageService: StorageService,
@@ -51,36 +52,32 @@ export class EventsLogComponent implements OnInit {
   ) {
     this.locationName = this._storageService.getSessionData('locationName')
     this.locationId = this._storageService.getSessionData('locationId')
-    this.locationId = JSON.parse(this.locationId)
+    // this.locationId = JSON.parse(this.locationId)
     this.UserId = this._storageService.getLocalData('user_id')
   }
 
   dataSource = new MatTableDataSource<any>()
+
   displayedColumns = ['Type', 'DateTime', 'SerialNumber', 'action']
- 
 
   ngOnInit(): void {
-    this.GetEventLogByLocation()
+    if (this.locationName && this.locationId) {
+      this.GetEventLogByLocation()
+    }
+    // this.GetEventLogByLocation()
+
     this.getCommandList()
   }
-
-  @ViewChild('pdfTable', { static: false })
-  pdfTable!: ElementRef
-
- 
 
   ngAfterViewInit() {
     this.paginator._intl.itemsPerPageLabel = 'Rows per page'
   }
-
-  
 
   /**
    * Filter Operation type
    * @param event
    */
   selectOption(event: any) {
-   
     this.searchParam = event.target.value
     this.GetEventLogByLocation()
   }
@@ -89,9 +86,7 @@ export class EventsLogComponent implements OnInit {
   Get Location Event Log List
   */
 
-  GetEventLogByLocation(
-  ) {
-   
+  GetEventLogByLocation() {
     const body = {
       pageNumber: this.currentPage,
       searchParam: this.searchParam == 'All' ? '' : this.searchParam,
@@ -109,17 +104,36 @@ export class EventsLogComponent implements OnInit {
         this.pageSize = res.paginationResponse.pageSize
 
         this.dataSource.data = res.data
-        
+
         this.isTableHasData = false
       } else {
         this.dataSource.data = []
         this.isTableHasData = true
+        this.pageSize = 10
       }
     })
   }
+  /**
+   *
+   * @param event
+   * Page Event
+   */
+
+  pageChange(event: any) {
+    if (event.pageSize !== this.pageSize) {
+      this.currentPage = 1
+      this.pageSize = event.pageSize
+      this.paginator.pageIndex = 0
+    } else {
+      this.currentPage =
+        event.previousPageIndex < event.pageIndex
+          ? this.currentPage + 1
+          : this.currentPage - 1
+    }
+    this.GetEventLogByLocation()
+  }
 
   public downloadAsPDF() {
-    
     var prepare: any = []
     this.eventLogList.forEach((e: any) => {
       var tempObj = []
@@ -164,25 +178,4 @@ export class EventsLogComponent implements OnInit {
       this.GetEventLogByLocation()
     })
   }
-
-   /**
-   *
-   * @param event
-   * Page Event
-   */
-
-    pageChange(event: any) {
-      if (event.pageSize !== this.pageSize) {
-        this.currentPage = 1
-        this.pageSize = event.pageSize
-        this.paginator.pageIndex = 0
-      } else {
-        this.currentPage =
-          event.previousPageIndex < event.pageIndex
-            ? this.currentPage + 1
-            : this.currentPage - 1
-      }
-  this.GetEventLogByLocation()
-   
-    }
 }

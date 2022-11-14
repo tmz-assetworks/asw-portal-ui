@@ -50,10 +50,11 @@ export class AuthService {
   } */
 
   haveAccess(role: string) {
+   
     let idToken = localStorage.getItem('token_id')
     if (idToken !== null && idToken !== '') {
       let decodeData = this._loginService.getDecodedAccessToken(idToken)
-      const currentRole = decodeData.roles
+      const currentRole = decodeData.roles[0]
 
       if (currentRole == role) {
         return true

@@ -47,7 +47,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block.layout {
     position: relative;
     overflow: hidden;
-    min-height: 1314px;
+    // min-height: 1314px;
   }
   &block1 {
     @include flex-column;
@@ -2031,7 +2031,8 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block.layout {
     position: relative;
     overflow: hidden;
-    min-height: 1000px;
+    // min-height: 1000px;
+    height: auto !important;
   }
   &block1 {
     @include flex-column;

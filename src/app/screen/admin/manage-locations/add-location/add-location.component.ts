@@ -15,12 +15,14 @@ import { AdminService } from '../../admin.service'
 import {} from 'googlemaps'
 import { Location } from '@angular/common'
 
+
 @Component({
   selector: 'app-add-location',
   templateUrl: './add-location.component.html',
   styleUrls: ['./add-location.component.scss'],
 })
 export class AddLocationComponent implements OnInit {
+  submitted = false
   isSaveBtn: boolean = true
   locationInfoTitle: string = 'Location Information'
   selected = '7 AM to 8 PM'
@@ -29,7 +31,7 @@ export class AddLocationComponent implements OnInit {
   stateList: any
   stateId = 0
   cityList: any
-  cityId = 0
+  
   locationStatusList: any
   locationStatusId = 0
   countryName = ''
@@ -39,7 +41,7 @@ export class AddLocationComponent implements OnInit {
   locationSchedule: any[] = []
   UserId: any
   locationRowData: any
-  departmentList: any
+  // departmentList: any
   isEdit = false
   locationId = 0
   id = 0
@@ -47,6 +49,7 @@ export class AddLocationComponent implements OnInit {
   updatelocationSchedule: any
   selectValue = '0#select'
   selectcountryId = ''
+  viewMode: boolean = false
 
   timeList = [
     '00:00',
@@ -91,13 +94,11 @@ export class AddLocationComponent implements OnInit {
   /**
    * Add Location Information Form
    *
-   */ //   ^[^\s].+[a-zA-Z]+[a-zA-Z]+$
-   // '^-?([1-8]?[1-9]|[1-9]0)\\.{1}\\d{1,6}'
-  addLocationForm = this.formBuilder.group({
+   */ addLocationForm = this.formBuilder.group({
     LocationId: new FormControl('', [
       Validators.required,
-     Validators.pattern('[a-zA-Z0-9 ]+'),
-   // Validators.pattern('[^\s].+[a-zA-Z]+[a-zA-Z]+$')
+      Validators.pattern('[a-zA-Z0-9 ]+'),
+      // Validators.pattern('[^\s].+[a-zA-Z]+[a-zA-Z]+$')
     ]),
     LocationName: new FormControl('', [
       Validators.required,
@@ -108,24 +109,26 @@ export class AddLocationComponent implements OnInit {
     contactPersonName: new FormControl('', [
       Validators.pattern('[a-zA-Z ]{2,25}'),
     ]),
-    departmentId: new FormControl('0', Validators.required),
+    departmentId: new FormControl('', Validators.required),
     contactPersonNumber: new FormControl('', [
       Validators.required,
-      Validators.pattern('[0-9]{10,15}'),
+      
     ]),
-    Latitude: new FormControl('',[Validators.pattern('[0-9.+-]+')]),
-    Longitude: new FormControl('',[Validators.pattern('[0-9.+-]+')]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    Latitude: new FormControl('', [Validators.pattern('[0-9.+-]+')]),
+    Longitude: new FormControl('', [Validators.pattern('[0-9.+-]+')]),
     addressLine1: new FormControl('', [
       Validators.required,
       Validators.maxLength(255),
     ]),
-    addressLine2: new FormControl(''),
+    addressLine2: new FormControl('', [Validators.maxLength(255)]),
     Country: new FormControl(this.selectValue),
     State: new FormControl(this.selectValue),
-    City: new FormControl(this.selectValue),
-    zipcode: new FormControl('', [Validators.pattern('[0-9]{6}')]),
-    totalcapacity: new FormControl('',[Validators.pattern('[0-9]+')]),
-    utilityservice: new FormControl(''),
+    // City: new FormControl(this.selectValue),
+    cityName: new FormControl('', Validators.required),
+    zipcode: new FormControl('', [Validators.required,]),
+    totalcapacity: new FormControl('', Validators.pattern('[0-9]{1,15}')),
+    utilityservice: new FormControl('', Validators.maxLength(200)),
     locationScheduleCommand: this.formBuilder.array([]),
   })
 
@@ -143,13 +146,13 @@ export class AddLocationComponent implements OnInit {
     this.UserId = this._storageService.getLocalData('user_id')
 
     let IsLocationData = this._storageService.getSessionData('LocationData')
-    // console.log(IsLocationData,"location data")
     let isSaveBtn = this._storageService.getSessionData('IsSaveBtn')
 
     if (IsLocationData && isSaveBtn == 'true') {
       this.locationInfoTitle = 'Edit Location Information'
       this.isSaveBtn = true
       this.isEdit = true
+
       this.setLocationData(JSON.parse(IsLocationData))
     } else if (IsLocationData && isSaveBtn == 'false') {
       this.locationInfoTitle = 'View Location Information'
@@ -157,8 +160,10 @@ export class AddLocationComponent implements OnInit {
       this.isEdit = false
       this.setLocationData(JSON.parse(IsLocationData))
       this.addLocationForm.disable()
+      this.viewMode = true
     } else {
       this.locationInfoTitle = 'Add Location'
+      this.viewMode = false
       this.isSaveBtn = true
       const day: any = [
         {
@@ -184,10 +189,10 @@ export class AddLocationComponent implements OnInit {
         },
       ]
       day.forEach((day: any) => {
-        (this.addLocationForm.get(
+        ;(this.addLocationForm.get(
           'locationScheduleCommand',
         ) as FormArray).push(
-          this.addLocationSchedule(day.id, day.day, day.startTime, day.endTime),
+          this.addLocationSchedule(day.id, day.day,'', '',false),
         )
       })
     }
@@ -202,13 +207,14 @@ export class AddLocationComponent implements OnInit {
     this._adminService.getListApi('locationStatus').subscribe((res) => {
       this.locationStatusList = res.data
     })
-    this._adminService.getListApi('department').subscribe((res) => {
-      this.departmentList = res.data
-    })
+    // this._adminService.getListApi('department').subscribe((res) => {
+    //   this.departmentList = res.data
+    // })
   }
 
   ngAfterViewInit() {
     this.getReverseGeocodingData(36.2082629, -113.737393, 5)
+    
   }
   /**
    * Set Form Value
@@ -218,8 +224,6 @@ export class AddLocationComponent implements OnInit {
   setLocationData(data: any) {
     const body = {}
     this._adminService.getListApi('location', data.id).subscribe((res) => {
-      // console.log(res)
-
       this.locationRowData = res.data
       this.locationId = this.locationRowData.locationId
       this.id = this.locationRowData.id
@@ -228,7 +232,7 @@ export class AddLocationComponent implements OnInit {
       this.locationSchedule = this.locationRowData.locationSchedule
       this.countryId = this.locationRowData.locationAddress.countryId
       this.stateId = this.locationRowData.locationAddress.stateId
-      this.cityId = this.locationRowData.locationAddress.cityId
+      // this.cityId = this.locationRowData.locationAddress.cityId
       this.cityName = this.locationRowData.locationAddress.cityName
 
       // ADD ID WITH LOCATION locationSchedule
@@ -262,11 +266,10 @@ export class AddLocationComponent implements OnInit {
       )
       this._adminService.getListApi('locationStatus').subscribe((res) => {
         this.locationStatusList = res.data
-        //console.log(this.locationStatusList)
       })
-      this._adminService.getListApi('department').subscribe((res) => {
-        this.departmentList = res.data
-      })
+      // this._adminService.getListApi('department').subscribe((res) => {
+      //   this.departmentList = res.data
+      // })
 
       this.addLocationForm.patchValue({
         LocationId: this.locationRowData.locationId,
@@ -278,7 +281,7 @@ export class AddLocationComponent implements OnInit {
         locationStatus: this.locationRowData.locationStatusId.toString(),
       })
       this.addLocationForm.patchValue({
-        departmentId: this.locationRowData.departmentId.toString(),
+        departmentId: this.locationRowData.departmentName,
       })
       this.addLocationForm.patchValue({
         Description: this.locationRowData.description,
@@ -288,6 +291,9 @@ export class AddLocationComponent implements OnInit {
       })
       this.addLocationForm.patchValue({
         contactPersonNumber: this.locationRowData.contactPersonNumber,
+      })
+      this.addLocationForm.patchValue({
+        email: this.locationRowData.email,
       })
       this.addLocationForm.patchValue({
         Latitude: this.locationRowData.locationAddress.latitude,
@@ -318,12 +324,8 @@ export class AddLocationComponent implements OnInit {
             : this.selectValue,
       })
       this.addLocationForm.patchValue({
-        City:
-          this.locationRowData.locationAddress.cityId !== 0
-            ? this.locationRowData.locationAddress.cityId +
-              '#' +
-              this.locationRowData.locationAddress.cityName
-            : this.selectValue,
+        cityName:
+          this.locationRowData.locationAddress.cityName
       })
       this.addLocationForm.patchValue({
         zipcode: this.locationRowData.locationAddress.pinCode,
@@ -359,7 +361,7 @@ export class AddLocationComponent implements OnInit {
       ]
       ;(this.locationSchedule.length ? this.locationSchedule : day).forEach(
         (day: any) => {
-         (this.addLocationForm.get(
+          ;(this.addLocationForm.get(
             'locationScheduleCommand',
           ) as FormArray).push(
             this.addLocationSchedule(
@@ -367,12 +369,11 @@ export class AddLocationComponent implements OnInit {
               day.day,
               day.startTime,
               day.endTime,
+              day.isOpenAlldays
             ),
           )
         },
       )
-
-      // console.log(this.stateList)
 
       if (
         this.locationRowData.locationAddress.latitude !== 0 &&
@@ -388,12 +389,11 @@ export class AddLocationComponent implements OnInit {
   }
 
   addChargerDetails() {
-    
     let formField = this.addLocationForm.value
+    let ind = this.addLocationForm.value.locationScheduleCommand.findIndex(
+      (x: any) => x.startTime == '' && !x.isOpenAlldays || x.endTime == '' &&  !x.isOpenAlldays,
+    )
 
-   // console.log(this.addLocationForm);
-  let ind = this.addLocationForm.value.locationScheduleCommand.findIndex((x: any)=>x.startTime == null || x.endTime == null)
-    
     // SHOW MESS FOR REQUIRED FIELDS
     if (
       formField.LocationId == '' ||
@@ -402,17 +402,22 @@ export class AddLocationComponent implements OnInit {
       formField.contactPersonNumber.length == 0 ||
       formField.addressLine1 == '' ||
       formField.locationStatus == 0 ||
-      formField.departmentId == 0 || this.countryId == 0 || this.stateId == 0 || this.cityId == 0 || formField.zipcode == ''
-      || ind !== -1
+      formField.departmentId == 0 ||
+      this.countryId == 0 ||
+      this.stateId == 0 ||
+      formField.zipcode == ''
     ) {
       this.toastr.error('Fill all mandatory fields')
       return
+    }  else if(ind !== -1) {
+      this.toastr.error('Please select time')
+      return;
     }
-else if(this.addLocationForm.status == "INVALID") {
-  this.toastr.error('Please correct invalid fields')
-  return
-}
-    // console.log(this.locationSchedule);
+    else if (this.addLocationForm.status == 'INVALID') {
+      this.toastr.error('Please correct invalid fields')
+      return
+    }
+  
 
     const body = {
       id: 0,
@@ -420,28 +425,30 @@ else if(this.addLocationForm.status == "INVALID") {
       locationId: formField.LocationId,
       contactPersonName: formField.contactPersonName,
       contactPersonNumber: formField.contactPersonNumber,
+      email: formField.email,
       utilityService: formField.utilityservice,
       description: formField.Description,
       locationName: formField.LocationName,
-      longitude:
-        formField.Longitude !== '' ? JSON.parse(formField.Longitude) : 0,
-      latitude: formField.Latitude !== '' ? JSON.parse(formField.Latitude) : 0,
+      longitude: formField.Longitude !== '' ? formField.Longitude : 0,
+      latitude: formField.Latitude !== '' ? formField.Latitude : 0,
       addressLine1: formField.addressLine1,
       addressLine2: formField.addressLine2,
-      cityId: this.cityId,
-      cityName: this.cityName,
+      // cityId: this.cityId,
+      cityName: formField.cityName,
       countryName: this.countryName,
       countryId: this.countryId,
       stateId: this.stateId,
       stateName: this.stateName,
       pinCode: formField.zipcode,
       locationStatusId: parseInt(formField.locationStatus),
-      departmentId: parseInt(formField.departmentId),
+      // departmentId: parseInt(formField.departmentId),
+      departmentName:formField.departmentId,
       totalCapacity: formField.totalcapacity,
       locationScheduleCommand: formField.locationScheduleCommand,
     }
 
     if (this.isEdit) {
+      this.submitted = true;
       let formField = this.addLocationForm.value
 
       const body = {
@@ -451,6 +458,7 @@ else if(this.addLocationForm.status == "INVALID") {
         locationAddressId: this.locationAddressId,
         contactPersonName: formField.contactPersonName,
         contactPersonNumber: formField.contactPersonNumber,
+        email: formField.email,
         utilityService: formField.utilityservice,
         description: formField.Description,
         locationName: formField.LocationName,
@@ -458,21 +466,22 @@ else if(this.addLocationForm.status == "INVALID") {
         latitude: formField.Latitude !== '' ? formField.Latitude : 0,
         addressLine1: formField.addressLine1,
         addressLine2: formField.addressLine2,
-        cityId: this.cityId,
-        cityName: this.cityName !== 'select' ? this.cityName : '',
+        // cityId: this.cityId,
+        // cityName: this.cityName !== 'select' ? this.cityName : '',
+        cityName: formField.cityName,
         countryName: this.countryName !== 'select' ? this.countryName : '',
         countryId: this.countryId,
         stateId: this.stateId,
         stateName: this.stateName !== 'select' ? this.stateName : '',
         pinCode: formField.zipcode,
         locationStatusId: parseInt(formField.locationStatus),
-        departmentId: parseInt(formField.departmentId),
+        // departmentId: parseInt(formField.departmentId),
+        departmentName:formField.departmentId,
         totalCapacity: formField.totalcapacity,
         locationScheduleCommand: formField.locationScheduleCommand,
       }
-      // console.log(body)
-      // return
-      this._adminService.updateLocation(body).subscribe({
+
+      this._adminService.UpdateLocation(body).subscribe({
         next: (res) => {
           this.toastr.success('Record saved successfully')
           this._location.back()
@@ -482,8 +491,6 @@ else if(this.addLocationForm.status == "INVALID") {
         },
       })
     } else if (!this.isEdit) {
-      // console.log(body)
-      // return
       this._adminService.CreateLocation(body).subscribe({
         next: (res) => {
           this.toastr.success(res.StatusMessage)
@@ -528,12 +535,12 @@ else if(this.addLocationForm.status == "INVALID") {
         // NEW COUNTRY IS SELECTED
         this.stateId = 0
         this.stateName = ''
-        this.cityId = 0
+        
         this.cityName = ''
         this.addLocationForm.patchValue({ State: this.selectValue })
-        this.addLocationForm.patchValue({ City: this.selectValue })
+        // this.addLocationForm.patchValue({ City: this.selectValue })
         this.stateList = []
-        this.cityList = []
+        
       }
       this.countryId = parseInt(event.value.split('#')[0])
       this.countryName = event.value.split('#')[1]
@@ -552,62 +559,53 @@ else if(this.addLocationForm.status == "INVALID") {
             this.addLocationForm.patchValue({
               State: this.stateId + '#' + this.stateName,
             })
-          } else if (
-            this.countryId > 0 &&
-            this.stateId > 0 &&
-            this.cityId > 0
-          ) {
-            // FOR EDIT COUNTRY AND STATE BOTH ARE SELECTED
-            this.addLocationForm.patchValue({
-              City: this.cityId + '#' + this.cityName,
-            })
-          } else if (this.countryId > 0 && this.stateId == 0) {
+          }  else if (this.countryId > 0 && this.stateId == 0) {
             // WHEN CHANGING COUNTRY
             this.addLocationForm.patchValue({ State: this.selectValue })
           }
         })
-    } else if (type == 'city') {
+    } 
+    else if (type == 'city') {
       if (this.stateId !== parseInt(event.value.split('#')[0])) {
         // NEW STATE IS SELECTED
-        this.cityId = 0
+        // this.cityId = 0
         this.cityName = ''
       }
       this.stateId = parseInt(event.value.split('#')[0])
       this.stateName = event.value.split('#')[1]
       // CALL STATE API
-      this._adminService
-        .getListApi('city', 0, this.stateId)
-        .subscribe((res) => {
-          this.cityList = res.data
-          if (this.stateId == 0) {
-            // FOR NEW LOCATION
-            this.addLocationForm.patchValue({ City: this.selectValue })
-            this.cityId = 0
-            this.cityName = ''
-          } else if (this.stateId > 0 && this.cityId > 0) {
-            // FOR EDIT STATE AND CITY BOTH ARE SELECTED
-            this.addLocationForm.patchValue({
-              State: this.stateId + '#' + this.stateName,
-            })
-            this.addLocationForm.patchValue({
-              City: this.cityId + '#' + this.cityName,
-            })
-          } else if (this.stateId > 0 && this.cityId == 0) {
-            // WHEN CHANGING STATE
-            this.addLocationForm.patchValue({ City: this.selectValue })
-            this.addLocationForm.patchValue({
-              State: this.stateId + '#' + this.stateName,
-            })
-          }
-          /* this.addLocationForm.patchValue({City: this.selectValue})
-         this.cityId = 0
-         this.cityName = '' */
-        })
-    } else {
-      // FOR CITY ID AND NAME
-      this.cityId = parseInt(event.value.split('#')[0])
-      this.cityName = event.value.split('#')[1]
-    }
+      // this._adminService
+      //   .getListApi('city', 0, this.stateId)
+      //   .subscribe((res) => {
+      //     this.cityList = res.data
+      //     if (this.stateId == 0) {
+      //       // FOR NEW LOCATION
+      //       this.addLocationForm.patchValue({ City: this.selectValue })
+      //       this.cityId = 0
+      //       this.cityName = ''
+      //     } else if (this.stateId > 0 && this.cityId > 0) {
+      //       // FOR EDIT STATE AND CITY BOTH ARE SELECTED
+      //       this.addLocationForm.patchValue({
+      //         State: this.stateId + '#' + this.stateName,
+      //       })
+      //       this.addLocationForm.patchValue({
+      //         City: this.cityId + '#' + this.cityName,
+      //       })
+      //     } else if (this.stateId > 0 && this.cityId == 0) {
+      //       // WHEN CHANGING STATE
+      //       this.addLocationForm.patchValue({ City: this.selectValue })
+      //       this.addLocationForm.patchValue({
+      //         State: this.stateId + '#' + this.stateName,
+      //       })
+      //     }
+          
+      //   })
+    } 
+    // else {
+    //   // FOR CITY ID AND NAME
+    //   this.cityId = parseInt(event.value.split('#')[0])
+    //   this.cityName = event.value.split('#')[1]
+    // }
   }
   userAddress: string = ''
   userLatitude: string = ''
@@ -619,7 +617,7 @@ else if(this.addLocationForm.status == "INVALID") {
     // SET VALUE IN FIELDS
     this.addLocationForm.patchValue({ Latitude: this.userLatitude })
     this.addLocationForm.patchValue({ Longitude: this.userLongitude })
-    this.getReverseGeocodingData(this.userLatitude, this.userLongitude, 15)
+    this.getReverseGeocodingData(this.userLatitude, this.userLongitude,5)
   }
 
   showLocation() {
@@ -630,8 +628,18 @@ else if(this.addLocationForm.status == "INVALID") {
     }
   }
 
+  handleEvent(lat: any,lng: any) {
+  this.userLatitude = lat
+   this.userLongitude = lng
+   // SET VALUE IN FIELDS
+   this.addLocationForm.patchValue({ Latitude: this.userLatitude })
+   this.addLocationForm.patchValue({ Longitude: this.userLongitude })
+  this.getReverseGeocodingData(this.userLatitude, this.userLongitude,5)
+}
+
   getReverseGeocodingData(lat: any, lng: any, zoomNum: number) {
     var latlng = new google.maps.LatLng(lat, lng)
+    let map1: any;
     // This is making the Geocode request
     var geocoder = new google.maps.Geocoder()
     geocoder.geocode({ location: latlng }, (results, status) => {
@@ -640,23 +648,35 @@ else if(this.addLocationForm.status == "INVALID") {
       }
       // This is checking to see if the Geoeode Status is OK before proceeding
       if (status == google.maps.GeocoderStatus.OK) {
-        // console.log(results);
-        //  var address = results[0].formatted_address;
         const mapProperties = {
           center: new google.maps.LatLng(lat, lng),
           zoom: zoomNum,
           mapTypeId: google.maps.MapTypeId.ROADMAP,
         }
-        var map1 = new google.maps.Map(
+         map1 = new google.maps.Map( 
           this.mapElement.nativeElement,
           mapProperties,
         )
         var marker = new google.maps.Marker({
           position: latlng,
           map: map1,
+          draggable:true 
         })
+       
+   map1.addListener('dragend', () => {
+    let newlat = map1.getCenter().lat();
+    let newlng = map1.getCenter().lng();
+   this.handleEvent(newlat,newlng);
+  });
+   marker.addListener('dragend', () => {
+    let newlat = map1.getCenter().lat();
+    let newlng = map1.getCenter().lng();
+   this.handleEvent(newlat,newlng);
+  }); 
       }
     })
+
+   
   }
 
   /**
@@ -675,17 +695,63 @@ else if(this.addLocationForm.status == "INVALID") {
    * @param end
    * @returns
    */
-  addLocationSchedule(
+   addLocationSchedule(
     dayId: number | null,
     day: any,
     start: any,
     end: any,
+    defaultVal: any
+   
   ): FormGroup {
     return new FormGroup({
       id: new FormControl(dayId),
       day: new FormControl(day),
       startTime: new FormControl(start),
       endTime: new FormControl(end),
+      isOpenAlldays: new FormControl(defaultVal),
     })
+  }
+
+
+  //dob filter
+  dateFilter = (d: any | null) => {
+    return d < new Date()
+  }
+
+  omit_special_char(event: any) {
+    let k = event.charCode //         k = event.keyCode;  (Both can be used)
+    return (
+      (k > 64 && k < 91) ||
+      (k > 96 && k < 123) ||
+      k == 8 ||
+      k == 32 ||
+      (k >= 48 && k <= 57)
+    )
+  }
+
+  numberOnly(event: any): boolean {
+    const charCode = event.which ? event.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false
+    }
+    return true
+  }
+
+  telephoneNumber: string = "";
+
+  phoneNumber(event: any){
+    const charCode = event.which ? event.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return ;
+    }
+    let filterValue = (event.target as HTMLInputElement).value;
+    this.telephoneNumber = filterValue;
+    if (this.telephoneNumber.length == 3 ) {
+      this.telephoneNumber = "("+this.telephoneNumber+")" + " ";
+    }
+    if(this.telephoneNumber.length == 9){
+
+      this.telephoneNumber = this.telephoneNumber + "-";
+    }
   }
 }

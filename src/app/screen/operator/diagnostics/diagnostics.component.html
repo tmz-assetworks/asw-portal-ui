@@ -1,3 +1,14 @@
+<!-- loader -->
+<div class="loader" *ngIf="showLoader">
+  <div>
+    <img
+      src="../../../assets/images/myloader.gif"
+      class="margin"
+      width="18%"
+      height="22%"
+    />
+  </div>
+</div>
 <div class="cust-list-flex1 layout Diagnostics-main">
   <h3 class="cust-list-subtitle layout" style="color: #0e0d0d !important;">
     Diagnostics
@@ -25,12 +36,21 @@
               #input
               (keyup.enter)="applyFilter($event)"
             /> -->
-            <input type="text" class="cust-list-text-body21 layout" placeholder="Enter Charge Box ID"
-              [formControl]="control" [matAutocomplete]="auto" #ChargerName
-              (keyup)="removeFilter($event, ChargerName)" />
+            <input
+              type="text"
+              class="cust-list-text-body21 layout"
+              placeholder="Enter Charge Box ID"
+              [formControl]="control"
+              [matAutocomplete]="auto"
+              #ChargerName
+              (keyup)="removeFilter($event, ChargerName)"
+            />
             <mat-autocomplete #auto="matAutocomplete">
-              <mat-option (onSelectionChange)="selectCharger($event, item.chargeboxid)"
-                *ngFor="let item of filteredStreets | async" [value]="item.chargeboxid">
+              <mat-option
+                (onSelectionChange)="selectCharger($event, item.chargeboxid)"
+                *ngFor="let item of filteredStreets | async"
+                [value]="item.chargeboxid"
+              >
                 {{ item.chargeboxid }}
               </mat-option>
             </mat-autocomplete>
@@ -64,78 +84,158 @@
   <!-- Refer tootl tip componet upto here ------------------------------------------------------------------------------------ -->
 
   <app-diag-widget-bar>
-    <app-diag-widget (click)="viewToolTip('provisioning')" [isProvisioning]="isProvisioning"
-      style="cursor: pointer; border-left: 1px solid #aea4a4;" class="wd_sub_1">
-      <img class="img" src="assets/images/provising.png" />
+    <app-diag-widget
+      (click)="viewToolTip('provisioning')"
+      [isProvisioning]="isProvisioning"
+      style="cursor: pointer; border-left: 1px solid #aea4a4;"
+      class="wd_sub_1"
+    >
+      <img
+        class="img"
+        src="../../../../assets/Operator/Diagnostics-Icon/provisioning.svg"
+      />
 
       <div class="text">Provisioning</div>
     </app-diag-widget>
 
     <ng-container *ngIf="isProvisioning">
-      <app-tool-tip class="wd_sub_1 tool_alignP tool-tip-1">
+      <app-tool-tip class="wd_sub_1 tool_alignP tool-tip-1 provisioning_card">
         <div class="title modal-title">
           Provisioning
           <span class="close-icon" (click)="closePopup()">X</span>
         </div>
 
         <!-- <app-tool-tip-item class="item" (click)="getConfiguration()"> -->
-        <app-tool-tip-item class="item" (click)="showMessage('getconfig'); viewToolTipTtem('isGetConfig')"
-          [isGetConfig]="isGetConfig">
+        <app-tool-tip-item
+          class="item"
+          (click)="showMessage('getconfig'); viewToolTipTtem('isGetConfig')"
+          [isGetConfig]="isGetConfig"
+        >
           <div class="title">GetConfiguration</div>
-          <img class="img" style="width: 100%; height: 100%;"
-            src="../../../../assets/diagnostic/getConfiguration.png" />
+          <img
+            class="img"
+            style="width: 100%; height: 100%;"
+            src="../../../../assets/Operator/Diagnostics-Icon/get configuration.svg"
+          />
         </app-tool-tip-item>
 
-        <app-tool-tip-item class="item" (click)="clearCache();viewToolTipTtem('isClearCache')"
-          [isClearCache]="isClearCache">
-
+        <app-tool-tip-item
+          class="item"
+          (click)="clearCache(); viewToolTipTtem('isClearCache')"
+          [isClearCache]="isClearCache"
+        >
           <div class="title">ClearCache</div>
-          <img class="img" style="width: 100%; height: 100%;" src="../../../../assets/diagnostic/clearCache.png" />
+          <img
+            class="img"
+            style="width: 100%; height: 100%;"
+            src="../../../../assets/Operator/Diagnostics-Icon/clear cache.svg"
+          />
         </app-tool-tip-item>
-        <app-tool-tip-item class="item" (click)="showMessage('reset');viewToolTipTtem('isReset')" [isReset]="isReset">
-
+        <app-tool-tip-item
+          class="item"
+          (click)="showMessage('reset'); viewToolTipTtem('isReset')"
+          [isReset]="isReset"
+        >
           <div class="title">Reset</div>
-          <img class="img" style="width: 100%; height: 100%;" src="../../../../assets/diagnostic/reset.png" />
+          <img
+            class="img"
+            style="width: 100%; height: 100%;"
+            src="../../../../assets/Operator/Diagnostics-Icon/reset.svg"
+          />
         </app-tool-tip-item>
         <!-- <app-tool-tip-item class="item" (click)="changeConfiguration()"> -->
-        <app-tool-tip-item class="item" (click)="showMessage('changeconfig');viewToolTipTtem('isChangeConfiguration')"
-          [isChangeConfiguration]="isChangeConfiguration">
+        <app-tool-tip-item
+          class="item"
+          (click)="
+            showMessage('changeconfig');
+            viewToolTipTtem('isChangeConfiguration')
+          "
+          [isChangeConfiguration]="isChangeConfiguration"
+        >
           <div class="title">ChangeConfiguration</div>
-          <img class="img" style="width: 100%; height: 100%;"
-            src="../../../../assets/diagnostic/changeConfiguration.png" />
+          <img
+            class="img"
+            style="width: 100%; height: 100%;"
+            src="../../../../assets/Operator/Diagnostics-Icon/change configuration.svg"
+          />
         </app-tool-tip-item>
         <!-- <app-tool-tip-item class="item" (click)="changeAvailability()"> -->
-        <app-tool-tip-item class="item" (click)="showMessage('change');viewToolTipTtem('isChangeAvailability')"
-          [isChangeAvailability]="isChangeAvailability">
+        <app-tool-tip-item
+          class="item"
+          (click)="
+            showMessage('change'); viewToolTipTtem('isChangeAvailability')
+          "
+          [isChangeAvailability]="isChangeAvailability"
+        >
           <div class="title">ChangeAvailability</div>
-          <img class="img" style="width: 100%; height: 100%;"
-            src="../../../../assets/diagnostic/changeAvailability.png" />
+          <img
+            class="img"
+            style="width: 100%; height: 100%;"
+            src="../../../../assets/Operator/Diagnostics-Icon/change availability.svg"
+          />
         </app-tool-tip-item>
       </app-tool-tip>
     </ng-container>
-    <app-diag-widget class="wd_sub_1" (click)="viewToolTip('authorization')" [isAuthorization]="isAuthorization">
-      <img class="img" src="assets/images/authrization.png" />
+    <app-diag-widget
+      class="wd_sub_1"
+      (click)="viewToolTip('authorization')"
+      [isAuthorization]="isAuthorization"
+    >
+      <img
+        class="img"
+        src="../../../../assets/Operator/Diagnostics-Icon/vector_auth.svg"
+      />
       <div class="text">Authorization</div>
     </app-diag-widget>
-    <!-- niharika -->
+
     <ng-container *ngIf="isAuthorization">
       <app-tool-tip class="wd_sub_1 tool_alignAuth tool-tip-2">
         <div class="title modal-title">
           Authorization
-          <span class="close-icon auth-close close1" (click)="closePopup()">X</span>
+          <span class="close-icon auth-close close1" (click)="closePopup()">
+            X
+          </span>
         </div>
 
-        <app-tool-tip-item class="item" (click)="
+        <app-tool-tip-item
+          class="item"
+          (click)="
             getLocalListVersion(); viewToolTipTtem('isGetLocalListVersion')
-          " [isGetLocalListVersion]="isGetLocalListVersion">
+          "
+          [isGetLocalListVersion]="isGetLocalListVersion"
+        >
           <div class="title">GetLocalListVersion</div>
-          <img class="img" style="width: 100%; height: 100%;"
-            src="../../../../assets/diagnostic/getConfiguration.png" />
+          <img
+            class="img"
+            style="width: 100%; height: 100%;"
+            src="../../../../assets/Operator/Diagnostics-Icon/GetLocalListVersion.svg"
+          />
+        </app-tool-tip-item>
+        <app-tool-tip-item
+          class="item"
+          (click)="
+            showMessage('sendlocal'); viewToolTipTtem('isSendLocalListVersion')
+          "
+          [isSendLocalListVersion]="isSendLocalListVersion"
+        >
+          <div class="title">SendLocalListRequest</div>
+          <img
+            class="img"
+            style="width: 100%; height: 100%;"
+            src="../../../../assets/Operator/Diagnostics-Icon/SendLocalListRequest.svg"
+          />
         </app-tool-tip-item>
       </app-tool-tip>
     </ng-container>
-    <app-diag-widget class="wd_sub_1" (click)="viewToolTip('remoteControl')" [isRemoteControl]="isRemoteControl">
-      <img class="img" src="assets/images/remotecontrol.png" />
+    <app-diag-widget
+      class="wd_sub_1"
+      (click)="viewToolTip('remoteControl')"
+      [isRemoteControl]="isRemoteControl"
+    >
+      <img
+        class="img"
+        src="../../../../assets/Operator/Diagnostics-Icon/Remote-Control.svg"
+      />
       <div class="text">
         Remote Control
       </div>
@@ -148,83 +248,170 @@
           <span class="close-icon close5" (click)="closePopup()">X</span>
         </div>
         <!--  <app-tool-tip-item class="item" (click)="remoteStartTransaction()"> -->
-        <app-tool-tip-item class="item" (click)="
+        <app-tool-tip-item
+          class="item"
+          (click)="
             showMessage('start'); viewToolTipTtem('isRemoteStartTransaction')
-          " [isRemoteStartTransaction]="isRemoteStartTransaction">
+          "
+          [isRemoteStartTransaction]="isRemoteStartTransaction"
+        >
           <div class="title">RemoteStartTransaction</div>
-          <img class="img" style="width: 100%; height: 100%;"
-            src="../../../../assets/diagnostic/RemoteStartTransaction.svg" />
+          <img
+            class="img"
+            style="width: 100%; height: 100%;"
+            src="../../../../assets/diagnostic/RemoteStartTransaction.svg"
+          />
         </app-tool-tip-item>
 
-        <app-tool-tip-item class="item" (click)="
+        <app-tool-tip-item
+          class="item"
+          (click)="
             remoteStopTransaction(); viewToolTipTtem('isRemoteStopTransaction')
-          " [isRemoteStopTransaction]="isRemoteStopTransaction">
+          "
+          [isRemoteStopTransaction]="isRemoteStopTransaction"
+        >
           <div class="title">RemoteStopTransaction</div>
-          <img class="img" style="width: 100%; height: 100%;"
-            src="../../../../assets/diagnostic/RemoteStopTransaction.svg" />
+          <img
+            class="img"
+            style="width: 100%; height: 100%;"
+            src="../../../../assets/diagnostic/RemoteStopTransaction.svg"
+          />
         </app-tool-tip-item>
-        <app-tool-tip-item class="item" (click)="showMessage('unlock'); viewToolTipTtem('isUnlock')" [isUnlock]="isUnlock">
+        <app-tool-tip-item
+          class="item"
+          (click)="showMessage('unlock'); viewToolTipTtem('isUnlock')"
+          [isUnlock]="isUnlock"
+        >
           <div class="title">UnlockConnector</div>
-          <img class="img" style="width: 100%; height: 100%;"
-            src="../../../../assets/diagnostic/RemoteStartTransaction.svg" />
+          <img
+            class="img"
+            style="width: 100%; height: 100%;"
+            src="../../../../assets/Operator/Diagnostics-Icon/UnlockConnector.svg"
+          />
         </app-tool-tip-item>
-        <app-tool-tip-item class="item" (click)="
-        showMessage('isReserveNow'); viewToolTipTtem('isReserveNow')
-      " [isReserveNow]="isReserveNow">
+        <app-tool-tip-item
+          class="item"
+          (click)="showMessage('isReserveNow'); viewToolTipTtem('isReserveNow')"
+          [isReserveNow]="isReserveNow"
+        >
           <div class="title">ReserveNow</div>
-          <img class="img" style="width: 100%; height: 100%;"
-            src="../../../../assets/diagnostic/RemoteStartTransaction.svg" />
+          <img
+            class="img"
+            style="width: 100%; height: 100%;"
+            src="../../../../assets/Operator/Diagnostics-Icon/ReserveNow.svg"
+          />
         </app-tool-tip-item>
-        <app-tool-tip-item class="item" (click)="
-          showMessage('isCancelReservation'); viewToolTipTtem('isCancelReservation')
-        " [isCancelReservation]="isCancelReservation">
+        <app-tool-tip-item
+          class="item"
+          (click)="
+            showMessage('isCancelReservation');
+            viewToolTipTtem('isCancelReservation')
+          "
+          [isCancelReservation]="isCancelReservation"
+        >
           <div class="title">CancelReservation</div>
-          <img class="img" style="width: 100%; height: 100%;"
-            src="../../../../assets/diagnostic/RemoteStartTransaction.svg" />
+          <img
+            class="img"
+            style="width: 100%; height: 100%;"
+            src="../../../../assets/Operator/Diagnostics-Icon/CancelReservation.svg"
+          />
         </app-tool-tip-item>
-
-
-
+        <app-tool-tip-item
+          class="item"
+          (click)="
+            showMessage('triggerMessage'); viewToolTipTtem('triggerMessage')
+          "
+          [isTriggerMess]="isTriggerMess"
+        >
+          <div class="title">TriggerMessageRequest</div>
+          <img
+            class="img"
+            style="width: 100%; height: 100%;"
+            src="../../../../assets/diagnostic/update-firmware.svg"
+          />
+        </app-tool-tip-item>
       </app-tool-tip>
     </ng-container>
-    <app-diag-widget class="wd_sub_1" (click)="viewToolTip('smartcharging')" [isSmartCharging]="isSmartCharging">
-      <img class="img" src="assets/images/smartcharging.png" />
+    <app-diag-widget
+      class="wd_sub_1"
+      (click)="viewToolTip('smartcharging')"
+      [isSmartCharging]="isSmartCharging"
+    >
+      <img
+        class="img"
+        src="../../../../assets/Operator/Diagnostics-Icon/Smart-Charger.svg"
+      />
       <div class="text">Smart Charging</div>
     </app-diag-widget>
     <ng-container *ngIf="isSmartCharging">
       <app-tool-tip class="wd_sub_1 tool_alignSC tool-tip-4">
         <div class="title modal-title">
           Smart Charging
-          <span class="close-icon auth-close close2" (click)="closePopup()">X</span>
+          <span class="close-icon auth-close close2" (click)="closePopup()">
+            X
+          </span>
         </div>
         <!--  <app-tool-tip-item class="item" (click)="getCompositeSchedule()"> -->
-        <app-tool-tip-item class="item" (click)="
+        <app-tool-tip-item
+          class="item"
+          (click)="
             showMessage('getComposite');
             viewToolTipTtem('isGetCompositeSchedule')
-          " [isGetCompositeSchedule]="isGetCompositeSchedule">
+          "
+          [isGetCompositeSchedule]="isGetCompositeSchedule"
+        >
           <div class="title">GetCompositeSchedule</div>
-          <img class="img" style="width: 100%; height: 100%;"
-            src="../../../../assets/diagnostic/GetCompositeSchedule.svg" />
+          <img
+            class="img"
+            style="width: 100%; height: 100%;"
+            src="../../../../assets/diagnostic/GetCompositeSchedule.svg"
+          />
         </app-tool-tip-item>
       </app-tool-tip>
     </ng-container>
 
-    <app-diag-widget (click)="viewToolTip('fireware')" [isFireWareItem]="isFireWareItem" class="wd_sub_1">
+    <app-diag-widget
+      (click)="viewToolTip('fireware')"
+      [isFireWareItem]="isFireWareItem"
+      class="wd_sub_1"
+    >
       <img class="img" src="../../../../assets/logo-collapse1.svg" />
       <div class="text">Firmware Management</div>
-     
     </app-diag-widget>
     <ng-container *ngIf="isFireWareItem">
       <app-tool-tip class="wd_sub_1 tool_align tool-tip-5">
-        <div class="title modal-title">Firmware Management
+        <div class="title modal-title">
+          Firmware Management
           <span class="close-icon close5" (click)="closePopup()">X</span>
         </div>
-       
-        <app-tool-tip-item class="item" (click)="
-        showMessage('updatefirmware'); viewToolTipTtem('updatefirmware')
-      " [isUpdateFirmware]="isUpdateFirmware">
+
+        <app-tool-tip-item
+          class="item"
+          (click)="
+            showMessage('updatefirmware'); viewToolTipTtem('updatefirmware')
+          "
+          [isUpdateFirmware]="isUpdateFirmware"
+        >
           <div class="title">UpdateFirmware</div>
-          <img class="img" style="width: 100%; height: 100%;" src="../../../../assets/diagnostic/update-firmware.svg" />
+          <img
+            class="img"
+            style="width: 100%; height: 100%;"
+            src="../../../../assets/Operator/Diagnostics-Icon/UpdateFirmware.svg"
+          />
+        </app-tool-tip-item>
+        <app-tool-tip-item
+          class="item"
+          (click)="
+            showMessage('getdiagnostics'); viewToolTipTtem('getdiagnostics')
+          "
+          [isDiagnostics]="isDiagnostics"
+        >
+          <div class="title">Get Diagnostics</div>
+          <img
+            class="img"
+            style="width: 100%; height: 100%;"
+            src="../../../../assets/Operator/Diagnostics-Icon/GetDiagnostics.svg"
+          />
         </app-tool-tip-item>
 
         <!-- <app-tool-tip-item class="item">
@@ -237,53 +424,203 @@
 
     <!--Tool Tip -->
 
-    <app-diag-widget (click)="viewToolTip('diagnostics')" [isDiagnosticsItem]="isDiagnosticsItem" class="wd_sub_1">
-      <img class="img" src="assets/images/diagnostics.png" />
+    <!-- 11 oct <app-diag-widget (click)="viewToolTip('diagnostics')" [isDiagnosticsItem]="isDiagnosticsItem" class="wd_sub_1">
+      <img class="img" src="../../../../assets/Operator/Diagnostics-Icon/Diagnostics.svg" />
       <div class="text">Diagnostics</div>
     </app-diag-widget>
     <ng-container *ngIf="isDiagnosticsItem">
       <app-tool-tip class="wd_sub_1 tool_alignDiag tool-tip-6">
-        <div class="title modal-title">Diagnostics  <span class="close-icon close6" (click)="closePopup()">X</span></div>
-       
-        <app-tool-tip-item class="item" (click)="
+        <div class="title modal-title">Diagnostics <span class="close-icon close6" (click)="closePopup()">X</span></div>
+
+      <app-tool-tip-item class="item" (click)="
         showMessage('triggerMessage');viewToolTipTtem('triggerMessage')
       " [isTriggerMess]="isTriggerMess">
           <div class="title">TriggerMessageRequest</div>
           <img class="img" style="width: 100%; height: 100%;" src="../../../../assets/diagnostic/update-firmware.svg" />
-        </app-tool-tip-item>
+        </app-tool-tip-item> 
 
 
       </app-tool-tip>
     </ng-container>
     <app-diag-widget class="wd_sub_1">
-      <img class="img" src="assets/images/displaymsg.png" />
+      <img class="img" src="../../../../assets/Operator/Diagnostics-Icon/Group (2).svg" />
       <div class="text">Display Message</div>
-    </app-diag-widget>
+    </app-diag-widget> -->
   </app-diag-widget-bar>
 
-  <!--niharika  -->
   <div class="form-fields">
-    <div *ngIf="commandType !== ''" class="cdk-overlay-backdrop cdk-overlay-dark-backdrop cdk-overlay-backdrop-showing">
-    </div>
+    <div
+      *ngIf="commandType !== ''"
+      class="cdk-overlay-backdrop cdk-overlay-dark-backdrop cdk-overlay-backdrop-showing"
+    ></div>
     <app-diag-widget-bar>
-      <ng-container *ngIf="
+      <ng-container
+        *ngIf="
           commandType == 'change' ||
           commandType == 'reset' ||
           commandType == 'start' ||
           commandType == 'getconfig' ||
           commandType == 'changeconfig' ||
-          commandType == 'getComposite' || commandType == 'unlock' || commandType == 'isCancelReservation'
-          || commandType == 'isReserveNow' || commandType == 'triggerMessage' || commandType == 'updatefirmware'
-        ">
+          commandType == 'getComposite' ||
+          commandType == 'unlock' ||
+          commandType == 'isCancelReservation' ||
+          commandType == 'isReserveNow' ||
+          commandType == 'triggerMessage' ||
+          commandType == 'updatefirmware' ||
+          commandType == 'sendlocal' ||
+          commandType == 'getdiagnostics'
+        "
+      >
         <app-tool-tip class="wd_sub_1 select-opt-modal tool_alignP">
-          <div class="title">
+          <div
+            class="title"
+            [ngStyle]="{ width: commandType == 'sendlocal' ? '395px' : '' }"
+          >
             <span class="close-icon-type" (click)="closePopupType()">X</span>
+            <!-- <button  *ngIf="commandType == 'getlocal'" type="button" (click)="addLocalList()" style="color:#ffffff ;">Add Local List</button> -->
+            <form
+              *ngIf="commandType == 'sendlocal'"
+              [formGroup]="getListVersionForm"
+            >
+              <div class="barbar-block12 layout">
+                <div class="barbar-block13 layout">
+                  <div class="barbar-block13-item">
+                    <div class="barbar-block14 layout">
+                      <span class="required">
+                        Enter List Version
+                        <span class="required-field">*</span>
+                      </span>
+                      <input
+                        type="text"
+                        formControlName="listVersion"
+                        placeholder="List Version"
+                        class="barbar-input-text"
+                      />
+                      <span class="required">
+                        Select Update Type
+                        <span class="required-field">*</span>
+                      </span>
+                      <select class="chargerType" formControlName="updateType">
+                        <option value="">Update Type</option>
+                        <option
+                          *ngFor="let item of updateDatas"
+                          value="{{ item }}"
+                        >
+                          {{ item }}
+                        </option>
+                      </select>
+                      <button
+                        type="button"
+                        (click)="addListTag()"
+                        [disabled]="localList"
+                        style="color: #ffffff;"
+                        class="localList"
+                        [ngClass]="localList == true ? 'disableButton' : ''"
+                      >
+                        Add Local Authorization
+                      </button>
+                     
+                      <div
+                        class="barbar-box6 layout"
+                        formArrayName="listTagControls"
+                        *ngFor="
+                          let id of getListTagFormControls();
+                          let i = index
+                        "
+                      >
+                        <div [formGroupName]="i">
+                          <span class="required">
+                            Enter Id Tag
+                          </span>
+                          <input
+                            type="text"
+                            formControlName="idTag"
+                            placeholder="RFId Tag"
+                            maxlength="20"
+                            class="barbar-input-text"
+                          />
+                          <!-- <button *ngIf="getListTagFormControls()?.length > 0" type="button" (click)="addLocalList()" style="color:#ffffff;">IdTagInfo</button> -->
+                        </div>
+                      </div>
+                      <button
+                        *ngIf="getListTagFormControls()?.length > 0"
+                        [disabled]="localIdTag"
+                        type="button"
+                        class="localList"
+                        [ngClass]="localIdTag == true ? 'disableButton' : ''"
+                        (click)="addLocalList()"
+                        style="color: #ffffff; margin-top: 2.5%;"
+                      >
+                        Add IdTagInfo
+                      </button>
+
+                      <div
+                        class="barbar-box6 layout"
+                        formArrayName="idTagControls"
+                        *ngFor="let id of getIdFormControls(); let i = index"
+                      >
+                        <div [formGroupName]="i">
+                          <!-- <span class="required">
+                    Enter RFId Tag
+                  </span>
+                  <input
+                  type="text" formControlName="idTag" placeholder="RFId Tag" maxlength="20"
+                  class="barbar-input-text" step="1"
+                /> -->
+                          <span class="required">
+                            Expiry Date
+                          </span>
+                           <input type="text" class="barbar-box6 layout date1" formControlName="localListDate"
+                            id="date1" placeholder="Enter Date" value="{{rfidExpDate}}" readonly/>
+                           
+                          <span class="required">
+                            Enter ParentIdTag
+                          </span>
+                          <input
+                            type="text"
+                            formControlName="rfid"
+                            placeholder="ParentIdTag"
+                            maxlength="20"
+                            class="barbar-input-text"
+                          />
+                          <span class="required">
+                            Select Status
+                            <span class="required-field">*</span>
+                          </span>
+                          <select class="chargerType" formControlName="status">
+                            <option value="">Status</option>
+                            <option
+                              *ngFor="let item of statusData"
+                              value="{{ item }}"
+                            >
+                              {{ item }}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button
+                *ngIf="commandType == 'sendlocal'"
+                type="button"
+                (click)="submit()"
+                style="color: #ffffff;"
+              >
+                Submit
+              </button>
+            </form>
             <span *ngIf="commandType == 'change'" class="mandatoryField">
               Select Type
               <span class="required-field">*</span>
             </span>
-            <select *ngIf="commandType == 'change'" name="chargerType" class="chargerType"
-              (change)="selectOption($event)">
+            <select
+              *ngIf="commandType == 'change'"
+              name="chargerType"
+              class="chargerType"
+              (change)="selectOption($event)"
+            >
               <option value="">Type</option>
               <option value="Inoperative">Inoperative</option>
               <option value="Operative">Operative</option>
@@ -292,53 +629,95 @@
             <br />
 
             <span
-              *ngIf="commandType == 'change' || commandType == 'getComposite' || commandType == 'unlock' || commandType == 'isReserveNow'"
-              class="required">
+              *ngIf="
+                commandType == 'change' ||
+                commandType == 'getComposite' ||
+                commandType == 'unlock' ||
+                commandType == 'isReserveNow'
+              "
+              class="required"
+            >
               Select Connector ID
               <span class="required-field">*</span>
             </span>
             <select
-              *ngIf="commandType == 'change' || commandType == 'getComposite' || commandType == 'unlock' || commandType == 'isReserveNow'"
-              class="chargerType" name="chargerType" (change)="selectConnectorID($event)">
+              *ngIf="
+                commandType == 'change' ||
+                commandType == 'getComposite' ||
+                commandType == 'unlock' ||
+                commandType == 'isReserveNow'
+              "
+              class="chargerType"
+              name="chargerType"
+              (change)="selectConnectorID($event)"
+            >
               <option value="">Connector ID</option>
               <option *ngFor="let item of selectConnectorIds">
                 {{ item }}
               </option>
             </select>
             <span *ngIf="commandType == 'isReserveNow'" class="mandatoryField">
-              Expiry Date
+              Expiry Date 
               <span class="required-field">*</span>
             </span>
-
-
-            <input *ngIf="commandType == 'isReserveNow'" type="datetime-local" class="barbar-box6 layout"
-              (change)="selectDate($event)"  min="{{currentDate}}"/>
-             <!--  <span *ngIf="commandType == 'isReserveNow'" (click)="datetime.blur()">close</span> -->
+       <!--   <input *ngIf="commandType == 'isReserveNow'" type="datetime-local" class="barbar-box6 layout date1"
+              (change)="selectDate($event)" min="{{currentDate}}" id="date1" /> -->
+             
+               <mat-form-field *ngIf="commandType == 'isReserveNow'">
+                  <input matInput [ngxMatDatetimePicker]="picker1" [min]="minDate"
+                        (dateChange)="changeDateTime($event)" style="color: black" [readonly]="true">
+                    <mat-datepicker-toggle matSuffix [for]="$any(picker1)"></mat-datepicker-toggle>
+                     <ngx-mat-datetime-picker #picker1 [showSpinners]="true" [showSeconds]="true"
+                       [touchUi]="false"
+                        [enableMeridian]="true"></ngx-mat-datetime-picker> 
+                   </mat-form-field>
+                  
             <span *ngIf="commandType == 'isReserveNow'" class="mandatoryField">
               Enter RFID
               <span class="required-field">*</span>
             </span>
 
-            <input *ngIf="commandType == 'isReserveNow'" class="barbar-box6 layout" #inputTag class="connector_id" />
+            <input
+              *ngIf="commandType == 'isReserveNow'"
+              class="barbar-box6 layout"
+              #inputTag
+              class="connector_id"
+            />
+            <!-- <span *ngIf="commandType == 'isReserveNow'" class="validity"></span> -->
+            <span *ngIf="commandType == 'isReserveNow'" class="mandatoryField">
+              Enter ParentIdTag
+            </span>
 
-            <span *ngIf="commandType == 'isReserveNow'" class="mandatoryField">Enter ParentIdTag</span>
-
-            <input *ngIf="commandType == 'isReserveNow'" class="barbar-box6 layout" #inputKey class="connector_id" />
+            <input
+              *ngIf="commandType == 'isReserveNow'"
+              class="barbar-box6 layout"
+              #inputKey
+              class="connector_id"
+            />
             <span *ngIf="commandType == 'isReserveNow'" class="mandatoryField">
               Enter ReservationId
               <span class="required-field">*</span>
             </span>
 
-            <input *ngIf="commandType == 'isReserveNow'" value="{{randomSixDigit}}" class="barbar-box6 layout" #inputReserveTag
-              class="connector_id" />
+            <input
+              *ngIf="commandType == 'isReserveNow'"
+              value="{{ randomSixDigit }}"
+              class="barbar-box6 layout"
+              #inputReserveTag
+              class="connector_id"
+            />
             <!-- trigger messgae-->
 
             <span *ngIf="commandType == 'triggerMessage'" class="required">
-              Requested Message <span class="required-field">*</span>
-
+              Requested Message
+              <span class="required-field">*</span>
             </span>
-            <select *ngIf="commandType == 'triggerMessage'" class="chargerType" name="chargerType"
-              (change)="selectRequestMessage($event)">
+            <select
+              *ngIf="commandType == 'triggerMessage'"
+              class="chargerType"
+              name="chargerType"
+              (change)="selectRequestMessage($event)"
+            >
               <option value="">Requested Message</option>
               <option *ngFor="let item of requestMessTypes">
                 {{ item }}
@@ -347,10 +726,13 @@
 
             <span *ngIf="commandType == 'triggerMessage'" class="required">
               Select Connector ID
-
             </span>
-            <select *ngIf="commandType == 'triggerMessage'" class="chargerType" name="chargerType"
-              (change)="selectConnectorID($event)">
+            <select
+              *ngIf="commandType == 'triggerMessage'"
+              class="chargerType"
+              name="chargerType"
+              (change)="selectConnectorID($event)"
+            >
               <option value="">Connector ID</option>
               <option *ngFor="let item of selectConnectorIds">
                 {{ item }}
@@ -360,48 +742,163 @@
             <!-- trigger message-->
 
             <!-- update firmware -->
-            <span *ngIf="commandType == 'updatefirmware'" class="mandatoryField">
+            <span
+              *ngIf="commandType == 'updatefirmware'"
+              class="mandatoryField"
+            >
               Enter location URL
               <span class="required-field">*</span>
             </span>
-            <input *ngIf="commandType == 'updatefirmware'" class="cust-list-text-body21 layout idTagInput"
-              #enterLocation class="connector_id" />
-            <span *ngIf="commandType == 'updatefirmware'" class="mandatoryField">
+            <input
+              *ngIf="commandType == 'updatefirmware'"
+              class="cust-list-text-body21 layout idTagInput"
+              #enterLocation
+              class="connector_id"
+            />
+            <span
+              *ngIf="commandType == 'updatefirmware'"
+              class="mandatoryField"
+            >
               Enter No. of retries
             </span>
-            <input *ngIf="commandType == 'updatefirmware'" class="cust-list-text-body21 layout idTagInput"
-               #inputretries class="connector_id" />
-            <span *ngIf="commandType == 'updatefirmware'" class="mandatoryField">
-              Select Retrieve Date <span class="required-field">*</span>
-
+            <input
+              *ngIf="commandType == 'updatefirmware'"
+              class="cust-list-text-body21 layout idTagInput"
+              #inputretries
+              class="connector_id"
+            />
+            <span
+              *ngIf="commandType == 'updatefirmware'"
+              class="mandatoryField"
+            >
+              Select Retrieve Date
+              <span class="required-field">*</span>
             </span>
 
-            <input *ngIf="commandType == 'updatefirmware'" type="datetime-local" class="barbar-box6 layout"
-              (change)="selectDate($event)" min="{{currentDate}}" />
+            <!-- <input *ngIf="commandType == 'updatefirmware'" type="datetime-local" class="barbar-box6 layout date1"
+              (change)="selectDate($event)" min="{{currentDate}}" id="date1" /> -->
+              <mat-form-field *ngIf="commandType == 'updatefirmware'">
+                <input matInput [ngxMatDatetimePicker]="picker1" [min]="minDate"
+                      (dateChange)="changeDateTime($event)" style="color: black" [readonly]="true">
+                  <mat-datepicker-toggle matSuffix [for]="$any(picker1)"></mat-datepicker-toggle>
+                   <ngx-mat-datetime-picker #picker1 [showSpinners]="true" [showSeconds]="true"
+                     [touchUi]="false"
+                      [enableMeridian]="true"></ngx-mat-datetime-picker> 
+                 </mat-form-field>
             <span *ngIf="commandType == 'updatefirmware'" class="mandatoryField">
               Enter Retry Interval
-
             </span>
-            <input *ngIf="commandType == 'updatefirmware'" placeholder="Enter time in Seconds" class="cust-list-text-body21 layout idTagInput"
-              #inputReserveTag class="connector_id" />
-
+            <input
+              *ngIf="commandType == 'updatefirmware'"
+              placeholder="Enter time in Seconds"
+              class="cust-list-text-body21 layout idTagInput"
+              #inputReserveTag
+              class="connector_id"
+            />
 
             <!-- update firmware -->
 
-            <span *ngIf="commandType == 'getComposite'" class="required inpt-field">
+            <!-- Get Diagnostics Start -->
+            <span
+              *ngIf="commandType == 'getdiagnostics'"
+              class="mandatoryField"
+            >
+              Enter location URL
+              <span class="required-field">*</span>
+            </span>
+            <input
+              *ngIf="commandType == 'getdiagnostics'"
+              class="cust-list-text-body21 layout idTagInput"
+              #enterLocation
+              class="connector_id"
+            />
+            <span
+              *ngIf="commandType == 'getdiagnostics'"
+              class="mandatoryField"
+            >
+              Enter No. of retries
+            </span>
+            <input
+              *ngIf="commandType == 'getdiagnostics'"
+              class="cust-list-text-body21 layout idTagInput"
+              #inputretries
+              class="connector_id"
+            />
+
+            <span
+              *ngIf="commandType == 'getdiagnostics'"
+              class="mandatoryField"
+            >
+              Enter Retry Interval
+            </span>
+            <input
+              *ngIf="commandType == 'getdiagnostics'"
+              placeholder="Enter time in Seconds"
+              class="cust-list-text-body21 layout idTagInput"
+              #inputReserveTag
+              class="connector_id"
+            />
+
+            <span
+              *ngIf="commandType == 'getdiagnostics'"
+              class="mandatoryField"
+            >
+              Select Start Date
+            </span>
+
+            <!-- <input *ngIf="commandType == 'getdiagnostics'" type="datetime-local" class="barbar-box6 layout date1"
+              (change)="selectDate($event,'start')" id="date1" /> -->
+              <mat-form-field *ngIf="commandType == 'getdiagnostics'">
+                <input matInput [ngxMatDatetimePicker]="picker1"
+                      (dateChange)="changeDateTime($event,'start')" style="color: black" [readonly]="true">
+                  <mat-datepicker-toggle matSuffix [for]="$any(picker1)"></mat-datepicker-toggle>
+                   <ngx-mat-datetime-picker #picker1 [showSpinners]="true" [showSeconds]="true"
+                     [touchUi]="false"
+                      [enableMeridian]="true"></ngx-mat-datetime-picker> 
+                 </mat-form-field>
+              <span *ngIf="commandType == 'getdiagnostics'" class="validity" title="close"></span>
+            <span *ngIf="commandType == 'getdiagnostics'" class="mandatoryField">
+              Select Stop Date
+            </span>
+
+           <!--  <input *ngIf="commandType == 'getdiagnostics'" type="datetime-local" class="barbar-box6 layout date1"
+              (change)="selectDate($event,'end')" id="date1" /> -->
+              <mat-form-field *ngIf="commandType == 'getdiagnostics'">
+                <input matInput [ngxMatDatetimePicker]="picker2"
+                      (dateChange)="changeDateTime($event,'end')" style="color: black" [readonly]="true">
+                  <mat-datepicker-toggle matSuffix [for]="$any(picker2)"></mat-datepicker-toggle>
+                   <ngx-mat-datetime-picker #picker2 [showSpinners]="true" [showSeconds]="true"
+                     [touchUi]="false"
+                      [enableMeridian]="true"></ngx-mat-datetime-picker> 
+                 </mat-form-field>
+              <span *ngIf="commandType == 'getdiagnostics'" class="validity" title="close"></span>
+            <!-- Get Diagnostics End-->
+            <span
+              *ngIf="commandType == 'getComposite'"
+              class="required inpt-field"
+            >
               Enter Duration
               <span class="required-field">*</span>
             </span>
 
-            <input *ngIf="commandType == 'getComposite'" class="cust-list-text-body21 layout idTagInput"
-              placeholder="Duration" #inputDuration class="connector_id" />
+            <input
+              *ngIf="commandType == 'getComposite'"
+              class="cust-list-text-body21 layout idTagInput"
+              placeholder="Duration"
+              #inputDuration
+              class="connector_id"
+            />
 
             <span *ngIf="commandType == 'getComposite'" class="required">
               Select Charging Rate Unit
               <span class="required-field"></span>
             </span>
-            <select *ngIf="commandType == 'getComposite'" class="chargerType" name="ChargingRateUnit"
-              (change)="selectChargingRateUnit($event)">
+            <select
+              *ngIf="commandType == 'getComposite'"
+              class="chargerType"
+              name="ChargingRateUnit"
+              (change)="selectChargingRateUnit($event)"
+            >
               <option>Charging Rate Unit</option>
 
               <option value="W">W</option>
@@ -411,51 +908,100 @@
               Select Type
               <span class="required-field">*</span>
             </span>
-            <select *ngIf="commandType == 'reset'" class="chargerType" name="chargerType"
-              (change)="selectOption($event)">
+            <select
+              *ngIf="commandType == 'reset'"
+              class="chargerType"
+              name="chargerType"
+              (change)="selectOption($event)"
+            >
               <option value="">Type</option>
               <option value="Hard">Hard</option>
               <option value="Soft">Soft</option>
             </select>
-            <span *ngIf="commandType == 'getconfig'" class="required inpt-field">
+            <span
+              *ngIf="commandType == 'getconfig'"
+              class="required inpt-field"
+            >
               Enter Key
             </span>
-            <input *ngIf="commandType == 'getconfig'" class="cust-list-text-body21 layout idTagInput" #inputKey
-              placeholder="Key" class="connector_id" />
-            <span *ngIf="commandType == 'changeconfig'" class="required inpt-field">
+            <input
+              *ngIf="commandType == 'getconfig'"
+              class="cust-list-text-body21 layout idTagInput"
+              #inputKey
+              placeholder="Key"
+              class="connector_id"
+            />
+            <span
+              *ngIf="commandType == 'changeconfig'"
+              class="required inpt-field"
+            >
               Enter Key
               <span class="required-field">*</span>
             </span>
-            <input *ngIf="commandType == 'changeconfig'" class="cust-list-text-body21 layout idTagInput"
-              placeholder="Key" #inputKey class="connector_id" />
-            <span *ngIf="commandType == 'changeconfig'" class="required inpt-field">
+            <input
+              *ngIf="commandType == 'changeconfig'"
+              class="cust-list-text-body21 layout idTagInput"
+              placeholder="Key"
+              #inputKey
+              class="connector_id"
+            />
+            <span
+              *ngIf="commandType == 'changeconfig'"
+              class="required inpt-field"
+            >
               <br />
               Enter Value
               <span class="required-field">*</span>
             </span>
-            <input *ngIf="commandType == 'changeconfig'" class="cust-list-text-body21 layout idTagInput" #inputValue
-              placeholder="Value" class="connector_id" />
-            <span *ngIf="commandType == 'isCancelReservation'" class="mandatoryField">
+            <input
+              *ngIf="commandType == 'changeconfig'"
+              class="cust-list-text-body21 layout idTagInput"
+              #inputValue
+              placeholder="Value"
+              class="connector_id"
+            />
+            <span
+              *ngIf="commandType == 'isCancelReservation'"
+              class="mandatoryField"
+            >
               Enter ReservationId
               <span class="required-field">*</span>
             </span>
-            <input *ngIf="commandType == 'isCancelReservation'" class="cust-list-text-body21 layout idTagInput"
-              #inputReserveTag class="connector_id" />
-            <button *ngIf="
+            <input
+              *ngIf="commandType == 'isCancelReservation'"
+              class="cust-list-text-body21 layout idTagInput"
+              #inputReserveTag
+              class="connector_id"
+            />
+            <button
+              *ngIf="
                 commandType == 'getconfig' ||
                 commandType == 'changeconfig' ||
                 commandType == 'getComposite' ||
                 commandType == 'change' ||
-                commandType == 'reset' || commandType == 'unlock' || commandType == 'isCancelReservation'
-                || commandType == 'isReserveNow' || commandType == 'triggerMessage' || commandType == 'updatefirmware'"
-              class="btnTypeCharger" type="button" (click)="getConfiguration(commandType)">
+                commandType == 'reset' ||
+                commandType == 'unlock' ||
+                commandType == 'isCancelReservation' ||
+                commandType == 'isReserveNow' ||
+                commandType == 'triggerMessage' ||
+                commandType == 'updatefirmware' ||
+                commandType == 'getdiagnostics'
+              "
+              class="btnTypeCharger"
+              type="button"
+              (click)="getConfiguration(commandType)"
+            >
               Submit
             </button>
             <span *ngIf="commandType == 'start'" class="required">
               Select Connector ID
             </span>
-            <select *ngIf="commandType == 'start'" class="chargerTypeStart" name="chargerType"
-              (change)="selectConnectorID($event)">
+            <select
+              *ngIf="commandType == 'start'"
+              class="chargerTypeStart"
+              name="chargerType"
+              (change)="selectConnectorID($event)"
+            >
               <option value="">Connector ID</option>
               <option *ngFor="let item of selectConnectorIds">
                 {{ item }}
@@ -467,12 +1013,19 @@
               Enter RFID
               <span class="required-field">*</span>
             </span>
-            <input *ngIf="commandType == 'start'" class="cust-list-text-body21 layout idTagInput" #inputTag
-              class="connector_id" />
+            <input
+              *ngIf="commandType == 'start'"
+              class="cust-list-text-body21 layout idTagInput"
+              #inputTag
+              class="connector_id"
+            />
 
-
-            <button *ngIf="commandType == 'start'" class="btnTypeCharger" type="button"
-              (click)="remoteStartTransaction()">
+            <button
+              *ngIf="commandType == 'start'"
+              class="btnTypeCharger"
+              type="button"
+              (click)="remoteStartTransaction()"
+            >
               Submit
             </button>
           </div>
@@ -482,7 +1035,13 @@
   </div>
 
   <div class="cust-list-group2 layout">
-    <table mat-table [dataSource]="dataSource" multiTemplateDataRows matSort class="mat-elevation-z8">
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      multiTemplateDataRows
+      matSort
+      class="mat-elevation-z8"
+    >
       <ng-container matColumnDef="ChargeBoxId">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>
           OPERATION TYPE
@@ -500,19 +1059,39 @@
       <ng-container matColumnDef="Action">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>ACTION</th>
         <td mat-cell *matCellDef="let element; let i = index">
-          <img style="cursor: pointer;" src="../../../../assets/icons/view-icon.png" (click)="
+          <img
+            style="cursor: pointer;"
+            src="../../../../assets/icons/view-icon.png"
+            (click)="
               expandedElement = expandedElement === element ? null : element
-            " />
+            "
+          />
           &nbsp;
-          <img style="cursor: pointer;" src="../../../../assets/icons/download.png" (click)="downloadAsPDF()" />
+          <img
+            style="cursor: pointer;"
+            src="../../../../assets/icons/download.png"
+            (click)="downloadAsPDF()"
+          />
         </td>
       </ng-container>
       <ng-container matColumnDef="expandedDetail">
-        <td style="background-color: #fff;" mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
-          <div class="example-element-detail" [@detailExpand]="
+        <td
+          style="background-color: #fff;"
+          mat-cell
+          *matCellDef="let element"
+          [attr.colspan]="displayedColumns.length"
+        >
+          <div
+            class="example-element-detail"
+            [@detailExpand]="
               element === expandedElement ? 'expanded' : 'collapsed'
-            ">
-            <div class="example-element-description textcollapse" id="pdfTable" #pdfTable>
+            "
+          >
+            <div
+              class="example-element-description textcollapse"
+              id="pdfTable"
+              #pdfTable
+            >
               <div class="">
                 <div class="">
                   <div style="text-transform: none;">
@@ -532,16 +1111,29 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let element; columns: displayedColumns" class="example-element-row"
-        [class.example-expanded-row]="expandedElement === element"></tr>
-      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+      <tr
+        mat-row
+        *matRowDef="let element; columns: displayedColumns"
+        class="example-element-row"
+        [class.example-expanded-row]="expandedElement === element"
+      ></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: ['expandedDetail']"
+        class="example-detail-row"
+      ></tr>
     </table>
     <ng-container *ngIf="!isTableHasData">
       <p class="text-center">No record found</p>
     </ng-container>
     <!-- <mat-paginator *ngIf="isTableHasData" [length]="10" [pageSizeOptions]="[10, 20, 100]"></mat-paginator> -->
-    <mat-paginator #paginator (page)="pageChange($event)" [length]="totalCount" [pageSize]="pageSize"
-      [pageSizeOptions]="pageSizeOptions"></mat-paginator>
+    <mat-paginator
+      #paginator
+      (page)="pageChange($event)"
+      [length]="totalCount"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="pageSizeOptions"
+    ></mat-paginator>
   </div>
   <!-- <div class="charge-flex2-spacer"></div> -->
 </div>

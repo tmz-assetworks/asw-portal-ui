@@ -1,4 +1,4 @@
-@import "../../../../../styles.scss";
+@import '../../../../../styles.scss';
 
 $color_type_0: rgb(0, 98, 166);
 $color_type_1: rgb(19, 27, 33);
@@ -6,10 +6,10 @@ $color_type_2: rgb(230, 232, 233);
 $color_type_3: rgb(255, 255, 255);
 $color_type_4: rgb(92, 92, 92);
 
-$font_type_0: 700 20px/1.2 "Roboto", Helvetica, Arial, serif;
-$font_type_1: 500 18px/1.2 "Roboto", Helvetica, Arial, serif;
-$font_type_2: 15px/1.2 "Roboto", Helvetica, Arial, serif;
-$font_type_3: 500 14px/1.2 "Roboto", Helvetica, Arial, serif;
+$font_type_0: 700 20px/1.2 'Roboto', Helvetica, Arial, serif;
+$font_type_1: 500 18px/1.2 'Roboto', Helvetica, Arial, serif;
+$font_type_2: 15px/1.2 'Roboto', Helvetica, Arial, serif;
+$font_type_3: 500 14px/1.2 'Roboto', Helvetica, Arial, serif;
 
 .barbar- {
   &block10 {
@@ -211,7 +211,6 @@ $font_type_3: 500 14px/1.2 "Roboto", Helvetica, Arial, serif;
       flex: 0 0 calc(50% - 8px);
       min-width: 369px;
       max-width: 369px;
-      
     }
   }
   &block14 {
@@ -627,11 +626,11 @@ $color_type_6: rgb(233, 115, 0);
 $color_type_7: rgb(245, 245, 245);
 $color_type_8: rgb(255, 255, 255);
 
-$font_type_0: 700 50px/1.2 "Roboto", Helvetica, Arial, serif;
-$font_type_1: 700 20px/1.2 "Roboto", Helvetica, Arial, serif;
-$font_type_2: 600 13px/1.2 "Roboto", Helvetica, Arial, serif;
-$font_type_3: 13px/1.2 "Roboto", Helvetica, Arial, serif;
-$font_type_4: 500 13px/1.2 "Roboto", Helvetica, Arial, serif;
+$font_type_0: 700 50px/1.2 'Roboto', Helvetica, Arial, serif;
+$font_type_1: 700 20px/1.2 'Roboto', Helvetica, Arial, serif;
+$font_type_2: 600 13px/1.2 'Roboto', Helvetica, Arial, serif;
+$font_type_3: 13px/1.2 'Roboto', Helvetica, Arial, serif;
+$font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
 
 .cust-list- {
   &text-body2.layout2 {
@@ -829,18 +828,19 @@ $font_type_4: 500 13px/1.2 "Roboto", Helvetica, Arial, serif;
 }
 
 .searchtitle {
-
-  font: 500 18px/1.2 "Roboto", Helvetica, Arial, serif;
+  font: 500 18px/1.2 'Roboto', Helvetica, Arial, serif;
   color: #131b21;
 }
 
-.width{
+.width {
   min-width: 202px;
   max-width: 202px;
 }
 
 .error-mess {
   color: red;
+  padding-bottom: 3%;
+  padding-left: 0.5%;
 }
 
 .barbar-block13-item.width {
@@ -849,13 +849,22 @@ $font_type_4: 500 13px/1.2 "Roboto", Helvetica, Arial, serif;
 .barbar-block14.layout {
   display: contents;
 }
-.add-location-values .barbar-block13{
+.add-location-values .barbar-block13 {
   display: block;
   margin-right: 30px !important;
 }
 .add-location-values .barbar-block13.layout {
   display: inline-block;
 }
-.add-location-values .barbar-block12{
+.add-location-values .barbar-block12 {
   display: inline-block;
+}
+.disable {
+  pointer-events: none;
+  opacity: 1px;
+}
+
+.set24 {
+  display: flex;
+  margin-bottom: 2%;
 }

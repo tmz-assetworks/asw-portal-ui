@@ -12,46 +12,47 @@
 <div class="header-block7 layout">
   <div class="header-block8 layout">
     <div class="header-section1">
-    <div class="header-block8-item">
-      <div class="header-block9 layout">
-        <div class="header-block9-item">
-          <img id="900923"
-            src="../../../../assets/toggle-btn.png"
-            class="header-box2 layout"
-            (click)="toggleNav()"
-          />
-          <!-- <button (click)="toggleNav()">Click Me!!</button> -->
-          <!-- </div> -->
-        </div>
-        <div class="header-block9-spacer"></div>
-        <div class="header-block9-item1">
-          <div class="header-box3 layout"></div>
-        </div>
-        <div class="header-block9-spacer"></div>
-        <div class="header-block9-item2">
-          <!-- <div
+      <div class="header-block8-item">
+        <div class="header-block9 layout">
+          <div class="header-block9-item">
+            <img
+              id="900923"
+              src="../../../../assets/Toggle-btn.svg"
+              class="header-box2 layout"
+              (click)="toggleNav()"
+            />
+            <!-- <button (click)="toggleNav()">Click Me!!</button> -->
+            <!-- </div> -->
+          </div>
+          <div class="header-block9-spacer"></div>
+          <div class="header-block9-item1">
+            <div class="header-box3 layout"></div>
+          </div>
+          <div class="header-block9-spacer"></div>
+          <div class="header-block9-item2">
+            <!-- <div
             style="--src: url(/assets/0ff09a5a2fdeebf5700aca8904a6dc85.png);"
             class="header-icon layout"
           ></div> -->
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="header-section2">
-    <div class="header-block8-spacer"></div>
-    <div class="header-block8-item1">
-      <div class="header-box4 layout"></div>
-    </div>
-    <!-- <div class="menu-header"></div> -->
-    <div class="txt_menu">
-      <img src="../../../../assets/images/bell.png" />
-      <div class="count_circle"><p>1</p></div>
-    </div>
-    <p class="profile_txt">Hi ! {{ role }}</p>
+    <div class="header-section2">
+      <div class="header-block8-spacer"></div>
+      <div class="header-block8-item1">
+        <div class="header-box4 layout"></div>
+      </div>
+      <!-- <div class="menu-header"></div> -->
+      <div class="txt_menu">
+        <img src="../../../../assets/images/bell.png" />
+        <div class="count_circle"><p>1</p></div>
+      </div>
+      <p class="profile_txt">Hi ! {{ role }}</p>
 
-    <div class="header-block8-spacer"></div>
-  
-    <!-- <p
+      <div class="header-block8-spacer"></div>
+
+      <!-- <p
       style="
         text-align: center;
 
@@ -63,29 +64,33 @@
     >
       Hi! John Doe
     </p> -->
-    <div class="header-block8-item2">
-      <div class="header-box5 layout">
-        <button
-          mat-icon-button
-          [matMenuTriggerFor]="menu"
-          aria-label="Example icon-button with a menu"
-        >
-          <img src="../../../../assets/images/Mask_group.png" />
-          <!-- <mat-icon>more_vert</mat-icon> -->
-        </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item>
-            <mat-icon>settings</mat-icon>
-            <span>Profile Settings</span>
+      <div class="header-block8-item2">
+        <div class="header-box5 layout">
+          <button
+            mat-icon-button
+            [matMenuTriggerFor]="menu"
+            aria-label="Example icon-button with a menu"
+          >
+            <img src="../../../../assets/Super-Admin-icons/header.svg" />
+            <!-- <mat-icon>more_vert</mat-icon> -->
           </button>
-          <button mat-menu-item class="cursorPointer" (click)="logout()">
-            <!--disabled-->
-            <mat-icon>logout</mat-icon>
-            <span>Logout</span>
-          </button>
-        </mat-menu>
+          <mat-menu #menu="matMenu">
+            <button
+              mat-menu-item
+              class="cursorPointer"
+              [routerLink]="['user-profile']"
+            >
+              <mat-icon>settings</mat-icon>
+              <span>Profile Settings</span>
+            </button>
+            <button mat-menu-item class="cursorPointer" (click)="logout()">
+              <!--disabled-->
+              <mat-icon>logout</mat-icon>
+              <span>Logout</span>
+            </button>
+          </mat-menu>
+        </div>
       </div>
     </div>
-  </div>
   </div>
 </div>

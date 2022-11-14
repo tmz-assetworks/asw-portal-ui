@@ -5,7 +5,6 @@
   <div class="dashboard-block13-item">
     <div class="dashboard-block14 layout">
       <div class="dashboard-block15 layout">
-        <!-- <div *ngFor="let item of data; let i = index"> -->
         <div class="dashboard-block15-item">
           <app-widget
             [widgetIcon]="locations"
@@ -13,10 +12,6 @@
           ></app-widget>
         </div>
         <div class="dashboard-block15-spacer"></div>
-        <!-- <div *ngif="i == 0" class="dashboard-block15-spacer"></div>
-          <div *ngif="i == 1" class="dashboard-block15-spacer1"></div>
-          <div *ngif="i == 2" class="dashboard-block15-spacer"></div> -->
-        <!-- </div> -->
         <div class="dashboard-block15-item">
           <app-widget
             [widgetIcon]="chargers"
@@ -85,31 +80,7 @@
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
-
-                <!-- <mat-label>Select Sites</mat-label>
-
-                <mat-select
-                  [(ngModel)]="type_list"
-                  multiple
-                  [formControl]="type_lists"
-                >
-                  <mat-option
-                    *ngFor="let type of alteration_types"
-                    [value]="type"
-                  >
-                    {{ type }}
-                  </mat-option>
-                </mat-select> -->
               </div>
-
-              <!-- <select class="dashboard-text-body1 layout9">
-                <option [ngValue]="null" selected>Select Sites</option>
-                <option *ngFor="let type of alteration_types" [value]="type">
-                  {{ type }}
-                </option>
-              </select> -->
-
-              <!-- </mat-form-field> -->
             </div>
           </div>
           <mat-button-toggle-group
@@ -118,9 +89,6 @@
           >
             <div class="dashboard-block33-item1">
               <div class="dashboard-block35 layout space-between">
-                <!-- <div class="dashboard-text-body2 layout">
-            Last 24 Hours
-            </div> -->
                 <mat-button-toggle value="1" style="border: 1px solid #0062a6;">
                   Last 24 Hours
                 </mat-button-toggle>
@@ -129,26 +97,16 @@
             <div class="dashboard-block33-item2">
               <div class="dashboard-block36 layout space-between">
                 <mat-button-toggle value="7">One Week</mat-button-toggle>
-                <!-- <div class="dashboard-text-body3 layout">
-              One Week
-            </div> -->
               </div>
             </div>
             <div class="dashboard-block33-item3">
               <div class="dashboard-block37 layout space-between">
                 <mat-button-toggle value="30">Current Month</mat-button-toggle>
-                <!-- <div class="dashboard-text-body3 layout1">
-            
-              Current Month
-            </div> -->
               </div>
             </div>
             <div class="dashboard-block33-item4">
               <div class="dashboard-block38 layout space-between">
                 <mat-button-toggle value="90">Last 3 Months</mat-button-toggle>
-                <!-- <div class="dashboard-text-body3 layout2">
-              Last 3 Months
-            </div> -->
               </div>
             </div>
           </mat-button-toggle-group>
@@ -160,24 +118,23 @@
           <app-bar-chart
             *ngIf="chargersChartData !== ''"
             style="width: 100%; height: 100%;"
-            [chartType]="bar"
-            [chartTitle]="barTitle"
+            [chartType]="'bar'"
+            [chartTitle]="'Chargers'"
             [chargersData]="chargersChartData"
             (barDetailPage)="
               openDetailPage(1, 'Chargers', 'DASHBOARD', selectedTime)
             "
           ></app-bar-chart>
         </div>
-        <!-- <div class="dashboard-block42-spacer"></div> -->
         <div class="dashboard-block42-item">
           <app-area-chart
             *ngIf="chargingSessionData !== ''"
             (areaDetailPage)="
-              openDetailPage(2, 'Charging Session', 'DASHBOARD', selectedTime)
+              openDetailPage(2, 'Charging Sessions', 'DASHBOARD', selectedTime)
             "
             [chargingSessionData]="chargingSessionData"
-            [chartType]="dashboardChargingSession"
-            [chartTitle]="dashboardChargingSessionTitle"
+            [chartType]="'dashboardChargingSession'"
+            [chartTitle]="'Charging Sessions'"
           ></app-area-chart>
         </div>
       </div>
@@ -186,8 +143,8 @@
           <app-line-chart
             *ngIf="energyUsedData !== ''"
             [energyUsedData]="energyUsedData"
-            [chartType]="dashboardEnergyUsed"
-            [chartTitle]="dashboardEnergyUsedTitle"
+            [chartType]="'dashboardEnergyUsed'"
+            [chartTitle]="'Energy Demand Over Time'"
             (lineDetailPage)="
               openDetailPage(
                 3,
@@ -200,12 +157,10 @@
         </div>
         <div class="dashboard-block42-spacer"></div>
         <div class="dashboard-block42-item">
-          <!-- <app-graph-card></app-graph-card>  
--->
           <app-bar-chart
             *ngIf="locationPerformingData !== ''"
-            [chartType]="dashboardlocationPerform"
-            [chartTitle]="locationPerormTitle"
+            [chartType]="'dashboardlocationPerform'"
+            [chartTitle]="'Locations Performing'"
             [toggle]="true"
             [locationPerformingData]="locationPerformingData"
             (toggleValueChanges)="changeToggleValue($event)"

@@ -1,7 +1,7 @@
 <div class="dashboard-block12 layout">
   <h3 class="dashboard-subtitle layout">Vehicle Assets</h3>
 </div>
-<div class="dashboard-block13 layout">
+<div class="dashboard-block13 layout vehicle-assets-main">
   <div class="dashboard-block13-item">
     <div class="dashboard-block14 layout">
       <div class="dashboard-block15 layout">
@@ -102,7 +102,7 @@
                     <div class="cust-list-block19 layout">
                       <div class="cust-list-box9 layout">
                         <img
-                          src="../../../../assets/icons/search.png"
+                          src="../../../../../assets/Operator/Search.svg"
                           alt=""
                           class="cust-list-icon layout"
                         />
@@ -112,7 +112,7 @@
                         <input
                           class="cust-list-text-body21 layout"
                           (keyup)="applyFilter($event)"
-                          placeholder="Search Vehicle"
+                          placeholder="Search by VIN"
                           #input
                         />
                       </div>
@@ -148,7 +148,7 @@
                   <ng-container matColumnDef="ModelYear">
                     <th mat-header-cell *matHeaderCellDef>MODEL YEAR</th>
                     <td mat-cell *matCellDef="let element">
-                      {{ element.model }}
+                      {{ element.modelYear }}
                     </td>
                   </ng-container>
                   <!-- Model Make -->
@@ -165,7 +165,7 @@
                   <ng-container matColumnDef="Modal">
                     <th mat-header-cell *matHeaderCellDef>MODEL</th>
                     <td mat-cell *matCellDef="let element">
-                      {{ element.modelYear }}
+                      {{ element.model }}
                     </td>
                   </ng-container>
 
@@ -228,7 +228,7 @@
                       (click)="viewVehicleDetails(element)"
                       style="cursor: pointer;"
                     >
-                      <img src="../../../../assets/icons/view-icon.png" />
+                      <img src="../../../../../assets/Operator/View.svg" />
                     </td>
                   </ng-container>
 

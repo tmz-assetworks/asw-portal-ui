@@ -1589,7 +1589,8 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block.layout {
     position: relative;
     overflow: hidden;
-    min-height: 1596px;
+    // min-height: 1596px;
+    height: fit-content !important;
   }
   &block1 {
     @include flex-column;

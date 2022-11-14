@@ -26,12 +26,10 @@ export class LocationInnerComponent implements OnInit {
   isTableHasData = false
   UserId: string | null
   statusList: any
-  
- 
+
   selectedTime: number = 1
   @ViewChild(MatPaginator) paginator!: MatPaginator
   @ViewChild(MatSort)
-  
   locationStatusData: any = ''
   locationPerformingData = ''
 
@@ -42,13 +40,12 @@ export class LocationInnerComponent implements OnInit {
    *
    */
 
-   totalCount: any
+  totalCount: any
   pageSize: number = 10
   currentPage: number = 1
   totalPages: any
   pageSizeOptions = [10, 20, 100]
   searchParam = ''
-
 
   locationList: any
   toggleValue: number = 1
@@ -71,22 +68,19 @@ export class LocationInnerComponent implements OnInit {
   }
 
   viewLocation(data: any) {
-    // console.log(data, 'data on location click')
     this._storageService.setSessionData('locationId', data.locationId)
     this._storageService.setSessionData('locationName', data.locationName)
     this._router.navigate(['operator/location/analytics'])
   }
 
-  locations = '../../../assets/widget-icon/location.png'
-  chargers = '../../../assets/widget-icon/chargers.png'
-  charging_session = '../../../assets/widget-icon/charging-sessions.png'
-  errors = '../../../assets/widget-icon/erorrs.png'
+  locations = '../../../../../assets/Operator/Location-Icons.svg'
+  chargers = '../../../../../assets/Operator//Chargers.svg'
+  charging_session = '../../../../../assets/Operator/Charger-Seesion.svg'
+  errors = '../../../../../assets/Operator/Error.svg'
 
   locationPerform = 'locationPerform'
   basicStatus = 'basicStatus'
 
-  locationStatusTitle = 'Location Status'
-  locationPerormTitle = 'Location  Performing '
   filterToggle = new FormControl('1')
 
   constructor(
@@ -101,7 +95,6 @@ export class LocationInnerComponent implements OnInit {
   ngOnInit(): void {
     this.getlocationsdispenserdetails()
     this.getSummaryStatus()
-    // this.locationStatus()
 
     this.locationStatus('', this.selectedTime, this.UserId)
 
@@ -132,12 +125,6 @@ export class LocationInnerComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value
     this.searchParam = filterValue
     this.getlocationsdispenserdetails()
-    // this.dataSource.filter = filterValue.trim().toLowerCase()
-    // if (this.dataSource.filteredData.length > 0) {
-    //   this.isTableHasData = false
-    // } else {
-    //   this.isTableHasData = true
-    // }
   }
 
   /**
@@ -208,8 +195,7 @@ export class LocationInnerComponent implements OnInit {
       this.locationPerformingData = res.data
     })
   }
-  /**********************************************Getlocationsdispenserdetails Function************************************************** */
-   
+
   getlocationsdispenserdetails() {
     const pBody = {
       pageNumber: this.currentPage,
@@ -219,46 +205,61 @@ export class LocationInnerComponent implements OnInit {
       locationIds: [],
       operatorid: this.UserId,
     }
-    this._locationService.getlocationsdispenserdetails(pBody).subscribe((res) => {
-      if (res.data !== undefined && res.data != null && res.data.length > 0) {
-        this.totalCount = res.paginationResponse.totalCount
-        this.totalPages = res.paginationResponse.totalPages
-        this.pageSize = res.paginationResponse.pageSize
+    this._locationService
+      .getlocationsdispenserdetails(pBody)
+      .subscribe((res) => {
+        if (res.data !== undefined && res.data != null && res.data.length > 0) {
+          this.totalCount = res.paginationResponse.totalCount
+          this.totalPages = res.paginationResponse.totalPages
+          this.pageSize = res.paginationResponse.pageSize
 
-        this.dataSource.data = res.data
-        this.statusList = res.statusList
-        this.isTableHasData = false
-      } else {
-        this.dataSource.data = []
-        this.isTableHasData = true
-      }
-    })
+          this.dataSource.data = res.data
+          this.statusList = res.statusList
+          this.isTableHasData = false
+        } else {
+          this.dataSource.data = []
+          this.isTableHasData = true
+        }
+      })
+  }
+
+  pageChange(event: any) {
+    if (event.pageSize !== this.pageSize) {
+      this.currentPage = 1
+      this.pageSize = event.pageSize
+      this.paginator.pageIndex = 0
+    } else {
+      this.currentPage =
+        event.previousPageIndex < event.pageIndex
+          ? this.currentPage + 1
+          : this.currentPage - 1
     }
-    
 
+    this.getlocationsdispenserdetails()
+  }
 
-    pageChange(event: any) {
-      if (event.pageSize !== this.pageSize) {
-        this.currentPage = 1
-        this.pageSize = event.pageSize
-        this.paginator.pageIndex = 0
-      } else {
-        this.currentPage =
-          event.previousPageIndex < event.pageIndex
-            ? this.currentPage + 1
-            : this.currentPage - 1
-      }
-  
-      this.getlocationsdispenserdetails()
-    }
-  
-  
-    /**
-     * Emit Toggle event
-     */
-    changeToggleValue(event: any) {
-      this.toggleValue = event
-  
+  /**
+   * Emit Toggle event
+   */
+  changeToggleValue(event: any) {
+    this.toggleValue = event
+
+    this.getLocationPerforming(
+      '',
+      this.selectedTime,
+      this.UserId,
+      this.toggleValue,
+    )
+  }
+
+  /**
+   * Set time to show
+   */
+
+  setTime(event: any) {
+    if (event.value) {
+      this.selectedTime = event.value
+      this.locationStatus('', this.selectedTime, this.UserId)
       this.getLocationPerforming(
         '',
         this.selectedTime,
@@ -266,24 +267,5 @@ export class LocationInnerComponent implements OnInit {
         this.toggleValue,
       )
     }
-  
-    /**
-     * Set time to show
-     */
-  
-    setTime(event: any) {
-      if (event.value) {
-        this.selectedTime = event.value
-        this.locationStatus('', this.selectedTime, this.UserId)
-        this.getLocationPerforming(
-          '',
-          this.selectedTime,
-          this.UserId,
-          this.toggleValue,
-        )
-      }
-    }
   }
-
- 
-
+}

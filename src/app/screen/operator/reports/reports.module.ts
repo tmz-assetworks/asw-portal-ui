@@ -4,15 +4,13 @@ import { RouterModule, Routes } from '@angular/router'
 import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 import { SharedModule } from 'src/app/shared/shared.module'
 
-import { ReportsComponent } from './reports.component';
+import { ReportsComponent } from './reports.component'
 
-import { ReportSubscriptionComponent } from './report-subscription/report-subscription.component';
-import { ReportTransactionComponent } from './report-transaction/report-transaction.component';
+import { ReportSubscriptionComponent } from './report-subscription/report-subscription.component'
+import { ReportTransactionComponent } from './report-transaction/report-transaction.component'
 import { ReportEnergyComponent } from './report-energy/report-energy.component'
 import { ReportSessionComponent } from './report-session/report-session.component'
 import { GraphDetailComponent } from '../graph-detail/graph-detail.component'
-
-
 
 const routes: Routes = [
   {
@@ -25,7 +23,7 @@ const routes: Routes = [
         pathMatch: 'full',
       },
       {
-        path: 'report-session',
+        path: 'reports/report-session',
         component: ReportSessionComponent,
         // pathMatch: 'full',
       },
@@ -55,8 +53,8 @@ const routes: Routes = [
   { path: 'report-session/detail', component: GraphDetailComponent },
   { path: 'report-session/detail/:id', component: GraphDetailComponent },
   { path: 'report-energy/detail', component: GraphDetailComponent },
-  { path: 'report-energy/detail/:id', component: GraphDetailComponent }
-];
+  { path: 'report-energy/detail/:id', component: GraphDetailComponent },
+]
 @NgModule({
   declarations: [
     ReportsComponent,
@@ -64,8 +62,12 @@ const routes: Routes = [
     ReportSubscriptionComponent,
     ReportTransactionComponent,
     ReportEnergyComponent,
-    
   ],
-  imports: [CommonModule, RouterModule.forChild(routes) ,SharedModule, SharedMaterialModule],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    SharedModule,
+    SharedMaterialModule,
+  ],
 })
 export class ReportsModule {}

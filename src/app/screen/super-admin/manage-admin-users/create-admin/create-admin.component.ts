@@ -40,6 +40,7 @@ export class CreateAdminComponent implements OnInit {
     private _location: Location,
     private _storageService: StorageService,
   ) {
+    debugger;
     this.role = localStorage.getItem('role') || ''
     this.editId = 0
     this.UserId = this._storageService.getLocalData('user_id')
@@ -74,6 +75,7 @@ export class CreateAdminComponent implements OnInit {
     ) {
       this.title = 'View Admin User'
       this.setadminData(this.adminData)
+      this.addAdminProfile.disable()
     } else {
       this.title = 'Add Admin User'
     }
@@ -85,12 +87,10 @@ export class CreateAdminComponent implements OnInit {
       Validators.maxLength(20),
     ]),
     emailid: new FormControl('', [Validators.required, Validators.email]),
-    dob: new FormControl('', Validators.required),
-    phoneNumber: new FormControl('', [
-      Validators.required,
-      Validators.pattern('[0-9]{10,15}'),
-    ]),
+    // dob: new FormControl('', Validators.required),
+    phoneNumber: new FormControl('', Validators.required),
     organizationName: new FormControl(this.selectValue, Validators.required),
+    // organizationName: new FormControl(this.selectValue, [Validators.required,Validators.minLength(2)]),
     addressLine1: new FormControl('', [
       Validators.required,
       Validators.maxLength(255),
@@ -98,11 +98,9 @@ export class CreateAdminComponent implements OnInit {
     addressLine2: new FormControl('', [Validators.maxLength(255)]),
     country: new FormControl(this.selectValue, Validators.required),
     state: new FormControl(this.selectValue, Validators.required),
-    city: new FormControl(this.selectValue, Validators.required),
-    zipcode: new FormControl('', [
-      Validators.required,
-      Validators.pattern('[a-z0-9A-Z]{6}'),
-    ]),
+    // city: new FormControl(this.selectValue, Validators.required),
+    cityName: new FormControl('', Validators.required),
+    zipcode: new FormControl('', [Validators.required]),
   })
 
   ngOnInit() {
@@ -111,49 +109,23 @@ export class CreateAdminComponent implements OnInit {
       this.countryList = res.data
     })
     this._superadminService.getListApi('org').subscribe((res) => {
-      this.customerList = res.data // it represent organisation
-      //  console.log(this.customerList);
+      this.customerList = res.data
     })
   }
 
-  // alertWithSuccess() {
-  //   Swal.fire({
-  //     title: '<strong>Are you sure you want to confirm?</strong>',
-  //     icon: 'success',
-  //     focusConfirm: true,
-  //     confirmButtonText: ' <span style="color:#0062A6">CANCEL<span>',
-  //     confirmButtonColor: '#E6E8E9',
-
-  //     cancelButtonColor: '#0062A6',
-  //     cancelButtonText: ' CONFIRM',
-  //     showCancelButton: true,
-  //   }).then((result) => {
-  //     if (result.isDismissed) {
-  //       // this.toastr.success("Record has been registered on success.")
-  //       //Do your stuffs...
-  //       this.saveForm()
-  //     }
-  //   })
-  // }
-
   saveForm() {
-    // console.log('Form data is ', this.addAdminProfile.value)
     let formField = this.addAdminProfile.value
-    // if (
-    //   formField.emailid == '' ||
-    //   formField.username == '' ||
-    //   formField.dob == '' ||
-    //   formField.phoneNumber == '' ||
-    //   formField.addressLine1 == '' ||
-    //   parseInt(formField.country) == 0 ||
-    //   parseInt(formField.state) == 0 ||
-    //   parseInt(formField.city) == 0 ||
-    //   parseInt(formField.organizationName) == 0
-    // ) {
-    //   this.toastr.error('Fill all Mandatory Fields');
-    //   return;
-    // }
+
     this.submitted = true
+    if (
+      this.addAdminProfile.value.organizationName == '0' ||
+      this.addAdminProfile.value.country == '0' ||
+      this.addAdminProfile.value.state == '0' ||
+      this.addAdminProfile.value.city == '0'
+    ) {
+      this.toastr.error('Please fill mandatory fields.')
+      return
+    }
     if (this.addAdminProfile.invalid) {
       this.toastr.error('Please fill mandatory fields.')
       return
@@ -170,14 +142,15 @@ export class CreateAdminComponent implements OnInit {
         // isForceChangePasswordNextSignIn: true,
         emailId: formField.emailid,
         name: formField.username,
-        dob: this.datePipe.transform(formField.dob, 'yyyy-MM-ddThh:mm:ss'),
+        // dob: this.datePipe.transform(formField.dob, 'yyyy-MM-ddThh:mm:ss'),
         phoneNumber: formField.phoneNumber,
         addressLine1: formField.addressLine1,
         addressLine2: formField.addressLine2,
         countryID: parseInt(formField.country),
         customerID: parseInt(formField.organizationName),
         stateID: parseInt(formField.state),
-        cityID: parseInt(formField.city),
+        // cityID: parseInt(formField.city),
+        cityName: formField.cityName,
         zipCode: formField.zipcode,
         createdBy: this.UserId,
         userRolesCommand: [
@@ -203,17 +176,21 @@ export class CreateAdminComponent implements OnInit {
         showCancelButton: true,
       }).then((result) => {
         if (result.isDismissed) {
-          // this.toastr.success("Record has been registered on success.")
           //Do your stuffs...
-          this._superadminService.createAdmin(body).subscribe({
+          this._superadminService.CreateUser(body).subscribe({
             next: (res) => {
-              this.toastr.success(res.statusMessage)
-              this._location.back()
+              if (res.statusCode === 200) {
+                this.toastr.success(res.statusMessage)
+                this._location.back()
+              } else {
+                this.toastr.error(res.statusMessage)
+                return
+              }
             },
             error: (error) => {
               if (error.status == 400) {
                 let errorMsg = error.error.errors
-                this.toastr.error(JSON.stringify(errorMsg))
+                this.toastr.error(errorMsg)
                 // this.showLoader = false
               }
             },
@@ -221,20 +198,19 @@ export class CreateAdminComponent implements OnInit {
         }
       })
     } else {
-      // body.id =
-      // console.log(body);
       let body = {
         id: this.editId,
         emailId: formField.emailid,
         name: formField.username,
-        dob: this.datePipe.transform(formField.dob, 'yyyy-MM-ddThh:mm:ss'),
+        // dob: this.datePipe.transform(formField.dob, 'yyyy-MM-ddThh:mm:ss'),
         phoneNumber: formField.phoneNumber,
         addressLine1: formField.addressLine1,
         addressLine2: formField.addressLine2,
         countryID: parseInt(formField.country),
         customerID: parseInt(formField.organizationName),
         stateID: parseInt(formField.state),
-        cityId: parseInt(formField.city),
+        // cityId: parseInt(formField.city),
+        cityName: formField.cityName,
         zipCode: formField.zipcode,
         modifiedBy: this.UserId,
         userRolesCommand: [
@@ -265,7 +241,7 @@ export class CreateAdminComponent implements OnInit {
         if (result.isDismissed) {
           // this.toastr.success("Record has been registered on success.")
           //Do your stuffs...
-          this._superadminService.updateAdmin(body).subscribe({
+          this._superadminService.UpdateUser(body).subscribe({
             next: (res) => {
               this.toastr.success(res.statusMessage)
               this._location.back()
@@ -281,7 +257,7 @@ export class CreateAdminComponent implements OnInit {
             error: (error) => {
               if (error.status == 400) {
                 let errorMsg = error.error.errors
-                this.toastr.error(JSON.stringify(errorMsg))
+                this.toastr.error(errorMsg)
                 // this.showLoader = false
               }
             },
@@ -300,12 +276,12 @@ export class CreateAdminComponent implements OnInit {
         // NEW COUNTRY IS SELECTED
         this.stateId = 0
         // this.stateName = ''
-        this.cityId = 0
+        // this.cityId = 0
         // this.cityName = ''
         this.addAdminProfile.patchValue({ state: this.selectValue })
         this.addAdminProfile.patchValue({ city: this.selectValue })
         this.stateList = []
-        this.cityList = []
+        // this.cityList = []
       }
       this.countryId = parseInt(event.value)
       // this.countryName = event.value.split('#')[1];
@@ -334,42 +310,44 @@ export class CreateAdminComponent implements OnInit {
             this.addAdminProfile.patchValue({ state: this.selectValue })
           }
         })
-    } else if (type == 'city') {
-      if (this.stateId !== parseInt(event.value)) {
-        // NEW STATE IS SELECTED
-        this.cityId = 0
-        //  this.cityName = ''
-      }
-      this.stateId = parseInt(event.value)
-      // this.stateName = event.value.split('#')[1];
-      // CALL STATE API
-      this._superadminService
-        .getListApi('city', 0, this.stateId)
-        .subscribe((res) => {
-          this.cityList = res.data
-          if (this.stateId == 0) {
-            // FOR NEW LOCATION
-            this.addAdminProfile.patchValue({ city: this.selectValue })
-            this.cityId = 0
-            //  this.cityName = ''
-          } else if (this.stateId > 0 && this.cityId > 0) {
-            // FOR EDIT STATE AND CITY BOTH ARE SELECTED
-            this.addAdminProfile.patchValue({ state: this.stateId.toString() })
-            this.addAdminProfile.patchValue({ city: this.cityId.toString() })
-          } else if (this.stateId > 0 && this.cityId == 0) {
-            // WHEN CHANGING STATE
-            this.addAdminProfile.patchValue({ city: this.selectValue })
-            this.addAdminProfile.patchValue({ state: this.stateId.toString() })
-          }
-          /* this.addAdminProfile.patchValue({City: this.selectValue})
-         this.cityId = 0
-         this.cityName = '' */
-        })
-    } else {
-      // FOR CITY ID AND NAME
-      this.cityId = parseInt(event.value)
-      // this.cityName = event.value.split('#')[1];
     }
+    // else if (type == 'city') {
+    //   if (this.stateId !== parseInt(event.value)) {
+    //     // NEW STATE IS SELECTED
+    //     this.cityId = 0
+    //     //  this.cityName = ''
+    //   }
+    //   this.stateId = parseInt(event.value)
+    //   // this.stateName = event.value.split('#')[1];
+    //   // CALL STATE API
+    //   this._superadminService
+    //     .getListApi('city', 0, this.stateId)
+    //     .subscribe((res) => {
+    //       this.cityList = res.data
+    //       if (this.stateId == 0) {
+    //         // FOR NEW LOCATION
+    //         this.addAdminProfile.patchValue({ city: this.selectValue })
+    //         this.cityId = 0
+    //         //  this.cityName = ''
+    //       } else if (this.stateId > 0 && this.cityId > 0) {
+    //         // FOR EDIT STATE AND CITY BOTH ARE SELECTED
+    //         this.addAdminProfile.patchValue({ state: this.stateId.toString() })
+    //         this.addAdminProfile.patchValue({ city: this.cityId.toString() })
+    //       } else if (this.stateId > 0 && this.cityId == 0) {
+    //         // WHEN CHANGING STATE
+    //         // this.addAdminProfile.patchValue({ city: this.selectValue })
+    //         // this.addAdminProfile.patchValue({
+    //         //   cityName: this.customerData.cityName,
+    //         // });
+    //         this.addAdminProfile.patchValue({ state: this.stateId.toString() })
+    //       }
+
+    //     })
+    // } else {
+    //   // FOR CITY ID AND NAME
+    //   this.cityId = parseInt(event.value)
+    //   // this.cityName = event.value.split('#')[1];
+    // }
   }
 
   /**
@@ -382,15 +360,11 @@ export class CreateAdminComponent implements OnInit {
     data = JSON.parse(data)
     this.editId = data.id
     this._superadminService.getListApi('admin', data.id).subscribe((res) => {
-      // console.log(res)
-
       this.adminRowData = res.data
       this.countryId = this.adminRowData.countryID
       this.stateId = this.adminRowData.stateID
-      this.cityId = this.adminRowData.cityID
+      // this.cityId = this.adminRowData.cityID
 
-      // console.log(this.adminRowData)
-      // alert(this.locationRowData.locationStatus.id + this.locationRowData.locationStatus.locationStatusName);
       this.getSelected(
         {
           value: this.adminRowData.countryID,
@@ -435,17 +409,21 @@ export class CreateAdminComponent implements OnInit {
       })
 
       this.addAdminProfile.patchValue({
-        city:
-          this.adminRowData.cityId !== 0
-            ? this.adminRowData.cityId
-            : this.selectValue,
+        cityName: this.adminRowData.cityName,
       })
+
+      // this.addAdminProfile.patchValue({
+      //   city:
+      //     this.adminRowData.cityId !== 0
+      //       ? this.adminRowData.cityId
+      //       : this.selectValue,
+      // })
       this.addAdminProfile.patchValue({
         zipcode: this.adminRowData.zipcode,
       })
-      this.addAdminProfile.patchValue({
-        dob: this.adminRowData.dob,
-      })
+      // this.addAdminProfile.patchValue({
+      //   dob: this.adminRowData.dob,
+      // })
 
       this.addAdminProfile.patchValue({
         organizationName:
@@ -453,8 +431,6 @@ export class CreateAdminComponent implements OnInit {
             ? this.adminRowData.customerID.toString()
             : 0,
       })
-
-      // console.log(this.stateList)
     })
     this.addAdminProfile
   }
@@ -481,5 +457,22 @@ export class CreateAdminComponent implements OnInit {
       return false
     }
     return true
+  }
+
+  telephoneNumber: string = ''
+
+  phoneNumber(event: any) {
+    const charCode = event.which ? event.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return
+    }
+    let filterValue = (event.target as HTMLInputElement).value
+    this.telephoneNumber = filterValue
+    if (this.telephoneNumber.length == 3) {
+      this.telephoneNumber = '(' + this.telephoneNumber + ')' + ' '
+    }
+    if (this.telephoneNumber.length == 9) {
+      this.telephoneNumber = this.telephoneNumber + '-'
+    }
   }
 }

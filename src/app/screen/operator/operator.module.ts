@@ -6,14 +6,15 @@ import { SharedModule } from 'src/app/shared/shared.module'
 import { NgxEchartsModule } from 'ngx-echarts'
 import { MainMasterModule } from '../master/master.module'
 import { MasterComponent } from '../master/master.component'
-import { RoleAuthGuard } from 'src/app/gurads/role.auth.guard';
+import { RoleAuthGuard } from 'src/app/gurads/role.auth.guard'
 import { GraphDetailComponent } from './graph-detail/graph-detail.component'
+import { CommonModule } from '@angular/common'
 
 const routes: Routes = [
   {
     path: '',
     component: MasterComponent,
-    canActivate: [ RoleAuthGuard],
+    canActivate: [RoleAuthGuard],
     // pathMatch: 'full',
     children: [
       {
@@ -65,17 +66,28 @@ const routes: Routes = [
         loadChildren: () =>
           import('./help/help.module').then((m) => m.HelpModule),
       },
+      {
+        path: 'user-profile',
+        loadChildren: () =>
+          import('../../screen/user-profile/user-profile.module').then(
+            (m) => m.UserProfileModule,
+          ),
+      },
     ],
   },
 ]
 
 @NgModule({
-  imports: [SharedMaterialModule, SharedModule, RouterModule.forChild(routes),NgxEchartsModule.forRoot({
-    echarts: () => import('echarts'),
-  })],
-  exports: [],
-  declarations: [
-    GraphDetailComponent
+  imports: [
+    CommonModule,
+    SharedMaterialModule,
+    SharedModule,
+    RouterModule.forChild(routes),
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts'),
+    }),
   ],
+  exports: [],
+  declarations: [GraphDetailComponent],
 })
 export class OperatorModule {}

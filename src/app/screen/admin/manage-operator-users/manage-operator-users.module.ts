@@ -9,7 +9,7 @@ import {
   MatFormFieldControl,
   MatFormFieldModule,
 } from '@angular/material/form-field'
-import { ManageLocationsComponent } from '../manage-locations/manage-locations.component'
+
 import { AddVehicleComponent } from '../manage-vehicles/add-vehicle/add-vehicle.component'
 
 const routes: Routes = [

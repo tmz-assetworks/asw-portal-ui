@@ -20,8 +20,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCX40o4SSWDp_a0DDw1u0OjdY-gLKjO18o&libraries=places&language=en"></script>
-    
-   <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCX40o4SSWDp_a0DDw1u0OjdY-gLKjO18o"></script> -->
+
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCX40o4SSWDp_a0DDw1u0OjdY-gLKjO18o"></script> -->
     <script>
       /** AIzaSyCX40o4SSWDp_a0DDw1u0OjdY-gLKjO18o
        * @name Chart MarkerClusterer for Google Maps v3
@@ -176,7 +176,7 @@
         if (opt_markers && opt_markers.length) {
           this.setupLegend_(opt_markers)
         }
-        //console.log(opt_markers);
+
         this.setMap(map)
 
         /**
@@ -366,7 +366,6 @@
         }
         //var panes = this.getPanes();
         //panes.overlayMouseTarget.appendChild(this.div_);
-        // console.log(markers);
       }
       /**
        *  Fit the map to the bounds of the markers in the clusterer.
@@ -997,7 +996,6 @@
         this.markers_.push(marker)
 
         this.chartData_[marker.getTitle()]++ //Hassan
-        //console.log(this.chartData_);
 
         var len = this.markers_.length
         if (len < this.minClusterSize_ && marker.getMap() != this.map_) {

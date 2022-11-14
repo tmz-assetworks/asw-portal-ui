@@ -10,167 +10,104 @@ export class ToolTipItemComponent implements OnInit {
 
   @Input() set isGetConfig(value: boolean) {
     if (value !== undefined) {
-      console.log(value, 'value getting')
-
       this.showToolTipitem = value
     }
   }
   @Input() set isClearCache(value: boolean) {
     if (value !== undefined) {
-      console.log(value, 'value getting')
-
       this.showToolTipitem = value
     }
   }
 
   @Input() set isReset(value: boolean) {
     if (value !== undefined) {
-      console.log(value, 'value getting')
       this.showToolTipitem = value
-} }
-
-/* @Input() set isClearCache(value: boolean) {
-  if(value!==undefined){
-
-    console.log(value,"value getting");
-    
-    this.showToolTipitem=value;
-  }
-}
-
-  @Input() set isReset(value: boolean) {
-    if(value!==undefined){
-  
-      console.log(value,"value getting");
-      
-      this.showToolTipitem=value;
     }
-
-}
-
-@Input() set isChangeConfiguration(value: boolean) {
-  if(value!==undefined){
-
-    console.log(value,"value getting");
-    
-    this.showToolTipitem=value;
   }
-
-}
-@Input() set isChangeAvailability(value: boolean) {
-  if(value!==undefined){
-
-    console.log(value,"value getting");
-    
-    this.showToolTipitem=value;
-  }
-
-} */
- 
-
- 
-  
 
   @Input() set isChangeConfiguration(value: boolean) {
     if (value !== undefined) {
-      console.log(value, 'value getting')
-
       this.showToolTipitem = value
     }
   }
   @Input() set isChangeAvailability(value: boolean) {
     if (value !== undefined) {
-      console.log(value, 'value getting')
-
       this.showToolTipitem = value
     }
   }
   @Input() set isGetLocalListVersion(value: boolean) {
     if (value !== undefined) {
-      console.log(value, 'value getting')
-
+      this.showToolTipitem = value
+    }
+  }
+  @Input() set isSendLocalListVersion(value: boolean) {
+    if (value !== undefined) {
       this.showToolTipitem = value
     }
   }
   @Input() set isRemoteStartTransaction(value: boolean) {
     if (value !== undefined) {
-      console.log(value, 'value getting')
-
       this.showToolTipitem = value
     }
   }
   @Input() set isRemoteStopTransaction(value: boolean) {
     if (value !== undefined) {
-      console.log(value, 'value getting')
-
       this.showToolTipitem = value
     }
   }
   @Input() set isGetCompositeSchedule(value: boolean) {
     if (value !== undefined) {
-      console.log(value, 'value getting')
-
       this.showToolTipitem = value
     }
   }
   @Input() set isupdatefirmware(value: boolean) {
     if (value !== undefined) {
-      console.log(value, 'value getting')
-
       this.showToolTipitem = value
     }
   }
   @Input() set isPublishFirmware(value: boolean) {
     if (value !== undefined) {
-      console.log(value, 'value getting')
-
       this.showToolTipitem = value
     }
   }
 
   @Input() set isUnlock(value: boolean) {
     if (value !== undefined) {
-      console.log(value, 'value getting')
-
       this.showToolTipitem = value
     }
   }
 
   @Input() set isCancelReservation(value: boolean) {
     if (value !== undefined) {
-      console.log(value, 'value getting')
-
       this.showToolTipitem = value
     }
   }
 
   @Input() set isReserveNow(value: boolean) {
     if (value !== undefined) {
-      console.log(value, 'value getting')
-
       this.showToolTipitem = value
     }
   }
 
   @Input() set isTriggerMess(value: boolean) {
     if (value !== undefined) {
-      console.log(value, 'value getting')
-
       this.showToolTipitem = value
     }
   }
 
   @Input() set isUpdateFirmware(value: boolean) {
     if (value !== undefined) {
-      console.log(value, 'value getting')
+      this.showToolTipitem = value
+    }
+  }
 
+  @Input() set isDiagnostics(value: boolean) {
+    if (value !== undefined) {
       this.showToolTipitem = value
     }
   }
 
   constructor() {}
 
-  ngOnInit(): void {
-   
-  }
+  ngOnInit(): void {}
 }

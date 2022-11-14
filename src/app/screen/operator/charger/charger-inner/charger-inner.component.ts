@@ -78,9 +78,9 @@ export class ChargerInnerComponent implements OnInit {
     }
   }
 
-  chargers = '../../../assets/widget-icon/chargers.png'
-  charging_session = '../../../assets/widget-icon/charging-sessions.png'
-  errors = '../../../assets/widget-icon/erorrs.png'
+  chargers = '../../../../../assets/Operator/Chargers.svg'
+  charging_session = '../../../../../assets/Operator/Charger-Seesion.svg'
+  errors = '../../../../../assets/Operator/Error.svg'
 
   constructor(
     private _router: Router,
@@ -155,7 +155,7 @@ export class ChargerInnerComponent implements OnInit {
     }
     this._dashboardService.getChargerChartData(body).subscribe({
       next: (response) => {
-        this.chargersChartData = response
+        this.chargersChartData = response.data
       },
       error: (err) => {
         console.log('no response for chargers graph')

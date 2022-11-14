@@ -59,7 +59,7 @@
                   <div class="tabs-block3 layout">
                     <img
                       class="tabs-box3 layout"
-                      src="../../../../../assets/event-logs/event-log.png"
+                      src="../../../../../assets/Operator/Event-logs.svg"
                       alt=""
                       srcset=""
                     />
@@ -128,7 +128,7 @@
                               <div class="cust-list-block23-item">
                                 <div class="cust-list-box10 layout">
                                   <img
-                                    src="../../../../../assets/download-report.png"
+                                    src="../../../../../assets/Operator/Download-icon.svg"
                                     alt=""
                                     srcset=""
                                   />
@@ -252,7 +252,7 @@
                               >
                                 <img
                                   style="cursor: pointer;"
-                                  src="../../../../assets/icons/view-icon.png"
+                                  src="../../../../../assets/Operator/View.svg"
                                   (click)="
                                     expandedElement =
                                       expandedElement === element
@@ -323,12 +323,12 @@
                           </ng-container>
 
                           <mat-paginator
-                          #paginator
-                          (page)="pageChange($event)"
-                          [length]="totalCount"
-                          [pageSize]="pageSize"
-                          [pageSizeOptions]="pageSizeOptions"
-                        ></mat-paginator>
+                            #paginator
+                            [pageSizeOptions]="pageSizeOptions"
+                            (page)="pageChange($event)"
+                            [length]="totalCount"
+                            [pageSize]="pageSize"
+                          ></mat-paginator>
                         </div>
                       </div>
                     </div>

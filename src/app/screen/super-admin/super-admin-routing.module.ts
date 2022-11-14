@@ -34,12 +34,18 @@ const routes: Routes = [
       {
         path: 'help',
         component: HelpComponent,
-        // loadChildren: () =>
-        //   import('../super-admin/manage-admin-users/manage-admin.module').then(
-        //     (m) => m.ManageAdminModule,
-        //   ),
+        //   // loadChildren: () =>
+        //   //   import('../super-admin/manage-admin-users/manage-admin.module').then(
+        //   //     (m) => m.ManageAdminModule,
+        //   //   ),
       },
-      
+      {
+        path: 'user-profile',
+        loadChildren: () =>
+          import('../../screen/user-profile/user-profile.module').then(
+            (m) => m.UserProfileModule,
+          ),
+      },
     ],
   },
 ]

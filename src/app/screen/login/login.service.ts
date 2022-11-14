@@ -32,7 +32,7 @@ export class LoginService {
 
    verifyUserByOTP(email: string, otp: any) {
     let params = '?emailid=' + email + '&OTP=' + otp
-    return this._http.get<any>(`${this.url}VerifyUser${params}`)
+    return this._http.get<any>(`${this.url}VerifyUserByOTP${params}`)
   }
 
 
@@ -41,14 +41,14 @@ export class LoginService {
    * @param email
    * @param password
    */
-  changePassword(email: string, password: string) {
-    let params = '?emailid=' + email + '&password=' + password
+  changePassword(email: string, password: string,token: string) {
      const body = {
       emailid: email,
-      password: password
+      password: password,
+      accesstoken: token
     }
     return this._http.post<any>(`${this.url}ChangePassword`,body) 
-  //  return this._http.get<any>(`${this.url}ChangePassword${params}`)
+ 
   }
 
   /**
@@ -56,14 +56,15 @@ export class LoginService {
    * @param email
    * @param password
    */
-   changePasswordObjectId(uname: string, password: string) {
-   // let params = '?userName=' + uname + '&password=' + password
+   changePasswordObjectId(uname: string, password: string,token: string) {
+  
     const body = {
       emailid: uname,
-      password: password
+      password: password,
+      accesstoken: token
     }
     return this._http.post<any>(`${this.url}ResetPassword`,body)
-    //return this._http.get<any>(`${this.url}ResetPassword${params}`)
+   
   }
 
   /**

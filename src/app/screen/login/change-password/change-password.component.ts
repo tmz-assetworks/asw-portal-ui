@@ -33,6 +33,17 @@ export class ChangePasswordComponent implements OnInit {
   ngOnInit(): void {
     // CHECK FOR QUERY PARAM
     // https://qa-portal-ui.azurewebsites.net/changePassword?username=userName&objectID=objectID
+    // CHECK IF LINK CREATION TIME GREATER THAN CURRENT TIME
+    
+    let currentDate = new Date();
+    let currentTime = currentDate.getTime()
+    let futureDate = localStorage.getItem('timeInterval') || '';
+    if(futureDate !== '' && parseInt(futureDate) < currentTime) {
+      this.toastr.error('Link Has Expired Please Contact Your Administrator');
+      return;
+    }
+
+
     this._activatedRoute.queryParams.subscribe((params) => {
       this.username = params['username']
       this.objectID = params['objectID']
@@ -86,7 +97,8 @@ export class ChangePasswordComponent implements OnInit {
         let encryptedPassword = this._loginService.encryptPassword(
           this.changePassForm.value.password.trim(),
         )
-        this._loginService.changePassword(email, encryptedPassword).subscribe({
+        let resetToken = localStorage.getItem('resetToken') || '';
+        this._loginService.changePassword(email, encryptedPassword,resetToken).subscribe({
           next: (response) => {
             this.showLoader = false
             this.toastr.success('Password Changed Successfully')
@@ -104,8 +116,9 @@ export class ChangePasswordComponent implements OnInit {
         let encryptedPassword = this._loginService.encryptPassword(
           this.changePassForm.value.password.trim(),
         )
+        let resetToken = localStorage.getItem('resetToken') || '';
         this._loginService
-          .changePasswordObjectId(this.username, encryptedPassword)
+          .changePasswordObjectId(this.username, encryptedPassword,resetToken)
           .subscribe({
             next: (response) => {
               this.showLoader = false

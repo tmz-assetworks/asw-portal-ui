@@ -12,6 +12,7 @@ import { StorageService } from 'src/app/service/storage.service'
 import Swal from 'sweetalert2'
 import { AdminService } from '../../admin.service'
 import { MatCheckboxModule } from '@angular/material/checkbox'
+import { DatePipe } from '@angular/common'
 
 @Component({
   selector: 'app-add-charger',
@@ -31,7 +32,7 @@ export class AddChargerComponent implements OnInit {
   makeMasterId: any
   protcol: string = '1.6J'
   protocolId: any
-  dispenserStatusId: any
+  // dispenserStatusId: any
   chargerData: any
   getMake: any
 
@@ -39,16 +40,18 @@ export class AddChargerComponent implements OnInit {
   getModem: any
   getRfidReader: any
   getPowerCabinet: any
-  getLocation: any
+  getLocation: any = []
   selectedLocation: any
   selectedMake: any
   selectedModel: any
-  selectedModem: any
-  selectedRfidReader: any
-  selectedPowerCabinet: any
+  selectedModem=0
+  selectedRfidReader=0
+  selectedPowerCabinet=0
+  selectedCable=0
+  selectedSwitch=0
   getDispenserStatu: any
   selectedStatus: any
-  selectedPad: any
+  selectedPad=0
   assetPad: any
   Modemlist: any
   seecledModem: any
@@ -57,6 +60,12 @@ export class AddChargerComponent implements OnInit {
   connectorType: any
   selectedconnectorType: any
   showLoader: boolean = false
+  CableList: any
+  
+  SwitchList: any
+  viewMode: boolean = false
+  isPortAddBtn: boolean = false
+  datePipe = new DatePipe('en-US')
 
   constructor(
     private _fb: FormBuilder,
@@ -70,45 +79,65 @@ export class AddChargerComponent implements OnInit {
     this.chargerboxId = this._activatedRoute.snapshot.queryParams['id']
     let routePath = this._activatedRoute.snapshot.routeConfig?.path
 
+    if (this.chargerboxId == undefined) {
+      this.chargerboxId = 0
+    }
+
     if (this.chargerboxId && routePath != 'view-chargers') {
       this.chargerTitle = 'Edit Charger'
-
       this.isUpdateBtn = true
       this.isSaveBtn = false
+      this.viewMode = false
+      this.isPortAddBtn = true
     } else if (this.chargerboxId && routePath == 'view-chargers') {
       this.chargerTitle = 'View Charger'
-
       this.isSaveBtn = false
       this.isUpdateBtn = false
       this.addChargerForm.disable()
+      this.viewMode = true
+      this.isPortAddBtn = false
     } else {
       this.chargerTitle = 'Add Charger'
       this.isSaveBtn = true
       this.isUpdateBtn = false
+      this.viewMode = false
+      this.isPortAddBtn = true
     }
   }
 
   ngOnInit() {
-    // this.onSubmit();
-
     /**
      * call dropdown
      */
+    this.GetSwitchGearDropDown(this.chargerboxId)
+    this.GetCableDropDown(this.UserId, this.chargerboxId)
     this.GetConnectorType()
-    this.GetModemDDL()
-    this.GetAllModelData(this.UserId)
+    this.GetModemDDL(this.UserId, this.chargerboxId)
+    this.GetAllModelData(this.UserId, this.chargerboxId)
     this.GetAllLocation()
     this.GetAllMakeMaster()
-    this.GetAllPadData(this.UserId)
-    // this.GetAllModem();
-    this.GetAllRFIdReaderData(this.UserId)
-    this.GetPowerCabinetData()
-    this.GetDispenserStatus(this.UserId)
+    this.GetAllPadData(this.UserId, this.chargerboxId)
+
+    this.GetAllRFIdReaderData(this.UserId, this.chargerboxId)
+    this.GetPowerCabinetData(this.chargerboxId)
+
     this.GetPlugType()
-    //this.GetDispenserDetailsById(this.chargerId)
+
     setTimeout(() => {
       if (this.chargerboxId) {
         this.GetDispenserDetailsById(this.chargerboxId)
+      }
+
+      let addChargerLocation = JSON.parse(
+        this._storageService.getSessionData('addChargerLocation') || '',
+      )
+
+      if (addChargerLocation) {
+        this.selectedLocation = parseInt(addChargerLocation.id)
+
+        this.addChargerForm.patchValue({
+          locationId: addChargerLocation.locationName,
+        })
       }
     }, 2000)
   }
@@ -127,11 +156,12 @@ export class AddChargerComponent implements OnInit {
     firmwareVersion: new FormControl(''),
     makeMasterId: new FormControl('', Validators.required),
     modelId: new FormControl('', Validators.required),
-    modemId: new FormControl('', Validators.required),
-    rfidReaderId: new FormControl('', Validators.required),
-    powerCabinetId: new FormControl('', [Validators.required]),
+    modemId: new FormControl('0'),
+    switchGearId: new FormControl('0'),
+    rfidReaderId: new FormControl('0'),
+    powerCabinetId: new FormControl('0'),
     protocolName: new FormControl('1.6J', Validators.required),
-    dispenserStatusId: new FormControl('', Validators.required),
+    // dispenserStatusId: new FormControl('', Validators.required),
     hardwareSerialNumber: new FormControl('', [
       Validators.required,
       Validators.maxLength(20),
@@ -151,11 +181,13 @@ export class AddChargerComponent implements OnInit {
 
       Validators.maxLength(20),
     ]),
-    serialNumber: new FormControl('', [
-      Validators.required,
-      Validators.maxLength(20),
-    ]),
-    padId: new FormControl('', Validators.required),
+    // serialNumber: new FormControl('', [
+    //   Validators.required,
+    //   Validators.maxLength(20),
+    // ]),
+    padId: new FormControl('0'),
+    cableId: new FormControl('0'),
+    installationDate: new FormControl('',Validators.required),
     isActive: new FormControl(''),
     isAutomatic: new FormControl(false),
     portCommand: this._fb.array([], Validators.required),
@@ -217,34 +249,22 @@ export class AddChargerComponent implements OnInit {
       this._toastr.error('Please fill mandatory fields.')
       return
     }
+
+    let portCmdArray = (this.addChargerForm.get('portCommand') as FormArray)
+      .controls
+
+    let isUnique = this.isUnique(portCmdArray)
+
+    if (isUnique == false) {
+      this._toastr.error(
+        'Connector id must be different. Please enter other connector id.',
+      )
+      return
+    }
+
     let formData = this.addChargerForm.value
 
     const pBody = {
-      // assetId: formData.assetId,
-      // chargeBoxId: formData.chargeBoxId,
-      // endPointUrl: formData.endPointUrl,
-      // firmwareVersion: formData.firmwareVersion,
-      // hardwareSerialNumber: formData.hardwareSerialNumber,
-      // locationId: this.selectedLocation,
-      // makeMasterId: this.selectedMake,
-      // modelId: this.selectedModel,
-      // modemId: this.seecledModem,
-      // meterType: formData.meterType,
-      // multiplePorts: formData.multiplePorts,
-      // pingSchedule: formData.pingSchedule,
-      // privateStation: formData.privateStation,
-      // readingSchedule: formData.readingSchedule,
-      // serialNumber: formData.serialNumber,
-      // padId: this.selectedPad,
-      // rfIdReaderId: this.selectedRfidReader,
-      // powerCabinetId: this.selectedPowerCabinet,
-      // dispenserStatusId: this.selectedStatus,
-      // protocolName: formData.protocolName,
-      // createdBy: this.UserId,
-      // isActive: true,
-      // isAutomatic: formData.isAutomatic,
-      // portCommand: formData.portCommmand,
-
       assetId: formData.assetId,
       chargeBoxId: formData.chargeBoxId,
       endPointUrl: formData.endPointUrl,
@@ -254,17 +274,23 @@ export class AddChargerComponent implements OnInit {
       makeMasterId: this.selectedMake,
       modelId: this.selectedModel,
       modemId: this.selectedModem,
+      switchGearId: this.selectedSwitch,
       meterType: formData.meterType,
-      multiplePorts: formData.multiplePortstrue,
+      multiplePorts: formData.multiplePorts,
       pingSchedule: formData.pingSchedule,
-      privateStation: formData.privateStation,
+      fleetStation: formData.privateStation,
       readingSchedule: formData.readingSchedule,
-      serialNumber: formData.serialNumber,
+      // serialNumber: formData.serialNumber,
       rfIdReaderId: this.selectedRfidReader,
       powerCabinetId: this.selectedPowerCabinet,
       padId: this.selectedPad,
-      dispenserStatusId: this.selectedStatus,
+      cableId: this.selectedCable,
+      // dispenserStatusId: this.selectedStatus,
       protocolName: formData.protocolName,
+      installationDate: this.datePipe.transform(
+        formData.installationDate,
+        'yyyy-MM-ddT00:00:00',
+      ),
       createdBy: this.UserId,
       isActive: true,
       isAutomatic: formData.isAutomatic,
@@ -314,6 +340,11 @@ export class AddChargerComponent implements OnInit {
     })
   }
 
+  /**
+   * Update charger
+   * @returns
+   */
+
   UpdateCharger() {
     this.submitted = true
 
@@ -321,6 +352,18 @@ export class AddChargerComponent implements OnInit {
       this._toastr.error('Please fill mandatory fields.')
       return
     }
+    let portCmdArray = (this.addChargerForm.get('portCommand') as FormArray)
+      .controls
+
+    let isUnique = this.isUnique(portCmdArray)
+
+    if (isUnique == false) {
+      this._toastr.error(
+        'Connector id must be different. Please enter other connector id.',
+      )
+      return
+    }
+
     let formData = this.addChargerForm.value
     const body = {
       id: this.chargerboxId,
@@ -333,19 +376,25 @@ export class AddChargerComponent implements OnInit {
       makeMasterId: formData.makeMasterId,
       modelId: formData.modelId,
       modemId: formData.modemId,
+      switchGearId: formData.switchGearId,
       modifiedBy: this.UserId,
       rfIdReaderId: formData.rfidReaderId,
       powerCabinetId: formData.powerCabinetId,
-      dispenserStatusId: formData.dispenserStatusId,
+      // dispenserStatusId: formData.dispenserStatusId,
       protocolName: formData.protocolName,
+      installationDate: this.datePipe.transform(
+        formData.installationDate,
+        'yyyy-MM-ddT00:00:00',
+      ),
       hardwareSerialNumber: formData.hardwareSerialNumber,
       meterType: formData.meterType,
       multiplePorts: formData.multiplePorts,
       pingSchedule: formData.pingSchedule,
-      privateStation: formData.privateStation,
+      fleetStation: formData.privateStation,
       readingSchedule: formData.readingSchedule,
-      serialNumber: formData.serialNumber,
+      // serialNumber: formData.serialNumber,
       padId: formData.padId,
+      cableId: formData.cableId,
       isActive: true,
       isAutomatic: formData.isAutomatic,
       updatePortCommand: formData.portCommand,
@@ -364,7 +413,7 @@ export class AddChargerComponent implements OnInit {
       showCancelButton: true,
     }).then((result) => {
       if (result.isDismissed) {
-        this._adminService.updatedispenser(body).subscribe(
+        this._adminService.Updatedispenser(body).subscribe(
           (res) => {
             if (res) {
               //Do your stuffs...
@@ -375,7 +424,6 @@ export class AddChargerComponent implements OnInit {
               this._router.navigate(['admin/chargers'])
             }
           },
-
           (error: any) => {
             if (error.status == 400) {
               if (error.error.statusCode == 200) {
@@ -393,6 +441,23 @@ export class AddChargerComponent implements OnInit {
       }
     })
   }
+  /**
+   * To check unique value
+   * @param arr
+   * @returns
+   */
+
+  isUnique(arr: any) {
+    var tmpArr = []
+    for (var obj in arr) {
+      if (tmpArr.indexOf(arr[obj].value.connectorId) < 0) {
+        tmpArr.push(arr[obj].value.connectorId)
+      } else {
+        return false // Duplicate value for connector id found
+      }
+    }
+    return true // No duplicate values found for connector id
+  }
 
   GetDispenserDetailsById(id: number) {
     this._adminService.GetDispenserDetailsById(id).subscribe((res: any) => {
@@ -408,7 +473,7 @@ export class AddChargerComponent implements OnInit {
           this.selectedLocation = this.chargerData.locationId
 
           this.addChargerForm.patchValue({
-            location: this.chargerData.locationName,
+            locationId: this.chargerData.locationName,
           })
         }
         this.addChargerForm.patchValue({
@@ -436,20 +501,36 @@ export class AddChargerComponent implements OnInit {
           })
         }
 
-        if (this.chargerData.modemSerialNumber) {
+        if (this.chargerData.modemId) {
           this.selectedModem = this.chargerData.modemId
           this.addChargerForm.patchValue({
-            model: this.chargerData.modemSerialNumber,
+            modemId: this.chargerData.modemSerialNumber,
           })
         }
 
-        if (this.chargerData.padId) {
+        if (this.chargerData.switchGearId) {
+          this.selectedSwitch = this.chargerData.switchGearId
+          this.addChargerForm.patchValue({
+            switchGearId: this.chargerData.switchGearName,
+          })
+        }
+
+        if (this.chargerData.padId!=0) {
           this.selectedPad = this.chargerData.padId
 
           this.addChargerForm.patchValue({
             padId: this.chargerData.padName,
           })
         }
+
+        if (this.chargerData.cableId) {
+          this.selectedCable = this.chargerData.cableId
+
+          this.addChargerForm.patchValue({
+            cableId: this.chargerData.cableSerialNumber,
+          })
+        }
+
         if (this.chargerData.rfidReader) {
           this.selectedRfidReader = this.chargerData.rfidReaderId
           this.addChargerForm.patchValue({
@@ -467,14 +548,17 @@ export class AddChargerComponent implements OnInit {
         this.addChargerForm.patchValue({
           protocolName: this.chargerData.protocolName,
         })
+        this.addChargerForm.patchValue({
+          installationDate: this.chargerData.installationDate,
+        })
 
-        if (this.chargerData.status) {
-          this.selectedStatus = this.chargerData.dispenserStatusId
+        // if (this.chargerData.status) {
+        //   this.selectedStatus = this.chargerData.dispenserStatusId
 
-          this.addChargerForm.patchValue({
-            statu: this.chargerData.status,
-          })
-        }
+        //   this.addChargerForm.patchValue({
+        //     statu: this.chargerData.status,
+        //   })
+        // }
         this.addChargerForm.patchValue({
           hardwareSerialNumber: this.chargerData.hardwareSerialNumber,
         })
@@ -493,14 +577,14 @@ export class AddChargerComponent implements OnInit {
         })
         // this.addChargerForm.patchValue = this.chargerData?.privateStation;
         this.addChargerForm.patchValue({
-          privateStation: this.chargerData.privateStation,
+          privateStation: this.chargerData.fleetStation,
         })
         this.addChargerForm.patchValue({
           readingSchedule: this.chargerData.readingSchedule,
         })
-        this.addChargerForm.patchValue({
-          serialNumber: this.chargerData.serialNumber,
-        })
+        // this.addChargerForm.patchValue({
+        //   serialNumber: this.chargerData.serialNumber,
+        // })
         this.addChargerForm.patchValue({
           isAutomatic: this.chargerData.isAutomatic,
         })
@@ -545,27 +629,31 @@ export class AddChargerComponent implements OnInit {
     })
   }
 
-  GetAllModelData(UserId: any) {
+  GetAllModelData(UserId: any, dispenserId: any) {
     const body = {
       UserId: UserId,
+      dispenserId: dispenserId,
     }
     this._adminService.GetAllModelData(body).subscribe((res: any) => {
       this.getModel = res.data
     })
   }
 
-  GetAllRFIdReaderData(UserId: any) {
+  GetAllRFIdReaderData(UserId: any, dispenserId: any) {
     const body = {
       UserId: UserId,
+      dispenserId: +dispenserId,
     }
     this._adminService.GetAllRFIdReaderData(body).subscribe((res: any) => {
       this.getRfidReader = res.data
     })
   }
-  GetPowerCabinetData() {
-    this._adminService.GetPowerCabinetData().subscribe((res: any) => {
-      this.getPowerCabinet = res.data
-    })
+  GetPowerCabinetData(dispenserId: any) {
+    this._adminService
+      .GetPowerCabinetData(dispenserId)
+      .subscribe((res: any) => {
+        this.getPowerCabinet = res.data
+      })
   }
 
   GetDispenserStatus(userId: any) {
@@ -578,22 +666,33 @@ export class AddChargerComponent implements OnInit {
     })
   }
 
-  GetAllPadData(UserId: any) {
+  GetAllPadData(UserId: any, dispenserId: any) {
     const pBody = {
       userId: UserId,
+      dispenserId: +dispenserId,
     }
     this._adminService.GetAllPadData(pBody).subscribe((res: any) => {
       this.assetPad = res.data
     })
   }
 
-  GetModemDDL() {
+  GetModemDDL(UserId: any, dispenserId: any) {
     const pBody = {
-      userId: this.UserId,
+      userId: UserId,
+      dispenserId: +dispenserId,
     }
     this._adminService.GetModemDDL(pBody).subscribe((res: any) => {
       this.Modemlist = res.data
-      console.log(this.Modemlist)
+    })
+  }
+
+  GetCableDropDown(UserId: any, dispenserId: any) {
+    const pBody = {
+      userId: UserId,
+      dispenserId: +dispenserId,
+    }
+    this._adminService.GetCableDropDown(pBody).subscribe((res: any) => {
+      this.CableList = res.data
     })
   }
 
@@ -603,6 +702,15 @@ export class AddChargerComponent implements OnInit {
     }
     this._adminService.GetPlugType(pBody).subscribe((res: any) => {
       this.Pluglist = res.data
+    })
+  }
+  GetSwitchGearDropDown(dispenserId: any) {
+    const pBody = {
+      userId: this.UserId,
+      dispenserId: +dispenserId,
+    }
+    this._adminService.GetSwitchGearDropDown(pBody).subscribe((res: any) => {
+      this.SwitchList = res.data
     })
   }
 
@@ -626,38 +734,119 @@ export class AddChargerComponent implements OnInit {
     this.selectedconnectorType = id
   }
 
-  selectMake(event: any, id: any) {
-    this.selectedMake = id
+  selectMake(event: any, data: any) {
+    if (event.isUserInput) {
+      if (data.isActive == false) {
+        this._toastr.error(
+          'Selected make is not available.Please select other make',
+        )
+
+        this.selectedMake = ''
+
+        return
+      }
+      this.selectedMake = data.id
+    }
   }
 
-  selectModel(event: any, id: any) {
-    this.selectedModel = id
+  selectModel(event: any, data: any) {
+    if (event.isUserInput) {
+      if (data.isActive == false) {
+        this._toastr.error(
+          'Selected model is not available.Please select other model',
+        )
+        this.selectedModel = ''
+
+        return
+      }
+      this.selectedModel = data.id
+    }
   }
 
-  selectModem(event: any, id: any) {
-    this.selectedModem = id
-  }
+  selectModem(event: any, data: any) {
+    if (event.isUserInput) {
+      if (data.isActive == false) {
+        this._toastr.error(
+          'Selected modem is not available.Please select other modem.',
+        )
+        this.selectedModem = 0
 
+        return
+      }
+      this.selectedModem = data.id
+    }
+  }
+  selectSwitch(event: any, id: any) {
+    this.selectedSwitch = id
+  }
   selectStatus(event: any, id: any) {
     this.selectedStatus = id
   }
 
-  selectRfidReader(event: any, id: any) {
-    this.selectedRfidReader = id
+  selectRfidReader(event: any, data: any) {
+    if (event.isUserInput) {
+      if (data.isActive == false) {
+        this._toastr.error(
+          'Selected rfid reader is not available.Please select other rfid reader.',
+        )
+        this.selectedRfidReader = 0
+
+        return
+      }
+      this.selectedRfidReader = data.id
+    }
   }
-  selectPowerCabinet(event: any, id: any) {
-    this.selectedPowerCabinet = id
+  selectPowerCabinet(event: any, data: any) {
+    if (event.isUserInput) {
+      if (data.isActive == false) {
+        this._toastr.error(
+          'Selected power cabinet is not available.Please select other power cabinet.',
+        )
+
+        this.selectedPowerCabinet = 0
+
+        return
+      }
+      this.selectedPowerCabinet = data.id
+    }
   }
-  selectPad(event: any, id: any) {
-    this.selectedPad = id
+  selectPad(event: any, data: any) {
+    if (event.isUserInput) {
+      if (data.isActive == false) {
+        this._toastr.error(
+          'Selected pad is not available.Please select other pad.',
+        )
+
+        this.selectedPad = 0
+
+        return
+      }
+      this.selectedPad = data.id
+    }
+  }
+
+  selectCable(event: any, data: any) {
+    if (event.isUserInput) {
+      if (data.isActive == false) {
+        this._toastr.error(
+          'Selected cable is not available.Please select other cable.',
+        )
+
+        this.selectedCable = 0
+
+        return
+      }
+      this.selectedCable = data.id
+    }
   }
 
   selectPluging(event: any, id: any) {
-    this.selectedPluging = id
+    if (event.isUserInput) {
+      this.selectedPluging = id
+    }
   }
 
   addPorts(fbGroup?: FormGroup): void {
-    debugger
     ;(this.addChargerForm.get('portCommand') as FormArray).push(
       fbGroup ||
         this.addPortsRows(
@@ -694,12 +883,4 @@ export class AddChargerComponent implements OnInit {
     }
     return true
   }
-
-  // validation = {
-  //     isEmailAddress:function('addChargerForm.assetId') {
-  //         var pattern =/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-  //         return pattern.test(addChargerForm.assetId);  // returns a boolean
-  //     }
-
-  //   }
 }

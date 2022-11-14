@@ -896,7 +896,7 @@ table.mat-table.cdk-table.mat-elevation-z8 {
     justify-content: center;
   }
   .cust-list-flex1-item .cust-list-block3.layout {
-    width: 55%;
+    width: 65%;
   }
   .manage-asset-main .cust-list-block3 .cust-list-block4-item1 {
     min-width: 100%;
@@ -973,12 +973,6 @@ table.mat-table.cdk-table.mat-elevation-z8 {
   }
   .fill-block5-spacer {
     display: none;
-  }
-  .location-flex14.layout {
-    width: min-content;
-  }
-  .location-block15.layout {
-    width: min-content;
   }
 }
 
@@ -1153,6 +1147,9 @@ td.mat-cell:last-of-type {
     width: 83vw !important;
     // min-width: -webkit-fill-available;
   }
+  .cust-list-block3 h1.cust-list-hero-title {
+    justify-content: start !important;
+}
 }
 @media screen and (max-width: 1024px) {
   .karkar-block6 .karkar-block11 .layout.mat-data {
@@ -1176,6 +1173,9 @@ td.mat-cell:last-of-type {
   }
 }
 @media (min-width: 480px) and (max-width: 767px){
+  h1.cust-list-hero-title {
+    justify-content: start !important;
+}
   .count-card .cust-list-block7 .icon-box.total-count{margin-left: 20px;}
   .location-charge-main table.mat-table.cdk-table {
     min-width: 1200px;
@@ -1413,7 +1413,40 @@ span.close-icon.close5{
   margin-top: -14%;
 }
 
+.cdk-overlay-backdrop{
+  z-index: 1;
+}
 .tool_alignP{
+  position: fixed !important;
+  // z-index: 9999 !important;
+  // update by soni
+  z-index: 1 !important;
+  top: 0 !important;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100% !important;
+  margin: auto !important; 
+}
+.tool_alignRC{
+  // z-index: 9999 !important;
+  // update by soni
+  z-index: 1 !important;
+}
+.tool_alignSC{
+   // z-index: 9999 !important;
+  // update by soni
+  z-index: 1 !important;
+}
+.tool_align{
+   // z-index: 9999 !important;
+  // update by soni
+  z-index: 1 !important;
+}
+/* 20 Oct 2022 .tool_alignP{
   position: fixed !important;
   z-index: 9999 !important;
   top: 0 !important;
@@ -1431,10 +1464,10 @@ span.close-icon.close5{
 }
 .tool_alignSC{
   z-index: 9999 !important;
-}
+} 
 .tool_align{
   z-index: 9999 !important;
-}
+} */
 .close-icon-type{
   color: #000 !important;
 }
@@ -1524,11 +1557,11 @@ span.close-icon.close5{
     top: 138px !important;
     right: 219px !important;
   }
-  .tool-tip-1 .tool-tip-block1.layout {
-    position: relative;
-    top: 132px;
-    right: 242px;
-}
+//   .tool-tip-1 .tool-tip-block1.layout {
+//     position: relative;
+//     top: 132px;
+//     right: 242px;
+// }
 
   .tool-tip-2 .tool-tip-block1.layout {
     position: relative;
@@ -1550,4 +1583,34 @@ span.close-icon.close5{
   position: relative;
   right: 44px;
 }
+}
+.RFID-card img {
+  width: 32px;
+  height: 32px;
+}
+
+.mat-table img {
+  margin: 5px !important;
+}
+
+// Diagnostics page CSS responsive
+@media (max-width: 1920px) {
+  .provisioning_card .tool-tip-block1 {
+    position: relative;
+    top: 16%;
+    right: 240px;
+}
+}
+@media (max-width: 1366px) {
+  .provisioning_card .tool-tip-block1 {
+    position: relative;
+    top: 6%;
+    right: 0px;
+}
+}
+
+.ngx-mat-timepicker form .ngx-mat-timepicker-table .ngx-mat-timepicker-tbody tr td .mat-form-field {
+  width: 30px !important;
+  max-width: 30px !important;
+  text-align: center;
 }

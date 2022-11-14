@@ -12,7 +12,5 @@ export class StatusListElementComponent implements OnInit {
 
   @Input() Icon: any
 
-  ngOnInit(): void {
-    console.log(this.EnergyUsedData)
-  }
+  ngOnInit(): void {}
 }

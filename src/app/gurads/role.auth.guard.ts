@@ -20,10 +20,8 @@ export class RoleAuthGuard implements CanActivate {
     private _authService: AuthService,
   ) {}
   canActivate() {
-    // this._router.(['/superadmin/customer'])
     let routePath = ''
     routePath = window.location.pathname.split('/')[1]
-    // console.log((this.activatedRoute as any)['_routerState'].snapshot.url)
     let getRole = localStorage.getItem('role') || ''
 
     if (
@@ -35,7 +33,6 @@ export class RoleAuthGuard implements CanActivate {
     } else if (routePath == 'login') {
       return true
     } else {
-      //alert('no login');
       this._router.navigate(['/login'])
       return false
     }

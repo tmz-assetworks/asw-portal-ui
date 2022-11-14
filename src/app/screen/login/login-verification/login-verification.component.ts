@@ -33,6 +33,8 @@ export class LoginVerificationComponent implements OnInit {
 
   ngOnInit(): void {
     localStorage.removeItem('userEmailVerify')
+    localStorage.removeItem('resetToken')
+    localStorage.removeItem('timeInterval')
     this._activatedRoute.queryParams.subscribe((params) => {
       this.emailQuery = params['emailid']
       
@@ -42,6 +44,8 @@ export class LoginVerificationComponent implements OnInit {
       this.email = this.emailQuery
      // this._router.navigate(['./changePassword'])
     }
+
+   
 
   }
 
@@ -71,8 +75,11 @@ export class LoginVerificationComponent implements OnInit {
       this.showLoader = true
       this._loginService.verifyUserByOTP(this.email, otp).subscribe({
         next: (response: any) => {
+          let resetToken = response.resettoken
+          localStorage.setItem('resetToken', resetToken)
           localStorage.setItem('userEmailVerify', this.email)
           this.showLoader = false
+          this.setTime();
           this.toastr.success('OTP Verified, Please Change Password')
           this._router.navigate(['/confirmation-mail'])
         },
@@ -102,5 +109,13 @@ export class LoginVerificationComponent implements OnInit {
         this.toastr.error('Something Went Wrong', 'Please Try Again')
       },
     })
+  }
+
+  setTime()  {
+    let minutesToAdd=10;
+let currentDate = new Date();
+let futureDate = new Date(currentDate.getTime() + minutesToAdd*60000);
+let futureDateTime = futureDate.getTime()
+localStorage.setItem('timeInterval',JSON.stringify(futureDateTime));
   }
 }
