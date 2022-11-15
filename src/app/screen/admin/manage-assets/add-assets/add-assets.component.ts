@@ -21,6 +21,7 @@ export class AddAssetsComponent implements OnInit {
   showPadsForm: boolean = false
   showPowerCabinetForm: boolean = false
   showRFIDForm: boolean = false
+  showSwitchGearForm: boolean = false
   showLoader: boolean = false
   UserId: string | null
   assetId: any
@@ -78,6 +79,7 @@ export class AddAssetsComponent implements OnInit {
     { id: 3, name: 'Pads' },
     { id: 4, name: 'PowerCabinet' },
     { id: 5, name: 'RFIDReaders' },
+    { id: 6, name: 'SwitchGears' },
   ]
 
   statusList = [
@@ -192,6 +194,13 @@ export class AddAssetsComponent implements OnInit {
       WarrantyEnd: new FormControl('', Validators.required),
       WarrantyDuration: new FormControl('', Validators.required),
     }),
+
+    assetSwitchGearDetails: new FormGroup({
+      switchGearName: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(20),
+      ]),
+    }),
   })
   ngOnInit(): void {
     this.GetAllLocation() // CALL LOCATION API
@@ -249,6 +258,16 @@ export class AddAssetsComponent implements OnInit {
       this.addAssetsForm.get('assetDetails.AssetCategory')?.disable()
 
       this.getModemDetailsById(this.assetId)
+    } else if (this.assetName == 'SwitchGears' && this.assetId) {
+      this.typeId = 6
+      this.showSwitchGearForm = true
+      this.selectedType = this.assetName
+      this.addAssetsForm['controls']['assetDetails'].patchValue({
+        AssetCategory: this.assetName,
+      })
+      this.addAssetsForm.get('assetDetails.AssetCategory')?.disable()
+
+      this.getSwitchGearDetailsById(this.assetId)
     }
   }
 
@@ -269,39 +288,46 @@ export class AddAssetsComponent implements OnInit {
       this.showModemForm = false
       this.showPadsForm = false
       this.showPowerCabinetForm = false
+      this.showSwitchGearForm = false
       this.showRFIDForm = false
       this.submitted = false
       this.addAssetsForm['controls']['assetModemDetails'].reset()
       this.addAssetsForm['controls']['assetPadDetails'].reset()
       this.addAssetsForm['controls']['assetPowerCabinetDetails'].reset()
       this.addAssetsForm['controls']['assetRFIDReaderDetails'].reset()
+      this.addAssetsForm['controls']['assetSwitchGearDetails'].reset()
     } else if (this.typeId == 2) {
       this.showCableForm = false
       this.showModemForm = true
       this.showPadsForm = false
       this.showPowerCabinetForm = false
+      this.showSwitchGearForm = false
       this.showRFIDForm = false
       this.submitted = false
       this.addAssetsForm['controls']['assetCableDetails'].reset()
       this.addAssetsForm['controls']['assetPadDetails'].reset()
       this.addAssetsForm['controls']['assetPowerCabinetDetails'].reset()
       this.addAssetsForm['controls']['assetRFIDReaderDetails'].reset()
+      this.addAssetsForm['controls']['assetSwitchGearDetails'].reset()
     } else if (this.typeId == 3) {
       this.showCableForm = false
       this.showModemForm = false
       this.showPadsForm = true
       this.showPowerCabinetForm = false
+      this.showSwitchGearForm = false
       this.showRFIDForm = false
       this.submitted = false
       this.addAssetsForm['controls']['assetCableDetails'].reset()
       this.addAssetsForm['controls']['assetModemDetails'].reset()
       this.addAssetsForm['controls']['assetPowerCabinetDetails'].reset()
       this.addAssetsForm['controls']['assetRFIDReaderDetails'].reset()
+      this.addAssetsForm['controls']['assetSwitchGearDetails'].reset()
     } else if (this.typeId == 4) {
       this.showCableForm = false
       this.showModemForm = false
       this.showPadsForm = false
       this.showPowerCabinetForm = true
+      this.showSwitchGearForm = false
       this.showRFIDForm = false
       this.submitted = false
 
@@ -309,17 +335,33 @@ export class AddAssetsComponent implements OnInit {
       this.addAssetsForm['controls']['assetModemDetails'].reset()
       this.addAssetsForm['controls']['assetPadDetails'].reset()
       this.addAssetsForm['controls']['assetRFIDReaderDetails'].reset()
+      this.addAssetsForm['controls']['assetSwitchGearDetails'].reset()
+    } else if (this.typeId == 6) {
+      this.showCableForm = false
+      this.showModemForm = false
+      this.showPadsForm = false
+      this.showPowerCabinetForm = false
+      this.showRFIDForm = false
+      this.showSwitchGearForm = true
+      this.submitted = false
+      this.addAssetsForm['controls']['assetCableDetails'].reset()
+      this.addAssetsForm['controls']['assetModemDetails'].reset()
+      this.addAssetsForm['controls']['assetPadDetails'].reset()
+      this.addAssetsForm['controls']['assetRFIDReaderDetails'].reset()
+      this.addAssetsForm['controls']['assetPowerCabinetDetails'].reset()
     } else {
       this.showCableForm = false
       this.showModemForm = false
       this.showPadsForm = false
       this.showPowerCabinetForm = false
       this.showRFIDForm = true
+      this.showSwitchGearForm = false
       this.submitted = false
       this.addAssetsForm['controls']['assetCableDetails'].reset()
       this.addAssetsForm['controls']['assetModemDetails'].reset()
       this.addAssetsForm['controls']['assetPadDetails'].reset()
       this.addAssetsForm['controls']['assetPowerCabinetDetails'].reset()
+      this.addAssetsForm['controls']['assetSwitchGearDetails'].reset()
     }
   }
   /**
@@ -343,6 +385,8 @@ export class AddAssetsComponent implements OnInit {
       this.createPowerCabinet()
     } else if (this.typeId == 5) {
       this.createRfIdReader()
+    } else if (this.typeId == 6) {
+      this.createSwitchGear()
     }
   }
   /**
@@ -364,6 +408,8 @@ export class AddAssetsComponent implements OnInit {
       this.updatePowerCabinet()
     } else if (this.typeId == 5) {
       this.updateRFIDReader()
+    } else if (this.typeId == 6) {
+      this.updateSwitchGear()
     }
   }
 
@@ -372,7 +418,7 @@ export class AddAssetsComponent implements OnInit {
    */
 
   getCableDetailsById(id: any) {
-    this._adminService.getCableById(id).subscribe((res) => {
+    this._adminService.GetCableById(id).subscribe((res) => {
       if (res.data) {
         this.setAssetsDetails(res.data)
 
@@ -471,7 +517,7 @@ export class AddAssetsComponent implements OnInit {
       showCancelButton: true,
     }).then((result) => {
       if (result.isDismissed) {
-        this._adminService.createPad(pBody).subscribe(
+        this._adminService.CreatePad(pBody).subscribe(
           (res) => {
             if (res) {
               //Do your stuffs...
@@ -533,7 +579,7 @@ export class AddAssetsComponent implements OnInit {
       showCancelButton: true,
     }).then((result) => {
       if (result.isDismissed) {
-        this._adminService.updatePad(pBody).subscribe(
+        this._adminService.UpdatePad(pBody).subscribe(
           (res) => {
             if (res) {
               //Do your stuffs...
@@ -674,7 +720,7 @@ export class AddAssetsComponent implements OnInit {
       showCancelButton: true,
     }).then((result) => {
       if (result.isDismissed) {
-        this._adminService.updateCable(pBody).subscribe(
+        this._adminService.UpdateCable(pBody).subscribe(
           (res) => {
             if (res) {
               //Do your stuffs...
@@ -710,7 +756,7 @@ export class AddAssetsComponent implements OnInit {
    */
 
   getPadDetailsbyID(id: number) {
-    this._adminService.getPadById(id).subscribe((res) => {
+    this._adminService.GetPadById(id).subscribe((res) => {
       if (res.data) {
         this.setAssetsDetails(res.data)
         this.addAssetsForm['controls']['assetPadDetails'].patchValue({
@@ -1152,7 +1198,7 @@ export class AddAssetsComponent implements OnInit {
       showCancelButton: true,
     }).then((result) => {
       if (result.isDismissed) {
-        this._adminService.createPowerCabinet(pBody).subscribe(
+        this._adminService.CreatePowerCabinet(pBody).subscribe(
           (res) => {
             if (res) {
               //Do your stuffs...
@@ -1235,7 +1281,7 @@ export class AddAssetsComponent implements OnInit {
       showCancelButton: true,
     }).then((result) => {
       if (result.isDismissed) {
-        this._adminService.updatePowerCabinet(pBody).subscribe(
+        this._adminService.UpdatePowerCabinet(pBody).subscribe(
           (res) => {
             if (res) {
               //Do your stuffs...
@@ -1266,7 +1312,7 @@ export class AddAssetsComponent implements OnInit {
   //Get POWER CABINET BY ID
 
   getPowerCabinetById(id: number) {
-    this._adminService.getPowerCabinetById(id).subscribe((res) => {
+    this._adminService.GetPowerCabinetById(id).subscribe((res) => {
       if (res.data) {
         this.setAssetsDetails(res.data)
         this.addAssetsForm['controls']['assetPowerCabinetDetails'].patchValue({
@@ -1384,6 +1430,7 @@ export class AddAssetsComponent implements OnInit {
               this.addAssetsForm.reset()
               this.showLoader = false
               this.submitted = false
+              this._router.navigate(['admin/assets'])
             }
           },
           (error: any) => {
@@ -1455,6 +1502,7 @@ export class AddAssetsComponent implements OnInit {
               this.addAssetsForm.reset()
               this.showLoader = false
               this.submitted = false
+              this._router.navigate(['admin/assets'])
             }
           },
           (error: any) => {
@@ -1657,7 +1705,7 @@ export class AddAssetsComponent implements OnInit {
   // GET MODEM DETAILS BY ID
 
   getModemDetailsById(id: number) {
-    this._adminService.getModembyid(id).subscribe((res) => {
+    this._adminService.GetModembyid(id).subscribe((res) => {
       if (res.data) {
         this.setAssetsDetails(res.data)
         this.addAssetsForm['controls']['assetModemDetails'].patchValue({
@@ -1790,33 +1838,145 @@ export class AddAssetsComponent implements OnInit {
       }
     })
   }
+  /**
+   *
+   * @param id
+   * Get Switch Gear details by ID
+   */
+  getSwitchGearDetailsById(id: number) {
+    // const pBody = {
+    //   switchGearId: +id,
+    // }
+    this._adminService.GetSwitchGearById(id).subscribe((res) => {
+      if (res.data) {
+        this.setAssetsDetails(res.data)
+        this.addAssetsForm['controls']['assetSwitchGearDetails'].patchValue({
+          switchGearName: res.data.switchGearName,
+        })
+      }
+    })
+  }
 
-  // checkWarrantyStartDate(event: any, formType: any) {
-  //   if (formType == 'power-cabinet') {
-  //     let startDate = this.addAssetsForm.value.assetPowerCabinetDetails
-  //       .WarrantyStart
+  //CREATE SWITCH GEAR
 
-  //     if (!startDate) {
-  //       this._toastr.error('Please choose start date first.')
+  createSwitchGear() {
+    if (this.addAssetsForm.get('assetSwitchGearDetails')?.invalid) {
+      this._toastr.error('Please fill mandatory fields.')
+      return
+    }
+    let data = this.addAssetsForm
+    const pBody = {
+      assetId: data.value.assetDetails.AssetID.trim(),
+      serialNumber: data.value.assetDetails.SerialNumber.trim(),
+      isActive: data.value.assetDetails.IsActive,
+      statusId: this.selectedStatus,
+      locationId: this.selectedLocation,
+      switchGearName: data.value.assetSwitchGearDetails.switchGearName,
+      createdBy: this.UserId,
+    }
 
-  //       this.addAssetsForm['controls']['assetPowerCabinetDetails'].patchValue({
-  //         InstallationDate: '',
-  //       })
-  //       return
-  //     }
-  //   } else if (formType == 'modem') {
-  //     let startDate = this.addAssetsForm.value.assetModemDetails.WarrantyStart
+    Swal.fire({
+      title: '<strong>Are you sure you want to confirm?</strong>',
+      icon: 'success',
 
-  //     if (!startDate) {
-  //       this._toastr.error('Please choose start date first.')
+      focusConfirm: true,
+      confirmButtonText: ' <span style="color:#0062A6">CANCEL<span>',
+      confirmButtonColor: '#E6E8E9',
 
-  //       this.addAssetsForm['controls']['assetModemDetails'].patchValue({
-  //         InstallationDate: '',
-  //       })
-  //       return
-  //     }
-  //   }
-  // }
+      cancelButtonColor: '#0062A6',
+      cancelButtonText: ' CONFIRM',
+      showCancelButton: true,
+    }).then((result) => {
+      if (result.isDismissed) {
+        this._adminService.CreateSwitchGear(pBody).subscribe(
+          (res) => {
+            if (res) {
+              //Do your stuffs...
+              this._toastr.success('Record saved successfully.')
+              this.addAssetsForm.reset()
+              this.showLoader = false
+              this.submitted = false
+              this._router.navigate(['admin/assets'])
+            }
+          },
+          (error: any) => {
+            if (error.status == 400) {
+              if (error.error.statusCode == 200) {
+                let errorMsg = error.error.statusMessage
+                this._toastr.error(errorMsg)
+                this.showLoader = false
+              } else {
+                let errorMsg = error.error.errors
+                this._toastr.error(errorMsg)
+                this.showLoader = false
+              }
+            }
+          },
+        )
+      }
+    })
+  }
+
+  // UPDATE SWITCH GEAR
+
+  updateSwitchGear() {
+    if (this.addAssetsForm.get('assetSwitchGearDetails')?.invalid) {
+      this._toastr.error('Please fill mandatory fields.')
+      return
+    }
+    let data = this.addAssetsForm
+    const pBody = {
+      id: this.assetId,
+      assetId: data.value.assetDetails.AssetID.trim(),
+      serialNumber: data.value.assetDetails.SerialNumber.trim(),
+      isActive: data.value.assetDetails.IsActive,
+      statusId: this.selectedStatus,
+      locationId: this.selectedLocation,
+      switchGearName: data.value.assetSwitchGearDetails.switchGearName,
+      modifiedBy: this.UserId,
+    }
+
+    Swal.fire({
+      title: '<strong>Are you sure you want to confirm?</strong>',
+      icon: 'success',
+
+      focusConfirm: true,
+      confirmButtonText: ' <span style="color:#0062A6">CANCEL<span>',
+      confirmButtonColor: '#E6E8E9',
+
+      cancelButtonColor: '#0062A6',
+      cancelButtonText: ' CONFIRM',
+      showCancelButton: true,
+    }).then((result) => {
+      if (result.isDismissed) {
+        this._adminService.UpdateSwitchGear(pBody).subscribe(
+          (res) => {
+            if (res) {
+              //Do your stuffs...
+              this._toastr.success('Record updated successfully.')
+              this.addAssetsForm.reset()
+              this.showLoader = false
+              this.submitted = false
+              this._router.navigate(['admin/assets'])
+            }
+          },
+          (error: any) => {
+            if (error.status == 400) {
+              if (error.error.statusCode == 200) {
+                let errorMsg = error.error.statusMessage
+                this._toastr.error(errorMsg)
+                this.showLoader = false
+              } else {
+                let errorMsg = error.error.errors
+                this._toastr.error(errorMsg)
+                this.showLoader = false
+              }
+            }
+          },
+        )
+      }
+    })
+  }
 
   omit_special_char(event: any) {
     let k = event.charCode //         k = event.keyCode;  (Both can be used)

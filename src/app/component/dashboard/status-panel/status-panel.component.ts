@@ -6,24 +6,6 @@ import { DashboardService } from 'src/app/screen/operator/dashboard/dashboard.se
   styleUrls: ['./status-panel.component.scss'],
 })
 export class StatusPanelComponent implements OnInit {
-  
- // constructor(private _dashboardService: DashboardService) {}
-
-
-/**
- * 
- * Get Summary Data
- */
-  // getsummarydata() {
-  // this._dashboardService.GetSummaryData().subscribe((res:any)=>{
-  //  console.log(res)
-  //    console.log(res.data[0])
-  // })
-    
-  
-  // }
-
-  
   statusBoxTitle1 = 'Charging Infrastructure'
 
   statusBoxIcon1 =
@@ -88,8 +70,6 @@ export class StatusPanelComponent implements OnInit {
       ],
     },
   ]
-
-  
 
   ngOnInit(): void {
     //this.getsummarydata()

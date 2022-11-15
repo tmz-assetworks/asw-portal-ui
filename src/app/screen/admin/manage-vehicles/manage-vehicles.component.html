@@ -17,7 +17,9 @@
                         }"
                       >
                         <div class="cust-list-box7 layout">
-                          <img src="assets/icons/v1.png" />
+                          <img
+                            src="../../../../assets/Admin-SideNav/Vehicles-Icons/Total-Vehicle.svg"
+                          />
                         </div>
                       </div>
                     </div>
@@ -60,7 +62,9 @@
                         }"
                       >
                         <div class="cust-list-box7 layout">
-                          <img src="assets/icons/v2.png" />
+                          <img
+                            src="../../../../assets/Admin-SideNav/Vehicles-Icons/Active.svg"
+                          />
                         </div>
                       </div>
                     </div>
@@ -103,7 +107,9 @@
                         }"
                       >
                         <div class="cust-list-box7 layout">
-                          <img src="assets/icons/v3.png" />
+                          <img
+                            src="../../../../assets/Admin-SideNav/Vehicles-Icons/Inactive-Vehicle.svg"
+                          />
                         </div>
                       </div>
                     </div>
@@ -142,7 +148,7 @@
         <div class="cust-list-block19 layout">
           <div class="cust-list-box9 layout">
             <img
-              src="assets/images/serach.png"
+              src="../../../../assets/Admin-SideNav/Vehicles-Icons/Search.svg"
               alt=""
               class="cust-list-icon layout"
             />
@@ -165,7 +171,7 @@
         <div class="cust-list-block23-item">
           <div class="cust-list-box10 layout">
             <img
-              src="../../../../assets/superadmin-icons/add-icon.png"
+              src="../../../../assets/Admin-SideNav/Vehicles-Icons/Add-Vehicle.svg"
               alt=""
               srcset=""
             />
@@ -191,7 +197,7 @@
       <ng-container matColumnDef="ModelYear">
         <th mat-header-cell *matHeaderCellDef>MODEL YEAR</th>
         <td mat-cell *matCellDef="let element">
-          {{ element.vehicleModelYear }}
+          {{ element.modelYear }}
         </td>
       </ng-container>
 
@@ -260,28 +266,28 @@
         <th mat-header-cell *matHeaderCellDef>ACTION</th>
         <td mat-cell *matCellDef="let element" style="cursor: pointer;">
           <img
-            src="assets/icons/tick.png "
-            title="Active"
+            src="../../../../assets/Admin-SideNav/Vehicles-Icons/Inactive.svg"
+            title="Inactive"
             (click)="IsActiveVehicleById(element.id, false)"
             *ngIf="element.isActive"
           />
 
           <img
-            src="assets/icons/inactive.svg "
-            title="Inactive"
+            src="../../../../assets/Admin-SideNav/Vehicles-Icons/Active-tik.svg"
+            title="Active"
             (click)="IsActiveVehicleById(element.id, true)"
             *ngIf="!element.isActive"
           />
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <img
-            src="../../../../assets/icons/view-icon.png"
+            src="../../../../assets/Admin-SideNav/Vehicles-Icons/View.svg"
             style="cursor: pointer;"
             (click)="viewVehicle(element.id)"
             title="View"
           />
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <img
-            src="assets/icons/Edit.png"
+            src="../../../../assets/Admin-SideNav/Vehicles-Icons/Edit.svg"
             alt=""
             (click)="editVehicle(element.id)"
             style="cursor: pointer;"

@@ -8,9 +8,6 @@ const routes: Routes = [
   {
     path: '',
     component: MasterComponent,
-
-    // canActivate: [AuthGuard],
-    // pathMatch: 'full',
   },
 ]
 

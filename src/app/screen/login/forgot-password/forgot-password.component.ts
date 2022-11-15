@@ -21,6 +21,7 @@ export class ForgotPasswordComponent implements OnInit {
 
   ngOnInit(): void {
     localStorage.removeItem('userEmail');
+    localStorage.removeItem('resetToken');
   }
 
   saveForm() {
@@ -35,7 +36,8 @@ export class ForgotPasswordComponent implements OnInit {
      this._loginService.verifyUser(this.forgotPasswordForm.value.email).subscribe({
       
       next: (response: any) => {
-        let email = response.data.userPrincipalName;
+       // let email = response.data.userPrincipalName;
+       let email = this.forgotPasswordForm.value.email;
         localStorage.setItem('userEmail',email);
         this.showLoader = false;
         this.toastr.success('OTP Send To Emailid');

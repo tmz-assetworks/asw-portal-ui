@@ -1,0 +1,253 @@
+<div class="barbar-block10 layout">
+  <div class="barbar-flex layout">
+    <div class="barbar-block11 layout">
+      <h3 class="barbar-subtitle layout">{{ Title }}</h3>
+    </div>
+    <div class="user-profile-from">
+      <div class="user-profile">
+        <div class="user-bg">
+          <!-- Form starts -->
+			
+          <!-- <img src="../../../assets/images/user-profile.svg" alt=""> -->
+          <div class="user-image">
+            <img src="../../../assets/images/avatar.png"  (click)="inputFile.click()" alt="" />
+            <!-- <input type="file" (change)="onFileSelected($event)"> -->
+           
+              <input
+                #inputFile
+                type="file"
+                name="name"
+                (change)="onFileSelected($event)"
+                style="display: none"
+              />
+          </div>
+        </div>
+      </div>
+      <form [formGroup]="userProfileForm">
+        <div class="barbar-block12 layout">
+          <div class="barbar-block13 layout">
+            <div class="barbar-block13-item mbottom">
+              <div class="barbar-block14 layout">
+                <h5 class="barbar-highlights layout">User Name</h5>
+                <div class="barbar-box6 layout">
+                  <input
+                    formControlName="adminName"
+                    type="text"
+                    class="barbar-input-text"
+                    [disabled]="true" 
+                    
+                  />
+                </div>
+                
+              </div>
+            </div>
+            <div class="barbar-block13-spacer"></div>
+            <div class="barbar-block13-item">
+              <div class="barbar-block14 layout">
+                <h5 class="barbar-highlights layout">Email ID</h5>
+                <div class="barbar-box6 layout">
+                  <input
+                    formControlName="emailId"
+                    type="text"
+                    class="barbar-input-text"
+                  />
+                </div>
+              </div>
+            </div>
+
+            
+
+            <!-- <div class="barbar-block13-spacer"></div>
+            <div class="barbar-block13-item">
+              <div class="barbar-block14 layout">
+                <h5 class="barbar-highlights layout">DOB</h5>
+                <div class="barbar-box6 layout">
+                <mat-form-field class="barbar-box6 layout">
+                  
+                  <input
+                    matInput
+                    [matDatepicker]="picker"
+                    formControlName="dob"
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                
+              </div>
+            </div> -->
+            <div class="barbar-block13-spacer"></div>
+            <div class="barbar-block13-item mbottom">
+              <div class="barbar-block14 layout">
+                <h5 class="barbar-highlights layout">Phone Number</h5>
+                <div class="barbar-box6 layout">
+                  <input
+                    formControlName="phoneNumber"
+                    type="text"
+                    class="barbar-input-text"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="barbar-block13-spacer"></div>
+            <div class="barbar-block13-item">
+              <div class="barbar-block14 layout">
+                <h5 class="barbar-highlights layout">Address Line 1</h5>
+
+                <div class="barbar-box6 layout">
+                  <input
+                    formControlName="addressLine1"
+                    type="text"
+                    class="barbar-input-text"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="barbar-block13-spacer"></div>
+            <div class="barbar-block13-item">
+              <div class="barbar-block14 layout">
+                <h5 class="barbar-highlights layout">Address Line 2</h5>
+                <div class="barbar-box6 layout">
+                  <input
+                    formControlName="addressLine2"
+                    type="text"
+                    class="barbar-input-text"
+                  />
+                </div>
+                
+              </div>
+            </div>
+
+            <div class="barbar-block13-spacer"></div>
+            
+            <div class="barbar-block13-item">
+              <div class="barbar-block14 layout">
+                <h5 class="barbar-highlights layout">
+                  Country
+                  <span style="color: 'red'">*</span>
+                </h5>
+                <mat-form-field
+                  class="barbar-box6 layout"
+                >
+                  <mat-label>Select</mat-label>
+
+                  <mat-select
+                    [value]="selectedCountryId"
+                    formControlName="country"
+                  >
+                    <mat-option
+                      *ngFor="let data of GetAllCountryList"
+                      [value]="data.id"
+                      (onSelectionChange)="selectCountry($event, data.id)"
+                    >
+                      {{ data.countryName }}
+                    </mat-option>
+                    
+                  </mat-select>
+                </mat-form-field>
+                
+              </div>
+            </div>
+
+            <div class="barbar-block13-spacer"></div>
+            
+            <div class="barbar-block13-item">
+              <div class="barbar-block14 layout">
+                <h5 class="barbar-highlights layout">
+                  State/Province
+                  <span style="color: 'red';">*</span>
+                </h5>
+                <mat-form-field
+                  class="barbar-box6 layout">
+                  <mat-label>Select</mat-label>
+                  <mat-select [value]="selectedStateId" formControlName="state">
+                    <mat-option
+                      *ngFor="let data of getAllStateList"
+                      [value]="data.id"
+                      (onSelectionChange)="selectState($event, data.id)"
+                    >
+                      {{ data.stateName }}
+                    </mat-option>
+                    
+                  </mat-select>
+                </mat-form-field>
+                
+              </div>
+            </div>
+            <div class="barbar-block13-spacer"></div>
+            
+            <div class="barbar-block13-item">
+              <div class="barbar-block14 layout">
+                <h5 class="barbar-highlights layout">
+                  City
+                  <span style="color: 'red';">*</span>
+                </h5>
+                <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                  userProfileForm.get('cityName')?.errors &&
+                    submitted == true
+                }"
+              >
+                <input
+                  formControlName="cityName"
+                  type="text"
+                  class="barbar-input-text"
+                  (keypress)="omit_special_char($event)"
+                />
+              </div>
+                <!-- <mat-form-field
+                  class="barbar-box6 layout">
+                  <mat-label>Select</mat-label>
+  
+                  <mat-select [value]="selectedCityId" formControlName="city">
+                    <mat-option
+                      *ngFor="let data of getAllCityList"
+                      [value]="data.id"
+                      (onSelectionChange)="selectCity($event, data.id)"
+                    >
+                      {{ data.cityName }}
+                    </mat-option>
+                   
+                  </mat-select>
+                </mat-form-field> -->
+                
+              </div>
+            </div>
+            <div class="barbar-block13-spacer"></div>
+            <div class="barbar-block13-item">
+              <div class="barbar-block14 layout">
+                <h5 class="barbar-highlights layout">Zip Code</h5>
+                <div class="barbar-box6 layout">
+                  <input
+                    formControlName="zipcode"
+                    type="text"
+                    class="barbar-input-text"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="barbar-flex1 layout">
+          <div class="barbar-flex1-item">
+            <div class="barbar-block17 layout">
+              <div class="barbar-text-body2 layout" (click)="cancel()">
+                CANCEL
+              </div>
+            </div>
+          </div>
+          <div class="barbar-flex1-spacer"></div>
+          <div class="barbar-flex1-item">
+            <div class="barbar-block16 layout">
+              <div class="barbar-text-body1 layout" (click)="save()">SAVE</div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -179,12 +179,12 @@ export class ChargerAnalyticsComponent implements OnInit {
   errors = '../../../assets/widget-icon/erorrs.png'
 
   basic = 'basic'
-  bar = 'barAnalytics'
+
   chargerAnalytics = 'chargerAnalytics'
   stackedArea = 'stackedArea'
   chargerAnalyticsTitle = 'Energy Used'
   chargerEnergyUsedData = []
-  barTitle = 'Chargers'
+
   basicTitle = 'Locations Performing '
 
   type_list: any
@@ -406,11 +406,7 @@ export class ChargerAnalyticsComponent implements OnInit {
     operatorId: any,
     chargerBoxId: any,
   ) {
-    //alert('remove hardcode');
-    // this.chargersChartData = ''
-    //alert(duration);
     const body = {
-      //locationIds: [locationIds],
       locationIds: locationIds ? [locationIds] : [],
       duration: duration.toString(),
       opratorid: operatorId,
@@ -418,7 +414,7 @@ export class ChargerAnalyticsComponent implements OnInit {
     }
     this._locationService.getChargerChartData(body).subscribe({
       next: (response) => {
-        this.chargersChartData = response
+        this.chargersChartData = response.data
       },
       error: (_err) => {
         console.log('no response for chargers graph')
@@ -447,7 +443,6 @@ export class ChargerAnalyticsComponent implements OnInit {
     }
     this._dashboardService.GetAreachartdataData(body).subscribe((res) => {
       this.chargingSessionData = res.data
-      console.log(this.chargingSessionData, 'hello session chart')
     })
   }
 

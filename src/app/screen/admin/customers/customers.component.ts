@@ -19,7 +19,7 @@ export class CustomersComponent implements OnInit {
    */
 
   getCustomerInfo(id: any) {
-    this._adminService.getcustomer(id).subscribe((res) => {
+    this._adminService.Getcustomer(id).subscribe((res) => {
       if (res.data) {
         this.customerData = res.data[0]
       }

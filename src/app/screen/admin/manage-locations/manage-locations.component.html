@@ -12,10 +12,14 @@
                     <div class="cust-list-block7-item icon-box total-count">
                       <div
                         class="cust-list-block8 layout"
-                        [style.background-color]="statusData[0].color"
+                        [style.background-color]="
+                          statusData ? statusData[0]?.color : ''
+                        "
                       >
                         <div class="cust-list-box7 layout">
-                          <img src="assets/icons/l1.svg" />
+                          <img
+                            src="../../../../assets/Admin-SideNav/Location-Icons/Total-Location.svg"
+                          />
                         </div>
                       </div>
                     </div>
@@ -23,10 +27,10 @@
                     <div class="cust-list-block7-item1">
                       <div class="cust-list-block9 layout mg-20">
                         <h1 class="cust-list-hero-title layout">
-                          {{ statusData[0].value }}
+                          {{ statusData ? statusData[0]?.value : '' }}
                         </h1>
                         <div class="cust-list-text-body2 layout">
-                          {{ statusData[0].key }}
+                          {{ statusData ? statusData[0]?.key : '' }}
                         </div>
                       </div>
                     </div>
@@ -53,10 +57,14 @@
                     <div class="cust-list-block12-item icon-box">
                       <div
                         class="cust-list-block13 layout"
-                        [style.background-color]="statusData[1].color"
+                        [style.background-color]="
+                          statusData ? statusData[1].color : ''
+                        "
                       >
                         <div class="cust-list-box7 layout">
-                          <img src="assets/icons/l2.svg" />
+                          <img
+                            src="../../../../assets/Admin-SideNav/Location-Icons/Live-Location.svg"
+                          />
                         </div>
                       </div>
                     </div>
@@ -64,10 +72,10 @@
                     <div class="cust-list-block12-item1">
                       <div class="cust-list-block14 layout mg-20">
                         <h1 class="cust-list-hero-title layout">
-                          {{ statusData[1].value }}
+                          {{ statusData ? statusData[1]?.value : '' }}
                         </h1>
                         <div class="cust-list-text-body2 layout1">
-                          {{ statusData[1].key }}
+                          {{ statusData ? statusData[1]?.key : '' }}
                         </div>
                       </div>
                     </div>
@@ -94,10 +102,14 @@
                     <div class="cust-list-block12-item icon-box">
                       <div
                         class="cust-list-block18 layout"
-                        [style.background-color]="statusData[2].color"
+                        [style.background-color]="
+                          statusData ? statusData[2]?.color : ''
+                        "
                       >
                         <div class="cust-list-box7 layout">
-                          <img src="assets/icons/l3.svg" />
+                          <img
+                            src="../../../../assets/Admin-SideNav/Location-Icons/Under-Maintenance.svg"
+                          />
                         </div>
                       </div>
                     </div>
@@ -105,10 +117,10 @@
                     <div class="cust-list-block12-item1">
                       <div class="cust-list-block14 layout mg-20">
                         <h1 class="cust-list-hero-title layout">
-                          {{ statusData[2].value }}
+                          {{ statusData ? statusData[2]?.value : '' }}
                         </h1>
                         <div class="cust-list-text-body2 layout1">
-                          {{ statusData[2].key }}
+                          {{ statusData ? statusData[2]?.key : '' }}
                         </div>
                       </div>
                     </div>
@@ -135,10 +147,14 @@
                     <div class="cust-list-block17-item icon-box">
                       <div
                         class="cust-list-block18 layout lasticon"
-                        [style.background-color]="statusData[3].color"
+                        [style.background-color]="
+                          statusData ? statusData[3]?.color : ''
+                        "
                       >
                         <div class="cust-list-box7 layout">
-                          <img src="assets/icons/l4.svg" />
+                          <img
+                            src="../../../../assets/Admin-SideNav/Location-Icons/Upcoming.svg"
+                          />
                         </div>
                       </div>
                     </div>
@@ -146,10 +162,10 @@
                     <div class="cust-list-block17-item1">
                       <div class="cust-list-block14 layout mg-20">
                         <h1 class="cust-list-hero-title layout">
-                          {{ statusData[3].value }}
+                          {{ statusData ? statusData[3]?.value : '' }}
                         </h1>
                         <div class="cust-list-text-body2 layout2">
-                          {{ statusData[3].key }}
+                          {{ statusData ? statusData[3]?.key : '' }}
                         </div>
                       </div>
                     </div>
@@ -177,7 +193,7 @@
         <div class="cust-list-block19 layout">
           <div class="cust-list-box9 layout" (click)="applyFilter()">
             <img
-              src="assets/images/serach.png"
+              src="../../../../assets/Admin-SideNav/Location-Icons/Search.svg"
               alt=""
               class="cust-list-icon layout"
             />
@@ -199,7 +215,10 @@
       <div class="cust-list-block23 layout" [routerLink]="['add-location']">
         <div class="cust-list-block23-item">
           <div class="layout">
-            <img src="assets/icons/plus.png" class="adduserimage" />
+            <img
+              src="../../../../assets/Admin-SideNav/Location-Icons/Add-Location.svg"
+              class="adduserimage"
+            />
           </div>
         </div>
         <div class="cust-list-block23-spacer"></div>
@@ -260,18 +279,17 @@
               /></span>&nbsp; -->
           <span>
             <img
-              src="../../../../assets/icons/charger.svg"
+              src="../../../../assets/Admin-SideNav/Location-Icons/Add-Charger.svg"
               alt=""
-              title="Charger"
+              title="Add Charger"
               style="cursor: pointer; margin: 10px;"
-              (click)="AddCharger()"
-              [routerLink]="['../../add-chager']"
+              (click)="AddCharger(element)"
             />
           </span>
           &nbsp;
           <span>
             <img
-              src="assets/icons/View.png"
+              src="../../../../assets/Admin-SideNav/Location-Icons/View.svg"
               alt=""
               title="View"
               style="cursor: pointer; margin: 10px;"
@@ -281,7 +299,7 @@
           &nbsp;
           <span>
             <img
-              src="assets/icons/Edit.png"
+              src="../../../../assets/Admin-SideNav/Location-Icons/Edit.svg"
               alt=""
               title="Edit"
               style="cursor: pointer; margin: 10px;"

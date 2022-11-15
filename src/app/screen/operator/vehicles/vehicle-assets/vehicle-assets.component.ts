@@ -11,7 +11,7 @@ import { VehicleService } from '../vehicle.service'
   styleUrls: ['./vehicle-assets.component.scss'],
 })
 export class VehicleAssetsComponent implements OnInit {
-  vehicle = '../../../../../assets/widget-icon/Vehicle.png'
+  vehicle = '../../../../../assets/Operator/Diagnostics-Icon/vehicle.svg'
 
   vehicleList = []
 

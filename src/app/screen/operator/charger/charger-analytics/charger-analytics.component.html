@@ -133,9 +133,9 @@
           <div class="dashboard-block42-item">
             <app-bar-chart
               *ngIf="chargersChartData !== ''"
-              [chartType]="bar"
-              [chartTitle]="barTitle"
               [chargersData]="chargersChartData"
+              [chartType]="'bar'"
+              [chartTitle]="'Chargers'"
               (barDetailPage)="
                 openDetailPage(5, 'Chargers', 'CHARGER-ANALYTICS', selectedTime)
               "
@@ -158,7 +158,6 @@
                 )
               "
             ></app-area-chart>
-            <!-- <app-graph-card></app-graph-card> -->
           </div>
         </div>
         <div class="dashboard-block42 layout">
@@ -175,8 +174,6 @@
           </div>
           <div class="dashboard-block42-spacer"></div>
           <div class="dashboard-block42-item">
-            <!-- <app-graph-card></app-graph-card> -->
-            <!--  <app-area-chart [chartType]="'alalyticsArea'"></app-area-chart> -->
             <app-stacked-area-chart
               *ngIf="locationAnalyticsMilesAddData !== ''"
               [locationAnalyticsMilesAddData]="locationAnalyticsMilesAddData"

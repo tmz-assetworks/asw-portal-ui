@@ -1620,6 +1620,66 @@
         </div>
       </div>
 
+      <div
+        class="barbar-block12 layout"
+        formGroupName="assetSwitchGearDetails"
+        *ngIf="showSwitchGearForm"
+      >
+        <h4 class="barbar-highlights1 layout">Switch Gear</h4>
+        <div class="barbar-block13 layout">
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Switch Gear Name
+                <span style="color: 'red';">*</span>
+              </h5>
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAssetsForm.get('assetSwitchGearDetails.switchGearName')
+                      ?.errors && submitted == true
+                }"
+              >
+                <input
+                  formControlName="switchGearName"
+                  type="text"
+                  class="barbar-input-text"
+                  maxlength="20"
+                />
+              </div>
+              <span
+                class="is-error"
+                *ngIf="
+                  addAssetsForm.get('assetSwitchGearDetails.switchGearName')
+                    ?.invalid &&
+                  addAssetsForm.get('assetSwitchGearDetails.switchGearName')
+                    ?.touched &&
+                  addAssetsForm.get('assetSwitchGearDetails.switchGearName')
+                    ?.value.length == 0
+                "
+              >
+                Switch Gear Name is Required
+              </span>
+              <span
+                class="is-error"
+                *ngIf="
+                  addAssetsForm.get('assetSwitchGearDetails.switchGearName')
+                    ?.invalid &&
+                  addAssetsForm.get('assetSwitchGearDetails.switchGearName')
+                    ?.touched &&
+                  addAssetsForm.get('assetSwitchGearDetails.switchGearName')
+                    ?.value.length > 20
+                "
+              >
+                Switch Gear Name must be between 0 to 20 Alphanumeric
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="barbar-flex1 layout">
         <div class="barbar-flex1-item">
           <div class="barbar-block17 layout">

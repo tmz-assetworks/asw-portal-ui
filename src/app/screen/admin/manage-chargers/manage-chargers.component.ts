@@ -1,27 +1,27 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
-import { StorageService } from 'src/app/service/storage.service';
-import { ManageChargerService } from './manage-charger-service';
-import { AdminService } from '../admin.service';
+import { Component, OnInit, ViewChild } from '@angular/core'
+import { MatPaginator } from '@angular/material/paginator'
+import { MatTableDataSource } from '@angular/material/table'
+import { Router } from '@angular/router'
+import { StorageService } from 'src/app/service/storage.service'
+import { ManageChargerService } from './manage-charger-service'
+import { AdminService } from '../admin.service'
 @Component({
   selector: 'app-manage-chargers',
   templateUrl: './manage-chargers.component.html',
   styleUrls: ['./manage-chargers.component.scss'],
 })
 export class ManageChargersComponent implements OnInit {
-  vehicleList = [];
+  vehicleList = []
 
-  totalCount: any;
-  pageSize: number = 10;
-  currentPage: number = 1;
-  totalPages: any;
-  pageSizeOptions = [10, 20, 100];
-  searchParam = '';
-  UserId: string | null;
+  totalCount: any
+  pageSize: number = 10
+  currentPage: number = 1
+  totalPages: any
+  pageSizeOptions = [10, 20, 100]
+  searchParam = ''
+  UserId: string | null
 
-  isTableHasData = false;
+  isTableHasData = false
 
   displayedColumns: string[] = [
     'chargeBoxId',
@@ -32,32 +32,38 @@ export class ManageChargersComponent implements OnInit {
     'status',
     'protocol',
     'Action',
-  ];
+  ]
 
-  dataSource = new MatTableDataSource<any>(this.vehicleList);
+  dataSource = new MatTableDataSource<any>(this.vehicleList)
 
-  portType:any;
+  portType: any
 
-  constructor( 
+  constructor(
     public _storageService: StorageService,
     private _router: Router,
-    private _adminService: AdminService
+    private _adminService: AdminService,
   ) {
-    this.UserId = this._storageService.getLocalData('user_id');
+    this.UserId = this._storageService.getLocalData('user_id')
+
+    let addChargerLocation = this._storageService.getSessionData(
+      'addChargerLocation',
+    )
+
+    if (addChargerLocation) {
+      this._storageService.removeSessionData('addChargerLocation')
+    }
   }
 
   ngOnInit() {
-    this.GetDispensersWithPagination();
+    this.GetDispensersWithPagination()
   }
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatPaginator) paginator!: MatPaginator
 
-  searchKey: string='';
+  searchKey: string = ''
 
   ngAfterViewInit() {
-    this.paginator._intl.itemsPerPageLabel = 'Rows per page';
-       
-   
+    this.paginator._intl.itemsPerPageLabel = 'Rows per page'
   }
 
   applyFilter(event: Event) {
@@ -67,19 +73,18 @@ export class ManageChargersComponent implements OnInit {
   }
 
   /**
-   * view Charger 
+   * view Charger
    */
   viewCharger(id: string) {
-    this._router.navigateByUrl(`/admin/chargers/view-chargers?id=${id}`);
+    this._router.navigateByUrl(`/admin/chargers/view-chargers?id=${id}`)
   }
 
   /**
    * Edit Charger
    */
-   editCharger(id: string) {
-    this._router.navigateByUrl(`/admin/chargers/edit-chargers?id=${id}`);
+  editCharger(id: string) {
+    this._router.navigateByUrl(`/admin/chargers/edit-chargers?id=${id}`)
   }
-
 
   /**
    * Get Charger List
@@ -91,25 +96,22 @@ export class ManageChargersComponent implements OnInit {
       pageSize: this.pageSize,
       orderBy: '',
       operatorId: this.UserId,
-    };
+    }
     this._adminService.GetDispensersWithPagination(pBody).subscribe((res) => {
-    
       if (res.data !== undefined && res.data != null && res.data.length > 0) {
-  
-        this.totalCount = res.paginationResponse.totalCount;
-        this.totalPages = res.paginationResponse.totalPages;
-        this.pageSize = res.paginationResponse.pageSize;
+        this.totalCount = res.paginationResponse.totalCount
+        this.totalPages = res.paginationResponse.totalPages
+        this.pageSize = res.paginationResponse.pageSize
 
-        this.dataSource.data = res.data;
-        this.portType = res.portType;
+        this.dataSource.data = res.data
+        this.portType = res.portType
 
-      
-        this.isTableHasData = false;
+        this.isTableHasData = false
       } else {
-        this.dataSource.data = [];
-        this.isTableHasData = true;
+        this.dataSource.data = []
+        this.isTableHasData = true
       }
-    });
+    })
   }
 
   /**
@@ -120,16 +122,16 @@ export class ManageChargersComponent implements OnInit {
 
   pageChange(event: any) {
     if (event.pageSize !== this.pageSize) {
-      this.currentPage = 1;
-      this.pageSize = event.pageSize;
-      this.paginator.pageIndex = 0;
+      this.currentPage = 1
+      this.pageSize = event.pageSize
+      this.paginator.pageIndex = 0
     } else {
       this.currentPage =
         event.previousPageIndex < event.pageIndex
           ? this.currentPage + 1
-          : this.currentPage - 1;
+          : this.currentPage - 1
     }
 
-    this.GetDispensersWithPagination();
+    this.GetDispensersWithPagination()
   }
 }

@@ -23,18 +23,18 @@ export class LocationChargersComponent implements OnInit {
 
   arrKeys: any = ['All']
 
-  totalRecords = 30
-
-  showLoader: boolean = false
-  statusList: any
-  pageNumber: any
-  isTableHasData: any
+  // totalRecords = 30
   totalCount: any
   pageSize: number = 10
   currentPage: number = 1
   totalPages: any
   pageSizeOptions = [10, 20, 100]
   searchParam = ''
+  showLoader: boolean = false
+  statusList: any
+  pageNumber: any
+  isTableHasData: any
+
   constructor(
     public _locationService: LocationService,
     private _storageService: StorageService,
@@ -47,13 +47,9 @@ export class LocationChargersComponent implements OnInit {
     this.locationName = this._storageService.getSessionData('locationName')
     this.UserId = this._storageService.getLocalData('user_id')
   }
-  locationId(locationId: any): any {
-    throw new Error('Method not implemented.')
-  }
 
   displayedColumns = [
     'chargeBoxId',
-
     'dispenserMake',
     'dispenserModel',
     'connectorType',
@@ -62,17 +58,16 @@ export class LocationChargersComponent implements OnInit {
     'noofPort',
     'action',
   ]
-  dataSource = new MatTableDataSource()
+  dataSource = new MatTableDataSource<any>()
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator
+  @ViewChild(MatPaginator) paginatorCharger: any
 
   ngOnInit() {
     this.GetDispenserByLocation(this.selectedLocationId)
   }
 
   ngAfterViewInit() {
-    // this.dataSource.paginator = this.paginator;
-    this.paginator._intl.itemsPerPageLabel = 'Rows per page'
+    this.paginatorCharger._intl.itemsPerPageLabel = 'Rows per page'
   }
 
   selectOption(event: any) {
@@ -113,7 +108,7 @@ export class LocationChargersComponent implements OnInit {
     if (event.pageSize !== this.pageSize) {
       this.currentPage = 1
       this.pageSize = event.pageSize
-      this.paginator.pageIndex = 0
+      this.paginatorCharger.pageIndex = 0
     } else {
       this.currentPage =
         event.previousPageIndex < event.pageIndex

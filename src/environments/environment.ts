@@ -4,13 +4,13 @@
 
 export const environment = {
   production: false,
-  origin: 'https://qa-rest-service.azurewebsites.net/',
-  originAuth: 'https://qa-user-mgmt-service.azurewebsites.net/',
-  localOrigin: 'https://qa-user-mgmt-service.azurewebsites.net/api/',
-  originDiagnostic: ' https://qa-ocpp-core.azurewebsites.net/',
-  assetLocalOrigin:'https://qa-assets-service.azurewebsites.net/api/',
-  reportLocalOrigin:'https://qa-report-service.azurewebsites.net/api/',
-  
+  origin: 'https://asw-portal-rest-service.azurewebsites.net/',
+  originAuth: 'https://user-mgmt-service.azurewebsites.net/',
+  localOrigin: 'https://user-mgmt-service.azurewebsites.net/api/',
+  originDiagnostic: 'https://ocpp-core.azurewebsites.net/',
+  assetLocalOrigin: 'https://assets-service.azurewebsites.net/api/',
+  reportLocalOrigin: 'https://asw-report-service.azurewebsites.net/api/',
+  AssetPricing: 'https://pricing-service.azurewebsites.net/api/',
   imagePath: '',
   onProd: 0,
   isPlatform: 'Development Platform',

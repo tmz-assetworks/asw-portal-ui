@@ -43,7 +43,6 @@ export class LocationStatusPanelComponent implements OnInit {
    */
   getsummarydata(locationId: number) {
     this.locationservice.GetSummaryData(locationId).subscribe((res: any) => {
-      debugger
       this.summaryData = res.data[0]
 
       this.infra = locationId
@@ -105,13 +104,13 @@ export class LocationStatusPanelComponent implements OnInit {
       legend: {
         data: legends,
         icon: 'circle',
-        right: 10,
+        // right: 10,
         top: 'bottom',
       },
       grid: {
-        left: '2%',
-        right: '4%',
-        bottom: '24%',
+        left: '20%',
+        right: '10%',
+        bottom: '25%',
         containLabel: true,
       },
       xAxis: {
@@ -146,7 +145,7 @@ export class LocationStatusPanelComponent implements OnInit {
           },
         },
         {
-          name: 'Total Revenue',
+          name: 'Total Cost',
           type: 'bar',
           stack: 'Total',
           itemStyle: {
@@ -155,7 +154,7 @@ export class LocationStatusPanelComponent implements OnInit {
           data: [values[0], '-', '-'],
         },
         {
-          name: 'Daily Revenue',
+          name: 'Daily Cost',
           type: 'bar',
           stack: 'Total',
           itemStyle: {
@@ -164,7 +163,7 @@ export class LocationStatusPanelComponent implements OnInit {
           data: ['-', values[1], '-'],
         },
         {
-          name: "Today's Revenue",
+          name: "Today's Cost",
           type: 'bar',
           stack: 'Total',
           itemStyle: {

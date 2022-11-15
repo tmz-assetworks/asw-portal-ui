@@ -10,7 +10,7 @@ export class AreaChartComponent implements OnInit {
   chargingSessionDataSet: any
   chartTypeData: any
 
-  icon = '../../../../assets/chart-icon.png'
+  icon = '../../../../assets/chart-icon.svg'
   option: EChartsOption = {}
 
   @Input() chartTitle: any
@@ -118,7 +118,7 @@ export class AreaChartComponent implements OnInit {
         },
         xAxis: [
           {
-            name: 'Time',
+            name: 'Duration',
             type: 'category',
             // boundaryGap: false,
             nameLocation: 'middle',
@@ -279,6 +279,10 @@ export class AreaChartComponent implements OnInit {
         ],
       }
     } else if (chartType == 'dashboardChargingSession') {
+      if (this.chargingSessionDataSet.length == 0) {
+        this.option = {}
+        return
+      }
       this.option = this.setAreaChartOption(
         this.chargingSessionDataSet,
       ) as EChartsOption
@@ -319,7 +323,7 @@ export class AreaChartComponent implements OnInit {
         },
         xAxis: [
           {
-            name: 'Time',
+            name: 'Duration',
             type: 'category',
             // boundaryGap: false,
             nameLocation: 'middle',
@@ -461,17 +465,29 @@ export class AreaChartComponent implements OnInit {
         ],
       }
     } else if (chartType == 'chargingSession') {
+      if (this.chargingSessionDataSet.length == 0) {
+        this.option = {}
+        return
+      }
       this.option = this.setAreaChartOption(
         this.chargingSessionDataSet,
       ) as EChartsOption
     } else if (chartType == 'reportSessionLength') {
       if (this.reportSessionLengthDataSet !== undefined) {
+        if (this.reportSessionLengthDataSet.length == 0) {
+          this.option = {}
+          return
+        }
         this.option = this.setReportSessionLengthChartOption(
           this.reportSessionLengthDataSet,
         ) as EChartsOption
       }
     } else if (chartType == 'reportEnegyMTCo2Saved') {
       if (this.reportEnegyMTCo2SavedDataSet !== undefined) {
+        if (this.reportEnegyMTCo2SavedDataSet.length == 0) {
+          this.option = {}
+          return
+        }
         this.option = this.setreportEnegyMTCo2SavedChartOption(
           this.reportEnegyMTCo2SavedDataSet,
         ) as EChartsOption
@@ -546,7 +562,7 @@ export class AreaChartComponent implements OnInit {
       },
       xAxis: [
         {
-          name: 'Time',
+          name: 'Duration',
           type: 'category',
           // boundaryGap: false,
           nameLocation: 'middle',
@@ -702,7 +718,7 @@ export class AreaChartComponent implements OnInit {
       },
       xAxis: [
         {
-          name: 'Session Length (Hours)',
+          name: 'Session Length',
           type: 'category',
           // boundaryGap: false,
           nameLocation: 'middle',
@@ -766,13 +782,12 @@ export class AreaChartComponent implements OnInit {
         {
           type: 'value',
           name: 'Charging Sessions',
-   
           nameLocation: 'middle',
           /* fontWeight: 'bolder', */
           nameGap: 60,
           nameTextStyle: {
             // align: 'right',
-           // verticalAlign: 'top',
+            // verticalAlign: 'top',
             /**
              * the top padding will shift the name down so that it does not overlap with the axis-labels
              * t-l-b-r
@@ -783,7 +798,6 @@ export class AreaChartComponent implements OnInit {
             // fontStyle: 'italic',
           },
         },
-
       ],
       series: [
         {
@@ -884,7 +898,7 @@ export class AreaChartComponent implements OnInit {
       },
       xAxis: [
         {
-          name: 'Time',
+          name: 'Duration',
           type: 'category',
           // boundaryGap: false,
           nameLocation: 'middle',
@@ -940,7 +954,7 @@ export class AreaChartComponent implements OnInit {
           nameLocation: 'middle',
           /* fontWeight: 'bolder', */
           nameGap: 60,
-          nameTextStyle:{
+          nameTextStyle: {
             fontSize: 14,
           },
         },
@@ -954,7 +968,7 @@ export class AreaChartComponent implements OnInit {
           lineStyle: {
             width: 0,
           },
-          
+
           showSymbol: false,
           areaStyle: {
             color: '#87B3B9',

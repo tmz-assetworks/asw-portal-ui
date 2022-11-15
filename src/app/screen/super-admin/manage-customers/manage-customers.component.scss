@@ -399,7 +399,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     height: min-content;
     // margin-left: 30px;
     width: 125px;
-    @include sm{
+    @include sm {
       margin-left: 0px;
     }
   }
@@ -436,8 +436,8 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     margin: 0 auto;
     &.mt_zero {
       margin: 0;
-      @include sm{
-        margin:0 auto;
+      @include sm {
+        margin: 0 auto;
       }
     }
   }
@@ -558,7 +558,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     height: min-content;
     // border-right: 1px dotted #70787f73;
     // border-left: 1px dotted #70787f73;
-    @include sm{
+    @include sm {
       border-right: 0px dotted #70787f73;
       border-left: 0px dotted #70787f73;
     }
@@ -579,7 +579,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     width: 77px;
     min-width: 77px;
     // margin: 0 20px 0 30px;
-    @include sm{
+    @include sm {
       margin: 0;
     }
   }
@@ -663,7 +663,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     min-width: 222px;
     @include sm {
       flex: 0 0 calc(33.33333333333333% - 10.666666666666666px);
-     
     }
     @include xxs {
       flex: 0 0 100%;
@@ -715,7 +714,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     width: 77px;
     min-width: 77px;
     // margin: auto 20px;
-    @include sm{
+    @include sm {
       // margin: auto -20px;
     }
   }
@@ -726,7 +725,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     @include flex-column;
     position: relative;
     flex: 0 1 112px;
-    @include sm{
+    @include sm {
       flex: 0 1 74px;
     }
   }
@@ -1213,186 +1212,197 @@ tr.mat-row:last-of-type {
 //   width: 56px;
 // }
 .mat-elevation-z8 {
-  box-shadow: 0px 0px 0px 0px rgb(0 0 0 / 20%), 
-  0px 0px 0px 0px rgb(0 0 0 / 14%), 
-  0px 0px 0px 0px rgb(0 0 0 / 12%);
+  box-shadow: 0px 0px 0px 0px rgb(0 0 0 / 20%), 0px 0px 0px 0px rgb(0 0 0 / 14%),
+    0px 0px 0px 0px rgb(0 0 0 / 12%);
 }
 
-.mat-data{
+.mat-data {
   display: block;
   margin: 20px 20px 0;
 
-  @include lg{
+  @include lg {
     display: block;
     width: 90vw;
     overflow: auto;
   }
-  @include md{
+  @include md {
     width: 86vw;
   }
-  @include sm{
+  @include sm {
     max-width: 90vw;
     overflow: auto;
   }
 
-  .mat-elevation-z8{
+  .mat-elevation-z8 {
     width: 100%;
 
-    @include lg{
+    @include lg {
       min-width: 1200px;
       //width: 100vw;
       // max-width: 100%;
       overflow: auto;
       // margin-bottom: 10px;
-      display:inline-table;
+      display: inline-table;
       // border-collapse: collapse;
     }
   }
 }
-.mat-paginator{
+.mat-paginator {
   margin: 0 20px;
-}  
-
- 
+}
 
 @media screen and (max-width: 960px) {
   .mat-table {
     border: 0;
-    vertical-align: middle
+    vertical-align: middle;
   }
-
 }
 
-// Soni CSS 
+// Soni CSS
 @media screen and (max-width: 767px) {
-  .cust-list-block5-item{
+  .cust-list-block5-item {
     flex: 0 1 166px;
-}
-.cust-list-flex1 .cust-list-block4 {
-  flex-wrap: inherit;
-}
-.cust-list-flex1 .cust-list-block4-item {
-  flex: 0 0 33%;
-}
-.barbar-block10{
-  width: 115px;
-}
-.cust-list-flex1 .cust-list-block17-item {
-  flex: 0 1 56px;
-}
+  }
+  .cust-list-flex1 .cust-list-block4 {
+    flex-wrap: inherit;
+  }
+  .cust-list-flex1 .cust-list-block4-item {
+    flex: 0 0 33%;
+  }
+  .barbar-block10 {
+    width: 115px;
+  }
+  .cust-list-flex1 .cust-list-block17-item {
+    flex: 0 1 56px;
+  }
 }
 
 @media screen and (max-width: 1024px) {
   .manage-customer .cust-list-block10 .cust-list-block12-item1 {
     margin-left: 10px;
-}
+  }
 }
 @media screen and (max-width: 737px) {
-.manage-customer table.mat-table.cdk-table.mat-elevation-z8{
+  .manage-customer table.mat-table.cdk-table.mat-elevation-z8 {
     width: -webkit-fill-available;
+  }
+  .manage-customer table.mat-table.cdk-table.mat-elevation-z8 {
+    min-width: 1200px;
+    overflow: auto;
+    display: inline-table;
+  }
+  .cust-list-text-body21.layout {
+    margin: 11px 6px 6px 6px;
+  }
 }
-.manage-customer table.mat-table.cdk-table.mat-elevation-z8 {
-  min-width: 1200px;
-  overflow: auto;
-  display: inline-table;
-}
-.cust-list-text-body21.layout{
-  margin: 11px 6px 6px 6px;
-}
-}
-.manage-customer td.mat-cell:last-of-type{
+.manage-customer td.mat-cell:last-of-type {
   min-width: 135px;
 }
 @media screen and (max-width: 1366px) {
   .manage-customer td.mat-cell:last-of-type {
     min-width: 137px;
-}
+  }
 }
 @media screen and (max-width: 1280px) {
-.manage-customer .layout.mat-data {
+  .manage-customer .layout.mat-data {
     overflow: auto;
     width: 78vw;
     max-width: -webkit-fill-available;
-}
-// .cust-list-block17-item1 .cust-list-block14.layout {
-//   margin: 0 !important;
-// }
-.cust-list-block10-item {
-  margin-left: 30px;
-}
-.cust-list-block17-spacer.status-state {
-  display: none;
-}
+  }
+  // .cust-list-block17-item1 .cust-list-block14.layout {
+  //   margin: 0 !important;
+  // }
+  .cust-list-block10-item {
+    margin-left: 30px;
+  }
+  .cust-list-block17-spacer.status-state {
+    display: none;
+  }
 }
 @media screen and (max-width: 1920px) {
-.cust-list-block10-item {
-  margin-left: 30px;
-}
-// .cust-list-block17-item1 .cust-list-block14.layout {
-//   margin: 0 !important;
-// }
-// h1.cust-list-hero-title.layout {
-//   margin: 0 !important;
-// }
+  .cust-list-block10-item {
+    margin-left: 30px;
+  }
+  // .cust-list-block17-item1 .cust-list-block14.layout {
+  //   margin: 0 !important;
+  // }
+  // h1.cust-list-hero-title.layout {
+  //   margin: 0 !important;
+  // }
 }
 
 @media screen and (max-width: 768px) {
   .status-card .cust-list-block17-item1 {
     margin-left: 8px;
-}
+  }
   .cust-list-block17-spacer {
     display: none;
-}
+  }
   .cust-list-block10-item.act-status {
     margin-left: 0px;
-}
-.cust-list-block3.layout {
-  width: 55%;
-}
-.cust-list-block4.layout {
-  flex-wrap: wrap;
-}
-.status-card .cust-list-block10.layout {
-  border: 0px;
-}
-.status-card .cust-list-block10 .cust-list-block12-item{
-  margin-right: 30px;
-}
+  }
+  .cust-list-block3.layout {
+    width: 55%;
+  }
+  .cust-list-block4.layout {
+    flex-wrap: wrap;
+  }
+  .status-card .cust-list-block10.layout {
+    border: 0px;
+  }
+  .status-card .cust-list-block10 .cust-list-block12-item {
+    margin-right: 30px;
+  }
 }
 @media screen and (max-width: 767px) {
   .cust-list-block17-spacer {
     display: none;
-}
+  }
   .status-card .cust-list-block10.layout {
     border: 0px;
   }
   .cust-list-block10-item.act-status {
     margin-left: 0px;
-}
-.status-card .cust-list-block10 .cust-list-block12-item{
-  margin-right: 30px;
-}
+  }
+  .status-card .cust-list-block10 .cust-list-block12-item {
+    margin-right: 30px;
+  }
 }
 
-.manage-customer .cust-list-block3 .cust-list-block4-item .cust-list-block12-item{
+.manage-customer
+  .cust-list-block3
+  .cust-list-block4-item
+  .cust-list-block12-item {
   margin-right: 40px;
 }
 @media all and (min-width: 480px) and (max-width: 768px) {
-.manage-customer .cust-list-flex1-item .cust-list-block4-item .cust-list-block12-item1 {
+  .manage-customer
+    .cust-list-flex1-item
+    .cust-list-block4-item
+    .cust-list-block12-item1 {
     margin-left: 0px;
-}
+  }
 }
 @media all and (min-width: 769px) and (max-width: 1365px) {
-.manage-customer .cust-list-flex1-item .cust-list-block4-item .cust-list-block12-item1 {
+  .manage-customer
+    .cust-list-flex1-item
+    .cust-list-block4-item
+    .cust-list-block12-item1 {
     margin-left: 0px;
+  }
+  .manage-customer .cust-list-block4 h1.cust-list-hero-title {
+    justify-content: end !important;
+  }
+  .manage-customer .cust-list-block16 .cust-list-block14.layout {
+    margin: 0px;
+  }
+  .cust-list-block17-spacer.status-state {
+    display: none;
+  }
 }
-.manage-customer .cust-list-block4 h1.cust-list-hero-title{
-  justify-content: end !important;
-}
-.manage-customer .cust-list-block16 .cust-list-block14.layout {
-  margin: 0px;
-}
-.cust-list-block17-spacer.status-state {
-  display: none;
-}
+@media all and (min-width: 767px) and (max-width: 1366px) {
+  .manage-customer .mat-table th,
+  td {
+    padding: 0px 12px !important;
+  }
 }

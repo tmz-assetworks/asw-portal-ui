@@ -59,6 +59,9 @@ export class LoginComponent implements OnInit {
     localStorage.removeItem('token_expires_on')
     localStorage.removeItem('refreshToken_expires_on')
     localStorage.removeItem('handleErrorCalled')
+    localStorage.removeItem('resetToken');
+    localStorage.removeItem('userEmailVerify');
+    localStorage.removeItem('timeInterval');
   }
 
   rememberMe(event: any) {
@@ -123,32 +126,32 @@ export class LoginComponent implements OnInit {
           // accesstoken   exp
           localStorage.setItem('token_operator', res.data[0].access_token)
           localStorage.setItem('token_refresh', res.data[0].refresh_token)
-          localStorage.setItem('token_id', res.data[0].id_token) // for role
-          //  console.log('idTokenlogin',res.data[0].id_token);
+        //  localStorage.setItem('token_id', res.data[0].id_token) // for role
+        localStorage.setItem('token_id', res.data[0].access_token)
           // localStorage.setItem('token_expires_on', res.data[0].expires_on)
           localStorage.setItem(
             'refreshToken_expires_on',
             res.data[0].not_before,
           )
           const decodeData = this._loginService.getDecodedAccessToken(
-            res.data[0].id_token,
-          )
-          const decodeDataTime = this._loginService.getDecodedAccessToken(
             res.data[0].access_token,
           )
+         /*  const decodeDataTime = this._loginService.getDecodedAccessToken(
+            res.data[0].access_token,
+          ) */
 
-          localStorage.setItem('token_expires_on', decodeDataTime.exp)
+          localStorage.setItem('token_expires_on', decodeData.exp)
           this._storageService.setLocalData('user_id', decodeData.oid)
 
           this.showLoader = false
-          if (decodeData.roles == 'Operator') {
+          if (decodeData.roles[0] == 'Operator') {
             localStorage.setItem('role', 'Operator')
             this._router.navigate(['/operator'])
-          } else if (decodeData.roles == 'Admin') {
+          } else if (decodeData.roles[0] == 'Admin') {
             localStorage.setItem('role', 'Admin')
             // admin/customer
             this._router.navigate(['/admin/profile'])
-          } else if (decodeData.roles == 'SuperAdmin') {
+          } else if (decodeData.roles[0] == 'SuperAdmin') {
             localStorage.setItem('role', 'SuperAdmin')
             this._router.navigate(['/superadmin/customer'])
           }

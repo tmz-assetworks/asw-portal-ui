@@ -29,7 +29,7 @@ export class StackedAreaChartComponent implements OnInit {
   }
 
   @Output() stackedAreaDetailPage: EventEmitter<any> = new EventEmitter<any>()
-  icon = '../../../../assets/chart-icon.png'
+  icon = '../../../../assets/chart-icon.svg'
   option: EChartsOption = {}
   dataSet: any
   constructor(private _dashboardService: DashboardService) {}
@@ -168,6 +168,10 @@ export class StackedAreaChartComponent implements OnInit {
         // }
       }
     } else if (chartType == 'locationAnalyticsMilesAdd') {
+      if (this.locationAnalyticsMilesAddDataSet.length == 0) {
+        this.option = {}
+        return
+      }
       this.option = this.setStackAreaChartOption(
         this.locationAnalyticsMilesAddDataSet,
       ) as EChartsOption
@@ -230,7 +234,7 @@ containLabel: true
         {
           type: 'category',
           // boundaryGap: false,
-          name: 'Time',
+          name: 'Duration',
           // boundaryGap: false,
           nameLocation: 'middle',
           nameGap: 42,

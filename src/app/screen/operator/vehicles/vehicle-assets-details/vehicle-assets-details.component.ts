@@ -10,6 +10,7 @@ import { VehicleService } from '../vehicle.service'
 export class VehicleAssetsDetailsComponent implements OnInit {
   vehicleId: string | null
   vehicleData: any
+  subsPlanData: any
   constructor(
     private _storageService: StorageService,
     public _vehicleService: VehicleService,
@@ -28,6 +29,7 @@ export class VehicleAssetsDetailsComponent implements OnInit {
   GetVehicleByID(vehicleId: any) {
     this._vehicleService.GetVehicleByID(vehicleId).subscribe((res) => {
       this.vehicleData = res.data
+      this.subsPlanData = res.data.applicableSubscriptionPlans
     })
   }
 }

@@ -1,12 +1,12 @@
 <div class="cust-list-flex1 layout alert-main">
-  <h3 class="cust-list-subtitle layout">Alerts</h3>
+  <h3 class="cust-list-subtitle layout">ALERTS</h3>
   <div class="cust-list-flex3 layout">
     <div class="cust-list-flex3-item">
       <div class="cust-list-group layout">
         <div class="cust-list-block19 layout">
           <div class="cust-list-box9 layout">
             <img
-              src="assets/images/serach.png"
+              src="../../../../assets/Operator/Search.svg"
               alt=""
               class="cust-list-icon layout"
             />
@@ -81,7 +81,7 @@
             mat-sort-header
             class="fontsize14"
           >
-            DATE/ TIME
+            DATE/TIME
           </th>
           <td mat-cell *matCellDef="let element; let i = index">
             {{ element.dateTime | date: 'dd-MM-yyyy h:mm' }}
@@ -107,7 +107,7 @@
             mat-sort-header
             class="fontsize14"
           >
-            LOCATIONS NAME
+            LOCATION NAME
           </th>
           <td mat-cell *matCellDef="let element; let i = index">
             {{ element.locationsName }}
@@ -125,7 +125,7 @@
           <td mat-cell *matCellDef="let element; let i = index">
             <img
               style="cursor: pointer;"
-              src="../../../../assets/icons/view-icon.png"
+              src="../../../../assets/Operator/View.svg"
               (click)="
                 expandedElement = expandedElement === element ? null : element
               "

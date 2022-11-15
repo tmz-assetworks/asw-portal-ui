@@ -1,4 +1,4 @@
-<div class="location location-block layout">
+<div class="location location-block layout vehicle-main">
   <div class="location-block1 layout">
     <div class="location-flex layout">
       <h3 class="location-subtitle-box layout">
@@ -118,7 +118,7 @@
                       </div>
                     </div>
                     <div class="fill-block5-spacer"></div>
-                    <div class="fill-block5-item">
+                    <div class="fill-block5-item pg-20">
                       <div class="fill-group layout">
                         <div class="fill-block6 layout">
                           <div class="fill-text-body1 layout">
@@ -137,7 +137,7 @@
                       </div>
                     </div>
                     <div class="fill-block5-spacer"></div>
-                    <div class="fill-block5-item">
+                    <div class="fill-block5-item pg-20">
                       <div class="fill-group layout">
                         <div class="fill-block6 layout">
                           <div class="fill-text-body1 layout">
@@ -156,7 +156,7 @@
                       </div>
                     </div>
                     <div class="fill-block5-spacer"></div>
-                    <div class="fill-block5-item">
+                    <div class="fill-block5-item pg-20">
                       <div class="fill-group layout">
                         <div class="fill-block6 layout">
                           <div class="fill-text-body1 layout">
@@ -195,7 +195,7 @@
                     </div> -->
 
                     <div class="fill-block5-spacer"></div>
-                    <div class="fill-block5-item">
+                    <div class="fill-block5-item pg-20">
                       <div class="fill-group layout">
                         <div class="fill-block6 layout">
                           <div class="fill-text-body1 layout">
@@ -217,16 +217,18 @@
                 </div>
 
                 <div class="fill-block4 layout">
-                  <div class="rfid_txt">
-                    <p>RFID</p>
-                  </div>
-                  <div class="fill-block5 layout">
+                  <!-- <div class="rfid_txt">
+                    <p>RFID Numbers</p>
+                  </div> -->
+                  <div class="fill-block5 layout RFID-num">
                     <div class="fill-block5-item">
                       <div class="fill-group layout">
                         <div class="fill-block6 layout">
-                          <div class="fill-text-body1 layout">RFID No.</div>
+                          <div class="fill-text-body1 layout">
+                            RFID Numbers
+                          </div>
                           <h5 class="fill-highlights layout">
-                            {{ vehicleData?.rfid }}
+                            {{ vehicleData?.rfId }}
                           </h5>
                         </div>
                         <div
@@ -262,13 +264,16 @@
             <div class="location-block3-item1"></div>
           </div>
 
-          <div class="location-block15 layout">
+          <div
+            class="location-block15 layout"
+            *ngFor="let item of subsPlanData"
+          >
             <div class="location-flex14 layout">
               <div class="location-block17 layout">
                 <div class="location-flex15 layout">
                   <div class="location-flex15-item">
                     <div class="location-text-body2 layout1 text-uppercase">
-                      Applied Subscription Plans
+                      Applied Subscription Plan
                     </div>
                   </div>
                   <div class="location-flex15-spacer"></div>
@@ -284,10 +289,10 @@
                       <div class="fill-group layout">
                         <div class="fill-block6 layout">
                           <div class="fill-text-body1 layout">
-                            Subscription Plans Name
+                            Subscription Plan Name
                           </div>
                           <h5 class="fill-highlights layout text-uppercase">
-                            {{ vehicleData?.subscriptionPlanName }}
+                            {{ item?.subscriptionPlanName }}
                           </h5>
                         </div>
                         <div
@@ -306,7 +311,7 @@
                             Type
                           </div>
                           <h5 class="fill-highlights layout text-uppercase">
-                            {{ vehicleData?.type }}
+                            {{ item?.type }}
                           </h5>
                         </div>
                         <div
@@ -325,7 +330,7 @@
                             Value
                           </div>
                           <h5 class="fill-highlights layout">
-                            {{ vehicleData?.value }}
+                            {{ item?.subscriptionsValue }}
                           </h5>
                         </div>
                         <div
@@ -344,7 +349,7 @@
                             Valid From
                           </div>
                           <h5 class="fill-highlights layout">
-                            {{ vehicleData?.validFrom | date: 'dd-MM-yyyy' }}
+                            {{ item?.validFrom | date: 'dd-MM-yyyy' }}
                           </h5>
                         </div>
                         <div
@@ -363,7 +368,7 @@
                             Valid To
                           </div>
                           <h5 class="fill-highlights layout">
-                            {{ vehicleData?.validTo | date: 'dd-MM-yyyy' }}
+                            {{ item?.validTo | date: 'dd-MM-yyyy' }}
                           </h5>
                         </div>
                         <div
@@ -375,13 +380,15 @@
                       </div>
                     </div>
                     <div class="fill-block5-spacer"></div>
-                    <div class="fill-block5-item">
+                    <div class="fill-block5-item pg-20">
                       <div class="fill-group layout">
                         <div class="fill-block6 layout">
                           <div class="fill-text-body1 layout">
-                            RFID’s No.
+                            RFID Numbers
                           </div>
-                          <h5 class="fill-highlights layout"></h5>
+                          <h5 class="fill-highlights layout">
+                            {{ item?.rfIdNumbers }}
+                          </h5>
                         </div>
                         <div
                           style="

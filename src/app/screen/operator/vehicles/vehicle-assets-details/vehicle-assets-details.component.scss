@@ -1891,7 +1891,7 @@ $color_type_6: rgb(255, 255, 255);
   }
   &block5 {
     display: flex;
-   @include tn {
+    @include tn {
       flex-wrap: wrap;
       row-gap: 16px;
     }
@@ -2427,13 +2427,31 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
 // }
 
 // Soni CSS
-@media (max-width: 812px){
-  .location-block15.layout{
+@media (max-width: 812px) {
+  .location-block15.layout {
     margin: 19px 0px 0px 5px;
+  }
 }
-}
-@media (max-width: 995px){
-  .location-block15.layout{
+@media (max-width: 995px) {
+  .location-block15.layout {
     margin: 19px 0px 0px 5px;
+  }
 }
+.fill-text-body1.layout {
+  min-width: max-content;
 }
+.mg-20{margin-top: 0px !important;}
+
+
+@media (max-width: 1366px){
+  .fill-block5-item {
+    min-width: 120px;
+    max-width: 120px;
+  }
+  .fill-block5.layout {
+    flex-wrap: wrap;
+  }
+  .pg-20{padding-top: 20px;}
+}
+.RFID-num{margin-top: 0px !important;}
+

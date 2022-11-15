@@ -62,16 +62,9 @@
                 }"
               >
                 <!-- <mat-label>Select</mat-label> -->
-                <mat-select
-                  [value]="selectedYearId"
-                  formControlName="modelyear"
-                >
-                  <mat-option
-                    *ngFor="let data of modelYearlist"
-                    [value]="data.id"
-                    (onSelectionChange)="selectYear($event, data.id)"
-                  >
-                    {{ data.name }}
+                <mat-select formControlName="modelyear">
+                  <mat-option *ngFor="let data of modelYearlist" [value]="data">
+                    {{ data }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -108,7 +101,7 @@
                   <mat-option
                     *ngFor="let data of makeList"
                     [value]="data.id"
-                    (onSelectionChange)="selectMake($event, data.id)"
+                    (onSelectionChange)="selectMake($event, data)"
                   >
                     {{ data.name }}
                   </mat-option>
@@ -146,7 +139,7 @@
                   <mat-option
                     *ngFor="let data of modelList"
                     [value]="data.id"
-                    (onSelectionChange)="selectModel($event, data.id)"
+                    (onSelectionChange)="selectModel($event, data)"
                   >
                     {{ data.name }}
                   </mat-option>
@@ -274,6 +267,7 @@
                   Add New RFID
                 </button>
                 <div
+                  [ngClass]="viewMode ? 'disable' : ''"
                   formArrayName="rfidCardAssigned"
                   *ngFor="let rfid of getRfidCardFormControls(); let i = index"
                 >

@@ -1,4 +1,4 @@
-@import "../../../../../styles.scss";
+@import '../../../../../styles.scss';
 
 $color_type_0: rgb(0, 98, 166);
 $color_type_1: rgb(19, 27, 33);
@@ -6,10 +6,10 @@ $color_type_2: rgb(230, 232, 233);
 $color_type_3: rgb(255, 255, 255);
 $color_type_4: rgb(92, 92, 92);
 
-$font_type_0: 700 20px/1.2 "Roboto", Helvetica, Arial, serif;
-$font_type_1: 500 18px/1.2 "Roboto", Helvetica, Arial, serif;
-$font_type_2: 15px/1.2 "Roboto", Helvetica, Arial, serif;
-$font_type_3: 500 14px/1.2 "Roboto", Helvetica, Arial, serif;
+$font_type_0: 700 20px/1.2 'Roboto', Helvetica, Arial, serif;
+$font_type_1: 500 18px/1.2 'Roboto', Helvetica, Arial, serif;
+$font_type_2: 15px/1.2 'Roboto', Helvetica, Arial, serif;
+$font_type_3: 500 14px/1.2 'Roboto', Helvetica, Arial, serif;
 
 .barbar- {
   &block10 {
@@ -591,10 +591,10 @@ $font_type_3: 500 14px/1.2 "Roboto", Helvetica, Arial, serif;
 .form-container {
   margin: 100px;
 }
-.mbottom{
-    margin-bottom: 15px;
+.mbottom {
+  margin-bottom: 15px;
 }
-.protocol{
+.protocol {
   top: 10px;
   position: relative;
   left: 10px;
@@ -607,8 +607,8 @@ $font_type_3: 500 14px/1.2 "Roboto", Helvetica, Arial, serif;
 .form-container {
   margin: 100px;
 }
-.mbottom{
-    margin-bottom: 15px;
+.mbottom {
+  margin-bottom: 15px;
 }
 h5.barbar-highlights.layout.subtitle {
   color: #131b21;
@@ -655,6 +655,10 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type='number'] {
   -moz-appearance: textfield;
+}
+.disable {
+  pointer-events: none;
+  opacity: 0.75;
 }

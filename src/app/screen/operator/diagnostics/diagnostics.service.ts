@@ -248,6 +248,36 @@ export class DiagnosticsService {
     );
   }
 
+   /**
+   * getDiagnostics
+   * @param params
+   * @param requestbody
+   * @returns
+   */
+
+    getDiagnostics(params: any, requestbody: any) {
+     // alert('change api');
+      return this._http.post<any>(
+        `${this.url}GetDiagnostics/${params}`,
+        requestbody
+      );
+    }
+
+    /**
+   * sendLocalList
+   * @param params
+   * @param requestbody
+   * @returns
+   */
+
+     sendLocalList(params: any, requestbody: any) {
+     // alert('change api');
+      return this._http.post<any>(
+        `${this.url}SendLocalList/${params}`,
+        requestbody
+      );
+    }
+
   currentDate() {
     let date = new Date();
 
@@ -261,4 +291,48 @@ export class DiagnosticsService {
 
     return formattedDate;
   }
+
+  isValidURL(url: string) {
+    let urlPattern = new RegExp(
+      '^(https?:\\/\\/)?' + // validate protocol
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // validate domain name
+        '((\\d{1,3}\\.){3}\\d{1,3}))' + // validate OR ip (v4) address
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // validate port and path
+        '(\\?[;&a-z\\d%_.~+=-]*)?' + // validate query string
+        '(\\#[-a-z\\d_]*)?$',
+      'i'
+    );
+    return url.match(urlPattern)
+  }
+
+
+  convertToIso(date: any) {
+    let newDate = new Date(date);
+    return new Date(
+      newDate.getTime() - newDate.getTimezoneOffset() * 60000
+    ).toISOString();
+  }
+
+  convertToIsoSendLocal(date: any) {
+    let newDate = new Date(date);
+    return new Date(
+      newDate.getTime() - newDate.getTimezoneOffset() * 60000
+    ).toISOString();
+  }
+
+  /**
+   * getDate
+   * @param params
+   * @param requestbody
+   * @returns
+   */
+
+   getDate(rfid: any) {
+    // alert('change api');
+     return this._http.post<any>(
+       `${this.url}GetVehicleRfidDetails/GetVehicleRfidData?Rfid=${rfid}`,{}
+     );
+   }
+
+
 }

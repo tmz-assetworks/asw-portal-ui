@@ -80,7 +80,7 @@
                   </div> -->
                     <img
                       class="tabs-box3 layout"
-                      src="../../../../../assets/locationcharger-icon/pump.svg"
+                      src="../../../../../assets/Operator/Location-Charger.svg"
                       alt=""
                       srcset=""
                     />
@@ -100,7 +100,7 @@
                               <div class="cust-list-block19 layout">
                                 <div class="cust-list-box9 layout">
                                   <img
-                                    src="../../../../assets/icons/search.png"
+                                    src="../../../../../assets/Operator/Search.svg"
                                     alt=""
                                     class="cust-list-icon layout"
                                   />
@@ -110,7 +110,7 @@
                                   <input
                                     class="cust-list-text-body21 layout"
                                     (keyup)="applyFilter($event)"
-                                    placeholder=" Search Chargers"
+                                    placeholder=" Search by charger id"
                                     #input
                                   />
                                 </div>
@@ -239,7 +239,7 @@
                                   "
                                 >
                                   <img
-                                    src="../../../../../assets/locationcharger-icon/play.png"
+                                    src="../../../../../assets/Operator/Start.svg"
                                     alt=""
                                   />
                                 </span>
@@ -251,7 +251,7 @@
                                   "
                                 >
                                   <img
-                                    src="../../../../../assets/locationcharger-icon/Vector (3).png"
+                                    src="../../../../../assets/Operator/Stop.svg"
                                     alt=""
                                   />
                                 </span>
@@ -272,11 +272,11 @@
                             <p class="text-center">No record found</p>
                           </ng-container>
                           <mat-paginator
-                            #paginator
+                            #paginatorCharger
+                            [pageSizeOptions]="pageSizeOptions"
                             (page)="pageChange($event)"
                             [length]="totalCount"
                             [pageSize]="pageSize"
-                            [pageSizeOptions]="pageSizeOptions"
                           ></mat-paginator>
                           <!-- <mat-paginator
                             [length]="100"

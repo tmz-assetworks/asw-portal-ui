@@ -78,9 +78,7 @@ Location A </pre
                     "
                   >
                     <div class="location-box3 layout">
-                      <img
-                        src="../../../../../assets/location-info/analytics-side.png"
-                      />
+                      <img src="../../../../../assets/Operator/Analytice.svg" />
                     </div>
                   </div>
                 </div>
@@ -92,7 +90,7 @@ Location A </pre
                   <div class="dashboard-block15-item">
                     <app-widget
                       [widgetIcon]="chargers"
-                      [data]="summaryData[0]"
+                      [data]="summaryData ? summaryData[0] : ''"
                     ></app-widget>
                   </div>
                   <div class="dashboard-block15-spacer"></div>
@@ -103,14 +101,14 @@ Location A </pre
                   <div class="dashboard-block15-item">
                     <app-widget
                       [widgetIcon]="charging_session"
-                      [data]="summaryData[1]"
+                      [data]="summaryData ? summaryData[1] : ''"
                     ></app-widget>
                   </div>
                   <div class="dashboard-block15-spacer1"></div>
                   <div class="dashboard-block15-item">
                     <app-widget
                       [widgetIcon]="errors"
-                      [data]="summaryData[2]"
+                      [data]="summaryData ? summaryData[2] : ''"
                     ></app-widget>
                   </div>
                   <div class="dashboard-block15-spacer"></div>
@@ -178,15 +176,15 @@ Location A </pre
                   <div class="dashboard-block42-item">
                     <app-bar-chart
                       *ngIf="chargersChartData !== ''"
-                      [chartType]="bar"
-                      [chartTitle]="barTitle"
+                      [chartType]="'bar'"
+                      [chartTitle]="'Chargers'"
                       [chargersData]="chargersChartData"
                       (barDetailPage)="
                         openDetailPage(5, 'Chargers', 'ANALYTICS', selectedTime)
                       "
                     ></app-bar-chart>
                   </div>
-                  <!-- <div class="dashboard-block42-spacer"></div> -->
+
                   <div class="dashboard-block42-item">
                     <app-area-chart
                       *ngIf="chargingSessionData !== ''"
@@ -199,8 +197,8 @@ Location A </pre
                         )
                       "
                       [chargingSessionData]="chargingSessionData"
-                      [chartType]="chargingSession"
-                      [chartTitle]="chargingSessionTitle"
+                      [chartType]="'chargingSession'"
+                      [chartTitle]="'Charging Session'"
                     ></app-area-chart>
                   </div>
                 </div>
@@ -209,8 +207,8 @@ Location A </pre
                     <app-line-chart
                       *ngIf="energyAnalyticsUsedData !== ''"
                       [energyUsedData]="energyAnalyticsUsedData"
-                      [chartType]="energyAnalyticsUsed"
-                      [chartTitle]="energyAnalyticsUsedTitle"
+                      [chartType]="'energyAnalyticsUsed'"
+                      [chartTitle]="'Energy Demand Over Time'"
                       (lineDetailPage)="
                         openDetailPage(
                           7,
@@ -230,8 +228,8 @@ Location A </pre
                       [locationAnalyticsMilesAddData]="
                         locationAnalyticsMilesAddData
                       "
-                      [chartType]="locationAnalyticsMilesAdd"
-                      [chartTitle]="locationAnalyticsMilesAddTitle"
+                      [chartType]="'locationAnalyticsMilesAdd'"
+                      [chartTitle]="'Miles Added'"
                       (stackedAreaDetailPage)="
                         openDetailPage(
                           8,

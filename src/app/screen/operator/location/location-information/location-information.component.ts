@@ -10,6 +10,10 @@ declare const google: any
   styleUrls: ['./location-information.component.scss'],
 })
 export class LocationInformationComponent implements OnInit {
+  panelOpenState= false
+  panelOpenState1= false
+  panelOpenState2= false
+  panelOpenState3= false
   UserId: any
   selectedLocationIds: any
   contactPersonName: any
@@ -87,10 +91,10 @@ export class LocationInformationComponent implements OnInit {
         this.contactPersonName = res.data.contactPersonName
 
         this.contactPersonNumber = res.data.contactPersonNumber
-        this.emailId = res.data.locationAddress.email
+        this.emailId = res.data.email
 
-        this.departmentName = res.data.department.departmentName
-        this.address = res.data.department.address
+        this.departmentName = res.data.departmentName
+      //  this.address = res.data.department.address
         this.locationAddressLat = res.data.locationAddress.latitude
         this.locationAddressLong = res.data.locationAddress.longitude
         this.fuelProtectType = res.data.fuelProtectType

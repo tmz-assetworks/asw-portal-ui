@@ -11,7 +11,6 @@ import Swal from 'sweetalert2'
 import { ToastrService } from 'ngx-toastr'
 import { StorageService } from 'src/app/service/storage.service'
 import { AdminService } from '../../admin.service'
-import { ReturnStatement } from '@angular/compiler'
 @Component({
   selector: 'app-add-vehicle',
   templateUrl: './add-vehicle.component.html',
@@ -26,7 +25,7 @@ export class AddVehicleComponent implements OnInit {
   list: any
   vehicleId: any
   vehicleData: any
-  modelYearlist: any
+  modelYearlist: any = []
   makeList: any
   modelList: any
   isRFIDAddBtn: boolean = false
@@ -35,7 +34,8 @@ export class AddVehicleComponent implements OnInit {
 
   selectedMakeId: any
   selectedModelId: any
-  selectedYearId: any
+
+  viewMode: boolean = false
 
   addVehicleForm = this.fb.group({
     vin: new FormControl('', [
@@ -78,17 +78,19 @@ export class AddVehicleComponent implements OnInit {
       this.isUpdateBtn = true
       this.isSaveBtn = false
       this.isRFIDAddBtn = true
+      this.viewMode = false
     } else if (this.vehicleId && routePath == 'view-vehicle') {
       this.addvehicleTitle = 'View Vehicle'
-      // this.isRFIDAddBtn=false
       this.isSaveBtn = false
       this.isUpdateBtn = false
       this.addVehicleForm.disable()
+      this.viewMode = true
     } else {
       this.addvehicleTitle = 'Add Vehicle'
       this.isSaveBtn = true
       this.isUpdateBtn = false
       this.isRFIDAddBtn = true
+      this.viewMode = false
     }
   }
 
@@ -110,9 +112,18 @@ export class AddVehicleComponent implements OnInit {
     /**
      * Call API
      */
-    this.GetVehicleModelYearDDLList()
+    // this.GetVehicleModelYearDDLList()
     this.GetVehicleMakeDDLList()
     this.GetVehicleModelDDLList()
+    let date = new Date()
+
+    let currentYear = date.getFullYear()
+    let minYear = currentYear - 20
+    for (let i = currentYear; i >= minYear; i--) {
+      this.modelYearlist.push(i)
+    }
+
+    console.log(this.modelYearlist)
 
     if (this.vehicleId) {
       this.GetAllVehicleById(this.vehicleId)
@@ -125,9 +136,6 @@ export class AddVehicleComponent implements OnInit {
 
   addVehicle() {
     this.submitted = true
-    debugger
-
-    console.log(this.addVehicleForm.get('rfidCardAssigned'))
 
     if (this.addVehicleForm.invalid) {
       this._toastr.error('Please fill mandatory fields.')
@@ -135,14 +143,13 @@ export class AddVehicleComponent implements OnInit {
     }
     let formData = this.addVehicleForm.value
     const body = {
-      id: 0,
       vin: formData.vin,
       licencePlate: formData.licencePlate,
       department: formData.department,
       domicileLocation: formData.domicileLocation,
       vehicleMacAddress: formData.vehicleMacAddress,
       createdBy: this.UserId,
-      vehicleModelYearid: this.selectedYearId,
+      modelYear: +formData.modelyear,
       vehicleModelId: this.selectedModelId,
       vehicleMakeId: this.selectedMakeId,
       RfIdCardsAssigneds: formData.rfidCardAssigned,
@@ -176,7 +183,7 @@ export class AddVehicleComponent implements OnInit {
             if (error.status == 400) {
               let errorMsg = error.error.errors
               this._toastr.error(JSON.stringify(errorMsg))
-              // this.showLoader = false
+              this.showLoader = false
             }
           },
         )
@@ -200,7 +207,7 @@ export class AddVehicleComponent implements OnInit {
       vehicleMacAddress: formData.vehicleMacAddress,
       isActive: true,
       modifiedBy: this.UserId,
-      vehicleModelYearid: this.selectedYearId,
+      modelYear: +formData.modelyear,
       vehicleModelId: this.selectedModelId,
       vehicleMakeId: this.selectedMakeId,
       rfIdCardsAssigneds: formData.rfidCardAssigned,
@@ -234,7 +241,7 @@ export class AddVehicleComponent implements OnInit {
             if (error.status == 400) {
               let errorMsg = error.error.errors
               this._toastr.error(JSON.stringify(errorMsg))
-              // this.showLoader = false
+              this.showLoader = false
             }
           },
         )
@@ -265,13 +272,11 @@ export class AddVehicleComponent implements OnInit {
         vehicleMacAddress: this.vehicleData.vehicleMacAddress,
       })
 
-      if (this.vehicleData.vehicleModelYear) {
-        this.selectedYearId = this.vehicleData.vehicleModelYearid
-
-        this.addVehicleForm.patchValue({
-          modelyear: this.vehicleData.vehicleModelYear,
-        })
-      }
+      // if (this.vehicleData.modelYear) {
+      this.addVehicleForm.patchValue({
+        modelyear: this.vehicleData.modelYear,
+      })
+      // }
 
       if (this.vehicleData.vehicleMakeName) {
         this.selectedMakeId = this.vehicleData.vehicleMakeId
@@ -300,10 +305,9 @@ export class AddVehicleComponent implements OnInit {
       // ]
 
       /**
-       * RFOD
+       * RFID
        */
       rfid.forEach((elem: any) => {
-        debugger
         this.addRFIDCardAssigned(
           this.addRFIDRows(elem.id, elem.name, elem.isActive),
         )
@@ -315,11 +319,11 @@ export class AddVehicleComponent implements OnInit {
    *
    * Get Model Year List
    */
-  GetVehicleModelYearDDLList() {
-    this._adminService.GetVehicleModelYearDDLList().subscribe((res: any) => {
-      this.modelYearlist = res.data
-    })
-  }
+  // GetVehicleModelYearDDLList() {
+  //   this._adminService.GetVehicleModelYearDDLList().subscribe((res: any) => {
+  //     this.modelYearlist = res.data
+  //   })
+  // }
   /**
    *
    * Get Make List
@@ -345,9 +349,18 @@ export class AddVehicleComponent implements OnInit {
    * @param event
    * @param id
    */
-  selectMake(event: any, id: any) {
+  selectMake(event: any, data: any) {
     if (event.isUserInput) {
-      this.selectedMakeId = id
+      if (data.isActive == false) {
+        this._toastr.error(
+          'Selected make is not available.Please select other make',
+        )
+
+        this.selectedMakeId = ''
+
+        return
+      }
+      this.selectedMakeId = data.id
     }
   }
 
@@ -356,9 +369,18 @@ export class AddVehicleComponent implements OnInit {
    * @param event
    * @param id
    */
-  selectModel(event: any, id: any) {
+  selectModel(event: any, data: any) {
     if (event.isUserInput) {
-      this.selectedModelId = id
+      if (data.isActive == false) {
+        this._toastr.error(
+          'Selected model is not available.Please select other model',
+        )
+
+        this.selectedModelId = ''
+
+        return
+      }
+      this.selectedModelId = data.id
     }
   }
 
@@ -367,9 +389,18 @@ export class AddVehicleComponent implements OnInit {
    * @param event
    * @param id
    */
-  selectYear(event: any, id: any) {
-    if (event.isUserInput) {
-      this.selectedYearId = id
-    }
-  }
+  // selectYear(event: any, data: any) {
+  //   if (event.isUserInput) {
+  //     // if (data.isActive == false) {
+  //     //   this._toastr.error(
+  //     //     'Selected year is not available.Please select other year',
+  //     //   )
+
+  //     //   this.selectedYearId = ''
+
+  //     //   return
+  //     // }
+  //     this.selectedYearId = data.name
+  //   }
+  // }
 }

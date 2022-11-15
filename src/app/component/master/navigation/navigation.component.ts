@@ -74,42 +74,42 @@ export class NavigationComponent implements OnInit {
         {
           routerLink: ['dashboard'],
           text: 'Dashboard',
-          icon: 'assets/icons/dashboard.png',
+          icon: '../../../../assets/Operator/Dashboard.svg',
         },
         {
           routerLink: ['location'],
           text: 'Locations',
-          icon: '../../../../assets/icons/locations.png',
+          icon: '../../../../assets/Operator/Locations.svg',
         },
         {
           routerLink: ['charger'],
           text: 'Chargers',
-          icon: '../../../../assets/icons/chargers.png',
+          icon: '../../../../assets/Operator/Charger.svg',
         },
         {
           routerLink: ['diagonstics'],
           text: 'Diagnostics',
-          icon: '../../../../assets/icons/diagnostics.png',
+          icon: '../../../../assets/Operator/Diagnostics.svg',
         },
         {
           routerLink: ['vehicles'],
           text: 'Vehicles',
-          icon: '../../../../assets/icons/vehicles.png',
+          icon: '../../../../assets/Operator/Vehicles.svg',
         },
         {
-          routerLink: ['reports/report-session'],
+          routerLink: ['reports'],
           text: 'Reports',
-          icon: '../../../../assets/icons/reports.png',
+          icon: '../../../../assets/Operator/Reports.svg',
         },
         {
           routerLink: ['alerts'],
           text: 'Alerts',
-          icon: '../../../../assets/icons/Alert.png',
+          icon: '../../../../assets/Operator/Alerts.svg',
         },
         {
           routerLink: ['help'],
           text: 'Help',
-          icon: '../../../../assets/icons/help.png',
+          icon: '../../../../assets/Operator/Helps.svg',
         },
       ]
     } else if (role == 'SuperAdmin') {
@@ -117,17 +117,17 @@ export class NavigationComponent implements OnInit {
         {
           routerLink: ['customer'],
           text: 'Customer Setup',
-          icon: '../../../../assets/sidenavbar-icons/customer-setup.png',
+          icon: '../../../../assets/Super-Admin-icons/nav.svg',
         },
         {
           routerLink: ['admin'],
-          text: 'AssetWorks Admins',
-          icon: '../../../../assets/sidenavbar-icons/assetworks.png',
+          text: ' Admin Users',
+          icon: '../../../../assets/Super-Admin-icons/nav1.svg',
         },
         {
           routerLink: ['help'],
           text: 'Help',
-          icon: '../../../../assets/sidenavbar-icons/help.png',
+          icon: '../../../../assets/Super-Admin-icons/nav2.svg',
         },
       ]
     } else if (role == 'Admin') {
@@ -135,38 +135,38 @@ export class NavigationComponent implements OnInit {
         {
           routerLink: ['profile'],
           text: 'Profile',
-          icon: '../../../../assets/icons/customers.png',
+          icon: '../../../../assets/Admin-SideNav/Customer.svg',
         },
         {
           routerLink: ['users'],
           text: 'Users',
-          icon: '../../../../assets/icons/operator.png',
+          icon: '../../../../assets/Admin-SideNav/Operator-Users.svg',
         },
 
         {
           routerLink: ['locations'],
           text: 'Locations',
-          icon: '../../../../assets/icons/locations.png',
+          icon: '../../../../assets/Admin-SideNav/Location.svg',
         },
         {
           routerLink: ['vehicles'],
           text: 'Vehicles',
-          icon: '../../../../assets/icons/vehicle.png',
+          icon: '../../../../assets/Admin-SideNav/Vehicles.svg',
         },
         {
           routerLink: ['chargers'],
           text: 'Chargers',
-          icon: '../../../../assets/icons/charger.png',
+          icon: '../../../../assets/Admin-SideNav/Charger.svg',
         },
         {
           routerLink: ['assets'],
           text: 'Assets',
-          icon: '../../../../assets/icons/assets.png',
+          icon: '../../../../assets/Admin-SideNav/Assets.svg',
         },
         {
           routerLink: ['pricing'],
           text: 'Pricing',
-          icon: '../../../../assets/icons/pricing.png',
+          icon: '../../../../assets/Admin-SideNav/Pricing.svg',
         },
         {
           routerLink: ['subscriptions-plans'],
@@ -176,7 +176,7 @@ export class NavigationComponent implements OnInit {
         {
           routerLink: ['help'],
           text: 'Help',
-          icon: '../../../../assets/icons/help.png',
+          icon: '../../../../assets/Admin-SideNav/Help.svg',
         },
       ]
     } else {

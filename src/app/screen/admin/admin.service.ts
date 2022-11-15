@@ -4,47 +4,56 @@ import { Observable } from 'rxjs'
 import { environment } from 'src/environments/environment'
 @Injectable({ providedIn: 'root' })
 export class AdminService {
-  url: any
-  urlBase: any
-  urlPad: any
+  assetUrl: string
+  userUrl: string
+  pricingUrl: string
   constructor(private _http: HttpClient) {
-    this.url = environment.assetLocalOrigin
-    this.urlBase = environment.localOrigin
-    this.urlPad = environment.originAuth
+    this.assetUrl = environment.assetLocalOrigin
+    this.userUrl = environment.localOrigin
+    this.pricingUrl = environment.AssetPricing
   }
 
   public GetLocationList(params: any): Observable<any> {
-    return this._http.post<any>(`${this.url}Location/GetLocationList`, params)
+    return this._http.post<any>(
+      `${this.assetUrl}Location/GetLocationList`,
+      params,
+    )
   }
 
   public CreateLocation(params: any): Observable<any> {
-    return this._http.post<any>(`${this.url}Location/CreateLocation`, params)
+    return this._http.post<any>(
+      `${this.assetUrl}Location/CreateLocation`,
+      params,
+    )
   }
 
-  public createOperator(params: any): Observable<any> {
-    return this._http.post<any>(`${this.urlBase}User/CreateUser`, params)
+  public CreateUser(params: any): Observable<any> {
+    return this._http.post<any>(`${this.userUrl}User/CreateUser`, params)
   }
 
-  public updateOperator(params: any): Observable<any> {
-    return this._http.put<any>(`${this.urlBase}User/UpdateUser`, params)
+  public UpdateUser(params: any): Observable<any> {
+    return this._http.put<any>(`${this.userUrl}User/UpdateUser`, params)
   }
 
-  public getOperator(params: any): Observable<any> {
-    return this._http.post<any>(`${this.urlBase}User/GetAllUsers`, params)
+  public GetAllUsers(params: any): Observable<any> {
+    return this._http.post<any>(`${this.userUrl}User/GetAllUsers`, params)
   }
 
-  public updateLocation(params: any): Observable<any> {
-    return this._http.put<any>(`${this.url}Location/UpdateLocation`, params)
+  public UpdateLocation(params: any): Observable<any> {
+    return this._http.put<any>(
+      `${this.assetUrl}Location/UpdateLocation`,
+      params,
+    )
   }
 
   GetAllLocationStatus(params: any): Observable<any> {
     return this._http.get<any>(
-      `${this.url}Location/GetAllLocationStatus?id=${params}`,
+      `${this.assetUrl}Location/GetAllLocationStatus?id=${params}`,
     )
   }
 
   public GetLocationById(id: any): Observable<any> {
-    return this._http.get<any>(`${this.url}Location/GetLocationById/${id}`)
+    return this._http.get<any>(`${this.assetUrl}Location/GetLocationById/${id}`)
   }
 
   public getListApi(
@@ -54,245 +63,358 @@ export class AdminService {
   ): Observable<any> {
     if (type == 'state') {
       return this._http.get<any>(
-        `${this.url}Country/getAllStateByCountryId?Id=${id}`,
+        `${this.assetUrl}Country/getAllStateByCountryId?Id=${id}`,
       )
     } else if (type == 'city') {
       return this._http.get<any>(
-        `${this.url}Country/getAllCityByStateId?Id=${stateId}`,
+        `${this.assetUrl}Country/getAllCityByStateId?Id=${stateId}`,
       )
     } else if (type == 'locationStatus') {
-      return this._http.get<any>(`${this.url}Location/GetAllLocationStatus`)
+      return this._http.get<any>(
+        `${this.assetUrl}Location/GetAllLocationStatus`,
+      )
     } else if (type == 'location') {
-      return this._http.get<any>(`${this.url}Location/GetLocationById?Id=${id}`)
+      return this._http.get<any>(
+        `${this.assetUrl}Location/GetLocationById?Id=${id}`,
+      )
     } else if (type == 'department') {
-      return this._http.get<any>(`${this.url}Location/GetAllDepartmentList`)
+      return this._http.get<any>(
+        `${this.assetUrl}Location/GetAllDepartmentList`,
+      )
     } else if (type == 'locationName') {
-      return this._http.get<any>(`${this.url}Location/GetAllLocationName`)
+      return this._http.get<any>(`${this.assetUrl}Location/GetAllLocationName`)
     } else if (type == 'operator') {
-      return this._http.get<any>(`${this.urlBase}User/GetUserById?id=${id}`)
+      return this._http.get<any>(`${this.userUrl}User/GetUserById?id=${id}`)
     }
-    return this._http.get<any>(`${this.url}Country/getallcountry`)
+    return this._http.get<any>(`${this.assetUrl}Country/getallcountry`)
+  }
+
+  public IsActiveUserById(params: any): Observable<any> {
+    return this._http.request('delete', `${this.userUrl}User/IsActiveUsers`, {
+      body: params,
+    })
   }
 
   public ChangeState(params: any): Observable<any> {
-    // return this._http.delete<any>(`${this.url}Location/DeleteLocation`, params);
-    return this._http.request('delete', `${this.url}Location/DeleteLocation`, {
+    return this._http.request('delete', `${this.userUrl}User/DeleteUser`, {
       body: params,
     })
   }
 
   public GetVechicleList(params: any): Observable<any> {
-    return this._http.post<any>(`${this.url}Vehicle/GetVechicleList`, params)
-  }
-
-  public GetVehicleModelYearDDLList(): Observable<any> {
-    return this._http.get<any>(`${this.url}Vehicle/GetVehicleModelYearDDLList`)
-  }
-
-  public GetVehicleMakeDDLList(): Observable<any> {
-    return this._http.get<any>(`${this.url}Vehicle/GetVehicleMakeDDLList`)
-  }
-
-  public GetVehicleModelDDLList(): Observable<any> {
-    return this._http.get<any>(`${this.url}Vehicle/GetVehicleModelDDLList`)
-  }
-
-  public CreateVehicle(params: any): Observable<any> {
-    return this._http.post<any>(`${this.url}Vehicle/CreateVehicle`, params)
-  }
-
-  public GetAllVehicleById(id: any): Observable<any> {
-    return this._http.get<any>(`${this.url}Vehicle/GetVehicleDetailsById/${id}`)
-  }
-
-  public UpdateVehicle(params: any): Observable<any> {
-    return this._http.put<any>(`${this.url}Vehicle/UpdateVehicle`, params)
-  }
-
-  public DeleteVehicleById(params: any): Observable<any> {
-    return this._http.delete<any>(
-      `${this.url}Vehicle/DeleteVehicleById`,
+    return this._http.post<any>(
+      `${this.assetUrl}Vehicle/GetVechicleList`,
       params,
     )
   }
 
-  /**
-   * Charger API
-   */
+  public GetVehicleModelYearDDLList(): Observable<any> {
+    return this._http.get<any>(
+      `${this.assetUrl}Vehicle/GetVehicleModelYearDDLList`,
+    )
+  }
+
+  public GetVehicleMakeDDLList(): Observable<any> {
+    return this._http.get<any>(`${this.assetUrl}Vehicle/GetVehicleMakeDDLList`)
+  }
+
+  public GetVehicleModelDDLList(): Observable<any> {
+    return this._http.get<any>(`${this.assetUrl}Vehicle/GetVehicleModelDDLList`)
+  }
+
+  public CreateVehicle(params: any): Observable<any> {
+    return this._http.post<any>(`${this.assetUrl}Vehicle/CreateVehicle`, params)
+  }
+
+  public GetAllVehicleById(id: any): Observable<any> {
+    return this._http.get<any>(
+      `${this.assetUrl}Vehicle/GetVehicleDetailsById/${id}`,
+    )
+  }
+
+  public UpdateVehicle(params: any): Observable<any> {
+    return this._http.put<any>(`${this.assetUrl}Vehicle/UpdateVehicle`, params)
+  }
+
+  public DeleteVehicleById(params: any): Observable<any> {
+    return this._http.delete<any>(
+      `${this.assetUrl}Vehicle/DeleteVehicleById`,
+      params,
+    )
+  }
 
   public GetDispensersWithPagination(params: any): Observable<any> {
     return this._http.post<any>(
-      `${this.url}Dispenser/GetDispensersWithPagination`,
+      `${this.assetUrl}Dispenser/GetDispensersWithPagination`,
       params,
     )
   }
 
   public GetDispenserDetailsById(id: any): Observable<any> {
     return this._http.post<any>(
-      `${this.url}Dispenser/GetDispenserDetailsById?dispenserId=${id}`,
+      `${this.assetUrl}Dispenser/GetDispenserDetailsById?dispenserId=${id}`,
       '',
     )
   }
 
   public CreateDispenser(params: any): Observable<any> {
-    return this._http.post<any>(`${this.url}Dispenser/CreateDispenser`, params)
+    return this._http.post<any>(
+      `${this.assetUrl}Dispenser/CreateDispenser`,
+      params,
+    )
   }
 
   public GetAllLocation(): Observable<any> {
-    return this._http.get<any>(`${this.url}Location/GetAllLocation`)
+    return this._http.get<any>(`${this.assetUrl}Location/GetAllLocation`)
   }
 
   public GetAllMakeMaster(): Observable<any> {
-    return this._http.get<any>(`${this.url}MakeMaster/GetAllMakeMaster`)
+    return this._http.get<any>(`${this.assetUrl}MakeMaster/GetAllMakeMaster`)
   }
 
   public GetAllModel(): Observable<any> {
-    return this._http.get<any>(`${this.url}Model/GetAllModel`)
+    return this._http.get<any>(`${this.assetUrl}Model/GetAllModel`)
   }
 
   public GetAllModem(): Observable<any> {
-    return this._http.get<any>(`${this.url}Modem/GetAllModem`)
+    return this._http.get<any>(`${this.assetUrl}Modem/GetAllModem`)
   }
   public GetAllRfIdReaders(): Observable<any> {
-    return this._http.get<any>(`${this.url}RFIdReader/GetAllRfIdReaders`)
+    return this._http.get<any>(`${this.assetUrl}RFIdReader/GetAllRfIdReaders`)
   }
   public getallpowerCabinet(): Observable<any> {
-    return this._http.get<any>(`${this.url}PowerCabinet/getallpowerCabinet`)
+    return this._http.get<any>(
+      `${this.assetUrl}PowerCabinet/getallpowerCabinet`,
+    )
   }
 
   public GetDispenserStatus(params: any): Observable<any> {
     return this._http.post<any>(
-      `${this.url}Dispenser/GetDispenserStatus`,
+      `${this.assetUrl}Dispenser/GetDispenserStatus`,
       params,
     )
   }
   public GetAllModelData(params: any): Observable<any> {
-    return this._http.post<any>(`${this.url}Model/GetAllModelData`, params)
+    return this._http.post<any>(`${this.assetUrl}Model/GetAllModelData`, params)
   }
 
   public GetAllRFIdReaderData(params: any): Observable<any> {
     return this._http.post<any>(
-      `${this.url}RFIdReader/GetAllRFIdReaderData`,
+      `${this.assetUrl}RFIdReader/GetAllRFIdReaderData`,
       params,
     )
   }
-  public GetPowerCabinetData(): Observable<any> {
-    return this._http.get<any>(`${this.url}PowerCabinet/GetPowerCabinetData`)
+  public GetPowerCabinetData(param: any): Observable<any> {
+    return this._http.get<any>(
+      `${this.assetUrl}PowerCabinet/GetPowerCabinetData?dispenserId=${param}`,
+    )
   }
 
-  public updatedispenser(params: any): Observable<any> {
-    return this._http.put<any>(`${this.url}Dispenser/updatedispenser`, params)
-  }
-  public GetModemDDL(params: any): Observable<any> {
-    return this._http.post<any>(`${this.url}Dispenser/GetModemDDL`, params)
-  }
-  public GetAllPadData(params: any): Observable<any> {
-    return this._http.post<any>(`${this.url}Pad/GetAllPadData`, params)
-  }
-  public GetAllLocationName(): Observable<any> {
-    return this._http.get<any>(`${this.url}Location/GetAllLocationName`)
-  }
-  public createPad(params: any): Observable<any> {
-    return this._http.post<any>(
-      `https://qa-assets-service.azurewebsites.net/asset/pad`,
+  public Updatedispenser(params: any): Observable<any> {
+    return this._http.put<any>(
+      `${this.assetUrl}Dispenser/updatedispenser`,
       params,
     )
+  }
+  public GetModemDDL(params: any): Observable<any> {
+    return this._http.post<any>(`${this.assetUrl}Dispenser/GetModemDDL`, params)
+  }
+
+  public GetSwitchGearDropDown(params: any): Observable<any> {
+    return this._http.post<any>(
+      `${this.assetUrl}SwitchGear/GetSwitchGearDropDown`,
+      params,
+    )
+  }
+  public GetAllPadData(params: any): Observable<any> {
+    return this._http.post<any>(`${this.assetUrl}Pad/GetAllPadData`, params)
+  }
+  public GetAllLocationName(): Observable<any> {
+    return this._http.get<any>(`${this.assetUrl}Location/GetAllLocationName`)
+  }
+  public CreatePad(params: any): Observable<any> {
+    return this._http.post<any>(`${this.assetUrl}Pad/CreatePad`, params)
   }
 
   public GetCombineAssetList(params: any): Observable<any> {
     return this._http.post<any>(
-      `${this.url}AllAssetList/GetCombineAssetList`,
+      `${this.assetUrl}AllAssetList/GetCombineAssetList`,
       params,
     )
   }
 
-  public getPadById(params: any): Observable<any> {
-    return this._http.get<any>(`${this.url}Pad/getpadbyid?id=${params}`)
+  public GetPadById(params: any): Observable<any> {
+    return this._http.get<any>(`${this.assetUrl}Pad/getpadbyid?id=${params}`)
   }
-  public updatePad(params: any): Observable<any> {
-    return this._http.put<any>(`${this.url}Pad/updatepad`, params)
+  public UpdatePad(params: any): Observable<any> {
+    return this._http.put<any>(`${this.assetUrl}Pad/updatepad`, params)
   }
 
   public CreateCable(params: any): Observable<any> {
-    return this._http.post<any>(`${this.url}Cable/CreateCable`, params)
+    return this._http.post<any>(`${this.assetUrl}Cable/CreateCable`, params)
   }
-  public updateCable(params: any): Observable<any> {
-    return this._http.put<any>(`${this.url}Cable/UpdateCable`, params)
-  }
-
-  public getCableById(params: any): Observable<any> {
-    return this._http.get<any>(`${this.url}Cable/getCablebyid?id=${params}`)
+  public UpdateCable(params: any): Observable<any> {
+    return this._http.put<any>(`${this.assetUrl}Cable/UpdateCable`, params)
   }
 
-  public createPowerCabinet(params: any): Observable<any> {
-    return this._http.post<any>(
-      `${this.url}PowerCabinet/createpowerCabinet`,
-      params,
-    )
-  }
-
-  public updatePowerCabinet(params: any): Observable<any> {
-    return this._http.put<any>(
-      `${this.url}PowerCabinet/updatepowerCabinet`,
-      params,
-    )
-  }
-
-  public getPowerCabinetById(params: any): Observable<any> {
+  public GetCableById(params: any): Observable<any> {
     return this._http.get<any>(
-      `${this.url}PowerCabinet/getpowercabinetbyid?id=${params}`,
+      `${this.assetUrl}Cable/getCablebyid?id=${params}`,
+    )
+  }
+
+  public CreatePowerCabinet(params: any): Observable<any> {
+    return this._http.post<any>(
+      `${this.assetUrl}PowerCabinet/createpowerCabinet`,
+      params,
+    )
+  }
+
+  public UpdatePowerCabinet(params: any): Observable<any> {
+    return this._http.put<any>(
+      `${this.assetUrl}PowerCabinet/updatepowerCabinet`,
+      params,
+    )
+  }
+
+  public GetPowerCabinetById(params: any): Observable<any> {
+    return this._http.get<any>(
+      `${this.assetUrl}PowerCabinet/getpowercabinetbyid?id=${params}`,
     )
   }
 
   public AddRfIdReader(params: any): Observable<any> {
-    return this._http.post<any>(`${this.url}RFIdReader/AddRfIdReader`, params)
+    return this._http.post<any>(
+      `${this.assetUrl}RFIdReader/AddRfIdReader`,
+      params,
+    )
   }
 
   public UpdateRfIdReader(params: any): Observable<any> {
-    return this._http.put<any>(`${this.url}RFIdReader/UpdateRfIdReader`, params)
+    return this._http.put<any>(
+      `${this.assetUrl}RFIdReader/UpdateRfIdReader`,
+      params,
+    )
   }
 
   public GetRfIdReaderById(params: any): Observable<any> {
     return this._http.get<any>(
-      `${this.url}RFIdReader/GetRfIdReaderById/${params}`,
+      `${this.assetUrl}RFIdReader/GetRfIdReaderById/${params}`,
     )
   }
 
   public GetPlugType(params: any): Observable<any> {
-    return this._http.post<any>(`${this.url}Dispenser/GetPlugType`, params)
+    return this._http.post<any>(`${this.assetUrl}Dispenser/GetPlugType`, params)
   }
 
   public GetConnectorType(params: any): Observable<any> {
-    return this._http.post<any>(`${this.url}Dispenser/GetConnectorType`, params)
+    return this._http.post<any>(
+      `${this.assetUrl}Dispenser/GetConnectorType`,
+      params,
+    )
   }
-  /**
-   * Customer API
-   */
 
-  public getcustomer(id: any): Observable<any> {
+  public Getcustomer(id: any): Observable<any> {
     return this._http.get<any>(
-      `${this.urlBase}Customer/getcustomerbyid?id=${id}`,
+      `${this.userUrl}Customer/getcustomerbyid?id=${id}`,
     )
   }
 
   public CreateModem(params: any): Observable<any> {
-    return this._http.post<any>(`${this.url}Modem/CreateModem`, params)
+    return this._http.post<any>(`${this.assetUrl}Modem/CreateModem`, params)
+  }
+
+  public GetCableDropDown(params: any): Observable<any> {
+    return this._http.post<any>(
+      `${this.assetUrl}Cable/GetCableDropDown`,
+      params,
+    )
   }
 
   public UpdateModem(params: any): Observable<any> {
-    return this._http.put<any>(`${this.url}Modem/UpdateModem`, params)
+    return this._http.put<any>(`${this.assetUrl}Modem/UpdateModem`, params)
   }
 
-  public getModembyid(params: any): Observable<any> {
-    return this._http.get<any>(`${this.url}Modem/getModembyid?id=${params}`)
+  public GetModembyid(params: any): Observable<any> {
+    return this._http.get<any>(
+      `${this.assetUrl}Modem/getModembyid?id=${params}`,
+    )
   }
 
   public IsActiveAsset(params: any): Observable<any> {
-    return this._http.put<any>(`${this.url}AllAssetList/IsActiveAsset`, params)
+    return this._http.put<any>(
+      `${this.assetUrl}AllAssetList/IsActiveAsset`,
+      params,
+    )
   }
   public IsActiveVehicleById(params: any): Observable<any> {
-    return this._http.put<any>(`${this.url}Vehicle/IsActiveVehicleById`,params)
+    return this._http.put<any>(
+      `${this.assetUrl}Vehicle/IsActiveVehicleById`,
+      params,
+    )
   }
 
-  
+  public GetAllPricePlan(params: any): Observable<any> {
+    return this._http.post<any>(
+      `${this.pricingUrl}PricePlan/GetAllPricePlan`,
+      params,
+    )
+  }
+
+  public CreateSwitchGear(params: any): Observable<any> {
+    return this._http.post<any>(
+      `${this.assetUrl}SwitchGear/CreateSwitchGear`,
+      params,
+    )
+  }
+
+  public GetSwitchGearById(params: any): Observable<any> {
+    return this._http.get<any>(
+      `${this.assetUrl}SwitchGear/GetSwitchGearById?id=${params}`,
+      params,
+    )
+  }
+  public UpdateSwitchGear(params: any): Observable<any> {
+    return this._http.put<any>(
+      `${this.assetUrl}SwitchGear/UpdateSwitchGear`,
+      params,
+    )
+  }
+
+  public GetAllSubscriptionPlan(params: any): Observable<any> {
+    return this._http.post<any>(
+      `${this.pricingUrl}SubscriptionPlan/GetAllSubscriptionPlan`,
+      params,
+    )
+  }
+  public IsActiveSubscription(params: any): Observable<any> {
+    return this._http.put<any>(
+      `${this.pricingUrl}SubscriptionPlan/IsActiveSubscription`,
+      params,
+    )
+  }
+
+  public SubscriptionplanById(params: any): Observable<any> {
+    return this._http.get<any>(
+      `${this.pricingUrl}SubscriptionPlan/subscriptionplanById?id=${params}`,
+      params,
+    )
+  }
+  public CreateSubscriptionPlan(params: any): Observable<any> {
+    return this._http.post<any>(
+      `${this.pricingUrl}SubscriptionPlan/CreateSubscriptionPlan`,
+      params,
+    )
+  }
+  public UpdateSubscriptionPlan(params: any): Observable<any> {
+    return this._http.put<any>(
+      `${this.pricingUrl}SubscriptionPlan/UpdateSubscriptionPlan`,
+      params,
+    )
+  }
+  public GetPricingPlanMocky(): Observable<any> {
+    return this._http.get<any>(
+      `https://run.mocky.io/v3/b2eb683a-3227-44a0-b2d4-ae8d55c59c71`,
+    )
+  }
 }

@@ -3,48 +3,51 @@ import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
 import { Router } from '@angular/router'
 import { StorageService } from 'src/app/service/storage.service'
-import { VehicleService } from '../manage-vehicles/vehicle.service'
+import { AdminService } from '../admin.service'
 
 @Component({
   selector: 'app-manage-pricing',
   templateUrl: './manage-pricing.component.html',
-  styleUrls: ['./manage-pricing.component.scss']
+  styleUrls: ['./manage-pricing.component.scss'],
 })
 export class ManagePricingComponent implements OnInit {
+  pricingPlanList = []
 
-  vehicleList=[]
-
+  UserId: string | null
+  totalCount: any
+  pageSize: number = 10
+  currentPage: number = 1
+  totalPages: any
+  pageSizeOptions = [10, 20, 100]
+  searchParam = ''
   displayedColumns: string[] = [
-    'VIN',
-    'ModelYear',
-    'Name',
-    'Modal',
-    'LicencePlate',
-    'Department',
-    'DomicileLocation',
+    'CustomerName',
+    'PricePlanName',
+    'Currency',
+    // 'Location',
+    'ValidFrom',
+    'ValidTo',
+    'Level',
     'Status',
     'Action',
   ]
 
-
-  dataSource = new MatTableDataSource<any>(this.vehicleList)
+  dataSource = new MatTableDataSource<any>(this.pricingPlanList)
   isTableHasData: any
- 
+  statusData: any
 
   constructor(
-    private _vehicleService: VehicleService,
+    private _adminService: AdminService,
     private _router: Router,
-    private _storageService: StorageService
-    ) {
-      let PricingData=this._storageService.getSessionData('PricingData')
-      this._storageService.getSessionData('IsSaveBtn')
-      if(PricingData)
-        {this._storageService.removeSessionData('PricingData')
-        this._storageService.removeSessionData('IsSaveBtn')}
-    }
+    private _storageService: StorageService,
+  ) {
+    this.UserId = this._storageService.getLocalData('user_id')
+  }
 
   ngOnInit() {
-    this.GetVehicleList()
+    // this.GetAllPricePlan()
+
+    this.GetPricingPlanMocky()
   }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator
@@ -52,47 +55,118 @@ export class ManagePricingComponent implements OnInit {
   searchKey: any
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator
     this.paginator._intl.itemsPerPageLabel = 'Rows per page'
   }
-
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value
     this.dataSource.filter = filterValue.trim().toLowerCase()
-    if (this.dataSource.filteredData.length > 0) {
-      this.isTableHasData = false
-    } else {
-      this.isTableHasData = true
-    }
+    // this.searchParam = filterValue
+    // this.GetAllPricePlan()
   }
 
-  GetVehicleList(): void {
-    this._vehicleService.GetVehicleList().subscribe(res=>{
-      this.vehicleList = res.Data
-      console.log(this.vehicleList,"data coming")
-      this.dataSource.data = this.vehicleList
+  /**
+   * Get All Pricing Plan  List
+   */
+  GetAllPricePlan(): void {
+    const pBody = {
+      pageNumber: this.currentPage,
+      searchParam: this.searchParam,
+      pageSize: this.pageSize,
+      orderBy: '',
+      opratorid: this.UserId,
+    }
+    this._adminService.GetAllPricePlan(pBody).subscribe((res) => {
+      if (res.data !== undefined && res.data != null && res.data.length > 0) {
+        this.statusData = res.statusData
+        this.totalCount = res.paginationResponse.totalCount
+        this.totalPages = res.paginationResponse.totalPages
+        this.pageSize = res.paginationResponse.pageSize
+
+        this.dataSource.data = res.data
+        this.isTableHasData = false
+      } else {
+        this.dataSource.data = []
+        this.isTableHasData = true
+      }
     })
   }
 
-    /**
-   * view Location
+  /**
+   * view Pricing Plan
    */
-     viewLocation(data: any) {
-      this._storageService.setSessionData('PricingData', data);
-      this._storageService.setSessionData('IsSaveBtn', false);
-      let viewLocationURL = `admin/pricing/view-pricing`;
-      this._router.navigateByUrl(viewLocationURL);
+  viewPricingPlan(data: any) {
+    this._router.navigateByUrl(`admin/pricing/view-pricing?id=${data.id}`)
+  }
+
+  /**
+   * Edit Pricing Plan'
+   */
+  editPricingPlan(data: any) {
+    this._router.navigateByUrl(`admin/pricing/edit-pricing?id=${data.id}`)
+  }
+
+  /**
+   *
+   * @param event
+   * Page Event
+   */
+
+  pageChange(event: any) {
+    if (event.pageSize !== this.pageSize) {
+      this.currentPage = 1
+      this.pageSize = event.pageSize
+      this.paginator.pageIndex = 0
+    } else {
+      this.currentPage =
+        event.previousPageIndex < event.pageIndex
+          ? this.currentPage + 1
+          : this.currentPage - 1
     }
-  
-    /**
-     * Edit Location 
-     */
-    editLocation(data: any) {
-      this._storageService.setSessionData('PricingData', data);
-      this._storageService.setSessionData('IsSaveBtn', true);
-      // let editLocationURl=`admin/locations/edit-location/${locationId}`
-      let editLocationURl = `admin/pricing/edit-pricing`;
-      this._router.navigateByUrl(editLocationURl);
+
+    this.GetAllPricePlan()
+  }
+
+  changeStatusById(id: any, status: any) {
+    const pbody = {
+      id: id,
+      isActive: status,
+      modifiedBy: this.UserId,
     }
+
+    // this._adminService.IsActiveVehicleById(pbody).subscribe((res) => {
+    //   if (res) {
+    //     if (status == false) {
+    //       this._toastr.success('Record inactive successfully')
+
+    //       this.GetSubscriptionPlanList()
+    //     } else {
+    //       this._toastr.success('Record active successfully')
+
+    //       this.GetSubscriptionPlanList()
+    //     }
+    //   }
+    // })
+  }
+
+  /**
+   * Mocky API Call
+   */
+
+  GetPricingPlanMocky() {
+    this._adminService.GetPricingPlanMocky().subscribe((res) => {
+      if (res) {
+        this.statusData = res.statusData
+        this.totalCount = res.paginationResponse.totalCount
+        this.totalPages = res.paginationResponse.totalPages
+        this.pageSize = res.paginationResponse.pageSize
+
+        this.dataSource.data = res.data
+        this.isTableHasData = false
+      } else {
+        this.dataSource.data = []
+        this.isTableHasData = true
+      }
+    })
+  }
 }

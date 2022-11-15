@@ -74,7 +74,6 @@
                   type="text"
                   class="barbar-input-text"
                 />
-                <!-- <mat-error>This Field is required</mat-error> -->
               </div>
               <span
                 *ngIf="
@@ -109,7 +108,6 @@
                   class="barbar-input-text"
                   formControlName="pointofcontact"
                 />
-                <!-- <mat-error>This Field is required</mat-error> -->
               </div>
               <span
                 *ngIf="
@@ -144,8 +142,6 @@
                   class="barbar-input-text"
                   formControlName="email"
                 />
-
-                <!-- <mat-error>This Field is required</mat-error> -->
               </div>
               <span
                 *ngIf="
@@ -187,12 +183,13 @@
               >
                 <input
                   type="text"
+                  maxlength="14"
                   class="barbar-input-text"
-                  (keypress)="numberOnly($event)"
+                  (keypress)="phoneNumber($event) ; numberOnly($event)"
                   formControlName="phoneNumber"
+                  
+                  [(ngModel)]="telephoneNumber"
                 />
-
-                <!-- <mat-error>This Field is required</mat-error> -->
               </div>
               <span
                 *ngIf="
@@ -202,7 +199,7 @@
                 "
                 class="error-mess"
               >
-                Phone Number Must Be Between 10 To 15 digits
+                Phone Number Must Be 10 digits
               </span>
               <span
                 *ngIf="
@@ -241,8 +238,6 @@
                   class="barbar-input-text"
                   formControlName="addressLine1"
                 />
-
-                <!-- <mat-error>This Field is required</mat-error> -->
               </div>
               <span
                 *ngIf="
@@ -284,7 +279,6 @@
                   class="barbar-input-text"
                   formControlName="addressLine2"
                 />
-                <!-- <mat-error>This Field is required</mat-error> -->
               </div>
               <span
                 *ngIf="
@@ -321,6 +315,13 @@
                   formControlName="country"
                 >
                   <mat-option
+                    *ngFor="let data of GetAllCountryList"
+                    [value]="data.id"
+                    (onSelectionChange)="selectCountry($event, data.id)"
+                  >
+                    {{ data.countryName }}
+                  </mat-option>
+                  <!-- <mat-option
                     *ngFor="let data of countryList"
                     [value]="data.id"
                     (onSelectionChange)="
@@ -328,7 +329,7 @@
                     "
                   >
                     {{ data.countryName }}
-                  </mat-option>
+                  </mat-option> -->
                 </mat-select>
               </mat-form-field>
               <span
@@ -348,7 +349,7 @@
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
-                State
+                State/Province
                 <span style="color: 'red';">*</span>
               </h5>
               <mat-form-field
@@ -361,12 +362,19 @@
                 <mat-label>Select</mat-label>
                 <mat-select [value]="selectedStateId" formControlName="state">
                   <mat-option
+                    *ngFor="let data of getAllStateList"
+                    [value]="data.id"
+                    (onSelectionChange)="selectState($event, data.id)"
+                  >
+                    {{ data.stateName }}
+                  </mat-option>
+                  <!-- <mat-option
                     *ngFor="let data of stateList"
                     [value]="data.id"
                     (onSelectionChange)="getSelected($event, data.id, 'State')"
                   >
                     {{ data.stateName }}
-                  </mat-option>
+                  </mat-option> -->
                 </mat-select>
               </mat-form-field>
               <span
@@ -389,7 +397,22 @@
                 City
                 <span style="color: 'red';">*</span>
               </h5>
-              <mat-form-field
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addCustomerProfile.get('cityName')?.errors &&
+                    submitted == true
+                }"
+              >
+                <input
+                  formControlName="cityName"
+                  type="text"
+                  class="barbar-input-text"
+                  (keypress)="omit_special_char($event)"
+                />
+              </div>
+              <!-- <mat-form-field
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
@@ -400,19 +423,20 @@
 
                 <mat-select [value]="selectedCityId" formControlName="city">
                   <mat-option
-                    *ngFor="let data of cityList"
+                    *ngFor="let data of getAllCityList"
                     [value]="data.id"
-                    (onSelectionChange)="getSelected($event, data.id, '')"
+                    (onSelectionChange)="selectCity($event, data.id)"
                   >
                     {{ data.cityName }}
                   </mat-option>
+                  
                 </mat-select>
-              </mat-form-field>
+              </mat-form-field> -->
               <span
                 *ngIf="
-                  !addCustomerProfile.get('city')?.valid &&
-                  addCustomerProfile.get('city')?.touched &&
-                  addCustomerProfile.get('city')?.value.length == 0
+                  !addCustomerProfile.get('cityName')?.valid &&
+                  addCustomerProfile.get('cityName')?.touched &&
+                  addCustomerProfile.get('cityName')?.value.length == 0
                 "
                 class="error-mess"
               >
@@ -438,12 +462,13 @@
               >
                 <input
                   type="text"
-                  maxlength="6"
+                  maxlength="9"
+                  
                   class="barbar-input-text"
                   formControlName="zipCode"
                 />
               </div>
-              <span
+              <!-- <span
                 *ngIf="
                   !addCustomerProfile.get('zipCode')?.valid &&
                   addCustomerProfile.get('zipCode')?.touched &&
@@ -451,8 +476,8 @@
                 "
                 class="error-mess"
               >
-                Zip Code must be Between 0 to 6 Alphanumeric Characters
-              </span>
+                Zip Code must be Between 0 to 9 Alphanumeric Characters
+              </span> -->
               <span
                 *ngIf="
                   !addCustomerProfile.get('zipCode')?.valid &&

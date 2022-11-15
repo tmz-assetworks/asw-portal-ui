@@ -122,7 +122,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block.layout {
     position: relative;
     overflow: hidden;
-    min-height: 1314px;
+    // min-height: 1314px;
   }
   &block1 {
     @include flex-column;
@@ -2100,7 +2100,8 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block.layout {
     position: relative;
     overflow: hidden;
-    min-height: 1314px;
+    // min-height: 1314px;
+    height: auto !important
   }
   &block1 {
     @include flex-column;
@@ -3674,3 +3675,25 @@ span.close-icon.auth-close.ng-tns-c260-1 {
   top: 147px !important;
   right: 7px !important;
 }
+
+.localList {
+  margin: unset;
+  margin-top: 0;
+}
+.disableButton {
+  opacity: 0.5;
+}
+
+.tool_alignAuth {
+  position: absolute;
+  right: 73%;
+  z-index: 1;
+  top: 202px;
+
+  @include xl1 {
+    right: 55.5%;
+  }
+}
+
+
+
