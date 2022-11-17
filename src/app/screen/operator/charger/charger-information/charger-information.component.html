@@ -94,8 +94,12 @@
                 <div class="fill-block5-item">
                   <div class="fill-group layout">
                     <div class="fill-block6 layout">
-                      <div class="fill-text-body1 layout">Serial Number</div>
-                      <h5 class="fill-highlights layout">{{ SerialNumber }}</h5>
+                      <div class="fill-text-body1 layout">
+                        Hardware Serial Number
+                      </div>
+                      <h5 class="fill-highlights layout">
+                        {{ chargerInfo?.hardwareSerialNumber }}
+                      </h5>
                     </div>
                     <div
                       style="
@@ -110,7 +114,9 @@
                   <div class="fill-group layout">
                     <div class="fill-block6 layout">
                       <div class="fill-text-body1 layout">Charge Box ID</div>
-                      <h5 class="fill-highlights layout">{{ chargerboxid }}</h5>
+                      <h5 class="fill-highlights layout">
+                        {{ chargerInfo?.chargeBoxId }}
+                      </h5>
                     </div>
                     <div
                       style="
@@ -127,7 +133,9 @@
                       <div class="fill-text-body1 layout">
                         Charger
                       </div>
-                      <h5 class="fill-highlights layout">{{ charger }}</h5>
+                      <h5 class="fill-highlights layout">
+                        {{ chargerInfo?.charger }}
+                      </h5>
                     </div>
                     <div
                       style="
@@ -144,7 +152,9 @@
                       <div class="fill-text-body1 layout">
                         Charger Type
                       </div>
-                      <h5 class="fill-highlights layout">{{ chargertype }}</h5>
+                      <h5 class="fill-highlights layout">
+                        {{ chargerInfo?.chargerType }}
+                      </h5>
                     </div>
                     <div
                       style="
@@ -162,7 +172,7 @@
                         Charger Status
                       </div>
                       <h5 class="fill-highlights layout">
-                        {{ chargerstatus }}
+                        {{ chargerInfo?.chargerStatus }}
                       </h5>
                     </div>
                     <div
@@ -181,7 +191,7 @@
                         Installed Date
                       </div>
                       <h5 class="fill-highlights layout">
-                        {{ installeddate | date: 'dd MMMM yyyy' }}
+                        {{ chargerInfo?.installedDate | date: 'dd MMMM yyyy' }}
                       </h5>
                     </div>
                     <div
@@ -214,7 +224,9 @@
                           <div class="fill-text-body1 layout">
                             Address
                           </div>
-                          <h5 class="fill-highlights layout">{{ address }}</h5>
+                          <h5 class="fill-highlights layout">
+                            {{ chargerInfo?.address }}
+                          </h5>
                         </div>
                         <div
                           style="
@@ -237,7 +249,9 @@
                       <div class="fill-text-body1 layout">
                         Country
                       </div>
-                      <h5 class="fill-highlights layout">{{ country }}</h5>
+                      <h5 class="fill-highlights layout">
+                        {{ chargerInfo?.country }}
+                      </h5>
                     </div>
                     <div
                       style="
@@ -254,7 +268,9 @@
                       <div class="fill-text-body1 layout">
                         State
                       </div>
-                      <h5 class="fill-highlights layout">{{ state }}</h5>
+                      <h5 class="fill-highlights layout">
+                        {{ chargerInfo?.state }}
+                      </h5>
                     </div>
                     <div
                       style="
@@ -271,7 +287,9 @@
                       <div class="fill-text-body1 layout">
                         City
                       </div>
-                      <h5 class="fill-highlights layout">{{ city }}</h5>
+                      <h5 class="fill-highlights layout">
+                        {{ chargerInfo?.city }}
+                      </h5>
                     </div>
                     <div
                       style="
@@ -288,7 +306,9 @@
                       <div class="fill-text-body1 layout">
                         Zip Code
                       </div>
-                      <h5 class="fill-highlights layout">{{ zipcode }}</h5>
+                      <h5 class="fill-highlights layout">
+                        {{ chargerInfo?.zipCode }}
+                      </h5>
                     </div>
                     <div
                       style="

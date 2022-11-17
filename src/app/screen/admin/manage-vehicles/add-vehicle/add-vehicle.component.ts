@@ -26,14 +26,11 @@ export class AddVehicleComponent implements OnInit {
   vehicleId: any
   vehicleData: any
   modelYearlist: any = []
-  makeList: any
-  modelList: any
+  // makeList: any
+  // modelList: any
   isRFIDAddBtn: boolean = false
   showLoader: boolean = false
   UserId: string | null
-
-  selectedMakeId: any
-  selectedModelId: any
 
   viewMode: boolean = false
 
@@ -44,8 +41,8 @@ export class AddVehicleComponent implements OnInit {
       Validators.pattern('^[a-zA-Z0-9!@#$%^&*()]+$'),
     ]),
     modelyear: new FormControl('', Validators.required),
-    make: new FormControl('', Validators.required),
-    model: new FormControl('', Validators.required),
+    makeName: new FormControl('', Validators.required),
+    modelName: new FormControl('', Validators.required),
     licencePlate: new FormControl('', Validators.maxLength(20)),
     department: new FormControl('', [Validators.maxLength(255)]),
     domicileLocation: new FormControl('', Validators.maxLength(25)),
@@ -113,8 +110,8 @@ export class AddVehicleComponent implements OnInit {
      * Call API
      */
     // this.GetVehicleModelYearDDLList()
-    this.GetVehicleMakeDDLList()
-    this.GetVehicleModelDDLList()
+    // this.GetVehicleMakeDDLList()
+    // this.GetVehicleModelDDLList()
     let date = new Date()
 
     let currentYear = date.getFullYear()
@@ -150,8 +147,8 @@ export class AddVehicleComponent implements OnInit {
       vehicleMacAddress: formData.vehicleMacAddress,
       createdBy: this.UserId,
       modelYear: +formData.modelyear,
-      vehicleModelId: this.selectedModelId,
-      vehicleMakeId: this.selectedMakeId,
+      modelName: formData.modelName,
+      makeName: formData.makeName,
       RfIdCardsAssigneds: formData.rfidCardAssigned,
     }
 
@@ -208,8 +205,8 @@ export class AddVehicleComponent implements OnInit {
       isActive: true,
       modifiedBy: this.UserId,
       modelYear: +formData.modelyear,
-      vehicleModelId: this.selectedModelId,
-      vehicleMakeId: this.selectedMakeId,
+      modelName: formData.modelName,
+      makeName: formData.makeName,
       rfIdCardsAssigneds: formData.rfidCardAssigned,
     }
 
@@ -272,24 +269,18 @@ export class AddVehicleComponent implements OnInit {
         vehicleMacAddress: this.vehicleData.vehicleMacAddress,
       })
 
-      // if (this.vehicleData.modelYear) {
       this.addVehicleForm.patchValue({
         modelyear: this.vehicleData.modelYear,
       })
-      // }
 
-      if (this.vehicleData.vehicleMakeName) {
-        this.selectedMakeId = this.vehicleData.vehicleMakeId
-        this.addVehicleForm.patchValue({
-          make: this.vehicleData.vehicleMakeName,
-        })
-      }
-      if (this.vehicleData.vehicleModelName) {
-        this.selectedModelId = this.vehicleData.vehicleModelId
-        this.addVehicleForm.patchValue({
-          model: this.vehicleData.vehicleModelName,
-        })
-      }
+      this.addVehicleForm.patchValue({
+        makeName: this.vehicleData.makeName,
+      })
+
+      this.addVehicleForm.patchValue({
+        modelName: this.vehicleData.modelName,
+      })
+
       const rfid = this.vehicleData?.vehicleRFIDIds
       // [
       //   {
@@ -328,61 +319,61 @@ export class AddVehicleComponent implements OnInit {
    *
    * Get Make List
    */
-  GetVehicleMakeDDLList() {
-    this._adminService.GetVehicleMakeDDLList().subscribe((res: any) => {
-      this.makeList = res.data
-    })
-  }
+  // GetVehicleMakeDDLList() {
+  //   this._adminService.GetVehicleMakeDDLList().subscribe((res: any) => {
+  //     this.makeList = res.data
+  //   })
+  // }
 
   /**
    *
    * Get Model List
    */
-  GetVehicleModelDDLList() {
-    this._adminService.GetVehicleModelDDLList().subscribe((res: any) => {
-      this.modelList = res.data
-    })
-  }
+  // GetVehicleModelDDLList() {
+  //   this._adminService.GetVehicleModelDDLList().subscribe((res: any) => {
+  //     this.modelList = res.data
+  //   })
+  // }
 
   /**
    * Select Make
    * @param event
    * @param id
    */
-  selectMake(event: any, data: any) {
-    if (event.isUserInput) {
-      if (data.isActive == false) {
-        this._toastr.error(
-          'Selected make is not available.Please select other make',
-        )
+  // selectMake(event: any, data: any) {
+  //   if (event.isUserInput) {
+  //     if (data.isActive == false) {
+  //       this._toastr.error(
+  //         'Selected make is not available.Please select other make',
+  //       )
 
-        this.selectedMakeId = ''
+  //       this.selectedMakeId = ''
 
-        return
-      }
-      this.selectedMakeId = data.id
-    }
-  }
+  //       return
+  //     }
+  //     this.selectedMakeId = data.id
+  //   }
+  // }
 
   /**
    * Select Model
    * @param event
    * @param id
    */
-  selectModel(event: any, data: any) {
-    if (event.isUserInput) {
-      if (data.isActive == false) {
-        this._toastr.error(
-          'Selected model is not available.Please select other model',
-        )
+  // selectModel(event: any, data: any) {
+  //   if (event.isUserInput) {
+  //     if (data.isActive == false) {
+  //       this._toastr.error(
+  //         'Selected model is not available.Please select other model',
+  //       )
 
-        this.selectedModelId = ''
+  //       this.selectedModelId = ''
 
-        return
-      }
-      this.selectedModelId = data.id
-    }
-  }
+  //       return
+  //     }
+  //     this.selectedModelId = data.id
+  //   }
+  // }
 
   /**
    * Select Year
@@ -403,4 +394,15 @@ export class AddVehicleComponent implements OnInit {
   //     this.selectedYearId = data.name
   //   }
   // }
+
+  omit_special_char(event: any) {
+    let k = event.charCode //         k = event.keyCode;  (Both can be used)
+    return (
+      (k > 64 && k < 91) ||
+      (k > 96 && k < 123) ||
+      k == 8 ||
+      k == 32 ||
+      (k >= 48 && k <= 57)
+    )
+  }
 }

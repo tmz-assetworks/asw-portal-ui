@@ -42,16 +42,16 @@ export class AddChargerComponent implements OnInit {
   getPowerCabinet: any
   getLocation: any = []
   selectedLocation: any
-  selectedMake: any
-  selectedModel: any
-  selectedModem=0
-  selectedRfidReader=0
-  selectedPowerCabinet=0
-  selectedCable=0
-  selectedSwitch=0
+  // selectedMake: any
+  // selectedModel: any
+  selectedModem = 0
+  selectedRfidReader = 0
+  selectedPowerCabinet = 0
+  selectedCable = 0
+  selectedSwitch = 0
   getDispenserStatu: any
   selectedStatus: any
-  selectedPad=0
+  selectedPad = 0
   assetPad: any
   Modemlist: any
   seecledModem: any
@@ -61,7 +61,7 @@ export class AddChargerComponent implements OnInit {
   selectedconnectorType: any
   showLoader: boolean = false
   CableList: any
-  
+
   SwitchList: any
   viewMode: boolean = false
   isPortAddBtn: boolean = false
@@ -113,9 +113,9 @@ export class AddChargerComponent implements OnInit {
     this.GetCableDropDown(this.UserId, this.chargerboxId)
     this.GetConnectorType()
     this.GetModemDDL(this.UserId, this.chargerboxId)
-    this.GetAllModelData(this.UserId, this.chargerboxId)
+    // this.GetAllModelData(this.UserId, this.chargerboxId)
     this.GetAllLocation()
-    this.GetAllMakeMaster()
+    // this.GetAllMakeMaster()
     this.GetAllPadData(this.UserId, this.chargerboxId)
 
     this.GetAllRFIdReaderData(this.UserId, this.chargerboxId)
@@ -166,30 +166,22 @@ export class AddChargerComponent implements OnInit {
       Validators.required,
       Validators.maxLength(20),
     ]),
-    meterType: new FormControl('', [
-      Validators.required,
-      Validators.pattern('[a-z0-9A-Z]{0,20}'),
-    ]),
-    multiplePorts: new FormControl(false),
+    meterType: new FormControl('', [Validators.pattern('[a-z0-9A-Z]{0,20}')]),
+    // multiplePorts: new FormControl(false),
     pingSchedule: new FormControl('', [
-      Validators.required,
       Validators.pattern('[a-z0-9A-Z]{0,20}'),
     ]),
     privateStation: new FormControl(false),
-    readingSchedule: new FormControl('', [
-      Validators.required,
-
-      Validators.maxLength(20),
-    ]),
+    readingSchedule: new FormControl('', [Validators.maxLength(20)]),
     // serialNumber: new FormControl('', [
     //   Validators.required,
     //   Validators.maxLength(20),
     // ]),
     padId: new FormControl('0'),
     cableId: new FormControl('0'),
-    installationDate: new FormControl('',Validators.required),
+    installationDate: new FormControl('', Validators.required),
     isActive: new FormControl(''),
-    isAutomatic: new FormControl(false),
+    // isAutomatic: new FormControl(false),
     portCommand: this._fb.array([], Validators.required),
   })
 
@@ -271,12 +263,12 @@ export class AddChargerComponent implements OnInit {
       firmwareVersion: formData.firmwareVersion,
       hardwareSerialNumber: formData.hardwareSerialNumber,
       locationId: this.selectedLocation,
-      makeMasterId: this.selectedMake,
-      modelId: this.selectedModel,
+      makeName: formData.makeMasterId,
+      modelName: formData.modelId,
       modemId: this.selectedModem,
       switchGearId: this.selectedSwitch,
       meterType: formData.meterType,
-      multiplePorts: formData.multiplePorts,
+      // multiplePorts: formData.multiplePorts,
       pingSchedule: formData.pingSchedule,
       fleetStation: formData.privateStation,
       readingSchedule: formData.readingSchedule,
@@ -293,7 +285,7 @@ export class AddChargerComponent implements OnInit {
       ),
       createdBy: this.UserId,
       isActive: true,
-      isAutomatic: formData.isAutomatic,
+      // isAutomatic: formData.isAutomatic,
       portCommand: formData.portCommand,
     }
 
@@ -373,8 +365,8 @@ export class AddChargerComponent implements OnInit {
       description: formData.description,
       endPointUrl: formData.endPointUrl,
       firmwareVersion: formData.firmwareVersion,
-      makeMasterId: formData.makeMasterId,
-      modelId: formData.modelId,
+      makeName: formData.makeMasterId,
+      modelName: formData.modelId,
       modemId: formData.modemId,
       switchGearId: formData.switchGearId,
       modifiedBy: this.UserId,
@@ -388,7 +380,7 @@ export class AddChargerComponent implements OnInit {
       ),
       hardwareSerialNumber: formData.hardwareSerialNumber,
       meterType: formData.meterType,
-      multiplePorts: formData.multiplePorts,
+      // multiplePorts: formData.multiplePorts,
       pingSchedule: formData.pingSchedule,
       fleetStation: formData.privateStation,
       readingSchedule: formData.readingSchedule,
@@ -396,7 +388,7 @@ export class AddChargerComponent implements OnInit {
       padId: formData.padId,
       cableId: formData.cableId,
       isActive: true,
-      isAutomatic: formData.isAutomatic,
+      // isAutomatic: formData.isAutomatic,
       updatePortCommand: formData.portCommand,
     }
 
@@ -486,20 +478,13 @@ export class AddChargerComponent implements OnInit {
           firmwareVersion: this.chargerData.firmwareVersion,
         })
 
-        if (this.chargerData.make) {
-          this.selectedMake = this.chargerData.makeMasterId
+        this.addChargerForm.patchValue({
+          makeMasterId: this.chargerData.makeName,
+        })
 
-          this.addChargerForm.patchValue({
-            make: this.chargerData.make,
-          })
-        }
-
-        if (this.chargerData.model) {
-          this.selectedModel = this.chargerData.modelId
-          this.addChargerForm.patchValue({
-            model: this.chargerData.model,
-          })
-        }
+        this.addChargerForm.patchValue({
+          modelId: this.chargerData.modelName,
+        })
 
         if (this.chargerData.modemId) {
           this.selectedModem = this.chargerData.modemId
@@ -515,7 +500,7 @@ export class AddChargerComponent implements OnInit {
           })
         }
 
-        if (this.chargerData.padId!=0) {
+        if (this.chargerData.padId != 0) {
           this.selectedPad = this.chargerData.padId
 
           this.addChargerForm.patchValue({
@@ -567,9 +552,9 @@ export class AddChargerComponent implements OnInit {
         })
 
         // this.addChargerForm.patchValue = this.chargerData.multiplePorts;
-        this.addChargerForm.patchValue({
-          multiplePorts: this.chargerData.multiplePorts,
-        })
+        // this.addChargerForm.patchValue({
+        //   multiplePorts: this.chargerData.multiplePorts,
+        // })
         //this.addChargerForm.patchValue({ multiplePorts: "" });
 
         this.addChargerForm.patchValue({
@@ -585,9 +570,9 @@ export class AddChargerComponent implements OnInit {
         // this.addChargerForm.patchValue({
         //   serialNumber: this.chargerData.serialNumber,
         // })
-        this.addChargerForm.patchValue({
-          isAutomatic: this.chargerData.isAutomatic,
-        })
+        // this.addChargerForm.patchValue({
+        //   isAutomatic: this.chargerData.isAutomatic,
+        // })
         // this.addChargerForm.patchValue = this.chargerData?.serialNumber;
 
         // this.addChargerForm.patchValue({ serialNumber: this.chargerData.serialNumber });
@@ -620,22 +605,6 @@ export class AddChargerComponent implements OnInit {
   GetAllLocation() {
     this._adminService.GetAllLocation().subscribe((res: any) => {
       this.getLocation = res.data
-    })
-  }
-
-  GetAllMakeMaster() {
-    this._adminService.GetAllMakeMaster().subscribe((res: any) => {
-      this.getMake = res.data
-    })
-  }
-
-  GetAllModelData(UserId: any, dispenserId: any) {
-    const body = {
-      UserId: UserId,
-      dispenserId: dispenserId,
-    }
-    this._adminService.GetAllModelData(body).subscribe((res: any) => {
-      this.getModel = res.data
     })
   }
 
@@ -724,7 +693,9 @@ export class AddChargerComponent implements OnInit {
   }
 
   /**
-   *
+   * Select Location
+   * @param event
+   * @param id
    */
   selectLocation(event: any, id: any) {
     this.selectedLocation = id
@@ -732,35 +703,6 @@ export class AddChargerComponent implements OnInit {
 
   selectconnector(event: any, id: any) {
     this.selectedconnectorType = id
-  }
-
-  selectMake(event: any, data: any) {
-    if (event.isUserInput) {
-      if (data.isActive == false) {
-        this._toastr.error(
-          'Selected make is not available.Please select other make',
-        )
-
-        this.selectedMake = ''
-
-        return
-      }
-      this.selectedMake = data.id
-    }
-  }
-
-  selectModel(event: any, data: any) {
-    if (event.isUserInput) {
-      if (data.isActive == false) {
-        this._toastr.error(
-          'Selected model is not available.Please select other model',
-        )
-        this.selectedModel = ''
-
-        return
-      }
-      this.selectedModel = data.id
-    }
   }
 
   selectModem(event: any, data: any) {
@@ -882,5 +824,15 @@ export class AddChargerComponent implements OnInit {
       return false
     }
     return true
+  }
+  omit_special_char(event: any) {
+    let k = event.charCode //         k = event.keyCode;  (Both can be used)
+    return (
+      (k > 64 && k < 91) ||
+      (k > 96 && k < 123) ||
+      k == 8 ||
+      k == 32 ||
+      (k >= 48 && k <= 57)
+    )
   }
 }
