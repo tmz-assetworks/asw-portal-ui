@@ -39,6 +39,14 @@ jobs:
           npm i
           ng build --output-path $(Build.ArtifactStagingDirectory)/dist/asset-works
 
+    # copy the docker file to the artifact directory
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: '$(Build.SourcesDirectory)'
+        Contents: '**/Dockerfile'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'
+        flattenFolders: true
+
     # add build tags
     - task: PowerShell@2
       displayName: Add Build Tags
