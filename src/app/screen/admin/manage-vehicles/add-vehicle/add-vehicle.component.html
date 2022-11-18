@@ -89,14 +89,32 @@
                 Make
                 <span style="color: 'red';">*</span>
               </h5>
-              <mat-form-field
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addVehicleForm.get('makeName')?.errors && submitted == true
+                }"
+              >
+                <input
+                  formControlName="makeName"
+                  (keypress)="omit_special_char($event)"
+                  type="text"
+                  class="barbar-input-text"
+                />
+              </div>
+              <!-- <h5 class="barbar-highlights layout">
+                Make
+                <span style="color: 'red';">*</span>
+              </h5> -->
+              <!-- <mat-form-field
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
                     addVehicleForm.get('make')?.errors && submitted == true
                 }"
               >
-                <!-- <mat-label>Select</mat-label> -->
+               
                 <mat-select [value]="selectedMakeId" formControlName="make">
                   <mat-option
                     *ngFor="let data of makeList"
@@ -106,16 +124,26 @@
                     {{ data.name }}
                   </mat-option>
                 </mat-select>
-              </mat-form-field>
+              </mat-form-field> -->
+
               <span
                 *ngIf="
-                  !addVehicleForm.get('make')?.valid &&
-                  addVehicleForm.get('make')?.touched &&
-                  addVehicleForm.get('make')?.value.length == 0
+                  !addVehicleForm.get('makeName')?.valid &&
+                  addVehicleForm.get('makeName')?.touched &&
+                  addVehicleForm.get('makeName')?.value.length == 0
                 "
                 class="error-mess"
               >
                 Make Is Required
+              </span>
+              <span
+                *ngIf="
+                  addVehicleForm.get('makeName')?.touched &&
+                  addVehicleForm.get('makeName')?.value.length > 40
+                "
+                class="error-mess"
+              >
+                Make Must Be less than 40 Alphanumeric Character
               </span>
             </div>
           </div>
@@ -127,33 +155,39 @@
                 Model
                 <span style="color: 'red';">*</span>
               </h5>
-              <mat-form-field
+              <div
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addVehicleForm.get('model')?.errors && submitted == true
+                    addVehicleForm.get('modelName')?.errors && submitted == true
                 }"
               >
-                <!-- <mat-label>Select</mat-label> -->
-                <mat-select [value]="selectedModelId" formControlName="model">
-                  <mat-option
-                    *ngFor="let data of modelList"
-                    [value]="data.id"
-                    (onSelectionChange)="selectModel($event, data)"
-                  >
-                    {{ data.name }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
+                <input
+                  formControlName="modelName"
+                  (keypress)="omit_special_char($event)"
+                  type="text"
+                  class="barbar-input-text"
+                />
+              </div>
+
               <span
                 *ngIf="
-                  !addVehicleForm.get('model')?.valid &&
-                  addVehicleForm.get('model')?.touched &&
-                  addVehicleForm.get('model')?.value.length == 0
+                  !addVehicleForm.get('modelName')?.valid &&
+                  addVehicleForm.get('modelName')?.touched &&
+                  addVehicleForm.get('modelName')?.value.length == 0
                 "
                 class="error-mess"
               >
                 Model Is Required
+              </span>
+              <span
+                *ngIf="
+                  addVehicleForm.get('modelName')?.touched &&
+                  addVehicleForm.get('modelName')?.value.length > 40
+                "
+                class="error-mess"
+              >
+                Model Must Be less than 40 Alphanumeric Character
               </span>
             </div>
           </div>
@@ -161,7 +195,7 @@
           <div class="barbar-block13-item mbottom">
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
-                Licence Plate
+                License Plate
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -295,7 +329,7 @@
                     </span>
                     <br />
                     <h5 class="barbar-highlights layout">
-                      Isactive
+                      Active
                     </h5>
                     <mat-checkbox
                       class="example-margin"

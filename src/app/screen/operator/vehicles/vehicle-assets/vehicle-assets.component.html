@@ -157,7 +157,7 @@
                       MAKE
                     </th>
                     <td mat-cell *matCellDef="let element">
-                      {{ element.make }}
+                      {{ element.makeName }}
                     </td>
                   </ng-container>
 
@@ -165,13 +165,13 @@
                   <ng-container matColumnDef="Modal">
                     <th mat-header-cell *matHeaderCellDef>MODEL</th>
                     <td mat-cell *matCellDef="let element">
-                      {{ element.model }}
+                      {{ element.modelName }}
                     </td>
                   </ng-container>
 
                   <!-- Licence Plate -->
                   <ng-container matColumnDef="LicencePlate">
-                    <th mat-header-cell *matHeaderCellDef>LICENCE PLATE</th>
+                    <th mat-header-cell *matHeaderCellDef>LICENSE PLATE</th>
                     <td mat-cell *matCellDef="let element">
                       {{ element.licencePlate }}
                     </td>

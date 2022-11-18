@@ -39,11 +39,11 @@
                 *ngIf="
                   !addCustomerProfile.get('userName')?.valid &&
                   addCustomerProfile.get('userName')?.touched &&
-                  addCustomerProfile.get('userName')?.value.length > 20
+                  addCustomerProfile.get('userName')?.value.length > 50
                 "
                 class="error-mess"
               >
-                Organization Name Must Be Between 5 To 20 Characters
+                Organization Name Must Be less than 50 Characters
               </span>
               <span
                 *ngIf="
@@ -185,9 +185,8 @@
                   type="text"
                   maxlength="14"
                   class="barbar-input-text"
-                  (keypress)="phoneNumber($event) ; numberOnly($event)"
+                  (keypress)="phoneNumber($event); numberOnly($event)"
                   formControlName="phoneNumber"
-                  
                   [(ngModel)]="telephoneNumber"
                 />
               </div>
@@ -463,7 +462,6 @@
                 <input
                   type="text"
                   maxlength="9"
-                  
                   class="barbar-input-text"
                   formControlName="zipCode"
                 />

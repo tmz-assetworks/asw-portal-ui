@@ -118,9 +118,9 @@ export class DashboardStatusPanelComponent implements OnInit {
         top: 'bottom',
       },
       grid: {
-        left: '20%',
+        left: '5%',
         right: '10%',
-        top: '0%',
+        // top: '0%',
         bottom: '25%',
         containLabel: true,
       },
@@ -164,7 +164,7 @@ export class DashboardStatusPanelComponent implements OnInit {
           itemStyle: {
             color: '#90993F',
           },
-          data: [values[0], '-', '-'],
+          data: [parseInt(values[0].replaceAll(',', '')), '-', '-'],
         },
         {
           name: 'Daily Cost',
@@ -173,7 +173,7 @@ export class DashboardStatusPanelComponent implements OnInit {
           itemStyle: {
             color: '#E97300',
           },
-          data: ['-', values[1], '-'],
+          data: ['-', parseInt(values[1].replaceAll(',', '')), '-'],
         },
         {
           name: "Today's Cost",
@@ -182,7 +182,7 @@ export class DashboardStatusPanelComponent implements OnInit {
           itemStyle: {
             color: '#0062A6',
           },
-          data: ['-', '-', values[2]],
+          data: ['-', '-', parseInt(values[2].replaceAll(',', ''))],
         },
       ],
     }
