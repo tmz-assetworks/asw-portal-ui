@@ -26,13 +26,13 @@ jobs:
         script: |
           npm install -g @angular/cli
           npm i
-          ng build
+          ng build --output-path $(Build.ArtifactStagingDirectory)/dist/asset-works
 
     # copy the output & source to the output directory  
     - task: CopyFiles@2
       inputs:
         SourceFolder: '$(Build.SourcesDirectory)'
-        Contents: '**'
+        Contents: '*'
         TargetFolder: '$(Build.ArtifactStagingDirectory)'
         flattenFolders: true
 
