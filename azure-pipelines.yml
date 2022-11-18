@@ -1,20 +1,9 @@
 #
-# Pipeline that will build the service project and publish the artifacts so 
-# they can be picked up by a release. This pipeline builds/publishes a single 
-# project: PortalRestService.Api
+# Pipeline that will build the ui project and publish the artifacts so 
+# can be picked up by a release.
 #
-# This will publish the API project to a folder named /publish and then copy the Dockerfile
-# to the root directory. This directory structure will match what the Dockerfile expects
-#
-# Example directory structure of artifacts:
-#
-#  /
-#    Dockerfile
-#    /publish
-#      ...
-#      ...
-#
-# Builds will be tagged with the pipeline start time in yyyyMMddHHmmss and branch name.
+# Builds will be tagged with the pipeline start time in yyyyMMddHHmmss 
+# and branch name.
 #
 
 trigger:
@@ -30,20 +19,20 @@ jobs:
 - job: BuildAngular
   steps:
 
-  # install angular cli
+  # install angular cli & build the project
     - task: PowerShell@2
       inputs:
         targetType: 'inline'
         script: |
           npm install -g @angular/cli
           npm i
-          ng build --output-path $(Build.ArtifactStagingDirectory)/dist/asset-works
+          ng build
 
-    # copy the docker file to the artifact directory
+    # copy the output & source to the output directory  
     - task: CopyFiles@2
       inputs:
         SourceFolder: '$(Build.SourcesDirectory)'
-        Contents: '**/Dockerfile'
+        Contents: '**'
         TargetFolder: '$(Build.ArtifactStagingDirectory)'
         flattenFolders: true
 
