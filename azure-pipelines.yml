@@ -18,12 +18,11 @@ jobs:
 - job: BuildAngular
   steps:
 
-  # install angular cli & build the project
+  # build the project
     - task: PowerShell@2
       inputs:
         targetType: 'inline'
-        script: |
-          npm install -g @angular/cli
+        script: |          
           npm i
           ng build --output-path $(Build.ArtifactStagingDirectory)/dist/asset-works
 
