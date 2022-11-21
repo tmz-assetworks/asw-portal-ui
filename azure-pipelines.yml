@@ -20,6 +20,7 @@ jobs:
 
   # build the project
     - task: PowerShell@2
+      displayName: 'Build Project'
       inputs:
         targetType: 'inline'
         script: |          
@@ -28,6 +29,7 @@ jobs:
 
     # copy the output & source to the output directory  
     - task: CopyFiles@2
+      displayName: 'Copy Output'
       inputs:
         SourceFolder: '$(Build.SourcesDirectory)'
         Contents: '*'
@@ -45,6 +47,7 @@ jobs:
     
     # publish the artifacts
     - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifacts'
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
         ArtifactName: 'drop'
