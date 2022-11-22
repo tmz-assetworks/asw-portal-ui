@@ -1,19 +1,55 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
+#
+# Pipeline that will build the ui project and publish the artifacts so 
+# can be picked up by a release.
+#
+# Builds will be tagged with the pipeline start time in yyyyMMddHHmmss 
+# and branch name.
+#
 
 trigger:
 - main
 
-pool:
-  vmImage: ubuntu-latest
+pool: 'CMS Project' 
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+variables:    
+  runDateTag: $[format('{0:yyyyMMddHHmmss}', pipeline.startTime)]
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+jobs: 
+- job: BuildAngular
+  displayName: 'Publish Angular Project Artifacts'
+  steps:
+
+  # build the project
+    - task: PowerShell@2
+      displayName: 'Build Project'
+      inputs:
+        targetType: 'inline'
+        script: |          
+          npm i
+          ng build --output-path $(Build.ArtifactStagingDirectory)/dist/asset-works
+
+    # copy the output & source to the output directory  
+    - task: CopyFiles@2
+      displayName: 'Copy Output'
+      inputs:
+        SourceFolder: '$(Build.SourcesDirectory)'
+        Contents: '*'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'
+        flattenFolders: true
+
+    # add build tags
+    - task: PowerShell@2
+      displayName: Add Build Tags
+      inputs:
+        targetType: 'inline'
+        script: |
+          Write-Host "##vso[build.addbuildtag]$(runDateTag)"
+          Write-Host "##vso[build.addbuildtag]$(Build.SourceBranchName)"
+    
+    # publish the artifacts
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifacts'
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
