@@ -4,12 +4,12 @@
 
 export const environment = {
   production: false,
-  origin: 'https://asw-portal-rest-service.azurewebsites.net/',
-  originAuth: 'https://user-mgmt-service.azurewebsites.net/',
-  localOrigin: 'https://user-mgmt-service.azurewebsites.net/api/',
-  originDiagnostic: 'https://ocpp-core.azurewebsites.net/',
-  assetLocalOrigin: 'https://assets-service.azurewebsites.net/api/',
-  reportLocalOrigin: 'https://asw-report-service.azurewebsites.net/api/',
+  origin: 'https://app-eus-cms-internal-portalapi-dev.azurewebsites.net/',
+  originAuth: 'https://app-eus-cms-internal-usermgmt-dev.azurewebsites.net/',
+  localOrigin: 'https://app-eus-cms-internal-usermgmt-dev.azurewebsites.net/api/',
+  originDiagnostic: 'https://app-eus-cms-internal-ocpp-dev.azurewebsites.net/',
+  assetLocalOrigin: 'https://app-eus-cms-internal-assets-dev.azurewebsites.net/api/',
+  reportLocalOrigin: 'https://app-eus-cms-internal-report-dev.azurewebsites.net/api/',
   AssetPricing: 'https://pricing-service.azurewebsites.net/api/',
   imagePath: '',
   onProd: 0,
