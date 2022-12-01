@@ -47,7 +47,13 @@
               </div>
               <div class="dashboard-flex-spacer"></div>
               <div class="dashboard-flex-item1">
-                <div class="dashboard-box11 layout1"></div>
+                <div class="dashboard-box11 layout1">
+                  <img
+                    class="info-icon"
+                    (click)="showLegendsInfo()"
+                    src="../../../../assets/Operator/Location-Information.svg"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -122,7 +128,13 @@
             [chartTitle]="'Chargers'"
             [chargersData]="chargersChartData"
             (barDetailPage)="
-              openDetailPage(1, 'Chargers', 'DASHBOARD', selectedTime)
+              openDetailPage(
+                1,
+                'Chargers',
+                'DASHBOARD',
+                selectedTime,
+                selecteLocationIds
+              )
             "
           ></app-bar-chart>
         </div>
@@ -130,7 +142,13 @@
           <app-area-chart
             *ngIf="chargingSessionData !== ''"
             (areaDetailPage)="
-              openDetailPage(2, 'Charging Sessions', 'DASHBOARD', selectedTime)
+              openDetailPage(
+                2,
+                'Charging Sessions',
+                'DASHBOARD',
+                selectedTime,
+                selecteLocationIds
+              )
             "
             [chargingSessionData]="chargingSessionData"
             [chartType]="'dashboardChargingSession'"
@@ -150,7 +168,8 @@
                 3,
                 'Energy Demand Over Time',
                 'DASHBOARD',
-                selectedTime
+                selectedTime,
+                selecteLocationIds
               )
             "
           ></app-line-chart>

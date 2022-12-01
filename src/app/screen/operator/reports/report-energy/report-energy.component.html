@@ -125,7 +125,14 @@
               [reportEnergyUsedData]="reportEnergyUsedData"
               [chartType]="'reportEnergyUsed'"
               [chartTitle]="'Energy  Demand Over Time'"
-              (lineDetailPage)="openDetailPage(1, 'Energy Used', 'REPORTS', 90)"
+              (lineDetailPage)="
+                openDetailPage(
+                  2,
+                  'Energy Demand Over Time',
+                  'REPORTS ENERGY',
+                  selectedDuration
+                )
+              "
             ></app-line-chart>
           </div>
           <div class="dashboard-block42-spacer"></div>
@@ -136,7 +143,12 @@
               [chartType]="'reportEnergyMilesAdded'"
               [chartTitle]="'Miles Added'"
               (stackedAreaDetailPage)="
-                openDetailPage(1, 'Miles Added', 'REPORTS', 90)
+                openDetailPage(
+                  2,
+                  'Miles Added',
+                  'REPORTS ENERGY',
+                  selectedDuration
+                )
               "
             ></app-line-chart>
           </div>
@@ -149,7 +161,12 @@
               [chartType]="'reportEnegyMTCo2Saved'"
               [chartTitle]="'MT Of CO2 Saved'"
               (areaDetailPage)="
-                openDetailPage(1, 'MT Of CO2 Saved', 'REPORTS', 90)
+                openDetailPage(
+                  2,
+                  'MT Of CO2 Saved',
+                  'REPORTS-ENERGY',
+                  selectedDuration
+                )
               "
             ></app-area-chart>
           </div>
@@ -162,10 +179,10 @@
               [chartTitle]="'Gasoline Gallon Equivalents'"
               (lineDetailPage)="
                 openDetailPage(
-                  1,
+                  2,
                   'Gasoline Gallon Equivalents',
-                  'REPORTS',
-                  '90'
+                  'REPORTS-ENERGY',
+                  selectedDuration
                 )
               "
             ></app-line-chart>

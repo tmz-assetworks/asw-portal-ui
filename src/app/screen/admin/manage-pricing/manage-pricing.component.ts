@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core'
 import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
 import { Router } from '@angular/router'
+import { ToastrService } from 'ngx-toastr'
 import { StorageService } from 'src/app/service/storage.service'
 import { AdminService } from '../admin.service'
 
@@ -40,14 +41,13 @@ export class ManagePricingComponent implements OnInit {
     private _adminService: AdminService,
     private _router: Router,
     private _storageService: StorageService,
+    private _toastr:ToastrService
   ) {
     this.UserId = this._storageService.getLocalData('user_id')
   }
 
   ngOnInit() {
-    // this.GetAllPricePlan()
-
-    this.GetPricingPlanMocky()
+    this.GetAllPricePlan()
   }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator
@@ -60,9 +60,9 @@ export class ManagePricingComponent implements OnInit {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value
-    this.dataSource.filter = filterValue.trim().toLowerCase()
-    // this.searchParam = filterValue
-    // this.GetAllPricePlan()
+    // this.dataSource.filter = filterValue.trim().toLowerCase()
+    this.searchParam = filterValue
+    this.GetAllPricePlan()
   }
 
   /**
@@ -127,45 +127,24 @@ export class ManagePricingComponent implements OnInit {
     this.GetAllPricePlan()
   }
 
-  changeStatusById(id: any, status: any) {
+  IsActivePricePlanById(id: any, status: any) {
     const pbody = {
       id: id,
       isActive: status,
       modifiedBy: this.UserId,
     }
 
-    // this._adminService.IsActiveVehicleById(pbody).subscribe((res) => {
-    //   if (res) {
-    //     if (status == false) {
-    //       this._toastr.success('Record inactive successfully')
-
-    //       this.GetSubscriptionPlanList()
-    //     } else {
-    //       this._toastr.success('Record active successfully')
-
-    //       this.GetSubscriptionPlanList()
-    //     }
-    //   }
-    // })
-  }
-
-  /**
-   * Mocky API Call
-   */
-
-  GetPricingPlanMocky() {
-    this._adminService.GetPricingPlanMocky().subscribe((res) => {
+    this._adminService.IsActivePricePlan(pbody).subscribe((res) => {
       if (res) {
-        this.statusData = res.statusData
-        this.totalCount = res.paginationResponse.totalCount
-        this.totalPages = res.paginationResponse.totalPages
-        this.pageSize = res.paginationResponse.pageSize
+        if (status == false) {
+          this._toastr.success('Record inactive successfully')
 
-        this.dataSource.data = res.data
-        this.isTableHasData = false
-      } else {
-        this.dataSource.data = []
-        this.isTableHasData = true
+          this.GetAllPricePlan()
+        } else {
+          this._toastr.success('Record active successfully')
+
+          this.GetAllPricePlan()
+        }
       }
     })
   }

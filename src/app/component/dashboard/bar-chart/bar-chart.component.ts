@@ -20,6 +20,7 @@ export class BarChartComponent implements OnInit {
   reportSubscribeMonthlyDataSet: any
   reportSubscribeTypeDataSet: any
   reportSessionDataSet: any
+  reportTransactionYearlyDataSet: any
 
   @Input() set locationStatusData(res: any) {
     if (res !== undefined) {
@@ -82,6 +83,17 @@ export class BarChartComponent implements OnInit {
       this.setChartOption(this.chartTypeData)
     }
   }
+
+  @Input() set reportTransactionYearlyData(res: any) {
+    if (res !== undefined) {
+      this.reportTransactionYearlyDataSet = res
+      /**
+       * Set Chart type
+       */
+      this.setChartOption(this.chartTypeData)
+    }
+  }
+
   color: ThemePalette = 'primary'
   checked = false
   disabled = false
@@ -552,94 +564,16 @@ export class BarChartComponent implements OnInit {
           this.reportSubscribeTypeDataSet,
         ) as EChartsOption
       }
-    } else if (chartType == 'reportTransaction') {
-      this.option = {
-        grid: {
-          left: '8%',
-          right: '6%',
-          bottom: '8%',
-          top: 50,
-          containLabel: true,
-        },
-        legend: {
-          // left: '63%',
-          right: '4%',
-          icon: 'square',
-        },
-        tooltip: {},
-        dataset: {
-          source: [
-            ['Yearly', 'TRANSACTION AMOUNT'],
-            ['2022', 600],
-            ['2023', 650],
-            ['2024', 450],
-            ['2025', 325],
-            ['2026', 800],
-            ['2027', 450],
-            ['2028', 650],
-            ['2029', 410],
-            ['2030', 630],
-            ['2031', 650],
-            ['2032', 690],
-            ['2033', 630],
-          ],
-        },
-        xAxis: [
-          {
-            type: 'category',
-            name: 'Yearly',
-            nameLocation: 'middle',
-            nameGap: 35,
-            axisTick: { show: false },
+    } else if (chartType == 'reportTransactionYearly') {
+      this.chartTitle = 'Transaction Amount'
 
-            axisLabel: {
-              //  rotate: 30,
-              rotate: 0,
-            },
-          },
-        ],
-        yAxis: [
-          {
-            type: 'value',
-            name: 'Amount',
-            nameLocation: 'middle',
-            axisLabel: {
-              formatter: '${value}',
-              // align: 'center'
-              // ...
-            },
-
-            /* fontWeight: 'bolder', */
-            nameGap: 60,
-            min: 0,
-            max: 1000,
-            nameTextStyle: {
-              // align: 'right',
-              verticalAlign: 'top',
-              /**
-               * the top padding will shift the name down so that it does not overlap with the axis-labels
-               * t-l-b-r
-               */
-              // padding: [20, 0, 0, 0],
-              fontSize: 14,
-              // fontWeight: 800,
-              // fontStyle: 'italic',
-            },
-          },
-        ],
-        // Declare several bar series, each will be mapped
-        // to a column of dataset.source by default.
-        series: [
-          {
-            type: 'bar',
-            barWidth: '18%',
-            itemStyle: {
-              // color: '#90993F',
-              color: '#FFA12D',
-            },
-          },
-        ],
+      if (this.reportTransactionYearlyDataSet.length == 0) {
+        this.option = {}
+        return
       }
+      this.option = this.setReportTransactionMonthlyChartOptions(
+        this.reportTransactionYearlyDataSet,
+      ) as EChartsOption
     } else if (chartType == 'reportSession') {
       if (this.reportSessionDataSet !== undefined) {
         if (this.reportSessionDataSet.length == 0) {
@@ -880,7 +814,7 @@ export class BarChartComponent implements OnInit {
         icon: 'square',
       },
       grid: {
-        left: '12%',
+        left: '14%',
       },
       tooltip: {
         show: true,
@@ -917,7 +851,7 @@ export class BarChartComponent implements OnInit {
         type: 'value',
         name: 'Monthly Subscription',
         nameLocation: 'middle',
-        nameGap: 50,
+        nameGap: 60,
         nameTextStyle: {
           // align: 'right',
           verticalAlign: 'top',
@@ -951,7 +885,7 @@ export class BarChartComponent implements OnInit {
         icon: 'square',
       },
       grid: {
-        left: '12%',
+        left: '16%',
       },
       tooltip: {
         show: true,
@@ -1156,6 +1090,100 @@ export class BarChartComponent implements OnInit {
       //     },
       //   },
       // ],
+    }
+  }
+  setReportTransactionMonthlyChartOptions(dataSet: any) {
+    let dataArray = dataSet.map((accu: any) => [
+      `${accu.year}`,
+      accu.yearlyPrice,
+    ])
+    return {
+      grid: {
+        left: '8%',
+        right: '6%',
+        bottom: '8%',
+        top: 50,
+        containLabel: true,
+      },
+      legend: {
+        // left: '63%',
+        right: '4%',
+        icon: 'square',
+      },
+      tooltip: {},
+      dataset: {
+        source: [
+          ['Yearly', 'TRANSACTION AMOUNT'],
+          // ['2022', 600],
+          // ['2023', 650],
+          // ['2024', 450],
+          // ['2025', 325],
+          // ['2026', 800],
+          // ['2027', 450],
+          // ['2028', 650],
+          // ['2029', 410],
+          // ['2030', 630],
+          // ['2031', 650],
+          // ['2032', 690],
+          // ['2033', 630],
+          ...dataArray,
+        ],
+      },
+      xAxis: [
+        {
+          type: 'category',
+          name: 'Yearly',
+          nameLocation: 'middle',
+          nameGap: 35,
+          axisTick: { show: false },
+
+          axisLabel: {
+            //  rotate: 30,
+            rotate: 0,
+          },
+        },
+      ],
+      yAxis: [
+        {
+          type: 'value',
+          name: 'Amount',
+          nameLocation: 'middle',
+          axisLabel: {
+            formatter: '${value}',
+            // align: 'center'
+            // ...
+          },
+
+          /* fontWeight: 'bolder', */
+          nameGap: 60,
+          // min: 0,
+          // max: 1000,
+          nameTextStyle: {
+            // align: 'right',
+            verticalAlign: 'top',
+            /**
+             * the top padding will shift the name down so that it does not overlap with the axis-labels
+             * t-l-b-r
+             */
+            // padding: [20, 0, 0, 0],
+            fontSize: 14,
+            // fontWeight: 800,
+            // fontStyle: 'italic',
+          },
+        },
+      ],
+      // Declare several bar series, each will be mapped
+      // to a column of dataset.source by default.
+      series: [
+        {
+          type: 'bar',
+          barWidth: '18%',
+          itemStyle: {
+            // color: '#90993F',
+            color: '#FFA12D',
+          },
+        },
+      ],
     }
   }
 }

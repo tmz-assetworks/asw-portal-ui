@@ -7,7 +7,7 @@
     </div>
 
     <div class="barbar-block11 layout">
-      <p class="barbar" style="font-size: 18px;">Customer Information</p>
+      <p class="barbar" style="font-size: 18px;">Organization Information</p>
     </div>
 
     <form [formGroup]="addCustomerProfile">
@@ -320,15 +320,7 @@
                   >
                     {{ data.countryName }}
                   </mat-option>
-                  <!-- <mat-option
-                    *ngFor="let data of countryList"
-                    [value]="data.id"
-                    (onSelectionChange)="
-                      getSelected($event, data.id, 'Country')
-                    "
-                  >
-                    {{ data.countryName }}
-                  </mat-option> -->
+                  
                 </mat-select>
               </mat-form-field>
               <span
@@ -367,13 +359,7 @@
                   >
                     {{ data.stateName }}
                   </mat-option>
-                  <!-- <mat-option
-                    *ngFor="let data of stateList"
-                    [value]="data.id"
-                    (onSelectionChange)="getSelected($event, data.id, 'State')"
-                  >
-                    {{ data.stateName }}
-                  </mat-option> -->
+                  
                 </mat-select>
               </mat-form-field>
               <span

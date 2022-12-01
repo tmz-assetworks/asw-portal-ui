@@ -116,7 +116,7 @@ export class NavigationComponent implements OnInit {
       this.menuItems = [
         {
           routerLink: ['customer'],
-          text: 'Customer Setup',
+          text: 'Organization Setup',
           icon: '../../../../assets/Super-Admin-icons/nav.svg',
         },
         {

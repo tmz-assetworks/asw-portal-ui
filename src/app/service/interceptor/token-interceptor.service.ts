@@ -11,6 +11,7 @@ import {
   BehaviorSubject,
   catchError,
   filter,
+  finalize,
   map,
   mergeMap,
   Observable,
@@ -24,6 +25,7 @@ import { LoginService } from 'src/app/screen/login/login.service'
 import { AuthService } from '../auth/auth.service'
 import { ToastrService } from 'ngx-toastr'
 import { Router } from '@angular/router'
+import { LoaderService } from '../loader.service'
 @Injectable({
   providedIn: 'root',
 })
@@ -39,12 +41,17 @@ export class TokenInterceptorService implements HttpInterceptor {
     private toastr: ToastrService,
     private _authService: AuthService,
     private _router: Router,
+    private _loaderService: LoaderService,
   ) {}
 
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler,
   ): Observable<HttpEvent<any>> {
+    this._loaderService.show()
+
+    // next.handle(request).pipe(finalize(() => this._loaderService.hide()))
+
     if (this._authService.getToken() && !request.url.includes('refreshToken')) {
       request = this.addToken(request, this._authService.getToken())
     } /* else if(request.url.includes('refreshToken')) {
@@ -52,6 +59,8 @@ export class TokenInterceptorService implements HttpInterceptor {
     } */
 
     return next.handle(request).pipe(
+      finalize(() => this._loaderService.hide()),
+
       catchError((error) => {
         if (error instanceof HttpErrorResponse && error.status === 401) {
           return this.handle401Error(request, next)
@@ -60,6 +69,22 @@ export class TokenInterceptorService implements HttpInterceptor {
           request.url.includes('refreshToken')
         ) {
           this.toastr.error('Token is expired. Please login again')
+          localStorage.removeItem('userEmail')
+          localStorage.removeItem('token_operator')
+          localStorage.removeItem('role')
+          localStorage.removeItem('token_refresh')
+          localStorage.removeItem('token_id')
+          localStorage.removeItem('token_expires_on')
+          localStorage.removeItem('refreshToken_expires_on')
+          localStorage.removeItem('handleErrorCalled')
+          localStorage.removeItem('resetToken')
+          localStorage.removeItem('userEmailVerify')
+          localStorage.removeItem('timeInterval')
+          localStorage.removeItem('user_id')
+          localStorage.removeItem('username')
+          localStorage.removeItem('emailEleVehi')
+          localStorage.removeItem('passEleVehi')
+
           this._router.navigate(['./login'])
 
           return throwError(error)

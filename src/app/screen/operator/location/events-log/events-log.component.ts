@@ -8,6 +8,8 @@ import { StorageService } from 'src/app/service/storage.service'
 import { ChargerService } from '../../charger/charger.service'
 import jsPDF from 'jspdf'
 import 'jspdf-autotable'
+import { MatDialog } from '@angular/material/dialog'
+import { TransactionDialogComponent } from 'src/app/component/dashboard/transaction-dialog/transaction-dialog.component'
 
 @Component({
   selector: 'app-events-log',
@@ -49,6 +51,7 @@ export class EventsLogComponent implements OnInit {
     public _locationService: LocationService,
     private _storageService: StorageService,
     private _chargerService: ChargerService,
+    public dialog: MatDialog,
   ) {
     this.locationName = this._storageService.getSessionData('locationName')
     this.locationId = this._storageService.getSessionData('locationId')
@@ -177,5 +180,21 @@ export class EventsLogComponent implements OnInit {
     this._locationService.UpdateOcppEventLogIsRead(data).subscribe((res) => {
       this.GetEventLogByLocation()
     })
+  }
+  /**
+   *
+   * @param id
+   * Make payment request
+   */
+
+  openMakePaymentDialog(id: any) {
+    const dialogRef = this.dialog.open(TransactionDialogComponent, {
+      width: '30%',
+      autoFocus: false,
+      height: '600px',
+      panelClass: 'my-dialog-container-class2',
+      data: { id: id },
+    })
+    dialogRef.afterClosed().subscribe((result) => {})
   }
 }

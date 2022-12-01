@@ -32,6 +32,7 @@ export class CreateAdminComponent implements OnInit {
   editId = 0
   role = ''
   datePipe = new DatePipe('en-US')
+  orgUserId = '0'
   constructor(
     private formBuilder: FormBuilder,
     private _router: Router,
@@ -40,7 +41,6 @@ export class CreateAdminComponent implements OnInit {
     private _location: Location,
     private _storageService: StorageService,
   ) {
-    debugger;
     this.role = localStorage.getItem('role') || ''
     this.editId = 0
     this.UserId = this._storageService.getLocalData('user_id')
@@ -104,13 +104,21 @@ export class CreateAdminComponent implements OnInit {
   })
 
   ngOnInit() {
-    // this.onSubmit();
+    this.orgUserId = sessionStorage.getItem('orgUserId') || ''
     this._superadminService.getListApi('country').subscribe((res) => {
       this.countryList = res.data
     })
     this._superadminService.getListApi('org').subscribe((res) => {
       this.customerList = res.data
     })
+  }
+
+  ngAfterViewInit() {
+    if (this.title == 'Add Admin User' && this.orgUserId !== '') {
+      this.addAdminProfile.patchValue({
+        organizationName: this.orgUserId.toString(),
+      })
+    }
   }
 
   saveForm() {
@@ -180,6 +188,7 @@ export class CreateAdminComponent implements OnInit {
           this._superadminService.CreateUser(body).subscribe({
             next: (res) => {
               if (res.statusCode === 200) {
+                sessionStorage.removeItem('orgUserId')
                 this.toastr.success(res.statusMessage)
                 this._location.back()
               } else {
@@ -190,6 +199,7 @@ export class CreateAdminComponent implements OnInit {
             error: (error) => {
               if (error.status == 400) {
                 let errorMsg = error.error.errors
+
                 this.toastr.error(errorMsg)
                 // this.showLoader = false
               }
@@ -219,12 +229,12 @@ export class CreateAdminComponent implements OnInit {
             roleID: 3,
           },
         ],
-        operatorUserMapperCommand: [
-          {
-            id: this.editId,
-            locationId: 0,
-          },
-        ],
+        // operatorUserMapperCommand: [
+        //   {
+        //     id: this.editId,
+        //     locationId: 0,
+        //   },
+        // ],
       }
 
       Swal.fire({
@@ -243,8 +253,13 @@ export class CreateAdminComponent implements OnInit {
           //Do your stuffs...
           this._superadminService.UpdateUser(body).subscribe({
             next: (res) => {
-              this.toastr.success(res.statusMessage)
-              this._location.back()
+              if (res.statusCode == 400) {
+                this.toastr.error(res.statusMessage)
+                // this._location.back()
+              } else {
+                this.toastr.success(res.statusMessage)
+                this._location.back()
+              }
             },
 
             // (error: any) => {

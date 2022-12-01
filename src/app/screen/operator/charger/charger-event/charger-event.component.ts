@@ -10,6 +10,8 @@ import { ChargerService } from '../charger.service'
 import jsPDF from 'jspdf'
 import 'jspdf-autotable'
 import { number } from 'echarts'
+import { TransactionDialogComponent } from 'src/app/component/dashboard/transaction-dialog/transaction-dialog.component'
+import { MatDialog } from '@angular/material/dialog'
 
 @Component({
   selector: 'app-charger-event',
@@ -52,6 +54,7 @@ export class ChargerEventComponent implements OnInit {
     private _storageService: StorageService,
     private _locationService: LocationService,
     private _chargerService: ChargerService,
+    public dialog: MatDialog,
   ) {
     this.UserId = this._storageService.getLocalData('user_id')
     this.selectedChargerIds = this._storageService.getSessionData(
@@ -163,5 +166,16 @@ export class ChargerEventComponent implements OnInit {
     }
 
     this.GetEventLogByLocation()
+  }
+
+  openMakePaymentDialog(id: any) {
+    const dialogRef = this.dialog.open(TransactionDialogComponent, {
+      width: '30%',
+      autoFocus: false,
+      height: '600px',
+      // panelClass: 'my-dialog-container-class2',
+      data: { id: id },
+    })
+    dialogRef.afterClosed().subscribe((result) => {})
   }
 }

@@ -24,6 +24,11 @@ export class ToolTipItemComponent implements OnInit {
       this.showToolTipitem = value
     }
   }
+  @Input() set isDataTransfer(value: boolean) {
+    if (value !== undefined) {
+      this.showToolTipitem = value
+    }
+  }
 
   @Input() set isChangeConfiguration(value: boolean) {
     if (value !== undefined) {
@@ -56,6 +61,11 @@ export class ToolTipItemComponent implements OnInit {
     }
   }
   @Input() set isGetCompositeSchedule(value: boolean) {
+    if (value !== undefined) {
+      this.showToolTipitem = value
+    }
+  }
+  @Input() set isClearChargingProfile(value: boolean) {
     if (value !== undefined) {
       this.showToolTipitem = value
     }
@@ -106,6 +116,14 @@ export class ToolTipItemComponent implements OnInit {
       this.showToolTipitem = value
     }
   }
+
+  @Input() set isSetCharging(value: boolean) {
+    if (value !== undefined) {
+      this.showToolTipitem = value
+    }
+  }
+
+
 
   constructor() {}
 

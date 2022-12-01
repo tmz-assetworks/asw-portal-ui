@@ -1328,6 +1328,19 @@ table.mat-table.cdk-table.mat-elevation-z8 {
   border: 0 !important 
 }
 }
-@media screen and (max-width: 768px) {
-
-}
+@media only screen and (max-width: 480px){
+  table  td {
+        max-width: 150px;
+        word-wrap: break-word;
+      }
+      .cust-list-flex1.layout.top-box {
+        width: 410px;
+    }
+    td.mat-cell:last-of-type {
+      padding: 10px !important;
+      min-width: 115px;
+      display: flex;
+  }
+    }
+  
+    td.mat-cell:last-of-type{min-width: 131px;}

@@ -201,12 +201,12 @@
                     submitted == true
                 }"
               >
-                <mat-select formControlName="organizationName">
+                <mat-select formControlName="organizationName" [disabled]="orgUserId !== '' ? true : false">
                   <!--  <mat-option value="{{selectcountryId}}" [disabled]="true">Select</mat-option> -->
                   <mat-option value="{{ selectValue }}">
                     Select
-                    <!-- <span style="color: 'red';">*</span> -->
-                  </mat-option>
+                   
+                  </mat-option> 
                   <mat-option *ngFor="let c of customerList" value="{{ c.id }}">
                     {{ c.customerName }}
                   </mat-option>
@@ -405,24 +405,7 @@
                   (keypress)="omit_special_char($event)"
                 />
               </div>
-              <!-- <mat-form-field
-                class="barbar-box6 layout"
-                [ngClass]="{
-                  'is-invalid':
-                  addAdminProfile.get('city')?.value == '0' &&
-                    submitted == true
-                }"
-              >
-                <mat-select
-                  formControlName="city"
-                  (selectionChange)="getSelected($event, '')"
-                >
-                  <mat-option value="{{ selectValue }}">Select</mat-option>
-                  <mat-option *ngFor="let c of cityList" value="{{ c.id }}">
-                    {{ c.cityName }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field> -->
+      
               <span
                 *ngIf="
                   addAdminProfile.get('city')?.touched &&

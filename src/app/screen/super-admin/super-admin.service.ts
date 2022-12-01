@@ -9,8 +9,8 @@ export class SuperAdminService {
   assetUrl: string
 
   constructor(private _http: HttpClient) {
-    this.assetUrl = environment.assetLocalOrigin
-    this.userUrl = environment.localOrigin
+    this.assetUrl = environment.ASSET_API_URL
+    this.userUrl = environment.USER_API_URL
   }
   public GetAllUsers(params: any): Observable<any> {
     return this._http.post<any>(`${this.userUrl}User/GetAllUsers`, params)
@@ -78,14 +78,17 @@ export class SuperAdminService {
     return this._http.put<any>(`${this.userUrl}Customer/UpdateCustomer`, params)
   }
 
-
   public getAllCountry(): Observable<any> {
     return this._http.get<any>(`${this.assetUrl}Country/getallcountry`)
   }
   public getAllStateByCountryId(id: any): Observable<any> {
-    return this._http.get<any>(`${this.assetUrl}Country/getAllStateByCountryId?Id=${id}`)
+    return this._http.get<any>(
+      `${this.assetUrl}Country/getAllStateByCountryId?Id=${id}`,
+    )
   }
   public getAllCityByStateId(id: any): Observable<any> {
-    return this._http.get<any>(`${this.assetUrl}Country/getAllCityByStateId?Id=${id}`)
+    return this._http.get<any>(
+      `${this.assetUrl}Country/getAllCityByStateId?Id=${id}`,
+    )
   }
 }

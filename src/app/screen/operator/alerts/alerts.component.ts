@@ -31,16 +31,23 @@ export class AlertsComponent implements OnInit {
   isTableHasData = false
   expandedElement: any
   searchParam = ''
+
+  
   constructor(
     public _alertsService: AlertsService,
     private _storageService: StorageService,
   ) {
+    
     this.UserId = this._storageService.getLocalData('user_id')
+    
+    
   }
+  
   @ViewChild(MatPaginator) paginator!: MatPaginator
 
   ngOnInit(): void {
     this.GetOperatorAlerts()
+  
   }
 
   ngAfterViewInit() {
@@ -91,6 +98,7 @@ export class AlertsComponent implements OnInit {
     }
     this._alertsService.GetOperatorAlerts(pBody).subscribe((res: any) => {
       if (res.data !== undefined && res.data != null && res.data.length > 0) {
+
         this.totalCount = res.paginationResponse.totalCount
         this.totalPages = res.paginationResponse.totalPages
         this.pageSize = res.paginationResponse.pageSize
@@ -123,5 +131,25 @@ export class AlertsComponent implements OnInit {
     }
 
     this.GetOperatorAlerts()
+  }
+
+/**
+ * update isRead get Operator Alert
+ * @param data 
+ */
+  UpdateNotificationIsRead(data:any){
+    const body={
+      id: data.eventLogId,
+      flag: data.flag
+    }
+    this._alertsService.UpdateNotificationIsRead(body).subscribe((res: any)=>{
+
+      let obj1 = this.dataSource.data.find(
+        (o) => o.eventLogId == data.eventLogId
+      );
+
+      let index = this.dataSource.data.indexOf(obj1);
+      this.dataSource.data.fill((obj1.isRead = true), index, index++);
+    })
   }
 }

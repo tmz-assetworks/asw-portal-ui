@@ -137,7 +137,7 @@
               [chartType]="'bar'"
               [chartTitle]="'Chargers'"
               (barDetailPage)="
-                openDetailPage(5, 'Chargers', 'CHARGER-ANALYTICS', selectedTime)
+                openDetailPage(5, 'Chargers', 'ANALYTICS', selectedTime)
               "
             ></app-bar-chart>
             <!-- <app-graph-card></app-graph-card> -->
@@ -150,12 +150,7 @@
               [chartType]="chargingSession"
               [chartTitle]="chargingSessionTitle"
               (areaDetailPage)="
-                openDetailPage(
-                  2,
-                  'Charging Session',
-                  'CHARGER-ANALYTICS',
-                  selectedTime
-                )
+                openDetailPage(2, 'Charging Session', 'ANALYTICS', selectedTime)
               "
             ></app-area-chart>
           </div>
@@ -180,12 +175,7 @@
               [chartType]="locationAnalyticsMilesAdd"
               [chartTitle]="locationAnalyticsMilesAddTitle"
               (stackedAreaDetailPage)="
-                openDetailPage(
-                  8,
-                  'Miles Added',
-                  'CHARGER-ANALYTICS',
-                  selectedTime
-                )
+                openDetailPage(8, 'Miles Added', 'ANALYTICS', selectedTime)
               "
             ></app-stacked-area-chart>
           </div>

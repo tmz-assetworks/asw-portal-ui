@@ -1,0 +1,129 @@
+<ng-container class="billing">
+  <span class="option" (click)="closeDialog()">X</span>
+  <div class="form-field modal-actions Invoice">
+    <div class="invoce-header">
+      <h1>Invoice</h1>
+      <div class="transaction">
+        <div class="label1">
+          <p>TxID</p>
+          <!-- <p>Invoive Date</p> -->
+        </div>
+        <div class="label-value">
+          <p>{{ transactionData?.transactionId }}</p>
+          <!-- <p>Invoive Date</p> -->
+        </div>
+      </div>
+    </div>
+    <div class="st8">
+      <div class="invoice-details">
+        <h4>Location Information</h4>
+        <div class="discription1">
+          <div class="field-value">
+            <p class="info-label">Location Name</p>
+            <p class="info">{{ transactionData?.locationName }}</p>
+          </div>
+          <div class="field-value">
+            <p class="info-label">ChargeBox Id</p>
+            <p class="info">{{ transactionData?.chargeBoxID }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="invoice-details2 invoice-details">
+        <div class="discription1">
+          <div class="field-value">
+            <p class="info-label">Connector</p>
+            <p class="info">{{ transactionData?.connectorNo }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="st8">
+      <div class="invoice-details">
+        <h4>Charging Information</h4>
+        <div class="discription1">
+          <div class="field-value">
+            <p class="info-label">Start Meter Value</p>
+            <p class="info">{{ transactionData?.startMeterValue }}</p>
+          </div>
+          <div class="field-value">
+            <p class="info-label">Duration</p>
+            <p class="info">{{ transactionData?.chargingDuration }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="invoice-details2 invoice-details">
+        <h4>Description</h4>
+        <div class="discription1">
+          <div class="field-value">
+            <p class="info-label">End Meter Value</p>
+            <p class="info">{{ transactionData?.endMeterValue }}</p>
+          </div>
+
+          <div class="field-value">
+            <p class="info-label">Energy Used</p>
+            <p class="info">{{ transactionData?.consumedEnergy }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="st8 column-space">
+      <div class="invoice-details">
+        <h4>Transaction Information</h4>
+        <div class="discription1">
+          <div class="field-value">
+            <p class="info-label">Transaction Fee</p>
+            <p class="info">{{ transactionData?.transactionFee }}</p>
+          </div>
+          <div class="field-value">
+            <p class="info-label">Unit Name</p>
+            <p class="info">{{ transactionData?.unitName }}</p>
+          </div>
+          <div class="field-value">
+            <p class="info-label">Parking Fee</p>
+            <p class="info">{{ transactionData?.parkingFee }}</p>
+          </div>
+          <div class="field-value">
+            <p class="info-label">Tax</p>
+            <p class="info">{{ transactionData?.tax }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="invoice-details2 invoice-details">
+        <h4>Description</h4>
+        <div class="discription1">
+          <div class="field-value">
+            <p class="info-label">Price Type</p>
+            <p class="info">{{ transactionData?.priceType }}</p>
+          </div>
+          <div class="field-value">
+            <p class="info-label">Price</p>
+            <p class="info">{{ transactionData?.price }}</p>
+          </div>
+          <div class="field-value">
+            <p class="info-label">Grace Period</p>
+            <p class="info">{{ transactionData?.gracePeriod }}</p>
+          </div>
+          <div class="field-value">
+            <p class="info-label">Sales Tax</p>
+            <p class="info">{{ transactionData?.salesTax }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="st8">
+      <div class="invoice-details">
+        <div class="discription1">
+          <p class="info-label">Total Amount :</p>
+        </div>
+      </div>
+      <div class="invoice-details2 invoice-details">
+        <div class="discription1">
+          <h4>{{ transactionData?.totalAmount }}</h4>
+        </div>
+      </div>
+    </div>
+
+    <button>Make Payment</button>
+  </div>
+</ng-container>

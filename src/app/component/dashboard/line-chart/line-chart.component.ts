@@ -15,6 +15,8 @@ export class LineChartComponent implements OnInit {
   reportEnergyUsedDataSet: any
   reportEnergyGasolineGallonDataSet: any
   reportEnergyMilesAddedDataSet: any
+  reportTransactionMonthlyDataSet: any
+
   @Input() set chartType(value: any) {
     this.chartTypeData = value
 
@@ -22,6 +24,16 @@ export class LineChartComponent implements OnInit {
   }
   @Input() chartTitle: any
 
+  @Input() set reportTransactionMonthlyData(value: any) {
+    if (value !== undefined) {
+      this.reportTransactionMonthlyDataSet = value
+
+      /**
+       * Set Chart type
+       */
+      this.setChartOption(this.chartTypeData)
+    }
+  }
   @Input() set energyUsedData(value: any) {
     if (value !== undefined) {
       this.energyUsedDataSet = value
@@ -359,97 +371,15 @@ export class LineChartComponent implements OnInit {
       this.option = this.setLineChartOption(
         this.energyUsedDataSet,
       ) as EChartsOption
-    } else if (chartType == 'reportTransaction') {
-      this.chartTitle = 'Monthly Transaction'
-      this.option = {
-        legend: {
-          // left: '82%',
-          right: '4%',
-          icon: 'square',
-        },
-        grid: {
-          left: '8%',
-          right: '6%',
-          bottom: '8%',
-          top: 50,
-          containLabel: true,
-        },
-        tooltip: {
-          show: true,
-        },
-        background: 'transparent',
-        dataset: {
-          source: [
-            //   ['category', 'Energy Used'],
-            ['category', 'MONTHLY TRANSACTION'],
-            ['July 20', 50],
-            ['Aug 20', 70],
-            ['Sep 20', 110],
-            ['Oct 20', 150],
-            ['Nov 20', 190],
-            ['Dec 20', 250],
-            ['Jan 21', 260],
-            ['Feb 21', 300],
-            ['Mar 21', 405],
-            ['Apr 21', 417],
-            ['May 21', 480],
-            ['Jun 21', 470],
-          ],
-        },
-        /* xAxis: {
-          type: 'category',
-    
-        }, */
-        xAxis: [
-          {
-            type: 'category',
-            name: 'Month',
-            nameLocation: 'middle',
-            nameGap: 35,
-            axisTick: { show: false },
-            axisLabel: {
-              //rotate: 30,
-              rotate: 0,
-            },
-          },
-        ],
-        yAxis: {
-          type: 'value',
-          min: 0,
-          max: 1000,
-          name: 'Monthly Transaction',
-          nameLocation: 'middle',
-          /* fontWeight: 'bolder', */
-          nameGap: 50,
-          nameTextStyle: {
-            // align: 'right',
-            // verticalAlign: 'top',
-            /**
-             * the top padding will shift the name down so that it does not overlap with the axis-labels
-             * t-l-b-r
-             */
-            // padding: [10, 0, 0, 0],
-            fontSize: 14,
-            // fontWeight: 800,
-            // fontStyle: 'italic',
-          },
-          axisLabel: {
-            formatter: '${value}',
-            // align: 'center'
-            // ...
-          },
-        },
-        series: [
-          {
-            /*  data: chartData.map(m=>({
-              value: m.value
-            })), */
-            type: 'line',
-            lineStyle: { color: '#A60000' },
-            itemStyle: { color: '#A60000' },
-          },
-        ],
+    } else if (chartType == 'reportTransactionMonthly') {
+      if (this.reportTransactionMonthlyDataSet.length === 0) {
+        this.option = {}
+        return
       }
+      this.chartTitle = 'Monthly Transaction'
+      this.option = this.setReportTransactionMonthlyDataChartOptions(
+        this.reportTransactionMonthlyDataSet,
+      ) as EChartsOption
     } else if (chartType == 'reportSubscribeYearly') {
       if (this.reportSubscribeYearlyDataSet !== undefined) {
         if (this.reportSubscribeYearlyDataSet.length === 0) {
@@ -604,7 +534,7 @@ export class LineChartComponent implements OnInit {
       grid: {
         left: '10%',
         // left: '12%',
-        // right: '0%',
+        // right: '4%',
         right: '5%',
         bottom: '8%',
         top: 50,
@@ -644,7 +574,7 @@ export class LineChartComponent implements OnInit {
         type: 'value',
         name: 'Energy Used (Kwh)',
         nameLocation: 'middle',
-        nameGap: 70,
+        nameGap: 50,
         nameTextStyle: {
           fontSize: 14,
         },
@@ -675,7 +605,7 @@ export class LineChartComponent implements OnInit {
       grid: {
         left: '10%',
         right: '4%',
-
+        bottom: '12%',
         top: 50,
         containLabel: true,
       },
@@ -1084,6 +1014,103 @@ export class LineChartComponent implements OnInit {
             value: m.value
           })), */
           type: 'line',
+        },
+      ],
+    }
+  }
+
+  setReportTransactionMonthlyDataChartOptions(dataSet: any) {
+    let dataArray = dataSet.map((accu: any) => [
+      `${accu.monthYear}`,
+      accu.montlyPrice,
+    ])
+    return {
+      legend: {
+        // left: '82%',
+        right: '4%',
+        icon: 'square',
+      },
+      grid: {
+        left: '8%',
+        right: '6%',
+        bottom: '8%',
+        top: 50,
+        containLabel: true,
+      },
+      tooltip: {
+        show: true,
+      },
+      background: 'transparent',
+      dataset: {
+        source: [
+          //   ['category', 'Energy Used'],
+          ['category', 'MONTHLY TRANSACTION'],
+          // ['July 20', 50],
+          // ['Aug 20', 70],
+          // ['Sep 20', 110],
+          // ['Oct 20', 150],
+          // ['Nov 20', 190],
+          // ['Dec 20', 250],
+          // ['Jan 21', 260],
+          // ['Feb 21', 300],
+          // ['Mar 21', 405],
+          // ['Apr 21', 417],
+          // ['May 21', 480],
+          // ['Jun 21', 470],
+          ...dataArray,
+        ],
+      },
+      /* xAxis: {
+        type: 'category',
+  
+      }, */
+      xAxis: [
+        {
+          type: 'category',
+          name: 'Month',
+          nameLocation: 'middle',
+          nameGap: 35,
+          axisTick: { show: false },
+          axisLabel: {
+            //rotate: 30,
+            rotate: 0,
+          },
+        },
+      ],
+      yAxis: {
+        type: 'value',
+        // min: 0,
+        // max: 1000,
+        name: 'Monthly Transaction',
+        nameLocation: 'middle',
+        /* fontWeight: 'bolder', */
+        nameGap: 50,
+        nameTextStyle: {
+          // align: 'right',
+          // verticalAlign: 'top',
+          /**
+           * the top padding will shift the name down so that it does not overlap with the axis-labels
+           * t-l-b-r
+           */
+          // padding: [10, 0, 0, 0],
+          fontSize: 14,
+          // fontWeight: 800,
+          // fontStyle: 'italic',
+        },
+        axisLabel: {
+          formatter: '${value}',
+          // align: 'center'
+          // ...
+        },
+      },
+      series: [
+        {
+          /*  data: chartData.map(m=>({
+            value: m.value
+          })), */
+          type: 'line',
+          lineStyle: { color: '#A60000' },
+          itemStyle: { color: '#A60000' },
         },
       ],
     }

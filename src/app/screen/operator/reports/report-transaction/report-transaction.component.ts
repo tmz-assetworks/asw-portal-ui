@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { FormControl } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
+import { StorageService } from 'src/app/service/storage.service'
+import { ReportService } from '../reports.service'
 
 @Component({
   selector: 'app-report-transaction',
@@ -9,19 +11,33 @@ import { ActivatedRoute, Router } from '@angular/router'
 })
 export class ReportTransactionComponent implements OnInit {
   filterToggle = new FormControl('1')
-  basic = 'basic'
-  basicStatus = 'basicStatus'
-  bar = 'chargerBar'
-  barChargers = 'reportTransaction'
-  lineChargers = 'reportTransaction'
-  lineChargersTitle = 'reportTransaction'
+  // basic = 'basic'
+  // basicStatus = 'basicStatus'
+  // bar = 'chargerBar'
+  // barChargers = 'reportTransactionYearly'
+  // lineChargers = 'reportTransaction'
+  // lineChargersTitle = 'reportTransaction'
 
   barChargersTitle = 'Transaction Amount'
-  constructor(private _router: Router, private _route: ActivatedRoute) {}
+  UserId: string | null
+  reportTransactionMonthlyData = ''
+  reportTransactionYearlyData: any
 
-  ngOnInit(): void {}
+  constructor(
+    private _router: Router,
+    private _route: ActivatedRoute,
+    private _reportService: ReportService,
+    private _storageService: StorageService,
+  ) {
+    this.UserId = this._storageService.getLocalData('user_id')
+  }
+
+  ngOnInit(): void {
+    this.getReportTransaction(this.UserId, [], '1')
+  }
   setTime(event: any) {}
-  openDetailPage(
+
+  openReportDetailPage(
     event: any,
     graphHeading: string,
     pageHeading: string,
@@ -30,9 +46,30 @@ export class ReportTransactionComponent implements OnInit {
     sessionStorage.setItem('graphHeading', graphHeading)
     sessionStorage.setItem('pageHeading', pageHeading)
     sessionStorage.setItem('duration', duration)
-    this._router.navigate(['detail'], {
+    this._router.navigate(['report-detail'], {
       relativeTo: this._route,
       queryParams: { id: event },
+    })
+  }
+
+  /**
+   * Get Report Transaction
+   * @param userId
+   * @param locationId
+   * @param duration
+   */
+
+  getReportTransaction(userId: any, locationId: any, duration: any) {
+    const pBbody = {
+      operatorId: userId,
+      locationId: locationId,
+      duration: duration,
+    }
+    this._reportService.GetTransaction(pBbody).subscribe((res: any) => {
+      if (res.data) {
+        this.reportTransactionMonthlyData = res.data[0].monthlydata
+        this.reportTransactionYearlyData = res.data[0].yearlydata
+      }
     })
   }
 }

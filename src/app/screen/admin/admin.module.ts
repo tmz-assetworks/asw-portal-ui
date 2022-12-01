@@ -74,13 +74,13 @@ const routes: Routes = [
             (m) => m.ManagePricingModule,
           ),
       },
-      // {
-      //   path: 'subscriptions-plans',
-      //   loadChildren: () =>
-      //     import(
-      //       '../admin/manage-subscriptions/manage-subscription-module'
-      //     ).then((m) => m.ManageSubscriptionsModule),
-      // },
+      {
+        path: 'subscriptions-plans',
+        loadChildren: () =>
+          import(
+            '../admin/manage-subscriptions/manage-subscription-module'
+          ).then((m) => m.ManageSubscriptionsModule),
+      },
       {
         path: 'user-profile',
         loadChildren: () =>

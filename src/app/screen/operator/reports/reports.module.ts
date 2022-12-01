@@ -11,6 +11,7 @@ import { ReportTransactionComponent } from './report-transaction/report-transact
 import { ReportEnergyComponent } from './report-energy/report-energy.component'
 import { ReportSessionComponent } from './report-session/report-session.component'
 import { GraphDetailComponent } from '../graph-detail/graph-detail.component'
+import { ReportDetailComponent } from './report-detail/report-detail.component'
 
 const routes: Routes = [
   {
@@ -46,12 +47,28 @@ const routes: Routes = [
       },
     ],
   },
-  { path: 'report-transaction/detail', component: GraphDetailComponent },
-  { path: 'report-transaction/detail/:id', component: GraphDetailComponent },
-  { path: 'report-subscription/detail', component: GraphDetailComponent },
-  { path: 'report-subscription/detail/:id', component: GraphDetailComponent },
-  { path: 'report-session/detail', component: GraphDetailComponent },
-  { path: 'report-session/detail/:id', component: GraphDetailComponent },
+  // { path: 'report-transaction/detail', component: GraphDetailComponent },
+  // { path: 'report-transaction/detail/:id', component: GraphDetailComponent },
+  // { path: 'report-subscription/detail', component: GraphDetailComponent },
+  // { path: 'report-subscription/detail/:id', component: GraphDetailComponent },
+  { path: 'detail', component: GraphDetailComponent },
+  { path: 'detail/:id', component: GraphDetailComponent },
+  {
+    path: 'report-subscription/report-detail',
+    component: ReportDetailComponent,
+  },
+  {
+    path: 'report-subscription/report-detail/:id',
+    component: ReportDetailComponent,
+  },
+  {
+    path: 'report-transaction/report-detail',
+    component: ReportDetailComponent,
+  },
+  {
+    path: 'report-transaction/report-detail/:id',
+    component: ReportDetailComponent,
+  },
   { path: 'report-energy/detail', component: GraphDetailComponent },
   { path: 'report-energy/detail/:id', component: GraphDetailComponent },
 ]
@@ -62,6 +79,7 @@ const routes: Routes = [
     ReportSubscriptionComponent,
     ReportTransactionComponent,
     ReportEnergyComponent,
+    ReportDetailComponent,
   ],
   imports: [
     CommonModule,

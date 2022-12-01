@@ -8,8 +8,8 @@ export class DashboardService {
   url: string
   chargerUrl: string
   constructor(private _http: HttpClient) {
-    this.url = environment.origin + 'api/v1/OperatorDashboard/'
-    this.chargerUrl = environment.origin + 'api/v1/Charger/'
+    this.url = environment.PORTAL_API_URL + 'api/v1/OperatorDashboard/'
+    this.chargerUrl = environment.PORTAL_API_URL + 'api/v1/Charger/'
   }
 
   /**

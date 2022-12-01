@@ -44,11 +44,13 @@
         <div class="header-box4 layout"></div>
       </div>
       <!-- <div class="menu-header"></div> -->
-      <div class="txt_menu">
+      <div *ngIf="role == 'Operator'" class="txt_menu">
         <img src="../../../../assets/images/bell.png" />
-        <div class="count_circle"><p>1</p></div>
+        <div class="count_circle" matTooltip="{{ countByUserId }}">
+          <p>{{ countByUserId }}</p>
+        </div>
       </div>
-      <p class="profile_txt">Hi ! {{ role }}</p>
+      <p class="profile_txt">Hi ! {{ username }}</p>
 
       <div class="header-block8-spacer"></div>
 
@@ -71,7 +73,13 @@
             [matMenuTriggerFor]="menu"
             aria-label="Example icon-button with a menu"
           >
-            <img src="../../../../assets/Super-Admin-icons/header.svg" />
+            <img
+              class="profile-image"
+              src="{{
+                profileImg ? profileImg : '../../../assets/default_image.png'
+              }}"
+              alt=""
+            />
             <!-- <mat-icon>more_vert</mat-icon> -->
           </button>
           <mat-menu #menu="matMenu">

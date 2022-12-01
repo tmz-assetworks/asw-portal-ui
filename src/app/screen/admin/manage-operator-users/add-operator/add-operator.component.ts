@@ -207,6 +207,14 @@ export class AddOperatorComponent implements OnInit {
           this._adminService.CreateUser(body).subscribe(
             (data) => {
               if (data) {
+                if (data.statusCode == 400) {
+                  this.toastr.error(
+                    'User name and email id should be unique, please try again.',
+                  )
+                  this.showLoader = false
+                  this.submitted = false
+                  return
+                }
                 //Do your stuffs...
                 this.toastr.success('Record saved successfully.')
                 this.addOperatorProfile.reset()
@@ -266,6 +274,12 @@ export class AddOperatorComponent implements OnInit {
           this._adminService.UpdateUser(body).subscribe(
             (data) => {
               if (data) {
+                if (data.statusCode == 400) {
+                  this.toastr.error('Email already exist.')
+                  this.showLoader = false
+                  this.submitted = false
+                  return
+                }
                 //Do your stuffs...
                 this.toastr.success('Record update successfully.')
                 this.addOperatorProfile.reset()

@@ -43,6 +43,7 @@ export class ManageAdminUsersComponent implements OnInit {
   }
 
   ngOnInit() {
+    sessionStorage.removeItem('orgUserId');
     this.getAdminList()
   }
 

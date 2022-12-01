@@ -37,43 +37,44 @@
 
               <div class="mt_top_map">
                 <div class="f_bar pass_verify">
-                  <input
-                    type="password"
+                  <input (keyup)="nextStep($event,1)"
+                    type="password"  id="code1"
                     formControlName="code1"
                     maxlength="1"
+                 
                   />
                 </div>
                 <div class="f_bar pass_verify">
-                  <input
-                    type="password"
+                  <input (keyup)="nextStep($event,2)" 
+                    type="password"  id="code2"
                     formControlName="code2"
                     maxlength="1"
                   />
                 </div>
                 <div class="f_bar pass_verify">
-                  <input
-                    type="password"
+                  <input (keyup)="nextStep($event,3)" 
+                    type="password" id="code3"
                     formControlName="code3"
                     maxlength="1"
                   />
                 </div>
                 <div class="f_bar pass_verify">
-                  <input
-                    type="password"
+                  <input (keyup)="nextStep($event,4)" 
+                    type="password" id="code4"
                     formControlName="code4"
                     maxlength="1"
                   />
                 </div>
                 <div class="f_bar pass_verify">
-                  <input
-                    type="password"
+                  <input (keyup)="nextStep($event,5)"
+                    type="password" id="code5"
                     formControlName="code5"
                     maxlength="1"
                   />
                 </div>
                 <div class="f_bar pass_verify">
-                  <input
-                    type="password"
+                  <input (keyup)="nextStep($event,6)"
+                    type="password" id="code6"
                     formControlName="code6"
                     maxlength="1"
                   />

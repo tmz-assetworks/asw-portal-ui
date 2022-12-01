@@ -29,6 +29,10 @@ export class ReportEnergyComponent implements OnInit {
 
   filterToggle = new FormControl('1')
   ngOnInit(): void {
+    let isDuration = this._storageService.getSessionData('duration')
+    if (isDuration) {
+      this._storageService.removeSessionData('duration')
+    }
     this.getEnergyUsed(this.UserId, this.selectedDuration)
     this.GetMilesAddedByLocation(this.UserId, this.selectedDuration)
     this.GetMTCoSavedEnergy(this.UserId, this.selectedDuration)
@@ -53,6 +57,7 @@ export class ReportEnergyComponent implements OnInit {
     sessionStorage.setItem('graphHeading', graphHeading)
     sessionStorage.setItem('pageHeading', pageHeading)
     sessionStorage.setItem('duration', duration)
+
     this._router.navigate(['detail'], {
       relativeTo: this._route,
       queryParams: { id: event },

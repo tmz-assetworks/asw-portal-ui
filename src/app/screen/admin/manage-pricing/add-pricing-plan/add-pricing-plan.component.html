@@ -3,86 +3,246 @@
     <div class="barbar-block11 layout">
       <h3 class="barbar-subtitle layout">{{ addpricingTitle }}</h3>
     </div>
-    <form [formGroup]="addpricingform">
+    <form [formGroup]="addPricingForm">
       <div class="barbar-block12 layout">
         <div class="barbar-block13 layout">
           <div class="barbar-block13-item mbottom">
             <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">Customer Name</h5>
-              <mat-form-field class="barbar-box6 layout">
-                <mat-select formControlName="customername">
-                  <mat-option value="Shane Waston & Sons">
-                    Shane Waston & Sons
+              <h5 class="barbar-highlights layout">
+                Organization Name
+                <span style="color: 'red';">*</span>
+              </h5>
+              <div class="barbar-box6 layout">
+                <input
+                  formControlName="customerN"
+                  readonly
+                  class="barbar-input-text"
+                />
+              </div>
+              <!-- <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addPricingForm.get('customerId')?.errors &&
+                    submitted == true
+                }"
+              >
+               
+                <mat-select
+                  [value]="selectedCustomerId"
+                  formControlName="customerId"
+                >
+                  <mat-option
+                    *ngFor="let data of CustomerList"
+                    [value]="data.id"
+                    (onSelectionChange)="selecCustomerList($event, data.id)"
+                  >
+                    {{ data.customerName }}
                   </mat-option>
-                  <mat-option value="Shane Sons">Shane Sons</mat-option>
-                  <mat-option value="Sons">Sons</mat-option>
+                </mat-select>
+              </mat-form-field> -->
+            </div>
+            <span
+              *ngIf="
+                !addPricingForm.get('customerId')?.valid &&
+                addPricingForm.get('customerId')?.touched &&
+                addPricingForm.get('customerId')?.value.length == 0
+              "
+              class="error-mess"
+            >
+              Organization Name Is Required
+            </span>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Pricing Plan Name
+                <span style="color: 'red';">*</span>
+              </h5>
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addPricingForm.get('pricingPlanName')?.errors &&
+                    submitted == true
+                }"
+              >
+                <input
+                  formControlName="pricingPlanName"
+                  type="text"
+                  class="barbar-input-text"
+                  (keypress)="omit_special_char($event)"
+                />
+              </div>
+
+              <span
+                *ngIf="
+                  !addPricingForm.get('pricingPlanName')?.valid &&
+                  addPricingForm.get('pricingPlanName')?.touched &&
+                  addPricingForm.get('pricingPlanName')?.value.length > 40
+                "
+                class="error-mess"
+              >
+                Price Plan Name should not be greater than 40 Alphanumeric
+                Characters
+              </span>
+              <span
+                *ngIf="
+                  !addPricingForm.get('pricingPlanName')?.valid &&
+                  addPricingForm.get('pricingPlanName')?.touched &&
+                  addPricingForm.get('pricingPlanName')?.value.length == 0
+                "
+                class="error-mess"
+              >
+                Pricing Plan Is Required
+              </span>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Location
+                <span style="color: 'red';">*</span>
+              </h5>
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addPricingForm.get('locationId')?.errors &&
+                    submitted == true
+                }"
+              >
+                <!-- <mat-label>Toppings</mat-label> -->
+                <mat-select
+                  [value]="selectedLocationId"
+                  multiple
+                  formControlName="locationId"
+                >
+                  <mat-option
+                    *ngFor="let data of locationList"
+                    [value]="data.id"
+                    (onSelectionChange)="onSelectLocation($event, data.id)"
+                  >
+                    {{ data.locationName }}
+                  </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
+            <span
+              *ngIf="
+                !addPricingForm.get('locationId')?.valid &&
+                addPricingForm.get('locationId')?.touched &&
+                addPricingForm.get('locationId')?.value.length == 0
+              "
+              class="error-mess"
+            >
+              Location Is Required
+            </span>
           </div>
-          <div class="barbar-block13-spacer"></div>
-          <div class="barbar-block13-item">
-            <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">Pricing Plan Name</h5>
-              <div class="barbar-box6 layout">
-                <input
-                  formControlName="pricingplanname"
-                  type="text"
-                  class="barbar-input-text"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div class="barbar-block13-spacer"></div>
-          <div class="barbar-block13-item">
-            <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">Location</h5>
-              <div class="barbar-box6 layout">
-                <input
-                  formControlName="location"
-                  type="text"
-                  class="barbar-input-text"
-                />
-              </div>
-            </div>
-          </div>
-
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">Description</h5>
-              <div class="barbar-box6 layout">
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addPricingForm.get('description')?.errors &&
+                    submitted == true
+                }"
+              >
                 <input
                   formControlName="description"
                   type="text"
                   class="barbar-input-text"
                 />
               </div>
+              <span
+                *ngIf="
+                  addPricingForm.get('description')?.touched &&
+                  addPricingForm.get('description')?.value.length > 250
+                "
+                class="error-mess"
+              >
+                Description should not be greater than 250 Alphanumeric
+                characters.
+              </span>
             </div>
           </div>
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item mbottom">
             <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">Currency Code</h5>
-              <mat-form-field class="barbar-box6 layout">
+              <h5 class="barbar-highlights layout">
+                Currency Code
+                <span style="color: 'red';">*</span>
+              </h5>
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addPricingForm.get('currencyCode')?.errors &&
+                    submitted == true
+                }"
+              >
+                <!-- <mat-label>Select</mat-label> -->
+                <mat-select
+                  [value]="selectedCurrencyId"
+                  formControlName="currencyCode"
+                >
+                  <mat-option
+                    *ngFor="let data of currencyList"
+                    [value]="data.id"
+                    (onSelectionChange)="selectCurrencyCode($event, data.id)"
+                  >
+                    {{ data.currencyName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <!-- <mat-form-field class="barbar-box6 layout">
                 <mat-select formControlName="currencycode">
                   <mat-option value="Rupees">Rupees</mat-option>
                   <mat-option value="Doller">Doller</mat-option>
                 </mat-select>
-              </mat-form-field>
+              </mat-form-field> -->
             </div>
+            <span
+              *ngIf="
+                !addPricingForm.get('currencyCode')?.valid &&
+                addPricingForm.get('currencyCode')?.touched &&
+                addPricingForm.get('currencyCode')?.value.length == 0
+              "
+              class="error-mess"
+            >
+              Currency Code Is Required
+            </span>
           </div>
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">Valid From</h5>
-              <mat-form-field class="barbar-box6 layout">
-                <mat-label>Choose a date</mat-label>
+              <h5 class="barbar-highlights layout">
+                Valid From
+                <span style="color: 'red';">*</span>
+              </h5>
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addPricingForm.get('validFrom')?.errors && submitted == true
+                }"
+              >
+                <!-- <mat-label>Choose a date</mat-label> -->
                 <input
+                [matDatepickerFilter]="
+                dateFilterForStart
+              "
                   matInput
                   [matDatepicker]="picker"
-                  formControlName="validfrom"
+                  formControlName="validFrom"
+                  readonly
+                  (dateChange)="checkStartDate()"
                 />
                 <mat-datepicker-toggle
                   matSuffix
@@ -91,17 +251,39 @@
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
             </div>
+            <span
+              *ngIf="
+                !addPricingForm.get('validFrom')?.valid &&
+                addPricingForm.get('validFrom')?.touched &&
+                addPricingForm.get('validFrom')?.value.length == 0
+              "
+              class="error-mess"
+            >
+              Date From Is Required
+            </span>
           </div>
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">Valid To</h5>
-              <mat-form-field class="barbar-box6 layout">
-                <mat-label>Choose a date</mat-label>
+              <h5 class="barbar-highlights layout">
+                Valid To
+                <span style="color: 'red';">*</span>
+              </h5>
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addPricingForm.get('validTo')?.errors && submitted == true
+                }"
+              >
+                
                 <input
                   matInput
+                  [matDatepickerFilter]="dateFilterForEnd"
                   [matDatepicker]="picker1"
-                  formControlName="validto"
+                  formControlName="validTo"
+                  readonly
+                  (dateChange)="checkValidFrom($event)"
                 />
                 <mat-datepicker-toggle
                   matSuffix
@@ -110,54 +292,188 @@
                 <mat-datepicker #picker1></mat-datepicker>
               </mat-form-field>
             </div>
+            <span
+              *ngIf="
+                !addPricingForm.get('validTo')?.valid &&
+                addPricingForm.get('validTo')?.touched &&
+                addPricingForm.get('validTo')?.value.length == 0
+              "
+              class="error-mess"
+            >
+              Date To Is Required
+            </span>
           </div>
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">Level</h5>
-              <mat-form-field class="barbar-box6 layout">
-                <mat-select formControlName="level">
-                  <mat-option value="Level 1">Level 1</mat-option>
-                  <mat-option value="Level 2">Level 2</mat-option>
+              <h5 class="barbar-highlights layout">
+                Level
+                <span style="color: 'red';">*</span>
+              </h5>
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addPricingForm.get('levelRank')?.errors && submitted == true
+                }"
+              >
+                <!-- <mat-label>Select</mat-label> -->
+                <mat-select
+                  [value]="selectedLevelId"
+                  formControlName="levelRank"
+                >
+                  <mat-option
+                    *ngFor="let data of levelList"
+                    [value]="data.id"
+                    (onSelectionChange)="selectLevel($event, data.id)"
+                  >
+                    {{ data.levelRank }}
+                  </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
+            <span
+              *ngIf="
+                !addPricingForm.get('levelRank')?.valid &&
+                addPricingForm.get('levelRank')?.touched &&
+                addPricingForm.get('levelRank')?.value.length == 0
+              "
+              class="error-mess"
+            >
+              Level Is Required
+            </span>
           </div>
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item mbottom">
             <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">Price Type</h5>
-              <mat-form-field class="barbar-box6 layout">
+              <h5 class="barbar-highlights layout">
+                Price Type
+                <span style="color: 'red';">*</span>
+              </h5>
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addPricingForm.get('priceTypeId')?.errors &&
+                    submitted == true
+                }"
+              >
+                <!-- <mat-label>Select</mat-label> -->
+                <mat-select
+                  [value]="selectedPriceTypeId"
+                  formControlName="priceTypeId"
+                >
+                  <mat-option
+                    *ngFor="let data of pricingList"
+                    [value]="data.id"
+                    (onSelectionChange)="selectPriceType($event, data.id)"
+                  >
+                    {{ data.priceTypeName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <!-- <mat-form-field class="barbar-box6 layout">
                 <mat-select formControlName="pricetype">
                   <mat-option value="Price Type 1">Price Type 1</mat-option>
                   <mat-option value="Price Type 2">Price Type 2</mat-option>
                 </mat-select>
-              </mat-form-field>
+              </mat-form-field> -->
             </div>
+            <span
+              *ngIf="
+                !addPricingForm.get('priceTypeId')?.valid &&
+                addPricingForm.get('priceTypeId')?.touched &&
+                addPricingForm.get('priceTypeId')?.value.length == 0
+              "
+              class="error-mess"
+            >
+              Price Type Is Required
+            </span>
           </div>
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">Unit</h5>
-              <mat-form-field class="barbar-box6 layout">
+              <h5 class="barbar-highlights layout">
+                Unit
+                <span style="color: 'red';">*</span>
+              </h5>
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addPricingForm.get('unitName')?.errors && submitted == true
+                }"
+              >
+                <!-- <mat-label>Select</mat-label> -->
+                <mat-select [value]="selectedUnitId" formControlName="unitName">
+                  <mat-option
+                    *ngFor="let data of unitList"
+                    [value]="data.id"
+                    (onSelectionChange)="selectUnit($event, data.id)"
+                  >
+                    {{ data.unitName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <!-- <mat-form-field class="barbar-box6 layout">
                 <mat-select formControlName="unit">
                   <mat-option value="Unit 1">Unit 1</mat-option>
                   <mat-option value="Unit 2">Unit 2</mat-option>
                 </mat-select>
-              </mat-form-field>
+              </mat-form-field> -->
             </div>
+            <span
+              *ngIf="
+                !addPricingForm.get('unitName')?.valid &&
+                addPricingForm.get('unitName')?.touched &&
+                addPricingForm.get('unitName')?.value.length == 0
+              "
+              class="error-mess"
+            >
+              Unit Is Required
+            </span>
           </div>
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">Price</h5>
-              <div class="barbar-box6 layout">
+              <h5 class="barbar-highlights layout">
+                Price
+                <span style="color: 'red';">*</span>
+              </h5>
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addPricingForm.get('price')?.errors && submitted == true
+                }"
+              >
                 <input
                   formControlName="price"
                   type="text"
                   class="barbar-input-text"
+                  (keypress)="numbersDecimalOnly($event)"
                 />
               </div>
+              <span
+                *ngIf="
+                  !addPricingForm.get('price')?.valid &&
+                  addPricingForm.get('price')?.touched &&
+                  addPricingForm.get('price')?.value.length == 0
+                "
+                class="error-mess"
+              >
+                Price Is Required
+              </span>
+              <span
+                *ngIf="
+                  !addPricingForm.get('price')?.valid &&
+                  addPricingForm.get('price')?.touched &&
+                  addPricingForm.get('price')?.value.length > 10
+                "
+                class="error-mess"
+              >
+                Price should not be greater than 10 number.
+              </span>
             </div>
           </div>
           <div class="barbar-block13-spacer"></div>
@@ -165,14 +481,43 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Parking Fee (Per Minutes)
+                <span style="color: 'red';">*</span>
               </h5>
-              <div class="barbar-box6 layout">
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addPricingForm.get('parkingFee')?.errors &&
+                    submitted == true
+                }"
+              >
                 <input
-                  formControlName="parkingfee"
+                  formControlName="parkingFee"
                   type="text"
                   class="barbar-input-text"
+                  (keypress)="numbersDecimalOnly($event)"
                 />
               </div>
+              <span
+                *ngIf="
+                  !addPricingForm.get('parkingFee')?.valid &&
+                  addPricingForm.get('parkingFee')?.touched &&
+                  addPricingForm.get('parkingFee')?.value.length == 0
+                "
+                class="error-mess"
+              >
+                Parking Fee Is Required
+              </span>
+              <span
+                *ngIf="
+                  !addPricingForm.get('parkingFee')?.valid &&
+                  addPricingForm.get('parkingFee')?.touched &&
+                  addPricingForm.get('parkingFee')?.value.length > 10
+                "
+                class="error-mess"
+              >
+                Parking Fee should not be greater than 10 number.
+              </span>
             </div>
           </div>
           <div class="barbar-block13-spacer"></div>
@@ -180,27 +525,87 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Grace Period (Per Minutes)
+                <span style="color: 'red';">*</span>
               </h5>
-              <div class="barbar-box6 layout">
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addPricingForm.get('gracePeriod')?.errors &&
+                    submitted == true
+                }"
+              >
                 <input
-                  formControlName="graceperiod"
+                  formControlName="gracePeriod"
                   type="text"
                   class="barbar-input-text"
+                  (keypress)="numbersDecimalOnly($event)"
                 />
               </div>
+              <span
+                *ngIf="
+                  !addPricingForm.get('gracePeriod')?.valid &&
+                  addPricingForm.get('gracePeriod')?.touched &&
+                  addPricingForm.get('gracePeriod')?.value.length == 0
+                "
+                class="error-mess"
+              >
+                Grace Period Is Required
+              </span>
+              <span
+                *ngIf="
+                  !addPricingForm.get('gracePeriod')?.valid &&
+                  addPricingForm.get('gracePeriod')?.touched &&
+                  addPricingForm.get('gracePeriod')?.value.length > 10
+                "
+                class="error-mess"
+              >
+                Grace Period should not be greater than 10 number.
+              </span>
             </div>
           </div>
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">Transaction Fee</h5>
-              <div class="barbar-box6 layout">
+              <h5 class="barbar-highlights layout">
+                Transaction Fee
+                <span style="color: 'red';">*</span>
+              </h5>
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addPricingForm.get('transactionFees')?.errors &&
+                    submitted == true
+                }"
+              >
                 <input
-                  formControlName="transaction"
+                  formControlName="transactionFees"
                   type="text"
                   class="barbar-input-text"
+                  (keypress)="numbersDecimalOnly($event)"
                 />
               </div>
+              <span
+                *ngIf="
+                  !addPricingForm.get('transactionFees')?.valid &&
+                  addPricingForm.get('transactionFees')?.touched &&
+                  addPricingForm.get('transactionFees')?.value.length == 0
+                "
+                class="error-mess"
+              >
+                Transaction Fee Is Required
+              </span>
+              <span
+                *ngIf="
+                  !addPricingForm.get('transactionFees')?.valid &&
+                  addPricingForm.get('transactionFees')?.touched &&
+                  addPricingForm.get('transactionFees')?.value.length > 10
+                "
+                class="error-mess"
+              >
+                Transaction Fees should not be greater than 10 number.
+              </span>
             </div>
           </div>
           <div class="barbar-block13-spacer"></div>
@@ -208,37 +613,140 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Tax (Processed Transactions Only)
+                <span style="color: 'red';">*</span>
               </h5>
-              <div class="barbar-box6 layout">
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addPricingForm.get('salaryTax')?.errors && submitted == true
+                }"
+              >
                 <input
                   type="text"
-                  formControlName="taxprocessed"
+                  formControlName="salaryTax"
                   class="barbar-input-text"
+                  (keypress)="numbersDecimalOnly($event)"
                 />
               </div>
+              <span
+                *ngIf="
+                  !addPricingForm.get('salaryTax')?.valid &&
+                  addPricingForm.get('salaryTax')?.touched &&
+                  addPricingForm.get('salaryTax')?.value.length == 0
+                "
+                class="error-mess"
+              >
+                Tax Fee Is Required
+              </span>
+              <span
+                *ngIf="
+                  !addPricingForm.get('salaryTax')?.valid &&
+                  addPricingForm.get('salaryTax')?.touched &&
+                  addPricingForm.get('salaryTax')?.value.length > 10
+                "
+                class="error-mess"
+              >
+                Tax should not be greater than 10 number.
+              </span>
             </div>
           </div>
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">Sales Tax</h5>
-              <div class="barbar-box6 layout">
+              <h5 class="barbar-highlights layout">
+                Sales Tax
+                <span style="color: 'red';">*</span>
+              </h5>
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addPricingForm.get('salesTax')?.errors && submitted == true
+                }"
+              >
                 <input
-                  formControlName="salestax"
+                  formControlName="salesTax"
                   type="text"
                   class="barbar-input-text"
+                  (keypress)="numbersDecimalOnly($event)"
                 />
               </div>
+              <span
+                *ngIf="
+                  !addPricingForm.get('salesTax')?.valid &&
+                  addPricingForm.get('salesTax')?.touched &&
+                  addPricingForm.get('salesTax')?.value.length == 0
+                "
+                class="error-mess"
+              >
+                Sale Tax Is Required
+              </span>
+              <span
+                *ngIf="
+                  !addPricingForm.get('salesTax')?.valid &&
+                  addPricingForm.get('salesTax')?.touched &&
+                  addPricingForm.get('salesTax')?.value.length > 10
+                "
+                class="error-mess"
+              >
+                Sales Tax should not be greater than 10 number.
+              </span>
             </div>
           </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Charge Box
+                <!-- <span style="color: 'red';">*</span> -->
+              </h5>
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addPricingForm.get('chargerId')?.errors && submitted == true
+                }"
+              >
+                <!-- <mat-label>Toppings</mat-label> -->
+                <mat-select
+                  [value]="selectedChargerId"
+                  multiple
+                  formControlName="chargerId"
+                >
+                  <mat-option
+                    *ngFor="let data of chargerList"
+                    [value]="data.id"
+                    (onSelectionChange)="onSelectCharger($event, data)"
+                  >
+                    {{ data.chargeBoxId }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+
+            <!-- <span
+              *ngIf="
+                !addPricingForm.get('chargerId')?.valid &&
+                addPricingForm.get('chargerId')?.touched &&
+                addPricingForm.get('chargerId')?.value.length == 0
+              "
+              class="error-mess"
+            >
+              Charger Is Required
+            </span> -->
+          </div>
+
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">Process Payment</h5>
               <section class="example-section">
-                <mat-checkbox color="accent">
-                  Checked
-                </mat-checkbox>
+                <mat-checkbox
+                  color="accent"
+                  formControlName="processPayment"
+                ></mat-checkbox>
               </section>
             </div>
           </div>
@@ -247,7 +755,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">Price Slot</h5>
               <section class="example-section">
-                <mat-checkbox color="primary">
+                <mat-checkbox color="accent" formControlName="priceSlot">
                   All Days (24 hours)
                 </mat-checkbox>
               </section>
@@ -271,7 +779,7 @@
           <div class="barbar-block16 layout">
             <div
               class="barbar-text-body1 layout"
-              (click)="alertWithSuccess()"
+              (click)="createPricePlan()"
               *ngIf="isSaveBtn"
             >
               SAVE
@@ -279,7 +787,7 @@
             <div
               class="barbar-text-body1 layout"
               *ngIf="isUpdateBtn"
-              (click)="alertWithSuccess()"
+              (click)="updatePricePlan()"
             >
               UPDATE
             </div>

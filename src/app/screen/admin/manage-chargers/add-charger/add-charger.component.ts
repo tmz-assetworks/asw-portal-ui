@@ -281,7 +281,7 @@ export class AddChargerComponent implements OnInit {
       protocolName: formData.protocolName,
       installationDate: this.datePipe.transform(
         formData.installationDate,
-        'yyyy-MM-ddT00:00:00',
+        'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       createdBy: this.UserId,
       isActive: true,
@@ -376,7 +376,7 @@ export class AddChargerComponent implements OnInit {
       protocolName: formData.protocolName,
       installationDate: this.datePipe.transform(
         formData.installationDate,
-        'yyyy-MM-ddT00:00:00',
+        'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       hardwareSerialNumber: formData.hardwareSerialNumber,
       meterType: formData.meterType,
@@ -834,5 +834,18 @@ export class AddChargerComponent implements OnInit {
       k == 32 ||
       (k >= 48 && k <= 57)
     )
+  }
+
+  /**
+   *
+   * @returns
+   *
+   * Get  modefied time
+   */
+
+  getModifiedTime() {
+    let date = new Date()
+    let time = this.datePipe.transform(date, 'HH:mm:ss')
+    return time
   }
 }

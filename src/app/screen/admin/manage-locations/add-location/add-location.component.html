@@ -157,6 +157,7 @@
                   formControlName="contactPersonName"
                   type="text"
                   class="barbar-input-text"
+                  (keypress)="omit_special_char($event)"
                 />
               </div>
               <span
@@ -177,9 +178,9 @@
                 "
                 class="error-mess"
               >
-                Contact Person Name must be less than 25 characters
+                Contact Person Name must be less than 25 characters(Alphabets).
               </span>
-              <span
+              <!-- <span
                 *ngIf="
                   !addLocationForm.get('contactPersonName')?.valid &&
                   addLocationForm.get('contactPersonName')?.touched
@@ -187,7 +188,7 @@
                 class="error-mess"
               >
                 Contact Person Name must be in alphabets
-              </span>
+              </span> -->
             </div>
           </div>
 

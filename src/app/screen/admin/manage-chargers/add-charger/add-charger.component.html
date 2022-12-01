@@ -638,27 +638,6 @@
                 Installation Date
                 <span style="color: 'red';">*</span>
               </h5>
-              <!-- <div
-                class="barbar-box6 layout"
-                [ngClass]="{
-                  'is-invalid':
-                    addChargerForm.get('installationDate')?.errors &&
-                    submitted == true
-                }"
-              >
-                <input
-                  [matDatepicker]="InstallationDate"
-                  formControlName="installationDate"
-                  type="text"
-                  class="barbar-input-text"
-                />
-                <mat-datepicker-toggle
-                  matSuffix
-                  [for]="InstallationDate"
-                ></mat-datepicker-toggle>
-                <mat-datepicker #InstallationDate></mat-datepicker>
-              </div> -->
-
               <mat-form-field
                 class="barbar-box6 layout"
                 [ngClass]="{
@@ -667,7 +646,6 @@
                     submitted == true
                 }"
               >
-                <!-- <mat-label>Choose a date</mat-label> -->
                 <input
                   matInput
                   [matDatepicker]="InstallationDate"
@@ -693,10 +671,6 @@
             </div>
           </div>
 
-          <!-- <div class="barbar-block13-spacer"></div>
-          <div class="barbar-block13-item">
-            <div class="barbar-block14 layout"></div>
-          </div> -->
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">

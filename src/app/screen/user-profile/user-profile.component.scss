@@ -609,7 +609,7 @@ $font_type_3: 500 14px/1.2 'Roboto', Helvetica, Arial, serif;
   margin: 0 10px;
 }
 
-.user-profile{
+.user-profile {
   background: url(../../../assets/images/user-profile.svg);
   background-repeat: no-repeat;
   background-size: cover;
@@ -621,18 +621,20 @@ $font_type_3: 500 14px/1.2 'Roboto', Helvetica, Arial, serif;
   padding: 22px 14px;
   position: relative;
   width: 170px;
+  height: 170px;
+  cursor: pointer;
 }
 .user-profile-from {
   display: flex;
   column-gap: 67px;
 }
-.user-profile-from .barbar-box6{
-  border: 1px solid #BEBEBE;
+.user-profile-from .barbar-box6 {
+  border: 1px solid #bebebe;
   border-radius: 5px 5px 5px 5px;
-  background-color: #E0E0E0;
+  background-color: #e0e0e0;
 }
-.user-profile-from .barbar-input-text{
-  background-color: #E0E0E0;
+.user-profile-from .barbar-input-text {
+  background-color: #e0e0e0;
 }
 
 .barbar-block14.layout {
@@ -640,32 +642,38 @@ $font_type_3: 500 14px/1.2 'Roboto', Helvetica, Arial, serif;
   max-width: 248px;
 }
 
-
 @media all and (max-width: 1920px) {
-.user-profile-from .barbar-block13-item{
-  min-width: 248px;
-  max-width: 248px;
-}
+  .user-profile-from .barbar-block13-item {
+    min-width: 248px;
+    max-width: 248px;
+  }
 }
 @media all and (min-width: 768px) and (max-width: 1024px) {
-.user-profile-from .barbar-block13-item{
-  min-width: 100%;
-}
-.user-profile-from .barbar-block14{
-  min-width: 100%;
-}
+  .user-profile-from .barbar-block13-item {
+    min-width: 100%;
+  }
+  .user-profile-from .barbar-block14 {
+    min-width: 100%;
+  }
 }
 
 @media all and (min-width: 480px) and (max-width: 767px) {
-  .user-profile-from{
+  .user-profile-from {
     display: block;
+  }
+  .user-profile-from .barbar-block13-item {
+    min-width: 100%;
+  }
+  .user-profile-from .barbar-block14 {
+    min-width: 100%;
+  }
 }
-.user-profile-from .barbar-block13-item{
-  min-width: 100%;
-}
-.user-profile-from .barbar-block14{
-  min-width: 100%;
-}
+.is-invalid {
+  border-color: red !important;
+  background-image: none !important;
 }
 
-
+.error-mess {
+  color: red;
+  padding-top: 5px;
+}

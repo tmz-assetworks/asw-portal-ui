@@ -22,7 +22,7 @@ export class ManageCustomersComponent implements OnInit {
   totalPages: any
   pageSizeOptions = [10, 20, 100]
   searchParam = ''
-  OrganisationName= ''
+  OrganisationName = ''
   allCustomerlist = []
   statusData: any
   statusDataValue: any
@@ -43,7 +43,6 @@ export class ManageCustomersComponent implements OnInit {
   ]
 
   @ViewChild(MatPaginator) paginator!: MatPaginator
- 
 
   constructor(
     public _superAdminService: SuperAdminService,
@@ -60,8 +59,8 @@ export class ManageCustomersComponent implements OnInit {
   }
 
   ngOnInit() {
-    sessionStorage.removeItem('adminData') 
-    sessionStorage.removeItem('saveBtn')  
+    sessionStorage.removeItem('adminData')
+    sessionStorage.removeItem('saveBtn')
     this.GetAllCustomer()
   }
 
@@ -96,7 +95,8 @@ export class ManageCustomersComponent implements OnInit {
    * Add Customer
    * @param
    */
-  AddCustomer() {
+  AddCustomer(userId: number) {
+    sessionStorage.setItem('orgUserId', JSON.stringify(userId))
     this._router.navigateByUrl('superadmin/admin/create-admin')
   }
 

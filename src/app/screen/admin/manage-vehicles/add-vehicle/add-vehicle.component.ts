@@ -120,7 +120,7 @@ export class AddVehicleComponent implements OnInit {
       this.modelYearlist.push(i)
     }
 
-    console.log(this.modelYearlist)
+    // console.log(this.modelYearlist)
 
     if (this.vehicleId) {
       this.GetAllVehicleById(this.vehicleId)

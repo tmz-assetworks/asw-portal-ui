@@ -38,6 +38,10 @@ export class AuthService {
     return this.storage.isLoggedIn()
   }
 
+  getRole() {
+    return localStorage.getItem('role')
+  }
+
   /* refreshToken() {
     const d = new Date();
     let time = d.getTime();  
@@ -50,7 +54,6 @@ export class AuthService {
   } */
 
   haveAccess(role: string) {
-   
     let idToken = localStorage.getItem('token_id')
     if (idToken !== null && idToken !== '') {
       let decodeData = this._loginService.getDecodedAccessToken(idToken)
