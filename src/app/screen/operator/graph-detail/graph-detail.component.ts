@@ -1,11 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
-
-import { Location } from '@angular/common'
+import { DatePipe, Location } from '@angular/common'
 import { ActivatedRoute, Router } from '@angular/router'
 import { DashboardService } from '../dashboard/dashboard.service'
 import { StorageService } from 'src/app/service/storage.service'
 import { MatTableDataSource } from '@angular/material/table'
-
+import { ToastrService } from 'ngx-toastr'
 import jsPDF from 'jspdf'
 import 'jspdf-autotable'
 import { MatPaginator } from '@angular/material/paginator'
@@ -41,11 +40,14 @@ export class GraphDetailComponent implements OnInit {
   chargeBoxId: any
   url: any
   chartList = []
+  chartListFilter = []
   isCharger: any
   displayedColumns: string[] = []
   displayedColumnsLocation: string[] = []
 
-  statusList = [
+  datePipe = new DatePipe('en-US')
+
+  statusListForOthers = [
     {
       name: 'Cancelled',
     },
@@ -59,6 +61,15 @@ export class GraphDetailComponent implements OnInit {
       name: 'Charging',
     },
   ]
+  statusListForChargerInUse = [
+    {
+      name: 'Available',
+    },
+    {
+      name: 'Unavailable',
+    },
+  ]
+  statusList: any = []
 
   searchFilter = this._fb.group({
     fromDate: new FormControl(''),
@@ -72,6 +83,7 @@ export class GraphDetailComponent implements OnInit {
     private _dashboardService: DashboardService,
     public _storageService: StorageService,
     public _fb: FormBuilder,
+    private _toastr: ToastrService,
   ) {
     this.graphHeading = this._storageService.getSessionData('graphHeading')
     this.pageHeading = this._storageService.getSessionData('pageHeading')
@@ -85,6 +97,12 @@ export class GraphDetailComponent implements OnInit {
 
     this._activatedRoute.queryParams.subscribe((params) => {
       this.graphId = JSON.parse(params['id'])
+
+      if (this.graphId == 5 || this.graphId == 1) {
+        this.statusList = this.statusListForChargerInUse
+      } else {
+        this.statusList = this.statusListForOthers
+      }
       if (
         this.graphId == 1 ||
         this.graphId == 2 ||
@@ -98,10 +116,8 @@ export class GraphDetailComponent implements OnInit {
         this.isCharger = true
         this.displayedColumns = [
           'chargerName',
-          'uid',
           'chargerType',
           'faultSince',
-          'faultDescription',
           'timeReported',
           'locationId',
           'locationName',
@@ -118,10 +134,10 @@ export class GraphDetailComponent implements OnInit {
         this.isCharger = false
         this.displayedColumnsLocation = [
           'chargerName',
-          'uid',
+          // 'uid',
           'chargerType',
           'faultSince',
-          'faultDescription',
+          // 'faultDescription',
           'timeReported',
           'locationId',
           'locationName',
@@ -146,16 +162,28 @@ export class GraphDetailComponent implements OnInit {
   GetChartDetailsList(flag: any, searchValue?: any) {
     const pBody = {
       pageNumber: this.currentPage,
-      searchParam: this.url ? this.chargeBoxId : '',
+      searchParam: '',
       pageSize: this.pageSize,
       orderBy: '',
+      chargeBoxId: this.chargeBoxId ? this.chargeBoxId : '',
       duration: this.duration.toString(),
       opratorid: this.UserId,
       locationIds: this.locationId ? [this.locationId] : [],
       flag: flag,
-      fromdate: searchValue ? searchValue.fromDate : '',
-      todate: searchValue ? searchValue.toDate : '',
-      status: searchValue ? searchValue.status : [],
+      fromdate: searchValue
+        ? this.datePipe.transform(
+            searchValue.fromDate,
+            'yyyy-MM-ddT' + this.getModifiedDate(),
+          )
+        : '',
+      todate: searchValue
+        ? this.datePipe.transform(
+            searchValue.toDate,
+            'yyyy-MM-ddT' + this.getModifiedDate(),
+          )
+        : '',
+      status: searchValue && searchValue.status ? searchValue.status : [],
+      chartType: this.graphId == 5 || this.graphId == 1 ? 'chargerinuse' : '',
     }
     this._dashboardService.GetChartDetailsList(pBody).subscribe((res) => {
       if (res.data !== undefined && res.data != null && res.data.length > 0) {
@@ -172,98 +200,163 @@ export class GraphDetailComponent implements OnInit {
       }
     })
   }
+
+  /**
+   * export pdf
+   */
   public downloadAsPDF() {
+    const pBody = {
+      pageNumber: 1,
+      searchParam: this.chargeBoxId ? this.chargeBoxId : '',
+      pageSize: 0,
+      orderBy: '',
+      duration: this.duration.toString(),
+      chargeBoxId: this.chargeBoxId ? this.chargeBoxId : '',
+      opratorid: this.UserId,
+      locationIds: this.locationId ? [this.locationId] : [],
+      flag: this.flag,
+      fromdate: this.searchFilter.value.fromDate,
+      todate: this.searchFilter.value.toDate,
+      status: [],
+      isExport: true,
+      chartType: this.graphId == 5 || this.graphId == 1 ? 'chargerinuse' : '',
+    }
+    this._dashboardService.GetChartDetailsList(pBody).subscribe((res) => {
+      if (res.data !== undefined && res.data != null && res.data.length > 0) {
+        this.chartListFilter = res.data
+        if (this.flag != 'locationStatus') {
+          // this.dataSource.data = this.chartListFilter
+          //this.isTableHasData = false
+        }
+      } else {
+        this.chartListFilter = res.data
+        // this.dataSource.data = []
+        // this.isTableHasData = true
+      }
+    })
+
     if (this.flag == 'chargerSession') {
       var prepare: any = []
-      this.chartList.forEach((e: any) => {
-        var tempObj = []
-        tempObj.push(e.chargerName)
-        tempObj.push(e.uid)
-        tempObj.push(e.chargerType)
-        tempObj.push(e.faultSince)
-        tempObj.push(e.faultDescription)
-        tempObj.push(e.timeReported)
-        tempObj.push(e.locationId)
-        tempObj.push(e.locationName)
-        tempObj.push(e.startTime)
-        tempObj.push(e.endTime)
-        tempObj.push(e.startmetervalue)
-        tempObj.push(e.endmetervalue)
-        tempObj.push(e.reasoneForStop)
-        prepare.push(tempObj)
-      })
-      let doc: any = new jsPDF()
-      doc.autoTable({
-        head: [
-          [
-            'ChargerName',
 
-            'UID',
+      setTimeout(() => {
+        this.chartListFilter.forEach((e: any) => {
+          var tempObj = []
+          tempObj.push(e.chargerName)
 
-            'ChargerType',
+          tempObj.push(e.chargerType)
 
-            'FaultSince',
+          tempObj.push(e.faultSince)
 
-            'FaultDescription',
+          tempObj.push(
+            this.datePipe.transform(e.timeReported, 'dd-MM-yyyy h:mm'),
+          )
+          tempObj.push(e.locationId)
+          tempObj.push(e.locationName)
+          tempObj.push(e.chargingStatus)
+          tempObj.push(this.datePipe.transform(e.startTime, 'dd-MM-yyyy h:mm'))
+          tempObj.push(this.datePipe.transform(e.endTime, 'dd-MM-yyyy h:mm'))
+          tempObj.push(e.startmetervalue)
+          tempObj.push(e.endmetervalue)
+          tempObj.push(e.reasoneForStop)
+          prepare.push(tempObj)
+        })
+        let doc: any = new jsPDF()
+        doc.autoTable({
+          head: [
+            [
+              'ChargerName',
 
-            'TimeReported',
+              'ChargerType',
 
-            'LocationId',
+              'FaultSince',
 
-            'LocationName',
+              'TimeReported',
 
-            'StartTime',
+              'LocationId',
 
-            'EndTime',
+              'LocationName',
 
-            'StartMeterValue',
+              'ChargingStatus',
 
-            'EndMeterValue',
+              'StartTime',
 
-            'ReasonForStop',
+              'EndTime',
+
+              'StartMeterValue',
+
+              'EndMeterValue',
+
+              'ReasonForStop',
+            ],
           ],
-        ],
-        body: prepare,
-      })
-      doc.save('download' + '.pdf')
+          columnStyles: {
+            // 10: { cellWidth: 20 },
+            1: { cellWidth: 10 },
+            4: { cellWidth: 10, columnWidth: 'auto' },
+            5: { cellWidth: 20, columnWidth: 'auto' },
+            3: { cellWidth: 20, columnWidth: 'auto' },
+            8: { cellWidth: 20, columnWidth: 'auto' },
+            9: { cellWidth: 20, columnWidth: 'auto' },
+            10: { cellWidth: 20, columnWidth: 'auto' },
+
+            // 2: {cellWidth: 80},
+            // etc
+          },
+          body: prepare,
+        })
+
+        doc.save('download' + '.pdf')
+      }, 5000)
     } else {
       var prepare: any = []
-      this.chartList.forEach((e: any) => {
-        var tempObj = []
-        tempObj.push(e.chargerName)
-        tempObj.push(e.uid)
-        tempObj.push(e.chargerType)
-        tempObj.push(e.faultSince)
-        tempObj.push(e.faultDescription)
-        tempObj.push(e.timeReported)
-        tempObj.push(e.locationId)
-        tempObj.push(e.locationName)
-        prepare.push(tempObj)
-      })
-      let doc: any = new jsPDF()
-      doc.autoTable({
-        head: [
-          [
-            'ChargerName',
+      setTimeout(() => {
+        this.chartListFilter.forEach((e: any) => {
+          var tempObj = []
+          tempObj.push(e.chargerName)
+          tempObj.push(e.uid)
+          tempObj.push(e.chargerType)
+          tempObj.push(e.faultSince)
+          tempObj.push(e.faultDescription)
+          tempObj.push(
+            this.datePipe.transform(e.timeReported, 'dd-MM-yyyy h:mm'),
+          )
+          tempObj.push(e.locationId)
+          tempObj.push(e.locationName)
+          prepare.push(tempObj)
+        })
+        let doc: any = new jsPDF()
+        doc.autoTable({
+          head: [
+            [
+              'ChargerName',
 
-            'UID',
+              'UID',
 
-            'ChargerType',
+              'ChargerType',
 
-            'FaultSince',
+              'FaultSince',
 
-            'FaultDescription',
+              'FaultDescription',
 
-            'TimeReported',
+              'TimeReported',
 
-            'LocationId',
+              'LocationId',
 
-            'LocationName',
+              'LocationName',
+            ],
           ],
-        ],
-        body: prepare,
-      })
-      doc.save('download' + '.pdf')
+          columnStyles: {
+            // 10: { cellWidth: 20 },
+
+            5: { cellWidth: 20, columnWidth: 'auto' },
+
+            // 2: {cellWidth: 80},
+            // etc
+          },
+          body: prepare,
+        })
+        doc.save('download' + '.pdf')
+      }, 5000)
     }
   }
 
@@ -285,18 +378,72 @@ export class GraphDetailComponent implements OnInit {
           : this.currentPage - 1
     }
 
-    this.GetChartDetailsList(this.flag)
+    this.GetChartDetailsList(this.flag, this.searchFilter.value)
   }
 
   /**
-   * filter record
+   * filter record on submit
    */
 
   filter() {
-    this.GetChartDetailsList(this.flag, this.searchFilter.value)
+    if (this.searchFilter.value.fromDate && this.searchFilter.value.toDate) {
+      this.GetChartDetailsList(this.flag, this.searchFilter.value)
+    } else if (this.searchFilter.value.status) {
+      this.GetChartDetailsList(this.flag, this.searchFilter.value)
+    } else {
+      this._toastr.error('Please select Start/End Date first.')
+    }
   }
+
+  /**
+   * check start date validation
+   */
+  checkStartDate() {
+    if (this.searchFilter.value.fromDate > this.searchFilter.value.toDate) {
+      this.searchFilter.patchValue({ toDate: '' })
+    }
+  }
+  /**
+   * reset filter
+   */
   resetFilter() {
     this.searchFilter.reset()
     this.GetChartDetailsList(this.flag)
+  }
+  /**
+   * Check valid from date
+   * @param e
+   * @returns
+   */
+
+  checkValidFrom(e: any) {
+    let fromDate = this.searchFilter.value.fromDate
+    if (!fromDate) {
+      this._toastr.error('Please select valid start date first.')
+      this.searchFilter.patchValue({ toDate: '' })
+      return
+    }
+    if (fromDate) {
+    }
+  }
+  /**
+   * date filter for valid to date
+   * @param d
+   * @returns
+   */
+
+  dateFilterForStart = (d: any | null) => {
+    let todayDate = new Date()
+    return d <= todayDate
+  }
+  dateFilterForEnd = (d: any | null) => {
+    let fromDate = this.searchFilter.value.fromDate
+    return d >= fromDate
+  }
+
+  getModifiedDate() {
+    let date = new Date()
+    let time = this.datePipe.transform(date, 'HH:mm:ss')
+    return time
   }
 }

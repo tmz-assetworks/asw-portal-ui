@@ -9,6 +9,8 @@ import { MasterComponent } from '../master/master.component'
 import { RoleAuthGuard } from 'src/app/gurads/role.auth.guard'
 import { GraphDetailComponent } from './graph-detail/graph-detail.component'
 import { CommonModule } from '@angular/common'
+import { TransactionDialogComponent } from 'src/app/component/dashboard/transaction-dialog/transaction-dialog.component'
+import { LegendsDialogComponent } from 'src/app/component/dashboard/legends-dialog/legends-dialog.component'
 
 const routes: Routes = [
   {
@@ -88,6 +90,10 @@ const routes: Routes = [
     }),
   ],
   exports: [],
-  declarations: [GraphDetailComponent],
+  declarations: [
+    GraphDetailComponent,
+    TransactionDialogComponent,
+    LegendsDialogComponent,
+  ],
 })
 export class OperatorModule {}

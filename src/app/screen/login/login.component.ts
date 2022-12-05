@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr'
 import { LoginService } from './login.service'
 import Swal from 'sweetalert2'
 import { StorageService } from 'src/app/service/storage.service'
+import { AuthService } from 'src/app/service/auth/auth.service'
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -23,6 +24,7 @@ export class LoginComponent implements OnInit {
     private _loginService: LoginService,
     private toastr: ToastrService,
     private _storageService: StorageService,
+    private _authService: AuthService,
   ) {
     this.email =
       localStorage.getItem('emailEleVehi') != null &&
@@ -51,17 +53,7 @@ export class LoginComponent implements OnInit {
   //  pass = 'nihi@12345'
 
   ngOnInit(): void {
-    localStorage.removeItem('userEmail')
-    localStorage.removeItem('token_operator')
-    localStorage.removeItem('role')
-    localStorage.removeItem('token_refresh')
-    localStorage.removeItem('token_id')
-    localStorage.removeItem('token_expires_on')
-    localStorage.removeItem('refreshToken_expires_on')
-    localStorage.removeItem('handleErrorCalled')
-    localStorage.removeItem('resetToken');
-    localStorage.removeItem('userEmailVerify');
-    localStorage.removeItem('timeInterval');
+    this.checkLoginExist()
   }
 
   rememberMe(event: any) {
@@ -111,6 +103,7 @@ export class LoginComponent implements OnInit {
       )
       this.showLoader = true
       sessionStorage.setItem('enpass', encryptedPassword)
+
       const pBody = {
         username: this.myLoginForm.value.email.trim(),
         password: encryptedPassword,
@@ -126,8 +119,8 @@ export class LoginComponent implements OnInit {
           // accesstoken   exp
           localStorage.setItem('token_operator', res.data[0].access_token)
           localStorage.setItem('token_refresh', res.data[0].refresh_token)
-        //  localStorage.setItem('token_id', res.data[0].id_token) // for role
-        localStorage.setItem('token_id', res.data[0].access_token)
+          //  localStorage.setItem('token_id', res.data[0].id_token) // for role
+          localStorage.setItem('token_id', res.data[0].access_token)
           // localStorage.setItem('token_expires_on', res.data[0].expires_on)
           localStorage.setItem(
             'refreshToken_expires_on',
@@ -136,12 +129,13 @@ export class LoginComponent implements OnInit {
           const decodeData = this._loginService.getDecodedAccessToken(
             res.data[0].access_token,
           )
-         /*  const decodeDataTime = this._loginService.getDecodedAccessToken(
+          /*  const decodeDataTime = this._loginService.getDecodedAccessToken(
             res.data[0].access_token,
           ) */
 
           localStorage.setItem('token_expires_on', decodeData.exp)
           this._storageService.setLocalData('user_id', decodeData.oid)
+          this._storageService.setLocalData('username', decodeData.name)
 
           this.showLoader = false
           if (decodeData.roles[0] == 'Operator') {
@@ -166,5 +160,28 @@ export class LoginComponent implements OnInit {
 
   showPassword() {
     this.passwordField = this._loginService.showPassword(this.passwordField)
+  }
+
+  checkLoginExist() {
+    let role = this._authService.getRole()
+
+    if (role !== null) {
+      if (role == 'Operator') {
+        //  localStorage.setItem('role', 'Operator')
+        this._router.navigate(['/operator'])
+      } else if (role == 'Admin') {
+        // localStorage.setItem('role', 'Admin')
+        // admin/customer
+        this._router.navigate(['/admin/profile'])
+      } else if (role == 'SuperAdmin') {
+        //localStorage.setItem('role', 'SuperAdmin')
+        this._router.navigate(['/superadmin/customer'])
+      }
+      // if (decodeData.roles[0] !== role) {
+
+      //   // this._router.navigate(['./login'])
+      //   // return
+      // }
+    }
   }
 }

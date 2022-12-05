@@ -1,10 +1,16 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'
+import { Subject } from 'rxjs'
+import { LoaderService } from './service/loader.service'
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'Asset Works';
+  title = 'Asset Works'
+
+  constructor(private _loaderService: LoaderService) {}
+
+  isLoading: Subject<boolean> = this._loaderService.isLoading
 }

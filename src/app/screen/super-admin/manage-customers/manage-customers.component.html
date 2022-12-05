@@ -184,7 +184,7 @@
           </div>
         </div>
         <div class="cust-list-block23-spacer"></div>
-        <div class="cust-list-text-body4 layout">ADD CUSTOMER</div>
+        <div class="cust-list-text-body4 layout">ADD ORGANIZATION</div>
       </div>
     </div>
   </div>
@@ -208,7 +208,7 @@
       </ng-container>
 
       <ng-container matColumnDef="CustomerEmail">
-        <th mat-header-cell *matHeaderCellDef>CUSTOMER EMAIL</th>
+        <th mat-header-cell *matHeaderCellDef>ORGANIZATION EMAIL</th>
         <td mat-cell *matCellDef="let element">{{ element.email }}</td>
       </ng-container>
       <ng-container matColumnDef="PhoneNumber">
@@ -274,9 +274,9 @@
             <img
               class="cursorPointer"
               src="../../../../assets/Super-Admin-icons/Add-Customers.svg"
-              title="Add"
+              title="Add Admin"
               alt=""
-              (click)="AddCustomer()"
+              (click)="AddCustomer(element.id)"
               [routerLink]="['../../createcustomer']"
             />
           </span>

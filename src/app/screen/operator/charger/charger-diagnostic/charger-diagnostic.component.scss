@@ -52,11 +52,25 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
 }
 
+// .tool_alignP {
+//   position: absolute;
+//   // right: 37.5%;
+//   z-index: 100000000;
+//   // top: 202px;
+
+//   @include xl1 {
+//     // right: 45.5%;
+//   }
+// }
 .tool_alignP {
-  position: absolute;
+  // position: absolute;
   // right: 37.5%;
-  z-index: 100000000;
-  top: 202px;
+  // top: 202px;
+  z-index: 1;
+  position: absolute;
+  top: 100%;
+  bottom: 365px;
+  // left: -8%;
 
   @include xl1 {
     // right: 45.5%;
@@ -64,7 +78,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
 }
 .tool_alignRC {
   position: absolute;
-  right: 61.5%;
+  right: 86.5%;
   z-index: 100000000;
   top: 202px;
 
@@ -83,16 +97,16 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
 }
 
-.tool_alignAuth {
-  position: absolute;
-  right: 73%;
-  z-index: 100000000;
-  top: 202px;
+// .tool_alignAuth {
+//   position: absolute;
+//   right: 73%;
+//   z-index: 100000000;
+//   top: 202px;
 
-  @include xl1 {
-    right: 55.5%;
-  }
-}
+//   @include xl1 {
+//     right: 55.5%;
+//   }
+// }
 
 .tool_alignDiag {
   position: absolute;
@@ -3390,9 +3404,9 @@ tr.mat-row:last-of-type {
 }
 
 
-.select-opt-modal {
-  margin: auto 44%;
-}
+// .select-opt-modal {
+//   margin: -370px 44%;
+// }
 .form-fields select {
   height: 40px !important;
   margin: 10px 0px 13px 0px;
@@ -3402,7 +3416,7 @@ tr.mat-row:last-of-type {
   // padding: 8px 10px;
 }
 button {
-  margin: auto 35%;
+  // margin: auto 35%;
   background: #0062a6;
   padding: 10px 22px;
   border-radius: 5px;
@@ -3434,7 +3448,8 @@ button {
   //   margin: auto 42%;
   // }
   .select-opt-modal {
-    margin: auto 45%;
+    // margin: auto 45%;
+    margin:-370px 45%;
   }
   .tool-tip-block1.layout {
     padding: 20px;
@@ -3479,7 +3494,7 @@ button {
     border-radius: 5px;
   }
   button {
-    margin: auto 34%;
+    margin: auto ;
     background: #0062a6;
     padding: 10px 22px;
     border-radius: 5px;
@@ -3544,7 +3559,7 @@ button {
     border-radius: 5px;
   }
   button {
-    margin: auto 38%;
+    margin: auto 0;
     background: #0062a6;
     padding: 10px 22px;
     border-radius: 5px;
@@ -3635,6 +3650,10 @@ button {
   margin-top: -14%;
 }
 
+input.idTag {
+  margin-bottom: 17px;
+}
+
 .form-fields input {
   margin-top: 10px;
   width: 381px;
@@ -3694,6 +3713,95 @@ span.close-icon.auth-close.ng-tns-c260-1 {
     right: 55.5%;
   }
 }
+// button{
+//   width: auto;
+//   min-width: 100%;
+//   height: 40px;
+//   margin-bottom: 25px;
+// }
 
+// button.charging-profile-btn{
+//   margin-bottom: 25px;
+
+// }
+.set-charger1 {
+  display: block;
+  overflow: auto;
+  overflow-y: scroll;
+  // max-height: 900px;
+  max-height: 790px;
+  padding: 0px 10px;
+}
+.mg-space .mat-form-field-infix{
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+// button{
+//   margin: 10px auto;
+//   min-width: 100%;
+// }
+
+// button{
+//   width: auto;
+//   min-width: 100%;
+//   height: 40px;
+//   margin-bottom: 25px;
+//   margin-bottom: 17px;
+  
+// }
+
+// button.charging-profile-btn{
+//   margin-bottom: 25px;
+
+// }
+
+// .set-charger1 {
+//   display: block;
+//   overflow: auto;
+//   overflow-y: scroll;
+//   max-height: 790px;
+// }
+
+button{
+  width: auto;
+  min-width: 100%;
+  height: 40px;
+  margin-bottom: 25px;
+  margin-bottom: 17px;
+}
+
+button.charging-profile-btn{
+  margin-bottom: 25px;
+
+}
+
+input.barbar-input-text {
+  margin-bottom: 17px;
+}
+
+app-tool-tip.wd_sub_1.tool_alignP.tool-tip-11 {
+  z-index: 1;
+  position: absolute;
+  top: 100%;
+  bottom: 365px;
+}
+
+app-tool-tip.wd_sub_1.tool_alignAuth.tool-tip-2{
+  z-index: 1;
+  position: absolute;
+  right: 37% !important;
+  /* margin: auto 35%; */
+  top: 100%;
+  /* margin: auto 25% !important; */
+}
+
+app-tool-tip.wd_sub_1.tool_alignSC.tool-tip-4 {
+  right: 61.5% !important;
+}
+
+app-tool-tip.wd_sub_1.tool_align.tool-tip-5 {
+  right: 62.5% !important;
+}
 
 

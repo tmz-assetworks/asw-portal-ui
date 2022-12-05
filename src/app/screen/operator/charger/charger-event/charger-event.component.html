@@ -159,6 +159,14 @@
                       expandedElement === element ? null : element
                   "
                 />
+
+                <img
+                  *ngIf="element.requestType == 'StopTransaction'"
+                  style="cursor: pointer;"
+                  (click)="openMakePaymentDialog(element.id)"
+                  src="../../../../../assets/chart-icon.svg"
+                  title="Make Payment"
+                />
               </td>
             </ng-container>
             <ng-container matColumnDef="expandedDetail">

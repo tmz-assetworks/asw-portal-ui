@@ -1,18 +1,17 @@
 @import '../../../../styles';
 
- .txt_label{
-  span{
-    width:25px;
-    height:25px;
-    background-color: #0062A6;
-    padding:5px;
+.txt_label {
+  span {
+    width: 25px;
+    height: 25px;
+    background-color: #0062a6;
+    padding: 5px;
     border-radius: 5px;
     display: inline-block;
     text-align: center;
     margin-right: 10px;
-    
   }
-  b{
+  b {
     display: block;
     font-weight: 400;
     margin-left: 50px;
@@ -21,7 +20,7 @@
     background-color: unset;
     min-width: fit-content;
   }
-} 
+}
 .dashboard- {
   &block12 {
     @include flex-column;
@@ -100,8 +99,8 @@
   &block13.layout {
     position: relative;
     height: min-content;
-   /*  margin: 28px 0px 0px 20px; */
-   margin: 0px 20px !important;
+    /*  margin: 28px 0px 0px 20px; */
+    margin: 0px 20px !important;
     @include lg {
       margin: 25px 0px 0px 18px;
     }
@@ -1198,7 +1197,7 @@
   &text-body1.layout9 {
     position: relative;
     height: min-content;
-    width: 208px;
+    width: 100%;
     min-width: 208px;
     margin: 0px 10px 16px auto;
     white-space: nowrap;
@@ -2536,7 +2535,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block23.layout {
     position: relative;
     height: min-content;
-   /*  width: 188px;
+    /*  width: 188px;
     min-width: 188px;*/
   }
   &block23-item {
@@ -2550,21 +2549,21 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &box10.layout {
     position: relative;
     height: 18px;
-    margin: 16px 0px 16px 18px;
+    margin: 16px 4px 16px 18px;
     @include lg {
-      margin: 14px 0px 14px 16px;
+      margin: 14px 2px 14px 16px;
     }
     @include md {
-      margin: 12px 0px 12px 13px;
+      margin: 12px 4px 12px 13px;
     }
     @include sm {
-      margin: 10px 0px 10px 11px;
+      margin: 10px 4px 10px 11px;
     }
     @include xs {
-      margin: 9px 0px 9px 10px;
+      margin: 9px 2px 9px 10px;
     }
     @include xxs {
-      margin: 8px 0px 8px 9px;
+      margin: 8px 1px 8px 9px;
     }
   }
   &block23-spacer {
@@ -2633,12 +2632,13 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
 .header- {
   &block {
     @include flex-column;
-   // background-color: $color_type_16;
+    // background-color: $color_type_16;
   }
-  &block.layout {
+  &block.layoutS {
     position: relative;
     overflow: hidden;
-    min-height: 1314px;
+    // min-height: auto !important;
+    height: auto;
   }
   &block1 {
     @include flex-column;
@@ -3507,8 +3507,6 @@ tr.mat-row.cdk-row.example-element-row.ng-tns-c233-1.ng-star-inserted:nth-child(
   color: #757575;
 }
 
-
-
 statuspanel- {
   &block43 {
     @include flex-column;
@@ -3579,7 +3577,6 @@ statuspanel- {
 
     @include sm {
       margin: 14px 0px 13px 13px;
-    
     }
     @include xs {
       margin: 13px 0px 12px 11px;
@@ -3590,12 +3587,11 @@ statuspanel- {
     @include tn {
       margin: 11px 0px 10px 10px;
     }
-   
   }
   &highlights2 {
     @include font-face($font_type2, rgb(255, 255, 255), 0px);
     text-align: left;
-    
+
     @include xxl {
       font-size: 16px;
     }
@@ -3618,7 +3614,7 @@ statuspanel- {
   &highlights2.layout {
     position: relative;
     height: min-content;
-   // margin: 5px 0px 5px 0px; // niharika added
+    // margin: 5px 0px 5px 0px; // niharika added
     @include sm {
       margin: 5px 0px 5px 0px; // niharika added
     }
@@ -3672,16 +3668,16 @@ statuspanel- {
   box-sizing: border-box;
 }
 .echart- {
-    &item {
-      height: 290px;
-      @include xl1 {
-        height: 280px;
-      }
+  &item {
+    height: 290px;
+    @include xl1 {
+      height: 280px;
     }
   }
+}
 
-$font_type0: 700 20px/1.2 "Roboto", Helvetica, Arial, serif;
-$font_type1: 13px/1.2 "Roboto", Helvetica, Arial, serif;
+$font_type0: 700 20px/1.2 'Roboto', Helvetica, Arial, serif;
+$font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
 
 .list-element- {
   &block2 {
@@ -3809,101 +3805,101 @@ $font_type1: 13px/1.2 "Roboto", Helvetica, Arial, serif;
   }
 }
 .box-element- {
-    &block2 {
-      @include flex-column;
-      flex-direction: row;
-      // flex-wrap: wrap;
-      justify-content: flex-start;
-      // align-content: center;
-      // align-items: center;
-    }
-    &block2.layout {
-      position: relative;
-      height: min-content;
+  &block2 {
+    @include flex-column;
+    flex-direction: row;
+    // flex-wrap: wrap;
+    justify-content: flex-start;
+    // align-content: center;
+    // align-items: center;
+  }
+  &block2.layout {
+    position: relative;
+    height: min-content;
+    margin: 20px 0px 30px;
+    @include lg {
       margin: 20px 0px 30px;
-      @include lg {
-        margin: 20px 0px 30px;
-      }
-      @include lg {
-        margin: 10px 0px 20px;
-      }
     }
-    &block5 {
-      @include flex-column;
-      align-items: center;
-    }
-    &block5.layout {
-      position: relative;
-      flex: 0 1 105px;
-      @include xl1 {
-        flex: 0 1 90px;
-      }
-      height: min-content;
-      margin: 0px 0px 1px;
-    }
-    &box2 {
-      border: 1px solid rgb(173, 173, 173);
-      border-radius: 8px 8px 8px 8px;
-    }
-    &box2.layout {
-      position: relative;
-      height: 50px;
-      width: 50px;
-      // margin: 0px 27px 0px 28px;
-      @include xl1 {
-        // margin: 0px 18px 0px 20px;
-        width: 40px;
-        height: 40px;
-      }
-    }
-    &block6 {
-      @include flex-column;
-      justify-items: center;
-    }
-    &block6.layout {
-      position: relative;
-      height: min-content;
-      margin: 14px auto;
-      text-align: center;
-    }
-    &subtitle {
-      @include font-face($font_type0, rgb(19, 27, 33), 0px);
-    }
-    &subtitle.layout {
-      position: relative;
-      height: min-content;
-      text-align: center;
-    }
-    &text-body {
-      @include font-face($font_type1, rgb(112, 120, 127), 0px);
-    }
-    &text-body.layout {
-    }
-    &block2-spacer {
-      flex: 1 1 auto;
-      max-width: 30%;
-    }
-    &block5.layout1 {
-      position: relative;
-      flex: 0 1 105px;
-      height: min-content;
+    @include lg {
+      margin: 10px 0px 20px;
     }
   }
-  .box-element-box2.layout {
-    padding: 10px;
-    box-sizing: border-box;
+  &block5 {
+    @include flex-column;
+    align-items: center;
   }
+  &block5.layout {
+    position: relative;
+    flex: 0 1 105px;
+    @include xl1 {
+      flex: 0 1 90px;
+    }
+    height: min-content;
+    margin: 0px 0px 1px;
+  }
+  &box2 {
+    border: 1px solid rgb(173, 173, 173);
+    border-radius: 8px 8px 8px 8px;
+  }
+  &box2.layout {
+    position: relative;
+    height: 50px;
+    width: 50px;
+    // margin: 0px 27px 0px 28px;
+    @include xl1 {
+      // margin: 0px 18px 0px 20px;
+      width: 40px;
+      height: 40px;
+    }
+  }
+  &block6 {
+    @include flex-column;
+    justify-items: center;
+  }
+  &block6.layout {
+    position: relative;
+    height: min-content;
+    margin: 14px auto;
+    text-align: center;
+  }
+  &subtitle {
+    @include font-face($font_type0, rgb(19, 27, 33), 0px);
+  }
+  &subtitle.layout {
+    position: relative;
+    height: min-content;
+    text-align: center;
+  }
+  &text-body {
+    @include font-face($font_type1, rgb(112, 120, 127), 0px);
+  }
+  &text-body.layout {
+  }
+  &block2-spacer {
+    flex: 1 1 auto;
+    max-width: 30%;
+  }
+  &block5.layout1 {
+    position: relative;
+    flex: 0 1 105px;
+    height: min-content;
+  }
+}
+.box-element-box2.layout {
+  padding: 10px;
+  box-sizing: border-box;
+}
 //   .box-element-block2.layout {
 //     margin: 20px auto;
 //   }
-  .dotted_line hr {
-    width: 1px;
-    height: 100px;
-    border: 0;
-    border-left: 1px dotted #c2c5c8;
-  }
+.dotted_line hr {
+  width: 1px;
+  height: 100px;
+  border: 0;
+  border-left: 1px dotted #c2c5c8;
+}
 
-  /* .txt_label
+/* .txt_label
     {
       width:18px;
       height:12px;
@@ -3914,15 +3910,13 @@ $font_type1: 13px/1.2 "Roboto", Helvetica, Arial, serif;
       text-align: center;
       margin-right: 10px;
      } */
-    
-   /*  b{
+
+/*  b{
       display: block;
       font-weight: 400;
       margin-left: 50px;
     } */
-  
 
- 
 .mat-elevation-z8 {
   box-shadow: 0px 0px 0px 0px rgb(0 0 0 / 20%), 0px 0px 0px 0px rgb(0 0 0 / 14%),
     0px 0px 0px 0px rgb(0 0 0 / 12%);
@@ -3948,7 +3942,7 @@ $font_type1: 13px/1.2 "Roboto", Helvetica, Arial, serif;
     width: 100%;
 
     @include lg {
-      width: 100vw;
+      // width: 100vw;
       // max-width: 100%;
       overflow: auto;
       // margin-bottom: 10px;
@@ -3967,41 +3961,39 @@ $font_type1: 13px/1.2 "Roboto", Helvetica, Arial, serif;
     vertical-align: middle;
   }
 }
-@media (max-width: 1199px){
-  .mat-table{
+@media (max-width: 1199px) {
+  .mat-table {
     max-width: 1200px !important;
+  }
 }
-}
-@media (max-width: 768px){
-  .dashboard-block12.layout{
+@media (max-width: 768px) {
+  .dashboard-block12.layout {
     margin: 0px 0px 0px -29px;
-}
+  }
 }
 
 @media all and (min-width: 768px) and (max-width: 1024px) {
-.dashboard-block13.layout {
-  flex-wrap: wrap;
-}
-.dashboard-block13 .cust-list-flex3-spacer{
-  flex: 0 1 0px !important;
-}
-.cust-list-flex3.layout {
-  width: 160px;
-}
+  .dashboard-block13.layout {
+    flex-wrap: wrap;
+  }
+  .dashboard-block13 .cust-list-flex3-spacer {
+    flex: 0 1 0px !important;
+  }
+  .cust-list-flex3.layout {
+    width: 160px;
+  }
 
-.cust-list-flex3.layout{
-  margin: 35px 13px 0px;
+  .cust-list-flex3.layout {
+    margin: 35px 13px 0px;
+  }
+  .dashboard-block13 .layout.mat-data {
+    width: 66vw !important;
+    min-width: -webkit-fill-available;
+  }
+  #pdfTable {
+    margin: 0px;
+  }
 }
-.dashboard-block13 .layout.mat-data {
-  width: 66vw !important;
-  min-width: -webkit-fill-available;
-}
-#pdfTable {
-  margin: 0px;
-}
-}
-
-
 
 .barbar-box6.layout {
   background-color: white;
@@ -4015,7 +4007,7 @@ $font_type1: 13px/1.2 "Roboto", Helvetica, Arial, serif;
   display: flex;
   flex-wrap: wrap;
 }
-.barbar-block13-item{
+.barbar-block13-item {
   display: flex;
   flex-direction: column;
   position: relative;
@@ -4045,20 +4037,20 @@ element.style {
   display: flex;
   flex-wrap: wrap;
 }
-.barbar-flex1.layout{
+.barbar-flex1.layout {
   position: relative;
   height: min-content;
   float: right;
   margin-top: 30px;
   margin-bottom: 30px;
 }
-.barbar-flex1-item{
+.barbar-flex1-item {
   display: flex;
   flex-direction: column;
   position: relative;
   flex: 0 1 184px;
 }
-.barbar-block17.layout{
+.barbar-block17.layout {
   position: relative;
   height: min-content;
   align-items: center;
@@ -4081,26 +4073,28 @@ element.style {
   height: min-content;
   padding: 18px 40px;
   position: relative;
-    height: min-content;
-    padding: 18px 40px;
-    background: #0062a6;
-    border-radius: 5px;
+  height: min-content;
+  padding: 18px 40px;
+  background: #0062a6;
+  border-radius: 5px;
 }
-button{
-  font: 500 14px/1.2 "Roboto", Helvetica, Arial, serif;
-    color: #0062a6;
-    letter-spacing: 0px;
-    text-transform: uppercase;
+button {
+  font: 500 14px/1.2 'Roboto', Helvetica, Arial, serif;
+  color: #0062a6;
+  letter-spacing: 0px;
+  text-transform: uppercase;
 }
-.submit-action input{color: #ffffff;}
-input{
-  font: 500 14px/1.2 "Roboto", Helvetica, Arial, serif;
-    // color: #ffffff;
-    letter-spacing: 0px;
-    background: transparent;
-    
-    text-transform: uppercase;
-    border: 0;
+.submit-action input {
+  color: #ffffff;
+}
+input {
+  font: 500 14px/1.2 'Roboto', Helvetica, Arial, serif;
+  // color: #ffffff;
+  letter-spacing: 0px;
+  background: transparent;
+
+  text-transform: uppercase;
+  border: 0;
 }
 button {
   background: transparent;
@@ -4111,13 +4105,40 @@ button {
   height: min-content;
   padding: 18px 40px;
 }
-.barbar-text-body2{
-  font: 500 14px/1.2 "Roboto", Helvetica, Arial, serif;
+.barbar-text-body2 {
+  font: 500 14px/1.2 'Roboto', Helvetica, Arial, serif;
   color: #0062a6;
   letter-spacing: 0px;
 }
-.barbar-highlights.layout{
-  font: 15px/1.2 "Roboto", Helvetica, Arial, serif;
+.barbar-highlights.layout {
+  font: 15px/1.2 'Roboto', Helvetica, Arial, serif;
   color: #5c5c5c;
   letter-spacing: 0px;
+}
+
+.form-select #mat-select-12 {
+  /* display: flex; */
+  float: left;
+  width: 50%;
+}
+.form-select #mat-select-0 {
+  float: left;
+  width: 50%;
+}
+.form-select mat-label {
+  flex-wrap: wrap;
+  display: flex;
+  width: 48%;
+  float: left;
+  padding-left: 5px;
+}
+
+.form-select .mat-form-field-infix {
+  padding: 0px !important;
+  border-top: 0 !important;
+}
+
+mat-select#mat-select-6 {
+  width: 50%;
+  float: left;
 }

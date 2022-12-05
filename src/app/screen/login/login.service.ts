@@ -9,8 +9,10 @@ import { environment } from 'src/environments/environment'
 })
 export class LoginService {
   url: any
+  pricingUrl: string
   constructor(private _http: HttpClient) {
-    this.url = environment.originAuth + 'api/Auth/'
+    this.url = environment.AUTH_API_URL + 'api/Auth/'
+    this.pricingUrl = environment.PRICING_API_URL
   }
 
   /**
@@ -30,25 +32,23 @@ export class LoginService {
    * @returns
    */
 
-   verifyUserByOTP(email: string, otp: any) {
+  verifyUserByOTP(email: string, otp: any) {
     let params = '?emailid=' + email + '&OTP=' + otp
     return this._http.get<any>(`${this.url}VerifyUserByOTP${params}`)
   }
 
-
   /**
    * Change Password
    * @param email
    * @param password
    */
-  changePassword(email: string, password: string,token: string) {
-     const body = {
+  changePassword(email: string, password: string, token: string) {
+    const body = {
       emailid: email,
       password: password,
-      accesstoken: token
+      accesstoken: token,
     }
-    return this._http.post<any>(`${this.url}ChangePassword`,body) 
- 
+    return this._http.post<any>(`${this.url}ChangePassword`, body)
   }
 
   /**
@@ -56,15 +56,13 @@ export class LoginService {
    * @param email
    * @param password
    */
-   changePasswordObjectId(uname: string, password: string,token: string) {
-  
+  changePasswordObjectId(uname: string, password: string, token: string) {
     const body = {
       emailid: uname,
       password: password,
-      accesstoken: token
+      accesstoken: token,
     }
-    return this._http.post<any>(`${this.url}ResetPassword`,body)
-   
+    return this._http.post<any>(`${this.url}ResetPassword`, body)
   }
 
   /**
@@ -125,8 +123,8 @@ export class LoginService {
    * @returns
    */
   loginUser(params: any): Observable<any> {
-   // return this._http.post<any>(`${this.url}AuthNew`, params)
-   return this._http.post<any>(`${this.url}`, params)
+    // return this._http.post<any>(`${this.url}AuthNew`, params)
+    return this._http.post<any>(`${this.url}`, params)
   }
 
   /**
@@ -145,7 +143,6 @@ export class LoginService {
    * @returns
    */
   refreshToken() {
-    
     let refreshToken =
       JSON.parse(JSON.stringify(localStorage.getItem('token_refresh'))) || ''
     let params = '?refreshToken=' + refreshToken
@@ -159,6 +156,17 @@ export class LoginService {
     localStorage.setItem('token_id', res.data.id_token) // for role
     localStorage.setItem('token_expires_on', res.data.expires_on)
     localStorage.setItem('refreshToken_expires_on', res.data.not_before)
+  }
 
+  /**
+   * Generate Invoice Details
+   * @param id
+   * @returns
+   */
+
+  public GenerateInvoiceDetails(id: any): Observable<any> {
+    return this._http.get<any>(
+      `${this.pricingUrl}SubscriptionPlan/GenerateInvoiceDetails/${id}`,
+    )
   }
 }

@@ -36,7 +36,7 @@ export class ReportSubscriptionComponent implements OnInit {
       this.getSubscriptions(this.UserId, [], this.selectedDuration)
     }
   }
-  openDetailPage(
+  openReportDetailPage(
     event: any,
     graphHeading: string,
     pageHeading: string,
@@ -45,7 +45,7 @@ export class ReportSubscriptionComponent implements OnInit {
     sessionStorage.setItem('graphHeading', graphHeading)
     sessionStorage.setItem('pageHeading', pageHeading)
     sessionStorage.setItem('duration', duration)
-    this._router.navigate(['detail'], {
+    this._router.navigate(['report-detail'], {
       relativeTo: this._route,
       queryParams: { id: event },
     })
@@ -57,7 +57,7 @@ export class ReportSubscriptionComponent implements OnInit {
    */
   getSubscriptions(operatorId: any, locationId: any, duration: any) {
     const pBbody = {
-      operatorId: '2',
+      operatorId: this.UserId,
       locationId: locationId,
       duration: '',
     }

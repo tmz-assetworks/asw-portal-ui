@@ -8,9 +8,9 @@ export class AdminService {
   userUrl: string
   pricingUrl: string
   constructor(private _http: HttpClient) {
-    this.assetUrl = environment.assetLocalOrigin
-    this.userUrl = environment.localOrigin
-    this.pricingUrl = environment.AssetPricing
+    this.assetUrl = environment.ASSET_API_URL
+    this.userUrl = environment.USER_API_URL
+    this.pricingUrl = environment.PRICING_API_URL
   }
 
   public GetLocationList(params: any): Observable<any> {
@@ -233,7 +233,7 @@ export class AdminService {
     return this._http.get<any>(`${this.assetUrl}Location/GetAllLocationName`)
   }
   public CreatePad(params: any): Observable<any> {
-    return this._http.post<any>(`${this.assetUrl}Pad/CreatePad`, params)
+    return this._http.post<any>(`${this.assetUrl}/Pad/CreatePad`, params)
   }
 
   public GetCombineAssetList(params: any): Observable<any> {
@@ -380,7 +380,36 @@ export class AdminService {
       params,
     )
   }
-
+  public GetCurrencyCode(params: any): Observable<any> {
+    return this._http.post<any>(
+      `${this.pricingUrl}SubscriptionPlan/GetCurrencyDDL`,
+      params,
+    )
+  }
+  public GetCustomers(params: any): Observable<any> {
+    return this._http.post<any>(
+      `${this.pricingUrl}/SubscriptionPlan/GetCustomersDDL`,
+      params,
+    )
+  }
+  public GetSubscriptionPlanType(params: any): Observable<any> {
+    return this._http.post<any>(
+      `${this.pricingUrl}/SubscriptionPlan/GetSubscriptionPlanTypeDDL`,
+      params,
+    )
+  }
+  public GetSubscriptionStatus(params: any): Observable<any> {
+    return this._http.post<any>(
+      `${this.pricingUrl}/SubscriptionPlan/GetStatusDDL`,
+      params,
+    )
+  }
+  public GetSubscriptionGroup(params: any): Observable<any> {
+    return this._http.post<any>(
+      `${this.pricingUrl}/SubscriptionPlan/GetSubscriptionGroupDDL`,
+      params,
+    )
+  }
   public GetAllSubscriptionPlan(params: any): Observable<any> {
     return this._http.post<any>(
       `${this.pricingUrl}SubscriptionPlan/GetAllSubscriptionPlan`,
@@ -396,25 +425,88 @@ export class AdminService {
 
   public SubscriptionplanById(params: any): Observable<any> {
     return this._http.get<any>(
-      `${this.pricingUrl}SubscriptionPlan/subscriptionplanById?id=${params}`,
+      `${this.pricingUrl}/SubscriptionPlan/subscriptionplanById?id=${params}`,
       params,
     )
   }
   public CreateSubscriptionPlan(params: any): Observable<any> {
     return this._http.post<any>(
-      `${this.pricingUrl}SubscriptionPlan/CreateSubscriptionPlan`,
+      `${this.pricingUrl}/SubscriptionPlan/CreateSubscriptionPlan`,
       params,
     )
   }
   public UpdateSubscriptionPlan(params: any): Observable<any> {
     return this._http.put<any>(
-      `${this.pricingUrl}SubscriptionPlan/UpdateSubscriptionPlan`,
+      `${this.pricingUrl}/SubscriptionPlan/UpdateSubscriptionPlan`,
       params,
     )
   }
-  public GetPricingPlanMocky(): Observable<any> {
+  /**
+   * Pricing API
+   * @param params
+   * @returns
+   */
+
+  public CreatePricePlan(params: any): Observable<any> {
+    return this._http.post<any>(
+      `${this.pricingUrl}PricePlan/CreatePricePlan`,
+      params,
+    )
+  }
+
+  public UpdatePricePlan(params: any): Observable<any> {
+    return this._http.put<any>(
+      `${this.pricingUrl}PricePlan/UpdatePricePlan`,
+      params,
+    )
+  }
+
+  public GetCurrencyDDL(params: any): Observable<any> {
+    return this._http.post<any>(
+      `${this.pricingUrl}SubscriptionPlan/GetCurrencyDDL`,
+      params,
+    )
+  }
+
+  public GetAllPriceType(): Observable<any> {
+    return this._http.get<any>(`${this.pricingUrl}PricePlan/GetAllPriceType`)
+  }
+  public GetAllUnit(id: any): Observable<any> {
     return this._http.get<any>(
-      `https://run.mocky.io/v3/b2eb683a-3227-44a0-b2d4-ae8d55c59c71`,
+      `${this.pricingUrl}PricePlan/GetAllUnit?PriceTypeId=${id}`,
+    )
+  }
+  public GetAllLevel(): Observable<any> {
+    return this._http.get<any>(`${this.pricingUrl}PricePlan/GetAllLevel`)
+  }
+  public GetAllCurrencyCode(): Observable<any> {
+    return this._http.get<any>(`${this.pricingUrl}PricePlan/GetAllCurrencyCode`)
+  }
+  public CustomerDDL(): Observable<any> {
+    return this._http.get<any>(`${this.userUrl}User/CustomerDDL`)
+  }
+  public getPricePlanbyid(params: any): Observable<any> {
+    return this._http.get<any>(
+      `${this.pricingUrl}PricePlan/getPricePlanbyid?id=${params}`,
+      params,
+    )
+  }
+
+  public GetLocationName(): Observable<any> {
+    return this._http.get<any>(`${this.assetUrl}Location/GetAllLocationName`)
+  }
+
+  public GetChargeboxIdByLocationsId(params: any): Observable<any> {
+    return this._http.post<any>(
+      `${this.assetUrl}Dispenser/GetChargeboxIdByLocationsId`,
+      params,
+    )
+  }
+
+  public IsActivePricePlan(params: any): Observable<any> {
+    return this._http.put<any>(
+      `${this.pricingUrl}PricePlan/IsActivePricePlan`,
+      params,
     )
   }
 }

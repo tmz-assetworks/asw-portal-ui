@@ -187,7 +187,7 @@ $font_type_3: 500 14px/1.2 'Roboto', Helvetica, Arial, serif;
     position: relative;
     flex: 1 1 calc(20% - 8px);
     min-width: 248px;
-    max-width: 358px;
+    max-width: 335px;
     // @include xl {
     //   flex: 0 0 calc(50% - 8px);
     //   min-width: 358px;
@@ -607,4 +607,12 @@ $font_type_3: 500 14px/1.2 'Roboto', Helvetica, Arial, serif;
 
 .example-margin {
   margin: 0 10px;
+}
+.error-mess {
+  color: red;
+  padding-top: 5px;
+}
+.is-invalid {
+  border-color: red !important;
+  background-image: none !important;
 }

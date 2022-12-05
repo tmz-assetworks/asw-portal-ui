@@ -120,7 +120,7 @@
               [chartType]="'reportSubscribeMonthly'"
               [chartTitle]="'Monthly Subscription'"
               (barDetailPage)="
-                openDetailPage(1, 'Monthly Subscription', 'REPORTS', 90)
+                openReportDetailPage(1, 'Monthly Subscription', 'REPORTS', '')
               "
             ></app-bar-chart>
           </div>
@@ -132,7 +132,7 @@
               [chartType]="'reportSubscribeYearly'"
               [chartTitle]="'Yearly Subscription'"
               (lineDetailPage)="
-                openDetailPage(1, 'Yearly Subscription', 'REPORTS', 90)
+                openReportDetailPage(2, 'Yearly Subscription', 'REPORTS', '')
               "
             ></app-line-chart>
           </div>
@@ -144,7 +144,7 @@
               [reportSubscribeTypeData]="reportSubscribeTypeData"
               [chartType]="'reportSubscribeType'"
               [chartTitle]="'Type'"
-              (barDetailPage)="openDetailPage(1, 'Type', 'REPORTS', 90)"
+              (barDetailPage)="openReportDetailPage(3, 'Type', 'REPORTS', '')"
             ></app-bar-chart>
           </div>
           <div class="dashboard-block42-spacer"></div>

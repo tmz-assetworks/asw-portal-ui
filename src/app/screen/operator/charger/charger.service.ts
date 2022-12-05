@@ -8,8 +8,9 @@ export class ChargerService {
   url: any
   chargerUrl: string
   constructor(private _http: HttpClient) {
-    this.url = environment.origin + 'api/v1/OperatorDashboard/'
-    this.chargerUrl = environment.origin + 'api/v1/Charger/'
+    this.url = environment.PORTAL_API_URL + 'api/v1/OperatorDashboard/'
+    this.chargerUrl = environment.PORTAL_API_URL + 'api/v1/Charger/'
+    
   }
 
   /**
@@ -61,4 +62,33 @@ export class ChargerService {
   public GetChargeBoxIDList(): Observable<any> {
     return this._http.get<any>(`${this.chargerUrl}GetChargeBoxIDList`)
   }
+
+  SetChargingProfile(params: any, requestbody: any) {
+    // alert('change api');
+     return this._http.post<any>(
+       `${this.url}SetChargingProfile/${params}`,
+       requestbody
+     );
+   }
+
+  //  /***
+  //   * 
+  //   */
+  //  /**
+  //  * RemoteStartTransaction
+  //  * @param params
+  //  * @param requestbody
+  //  */
+  // RemoteStartTransaction(params: any, requestbody: any) {
+  //   return this._http.post<any>(
+  //     `${this.url}RemoteStartTransaction/${params}`,
+  //     requestbody,
+  //   )
+  // }
+    // public RemoteStartTransaction(params: any) {
+    //   return this._http.post<any>(
+    //     `${this.chargerUrl}RemoteStartTransaction`,
+    //     params,
+    //   )
+    // }
 }

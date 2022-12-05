@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment'
 export class AlertsService {
   url: any
   constructor(private _http: HttpClient) {
-    this.url = environment.origin + 'api/v1/OperatorDashboard/'
+    this.url = environment.PORTAL_API_URL + 'api/v1/OperatorDashboard/'
 
     // this.url = 'https://run.mocky.io/v3/f6b39ff3-632e-49d3-9a0e-094436794919'
   }
@@ -32,5 +32,15 @@ export class AlertsService {
 
   GetOperatorAlerts(params: any) {
     return this._http.post<any>(`${this.url}GetOperatorAlerts`, params)
+  }
+
+  /**
+   * Update Notification
+   * @param params
+   * @returns
+   */
+
+  UpdateNotificationIsRead(params: any) {
+    return this._http.post<any>(`${this.url}UpdateNotificationIsRead`, params)
   }
 }

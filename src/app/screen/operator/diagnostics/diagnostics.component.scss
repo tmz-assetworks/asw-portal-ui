@@ -1,6 +1,5 @@
 @import '../../../../styles.scss';
 
-
 $color_type_0: rgb(0, 98, 166);
 
 $color_type_1: rgb(112, 120, 127);
@@ -19,7 +18,6 @@ $color_type_7: rgb(245, 245, 245);
 
 $color_type_8: rgb(255, 255, 255);
 
-
 $font_type_0: 700 50px/1.2 'Roboto', Helvetica, Arial, serif;
 
 $font_type_1: 700 20px/1.2 'Roboto', Helvetica, Arial, serif;
@@ -29,7 +27,6 @@ $font_type_1: 700 20px/1.2 'Roboto', Helvetica, Arial, serif;
 $font_type_3: 13px/1.2 'Roboto', Helvetica, Arial, serif;
 
 $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
-
 
 $color_type_0: rgb(0, 98, 166);
 
@@ -51,59 +48,42 @@ $color_type_8: rgb(245, 245, 245);
 
 $color_type_9: rgb(255, 255, 255);
 
-
 .charge- {
-
   &block {
-
     @include flex-column;
 
     background-color: $color_type_8;
-
   }
 
   &block.layout {
-
     position: relative;
 
     min-height: 1055px;
-
   }
 
   &subtitle {
-
     @include font-face($font_type1, $color_type_3, 0px);
 
     @include lg {
-
       font-size: 19px;
 
       text-align: left;
-
     }
 
     @include md {
-
       font-size: 18px;
-
     }
 
     @include sm {
-
       font-size: 17px;
-
     }
 
     @include xxs {
-
       font-size: 16px;
-
     }
-
   }
 
   &subtitle.layout {
-
     position: relative;
 
     height: min-content;
@@ -111,46 +91,31 @@ $color_type_9: rgb(255, 255, 255);
     margin: 33px 19px 0px;
 
     @include lg {
-
       margin: 29px 17px 0px;
-
     }
 
     @include md {
-
       margin: 24px 14px 0px;
-
     }
 
     @include sm {
-
       margin: 20px 12px 0px;
-
     }
 
     @include xs {
-
       margin: 18px 11px 0px;
-
     }
 
     @include xxs {
-
       margin: 16px 10px 0px;
-
     }
 
     @include tn {
-
       margin: 15px 9px 0px;
-
     }
-
   }
 
-
   &block6 {
-
     @include flex-column;
 
     background-color: $color_type_9;
@@ -158,11 +123,9 @@ $color_type_9: rgb(255, 255, 255);
     border: 1px solid rgb(173, 173, 173);
 
     border-radius: 5px 5px 5px 5px;
-
   }
 
   &block6.layout {
-
     position: relative;
 
     height: min-content;
@@ -172,51 +135,35 @@ $color_type_9: rgb(255, 255, 255);
     margin: 36px 76.88% 0px 1.16%;
 
     @include lg {
-
       margin: 31px 76.88% 0px 1.16%;
-
     }
 
     @include md {
-
       margin: 26px 76.88% 0px 1.16%;
-
     }
 
     @include sm {
-
       margin: 22px 76.88% 0px 1.16%;
-
     }
 
     @include xs {
-
       margin: 20px 76.88% 0px 1.16%;
-
     }
 
     @include xxs {
-
       margin: 17px 76.88% 0px 1.16%;
-
     }
 
     @include tn {
-
       margin: 16px 76.88% 0px 1.16%;
-
     }
-
   }
 
   &block7 {
-
     display: flex;
-
   }
 
   &block7.layout {
-
     position: relative;
 
     height: min-content;
@@ -224,59 +171,41 @@ $color_type_9: rgb(255, 255, 255);
     margin: 17px 18px 16px;
 
     @include lg {
-
       margin: 15px 16px 14px;
-
     }
 
     @include md {
-
       margin: 13px 13px 12px;
-
     }
 
     @include sm {
-
       margin: 11px 11px 10px;
-
     }
 
     @include xs {
-
       margin: 10px 10px 9px;
-
     }
 
     @include xxs {
-
       margin: 9px 9px 8px;
-
     }
 
     @include tn {
-
       margin: 8px 9px;
-
     }
-
   }
 
   &text-body1 {
-
     @include font-face($font_type5, $color_type_1, 0px);
 
     @include md {
-
       font-size: 12px;
 
       text-align: left;
-
     }
-
   }
 
   &text-body1.layout {
-
     position: relative;
 
     flex: 0 0 auto;
@@ -288,84 +217,61 @@ $color_type_9: rgb(255, 255, 255);
     border: none;
 
     outline: none;
-
   }
 
   &block7-spacer {
-
     flex: 0 1 225px;
-
   }
 
   &block7-item {
-
     @include flex-column;
 
     position: relative;
 
     flex: 0 1 10px;
-
   }
 
   &box1 {
-
     background-color: $color_type_4;
-
   }
 
   &box1.layout {
-
     position: relative;
 
     height: 6px;
 
     margin: 5px 0px;
-
   }
 
   &flex2-spacer {
-
     position: relative;
 
     // flex: 1 1 100%;
 
     height: 100vh;
-
   }
-
 }
 
-
 .mt_zero {
-
   margin: 0;
-
 }
 
 .cust-list- {
-
   &group {
-
     @include flex-column;
-
   }
 
   &group.layout1 {
-
     position: relative;
 
     height: min-content;
-
   }
 
   &box5 {
-
     background-color: $color_type_7;
-
   }
 
   &box5.layout {
-
     position: absolute;
 
     top: 61px;
@@ -375,57 +281,43 @@ $color_type_9: rgb(255, 255, 255);
     width: 1642px;
 
     right: 0px;
-
   }
 
   &flex1 {
-
     @include flex-column;
-
   }
 
   &flex1.layout {
-
     position: relative;
 
     height: min-content;
-
   }
 
   &group1 {
-
     @include flex-column;
 
     background-color: $color_type_8;
 
     box-shadow: 0px 4px 10px 0px rgba(200, 200, 200, 0.24705882352941178);
-
   }
 
   &group1.layout {
-
     position: relative;
 
     height: min-content;
-
   }
 
   &flex2 {
-
     display: flex;
 
     @include xxs {
-
       flex-wrap: wrap;
 
       row-gap: 16px;
-
     }
-
   }
 
   &flex2.layout {
-
     position: relative;
 
     height: min-content;
@@ -433,45 +325,31 @@ $color_type_9: rgb(255, 255, 255);
     margin: 11px 20px;
 
     @include lg {
-
       margin: 10px 18px;
-
     }
 
     @include md {
-
       margin: 8px 15px;
-
     }
 
     @include sm {
-
       margin: 7px 13px;
-
     }
 
     @include xs {
-
       margin: 6px 11px;
-
     }
 
     @include xxs {
-
       margin: 6px 10px;
-
     }
 
     @include tn {
-
       margin: 5px 10px;
-
     }
-
   }
 
   &flex2-item {
-
     @include flex-column;
 
     position: relative;
@@ -479,21 +357,15 @@ $color_type_9: rgb(255, 255, 255);
     flex: 1 1 24px;
 
     @include xxs {
-
       flex: 0 0 100%;
-
     }
-
   }
 
   &box12 {
-
     background-color: $color_type_5;
-
   }
 
   &box12.layout {
-
     position: relative;
 
     height: 16px;
@@ -501,51 +373,35 @@ $color_type_9: rgb(255, 255, 255);
     margin: 11px 0px;
 
     @include lg {
-
       margin: 10px 0px;
-
     }
 
     @include md {
-
       margin: 8px 0px;
-
     }
 
     @include sm {
-
       margin: 7px 0px;
-
     }
 
     @include xs {
-
       margin: 6px 0px;
-
     }
 
     @include tn {
-
       margin: 5px 0px;
-
     }
-
   }
 
   &flex2-spacer {
-
     flex: 0 1 1419px;
 
     @include xxs {
-
       display: none;
-
     }
-
   }
 
   &flex2-item1 {
-
     @include flex-column;
 
     position: relative;
@@ -555,23 +411,17 @@ $color_type_9: rgb(255, 255, 255);
     min-width: 1px;
 
     @include xxs {
-
       flex: 0 0 100%;
 
       min-width: unset;
-
     }
-
   }
 
   &image4 {
-
     background: var(--src) center center / contain no-repeat;
-
   }
 
   &image4.layout {
-
     position: relative;
 
     height: 22px;
@@ -583,39 +433,27 @@ $color_type_9: rgb(255, 255, 255);
     margin: 8px 0px;
 
     @include lg {
-
       margin: 7px 0px;
-
     }
 
     @include md {
-
       margin: 6px 0px;
-
     }
 
     @include sm {
-
       margin: 5px 0px;
-
     }
-
   }
 
   &flex2-spacer1 {
-
     flex: 0 1 17px;
 
     @include xxs {
-
       display: none;
-
     }
-
   }
 
   &flex2-item2 {
-
     @include flex-column;
 
     position: relative;
@@ -623,29 +461,21 @@ $color_type_9: rgb(255, 255, 255);
     flex: 1 0 auto;
 
     @include xxs {
-
       flex: 0 0 100%;
-
     }
-
   }
 
   &text-body5 {
-
     @include font-face($font_type25, $color_type_4, 0px);
 
     @include md {
-
       font-size: 11px;
 
       text-align: left;
-
     }
-
   }
 
   &text-body5.layout {
-
     position: relative;
 
     height: min-content;
@@ -653,51 +483,35 @@ $color_type_9: rgb(255, 255, 255);
     margin: 10px 0px 12px;
 
     @include lg {
-
       margin: 9px 0px 11px;
-
     }
 
     @include md {
-
       margin: 7px 0px 9px;
-
     }
 
     @include sm {
-
       margin: 6px 0px 8px;
-
     }
 
     @include xs {
-
       margin: 6px 0px 7px;
-
     }
 
     @include xxs {
-
       margin: 5px 0px 6px;
-
     }
-
   }
 
   &flex2-spacer2 {
-
     flex: 0 1 1px;
 
     @include xxs {
-
       display: none;
-
     }
-
   }
 
   &flex2-item3 {
-
     @include flex-column;
 
     position: relative;
@@ -705,21 +519,15 @@ $color_type_9: rgb(255, 255, 255);
     flex: 1 1 46px;
 
     @include xxs {
-
       flex: 0 0 100%;
-
     }
-
   }
 
   &icon1 {
-
     background: var(--src) center center / contain no-repeat;
-
   }
 
   &icon1.layout {
-
     position: relative;
 
     height: 36px;
@@ -731,65 +539,45 @@ $color_type_9: rgb(255, 255, 255);
     margin: 0px 10px 2px 0px;
 
     @include lg {
-
       margin: 0px 9px 5px 0px;
-
     }
 
     @include md {
-
       margin: 0px 7px 5px 0px;
-
     }
 
     @include sm {
-
       margin: 0px 6px 5px 0px;
-
     }
 
     @include xxs {
-
       margin: 0px 5px 5px;
-
     }
-
   }
 
   &subtitle {
-
     @include font-face($font_type_1, $color_type_4, 0px);
 
     @include lg {
-
       font-size: 19px;
 
       text-align: left;
-
     }
 
     @include md {
-
       font-size: 18px;
-
     }
 
     @include sm {
-
       font-size: 17px;
-
     }
 
     @include xxs {
-
       font-size: 16px;
-
     }
-
   }
 
   &subtitle.layout {
-
     position: relative;
 
     height: min-content;
@@ -797,45 +585,31 @@ $color_type_9: rgb(255, 255, 255);
     margin: 33px 22px 0px;
 
     @include lg {
-
       margin: 29px 19px 0px;
-
     }
 
     @include md {
-
       margin: 24px 16px 0px;
-
     }
 
     @include sm {
-
       margin: 20px 14px 0px;
-
     }
 
     @include xs {
-
       margin: 18px 13px 0px;
-
     }
 
     @include xxs {
-
       margin: 16px 11px 0px;
-
     }
 
     @include tn {
-
       margin: 15px 10px 0px;
-
     }
-
   }
 
   &flex1-item {
-
     @include flex-column;
 
     position: relative;
@@ -843,21 +617,17 @@ $color_type_9: rgb(255, 255, 255);
     flex: 0 0 auto;
 
     min-height: 140px;
-
   }
 
   &block3 {
-
     display: flex;
 
     background-color: $color_type_8;
 
     border-radius: 10px 10px 10px 10px;
-
   }
 
   &block3.layout {
-
     position: relative;
 
     height: min-content;
@@ -867,35 +637,27 @@ $color_type_9: rgb(255, 255, 255);
     width: fit-content;
 
     margin: 25px 0px 0px 22px;
-
   }
 
   &block3-item {
-
     @include flex-column;
 
     position: relative;
 
     flex: 1 1 auto;
-
   }
 
   &block4 {
-
     display: flex;
 
     @include sm {
-
       flex-wrap: wrap;
 
       row-gap: 16px;
-
     }
-
   }
 
   &block4.layout {
-
     position: relative;
 
     height: min-content;
@@ -905,11 +667,9 @@ $color_type_9: rgb(255, 255, 255);
     width: fit-content;
 
     margin: 19px 0px 18px 26px;
-
   }
 
   &block4-item {
-
     @include flex-column;
 
     position: relative;
@@ -917,93 +677,69 @@ $color_type_9: rgb(255, 255, 255);
     flex: 0 0 auto;
 
     @include sm {
-
       flex: 0 0 calc(33.33333333333333% - 10.666666666666666px);
-
     }
 
     @include xxs {
-
       flex: 0 0 100%;
-
     }
-
   }
 
   &block5 {
-
     display: flex;
-
   }
 
   &block5.layout {
-
     position: relative;
 
     height: min-content;
-
   }
 
   &block5-item {
-
     @include flex-column;
 
     position: relative;
 
     flex: 0 1 192px;
-
   }
 
   &block6 {
-
     @include flex-column;
-
   }
 
   &block6.layout {
-
     position: relative;
 
     height: min-content;
-
   }
 
   &block7 {
-
     display: flex;
-
   }
 
   &block7.layout {
-
     position: relative;
 
     height: min-content;
-
   }
 
   &block7-item {
-
     @include flex-column;
 
     position: relative;
 
     flex: 0 1 77px;
-
   }
 
   &block8 {
-
     @include flex-column;
 
     background-color: $color_type_6;
 
     border-radius: 10px 10px 10px 10px;
-
   }
 
   &block8.layout {
-
     position: relative;
 
     height: min-content;
@@ -1015,21 +751,15 @@ $color_type_9: rgb(255, 255, 255);
     margin: 0px 0px 1px;
 
     @include lg {
-
       margin: 0px 0px 5px;
-
     }
-
   }
 
   &box7 {
-
     // background-color: $color_type_5;
-
   }
 
   &box7.layout {
-
     position: relative;
 
     height: 45px;
@@ -1041,61 +771,43 @@ $color_type_9: rgb(255, 255, 255);
     margin: 16px;
 
     @include lg {
-
       margin: 14px;
-
     }
 
     @include md {
-
       margin: 12px;
-
     }
 
     @include sm {
-
       margin: 10px;
-
     }
 
     @include xs {
-
       margin: 9px;
-
     }
 
     @include xxs {
-
       margin: 8px;
-
     }
-
   }
 
   &block7-spacer {
-
     flex: 0 1 3px;
-
   }
 
   &block7-item1 {
-
     @include flex-column;
 
     position: relative;
 
     flex: 0 1 112px;
-
   }
 
   &block9 {
-
     @include flex-column;
-
   }
 
   &block9.layout {
-
     position: relative;
 
     height: min-content;
@@ -1103,11 +815,9 @@ $color_type_9: rgb(255, 255, 255);
     // margin-left: 30px;
 
     width: 125px;
-
   }
 
   &hero-title {
-
     display: flex;
 
     justify-content: flex-end;
@@ -1121,47 +831,33 @@ $color_type_9: rgb(255, 255, 255);
     letter-spacing: 0px;
 
     @include lg {
-
       font-size: 44px;
 
       text-align: right;
-
     }
 
     @include md {
-
       font-size: 38px;
-
     }
 
     @include sm {
-
       font-size: 33px;
-
     }
 
     @include xs {
-
       font-size: 30px;
-
     }
 
     @include xxs {
-
       font-size: 28px;
-
     }
 
     @include tn {
-
       font-size: 26px;
-
     }
-
   }
 
   &hero-title.layout {
-
     position: relative;
 
     height: min-content;
@@ -1169,15 +865,11 @@ $color_type_9: rgb(255, 255, 255);
     margin: 0 auto;
 
     &.mt_zero {
-
       margin: 0;
-
     }
-
   }
 
   &text-body2 {
-
     display: flex;
 
     justify-content: flex-end;
@@ -1191,67 +883,47 @@ $color_type_9: rgb(255, 255, 255);
     letter-spacing: 0px;
 
     @include md {
-
       font-size: 12px;
 
       text-align: right;
-
     }
-
   }
 
   &text-body2.layout {
-
     position: relative;
 
     height: min-content;
 
     @include lg {
-
       margin: 5px 27px 0px 35px;
-
     }
 
     @include md {
-
       margin: 5px 23px 0px 29px;
-
     }
 
     @include sm {
-
       margin: 5px 19px 0px 24px;
-
     }
 
     @include xs {
-
       margin: 5px 18px 0px 21px;
-
     }
 
     @include xxs {
-
       margin: 5px 16px 0px 19px;
-
     }
 
     @include tn {
-
       margin: 5px 15px 0px 17px;
-
     }
-
   }
 
   &block5-spacer {
-
     flex: 0 1 29px;
-
   }
 
   &block5-item1 {
-
     @include flex-column;
 
     position: relative;
@@ -1259,17 +931,13 @@ $color_type_9: rgb(255, 255, 255);
     flex: 0 0 auto;
 
     min-width: 1px;
-
   }
 
   &image {
-
     background: var(--src) center center / contain no-repeat;
-
   }
 
   &image.layout {
-
     position: relative;
 
     height: 51px;
@@ -1281,73 +949,51 @@ $color_type_9: rgb(255, 255, 255);
     margin: 13px 0px 14px;
 
     @include lg {
-
       margin: 11px 0px 12px;
-
     }
 
     @include md {
-
       margin: 10px 0px;
-
     }
 
     @include sm {
-
       margin: 8px 0px 9px;
-
     }
 
     @include xs {
-
       margin: 7px 0px 8px;
-
     }
 
     @include xxs {
-
       margin: 7px 0px;
-
     }
 
     @include tn {
-
       margin: 6px 0px 7px;
-
     }
-
   }
 
   &block4-spacer {
-
     flex: 0 0 auto;
 
     min-width: 30px;
 
     @include sm {
-
       flex: 0 0 16px;
 
       min-width: unset;
-
     }
 
     @include xxs {
-
       display: none;
-
     }
-
   }
 
   &block10 {
-
     display: flex;
-
   }
 
   &block10.layout {
-
     position: relative;
 
     height: min-content;
@@ -1355,45 +1001,33 @@ $color_type_9: rgb(255, 255, 255);
     margin: 0px 0px 1px;
 
     @include lg {
-
       margin: 0px 0px 5px;
-
     }
-
   }
 
   &block10-item {
-
     @include flex-column;
 
     position: relative;
 
     flex: 0 1 192px;
-
   }
 
   &block11 {
-
     @include flex-column;
-
   }
 
   &block11.layout {
-
     position: relative;
 
     height: min-content;
-
   }
 
   &block12 {
-
     display: flex;
-
   }
 
   &block12.layout {
-
     position: relative;
 
     height: min-content;
@@ -1401,31 +1035,25 @@ $color_type_9: rgb(255, 255, 255);
     border-right: 1px dotted #70787f73;
 
     border-left: 1px dotted #70787f73;
-
   }
 
   &block12-item {
-
     @include flex-column;
 
     position: relative;
 
     flex: 0 1 77px;
-
   }
 
   &block13 {
-
     @include flex-column;
 
     background-color: $color_type_3;
 
     border-radius: 10px 10px 10px 10px;
-
   }
 
   &block13.layout {
-
     position: relative;
 
     height: min-content;
@@ -1435,33 +1063,25 @@ $color_type_9: rgb(255, 255, 255);
     min-width: 77px;
 
     // margin: 0 20px 0 30px;
-
   }
 
   &block12-spacer {
-
     flex: 0 1 3px;
-
   }
 
   &block12-item1 {
-
     @include flex-column;
 
     position: relative;
 
     flex: 0 1 112px;
-
   }
 
   &block14 {
-
     @include flex-column;
-
   }
 
   &block14.layout {
-
     position: relative;
 
     height: min-content;
@@ -1469,15 +1089,11 @@ $color_type_9: rgb(255, 255, 255);
     margin: 0 auto;
 
     @include lg {
-
       margin: 5px 0px 0px;
-
     }
-
   }
 
   &text-body2.layout1 {
-
     position: relative;
 
     height: min-content;
@@ -1485,51 +1101,35 @@ $color_type_9: rgb(255, 255, 255);
     margin: 0px 31px 0px 40px;
 
     @include lg {
-
       margin: 0px 27px 0px 35px;
-
     }
 
     @include md {
-
       margin: 0px 23px 0px 29px;
-
     }
 
     @include sm {
-
       margin: 0px 19px 0px 24px;
-
     }
 
     @include xs {
-
       margin: 0px 18px 0px 21px;
-
     }
 
     @include xxs {
-
       margin: 0px 16px 0px 19px;
-
     }
 
     @include tn {
-
       margin: 0px 15px 0px 17px;
-
     }
-
   }
 
   &block10-spacer {
-
     flex: 0 1 29px;
-
   }
 
   &block10-item1 {
-
     @include flex-column;
 
     position: relative;
@@ -1537,11 +1137,9 @@ $color_type_9: rgb(255, 255, 255);
     flex: 0 0 auto;
 
     min-width: 1px;
-
   }
 
   &image.layout1 {
-
     position: relative;
 
     height: 51px;
@@ -1553,39 +1151,27 @@ $color_type_9: rgb(255, 255, 255);
     margin: 13px 0px;
 
     @include lg {
-
       margin: 11px 0px;
-
     }
 
     @include md {
-
       margin: 10px 0px;
-
     }
 
     @include sm {
-
       margin: 8px 0px;
-
     }
 
     @include xs {
-
       margin: 7px 0px;
-
     }
 
     @include tn {
-
       margin: 6px 0px;
-
     }
-
   }
 
   &block4-item1 {
-
     @include flex-column;
 
     position: relative;
@@ -1595,29 +1181,21 @@ $color_type_9: rgb(255, 255, 255);
     min-width: 222px;
 
     @include sm {
-
       flex: 0 0 calc(33.33333333333333% - 10.666666666666666px);
 
       min-width: unset;
-
     }
 
     @include xxs {
-
       flex: 0 0 100%;
-
     }
-
   }
 
   &block15 {
-
     display: flex;
-
   }
 
   &block15.layout {
-
     position: relative;
 
     height: min-content;
@@ -1625,73 +1203,55 @@ $color_type_9: rgb(255, 255, 255);
     margin: 0px 0px 1px;
 
     @include lg {
-
       margin: 0px 0px 5px;
-
     }
-
   }
 
   &block15-item {
-
     @include flex-column;
 
     position: relative;
 
     flex: 0 1 192px;
-
   }
 
   &block16 {
-
     @include flex-column;
-
   }
 
   &block16.layout {
-
     position: relative;
 
     height: min-content;
-
   }
 
   &block17 {
-
     display: flex;
-
   }
 
   &block17.layout {
-
     position: relative;
 
     height: min-content;
-
   }
 
   &block17-item {
-
     @include flex-column;
 
     position: relative;
 
     flex: 0 1 77px;
-
   }
 
   &block18 {
-
     @include flex-column;
 
     background-color: $color_type_2;
 
     border-radius: 10px 10px 10px 10px;
-
   }
 
   &block18.layout {
-
     position: relative;
 
     height: min-content;
@@ -1701,27 +1261,21 @@ $color_type_9: rgb(255, 255, 255);
     min-width: 77px;
 
     // margin: auto 20px;
-
   }
 
   &block17-spacer {
-
     flex: 0 1 3px;
-
   }
 
   &block17-item1 {
-
     @include flex-column;
 
     position: relative;
 
     flex: 0 1 112px;
-
   }
 
   &text-body2.layout2 {
-
     position: relative;
 
     height: min-content;
@@ -1729,51 +1283,35 @@ $color_type_9: rgb(255, 255, 255);
     margin: 0 auto;
 
     @include lg {
-
       margin: 0px 27px 0px 35px;
-
     }
 
     @include md {
-
       margin: 0px 23px 0px 29px;
-
     }
 
     @include sm {
-
       margin: 0px 19px 0px 24px;
-
     }
 
     @include xs {
-
       margin: 0px 18px 0px 21px;
-
     }
 
     @include xxs {
-
       margin: 0px 16px 0px 19px;
-
     }
 
     @include tn {
-
       margin: 0px 15px 0px 17px;
-
     }
-
   }
 
   &block15-spacer {
-
     flex: 0 1 29px;
-
   }
 
   &block15-item1 {
-
     @include flex-column;
 
     position: relative;
@@ -1781,11 +1319,9 @@ $color_type_9: rgb(255, 255, 255);
     flex: 0 0 auto;
 
     min-width: 1px;
-
   }
 
   &image.layout2 {
-
     position: relative;
 
     height: 51px;
@@ -1797,53 +1333,37 @@ $color_type_9: rgb(255, 255, 255);
     margin: 13px 0px;
 
     @include lg {
-
       margin: 11px 0px;
-
     }
 
     @include md {
-
       margin: 10px 0px;
-
     }
 
     @include sm {
-
       margin: 8px 0px;
-
     }
 
     @include xs {
-
       margin: 7px 0px;
-
     }
 
     @include tn {
-
       margin: 6px 0px;
-
     }
-
   }
 
   &flex3 {
-
     display: flex;
 
     @include sm {
-
       flex-wrap: wrap;
 
       row-gap: 16px;
-
     }
-
   }
 
   &flex3.layout {
-
     position: relative;
 
     height: min-content;
@@ -1851,45 +1371,31 @@ $color_type_9: rgb(255, 255, 255);
     margin: 26px 22px 0px;
 
     @include lg {
-
       margin: 43px 19px 0px;
-
     }
 
     @include md {
-
       margin: 35px 16px 0px;
-
     }
 
     @include sm {
-
       margin: 28px 14px 0px;
-
     }
 
     @include xs {
-
       margin: 24px 13px 0px;
-
     }
 
     @include xxs {
-
       margin: 21px 11px 0px;
-
     }
 
     @include tn {
-
       margin: 19px 10px 0px;
-
     }
-
   }
 
   &flex3-item {
-
     @include flex-column;
 
     position: relative;
@@ -1897,15 +1403,11 @@ $color_type_9: rgb(255, 255, 255);
     flex: 1 1 400px;
 
     @include sm {
-
       flex: 0 0 100%;
-
     }
-
   }
 
   &group.layout {
-
     position: relative;
 
     height: 49px;
@@ -1913,11 +1415,9 @@ $color_type_9: rgb(255, 255, 255);
     width: 400px;
 
     max-width: 400px;
-
   }
 
   &block19 {
-
     @include flex-column;
 
     flex-direction: row-reverse;
@@ -1927,11 +1427,9 @@ $color_type_9: rgb(255, 255, 255);
     border: 1px solid rgb(173, 173, 173);
 
     border-radius: 5px 5px 5px 5px;
-
   }
 
   &block19.layout {
-
     position: absolute;
 
     top: 0px;
@@ -1941,11 +1439,9 @@ $color_type_9: rgb(255, 255, 255);
     left: 0px;
 
     right: 0px;
-
   }
 
   &box9 {
-
     background-color: $color_type_0;
 
     border-radius: 0px 4px 4px 0px;
@@ -1953,7 +1449,6 @@ $color_type_9: rgb(255, 255, 255);
     // transition-duration: 0.3s;
 
     // transition-property: transform;
-
   }
 
   // &box9:hover {
@@ -1963,7 +1458,6 @@ $color_type_9: rgb(255, 255, 255);
   // }
 
   &box9.layout {
-
     position: relative;
 
     height: 47px;
@@ -1981,11 +1475,9 @@ $color_type_9: rgb(255, 255, 255);
     }
 
     */
-
   }
 
   &icon {
-
     width: 100%;
 
     height: auto;
@@ -1995,11 +1487,9 @@ $color_type_9: rgb(255, 255, 255);
     object-fit: contain;
 
     object-position: center top;
-
   }
 
   &icon.layout {
-
     position: absolute;
 
     top: 16px;
@@ -2063,17 +1553,13 @@ $color_type_9: rgb(255, 255, 255);
     }
 
     */
-
   }
 
   &block20 {
-
     @include flex-column;
-
   }
 
   &block20.layout {
-
     position: relative;
 
     height: min-content;
@@ -2083,41 +1569,29 @@ $color_type_9: rgb(255, 255, 255);
     margin: 8px 0.5% 7px 2.54%;
 
     @include lg {
-
       margin: 7px 0.5% 6px 2.54%;
-
     }
 
     @include md {
-
       margin: 6px 0.5% 5px 2.54%;
-
     }
 
     @include sm {
-
       margin: 5px 0.5% 5px 2.54%;
-
     }
-
   }
 
   &text-body21 {
-
     @include font-face($font_type_3, $color_type_1, 0px);
 
     @include md {
-
       font-size: 12px;
 
       text-align: left;
-
     }
-
   }
 
   &text-body21.layout {
-
     position: relative;
 
     height: min-content;
@@ -2133,51 +1607,35 @@ $color_type_9: rgb(255, 255, 255);
     outline: none;
 
     @include lg {
-
       margin: 9px 9px 8px;
-
     }
 
     @include md {
-
       margin: 7px;
-
     }
 
     @include sm {
-
       margin: 6px;
-
     }
 
     @include xs {
-
       margin: 6px 6px 5px;
-
     }
 
     @include xxs {
-
       margin: 5px;
-
     }
-
   }
 
   &flex3-spacer {
-
     flex: 0 1 1042px;
 
     @include sm {
-
       display: none;
-
     }
-
   }
 
   &flex3-item1 {
-
     @include flex-column;
 
     position: relative;
@@ -2187,15 +1645,11 @@ $color_type_9: rgb(255, 255, 255);
     cursor: pointer;
 
     @include sm {
-
       flex: 0 0 100%;
-
     }
-
   }
 
   &block23 {
-
     display: flex;
 
     background-color: $color_type_0;
@@ -2205,17 +1659,13 @@ $color_type_9: rgb(255, 255, 255);
     transition-duration: 0.3s;
 
     transition-property: transform;
-
   }
 
   &block23:hover {
-
     transform: scale(1.05);
-
   }
 
   &block23.layout {
-
     position: relative;
 
     height: min-content;
@@ -2223,27 +1673,21 @@ $color_type_9: rgb(255, 255, 255);
     width: 161px;
 
     min-width: 161px;
-
   }
 
   &block23-item {
-
     @include flex-column;
 
     position: relative;
 
     flex: 0 1 36px;
-
   }
 
   &box10 {
-
     // background-color: $color_type_8;
-
   }
 
   &box10.layout {
-
     position: relative;
 
     height: 18px;
@@ -2251,59 +1695,41 @@ $color_type_9: rgb(255, 255, 255);
     margin: 16px 10px 16px 18px;
 
     @include lg {
-
       margin: 14px 0px 14px 16px;
-
     }
 
     @include md {
-
       margin: 12px 0px 12px 13px;
-
     }
 
     @include sm {
-
       margin: 10px 0px 10px 11px;
-
     }
 
     @include xs {
-
       margin: 9px 0px 9px 10px;
-
     }
 
     @include xxs {
-
       margin: 8px 0px 8px 9px;
-
     }
-
   }
 
   &block23-spacer {
-
     flex: 0 1 10px;
-
   }
 
   &text-body4 {
-
     @include font-face($font_type_3, $color_type_8, 0px);
 
     @include md {
-
       font-size: 12px;
 
       text-align: left;
-
     }
-
   }
 
   &text-body4.layout {
-
     position: relative;
 
     flex: 0 0 auto;
@@ -2313,53 +1739,37 @@ $color_type_9: rgb(255, 255, 255);
     margin: 18px 29px 16px 0px;
 
     @include lg {
-
       margin: 16px 25px 14px 0px;
-
     }
 
     @include md {
-
       margin: 13px 22px 12px 0px;
-
     }
 
     @include sm {
-
       margin: 11px 18px 10px 0px;
-
     }
 
     @include xs {
-
       margin: 10px 17px 9px 0px;
-
     }
 
     @include xxs {
-
       margin: 9px 15px 8px 0px;
-
     }
 
     @include tn {
-
       margin: 9px 14px 8px 0px;
-
     }
-
   }
 
   &group2 {
-
     @include flex-column;
 
     background-color: $color_type_5;
-
   }
 
   &group2.layout {
-
     position: relative;
 
     height: min-content;
@@ -2367,54 +1777,36 @@ $color_type_9: rgb(255, 255, 255);
     margin: 28px 23px 0px 22px;
 
     @include lg {
-
       margin: 43px 20px 0px 19px;
-
     }
 
     @include md {
-
       margin: 35px 17px 0px 16px;
-
     }
 
     @include sm {
-
       margin: 28px 14px 0px;
-
     }
 
     @include xs {
-
       margin: 24px 13px 0px;
-
     }
 
     @include xxs {
-
       margin: 21px 12px 0px 11px;
-
     }
 
     @include tn {
-
       margin: 19px 11px 0px 10px;
-
     }
-
   }
-
 }
 
-
 .example-container .mat-form-field + .mat-form-field {
-
   margin-left: 20px;
-
 }
 
 table {
-
   width: 100%;
 
   background: #ffffff;
@@ -2422,18 +1814,13 @@ table {
   border: 1px solid #aea4a4;
 
   box-sizing: border-box;
-
 }
 
 section {
-
   display: table;
-
 }
 
-
 .example-label {
-
   display: table-cell;
 
   font-size: 14px;
@@ -2441,197 +1828,131 @@ section {
   margin-left: 8px;
 
   min-width: 120px;
-
 }
 
-
 .example-button-row {
-
   display: table-cell;
 
   width: 490px;
-
 }
-
 
 .example-button-row .mat-button-base {
-
   margin: 8px 8px 8px 0;
-
 }
 
-
 .example-flex-container {
-
   display: flex;
 
   justify-content: space-between;
 
   flex-wrap: wrap;
-
 }
 
-
 .example-button-container {
-
   display: flex;
 
   justify-content: center;
 
   width: 120px;
-
 }
-
 
 /* Structure */
 
 .example-container {
-
   display: flex;
 
   flex-direction: column;
 
   min-width: 300px;
-
 }
 
-
 .example-header {
-
   min-height: 64px;
 
   padding: 8px 24px 0;
-
 }
 
-
 .mat-form-field {
-
   font-size: 14px;
 
   width: 100%;
-
 }
 
-
 .mat-table {
-
   overflow: auto;
 
   max-height: 500px;
-
 }
-
 
 .mat-header-row {
-
   background-color: #70787f;
-
 }
 
-
 .cust-list-icon.layout {
-
   left: -33px;
 
   width: 29%;
-
 }
 
 .mat-header-cell {
-
   color: #fff;
-
 }
 
 .mat-row:nth-child(even) {
-
   background-color: #f5f5f5;
-
 }
 
 .mat-paginator-outer-container {
-
   background: #f5f5f5;
-
 }
 
-
 cust-list-icon.layout {
-
   left: -29px;
 
   width: 29%;
-
 }
 
 .mat-header-cell {
-
   color: #fff;
-
 }
 
 .mat-row:nth-child(even) {
-
   background-color: #f5f5f5;
-
 }
 
-
 .mat-table {
-
   background: white;
 
   border: 1px solid #8f8f8f;
-
 }
 
-
 th.mat-header-cell {
-
   border-right: 1px solid #e6e6e6;
 
   text-align: left;
-
 }
 
 .mat-cell,
-
 .mat-footer-cell {
-
   border-right: 1px solid #e6e6e6;
-
 }
 
 .mat-cell {
-
   text-align: center;
-
 }
 
-
 th.mat-header-cell:last-of-type,
-
 td.mat-cell:last-of-type,
-
 td.mat-footer-cell:last-of-type {
-
   padding-right: 0px;
-
 }
 
 mat-row,
-
 mat-header-row,
-
 mat-footer-row,
-
 th.mat-header-cell,
-
 td.mat-cell,
-
 td.mat-footer-cell {
-
   border-bottom: 1px solid #8f8f8f;
 
   text-align: center;
@@ -2639,25 +1960,18 @@ td.mat-footer-cell {
   padding: 0 20px;
 
   text-transform: uppercase;
-
 }
 
 tr.mat-row:last-of-type {
-
   td.mat-cell {
-
     border-bottom: 0px solid #8f8f8f;
-
   }
-
 }
 
 .mat-cell {
-
   font-size: 13px;
 
   color: #323e48;
-
 }
 
 // .mat-paginator-page-size-select {
@@ -2668,56 +1982,35 @@ tr.mat-row:last-of-type {
 
 // }
 
-
 // expand table css
 
-
 table {
-
   width: 100%;
-
 }
-
 
 tr.example-detail-row {
-
   height: 0;
-
 }
-
 
 tr.example-element-row:not(.example-expanded-row):hover {
-
   background: #f5f5f5;
-
 }
-
 
 tr.example-element-row:not(.example-expanded-row):active {
-
   background: #efefef;
-
 }
-
 
 .example-element-row td {
-
   border-bottom-width: 0;
-
 }
 
-
 .example-element-detail {
-
   overflow: hidden;
 
   display: flex;
-
 }
 
-
 .example-element-diagram {
-
   min-width: 80px;
 
   border: 2px solid black;
@@ -2729,207 +2022,159 @@ tr.example-element-row:not(.example-expanded-row):active {
   margin: 8px 0;
 
   height: 104px;
-
 }
 
-
 .example-element-symbol {
-
   font-weight: bold;
 
   font-size: 40px;
 
   line-height: normal;
-
 }
-
 
 .example-element-description {
-
   //padding: 16px;
-
 }
 
-
 .example-element-description-attribution {
-
   opacity: 0.5;
-
 }
 
 .mat-row:nth-child(4n-1),
-
 .mat-row:nth-child(4n) {
-
   background-color: #eee;
-
 }
 
 .mat-row:nth-child {
-
   background-color: #fff;
-
 }
 
 .textcollapse {
-
   text-align: left;
 
   width: 100%;
-
 }
 
 .paragraphtext {
-
   position: relative;
 
   top: 31px;
-
 }
-
 
 // tool tip align//
 
-
 .tool_align {
-
   position: absolute;
-
-  right: 37.5%;
-
-  z-index: 100000000;
-
-  top: 202px;
-
-
-  @include xl1 {
-
-    right: 45.5%;
-
-  }
-
-}
-
-
-.tool_alignP {
-
-  position: absolute;
+  margin: auto 25%;
+  top: 100%;
 
   // right: 37.5%;
 
-  z-index: 100000000;
+  // z-index: 100000000;
 
-  top: 202px;
+  // top: 202px;
 
+  // @include xl1 {
+
+  //   right: 45.5%;
+
+  // }
+}
+
+.tool_alignP {
+  // position: absolute;
+  // right: 37.5%;
+  // top: 202px;
+  z-index: 1;
+  position: absolute;
+  top: 100%;
+  bottom: 365px;
+  // left: -8%;
 
   @include xl1 {
-
     // right: 45.5%;
-
   }
-
 }
 
 .tool_alignRC {
-
   position: absolute;
+  top: 100%;
 
-  right: 61.5%;
-
-  z-index: 100000000;
-
-  top: 202px;
-
-
-  @include xl1 {
-
-    right: 55.5%;
-
-  }
-
-}
-
-.tool_alignSC {
-
-  position: absolute;
-
-  right: 49.5%;
+  // right: 61.5%;
 
   // z-index: 100000000;
 
-    // updated by Soni 
+  // top: 202px;
 
-    z-index: 1;
+  // @include xl1 {
 
-  top: 202px;
+  //   right: 55.5%;
 
-
-  @include xl1 {
-
-    right: 55.5%;
-
-  }
-
+  // }
 }
 
-
-.tool_alignAuth {
-
+.tool_alignSC {
   position: absolute;
+  margin: auto 25%;
+  top: 100%;
+  // z-index: 100000000;
 
-  right: 73%;
+  // updated by Soni
 
   z-index: 1;
 
-  top: 202px;
+  // top: 202px;
 
+  // @include xl1 {
 
-  @include xl1 {
+  //   right: 55.5%;
 
-    right: 55.5%;
-
-  }
-
+  // }
 }
 
+// .tool_alignAuth {
+
+//   position: absolute;
+
+//   right: 73%;
+
+//   z-index: 1;
+
+//   top: 202px;
+
+//   @include xl1 {
+
+//     right: 55.5%;
+
+//   }
+
+// }
 
 .tool_alignDiag {
-
   position: absolute;
 
-  right: 19.9%;
+  // right: 19.9%;
 
-  z-index: 100000000;
+  // z-index: 100000000;
 
-  top: 202px;
-
+  // top: 202px;
 }
 
-
 .wd_sub_1 {
-
   @include sm {
-
     width: auto;
-
   }
 
   @include xs {
-
     width: auto;
-
   }
 
   @include xxs {
-
     width: auto;
-
   }
-
 }
 
 .widget-block9 {
-
   display: flex;
 
   flex-direction: column;
@@ -2941,21 +2186,15 @@ tr.example-element-row:not(.example-expanded-row):active {
   border-bottom: 1px solid #aea4a4;
 
   border-top: 1px solid #aea4a4;
-
 }
 
-
 .btn-active {
-
   background-color: #0062a6;
 
   background: #323e48;
-
 }
 
-
 .close-icon {
-
   float: right;
 
   margin-top: -2%;
@@ -2963,12 +2202,9 @@ tr.example-element-row:not(.example-expanded-row):active {
   margin-left: 50%;
 
   cursor: pointer;
-
 }
 
-
 .close-icon-type {
-
   float: right;
 
   margin-top: -12%;
@@ -2976,9 +2212,7 @@ tr.example-element-row:not(.example-expanded-row):active {
   margin-left: 50%;
 
   cursor: pointer;
-
 }
-
 
 /* .chargerType {
 
@@ -3019,29 +2253,20 @@ tr.example-element-row:not(.example-expanded-row):active {
  } */
 
 .setMarginTool {
-
   margin: auto 30% !important;
-
 }
 
 button.btnTypeCharger {
-
   margin-top: 20px;
-
 }
-
 
 //  CSS FOR POPUP
 
-
 .select-opt-modal {
-
-  margin: auto 44%;
-
+  margin: auto 27%;
 }
 
 .form-fields select {
-
   height: 40px !important;
 
   margin: 10px 0px 13px 0px;
@@ -3053,12 +2278,10 @@ button.btnTypeCharger {
   border-radius: 5px;
 
   // padding: 8px 10px;
-
 }
 
 button {
-
-  margin: auto 35%;
+  // margin: auto 35%;
 
   background: #0062a6;
 
@@ -3071,11 +2294,9 @@ button {
   color: #ffffff;
 
   margin-top: 20px;
-
 }
 
 .form-fields input {
-
   margin-top: 10px;
 
   width: 400px;
@@ -3085,11 +2306,9 @@ button {
   padding: 8px 10px !important;
 
   border-radius: 5px;
-
 }
 
 .close-icon-type {
-
   float: right;
 
   margin-top: 0px;
@@ -3103,74 +2322,57 @@ button {
   bottom: 20px;
 
   font-size: 16px;
-
 }
-
 
 // Diagnostics page CSS responsive
 
+// @media (max-width: 1366px) {
 
+// .tool-tip-2 {
 
-@media (max-width: 1366px) {
+//   position: absolute;
 
-  .tool-tip-1 {
+//   top: 97% !important;
 
-    position: relative;
+//   left: 159px;
 
-    left: 38px !important;
+// }
 
-    bottom: 4px !important;
+// .tool-tip-3 {
 
-}
+//   position: absolute;
 
-.tool-tip-2 {
+//   left: 273px;
 
-  position: absolute;
+//   top: 97%;
 
-  top: 97% !important;
+// }
 
-  left: 159px;
+// .tool-tip-4 {
 
-}
+//   position: absolute;
 
-.tool-tip-3 {
+//   left: 37%;
 
-  position: absolute;
+//   top: 97%;
 
-  left: 273px;
+// }
 
-  top: 97%;
+// .tool-tip-5 {
 
-}
+//   position: absolute;
 
-.tool-tip-4 {
+//   left: 522px;
 
-  position: absolute;
+//   top: 97%;
 
-  left: 37%;
+// }
 
-  top: 97%;
-
-}
-
-.tool-tip-5 {
-
-  position: absolute;
-
-  left: 522px;
-
-  top: 97%;
-
-}
-
-}
+// }
 
 @media (max-width: 1920px) {
-
   .titl-box {
-
     margin: 0;
-
   }
 
   // app-tool-tip.wd_sub_1.tool_alignP.ng-tns-c260-1.ng-star-inserted {
@@ -3179,22 +2381,19 @@ button {
 
   // }
 
-  .select-opt-modal {
+  // .select-opt-modal {
 
-    margin: auto 45%;
+  //   margin: auto 45%;
 
-  }
+  // }
 
   .tool-tip-block1.layout {
-
     padding: 20px;
 
     min-width: 300px;
-
   }
 
   select {
-
     height: 40px !important;
 
     margin-top: 10px;
@@ -3206,11 +2405,9 @@ button {
     border-radius: 5px;
 
     // padding: 8px 10px;
-
   }
 
   .close-icon-type {
-
     float: right;
 
     margin-top: 0px;
@@ -3224,25 +2421,19 @@ button {
     bottom: 20px;
 
     font-size: 16px;
-
   }
 
   .mat-elevation-z8 {
-
     z-index: 0;
 
     // pointer-events: none;
-
   }
 
   .tool-tip-block3.layout {
-
     margin: 0px !important;
-
   }
 
   select {
-
     height: 40px !important;
 
     margin-top: 10px;
@@ -3254,11 +2445,9 @@ button {
     border-radius: 5px;
 
     padding: 8px 10px;
-
   }
 
   input {
-
     margin-top: 10px;
 
     width: 400px;
@@ -3266,12 +2455,10 @@ button {
     border: 1px solid #e5e5e5;
 
     border-radius: 5px;
-
   }
 
   button {
-
-    margin: auto 34%;
+    // margin: auto 34%;
 
     background: #0062a6;
 
@@ -3282,47 +2469,34 @@ button {
     border: none;
 
     color: #ffffff;
-
   }
-
 }
 
 .close-icon {
-
   margin-top: 0% !important;
-
 }
 
 @media (max-width: 1366px) {
-
   .titl-box {
-
     margin: 0;
-
   }
 
   .close-icon {
-
     margin-top: 0 !important;
-
   }
 
   .select-opt-modal {
-
     margin: auto 27%;
-
+    top: -360px;
   }
 
   .tool-tip-block1.layout {
-
     padding: 20px;
 
     min-width: 300px;
-
   }
 
   select {
-
     height: 40px !important;
 
     margin-top: 10px;
@@ -3334,11 +2508,9 @@ button {
     border-radius: 5px;
 
     // padding: 8px 10px;
-
   }
 
   .close-icon-type {
-
     float: right;
 
     margin-top: 0px;
@@ -3352,25 +2524,19 @@ button {
     bottom: 20px;
 
     font-size: 16px;
-
   }
 
   .mat-elevation-z8 {
-
     z-index: 0;
 
     // pointer-events: none;
-
   }
 
   .tool-tip-block3.layout {
-
     margin: 0px !important;
-
   }
 
   select {
-
     height: 40px !important;
 
     margin-top: 10px;
@@ -3382,11 +2548,9 @@ button {
     border-radius: 5px;
 
     padding: 8px 10px;
-
   }
 
   .form-fields input {
-
     margin-top: 10px;
 
     width: 400px;
@@ -3396,12 +2560,10 @@ button {
     padding: 8px 10px !important;
 
     border-radius: 5px;
-
   }
 
   button {
-
-    margin: auto 38%;
+    margin: auto 0%;
 
     background: #0062a6;
 
@@ -3414,59 +2576,41 @@ button {
     color: #ffffff;
 
     margin-top: 25px;
-
   }
-
 }
 
 .close-icon {
-
   margin-top: -14%;
-
 }
 
 @media (max-width: 757px) {
-
   .title {
-
     font-size: 11px;
-
   }
 
   .item-block4 {
-
     width: 114px !important;
-
   }
 
   .tool-tip-block3 {
-
     column-gap: 11px;
-
   }
 
   .titl-box {
-
     margin: 0;
-
   }
 
   .select-opt-modal {
-
     margin: auto 0%;
-
   }
 
   .tool-tip-block1.layout {
-
     padding: 20px;
 
     min-width: 300px;
-
   }
 
   select {
-
     height: 40px !important;
 
     margin-top: 10px;
@@ -3478,11 +2622,9 @@ button {
     border-radius: 5px;
 
     // padding: 8px 10px;
-
   }
 
   .close-icon-type {
-
     float: right;
 
     margin-top: 0px;
@@ -3496,25 +2638,19 @@ button {
     bottom: 20px;
 
     font-size: 16px;
-
   }
 
   .mat-elevation-z8 {
-
     z-index: 0;
 
     // pointer-events: none;
-
   }
 
   .tool-tip-block3.layout {
-
     margin: 0px !important;
-
   }
 
   select {
-
     height: 40px !important;
 
     margin-top: 10px;
@@ -3526,11 +2662,9 @@ button {
     border-radius: 5px;
 
     padding: 8px 10px;
-
   }
 
   .form-fields input {
-
     margin-top: 10px;
 
     width: 400px;
@@ -3540,12 +2674,10 @@ button {
     padding: 8px 10px !important;
 
     border-radius: 5px;
-
   }
 
   button {
-
-    margin: auto 34%;
+    // margin: auto 34%;
 
     background: #0062a6;
 
@@ -3556,20 +2688,14 @@ button {
     border: none;
 
     color: #ffffff;
-
   }
-
 }
 
 .close-icon {
-
   margin-top: -14%;
-
 }
 
-
 .form-fields input {
-
   margin-top: 10px;
 
   width: 381px;
@@ -3583,54 +2709,39 @@ button {
   min-height: 24px;
 
   padding: 8px 13px;
-
 }
 
 .mandatoryField {
-
   color: red;
-
 }
 
 .form-fields span.mandatoryField {
-
   font-size: 14px;
 
   color: #8f8f8f;
 
   font-weight: 500;
-
 }
 
 .form-fields span.required-field {
-
   color: red;
 
   font-size: 14px;
-
 }
 
 .form-fields .close-icon-type {
-
   margin-top: 0px;
-
 }
 
 .form-fields .tool-tip-block1.layout {
-
   max-height: 360px;
-
 }
 
 span.close-icon.auth-close.ng-tns-c260-1 {
-
   position: absolute;
 
   right: 0px;
-
 }
-
-
 
 // .form-fields .tool_alignP{
 
@@ -3638,110 +2749,83 @@ span.close-icon.auth-close.ng-tns-c260-1 {
 
 // }
 
-
-
-@media (max-width: 1920px){
-
+@media (max-width: 1920px) {
   .tool-tip-block1.layout {
-
     position: relative;
 
     top: 130px;
 
     right: 239px;
-
-}
+  }
 
   // Diagnostics card UI
 
   .charger-diagnostics .tool-tip-11 .tool-tip-block1.layout {
-
     top: 210px !important;
 
     right: 219px !important;
-
   }
 
   .tool-tip-1 .tool-tip-block1.layout {
-
     position: relative;
 
     top: 132px;
 
     right: 242px;
-
-}
-
+  }
 
   .tool-tip-2 .tool-tip-block1.layout {
-
     position: relative;
 
     right: 26px;
+  }
 
+  // .tool_alignRC.tool-tip-3{
+
+  //   right: 61.5%;
+
+  // }
+
+  .tool-tip-4 .tool-tip-block1.layout {
+    position: relative;
+
+    left: 12px;
+  }
+
+  .tool-tip-5 .tool-tip-block1.layout {
+    position: relative;
+
+    left: 32px;
+  }
+
+  .tool-tip-6 .tool-tip-block1.layout {
+    position: relative;
+
+    right: 44px;
+  }
 }
-
-.tool_alignRC.tool-tip-3{
-
-  right: 61.5%;
-
-
-}
-
-.tool-tip-4 .tool-tip-block1.layout {
-
-  position: relative;
-
-  left: 12px;
-
-}
-
-.tool-tip-5 .tool-tip-block1.layout {
-
-  position: relative;
-
-  left: 32px;
-
-}
-
-.tool-tip-6 .tool-tip-block1.layout {
-
-  position: relative;
-
-  right: 44px;
-
-}
-
-}
-
 
 .error-mess {
-
   color: red !important;
 
   padding-bottom: 3%;
 
   padding-left: 0.5%;
-
-
 }
 
-
 .localList {
-
   margin: unset;
 
   margin-top: 0;
-
 }
 
 .disableButton {
-
   opacity: 0.5;
-
 }
 
-
+.mat-form-field-appearance-legacy .mat-form-field-wrapper {
+  padding-left: 0 !important;
+}
 
 // input[type="datetime-local"]::-webkit-inner-spin-button,
 
@@ -3750,5 +2834,81 @@ span.close-icon.auth-close.ng-tns-c260-1 {
 //     opacity: 0;
 
 // }
+.date-field input {
+  margin-top: -10px !important;
+  margin-bottom: 0px !important;
+}
 
+.form-fields input {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.date-field {
+  margin-top: 0px !important;
+}
+.form-fields input {
+  display: flex !important;
+}
 
+.mat-form-field-appearance-legacy {
+  padding: 0px !important;
+}
+@media (max-width: 1920px) {
+  .mat-form-field-infix {
+    width: 381px;
+  }
+}
+
+.bar-block8.layout {
+  z-index: 0;
+}
+.wd_sub_1.tool_alignAuth.tool-tip-2 {
+  z-index: 1;
+  position: absolute;
+  margin: auto 35%;
+  top: 100%;
+}
+
+button {
+  width: auto;
+  min-width: 100%;
+  height: 40px;
+  margin-bottom: 25px;
+}
+
+button.charging-profile-btn {
+  margin-bottom: 25px;
+}
+.set-charger2 {
+  display: block;
+  overflow: auto;
+  overflow-y: scroll;
+  max-height: 500px;
+  width: 100%;
+}
+
+button {
+  width: auto;
+  min-width: 100%;
+  height: 40px;
+  margin-bottom: 25px;
+}
+
+button.charging-profile-btn {
+  margin-bottom: 25px;
+}
+
+button {
+  width: auto;
+  min-width: 100%;
+  height: 40px;
+  margin-bottom: 25px;
+}
+
+button.charging-profile-btn {
+  margin-bottom: 25px;
+}
+
+.mt-space{
+
+}

@@ -148,7 +148,14 @@
               [reportSessionData]="reportSessionData"
               [chartType]="'reportSession'"
               [chartTitle]="'Session Data'"
-              (barDetailPage)="openDetailPage(1, 'Session Data', 'REPORTS', 90)"
+              (barDetailPage)="
+                openDetailPage(
+                  2,
+                  'Session Data',
+                  'REPORTS SESSION',
+                  selectedDuration
+                )
+              "
             ></app-bar-chart>
           </div>
           <div class="dashboard-block42-spacer"></div>
@@ -159,7 +166,12 @@
               [chartType]="'reportSessionLength'"
               [chartTitle]="'Session Length'"
               (areaDetailPage)="
-                openDetailPage(1, 'Session Length', 'REPORTS', 90)
+                openDetailPage(
+                  2,
+                  'Session Length',
+                  'REPORTS SESSION',
+                  selectedDuration
+                )
               "
             ></app-area-chart>
           </div>
@@ -172,7 +184,12 @@
               [chartType]="'reportUpcomingSession'"
               [chartTitle]="'Upcoming Session - 24 Hours'"
               (lineDetailPage)="
-                openDetailPage(1, 'Upcoming Session - 24 Hours', 'REPORTS', 90)
+                openDetailPage(
+                  2,
+                  'Upcoming Session - 24 Hours',
+                  'REPORTS SESSION',
+                  selectedDuration
+                )
               "
             ></app-line-chart>
           </div>

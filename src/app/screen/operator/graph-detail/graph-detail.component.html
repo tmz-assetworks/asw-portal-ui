@@ -1,4 +1,4 @@
-<div class="header header-block layout">
+<div class="header header-block layoutS">
   <div class="header-block1 layout">
     <div class="header-flex layout">
       <h3 class="header-subtitle txt_label" style="margin-top: 30px;">
@@ -68,7 +68,7 @@
                               </td>
                             </ng-container>
 
-                            <ng-container matColumnDef="uid">
+                            <!-- <ng-container matColumnDef="uid">
                               <th
                                 mat-header-cell
                                 *matHeaderCellDef
@@ -79,7 +79,7 @@
                               <td mat-cell *matCellDef="let element">
                                 {{ element.uid }}
                               </td>
-                            </ng-container>
+                            </ng-container> -->
 
                             <ng-container matColumnDef="chargerType">
                               <th mat-header-cell *matHeaderCellDef>
@@ -97,20 +97,22 @@
                                 {{ element.faultSince }}
                               </td>
                             </ng-container>
-                            <ng-container matColumnDef="faultDescription">
+                            <!-- <ng-container matColumnDef="faultDescription">
                               <th mat-header-cell *matHeaderCellDef>
                                 FAULT DESCRIPTION
                               </th>
                               <td mat-cell *matCellDef="let element">
                                 {{ element.faultDescription }}
                               </td>
-                            </ng-container>
+                            </ng-container> -->
                             <ng-container matColumnDef="timeReported">
                               <th mat-header-cell *matHeaderCellDef>
                                 TIME REPORTED
                               </th>
                               <td mat-cell *matCellDef="let element">
-                                {{ element.timeReported }}
+                                {{
+                                  element.timeReported | date: 'dd-MM-yyyy h:mm'
+                                }}
                               </td>
                             </ng-container>
                             <ng-container matColumnDef="locationId">
@@ -163,78 +165,114 @@
                       >
                         <div class="layout mat-data">
                           <ng-container>
-                            <form
-                              [formGroup]="searchFilter"
-                              (ngSubmit)="filter()"
-                            >
-                         
-                            <div class="barbar-block13 layout">
-                              <div class="barbar-block13-item mbottom">
-                                <div class="barbar-block14 layout">
-                                  <h5 class="barbar-highlights layout">Start Date</h5>
-                                  <div class="barbar-box6 layout">
-                                    <div class="mat-form-field-datepicker">
-                                      <mat-form-field>
-                                        <input
-                                          matInput
-                                          [matDatepicker]="fromDate"
-                                          formControlName="fromDate"
-                                          readonly
-                                        />
-        
-                                        <mat-datepicker-toggle
-                                          matSuffix
-                                          [for]="fromDate"
-                                        ></mat-datepicker-toggle>
-                                        <mat-datepicker #fromDate></mat-datepicker>
-                                      </mat-form-field>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                             
-                              <div class="barbar-block13-item mbottom">
-                                <div class="barbar-block14 layout">
-                                  <h5 class="barbar-highlights layout">End Date</h5>
-                                  <div class="barbar-box6 layout">
-                                    <div class="mat-form-field-datepicker">
-                                      <mat-form-field>
-                                        <input
-                                          matInput
-                                          [matDatepicker]="toDate"
-                                          formControlName="toDate"
-                                          readonly
-                                        />
-        
-                                        <mat-datepicker-toggle
-                                          matSuffix
-                                          [for]="toDate"
-                                        ></mat-datepicker-toggle>
-                                        <mat-datepicker #toDate></mat-datepicker>
-                                      </mat-form-field>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
+                            <form [formGroup]="searchFilter">
+                              <div class="barbar-block13 layout">
+                                <div class="barbar-block13-item mbottom">
+                                  <div class="barbar-block14 layout">
+                                    <h5 class="barbar-highlights layout">
+                                      Start Date
+                                    </h5>
+                                    <div class="barbar-box6 layout">
+                                      <div class="mat-form-field-datepicker">
+                                        <mat-form-field>
+                                          <input
+                                            matInput
+                                            [matDatepicker]="fromDate"
+                                            formControlName="fromDate"
+                                            readonly
+                                            (dateChange)="checkStartDate()"
+                                          />
 
-                              <div class="barbar-block13-item mbottom">
-                                <div class="barbar-block14 layout">
-                                  <h5 class="barbar-highlights layout"> Select Status</h5>
-                                  <div class="barbar-box6 layout">
-                                    <div class="mat-form-field-infix">
-                                      <mat-select multiple formControlName="status" class="barbar-input-text">
-                                        <mat-option
-                                          *ngFor="let item of statusList"
-                                          [value]="item.name"
-                                        >
-                                          {{ item.name }}
-                                        </mat-option>
-                                      </mat-select>
+                                          <mat-datepicker-toggle
+                                            matSuffix
+                                            [for]="fromDate"
+                                          ></mat-datepicker-toggle>
+                                          <mat-datepicker
+                                            #fromDate
+                                          ></mat-datepicker>
+                                        </mat-form-field>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
-                              </div>
-                              <!-- <mat-form-field
+
+                                <div class="barbar-block13-item mbottom">
+                                  <div class="barbar-block14 layout">
+                                    <h5 class="barbar-highlights layout">
+                                      End Date
+                                    </h5>
+                                    <div class="barbar-box6 layout">
+                                      <div class="mat-form-field-datepicker">
+                                        <mat-form-field>
+                                          <input
+                                            matInput
+                                            [matDatepicker]="toDate"
+                                            [matDatepickerFilter]="
+                                              dateFilterForEnd
+                                            "
+                                            formControlName="toDate"
+                                            readonly
+                                            (dateChange)="
+                                              checkValidFrom($event)
+                                            "
+                                          />
+
+                                          <mat-datepicker-toggle
+                                            matSuffix
+                                            [for]="toDate"
+                                          ></mat-datepicker-toggle>
+                                          <mat-datepicker
+                                            #toDate
+                                          ></mat-datepicker>
+                                        </mat-form-field>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="barbar-block13-item mbottom">
+                                  <div class="barbar-block14 layout">
+                                    <h5 class="barbar-highlights layout">
+                                      Select Status
+                                    </h5>
+                                    <div class="barbar-box6 layout">
+                                      <!-- <mat-form-field class="form-select">
+                                        <div class="mat-form-field-infix">
+                                          <mat-label>Select</mat-label>
+                                          <mat-select
+                                            multiple
+                                            formControlName="status"
+                                            class="barbar-input-text"
+                                          >
+                                            <mat-option
+                                              *ngFor="let item of statusList"
+                                              [value]="item.name"
+                                            >
+                                              {{ item.name }}
+                                            </mat-option>
+                                          </mat-select>
+                                        </div>
+                                      </mat-form-field> -->
+                                      <mat-form-field
+                                        class="dashboard-text-body1 layout9"
+                                      >
+                                        <mat-label>Select Status</mat-label>
+                                        <mat-select
+                                          multiple
+                                          formControlName="status"
+                                        >
+                                          <mat-option
+                                            *ngFor="let item of statusList"
+                                            [value]="item.name"
+                                          >
+                                            {{ item.name }}
+                                          </mat-option >
+                                        </mat-select>
+                                      </mat-form-field>
+                                    </div>
+                                  </div>
+                                </div>
+                                <!-- <mat-form-field
                                 class="dashboard-text-body1 layout9"
                               >
                                 <mat-label>Select Status</mat-label>
@@ -247,24 +285,32 @@
                                   </mat-option>
                                 </mat-select>
                               </mat-form-field> -->
-                            </div>
-                            <div class="barbar-flex1 layout">
-                              <div class="barbar-flex1-item">
-                                <div class="barbar-block17 layout">
-                                  <div class="barbar-text-body2 layout">
-                                    <button (click)="resetFilter()">Reset</button>
+                              </div>
+                              <div class="barbar-flex1 layout">
+                                <div class="barbar-flex1-item">
+                                  <div class="barbar-block17 layout">
+                                    <div class="barbar-text-body2 layout">
+                                      <button (click)="resetFilter()">
+                                        Reset
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="barbar-flex1-spacer"></div>
+                                <div class="barbar-flex1-item">
+                                  <div class="barbar-block16 layout">
+                                    <div
+                                      class="barbar-text-body1 layout submit-action"
+                                    >
+                                      <input
+                                        type="submit"
+                                        value="Search"
+                                        (click)="filter()"
+                                      />
+                                    </div>
                                   </div>
                                 </div>
                               </div>
-                              <div class="barbar-flex1-spacer"></div>
-                              <div class="barbar-flex1-item">
-                                <div class="barbar-block16 layout">
-                                  <div class="barbar-text-body1 layout submit-action">
-                                    <input type="submit" />
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
                             </form>
                           </ng-container>
 
@@ -282,7 +328,7 @@
                               </td>
                             </ng-container>
 
-                            <ng-container matColumnDef="uid">
+                            <!-- <ng-container matColumnDef="uid">
                               <th
                                 mat-header-cell
                                 *matHeaderCellDef
@@ -293,7 +339,7 @@
                               <td mat-cell *matCellDef="let element">
                                 {{ element.uid }}
                               </td>
-                            </ng-container>
+                            </ng-container> -->
 
                             <ng-container matColumnDef="chargerType">
                               <th mat-header-cell *matHeaderCellDef>
@@ -311,20 +357,22 @@
                                 {{ element.faultSince }}
                               </td>
                             </ng-container>
-                            <ng-container matColumnDef="faultDescription">
+                            <!-- <ng-container matColumnDef="faultDescription">
                               <th mat-header-cell *matHeaderCellDef>
                                 FAULT DESCRIPTION
                               </th>
                               <td mat-cell *matCellDef="let element">
                                 {{ element.faultDescription }}
                               </td>
-                            </ng-container>
+                            </ng-container> -->
                             <ng-container matColumnDef="timeReported">
                               <th mat-header-cell *matHeaderCellDef>
                                 TIME REPORTED
                               </th>
                               <td mat-cell *matCellDef="let element">
-                                {{ element.timeReported }}
+                                {{
+                                  element.timeReported | date: 'dd-MM-yyyy h:mm'
+                                }}
                               </td>
                             </ng-container>
                             <ng-container matColumnDef="locationId">
@@ -357,8 +405,7 @@
                               </th>
                               <td mat-cell *matCellDef="let element">
                                 {{
-                                  element.startTime
-                                    | date: 'dd MMMM yyyy hh:mm:ss'
+                                  element.startTime | date: 'dd-MM-yyyy h:mm'
                                 }}
                               </td>
                             </ng-container>
@@ -367,10 +414,7 @@
                                 END TIME
                               </th>
                               <td mat-cell *matCellDef="let element">
-                                {{
-                                  element.endTime
-                                    | date: 'dd MMMM yyyy hh:mm:ss'
-                                }}
+                                {{ element.endTime | date: 'dd-MM-yyyy h:mm' }}
                               </td>
                             </ng-container>
                             <ng-container matColumnDef="startmetervalue">

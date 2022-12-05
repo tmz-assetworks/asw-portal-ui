@@ -498,7 +498,10 @@ export class AddAssetsComponent implements OnInit {
       serialNumber: data.value.assetDetails.SerialNumber.trim(),
       assetId: data.value.assetDetails.AssetID.trim(),
       createdBy: this.UserId,
-      installationDate: data.value.assetPadDetails.InstallationDate,
+      installationDate: this.datePipe.transform(
+        data.value.assetPadDetails.InstallationDate,
+        'yyyy-MM-ddT' + this.getModifiedTime(),
+      ),
       isActive: data.value.assetDetails.IsActive,
       padName: data.value.assetPadDetails.PadName,
       statusId: this.selectedStatus,
@@ -560,7 +563,10 @@ export class AddAssetsComponent implements OnInit {
       serialNumber: data.value.assetDetails.SerialNumber.trim(),
       assetId: data.value.assetDetails.AssetID.trim(),
       modifiedBy: this.UserId,
-      installationDate: data.value.assetPadDetails.InstallationDate,
+      installationDate: this.datePipe.transform(
+        data.value.assetPadDetails.InstallationDate,
+        'yyyy-MM-ddT' + this.getModifiedTime(),
+      ),
       isActive: data.value.assetDetails.IsActive,
       padName: data.value.assetPadDetails.PadName,
       statusId: this.selectedStatus,
@@ -625,11 +631,11 @@ export class AddAssetsComponent implements OnInit {
       warrantyDuration: data.value.assetCableDetails.WarrantyDuration,
       warrantyExpiryDate: this.datePipe.transform(
         data.value.assetCableDetails.WarrantyEnd,
-        'yyyy-MM-ddThh:mm:ss',
+        'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       warrantyStartDate: this.datePipe.transform(
         data.value.assetCableDetails.WarrantyStart,
-        'yyyy-MM-ddThh:mm:ss',
+        'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       createdBy: this.UserId,
     }
@@ -698,11 +704,11 @@ export class AddAssetsComponent implements OnInit {
       warrantyDuration: data.value.assetCableDetails.WarrantyDuration,
       warrantyExpiryDate: this.datePipe.transform(
         data.value.assetCableDetails.WarrantyEnd,
-        'yyyy-MM-ddThh:mm:ss',
+        'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       warrantyStartDate: this.datePipe.transform(
         data.value.assetCableDetails.WarrantyStart,
-        'yyyy-MM-ddThh:mm:ss',
+        'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       modifiedBy: this.UserId,
     }
@@ -1165,7 +1171,10 @@ export class AddAssetsComponent implements OnInit {
       dcPortQuantityRating: parseInt(
         data.value.assetPowerCabinetDetails.DCPortQuantity,
       ),
-      installationDate: data.value.assetPowerCabinetDetails.InstallationDate,
+      installationDate: this.datePipe.transform(
+        data.value.assetPowerCabinetDetails.InstallationDate,
+        'yyyy-MM-ddT' + this.getModifiedTime(),
+      ),
       makeMasterId: this.selectedMakePowerCabinet,
       modelId: this.selectedModelPowerCabinet,
       peakCurrent: parseInt(data.value.assetPowerCabinetDetails.PeakCurrent),
@@ -1177,11 +1186,11 @@ export class AddAssetsComponent implements OnInit {
       warrantyDuration: data.value.assetPowerCabinetDetails.WarrantyDuration,
       warrantyExpiryDate: this.datePipe.transform(
         data.value.assetPowerCabinetDetails.WarrantyEnd,
-        'yyyy-MM-ddThh:mm:ss',
+        'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       warrantyStartDate: this.datePipe.transform(
         data.value.assetPowerCabinetDetails.WarrantyStart,
-        'yyyy-MM-ddThh:mm:ss',
+        'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
     }
 
@@ -1246,7 +1255,7 @@ export class AddAssetsComponent implements OnInit {
       ),
       installationDate: this.datePipe.transform(
         data.value.assetPowerCabinetDetails.InstallationDate,
-        'yyyy-MM-ddThh:mm:ss',
+        'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       makeMasterId: this.selectedMakePowerCabinet,
       modelId: this.selectedModelPowerCabinet,
@@ -1259,11 +1268,11 @@ export class AddAssetsComponent implements OnInit {
       warrantyDuration: data.value.assetPowerCabinetDetails.WarrantyDuration,
       warrantyExpiryDate: this.datePipe.transform(
         data.value.assetPowerCabinetDetails.WarrantyEnd,
-        'yyyy-MM-ddThh:mm:ss',
+        'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       warrantyStartDate: this.datePipe.transform(
         data.value.assetPowerCabinetDetails.WarrantyStart,
-        'yyyy-MM-ddThh:mm:ss',
+        'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       modifiedBy: this.UserId,
     }
@@ -1400,11 +1409,11 @@ export class AddAssetsComponent implements OnInit {
       warrantyDuration: data.value.assetRFIDReaderDetails.WarrantyDuration,
       warrantyExpiryDate: this.datePipe.transform(
         data.value.assetRFIDReaderDetails.WarrantyEnd,
-        'yyyy-MM-ddThh:mm:ss',
+        'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       warrantyStartDate: this.datePipe.transform(
         data.value.assetRFIDReaderDetails.WarrantyStart,
-        'yyyy-MM-ddThh:mm:ss',
+        'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       createdBy: this.UserId,
     }
@@ -1472,11 +1481,11 @@ export class AddAssetsComponent implements OnInit {
       warrantyDuration: data.value.assetRFIDReaderDetails.WarrantyDuration,
       warrantyExpiryDate: this.datePipe.transform(
         data.value.assetRFIDReaderDetails.WarrantyEnd,
-        'yyyy-MM-ddThh:mm:ss',
+        'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       warrantyStartDate: this.datePipe.transform(
         data.value.assetRFIDReaderDetails.WarrantyStart,
-        'yyyy-MM-ddThh:mm:ss',
+        'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       modifiedBy: this.UserId,
     }
@@ -1642,7 +1651,7 @@ export class AddAssetsComponent implements OnInit {
       carrier: data.value.assetModemDetails.Carrier,
       installationDate: this.datePipe.transform(
         data.value.assetModemDetails.InstallationDate,
-        'yyyy-MM-ddT00:00:00',
+        'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       simNumber: data.value.assetModemDetails.SimNumber,
       modemTypeId: this.selectedModemType,
@@ -1651,11 +1660,11 @@ export class AddAssetsComponent implements OnInit {
       warrantyDuration: data.value.assetModemDetails.WarrantyDuration,
       warrantyExpiryDate: this.datePipe.transform(
         data.value.assetModemDetails.WarrantyEnd,
-        'yyyy-MM-ddThh:mm:ss',
+        'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       warrantyStartDate: this.datePipe.transform(
         data.value.assetModemDetails.WarrantyStart,
-        'yyyy-MM-ddThh:mm:ss',
+        'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       createdBy: this.UserId,
     }
@@ -1779,7 +1788,7 @@ export class AddAssetsComponent implements OnInit {
       carrier: data.value.assetModemDetails.Carrier,
       installationDate: this.datePipe.transform(
         data.value.assetModemDetails.InstallationDate,
-        'yyyy-MM-ddT00:00:00',
+        'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       simNumber: data.value.assetModemDetails.SimNumber,
       modemTypeId: this.selectedModemType,
@@ -1788,11 +1797,11 @@ export class AddAssetsComponent implements OnInit {
       warrantyDuration: data.value.assetModemDetails.WarrantyDuration,
       warrantyExpiryDate: this.datePipe.transform(
         data.value.assetModemDetails.WarrantyEnd,
-        'yyyy-MM-ddThh:mm:ss',
+        'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       warrantyStartDate: this.datePipe.transform(
         data.value.assetModemDetails.WarrantyStart,
-        'yyyy-MM-ddThh:mm:ss',
+        'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       modifiedBy: this.UserId,
     }
@@ -2052,5 +2061,18 @@ export class AddAssetsComponent implements OnInit {
         }
       }
     }
+  }
+
+  /**
+   *
+   * @returns
+   *
+   * Get  modefied time
+   */
+
+  getModifiedTime() {
+    let date = new Date()
+    let time = this.datePipe.transform(date, 'HH:mm:ss')
+    return time
   }
 }

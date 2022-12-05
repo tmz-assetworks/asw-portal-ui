@@ -251,6 +251,7 @@
                                 *matCellDef="let element; let i = index"
                               >
                                 <img
+                                  title="View"
                                   style="cursor: pointer;"
                                   src="../../../../../assets/Operator/View.svg"
                                   (click)="
@@ -259,6 +260,16 @@
                                         ? null
                                         : element
                                   "
+                                />
+
+                                <img
+                                  *ngIf="
+                                    element.requestType == 'StopTransaction'
+                                  "
+                                  style="cursor: pointer;"
+                                  (click)="openMakePaymentDialog(element.id)"
+                                  src="../../../../../assets/chart-icon.svg"
+                                  title="Make Payment"
                                 />
                               </td>
                             </ng-container>

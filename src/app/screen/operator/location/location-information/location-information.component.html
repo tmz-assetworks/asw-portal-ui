@@ -63,10 +63,11 @@
 
           <div class="location-block18 layout">
             <mat-accordion>
-              <mat-expansion-panel 
-              (opened)="panelOpenState = true"
-              (closed)="panelOpenState = false"
-              hideToggle="true">
+              <mat-expansion-panel
+                (opened)="panelOpenState = true"
+                (closed)="panelOpenState = false"
+                hideToggle="true"
+              >
                 <mat-expansion-panel-header style="height: 50px;">
                   <mat-panel-title>
                     BASIC INFORMATION
@@ -230,10 +231,11 @@
 
           <div class="location-block15 layout">
             <mat-accordion>
-              <mat-expansion-panel 
-              (opened)="panelOpenState1 = true"
-              (closed)="panelOpenState1 = false"
-              hideToggle="true">
+              <mat-expansion-panel
+                (opened)="panelOpenState1 = true"
+                (closed)="panelOpenState1 = false"
+                hideToggle="true"
+              >
                 <mat-expansion-panel-header style="height: 50px;">
                   <mat-panel-title>
                     LOCATION AVAILABILITY
@@ -244,50 +246,50 @@
                 <div class="location-block8 layout">
                   <div class="location-flex9 layout location-loop">
                     <div
-                    class="location-block9 layout loction-week"
-                    *ngFor="let item of locationSchedule"
-                  >
-                    <div class="location-text-body1 layout text-uppercase">
-                      {{ item.day }} <!-- *ngIf="item.day != 'Sunday'" -->
-                    </div>
-                    <div
-                      class="location-block10 layout"
-                      *ngIf="!item.isOpenAlldays
-                    "
+                      class="location-block9 layout loction-week"
+                      *ngFor="let item of locationSchedule"
                     >
-                      <div class="location-block10-item">
-                        <div class="location-block11 layout">
-                          <div class="location-text-body1 layout1">
-                            {{ item.startTime }}
+                      <div class="location-text-body1 layout text-uppercase">
+                        {{ item.day }}
+                        <!-- *ngIf="item.day != 'Sunday'" -->
+                      </div>
+                      <div
+                        class="location-block10 layout"
+                        *ngIf="!item.isOpenAlldays"
+                      >
+                        <div class="location-block10-item">
+                          <div class="location-block11 layout">
+                            <div class="location-text-body1 layout1">
+                              {{ item.startTime }}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="location-block10-item">
+                          <div class="location-block12 layout">
+                            <div class="location-text-body1 layout2">to</div>
+                          </div>
+                        </div>
+                        <div class="location-block10-item">
+                          <div class="location-block13 layout">
+                            <div class="location-text-body1 layout3">
+                              {{ item.endTime }}
+                            </div>
                           </div>
                         </div>
                       </div>
-                      <div class="location-block10-item">
-                        <div class="location-block12 layout">
-                          <div class="location-text-body1 layout2">to</div>
-                        </div>
-                      </div>
-                      <div class="location-block10-item">
-                        <div class="location-block13 layout">
-                          <div class="location-text-body1 layout3">
-                            {{ item.endTime }}
+                      <div
+                        class="location-block10 layout"
+                        *ngIf="item.isOpenAlldays"
+                      >
+                        <div class="location-block10-item">
+                          <div class="location-block11 layout">
+                            <div class="location-text-body1 layout1">
+                              Open 24 Hours
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div
-                      class="location-block10 layout"
-                      *ngIf="item.isOpenAlldays"
-                    >
-                      <div class="location-block10-item">
-                        <div class="location-block11 layout">
-                          <div class="location-text-body1 layout1">
-                            Open 24 Hours
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                   </div>
                 </div>
               </mat-expansion-panel>
@@ -295,10 +297,11 @@
           </div>
           <div class="location-block7 layout">
             <mat-accordion>
-              <mat-expansion-panel 
-              (opened)="panelOpenState2 = true"
-              (closed)="panelOpenState2 = false"
-              hideToggle="true">
+              <mat-expansion-panel
+                (opened)="panelOpenState2 = true"
+                (closed)="panelOpenState2 = false"
+                hideToggle="true"
+              >
                 <mat-expansion-panel-header style="height: 50px;">
                   <mat-panel-title class="text-uppercase">
                     Department Information
@@ -326,7 +329,7 @@
                           ></div>
                         </div>
                       </div>
-                     <!--  <div class="fill-block5-spacer"></div>
+                      <!--  <div class="fill-block5-spacer"></div>
                       <div class="fill-block5-item">
                         <div class="fill-group layout">
                           <div class="fill-block6 layout">
@@ -390,10 +393,11 @@
 
           <div class="location-block15 layout">
             <mat-accordion>
-              <mat-expansion-panel 
-              (opened)="panelOpenState3 = true"
-              (closed)="panelOpenState3 = false"
-              hideToggle="true">
+              <mat-expansion-panel
+                (opened)="panelOpenState3 = true"
+                (closed)="panelOpenState3 = false"
+                hideToggle="true"
+              >
                 <mat-expansion-panel-header style="height: 50px;">
                   <mat-panel-title class="text-uppercase">
                     REFERENCE INFORMATION

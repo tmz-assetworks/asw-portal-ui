@@ -1,0 +1,123 @@
+@import '../../../../styles';
+.form-fields select {
+  height: 40px !important;
+  margin-top: 10px;
+  width: 400px;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  // padding: 8px 10px;
+}
+button {
+  margin: auto 35%;
+  background: #0062a6;
+  padding: 10px 22px;
+  border-radius: 5px;
+  border: none;
+  color: #ffffff;
+  margin-top: 20px;
+}
+.form-fields input {
+  margin-top: 10px;
+  width: 400px;
+  border: 1px solid #e5e5e5 !important;
+  padding: 8px 10px !important;
+  border-radius: 5px;
+}
+.required {
+  color: red;
+}
+
+span.option {
+  text-align: right;
+  float: right;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+span.option2 {
+  text-align: right;
+  float: right;
+  font-size: 16px;
+  font-weight: 500;
+}
+span.option3 {
+  text-align: right;
+  float: right;
+  font-size: 16px;
+  font-weight: 500;
+}
+span.option4 {
+  text-align: right;
+  float: right;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.close-action .mat-button-ripple.mat-ripple,
+.mat-button-focus-overlay {
+  background: transparent !important;
+}
+
+// Invoice styling
+.Invoice h1 {
+  font-size: 20px;
+  color: #131b21;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.invoce-header p {
+  margin: 0;
+  font-size: 14px;
+}
+.label1 p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+.label-value p {
+  margin-bottom: 6px;
+}
+.transaction {
+  display: flex;
+  column-gap: 60px;
+}
+.invoice-details h4 {
+  font-size: 18px;
+  color: #131b21;
+  font-weight: 500;
+}
+.invoce-header {
+  display: flex;
+  column-gap: 40%;
+  border-bottom: 4px solid #c2c5c8;
+  padding: 25px 0px 10px 0px;
+}
+.st8 {
+  display: flex;
+  column-gap: 26%;
+  border-bottom: dashed 1px #d0d0d0;
+  padding: 15px 0px;
+}
+p.info-label {
+  font-weight: 500;
+}
+p.info {
+  font-weight: 300;
+}
+.label-value {
+  font-weight: 300;
+}
+.column-space {
+  column-gap: 26% !important;
+}
+
+.field-value {
+  display: flex;
+}
+p.info-label {
+  min-width: 160px;
+}
+p.info {
+  min-width: 160px;
+}

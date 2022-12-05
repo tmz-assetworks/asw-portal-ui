@@ -14,6 +14,7 @@ import { EventsLogComponent } from './events-log/events-log.component'
 import { GraphDetailComponent } from '../graph-detail/graph-detail.component'
 import { LocationStatusPanelComponent } from './location-status-panel/location-status-panel.component';
 import { CommandDialogComponent } from './location-chargers/command-dialog/command-dialog.component'
+import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker'
 
 
 const routes: Routes = [
@@ -80,6 +81,9 @@ const routes: Routes = [
     SharedModule,
     SharedMaterialModule,
     NgxEchartsModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule
   ],
   exports: [LocationComponent],
 })

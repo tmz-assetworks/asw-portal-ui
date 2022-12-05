@@ -7,6 +7,8 @@ import { StorageService } from 'src/app/service/storage.service'
 import { DashboardService } from './dashboard.service'
 import { data } from './locations'
 import { ToastrService } from 'ngx-toastr'
+import { MatDialog } from '@angular/material/dialog'
+import { LegendsDialogComponent } from 'src/app/component/dashboard/legends-dialog/legends-dialog.component'
 declare const google: any
 declare const MarkerClusterer: any
 
@@ -51,6 +53,7 @@ export class DashboardComponent implements OnInit {
     private _router: Router,
     private _route: ActivatedRoute,
     private toastr: ToastrService,
+    public dialog: MatDialog,
   ) {
     this.UserId = this._storageService.getLocalData('user_id')
   }
@@ -68,6 +71,7 @@ export class DashboardComponent implements OnInit {
       this._storageService.removeSessionData('duration')
       this._storageService.removeSessionData('graphHeading')
       this._storageService.removeSessionData('pageHeading')
+      this._storageService.removeSessionData('chargerBoxId')
     }
     this.getMapLocations(this.selecteLocationIds, this.UserId)
     this.locationIds.valueChanges.subscribe((res) => {
@@ -232,10 +236,12 @@ export class DashboardComponent implements OnInit {
     graphHeading: string,
     pageHeading: string,
     duration: any,
+    location: any,
   ) {
     sessionStorage.setItem('graphHeading', graphHeading)
     sessionStorage.setItem('pageHeading', pageHeading)
     sessionStorage.setItem('duration', duration)
+    sessionStorage.setItem('locationId', location)
 
     this._router.navigate(['detail'], {
       relativeTo: this._route,
@@ -443,5 +449,19 @@ export class DashboardComponent implements OnInit {
       this.mapstatusdata = res.data
       this.initMapFunc()
     })
+  }
+  /**
+   * Tooltip for legends show description
+   */
+
+  showLegendsInfo() {
+    const dialogRef = this.dialog.open(LegendsDialogComponent, {
+      width: '30%',
+      autoFocus: false,
+      height: '600px',
+      panelClass: 'my-dialog-container-class2',
+      // data: { id: id },
+    })
+    dialogRef.afterClosed().subscribe((result) => {})
   }
 }

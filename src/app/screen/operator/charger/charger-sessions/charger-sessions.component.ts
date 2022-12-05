@@ -122,6 +122,7 @@ export class ChargerSessionsComponent implements OnInit {
       // locationIds: this.locationId ? [this.locationId] : [],
       // opratorid: '',
       chargerboxid: [this.selecteChargerIds],
+      status: [],
     }
 
     this._chargerService

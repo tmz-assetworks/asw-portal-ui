@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment'
 export class VehicleService {
   url: any
   constructor(private _http: HttpClient) {
-    this.url = environment.origin + 'api/v1/VehicleDashboard/'
+    this.url = environment.PORTAL_API_URL + 'api/v1/VehicleDashboard/'
   }
 
   getAllVehicle(param: any) {

@@ -8,29 +8,67 @@
         <div class="barbar-block13 layout">
           <div class="barbar-block13-item mbottom">
             <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">Customer Name</h5>
-              <mat-form-field class="barbar-box6 layout">
-                <mat-select formControlName="customerName">
-                  <mat-option value="Shane Waston & Sons">
-                    Shane Waston & Sons
-                  </mat-option>
-                  <mat-option value="Shane Sons">Shane Sons</mat-option>
-                  <mat-option value="Sons">Sons</mat-option>
-                </mat-select>
-              </mat-form-field>
+              <h5 class="barbar-highlights layout">
+                Organization Name
+                <span style="color: 'red';">*</span>
+              </h5>
+              <div class="barbar-box6 layout">
+                <input
+                  formControlName="customerName"
+                  readonly
+                  [(ngModel)]="customerName"
+                  [value]="customerId"
+                  class="barbar-input-text"
+                />
+              </div>
             </div>
           </div>
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">Subscription Plans Name</h5>
-              <div class="barbar-box6 layout">
+              <h5 class="barbar-highlights layout">
+                Subscription Plan Name
+                <span style="color: 'red';">*</span>
+              </h5>
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addSubscriptionPlanForm.get('subscriptionPlanName')
+                      ?.errors && submitted == true
+                }"
+              >
                 <input
                   formControlName="subscriptionPlanName"
                   type="text"
                   class="barbar-input-text"
                 />
               </div>
+              <span
+                *ngIf="
+                  !addSubscriptionPlanForm.get('subscriptionPlanName')?.valid &&
+                  addSubscriptionPlanForm.get('subscriptionPlanName')
+                    ?.touched &&
+                  addSubscriptionPlanForm.get('subscriptionPlanName')?.value
+                    .length > 40
+                "
+                class="error-mess"
+              >
+                Subscription Plan Name should not be greater than 40
+                Alphanumeric Characters
+              </span>
+              <span
+                *ngIf="
+                  !addSubscriptionPlanForm.get('subscriptionPlanName')?.valid &&
+                  addSubscriptionPlanForm.get('subscriptionPlanName')
+                    ?.touched &&
+                  addSubscriptionPlanForm.get('subscriptionPlanName')?.value
+                    .length == 0
+                "
+                class="error-mess"
+              >
+                Subscription Plan Name Is Required
+              </span>
             </div>
           </div>
 
@@ -51,38 +89,89 @@
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">Description</h5>
+              <h5 class="barbar-highlights layout">
+                Subscription Details
+              </h5>
               <div class="barbar-box6 layout">
                 <input
-                  formControlName="description"
+                  formControlName="subscriptionDetails"
                   type="text"
                   class="barbar-input-text"
                 />
               </div>
+              <span
+                *ngIf="
+                  addSubscriptionPlanForm.get('subscriptionDetails')?.touched &&
+                  addSubscriptionPlanForm.get('subscriptionDetails')?.value
+                    .length > 250
+                "
+                class="error-mess"
+              >
+                Subscription Details should not be greater than 250 Alphanumeric
+                characters.
+              </span>
             </div>
           </div>
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item mbottom">
             <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">Currency Code</h5>
-              <mat-form-field class="barbar-box6 layout">
-                <mat-select formControlName="currencyCode">
-                  <mat-option value="Rupees">Rupees</mat-option>
-                  <mat-option value="Doller">Doller</mat-option>
+              <h5 class="barbar-highlights layout">
+                Currency Code
+                <span style="color: 'red';">*</span>
+              </h5>
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addSubscriptionPlanForm.get('currencyCode')?.errors &&
+                    submitted == true
+                }"
+              >
+                <mat-select
+                  [value]="selectedCurrency"
+                  formControlName="currencyCode"
+                >
+                  <mat-option
+                    *ngFor="let data of CurrencyList"
+                    [value]="data.id"
+                  >
+                    {{ data.name }}
+                  </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
+            <span
+              *ngIf="
+                !addSubscriptionPlanForm.get('currencyCode')?.valid &&
+                addSubscriptionPlanForm.get('currencyCode')?.touched &&
+                addSubscriptionPlanForm.get('currencyCode')?.value.length == 0
+              "
+              class="error-mess"
+            >
+              Currency Code Is Required
+            </span>
           </div>
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">Valid From</h5>
-              <mat-form-field class="barbar-box6 layout">
-                <mat-label>Choose a date</mat-label>
+              <h5 class="barbar-highlights layout">
+                Valid From
+                <span style="color: 'red';">*</span>
+              </h5>
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addSubscriptionPlanForm.get('validfrom')?.errors &&
+                    submitted == true
+                }"
+              >
+                <!-- <mat-label>Choose a date</mat-label> -->
                 <input
                   matInput
                   [matDatepicker]="picker"
                   formControlName="validfrom"
+                  readonly
                 />
                 <mat-datepicker-toggle
                   matSuffix
@@ -91,17 +180,39 @@
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
             </div>
+            <span
+              *ngIf="
+                !addSubscriptionPlanForm.get('validfrom')?.valid &&
+                addSubscriptionPlanForm.get('validfrom')?.touched &&
+                addSubscriptionPlanForm.get('validfrom')?.value.length == 0
+              "
+              class="error-mess"
+            >
+              Valid From Is Required
+            </span>
           </div>
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">Valid To</h5>
-              <mat-form-field class="barbar-box6 layout">
-                <mat-label>Choose a date</mat-label>
+              <h5 class="barbar-highlights layout">
+                Valid To
+                <span style="color: 'red';">*</span>
+              </h5>
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addSubscriptionPlanForm.get('validto')?.errors &&
+                    submitted == true
+                }"
+              >
+                <!-- <mat-label>Choose a date</mat-label> -->
                 <input
                   matInput
                   [matDatepicker]="picker1"
                   formControlName="validto"
+                  readonly
+                  (dateChange)="checkValidFrom($event)"
                 />
                 <mat-datepicker-toggle
                   matSuffix
@@ -110,44 +221,167 @@
                 <mat-datepicker #picker1></mat-datepicker>
               </mat-form-field>
             </div>
+            <span
+              *ngIf="
+                !addSubscriptionPlanForm.get('validto')?.valid &&
+                addSubscriptionPlanForm.get('validto')?.touched &&
+                addSubscriptionPlanForm.get('validto')?.value.length == 0
+              "
+              class="error-mess"
+            >
+              Valid To Is Required
+            </span>
           </div>
 
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item mbottom">
             <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">Type</h5>
-              <mat-form-field class="barbar-box6 layout">
-                <mat-select formControlName="type">
-                  <mat-option value="Price Type 1">Type 1</mat-option>
-                  <mat-option value="Price Type 2">Type 2</mat-option>
+              <h5 class="barbar-highlights layout">
+                Type
+                <span style="color: 'red';">*</span>
+              </h5>
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addSubscriptionPlanForm.get('priceType')?.errors &&
+                    submitted == true
+                }"
+              >
+                <mat-select
+                  [value]="selectedPriceType"
+                  formControlName="priceType"
+                >
+                  <mat-option
+                    *ngFor="let data of SubscriptionPlanList"
+                    [value]="data.id"
+                    (onSelectionChange)="selectType($event, data.id)"
+                  >
+                    {{ data.priceTypeName }}
+                  </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
+            <span
+              *ngIf="
+                !addSubscriptionPlanForm.get('priceType')?.valid &&
+                addSubscriptionPlanForm.get('priceType')?.touched &&
+                addSubscriptionPlanForm.get('priceType')?.value.length == 0
+              "
+              class="error-mess"
+            >
+              Type Is Required
+            </span>
           </div>
-
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item mbottom">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Unit
+                <span style="color: 'red';">*</span>
+              </h5>
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addSubscriptionPlanForm.get('unit')?.errors &&
+                    submitted == true
+                }"
+              >
+                <mat-select [value]="selectedUnit" formControlName="unit">
+                  <mat-option *ngFor="let data of UnitList" [value]="data.id">
+                    {{ data.unitName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <span
+              *ngIf="
+                !addSubscriptionPlanForm.get('unit')?.valid &&
+                addSubscriptionPlanForm.get('unit')?.touched &&
+                addSubscriptionPlanForm.get('unit')?.value.length == 0
+              "
+              class="error-mess"
+            >
+              Unit Is Required
+            </span>
+          </div>
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">Value</h5>
-              <div class="barbar-box6 layout">
+              <h5 class="barbar-highlights layout">
+                Price
+                <span style="color: 'red';">*</span>
+              </h5>
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addSubscriptionPlanForm.get('price')?.errors &&
+                    submitted == true
+                }"
+              >
                 <input
-                  formControlName="value"
+                  formControlName="price"
                   type="text"
                   class="barbar-input-text"
+                  (keypress)="numberOnly($event)"
                 />
               </div>
+              <span
+                *ngIf="
+                  !addSubscriptionPlanForm.get('price')?.valid &&
+                  addSubscriptionPlanForm.get('price')?.touched &&
+                  addSubscriptionPlanForm.get('price')?.value.length > 10
+                "
+                class="error-mess"
+              >
+                Price Must Be Between 0 To 10 Numeric
+              </span>
+              <span
+                *ngIf="
+                  !addSubscriptionPlanForm.get('price')?.valid &&
+                  addSubscriptionPlanForm.get('price')?.touched &&
+                  addSubscriptionPlanForm.get('price')?.value.length == 0
+                "
+                class="error-mess"
+              >
+                Price Is Required
+              </span>
             </div>
           </div>
           <div class="barbar-block13-spacer"></div>
-          <div class="barbar-block13-item">
+          <div class="barbar-block13-item mbottom">
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">Subscription Group</h5>
               <mat-form-field class="barbar-box6 layout">
-                <mat-select formControlName="subGroup">
-                  <mat-option value="Unit 1">30 minutes free group</mat-option>
-                  <mat-option value="Unit 2">Unit 2</mat-option>
+                <mat-select
+                  [value]="selectedSubscriptionGroup"
+                  formControlName="subGroup"
+                >
+                  <mat-option [value]="0">
+                    Please Select
+                  </mat-option>
+                  <mat-option
+                    *ngFor="let data of SubscriptionGroupList"
+                    [value]="data.id"
+                  >
+                    {{ data.name }}
+                  </mat-option>
                 </mat-select>
               </mat-form-field>
+            </div>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Active</h5>
+              <mat-checkbox
+                class="example-margin"
+                formControlName="isActive"
+                [checked]="isChecked == true"
+              ></mat-checkbox>
             </div>
           </div>
         </div>
@@ -168,7 +402,7 @@
           <div class="barbar-block16 layout">
             <div
               class="barbar-text-body1 layout"
-              (click)="alertWithSuccess()"
+              (click)="saveSubscriptionPlan()"
               *ngIf="isSaveBtn"
             >
               SAVE
@@ -176,7 +410,7 @@
             <div
               class="barbar-text-body1 layout"
               *ngIf="isUpdateBtn"
-              (click)="alertWithSuccess()"
+              (click)="updateSubsccriptionPlan()"
             >
               UPDATE
             </div>

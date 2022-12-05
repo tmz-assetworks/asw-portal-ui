@@ -108,6 +108,7 @@ export class ChargerInnerComponent implements OnInit {
       this._storageService.removeSessionData('duration')
       this._storageService.removeSessionData('graphHeading')
       this._storageService.removeSessionData('pageHeading')
+      this._storageService.removeSessionData('chargerBoxId')
     }
     this.getChargerGraph(
       this.selecteLocationIds,

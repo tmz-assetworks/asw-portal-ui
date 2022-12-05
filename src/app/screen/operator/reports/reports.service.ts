@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment'
 export class ReportService {
   url: string
   constructor(private _http: HttpClient) {
-    this.url = environment.reportLocalOrigin
+    this.url = environment.REPORT_API_URL
   }
 
   /**
@@ -100,6 +100,40 @@ export class ReportService {
   Getgasolinegallon(params: any): Observable<any> {
     return this._http.post<any>(
       `${this.url}v1/Reports/Getgasolinegallon/`,
+      params,
+    )
+  }
+
+  /**
+   *
+   * @returns
+   * Get Gasoline Gallon
+   */
+
+  GetTransaction(params: any): Observable<any> {
+    return this._http.post<any>(`${this.url}Subscription/Transaction/`, params)
+  }
+  /**
+   *
+   * @returns
+   * Get Gasoline Gallon
+   */
+
+  GetSubscriptionDetails(params: any): Observable<any> {
+    return this._http.post<any>(
+      `${this.url}Subscription/GetAllSubscription/`,
+      params,
+    )
+  }
+  /**
+   *
+   * @returns
+   * Get Gasoline Gallon
+   */
+
+  GetTransactionDetails(params: any): Observable<any> {
+    return this._http.post<any>(
+      `${this.url}Subscription/GetAllTransaction/`,
       params,
     )
   }

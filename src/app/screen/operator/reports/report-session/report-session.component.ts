@@ -30,6 +30,10 @@ export class ReportSessionComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    let isDuration = this._storageService.getSessionData('duration')
+    if (isDuration) {
+      this._storageService.removeSessionData('duration')
+    }
     this.GetUpComingSession(this.UserId, '', this.selectedDuration)
     this.GetChargingSessionlength(this.UserId, '', this.selectedDuration)
     this.GetChargingSessionData(this.UserId, '', this.selectedDuration)

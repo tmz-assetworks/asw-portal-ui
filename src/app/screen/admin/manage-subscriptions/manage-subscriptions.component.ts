@@ -19,9 +19,11 @@ export class ManageSubscriptionsComponent implements OnInit {
   totalPages: any
   pageSizeOptions = [10, 20, 100]
   searchParam = ''
-  pricingPlanList = []
+  
   isTableHasData: any
   statusData: any
+
+  SubscriptionPlan=[]
 
   displayedColumns: string[] = [
     'CustomerName',
@@ -33,7 +35,8 @@ export class ManageSubscriptionsComponent implements OnInit {
     'Action',
   ]
 
-  dataSource = new MatTableDataSource<any>()
+  dataSource = new MatTableDataSource<any>(this.SubscriptionPlan)
+  
 
   constructor(
     private _adminService: AdminService,
@@ -50,6 +53,11 @@ export class ManageSubscriptionsComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator
 
+  ngAfterViewInit() {
+    this.paginator._intl.itemsPerPageLabel = 'Rows per page';
+       
+   
+  }
   /**
    * Get Subscription List
    */
@@ -118,14 +126,14 @@ export class ManageSubscriptionsComponent implements OnInit {
 
   pageChange(event: any) {
     if (event.pageSize !== this.pageSize) {
-      this.currentPage = 1
-      this.pageSize = event.pageSize
-      this.paginator.pageIndex = 0
+      this.currentPage = 1;
+      this.pageSize = event.pageSize;
+      this.paginator.pageIndex = 0;
     } else {
       this.currentPage =
         event.previousPageIndex < event.pageIndex
           ? this.currentPage + 1
-          : this.currentPage - 1
+          : this.currentPage - 1;
     }
 
     this.GetSubscriptionPlanList()

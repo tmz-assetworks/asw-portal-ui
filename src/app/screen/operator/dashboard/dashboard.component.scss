@@ -1622,40 +1622,40 @@
   border: 1px solid #0062a6;
   border-left: 1px solid #0062a6;
 }
-@media (max-width: 768px){
-.dashboard-block13.layout.opt-dashboard {
+@media (max-width: 768px) {
+  .dashboard-block13.layout.opt-dashboard {
     flex-wrap: wrap;
   }
   .dashboard-block13-item1 {
     min-width: -webkit-fill-available;
-}
-.box-element-block2.layout {
-  margin: 10px auto;
-}
-.box-element-block2.layout {
-  margin: 0 auto;
-}
+  }
+  .box-element-block2.layout {
+    margin: 10px auto;
+  }
+  .box-element-block2.layout {
+    margin: 0 auto;
+  }
 }
 
-@media (max-width: 568px){
-  .location-text-body.layout{
+@media (max-width: 568px) {
+  .location-text-body.layout {
     margin: 5px 5px 5px 5px;
     font-size: 10px;
   }
-    .widget-block2.layout{
-      flex-wrap: wrap;
+  .widget-block2.layout {
+    flex-wrap: wrap;
   }
   .dashboard-block15 {
     flex-wrap: wrap;
     row-gap: 16px;
   }
 
-  .dashboard-block48.layout{
+  .dashboard-block48.layout {
     width: 96%;
   }
-.opt-dashboard .widget-block2.layout{
-  flex-wrap: wrap !important;
-}
+  .opt-dashboard .widget-block2.layout {
+    flex-wrap: wrap !important;
+  }
   .location-text-body.layout {
     font-size: 12px;
     padding: 0px 0px;
@@ -1666,27 +1666,39 @@
   .location-text-body.layout {
     margin: 9px 12px !important;
   }
-  .dashboard-block33{
+  .dashboard-block33 {
     justify-content: flex-start;
   }
-  }
-  @media (max-width: 480px){
+}
+@media (max-width: 480px) {
   // .operator-dashboard-main .header-block7 .header-block8-item{
   //     max-width: 48%;
   // }
-  .opt-dashboard .dashboard-block13-item .dashboard-block14{
+  .opt-dashboard .dashboard-block13-item .dashboard-block14 {
     max-width: 375px;
-}
   }
+}
 
-  @media (max-width: 1920px){
-    .widget-block2{
+@media (max-width: 1920px) {
+  .widget-block2 {
     flex-wrap: wrap !important;
     display: block !important;
     min-width: -webkit-fill-available;
     width: 100%;
-}
   }
+}
 
-
-
+.info-icon {
+  cursor: pointer;
+}
+// .cdk-overlay-pane.my-dialog-container-class2 {
+//   position: relative !important;
+// }
+// .close.mat-button {
+//   position: absolute;
+//   top: 0;
+//   right: 0;
+//   padding: 5px;
+//   float: right;
+//   line-height: 14px;
+// }

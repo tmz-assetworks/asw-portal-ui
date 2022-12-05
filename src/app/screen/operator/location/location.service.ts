@@ -8,8 +8,8 @@ export class LocationService {
   url: any
   locationUrl: string
   constructor(private _http: HttpClient) {
-    this.url = environment.origin + 'api/v1/OperatorDashboard/'
-    this.locationUrl = environment.origin + 'api/v1/LocationDashboard/'
+    this.url = environment.PORTAL_API_URL + 'api/v1/OperatorDashboard/'
+    this.locationUrl = environment.PORTAL_API_URL + 'api/v1/LocationDashboard/'
   }
 
   /**
@@ -79,7 +79,6 @@ export class LocationService {
       params,
     )
   }
-
 
   public GetDispenserByLocation(params: any): Observable<any> {
     return this._http.post<any>(

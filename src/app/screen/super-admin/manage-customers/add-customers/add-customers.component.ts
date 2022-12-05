@@ -51,18 +51,18 @@ export class AddCustomersComponent implements OnInit {
     this.customersId = this._activatedRoute.snapshot.queryParams['id'];
     let routePath = this._activatedRoute.snapshot.routeConfig?.path;
 
-    if (this.customersId && routePath != 'view-customer') {
-      this.title = 'Edit Customer';
+    if (this.customersId && routePath != 'view-Organization') {
+      this.title = 'Edit Organization';
       this.isUpdateBtn = true;
       this.isSaveBtn = false;
-    } else if (this.customersId && routePath == 'view-customer') {
-      this.title = 'View Customer';
+    } else if (this.customersId && routePath == 'view-Organization') {
+      this.title = 'View Organization';
 
       this.isSaveBtn = false;
       this.isUpdateBtn = false;
       this.addCustomerProfile.disable();
     } else {
-      this.title = 'Add Customer';
+      this.title = 'Add Organization';
       this.isSaveBtn = true;
       this.isUpdateBtn = false;
     }
