@@ -6,9 +6,9 @@ export const environment = {
   DIAGNOSTIC_API_URL: 'https://app-eus-cms-internal-usermgmt-dev.azurewebsites.net/',
   ASSET_API_URL: 'https://app-eus-cms-internal-assets-dev.azurewebsites.net/api/',
   REPORT_API_URL: 'https://app-eus-cms-internal-report-dev.azurewebsites.net/api/',
-  PRICING_API_URL: 'https://pricing-service.azurewebsites.net/api/',
+  PRICING_API_URL: 'https://app-eus-cms-internal-pricing-dev.azurewebsites.net/api/',
   NOTIFICATION_API_URL:
-    'https://notification-appservices.azurewebsites.net/api/',
+    'https://app-eus-cms-internal-notifications-dev.azurewebsites.net/api/',
   imagePath: '',
   onProd: 0,
   isPlatform: 'Development Platform',
