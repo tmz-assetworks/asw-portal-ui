@@ -27,7 +27,7 @@
           </div>
         </div>
       </div>
-      <form [formGroup]="userProfileForm">
+      <form [formGroup]="userProfileFormGroup">
         <div class="barbar-block12 layout">
           <div class="barbar-block13 layout">
             <div class="barbar-block13-item mbottom">
@@ -86,41 +86,43 @@
                   Phone Number
                   <span style="color: 'red';">*</span>
                 </h5>
-                <div class="barbar-box6 layout"
-                [ngClass]="{
-                  'is-invalid':
-                  userProfileForm.get('phoneNumber')?.errors &&
-                    submitted == true
-                }">
+                <div
+                  class="barbar-box6 layout"
+                  [ngClass]="{
+                    'is-invalid':
+                      userProfileFormGroup.get('phoneNumber')?.errors &&
+                      submitted == true
+                  }"
+                >
                   <input
                     formControlName="phoneNumber"
                     type="text"
                     maxlength="14"
-                  (keypress)="phoneNumber($event); numberOnly($event)"
-                  [(ngModel)]="telephoneNumber"
+                    (keypress)="phoneNumber($event); numberOnly($event)"
+                    [(ngModel)]="telephoneNumber"
                     class="barbar-input-text"
                   />
                 </div>
                 <!-- <span
                 *ngIf="
-                  !userProfileForm.get('phoneNumber')?.valid &&
-                  userProfileForm.get('phoneNumber')?.touched &&
-                  userProfileForm.get('phoneNumber')?.value.length > 0
+                  !userProfileFormGroup.get('phoneNumber')?.valid &&
+                  userProfileFormGroup.get('phoneNumber')?.touched &&
+                  userProfileFormGroup.get('phoneNumber')?.value.length > 0
                 "
                 class="error-mess"
               >
                 Phone Number Must Be 10 digits
               </span> -->
-              <span
-                *ngIf="
-                  !userProfileForm.get('phoneNumber')?.valid &&
-                  userProfileForm.get('phoneNumber')?.touched &&
-                  userProfileForm.get('phoneNumber')?.value.length == 0
-                "
-                class="error-mess"
-              >
-                Phone Number Is Required
-              </span>
+                <span
+                  *ngIf="
+                    !userProfileFormGroup.get('phoneNumber')?.valid &&
+                    userProfileFormGroup.get('phoneNumber')?.touched &&
+                    userProfileFormGroup.get('phoneNumber')?.value.length == 0
+                  "
+                  class="error-mess"
+                >
+                  Phone Number Is Required
+                </span>
               </div>
             </div>
             <div class="barbar-block13-spacer"></div>
@@ -131,12 +133,14 @@
                   <span style="color: 'red';">*</span>
                 </h5>
 
-                <div class="barbar-box6 layout"
-                [ngClass]="{
-                  'is-invalid':
-                  userProfileForm.get('addressLine1')?.errors &&
-                    submitted == true
-                }">
+                <div
+                  class="barbar-box6 layout"
+                  [ngClass]="{
+                    'is-invalid':
+                      userProfileFormGroup.get('addressLine1')?.errors &&
+                      submitted == true
+                  }"
+                >
                   <input
                     formControlName="addressLine1"
                     type="text"
@@ -144,25 +148,25 @@
                   />
                 </div>
                 <span
-                *ngIf="
-                  !userProfileForm.get('addressLine1')?.valid &&
-                  userProfileForm.get('addressLine1')?.touched &&
-                  userProfileForm.get('addressLine1')?.value.length > 255
-                "
-                class="error-mess"
-              >
-                Address Line1 Must Not Exceed More Than 255 Characters
-              </span>
-              <span
-                *ngIf="
-                  !userProfileForm.get('addressLine1')?.valid &&
-                  userProfileForm.get('addressLine1')?.touched &&
-                  userProfileForm.get('addressLine1')?.value.length == 0
-                "
-                class="error-mess"
-              >
-                Address Line1 Is Required
-              </span>
+                  *ngIf="
+                    !userProfileFormGroup.get('addressLine1')?.valid &&
+                    userProfileFormGroup.get('addressLine1')?.touched &&
+                    userProfileFormGroup.get('addressLine1')?.value.length > 255
+                  "
+                  class="error-mess"
+                >
+                  Address Line1 Must Not Exceed More Than 255 Characters
+                </span>
+                <span
+                  *ngIf="
+                    !userProfileFormGroup.get('addressLine1')?.valid &&
+                    userProfileFormGroup.get('addressLine1')?.touched &&
+                    userProfileFormGroup.get('addressLine1')?.value.length == 0
+                  "
+                  class="error-mess"
+                >
+                  Address Line1 Is Required
+                </span>
               </div>
             </div>
             <div class="barbar-block13-spacer"></div>
@@ -187,12 +191,14 @@
                   Country
                   <span style="color: 'red';">*</span>
                 </h5>
-                <mat-form-field class="barbar-box6 layout"
-                [ngClass]="{
-                  'is-invalid':
-                  userProfileForm.get('country')?.errors &&
-                    submitted == true
-                }">
+                <mat-form-field
+                  class="barbar-box6 layout"
+                  [ngClass]="{
+                    'is-invalid':
+                      userProfileFormGroup.get('country')?.errors &&
+                      submitted == true
+                  }"
+                >
                   <mat-label>Select</mat-label>
 
                   <mat-select
@@ -209,17 +215,16 @@
                   </mat-select>
                 </mat-form-field>
                 <span
-                *ngIf="
-                !userProfileForm.get('country')?.valid &&
-                userProfileForm.get('country')?.touched &&
-                userProfileForm.get('country')?.value.length == 0
-                "
-                class="error-mess"
-              >
-                Country Is Required
-              </span>
+                  *ngIf="
+                    !userProfileFormGroup.get('country')?.valid &&
+                    userProfileFormGroup.get('country')?.touched &&
+                    userProfileFormGroup.get('country')?.value.length == 0
+                  "
+                  class="error-mess"
+                >
+                  Country Is Required
+                </span>
               </div>
-              
             </div>
 
             <div class="barbar-block13-spacer"></div>
@@ -230,12 +235,14 @@
                   State/Province
                   <span style="color: 'red';">*</span>
                 </h5>
-                <mat-form-field class="barbar-box6 layout"
-                [ngClass]="{
-                  'is-invalid':
-                  userProfileForm.get('state')?.errors  &&
-                    submitted == true
-                }">
+                <mat-form-field
+                  class="barbar-box6 layout"
+                  [ngClass]="{
+                    'is-invalid':
+                      userProfileFormGroup.get('state')?.errors &&
+                      submitted == true
+                  }"
+                >
                   <mat-label>Select</mat-label>
                   <mat-select [value]="selectedStateId" formControlName="state">
                     <mat-option
@@ -248,15 +255,15 @@
                   </mat-select>
                 </mat-form-field>
                 <span
-                *ngIf="
-                !userProfileForm.get('state')?.valid &&
-                userProfileForm.get('state')?.touched &&
-                userProfileForm.get('state')?.value.length == 0
-                "
-                class="error-mess"
-              >
-                State Is Required
-              </span>
+                  *ngIf="
+                    !userProfileFormGroup.get('state')?.valid &&
+                    userProfileFormGroup.get('state')?.touched &&
+                    userProfileFormGroup.get('state')?.value.length == 0
+                  "
+                  class="error-mess"
+                >
+                  State Is Required
+                </span>
               </div>
             </div>
             <div class="barbar-block13-spacer"></div>
@@ -271,7 +278,7 @@
                   class="barbar-box6 layout"
                   [ngClass]="{
                     'is-invalid':
-                      userProfileForm.get('cityName')?.errors &&
+                      userProfileFormGroup.get('cityName')?.errors &&
                       submitted == true
                   }"
                 >
@@ -283,16 +290,15 @@
                   />
                 </div>
                 <span
-                *ngIf="
-                !userProfileForm.get('cityName')?.valid &&
-                userProfileForm.get('cityName')?.touched &&
-                userProfileForm.get('cityName')?.value.length == 0
-                "
-                class="error-mess"
-              >
-                City Is Required
-              </span>
-                
+                  *ngIf="
+                    !userProfileFormGroup.get('cityName')?.valid &&
+                    userProfileFormGroup.get('cityName')?.touched &&
+                    userProfileFormGroup.get('cityName')?.value.length == 0
+                  "
+                  class="error-mess"
+                >
+                  City Is Required
+                </span>
               </div>
             </div>
             <div class="barbar-block13-spacer"></div>
@@ -302,37 +308,51 @@
                   Zip Code
                   <span style="color: 'red';">*</span>
                 </h5>
-                <div class="barbar-box6 layout"
-                [ngClass]="{
-                  'is-invalid':
-                  userProfileForm.get('zipcode')?.errors && submitted == true
-                }">
+                <div
+                  class="barbar-box6 layout"
+                  [ngClass]="{
+                    'is-invalid':
+                      userProfileFormGroup.get('zipcode')?.errors &&
+                      submitted == true
+                  }"
+                >
                   <input
                     formControlName="zipcode"
                     type="text"
                     maxlength="9"
-                  
                     class="barbar-input-text"
                   />
                 </div>
                 <span
-                *ngIf="
-                  !userProfileForm.get('zipcode')?.valid &&
-                  userProfileForm.get('zipcode')?.touched &&
-                  userProfileForm.get('zipcode')?.value.length == 0
-                "
-                class="error-mess"
-              >
-                Zip Code Is Required
-              </span>
+                  *ngIf="
+                    !userProfileFormGroup.get('zipcode')?.valid &&
+                    userProfileFormGroup.get('zipcode')?.touched &&
+                    userProfileFormGroup.get('zipcode')?.value.length == 0
+                  "
+                  class="error-mess"
+                >
+                  Zip Code Is Required
+                </span>
               </div>
             </div>
           </div>
         </div>
+
+        <section class="example-section">
+          <p>
+            <mat-checkbox
+              formControlName="notificationEnable"
+              (change)="isNotificationChecked($event)"
+            >
+              {{ notificationText }}
+            </mat-checkbox>
+          </p>
+        </section>
+
         <div class="barbar-flex1 layout">
           <div class="barbar-flex1-item">
             <div class="barbar-block17 layout">
-              <div class="barbar-text-body2 layout" (click)="cancel()">
+              <div class="barbar-text-body2 layout" (click)="revertBack()">
                 CANCEL
               </div>
             </div>

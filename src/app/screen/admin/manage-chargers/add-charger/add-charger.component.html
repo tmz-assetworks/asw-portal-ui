@@ -110,7 +110,7 @@
                     submitted == true
                 }"
               >
-                <!-- <mat-label>Select</mat-label> -->
+                <mat-label>Select</mat-label>
                 <mat-select
                   [value]="selectedLocation"
                   formControlName="locationId"
@@ -152,7 +152,7 @@
             </div>
           </div>
           <div class="barbar-block13-spacer"></div>
-          <div class="barbar-block13-item">
+          <div class="barbar-block13-item mbottom">
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">Firmware Version</h5>
               <div class="barbar-box6 layout">
@@ -260,7 +260,7 @@
                 <!-- <span style="color: 'red';">*</span> -->
               </h5>
               <mat-form-field class="barbar-box6 layout">
-                <!-- <mat-label>Select</mat-label> -->
+                <mat-label>Select</mat-label>
                 <mat-select [value]="selectedPad" formControlName="padId">
                   <mat-option
                     *ngFor="let data of assetPad"
@@ -285,14 +285,14 @@
           </div>
 
           <div class="barbar-block13-spacer"></div>
-          <div class="barbar-block13-item">
+          <div class="barbar-block13-item mbottom">
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Cable
                 <!-- <span style="color: 'red';">*</span> -->
               </h5>
               <mat-form-field class="barbar-box6 layout">
-                <!-- <mat-label>Select</mat-label> -->
+                <mat-label>Select</mat-label>
                 <mat-select [value]="selectedCable" formControlName="cableId">
                   <mat-option
                     *ngFor="let data of CableList"
@@ -323,6 +323,7 @@
                 <!-- <span style="color: 'red';">*</span> -->
               </h5>
               <mat-form-field class="barbar-box6 layout">
+                <mat-label>Select</mat-label>
                 <mat-select [value]="selectedModem" formControlName="modemId">
                   <mat-option
                     *ngFor="let data of Modemlist"
@@ -353,6 +354,7 @@
                 <!-- <span style="color: 'red';">*</span> -->
               </h5>
               <mat-form-field class="barbar-box6 layout">
+                <mat-label>Select</mat-label>
                 <mat-select
                   [value]="selectedSwitch"
                   formControlName="switchGearId"
@@ -387,6 +389,7 @@
                 <!-- <span style="color: 'red';">*</span> -->
               </h5>
               <mat-form-field class="barbar-box6 layout">
+                <mat-label>Select</mat-label>
                 <mat-select
                   [value]="selectedRfidReader"
                   formControlName="rfidReaderId"
@@ -414,13 +417,14 @@
           </div>
 
           <div class="barbar-block13-spacer"></div>
-          <div class="barbar-block13-item">
+          <div class="barbar-block13-item mbottom">
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Power Cabinet
                 <!-- <span style="color: 'red';">*</span> -->
               </h5>
               <mat-form-field class="barbar-box6 layout">
+                <mat-label>Select</mat-label>
                 <mat-select
                   [value]="selectedPowerCabinet"
                   formControlName="powerCabinetId"
@@ -581,7 +585,7 @@
           </div>
 
           <div class="barbar-block13-spacer"></div>
-          <div class="barbar-block13-item">
+          <div class="barbar-block13-item mbottom">
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Meter Type
@@ -758,7 +762,7 @@
                 }"
               >
                 <input
-                  formControlName="connectorId"
+                  formControlName="connectorId" readonly
                   type="number"
                   class="barbar-input-text"
                   (keypress)="numberOnly($event)"
@@ -800,6 +804,7 @@
                     port.get('connectorType')?.errors && submitted == true
                 }"
               >
+                <mat-label>Select</mat-label>
                 <mat-select formControlName="connectorType">
                   <mat-option
                     *ngFor="let data of connectorType"
@@ -877,6 +882,7 @@
                     port.get('plugTypeId')?.errors && submitted == true
                 }"
               >
+                <mat-label>Select</mat-label>
                 <mat-select formControlName="plugTypeId">
                   <mat-option *ngFor="let data of Pluglist" [value]="data.id">
                     {{ data.plugTypeName }}
@@ -906,8 +912,7 @@
               <div
                 class="barbar-box6 layout"
                 [ngClass]="{
-                  'is-invalid':
-                    port.get('portName')?.errors && submitted == true
+                  'is-invalid': port.get('power')?.errors && submitted == true
                 }"
               >
                 <input
@@ -944,7 +949,7 @@
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
-                Min Power
+                Min Power (kWh)
                 <span style="color: 'red';">*</span>
               </h5>
               <div
@@ -987,7 +992,7 @@
           <div class="barbar-block13-item mbottom">
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
-                Max Power
+                Max Power (kWh)
                 <span style="color: 'red';">*</span>
               </h5>
               <div
@@ -1103,14 +1108,14 @@
               *ngIf="isSaveBtn"
               (click)="addCharger()"
             >
-              Save
+              SAVE
             </div>
             <div
               class="barbar-text-body1 layout"
               *ngIf="isUpdateBtn"
               (click)="UpdateCharger()"
             >
-              Save
+              UPDATE
             </div>
           </div>
         </div>

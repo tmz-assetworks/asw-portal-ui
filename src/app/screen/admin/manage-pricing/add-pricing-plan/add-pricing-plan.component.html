@@ -1,9 +1,9 @@
 <div class="barbar-block10 layout">
   <div class="barbar-flex layout">
     <div class="barbar-block11 layout">
-      <h3 class="barbar-subtitle layout">{{ addpricingTitle }}</h3>
+      <h3 class="barbar-subtitle layout">{{ title }}</h3>
     </div>
-    <form [formGroup]="addPricingForm">
+    <form [formGroup]="pricingPlanFormGroup">
       <div class="barbar-block12 layout">
         <div class="barbar-block13 layout">
           <div class="barbar-block13-item mbottom">
@@ -19,34 +19,12 @@
                   class="barbar-input-text"
                 />
               </div>
-              <!-- <mat-form-field
-                class="barbar-box6 layout"
-                [ngClass]="{
-                  'is-invalid':
-                    addPricingForm.get('customerId')?.errors &&
-                    submitted == true
-                }"
-              >
-               
-                <mat-select
-                  [value]="selectedCustomerId"
-                  formControlName="customerId"
-                >
-                  <mat-option
-                    *ngFor="let data of CustomerList"
-                    [value]="data.id"
-                    (onSelectionChange)="selecCustomerList($event, data.id)"
-                  >
-                    {{ data.customerName }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field> -->
             </div>
             <span
               *ngIf="
-                !addPricingForm.get('customerId')?.valid &&
-                addPricingForm.get('customerId')?.touched &&
-                addPricingForm.get('customerId')?.value.length == 0
+                !pricingPlanFormGroup.get('customerId')?.valid &&
+                pricingPlanFormGroup.get('customerId')?.touched &&
+                pricingPlanFormGroup.get('customerId')?.value.length == 0
               "
               class="error-mess"
             >
@@ -64,7 +42,7 @@
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addPricingForm.get('pricingPlanName')?.errors &&
+                    pricingPlanFormGroup.get('pricingPlanName')?.errors &&
                     submitted == true
                 }"
               >
@@ -78,9 +56,9 @@
 
               <span
                 *ngIf="
-                  !addPricingForm.get('pricingPlanName')?.valid &&
-                  addPricingForm.get('pricingPlanName')?.touched &&
-                  addPricingForm.get('pricingPlanName')?.value.length > 40
+                  !pricingPlanFormGroup.get('pricingPlanName')?.valid &&
+                  pricingPlanFormGroup.get('pricingPlanName')?.touched &&
+                  pricingPlanFormGroup.get('pricingPlanName')?.value.length > 40
                 "
                 class="error-mess"
               >
@@ -89,9 +67,9 @@
               </span>
               <span
                 *ngIf="
-                  !addPricingForm.get('pricingPlanName')?.valid &&
-                  addPricingForm.get('pricingPlanName')?.touched &&
-                  addPricingForm.get('pricingPlanName')?.value.length == 0
+                  !pricingPlanFormGroup.get('pricingPlanName')?.valid &&
+                  pricingPlanFormGroup.get('pricingPlanName')?.touched &&
+                  pricingPlanFormGroup.get('pricingPlanName')?.value.length == 0
                 "
                 class="error-mess"
               >
@@ -111,11 +89,11 @@
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addPricingForm.get('locationId')?.errors &&
+                    pricingPlanFormGroup.get('locationId')?.errors &&
                     submitted == true
                 }"
               >
-                <!-- <mat-label>Toppings</mat-label> -->
+                <mat-label>Select</mat-label>
                 <mat-select
                   [value]="selectedLocationId"
                   multiple
@@ -133,9 +111,9 @@
             </div>
             <span
               *ngIf="
-                !addPricingForm.get('locationId')?.valid &&
-                addPricingForm.get('locationId')?.touched &&
-                addPricingForm.get('locationId')?.value.length == 0
+                !pricingPlanFormGroup.get('locationId')?.valid &&
+                pricingPlanFormGroup.get('locationId')?.touched &&
+                pricingPlanFormGroup.get('locationId')?.value.length == 0
               "
               class="error-mess"
             >
@@ -150,7 +128,7 @@
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addPricingForm.get('description')?.errors &&
+                    pricingPlanFormGroup.get('description')?.errors &&
                     submitted == true
                 }"
               >
@@ -162,8 +140,8 @@
               </div>
               <span
                 *ngIf="
-                  addPricingForm.get('description')?.touched &&
-                  addPricingForm.get('description')?.value.length > 250
+                  pricingPlanFormGroup.get('description')?.touched &&
+                  pricingPlanFormGroup.get('description')?.value.length > 250
                 "
                 class="error-mess"
               >
@@ -183,11 +161,11 @@
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addPricingForm.get('currencyCode')?.errors &&
+                    pricingPlanFormGroup.get('currencyCode')?.errors &&
                     submitted == true
                 }"
               >
-                <!-- <mat-label>Select</mat-label> -->
+                <mat-label>Select</mat-label>
                 <mat-select
                   [value]="selectedCurrencyId"
                   formControlName="currencyCode"
@@ -210,9 +188,9 @@
             </div>
             <span
               *ngIf="
-                !addPricingForm.get('currencyCode')?.valid &&
-                addPricingForm.get('currencyCode')?.touched &&
-                addPricingForm.get('currencyCode')?.value.length == 0
+                !pricingPlanFormGroup.get('currencyCode')?.valid &&
+                pricingPlanFormGroup.get('currencyCode')?.touched &&
+                pricingPlanFormGroup.get('currencyCode')?.value.length == 0
               "
               class="error-mess"
             >
@@ -230,14 +208,13 @@
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addPricingForm.get('validFrom')?.errors && submitted == true
+                    pricingPlanFormGroup.get('validFrom')?.errors &&
+                    submitted == true
                 }"
               >
                 <!-- <mat-label>Choose a date</mat-label> -->
                 <input
-                [matDatepickerFilter]="
-                dateFilterForStart
-              "
+                  [matDatepickerFilter]="dateFilterForStart"
                   matInput
                   [matDatepicker]="picker"
                   formControlName="validFrom"
@@ -253,9 +230,9 @@
             </div>
             <span
               *ngIf="
-                !addPricingForm.get('validFrom')?.valid &&
-                addPricingForm.get('validFrom')?.touched &&
-                addPricingForm.get('validFrom')?.value.length == 0
+                !pricingPlanFormGroup.get('validFrom')?.valid &&
+                pricingPlanFormGroup.get('validFrom')?.touched &&
+                pricingPlanFormGroup.get('validFrom')?.value.length == 0
               "
               class="error-mess"
             >
@@ -273,10 +250,10 @@
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addPricingForm.get('validTo')?.errors && submitted == true
+                    pricingPlanFormGroup.get('validTo')?.errors &&
+                    submitted == true
                 }"
               >
-                
                 <input
                   matInput
                   [matDatepickerFilter]="dateFilterForEnd"
@@ -294,9 +271,9 @@
             </div>
             <span
               *ngIf="
-                !addPricingForm.get('validTo')?.valid &&
-                addPricingForm.get('validTo')?.touched &&
-                addPricingForm.get('validTo')?.value.length == 0
+                !pricingPlanFormGroup.get('validTo')?.valid &&
+                pricingPlanFormGroup.get('validTo')?.touched &&
+                pricingPlanFormGroup.get('validTo')?.value.length == 0
               "
               class="error-mess"
             >
@@ -307,40 +284,41 @@
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
-                Level
+                Connector Type
                 <span style="color: 'red';">*</span>
               </h5>
               <mat-form-field
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addPricingForm.get('levelRank')?.errors && submitted == true
+                    pricingPlanFormGroup.get('connectorType')?.errors &&
+                    submitted == true
                 }"
               >
-                <!-- <mat-label>Select</mat-label> -->
+                <mat-label>Select</mat-label>
                 <mat-select
-                  [value]="selectedLevelId"
-                  formControlName="levelRank"
+                  [value]="selectedConnectorId"
+                  formControlName="connectorType"
                 >
                   <mat-option
-                    *ngFor="let data of levelList"
+                    *ngFor="let data of connectorTypeList"
                     [value]="data.id"
-                    (onSelectionChange)="selectLevel($event, data.id)"
+                    (onSelectionChange)="selectConnectorType($event, data.id)"
                   >
-                    {{ data.levelRank }}
+                    {{ data.connectorTypeName }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
             <span
               *ngIf="
-                !addPricingForm.get('levelRank')?.valid &&
-                addPricingForm.get('levelRank')?.touched &&
-                addPricingForm.get('levelRank')?.value.length == 0
+                !pricingPlanFormGroup.get('connectorType')?.valid &&
+                pricingPlanFormGroup.get('connectorType')?.touched &&
+                pricingPlanFormGroup.get('connectorType')?.value.length == 0
               "
               class="error-mess"
             >
-              Level Is Required
+              Connector Type Is Required
             </span>
           </div>
           <div class="barbar-block13-spacer"></div>
@@ -354,11 +332,11 @@
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addPricingForm.get('priceTypeId')?.errors &&
+                    pricingPlanFormGroup.get('priceTypeId')?.errors &&
                     submitted == true
                 }"
               >
-                <!-- <mat-label>Select</mat-label> -->
+                <mat-label>Select</mat-label>
                 <mat-select
                   [value]="selectedPriceTypeId"
                   formControlName="priceTypeId"
@@ -381,9 +359,9 @@
             </div>
             <span
               *ngIf="
-                !addPricingForm.get('priceTypeId')?.valid &&
-                addPricingForm.get('priceTypeId')?.touched &&
-                addPricingForm.get('priceTypeId')?.value.length == 0
+                !pricingPlanFormGroup.get('priceTypeId')?.valid &&
+                pricingPlanFormGroup.get('priceTypeId')?.touched &&
+                pricingPlanFormGroup.get('priceTypeId')?.value.length == 0
               "
               class="error-mess"
             >
@@ -401,15 +379,16 @@
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addPricingForm.get('unitName')?.errors && submitted == true
+                    pricingPlanFormGroup.get('unitName')?.errors &&
+                    submitted == true
                 }"
               >
-                <!-- <mat-label>Select</mat-label> -->
+                <mat-label>Select</mat-label>
                 <mat-select [value]="selectedUnitId" formControlName="unitName">
                   <mat-option
                     *ngFor="let data of unitList"
                     [value]="data.id"
-                    (onSelectionChange)="selectUnit($event, data.id)"
+                    (onSelectionChange)="selectUnit($event, data)"
                   >
                     {{ data.unitName }}
                   </mat-option>
@@ -424,9 +403,9 @@
             </div>
             <span
               *ngIf="
-                !addPricingForm.get('unitName')?.valid &&
-                addPricingForm.get('unitName')?.touched &&
-                addPricingForm.get('unitName')?.value.length == 0
+                !pricingPlanFormGroup.get('unitName')?.valid &&
+                pricingPlanFormGroup.get('unitName')?.touched &&
+                pricingPlanFormGroup.get('unitName')?.value.length == 0
               "
               class="error-mess"
             >
@@ -439,12 +418,14 @@
               <h5 class="barbar-highlights layout">
                 Price
                 <span style="color: 'red';">*</span>
+                <span *ngIf="isUnit">({{ showPriceUnitTitle }})</span>
               </h5>
               <div
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addPricingForm.get('price')?.errors && submitted == true
+                    pricingPlanFormGroup.get('price')?.errors &&
+                    submitted == true
                 }"
               >
                 <input
@@ -456,9 +437,9 @@
               </div>
               <span
                 *ngIf="
-                  !addPricingForm.get('price')?.valid &&
-                  addPricingForm.get('price')?.touched &&
-                  addPricingForm.get('price')?.value.length == 0
+                  !pricingPlanFormGroup.get('price')?.valid &&
+                  pricingPlanFormGroup.get('price')?.touched &&
+                  pricingPlanFormGroup.get('price')?.value.length == 0
                 "
                 class="error-mess"
               >
@@ -466,9 +447,9 @@
               </span>
               <span
                 *ngIf="
-                  !addPricingForm.get('price')?.valid &&
-                  addPricingForm.get('price')?.touched &&
-                  addPricingForm.get('price')?.value.length > 10
+                  !pricingPlanFormGroup.get('price')?.valid &&
+                  pricingPlanFormGroup.get('price')?.touched &&
+                  pricingPlanFormGroup.get('price')?.value.length > 10
                 "
                 class="error-mess"
               >
@@ -480,14 +461,14 @@
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
-                Parking Fee (Per Minutes)
+                Parking Fee (Per minutes)
                 <span style="color: 'red';">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addPricingForm.get('parkingFee')?.errors &&
+                    pricingPlanFormGroup.get('parkingFee')?.errors &&
                     submitted == true
                 }"
               >
@@ -500,9 +481,9 @@
               </div>
               <span
                 *ngIf="
-                  !addPricingForm.get('parkingFee')?.valid &&
-                  addPricingForm.get('parkingFee')?.touched &&
-                  addPricingForm.get('parkingFee')?.value.length == 0
+                  !pricingPlanFormGroup.get('parkingFee')?.valid &&
+                  pricingPlanFormGroup.get('parkingFee')?.touched &&
+                  pricingPlanFormGroup.get('parkingFee')?.value.length == 0
                 "
                 class="error-mess"
               >
@@ -510,9 +491,9 @@
               </span>
               <span
                 *ngIf="
-                  !addPricingForm.get('parkingFee')?.valid &&
-                  addPricingForm.get('parkingFee')?.touched &&
-                  addPricingForm.get('parkingFee')?.value.length > 10
+                  !pricingPlanFormGroup.get('parkingFee')?.valid &&
+                  pricingPlanFormGroup.get('parkingFee')?.touched &&
+                  pricingPlanFormGroup.get('parkingFee')?.value.length > 10
                 "
                 class="error-mess"
               >
@@ -524,17 +505,10 @@
           <div class="barbar-block13-item mbottom">
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
-                Grace Period (Per Minutes)
-                <span style="color: 'red';">*</span>
+                Grace Period (Minutes)
+                <!-- <span style="color: 'red';">*</span> -->
               </h5>
-              <div
-                class="barbar-box6 layout"
-                [ngClass]="{
-                  'is-invalid':
-                    addPricingForm.get('gracePeriod')?.errors &&
-                    submitted == true
-                }"
-              >
+              <div class="barbar-box6 layout">
                 <input
                   formControlName="gracePeriod"
                   type="text"
@@ -542,21 +516,21 @@
                   (keypress)="numbersDecimalOnly($event)"
                 />
               </div>
-              <span
+              <!-- <span
                 *ngIf="
-                  !addPricingForm.get('gracePeriod')?.valid &&
-                  addPricingForm.get('gracePeriod')?.touched &&
-                  addPricingForm.get('gracePeriod')?.value.length == 0
+                  !pricingPlanFormGroup.get('gracePeriod')?.valid &&
+                  pricingPlanFormGroup.get('gracePeriod')?.touched &&
+                  pricingPlanFormGroup.get('gracePeriod')?.value.length == 0
                 "
                 class="error-mess"
               >
                 Grace Period Is Required
-              </span>
+              </span> -->
               <span
                 *ngIf="
-                  !addPricingForm.get('gracePeriod')?.valid &&
-                  addPricingForm.get('gracePeriod')?.touched &&
-                  addPricingForm.get('gracePeriod')?.value.length > 10
+                  !pricingPlanFormGroup.get('gracePeriod')?.valid &&
+                  pricingPlanFormGroup.get('gracePeriod')?.touched &&
+                  pricingPlanFormGroup.get('gracePeriod')?.value.length > 10
                 "
                 class="error-mess"
               >
@@ -569,16 +543,9 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Transaction Fee
-                <span style="color: 'red';">*</span>
+                <!-- <span style="color: 'red';">*</span> -->
               </h5>
-              <div
-                class="barbar-box6 layout"
-                [ngClass]="{
-                  'is-invalid':
-                    addPricingForm.get('transactionFees')?.errors &&
-                    submitted == true
-                }"
-              >
+              <div class="barbar-box6 layout">
                 <input
                   formControlName="transactionFees"
                   type="text"
@@ -586,21 +553,21 @@
                   (keypress)="numbersDecimalOnly($event)"
                 />
               </div>
-              <span
+              <!-- <span
                 *ngIf="
-                  !addPricingForm.get('transactionFees')?.valid &&
-                  addPricingForm.get('transactionFees')?.touched &&
-                  addPricingForm.get('transactionFees')?.value.length == 0
+                  !pricingPlanFormGroup.get('transactionFees')?.valid &&
+                  pricingPlanFormGroup.get('transactionFees')?.touched &&
+                  pricingPlanFormGroup.get('transactionFees')?.value.length == 0
                 "
                 class="error-mess"
               >
                 Transaction Fee Is Required
-              </span>
+              </span> -->
               <span
                 *ngIf="
-                  !addPricingForm.get('transactionFees')?.valid &&
-                  addPricingForm.get('transactionFees')?.touched &&
-                  addPricingForm.get('transactionFees')?.value.length > 10
+                  !pricingPlanFormGroup.get('transactionFees')?.valid &&
+                  pricingPlanFormGroup.get('transactionFees')?.touched &&
+                  pricingPlanFormGroup.get('transactionFees')?.value.length > 10
                 "
                 class="error-mess"
               >
@@ -613,15 +580,9 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Tax (Processed Transactions Only)
-                <span style="color: 'red';">*</span>
+                <!-- <span style="color: 'red';">*</span> -->
               </h5>
-              <div
-                class="barbar-box6 layout"
-                [ngClass]="{
-                  'is-invalid':
-                    addPricingForm.get('salaryTax')?.errors && submitted == true
-                }"
-              >
+              <div class="barbar-box6 layout">
                 <input
                   type="text"
                   formControlName="salaryTax"
@@ -629,21 +590,21 @@
                   (keypress)="numbersDecimalOnly($event)"
                 />
               </div>
-              <span
+              <!-- <span
                 *ngIf="
-                  !addPricingForm.get('salaryTax')?.valid &&
-                  addPricingForm.get('salaryTax')?.touched &&
-                  addPricingForm.get('salaryTax')?.value.length == 0
+                  !pricingPlanFormGroup.get('salaryTax')?.valid &&
+                  pricingPlanFormGroup.get('salaryTax')?.touched &&
+                  pricingPlanFormGroup.get('salaryTax')?.value.length == 0
                 "
                 class="error-mess"
               >
                 Tax Fee Is Required
-              </span>
+              </span> -->
               <span
                 *ngIf="
-                  !addPricingForm.get('salaryTax')?.valid &&
-                  addPricingForm.get('salaryTax')?.touched &&
-                  addPricingForm.get('salaryTax')?.value.length > 10
+                  !pricingPlanFormGroup.get('salaryTax')?.valid &&
+                  pricingPlanFormGroup.get('salaryTax')?.touched &&
+                  pricingPlanFormGroup.get('salaryTax')?.value.length > 10
                 "
                 class="error-mess"
               >
@@ -656,15 +617,9 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Sales Tax
-                <span style="color: 'red';">*</span>
+                <!-- <span style="color: 'red';">*</span> -->
               </h5>
-              <div
-                class="barbar-box6 layout"
-                [ngClass]="{
-                  'is-invalid':
-                    addPricingForm.get('salesTax')?.errors && submitted == true
-                }"
-              >
+              <div class="barbar-box6 layout">
                 <input
                   formControlName="salesTax"
                   type="text"
@@ -672,21 +627,21 @@
                   (keypress)="numbersDecimalOnly($event)"
                 />
               </div>
-              <span
+              <!-- <span
                 *ngIf="
-                  !addPricingForm.get('salesTax')?.valid &&
-                  addPricingForm.get('salesTax')?.touched &&
-                  addPricingForm.get('salesTax')?.value.length == 0
+                  !pricingPlanFormGroup.get('salesTax')?.valid &&
+                  pricingPlanFormGroup.get('salesTax')?.touched &&
+                  pricingPlanFormGroup.get('salesTax')?.value.length == 0
                 "
                 class="error-mess"
               >
                 Sale Tax Is Required
-              </span>
+              </span> -->
               <span
                 *ngIf="
-                  !addPricingForm.get('salesTax')?.valid &&
-                  addPricingForm.get('salesTax')?.touched &&
-                  addPricingForm.get('salesTax')?.value.length > 10
+                  !pricingPlanFormGroup.get('salesTax')?.valid &&
+                  pricingPlanFormGroup.get('salesTax')?.touched &&
+                  pricingPlanFormGroup.get('salesTax')?.value.length > 10
                 "
                 class="error-mess"
               >
@@ -706,10 +661,11 @@
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addPricingForm.get('chargerId')?.errors && submitted == true
+                    pricingPlanFormGroup.get('chargerId')?.errors &&
+                    submitted == true
                 }"
               >
-                <!-- <mat-label>Toppings</mat-label> -->
+                <mat-label>Select</mat-label>
                 <mat-select
                   [value]="selectedChargerId"
                   multiple
@@ -728,9 +684,9 @@
 
             <!-- <span
               *ngIf="
-                !addPricingForm.get('chargerId')?.valid &&
-                addPricingForm.get('chargerId')?.touched &&
-                addPricingForm.get('chargerId')?.value.length == 0
+                !pricingPlanFormGroup.get('chargerId')?.valid &&
+                pricingPlanFormGroup.get('chargerId')?.touched &&
+                pricingPlanFormGroup.get('chargerId')?.value.length == 0
               "
               class="error-mess"
             >
@@ -742,12 +698,11 @@
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">Process Payment</h5>
-              <section class="example-section">
-                <mat-checkbox
-                  color="accent"
-                  formControlName="processPayment"
-                ></mat-checkbox>
-              </section>
+
+              <mat-checkbox
+                color="accent"
+                formControlName="processPayment"
+              ></mat-checkbox>
             </div>
           </div>
           <div class="barbar-block13-spacer"></div>

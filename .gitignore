@@ -6,6 +6,13 @@
 /out-tsc
 /bazel-out
 
+# Files not to commit
+/package-lock.json
+/package.json
+/src/environments/environment.prod.ts
+/src/environments/environment.ts
+
+
 # Node
 /node_modules
 npm-debug.log

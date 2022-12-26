@@ -5,158 +5,174 @@ import { environment } from 'src/environments/environment'
 
 @Injectable({ providedIn: 'root' })
 export class LocationService {
-  url: any
-  locationUrl: string
+  PORTAL_API_URL: any
+  LOCATION_API_URL: string
+  NOTIFICATION_API_URL: string
   constructor(private _http: HttpClient) {
-    this.url = environment.PORTAL_API_URL + 'api/v1/OperatorDashboard/'
-    this.locationUrl = environment.PORTAL_API_URL + 'api/v1/LocationDashboard/'
+    this.PORTAL_API_URL =
+      environment.PORTAL_API_URL + 'api/v1/OperatorDashboard/'
+    this.LOCATION_API_URL =
+      environment.PORTAL_API_URL + 'api/v1/LocationDashboard/'
+    this.NOTIFICATION_API_URL =
+      environment.NOTIFICATION_API_URL + 'v1/Notification/'
   }
 
   /**
-   *
    * @returns
-   * Get Summary Data
+   * Get SUMMARY DATA
    */
 
   public GetSummaryData(id: any): Observable<any> {
-    return this._http.get<any>(`${this.url}getsummarydata/${id}`)
+    return this._http.get<any>(`${this.PORTAL_API_URL}getsummarydata/${id}`)
   }
+
   /**
-   *
    * @returns
-   * Get Summary Data
+   * GET SUMMARY STATUS
    */
 
   public GetSummaryStatus(): Observable<any> {
-    return this._http.get<any>(`${this.url}getsummarystatus/${0}/false`)
-  }
-
-  /**
-   *
-   * @returns
-   * Get Summary Data by location id
-   */
-
-  public GetSummaryStatuByLocationId(locationId: any): Observable<any> {
     return this._http.get<any>(
-      `${this.url}getsummarystatus/${locationId}/false`,
+      `${this.PORTAL_API_URL}getsummarystatus/${0}/false`,
     )
   }
 
   /**
    *
    * @returns
-   * Get Location Data
+   * GET SUMMARY DATA BY LOCATION ID
    */
 
-  public GetLocationStatus(params: any): Observable<any> {
-    return this._http.post<any>(`${this.locationUrl}locationstatus`, params)
+  public GetSummaryStatuByLocationId(locationId: any): Observable<any> {
+    return this._http.get<any>(
+      `${this.PORTAL_API_URL}getsummarystatus/${locationId}/false`,
+    )
   }
 
   /**
-   *
    * @returns
-   * Get Location Performing data
+   * GET LOCATION STATUS
+   */
+
+  public GetLocationStatus(params: any): Observable<any> {
+    return this._http.post<any>(
+      `${this.LOCATION_API_URL}locationstatus`,
+      params,
+    )
+  }
+
+  /**
+   * @returns
+   * GET LOCATION PERFORMING
    */
 
   public GetLocationPerforming(params: any): Observable<any> {
     return this._http.post<any>(
-      `${this.url}GetLocationPerforming
+      `${this.PORTAL_API_URL}GetLocationPerforming
     `,
       params,
     )
   }
 
   /**
-   * Location Charger List
+   * GET LOCATION CHARGER LIST
    * @returns
    *
    * */
 
   public GetlocationChargerList(params: any): Observable<any> {
     return this._http.post<any>(
-      `${this.locationUrl}GetDispenserByLocation`,
+      `${this.LOCATION_API_URL}GetDispenserByLocation`,
       params,
     )
   }
 
+  /**
+   * GET DISPENSER BY LOCATION
+   * @param params
+   * @returns
+   */
   public GetDispenserByLocation(params: any): Observable<any> {
     return this._http.post<any>(
-      `${this.locationUrl}GetDispenserByLocation`,
+      `${this.LOCATION_API_URL}GetDispenserByLocation`,
       params,
     )
   }
-  // public locationStatusList(): Observable<any> {
-  //   return this._http.get(
-  //     'https://run.mocky.io/v3/08038385-f9cb-4a72-b80b-1ddb30d0eefb',
-  //   )
-  // }
+
   /**
-   *
+   * GET LOCATION DISPENSER DETAILS
    * @param params
    * @returns
    */
 
   public getlocationsdispenserdetails(params: any): Observable<any> {
     return this._http.post<any>(
-      `${this.url}getlocationsdispenserdetails`,
+      `${this.PORTAL_API_URL}getlocationsdispenserdetails`,
       params,
     )
   }
+
   /**
-   *
+   * GET CHARGER CHART DATA
    * @param params
    * @returns
-   *
-   * Get Charger chart data
    */
 
   getChargerChartData(params: any): Observable<any> {
     return this._http.post<any>(
-      `${this.url}GetChargerStatusByLocationID`,
+      `${this.PORTAL_API_URL}GetChargerStatusByLocationID`,
       params,
     )
   }
 
   /**
-   *
+   * GET LOCATION INFORMATION BY ID
    * @param params
    * @returns
-   *
    */
 
   getlocationInformationById(params: any): Observable<any> {
-    return this._http.get<any>(`${this.locationUrl}getlocatinbyid?id=${params}`)
+    return this._http.get<any>(
+      `${this.LOCATION_API_URL}getlocatinbyid?id=${params}`,
+    )
   }
 
   /**
-   *
+   * GET LCOATION MILES ADDED CHART DATA
    * @param params
    * @returns
-   *
-   * Get Miles Added By Location chart data
    */
 
   GetLocationMilesAddedChartdata(params: any): Observable<any> {
-    return this._http.post<any>(`${this.url}GetMilesAddedByLocation`, params)
+    return this._http.post<any>(
+      `${this.PORTAL_API_URL}GetMilesAddedByLocation`,
+      params,
+    )
   }
 
   /**
-   *
+   * GET EVENT LOG BY LOCATION
    * @param params
    * @returns
    */
 
   public GetEventLogByLocation(params: any): Observable<any> {
-    return this._http.post<any>(`${this.url}GetEventLogByLocation`, params)
+    return this._http.post<any>(
+      `${this.PORTAL_API_URL}GetEventLogByLocation`,
+      params,
+    )
   }
+
   /**
-   *
+   * UPDATE EVENT LOG IS READ
    * @param params
    * @returns
    */
 
   public UpdateOcppEventLogIsRead(params: any): Observable<any> {
-    return this._http.post<any>(`${this.url}UpdateOcppEventLogIsRead`, params)
+    return this._http.post<any>(
+      `${this.NOTIFICATION_API_URL}UpdateOcppEventLogIsRead`,
+      params,
+    )
   }
 }

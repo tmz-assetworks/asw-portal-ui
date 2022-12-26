@@ -26,12 +26,8 @@
             <p class="info-label">ChargeBox Id</p>
             <p class="info">{{ transactionData?.chargeBoxID }}</p>
           </div>
-        </div>
-      </div>
-      <div class="invoice-details2 invoice-details">
-        <div class="discription1">
           <div class="field-value">
-            <p class="info-label">Connector</p>
+            <p class="info-label">Connector Id</p>
             <p class="info">{{ transactionData?.connectorNo }}</p>
           </div>
         </div>
@@ -76,12 +72,17 @@
           </div>
           <div class="field-value">
             <p class="info-label">Unit Name</p>
-            <p class="info">{{ transactionData?.unitName }}</p>
+            <p *ngIf="transactionData?.unitName!==''" class="info">{{ transactionData?.unitName }}</p>
+            <p *ngIf="transactionData?.unitName==''" class="info">NA</p>
           </div>
           <div class="field-value">
-            <p class="info-label">Parking Fee</p>
-            <p class="info">{{ transactionData?.parkingFee }}</p>
+            <p class="info-label">Grace Period (Minutes)</p>
+            <p class="info">{{ transactionData?.gracePeriod }}</p>
           </div>
+          <!-- <div class="field-value">
+            <p class="info-label">Parking Fee (Per minutes)</p>
+            <p class="info">{{ transactionData?.parkingFee }}</p>
+          </div> -->
           <div class="field-value">
             <p class="info-label">Tax</p>
             <p class="info">{{ transactionData?.tax }}</p>
@@ -93,16 +94,21 @@
         <div class="discription1">
           <div class="field-value">
             <p class="info-label">Price Type</p>
-            <p class="info">{{ transactionData?.priceType }}</p>
+            <p *ngIf="!noPriceType" class="info">{{ transactionData?.priceType }}</p>
+            <p *ngIf="noPriceType" class="info">NA</p>
           </div>
           <div class="field-value">
             <p class="info-label">Price</p>
             <p class="info">{{ transactionData?.price }}</p>
           </div>
           <div class="field-value">
-            <p class="info-label">Grace Period</p>
-            <p class="info">{{ transactionData?.gracePeriod }}</p>
+            <p class="info-label">Parking Fee (Per min)</p>
+            <p class="info">{{ transactionData?.parkingFee }}</p>
           </div>
+          <!-- <div class="field-value">
+            <p class="info-label">Grace Period (Minutes)</p>
+            <p class="info">{{ transactionData?.gracePeriod }}</p>
+          </div> -->
           <div class="field-value">
             <p class="info-label">Sales Tax</p>
             <p class="info">{{ transactionData?.salesTax }}</p>
@@ -118,12 +124,12 @@
         </div>
       </div>
       <div class="invoice-details2 invoice-details">
-        <div class="discription1">
+        <div style="margin-left: -34px;">
           <h4>{{ transactionData?.totalAmount }}</h4>
         </div>
       </div>
     </div>
 
-    <button>Make Payment</button>
+    <button [disabled]="true" style="background:#adadad;">Make Payment</button>
   </div>
 </ng-container>

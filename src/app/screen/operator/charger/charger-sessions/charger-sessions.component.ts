@@ -5,8 +5,12 @@ import { Router } from '@angular/router'
 import { AuthService } from 'src/app/service/auth/auth.service'
 import { StorageService } from 'src/app/service/storage.service'
 import { ChargerService } from '../charger.service'
-import jsPDF from 'jspdf'
-import 'jspdf-autotable'
+// import jsPDF from 'jspdf'
+// import 'jspdf-autotable'
+import { MatDialog } from '@angular/material/dialog'
+import { MeterDialogComponent } from './meter-dialog/meter-dialog.component'
+import * as fs from 'file-saver'
+import { DatePipe } from '@angular/common'
 
 export interface PeriodicElement {
   sessionid: number
@@ -52,20 +56,16 @@ export class ChargerSessionsComponent implements OnInit {
   chargerName: string | null
   selecteChargerIds: string | null
   chargerBoxId: any
+  datePipe = new DatePipe('en-US')
 
   ngAfterViewInit() {
-    // this.dataSource.paginator = this.paginator
     this.paginator._intl.itemsPerPageLabel = 'Rows per page'
   }
-
-  // viewCharger() {
-  //   this.showLocationNav = true
-  //   this._router.navigate(['operator/charger/chargers-analytics'])
-  // }
 
   constructor(
     private _router: Router,
     private _auth: AuthService,
+    public dialog: MatDialog,
     private _storageService: StorageService,
     private _chargerService: ChargerService,
   ) {
@@ -76,7 +76,6 @@ export class ChargerSessionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this._auth.tokenExpired()
     this.GetChargerSessionDetailsList('', this.currentPage, this.totalRecords)
   }
 
@@ -146,36 +145,85 @@ export class ChargerSessionsComponent implements OnInit {
       })
   }
 
-  /********Download Function***** ****/
+  /**
+   *
+   * @param obj
+   * download as csv file
+   */
+  downloadFile() {
+    let newObjArr: any = []
 
-  public downloadAsPDF() {
-    var prepare: any = []
-    this.eventLogList.forEach((e: any) => {
-      var tempObj = []
-      tempObj.push(e.sessionid)
-      tempObj.push(e.duration)
-      tempObj.push(e.usage)
-      tempObj.push(e.startTime)
-      tempObj.push(e.endTime)
-      tempObj.push(e.requestPayload)
-      tempObj.push(e.responsePayload)
-      prepare.push(tempObj)
+    for (var i = 0; i < this.eventLogList.length; i++) {
+      let newObj = {
+        'SESSION ID': this.eventLogList[i]['sessionid'],
+        'DURATION (HH:MM:SS)': this.eventLogList[i]['duration'],
+        'USAGE (kWh)': this.eventLogList[i]['usage'],
+        'START TIME': this.eventLogList[i]['startTime'],
+        'END TIME': this.datePipe.transform(
+          this.eventLogList[i]['endTime'],
+          'dd-MM-yyyy h:mm',
+        ),
+      }
+
+      //PUSH INTO NEW ARRAY
+
+      newObjArr.push(newObj)
+    }
+
+    const replacer = (key: any, value: any) => (value === null ? '' : value) // specify how you want to handle null values here
+    const header = Object.keys(newObjArr[0])
+
+    let csv = newObjArr.map((row: any) =>
+      header
+        .map((fieldName) => JSON.stringify(row[fieldName], replacer))
+        .join(','),
+    )
+
+    csv.unshift(header.join(','))
+    let csvArray = csv.join('\r\n')
+
+    var blob = new Blob([csvArray], { type: 'text/csv' })
+    fs.saveAs(blob, new Date().toDateString() + '_AssetWorks.csv')
+  }
+
+  // public downloadAsPDF() {
+  //   var prepare: any = []
+  //   this.eventLogList.forEach((e: any) => {
+  //     var tempObj = []
+  //     tempObj.push(e.sessionid)
+  //     tempObj.push(e.duration)
+  //     tempObj.push(e.usage)
+  //     tempObj.push(e.startTime)
+  //     tempObj.push(e.endTime)
+  //     // tempObj.push(e.requestPayload)
+  //     // tempObj.push(e.responsePayload)
+  //     prepare.push(tempObj)
+  //   })
+  //   let doc: any = new jsPDF()
+  //   doc.autoTable({
+  //     head: [
+  //       [
+  //         'SESSION ID',
+  //         'DURATION (HH:MM:SS)',
+  //         'USAGE (KWH)',
+  //         'START TIME',
+  //         'END TIME',
+  //         // 'RequestPayload',
+  //         // 'ResponsePayload',
+  //       ],
+  //     ],
+  //     body: prepare,
+  //   })
+  //   doc.save('download' + '.pdf')
+  // }
+
+  showMeterPopup(value: any) {
+    const dialogRef = this.dialog.open(MeterDialogComponent, {
+      width: '30%',
+      autoFocus: false,
+      // panelClass: 'my-dialog-container-class2',
+      data: { usage: value },
     })
-    let doc: any = new jsPDF()
-    doc.autoTable({
-      head: [
-        [
-          'SESSION ID',
-          'DURATION (HH:MM:SS)',
-          'USAGE (KWH)',
-          'START TIME',
-          'END TIME',
-          'RequestPayload',
-          'ResponsePayload',
-        ],
-      ],
-      body: prepare,
-    })
-    doc.save('download' + '.pdf')
+    dialogRef.afterClosed().subscribe((result) => {})
   }
 }

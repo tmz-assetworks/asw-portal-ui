@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { Router, RouterModule } from '@angular/router'
+import { RouterModule } from '@angular/router'
 import { NgxEchartsModule } from 'ngx-echarts'
 import { AreaChartComponent } from '../component/dashboard/area-chart/area-chart.component'
 import { BarChartComponent } from '../component/dashboard/bar-chart/bar-chart.component'
@@ -24,10 +24,10 @@ import { TabsBarComponent } from '../component/diagnostic/tabs-bar/tabs-bar.comp
 import { TabComponent } from '../component/diagnostic/tab/tab.component'
 import { DiagWidgetComponent } from '../component/diagnostic/diag-widget/diag-widget.component'
 import { DiagTableComponent } from '../component/diagnostic/diag-table/diag-table.component'
-import { DiagWidgetBarComponent } from '../component/diagnostic/diag-widget-bar/diag-widget-bar.component';
+import { DiagWidgetBarComponent } from '../component/diagnostic/diag-widget-bar/diag-widget-bar.component'
 import { MatTableComponent } from '../component/dashboard/mat-table/mat-table.component'
-import { ToolTipComponent } from '../component/diagnostic/tool-tip/tool-tip.component';
-import { ToolTipItemComponent } from '../component/diagnostic/tool-tip-item/tool-tip-item.component';
+import { ToolTipComponent } from '../component/diagnostic/tool-tip/tool-tip.component'
+import { ToolTipItemComponent } from '../component/diagnostic/tool-tip-item/tool-tip-item.component'
 
 @NgModule({
   imports: [
@@ -40,7 +40,7 @@ import { ToolTipItemComponent } from '../component/diagnostic/tool-tip-item/tool
     CommonModule,
     SharedMaterialModule,
     CommonModule,
-    RouterModule
+    RouterModule,
   ],
   exports: [
     FormsModule,
@@ -68,7 +68,7 @@ import { ToolTipItemComponent } from '../component/diagnostic/tool-tip-item/tool
     DiagTableComponent,
     DiagWidgetBarComponent,
     ToolTipComponent,
-    ToolTipItemComponent
+    ToolTipItemComponent,
   ],
   declarations: [
     WidgetComponent,
@@ -93,7 +93,7 @@ import { ToolTipItemComponent } from '../component/diagnostic/tool-tip-item/tool
     DiagTableComponent,
     DiagWidgetBarComponent,
     ToolTipComponent,
-    ToolTipItemComponent
+    ToolTipItemComponent,
   ],
   providers: [],
 })

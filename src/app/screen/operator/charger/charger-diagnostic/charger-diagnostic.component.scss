@@ -78,7 +78,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
 }
 .tool_alignRC {
   position: absolute;
-  right: 86.5%;
+  right: 87.5% !important;
   z-index: 100000000;
   top: 202px;
 
@@ -2115,7 +2115,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     position: relative;
     overflow: hidden;
     // min-height: 1314px;
-    height: auto !important
+    // height: 760px !important
   }
   &block1 {
     @include flex-column;
@@ -3286,7 +3286,7 @@ tr.example-element-row:not(.example-expanded-row):active {
 }
 
 .example-element-description {
- // padding: 16px;
+  // padding: 16px;
   text-align: left;
 }
 
@@ -3397,12 +3397,11 @@ tr.mat-row:last-of-type {
   color: #323e48;
 }
 
-@media (max-width: 768px){
-.wd_sub_1 {
-  width: 14%;
+@media (max-width: 768px) {
+  .wd_sub_1 {
+    width: 14%;
+  }
 }
-}
-
 
 // .select-opt-modal {
 //   margin: -370px 44%;
@@ -3449,7 +3448,8 @@ button {
   // }
   .select-opt-modal {
     // margin: auto 45%;
-    margin:-370px 45%;
+    // margin:-236px 45%;
+    margin: -236px 27%;
   }
   .tool-tip-block1.layout {
     padding: 20px;
@@ -3494,7 +3494,7 @@ button {
     border-radius: 5px;
   }
   button {
-    margin: auto ;
+    margin: auto;
     background: #0062a6;
     padding: 10px 22px;
     border-radius: 5px;
@@ -3572,13 +3572,13 @@ button {
   margin-top: -14%;
 }
 @media (max-width: 757px) {
-  .location-block4{
+  .location-block4 {
     display: block;
-}
-.location-block4-item {
-  min-width: 590px;
-  max-width: 590px;
-}
+  }
+  .location-block4-item {
+    min-width: 590px;
+    max-width: 590px;
+  }
   .title {
     font-size: 11px;
   }
@@ -3724,15 +3724,8 @@ span.close-icon.auth-close.ng-tns-c260-1 {
 //   margin-bottom: 25px;
 
 // }
-.set-charger1 {
-  display: block;
-  overflow: auto;
-  overflow-y: scroll;
-  // max-height: 900px;
-  max-height: 790px;
-  padding: 0px 10px;
-}
-.mg-space .mat-form-field-infix{
+
+.mg-space .mat-form-field-infix {
   padding: 0 !important;
   border: 0 !important;
 }
@@ -3748,7 +3741,7 @@ span.close-icon.auth-close.ng-tns-c260-1 {
 //   height: 40px;
 //   margin-bottom: 25px;
 //   margin-bottom: 17px;
-  
+
 // }
 
 // button.charging-profile-btn{
@@ -3763,17 +3756,18 @@ span.close-icon.auth-close.ng-tns-c260-1 {
 //   max-height: 790px;
 // }
 
-button{
+button {
   width: auto;
   min-width: 100%;
   height: 40px;
   margin-bottom: 25px;
   margin-bottom: 17px;
+  margin-top: 15px;
 }
 
-button.charging-profile-btn{
+button.charging-profile-btn {
   margin-bottom: 25px;
-
+  margin-top: 15px;
 }
 
 input.barbar-input-text {
@@ -3787,7 +3781,7 @@ app-tool-tip.wd_sub_1.tool_alignP.tool-tip-11 {
   bottom: 365px;
 }
 
-app-tool-tip.wd_sub_1.tool_alignAuth.tool-tip-2{
+app-tool-tip.wd_sub_1.tool_alignAuth.tool-tip-2 {
   z-index: 1;
   position: absolute;
   right: 37% !important;
@@ -3804,4 +3798,96 @@ app-tool-tip.wd_sub_1.tool_align.tool-tip-5 {
   right: 62.5% !important;
 }
 
+[hidden] {
+  display: none !important;
+}
 
+span.mat-button {
+  position: absolute;
+  bottom: 15px;
+  right: 30px;
+}
+
+mat-datepicker-toggle {
+  position: absolute;
+  bottom: 8px;
+  right: 10px;
+}
+
+.loader {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  opacity: 0.5;
+  background-color: #fcfcfc;
+  z-index: 99999;
+}
+
+.header-block.charger-diagnostics{
+  overflow: inherit !important;
+}
+.set-charger1{
+  width: 100%;
+}
+
+// .tool-tip-block1.layout {
+//   overflow: auto !important;
+//   max-height: 590px !important;
+// }
+
+.charger-diagnostics .set-charger1.set-charger-profile3{
+  display: block;
+  overflow: auto;
+  max-height: 550px !important;
+}
+
+
+form.remote-Start{
+  margin-right: 15px;
+}
+
+
+
+
+
+
+@media (max-width: 768px){
+.select-opt-modal{
+    margin: auto 8%;
+}
+.wd_sub_1{
+  width: auto;
+}
+
+}
+
+@media (max-width: 767px){
+  app-tool-tip.wd_sub_1.tool_align.tool-tip-5{
+    right: 20px !important;
+    top: 122%;
+  }
+  app-tool-tip.wd_sub_1.tool_alignSC.tool-tip-4{
+    right: 210px !important;
+    top: 122%;
+}
+app-tool-tip.wd_sub_1.tool_alignAuth.tool-tip-2{
+ 
+  right: 13% !important;
+  top: 122%;
+}
+app-tool-tip.wd_sub_1.tool_alignP.tool-tip-11{
+  right: 14px !important;
+  top: 121%;
+  
+}
+.tool_alignRC.tool-tip-3 {
+  top: 165px !important;
+  right: 10px !important;
+}
+  .wd_sub_1{
+    width: auto;
+  }
+  
+  }

@@ -14,6 +14,7 @@
                         <div class="cust-list-box7 layout">
                           <img
                             src="../../../../assets/Admin-SideNav/Assets-Icons/total-assets.svg"
+                            alt="Total-Assets"
                           />
                         </div>
                       </div>
@@ -54,6 +55,7 @@
                         <div class="cust-list-box7 layout">
                           <img
                             src="../../../../assets/Admin-SideNav/Assets-Icons/pads-old.svg"
+                            alt="pads"
                           />
                         </div>
                       </div>
@@ -94,6 +96,7 @@
                         <div class="cust-list-box7 layout">
                           <img
                             src="../../../../assets/Admin-SideNav/Assets-Icons/dispenser.svg"
+                            alt="dispenser"
                           />
                         </div>
                       </div>
@@ -125,6 +128,7 @@
                         <div class="cust-list-box7 layout">
                           <img
                             src="../../../../assets/Admin-SideNav/Assets-Icons/modem.svg"
+                            alt="Modem"
                           />
                         </div>
                       </div>
@@ -156,6 +160,7 @@
                         <div class="cust-list-box7 layout">
                           <img
                             src="../../../../assets/Admin-SideNav/Assets-Icons/cable.svg"
+                            alt="Cable"
                           />
                         </div>
                       </div>
@@ -187,6 +192,7 @@
                         <div class="cust-list-box7 layout">
                           <img
                             src="../../../../assets/Admin-SideNav/Assets-Icons/switchgears.svg"
+                            alt="switchgears"
                           />
                         </div>
                       </div>
@@ -218,6 +224,7 @@
                         <div class="cust-list-box7 layout">
                           <img
                             src="../../../../assets/Admin-SideNav/Assets-Icons/RFID.svg"
+                            alt="RFID"
                           />
                         </div>
                       </div>
@@ -249,6 +256,7 @@
           <div class="cust-list-box9 layout">
             <img
               src="../../../../assets/Admin-SideNav/Assets-Icons/Search.svg"
+              alt="Search"
               alt=""
               class="cust-list-icon layout"
             />
@@ -272,7 +280,7 @@
           <div class="cust-list-box10 layout">
             <img
               src="../../../../assets/Admin-SideNav/Assets-Icons/Add-Assets.svg"
-              alt=""
+              alt=" Add-Assets"
               srcset=""
             />
           </div>
@@ -287,7 +295,7 @@
   <div class="layout mat-data">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       <ng-container matColumnDef="type">
-        <th mat-header-cell *matHeaderCellDef>ASSETS CATEGORY</th>
+        <th mat-header-cell *matHeaderCellDef>ASSET CATEGORY</th>
         <td mat-cell *matCellDef="let element">
           {{ element.type }}
         </td>
@@ -295,7 +303,7 @@
 
       <!-- Name Column -->
       <ng-container matColumnDef="serialNumber">
-        <th mat-header-cell *matHeaderCellDef>ASSETS ID</th>
+        <th mat-header-cell *matHeaderCellDef>ASSET ID</th>
         <td mat-cell *matCellDef="let element">
           {{ element.assetId }}
         </td>
@@ -329,23 +337,27 @@
         <td mat-cell *matCellDef="let element" style="cursor: pointer;">
           <img
             *ngIf="!element.isActive"
-            src="../../../../assets/Admin-SideNav/Assets-Icons/Active.svg"
+            src="../../../../assets/Admin-SideNav/Vehicles-Icons/Active-tik.svg"
+            alt="Active"
             title="Active"
             (click)="IsActiveAsset(element.id, element.type, true)"
           />
           <img
             *ngIf="element.isActive"
-            src="../../../../assets/Admin-SideNav/Assets-Icons/Inactive.svg "
-            title="Iactive"
+            src="../../../../assets/Active.svg"
+            alt="Inactive"
+            title="Inactive"
             (click)="IsActiveAsset(element.id, element.type, false)"
           />
           <img
             src="../../../../assets/Admin-SideNav/Assets-Icons/View.svg"
+            alt="View"
             title="View"
             (click)="viewAssets(element.id, element.type)"
           />
           <img
             src="../../../../assets/Admin-SideNav/Assets-Icons/Edit.svg"
+            alt="Edit"
             title="Edit"
             (click)="editAssets(element.id, element.type)"
           />
@@ -361,6 +373,7 @@
   </div>
   <mat-paginator
     #paginator
+    [hidden]="!dataSource.data.length"
     (page)="pageChange($event)"
     [length]="totalCount"
     [pageSize]="pageSize"

@@ -8,13 +8,12 @@ Tag_Release:
   stage: Tag_Release
   image: registry.gitlab.com/gitlab-org/release-cli:latest 
   rules:
-    - if: $CI_COMMIT_BRANCH == "m5_qa_release"
+    - if: $CI_COMMIT_BRANCH == "m9_qa_release"
       when: always    
   script:
     - tag_time=`date "+%d-%m-%Y-%H-%M-%S"`
-    - export COMMIT_TAG="m5_qa_release-$tag_time"
+    - export COMMIT_TAG="m9_qa_release-$tag_time"
     - release-cli create --name "Release $COMMIT_TAG" --tag-name $COMMIT_TAG
-
 
 sonarqube-check:
   stage: Sonarqube  
@@ -32,7 +31,7 @@ sonarqube-check:
     - sonar-scanner
   allow_failure: true
   only:
-    - /^(m5_qa_release)+-?.*$/
+    - /^(m9_qa_release)+-?.*$/
   except:
     - branches
   tags:
@@ -45,14 +44,14 @@ Angular_Build:
   script:
     - npm install -g @angular/cli
     - npm i
-    - ng build
+    - PORTAL_API_URL=$PORTAL_API_URL USER_API_URL=$USER_API_URL DIAGNOSTIC_API_URL=$DIAGNOSTIC_API_URL ASSET_API_URL=$ASSET_API_URL REPORT_API_URL=$REPORT_API_URL PRICING_API_URL=$PRICING_API_URL NOTIFICATION_API_URL=$NOTIFICATION_API_URL ENCRYPT_KEY=$ENCRYPT_KEY ng build
   artifacts:
     paths:
      - dist/asset-works/
   tags:
    - portal-ui
   only:
-    - /^(m5_qa_release)+-?.*$/
+    - /^(m9_qa_release)+-?.*$/
   except:
     - branches
   when: on_success
@@ -69,13 +68,12 @@ Docker_Image_Build:
   tags: 
       - portal-ui
   script:
-      - docker build -t $QA_IMAGE_TAG .
+      - docker build -t $IMAGE_TAG .
       - docker login -u $AZ_TOKEN_NAME -p $AZ_LOGIN_TOKEN $AZ_ECR_REPO
-      - docker push $QA_IMAGE_TAG
+      - docker push $IMAGE_TAG
   only:
-    - /^(m5_qa_release)+-?.*$/
+    - /^(m9_qa_release)+-?.*$/
   except:
     - branches
-  when: manual
-  timeout: 5 minute
-
+  when: on_success
+  timeout: 15 minute

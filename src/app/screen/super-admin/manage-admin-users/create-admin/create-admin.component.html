@@ -3,8 +3,7 @@
     <div class="barbar-block11 layout">
       <h3 class="barbar-subtitle layout">{{ title }}</h3>
     </div>
-
-    <form [formGroup]="addAdminProfile">
+    <form [formGroup]="addAdminFormGroup">
       <div class="barbar-block12 layout">
         <h4 class="barbar-highlights1 layout"></h4>
         <div class="barbar-block13 layout">
@@ -12,28 +11,29 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Admin Name
-                <span style="color: 'red';">*</span>
+                <span style="color: 'red'">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addAdminProfile.get('username')?.errors && submitted == true
+                    addAdminFormGroup.get('username')?.errors &&
+                    submitted == true
                 }"
               >
                 <input
                   formControlName="username"
                   maxlength="100"
                   type="text"
-                  (keypress)="omit_special_char($event)"
+                  (keypress)="omit_special_char($event);"
                   class="barbar-input-text"
                 />
               </div>
               <span
                 *ngIf="
-                  !addAdminProfile.get('username')?.valid &&
-                  addAdminProfile.get('username')?.touched &&
-                  addAdminProfile.get('username')?.value.length > 20
+                  !addAdminFormGroup.get('username')?.valid &&
+                  addAdminFormGroup.get('username')?.touched &&
+                  addAdminFormGroup.get('username')?.value.length > 20
                 "
                 class="error-mess"
               >
@@ -41,9 +41,9 @@
               </span>
               <span
                 *ngIf="
-                  !addAdminProfile.get('username')?.valid &&
-                  addAdminProfile.get('username')?.touched &&
-                  addAdminProfile.get('username')?.value.length == 0
+                  !addAdminFormGroup.get('username')?.valid &&
+                  (addAdminFormGroup.get('username')?.touched || submitted) &&
+                  addAdminFormGroup.get('username')?.value.length == 0
                 "
                 class="error-mess"
               >
@@ -57,13 +57,14 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Email ID
-                <span style="color: 'red';">*</span>
+                <span style="color: 'red'">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addAdminProfile.get('emailid')?.errors && submitted == true
+                    addAdminFormGroup.get('emailid')?.errors &&
+                    submitted == true
                 }"
               >
                 <input
@@ -74,9 +75,9 @@
               </div>
               <span
                 *ngIf="
-                  !addAdminProfile.get('emailid')?.valid &&
-                  addAdminProfile.get('emailid')?.touched &&
-                  addAdminProfile.get('emailid')?.value.length == 0
+                  !addAdminFormGroup.get('emailid')?.valid &&
+                  (addAdminFormGroup.get('emailid')?.touched || submitted) &&
+                  addAdminFormGroup.get('emailid')?.value.length == 0
                 "
                 class="error-mess"
               >
@@ -84,9 +85,9 @@
               </span>
               <span
                 *ngIf="
-                  !addAdminProfile.get('emailid')?.valid &&
-                  addAdminProfile.get('emailid')?.touched &&
-                  addAdminProfile.get('emailid')?.value.length > 0
+                  !addAdminFormGroup.get('emailid')?.valid &&
+                  addAdminFormGroup.get('emailid')?.touched &&
+                  addAdminFormGroup.get('emailid')?.value.length > 0
                 "
                 class="error-mess"
               >
@@ -94,61 +95,19 @@
               </span>
             </div>
           </div>
-          <!-- 
-          <div class="barbar-block13-spacer"></div>
-          <div class="barbar-block13-item">
-            <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">
-                DOB
-                <span style="color: 'red';">*</span>
-              </h5>
-
-              <mat-form-field
-                class="barbar-box6 layout"
-                [ngClass]="{
-                  'is-invalid':
-                    addAdminProfile.get('dob')?.errors && submitted == true
-                }"
-              >
-                <input
-                  matInput
-                  [matDatepicker]="dob"
-                  formControlName="dob"
-                  readonly
-                  [matDatepickerFilter]="dateFilter"
-                />
-
-                <mat-datepicker-toggle
-                  matSuffix
-                  [for]="dob"
-                ></mat-datepicker-toggle>
-                <mat-datepicker #dob></mat-datepicker>
-              </mat-form-field>
-            </div>
-            <span
-              *ngIf="
-                !addAdminProfile.get('dob')?.valid &&
-                addAdminProfile.get('dob')?.touched &&
-                addAdminProfile.get('dob')?.value.length == 0
-              "
-              class="error-mess"
-            >
-              DOB Is Required
-            </span>
-          </div> -->
 
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Phone Number
-                <span style="color: 'red';">*</span>
+                <span style="color: 'red'">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addAdminProfile.get('phoneNumber')?.errors &&
+                    addAdminFormGroup.get('phoneNumber')?.errors &&
                     submitted == true
                 }"
               >
@@ -163,9 +122,9 @@
               </div>
               <span
                 *ngIf="
-                  !addAdminProfile.get('phoneNumber')?.valid &&
-                  addAdminProfile.get('phoneNumber')?.touched &&
-                  addAdminProfile.get('phoneNumber')?.value.length > 0
+                  !addAdminFormGroup.get('phoneNumber')?.valid &&
+                  addAdminFormGroup.get('phoneNumber')?.touched &&
+                  addAdminFormGroup.get('phoneNumber')?.value.length > 0
                 "
                 class="error-mess"
               >
@@ -173,9 +132,10 @@
               </span>
               <span
                 *ngIf="
-                  !addAdminProfile.get('phoneNumber')?.valid &&
-                  addAdminProfile.get('phoneNumber')?.touched &&
-                  addAdminProfile.get('phoneNumber')?.value.length == 0
+                  !addAdminFormGroup.get('phoneNumber')?.valid &&
+                  (addAdminFormGroup.get('phoneNumber')?.touched ||
+                    submitted) &&
+                  addAdminFormGroup.get('phoneNumber')?.value.length == 0
                 "
                 class="error-mess"
               >
@@ -188,39 +148,28 @@
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
-                Oraganization Name
-                <span style="color: 'red';">*</span>
+                Organization Name
+                <span style="color: 'red'">*</span>
               </h5>
-
-              <mat-form-field
-                class="barbar-box6 layout"
-                style="padding-right: 10px;"
-                [ngClass]="{
-                  'is-invalid':
-                    addAdminProfile.get('organizationName')?.value == '0' &&
-                    submitted == true
-                }"
-              >
-                <mat-select formControlName="organizationName" [disabled]="orgUserId !== '' ? true : false">
-                  <!--  <mat-option value="{{selectcountryId}}" [disabled]="true">Select</mat-option> -->
-                  <mat-option value="{{ selectValue }}">
-                    Select
-                   
-                  </mat-option> 
-                  <mat-option *ngFor="let c of customerList" value="{{ c.id }}">
-                    {{ c.customerName }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
+              <div class="barbar-box6 layout">
+                <input
+                  formControlName="organizationName"
+                  readonly
+                  [(ngModel)]="customerName"
+                  [value]="customerId"
+                  class="barbar-input-text"
+                />
+              </div>
             </div>
             <span
               *ngIf="
-                addAdminProfile.get('organizationName')?.touched &&
-                addAdminProfile.get('organizationName')?.value == '0'
+                (addAdminFormGroup.get('organizationName')?.touched ||
+                  submitted) &&
+                addAdminFormGroup.get('organizationName')?.value == '0'
               "
               class="error-mess"
             >
-              Oraganization Name Is Required
+            organization Name Is Required
             </span>
           </div>
         </div>
@@ -233,13 +182,13 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Address Line1
-                <span style="color: 'red';">*</span>
+                <span style="color: 'red'">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addAdminProfile.get('addressLine1')?.errors &&
+                    addAdminFormGroup.get('addressLine1')?.errors &&
                     submitted == true
                 }"
               >
@@ -251,9 +200,9 @@
               </div>
               <span
                 *ngIf="
-                  !addAdminProfile.get('addressLine1')?.valid &&
-                  addAdminProfile.get('addressLine1')?.touched &&
-                  addAdminProfile.get('addressLine1')?.value.length > 255
+                  !addAdminFormGroup.get('addressLine1')?.valid &&
+                  addAdminFormGroup.get('addressLine1')?.touched &&
+                  addAdminFormGroup.get('addressLine1')?.value.length > 255
                 "
                 class="error-mess"
               >
@@ -261,9 +210,10 @@
               </span>
               <span
                 *ngIf="
-                  !addAdminProfile.get('addressLine1')?.valid &&
-                  addAdminProfile.get('addressLine1')?.touched &&
-                  addAdminProfile.get('addressLine1')?.value.length == 0
+                  !addAdminFormGroup.get('addressLine1')?.valid &&
+                  (addAdminFormGroup.get('addressLine1')?.touched ||
+                    submitted) &&
+                  addAdminFormGroup.get('addressLine1')?.value.length == 0
                 "
                 class="error-mess"
               >
@@ -285,10 +235,10 @@
               </div>
               <span
                 *ngIf="
-                  !addAdminProfile.get('addressLine2')?.valid &&
-                  addAdminProfile.get('addressLine2')?.touched &&
-                  addAdminProfile.get('addressLine2')?.value.length > 255 &&
-                  addAdminProfile.get('addressLine2')?.value.length != 0
+                  !addAdminFormGroup.get('addressLine2')?.valid &&
+                  addAdminFormGroup.get('addressLine2')?.touched &&
+                  addAdminFormGroup.get('addressLine2')?.value.length > 255 &&
+                  addAdminFormGroup.get('addressLine2')?.value.length != 0
                 "
                 class="error-mess"
               >
@@ -302,13 +252,13 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Country
-                <span style="color: 'red';">*</span>
+                <span style="color: 'red'">*</span>
               </h5>
               <mat-form-field
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addAdminProfile.get('country')?.value == '0' &&
+                    addAdminFormGroup.get('country')?.value == '0' &&
                     submitted == true
                 }"
               >
@@ -316,7 +266,6 @@
                   formControlName="country"
                   (selectionChange)="getSelected($event, 'state')"
                 >
-                  <!--  <mat-option value="{{selectcountryId}}" [disabled]="true">Select</mat-option> -->
                   <mat-option value="{{ selectValue }}">Select</mat-option>
                   <mat-option *ngFor="let c of countryList" value="{{ c.id }}">
                     {{ c.countryName }}
@@ -325,8 +274,8 @@
               </mat-form-field>
               <span
                 *ngIf="
-                  addAdminProfile.get('country')?.touched &&
-                  addAdminProfile.get('country')?.value == '0'
+                  (addAdminFormGroup.get('country')?.touched || submitted) &&
+                  addAdminFormGroup.get('country')?.value == '0'
                 "
                 class="error-mess"
               >
@@ -340,14 +289,14 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 State/Province
-                <span style="color: 'red';">*</span>
+                <span style="color: 'red'">*</span>
               </h5>
 
               <mat-form-field
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addAdminProfile.get('state')?.value == '0' &&
+                    addAdminFormGroup.get('state')?.value == '0' &&
                     submitted == true
                 }"
               >
@@ -363,24 +312,13 @@
               </mat-form-field>
               <span
                 *ngIf="
-                  addAdminProfile.get('state')?.touched &&
-                  addAdminProfile.get('state')?.value == '0'
+                  (addAdminFormGroup.get('state')?.touched || submitted) &&
+                  addAdminFormGroup.get('state')?.value == '0'
                 "
                 class="error-mess"
               >
                 State Is Required
               </span>
-              <!-- <div class="barbar-box6 layout">
-                <select
-                  required
-                  formControlName="country"
-                  class="barbar-input-text"
-                >
-                  <option value="California">California</option>
-
-                
-                </select>
-              </div> -->
             </div>
           </div>
 
@@ -389,13 +327,14 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 City
-                <span style="color: 'red';">*</span>
+                <span style="color: 'red'">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addAdminProfile.get('cityName')?.errors && submitted == true
+                    addAdminFormGroup.get('cityName')?.errors &&
+                    submitted == true
                 }"
               >
                 <input
@@ -405,11 +344,11 @@
                   (keypress)="omit_special_char($event)"
                 />
               </div>
-      
+
               <span
                 *ngIf="
-                  addAdminProfile.get('city')?.touched &&
-                  addAdminProfile.get('city')?.value == '0'
+                  (addAdminFormGroup.get('cityName')?.touched || submitted) &&
+                  addAdminFormGroup.get('cityName')?.value == ''
                 "
                 class="error-mess"
               >
@@ -423,13 +362,14 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Zip Code
-                <span style="color: 'red';">*</span>
+                <span style="color: 'red'">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addAdminProfile.get('zipcode')?.errors && submitted == true
+                    addAdminFormGroup.get('zipcode')?.errors &&
+                    submitted == true
                 }"
               >
                 <input
@@ -439,23 +379,13 @@
                   minlength="0"
                   class="barbar-input-text"
                 />
-                <!-- <mat-error>This Field is required</mat-error> -->
               </div>
-              <!-- <span
-                *ngIf="
-                  !addAdminProfile.get('zipcode')?.valid &&
-                  addAdminProfile.get('zipcode')?.touched &&
-                  addAdminProfile.get('zipcode')?.value.length > 0
-                "
-                class="error-mess"
-              >
-              Zip Code must be Between 0 to 6 Alphanumeric Characters
-              </span> -->
+
               <span
                 *ngIf="
-                  !addAdminProfile.get('zipcode')?.valid &&
-                  addAdminProfile.get('zipcode')?.touched &&
-                  addAdminProfile.get('zipcode')?.value.length == 0
+                  !addAdminFormGroup.get('zipcode')?.valid &&
+                  (addAdminFormGroup.get('zipcode')?.touched || submitted) &&
+                  addAdminFormGroup.get('zipcode')?.value.length == 0
                 "
                 class="error-mess"
               >
@@ -483,7 +413,7 @@
             <div
               *ngIf="saveBtnValue"
               class="barbar-text-body1 layout"
-              (click)="saveForm()"
+              (click)="addUpdateAdmin()"
             >
               SAVE
             </div>

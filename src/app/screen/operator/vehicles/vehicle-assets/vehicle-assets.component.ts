@@ -11,18 +11,27 @@ import { VehicleService } from '../vehicle.service'
   styleUrls: ['./vehicle-assets.component.scss'],
 })
 export class VehicleAssetsComponent implements OnInit {
+  // DECLARE VARIABLES
+
   vehicle = '../../../../../assets/Operator/Diagnostics-Icon/vehicle.svg'
-
   vehicleList = []
-
   totalCount: any
   pageSize: number = 10
   currentPage: number = 1
   totalPages: any
   pageSizeOptions = [10, 20, 100]
   searchParam = ''
+  UserId: string | null
+  statusList: any
+  isTableHasData = false
+
   @ViewChild(MatPaginator) paginator!: MatPaginator
+
   dataSource = new MatTableDataSource<any>(this.vehicleList)
+
+  /**
+   * DEFINE TABLE COLUMNS
+   */
 
   displayedColumns = [
     'VIN',
@@ -37,9 +46,6 @@ export class VehicleAssetsComponent implements OnInit {
     'Status',
     'Action',
   ]
-  UserId: string | null
-  statusList: any
-  isTableHasData = false
 
   constructor(
     public _vehicleService: VehicleService,
@@ -54,6 +60,7 @@ export class VehicleAssetsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //API CALL
     this.getAllVehicle()
   }
 
@@ -62,7 +69,7 @@ export class VehicleAssetsComponent implements OnInit {
   }
 
   /**
-   * Search Vehicle
+   * SEARCH FILTER
    * @param event
    */
 
@@ -72,18 +79,14 @@ export class VehicleAssetsComponent implements OnInit {
     this.getAllVehicle()
   }
 
-  /**
-   * View Vehicle Details
-   */
+  // VIEW VEHCILE DETAILS
   viewVehicleDetails(data: any) {
     this._storageService.setSessionData('vehicleId', data.id)
 
     this._router.navigate(['operator/vehicles/vehicle-details'])
   }
 
-  /**
-   * Get Vehicle List
-   */
+  // GET ALL VEHCILE
   getAllVehicle() {
     const pBody = {
       pageNumber: this.currentPage,
@@ -110,7 +113,6 @@ export class VehicleAssetsComponent implements OnInit {
   }
 
   /**
-   *
    * @param event
    * Page Event
    */
@@ -126,7 +128,7 @@ export class VehicleAssetsComponent implements OnInit {
           ? this.currentPage + 1
           : this.currentPage - 1
     }
-
+    // CALL LIST API
     this.getAllVehicle()
   }
 }

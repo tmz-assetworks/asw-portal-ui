@@ -9,6 +9,7 @@ export class HelpComponent implements OnInit {
   panelOpenState= false
   panelOpenState1= false
   panelOpenState2= false
+  panelOpenState3= false
   constructor() { }
 
   ngOnInit(): void {

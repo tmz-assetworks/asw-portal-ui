@@ -61,7 +61,7 @@ export class LocationChargersComponent implements OnInit {
   dataSource = new MatTableDataSource<any>()
 
   @ViewChild(MatPaginator) paginatorCharger: any
-
+  // @ViewChild('input') inputValue: any
   ngOnInit() {
     this.GetDispenserByLocation(this.selectedLocationId)
   }
@@ -122,6 +122,9 @@ export class LocationChargersComponent implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value
     this.dataSource.filter = filterValue.trim().toLowerCase()
+    this.searchParam = filterValue
+
+    //const filterValue = this.inputValue.nativeElement.value.toLowerCase()
     if (this.dataSource.filteredData.length > 0) {
       this.isTableHasData = false
     } else {
@@ -136,7 +139,7 @@ export class LocationChargersComponent implements OnInit {
 
   openCommandDialog(command: any, chargeBoxId: any) {
     const dialogRef = this.dialog.open(CommandDialogComponent, {
-      width: '30%',
+      width: '25%',
       autoFocus: false,
       // height: "600px",
       // panelClass: 'my-dialog-container-class2',

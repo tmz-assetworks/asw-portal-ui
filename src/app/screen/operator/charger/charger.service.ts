@@ -5,12 +5,13 @@ import { environment } from 'src/environments/environment'
 
 @Injectable({ providedIn: 'root' })
 export class ChargerService {
-  url: any
-  chargerUrl: string
+  PORTAL_API_URL: any
+  CHARGER_API_URL: string
+
   constructor(private _http: HttpClient) {
-    this.url = environment.PORTAL_API_URL + 'api/v1/OperatorDashboard/'
-    this.chargerUrl = environment.PORTAL_API_URL + 'api/v1/Charger/'
-    
+    this.PORTAL_API_URL =
+      environment.PORTAL_API_URL + 'api/v1/OperatorDashboard/'
+    this.CHARGER_API_URL = environment.PORTAL_API_URL + 'api/v1/Charger/'
   }
 
   /**
@@ -20,75 +21,69 @@ export class ChargerService {
    */
 
   public GetSummaryStatus(): Observable<any> {
-    return this._http.get<any>(`${this.url}getsummarystatus/${0}/true`)
+    return this._http.get<any>(
+      `${this.PORTAL_API_URL}getsummarystatus/${0}/true`,
+    )
   }
 
   public GetDispensersDetail(params: any): Observable<any> {
-    return this._http.post<any>(`${this.chargerUrl}GetDispensersDetail`, params)
+    return this._http.post<any>(
+      `${this.CHARGER_API_URL}GetDispensersDetail`,
+      params,
+    )
   }
   /**
-   * Charger Session Details
+   * CHARGER SESSION DETAILS LIST
    * @param params
    * @returns
    */
   public GetChargerSessionDetailsList(params: any): Observable<any> {
     return this._http.post<any>(
-      `${this.chargerUrl}GetChargerSessionDetailsList`,
+      `${this.CHARGER_API_URL}GetChargerSessionDetailsList`,
       params,
     )
   }
 
   /**
-   * Get charger info
+   * GET CHARGER INFO
    * @param params
    * @returns
    */
   public GetChargerInformation(params: any) {
     return this._http.post<any>(
-      `${this.chargerUrl}GetChargerInformation`,
+      `${this.CHARGER_API_URL}GetChargerInformation`,
       params,
     )
   }
   /**
-   * Get Command list
-   *
+   * GET COMMAND LIST
    * @returns
    */
 
   public GetCommandList() {
-    return this._http.get<any>(`${this.chargerUrl}GetCommandList`)
+    return this._http.get<any>(`${this.CHARGER_API_URL}GetCommandList`)
   }
+
+  /**
+   * GET CHARGEBOX ID LIST
+   * @returns
+   */
 
   public GetChargeBoxIDList(): Observable<any> {
-    return this._http.get<any>(`${this.chargerUrl}GetChargeBoxIDList`)
+    return this._http.get<any>(`${this.CHARGER_API_URL}GetChargeBoxIDList`)
   }
 
-  SetChargingProfile(params: any, requestbody: any) {
-    // alert('change api');
-     return this._http.post<any>(
-       `${this.url}SetChargingProfile/${params}`,
-       requestbody
-     );
-   }
+  /**
+   * SET CHARGING PROFILE
+   * @param params
+   * @param requestbody
+   * @returns
+   */
 
-  //  /***
-  //   * 
-  //   */
-  //  /**
-  //  * RemoteStartTransaction
-  //  * @param params
-  //  * @param requestbody
-  //  */
-  // RemoteStartTransaction(params: any, requestbody: any) {
-  //   return this._http.post<any>(
-  //     `${this.url}RemoteStartTransaction/${params}`,
-  //     requestbody,
-  //   )
-  // }
-    // public RemoteStartTransaction(params: any) {
-    //   return this._http.post<any>(
-    //     `${this.chargerUrl}RemoteStartTransaction`,
-    //     params,
-    //   )
-    // }
+  SetChargingProfile(params: any, requestbody: any) {
+    return this._http.post<any>(
+      `${this.PORTAL_API_URL}SetChargingProfile/${params}`,
+      requestbody,
+    )
+  }
 }

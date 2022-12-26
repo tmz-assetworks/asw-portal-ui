@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core'
+import { AfterViewInit, Component, HostListener, OnInit, ViewChild } from '@angular/core'
 import { FormBuilder, FormControl, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
 import { ToastrService } from 'ngx-toastr'
@@ -82,7 +82,8 @@ export class AddOperatorComponent implements OnInit {
   addOperatorProfile = this.formBuilder.group({
     username: new FormControl('', [
       Validators.required,
-      Validators.pattern('[a-zA-Z ]{5,20}'),
+      Validators.maxLength(20),
+      Validators.pattern('[a-zA-Z0-9 ]+'),
     ]),
     emailid: new FormControl('', [
       Validators.required,
@@ -114,25 +115,51 @@ export class AddOperatorComponent implements OnInit {
     })
   }
 
-  alertWithSuccess() {
-    Swal.fire({
-      title: '<strong>Are you sure you want to confirm?</strong>',
-      icon: 'success',
-      focusConfirm: true,
-      confirmButtonText: ' <span style="color:#0062A6">CANCEL<span>',
-      confirmButtonColor: '#E6E8E9',
+  // alertWithSuccess() {
+  //   Swal.fire({
+  //     title: '<strong>Are you sure you want to confirm?</strong>',
+  //     icon: 'success',
+  //     focusConfirm: true,
+  //     confirmButtonText: ' <span style="color:#0062A6">CANCEL<span>',
+  //     confirmButtonColor: '#E6E8E9',
 
-      cancelButtonColor: '#0062A6',
-      cancelButtonText: ' CONFIRM',
-      showCancelButton: true,
-    }).then((result) => {
-      if (result.isDismissed) {
-        // this.toastr.success("Record has been registered on success.")
-        //Do your stuffs...
-        this.saveForm()
-      }
-    })
+  //     cancelButtonColor: '#0062A6',
+  //     cancelButtonText: ' CONFIRM',
+  //     showCancelButton: true,
+  //   }).then((result) => {
+  //     if (result.isDismissed) {
+  //       // this.toastr.success("Record has been registered on success.")
+  //       //Do your stuffs...
+  //       this.saveForm()
+  //     }
+  //   })
+  // }
+
+   keyPressAlphaNumeric(event:any) {
+
+    //var inp = String.fromCharCode(event.keyCode);
+
+    // let inp = String.fromCharCode(event.keyCode);
+    // // Allow numbers, alpahbets, space, underscore
+    // if (/[a-zA-Z0-9-_ ]/.test(inp)) {
+    //   return true;
+    // } else {
+    //   event.preventDefault();
+    //   return false;
+    // }
+
+    // if (/[a-zA-Z0-9]/.test(inp)) {
+    //   return true;
+    // } else {
+    //   //this.toastr.error(' User name must be AlphaNumeric.')
+    //   event.preventDefault();
+    //   return false;
+    // }
   }
+
+
+  
+  
 
   saveForm() {
     // this.submitted = true
@@ -143,11 +170,21 @@ export class AddOperatorComponent implements OnInit {
     // let formData = this.addOperatorProfile.value;
     this.submitted = true
     if (this.addOperatorProfile.invalid) {
+
+
+//       if(this.addOperatorProfile.status=="INVALID"){
+
+//         this.toastr.error('Please fill user name.')
+// return 
+
+//       }
       this.toastr.error('Please fill mandatory fields.')
       return
     }
+    
+    
 
-    let pass = sessionStorage.getItem('enpass')
+    // let pass = sessionStorage.getItem('enpass')
     let formField = this.addOperatorProfile.value
     if (
       formField.emailid == '' ||
@@ -482,9 +519,13 @@ export class AddOperatorComponent implements OnInit {
     )
   }
 
+  // alphaOnly(event:any) {
+  //   var key = event.keyCode;
+  //   return ((key >= 65 && key <= 90) || key == 8);
+  // };
   // numberOnly(event: any): boolean {
   //   const charCode = event.which ? event.which : event.keyCode
-  //   if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+  //   if ((charCode >= 65 && charCode <= 90) || key == 8) {
   //     return false
   //   }
   //   return true

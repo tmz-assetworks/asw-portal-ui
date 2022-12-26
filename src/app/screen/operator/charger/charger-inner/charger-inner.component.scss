@@ -3605,3 +3605,15 @@ mat-button-toggle-group.pt-0 {
 mat-button-toggle-group.pt-0 {
   padding: 2px;
 }
+
+[hidden] {
+  display: none !important;
+}
+
+
+@media (max-width: 480px){
+
+.dashboard-block33 mat-button-toggle {
+    font-size: 11px;
+}
+}

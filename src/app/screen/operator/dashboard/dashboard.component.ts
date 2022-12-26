@@ -151,12 +151,14 @@ export class DashboardComponent implements OnInit {
 
         legend: {
           Available: '#90993F',
-          Connected: '#ea0088',
+          // Connected: '#ea0088',
           Offline: '#ea002a',
           Occupied: '#000C66',
           Faulted: '#757575',
           Busy: '#E97300',
           'EV Disconnected': '#0000FF',
+          Reserved: '#675553',
+          Unavailable: '#FFE333',
         },
 
         styles: [{ width: 80, height: 80 }],
@@ -443,6 +445,7 @@ export class DashboardComponent implements OnInit {
   getMapLocations(locationIds: any, operatorId: any) {
     const body = {
       locationIds: locationIds ? locationIds : [],
+      chargeBoxId: '',
       opratorid: operatorId,
     }
     this._dashboardService.GetMap(body).subscribe((res) => {
@@ -456,9 +459,9 @@ export class DashboardComponent implements OnInit {
 
   showLegendsInfo() {
     const dialogRef = this.dialog.open(LegendsDialogComponent, {
-      width: '30%',
+      // width: '30%',
       autoFocus: false,
-      height: '600px',
+      // height: '600px',
       panelClass: 'my-dialog-container-class2',
       // data: { id: id },
     })

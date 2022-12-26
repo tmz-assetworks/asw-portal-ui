@@ -2897,6 +2897,11 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
 }
 table {
   width: 100%;
+  background: #ffffff;
+
+  border: 1px solid #aea4a4;
+
+  box-sizing: border-box;
 }
 section {
   display: table;
@@ -5112,4 +5117,8 @@ tr.mat-row:last-of-type {
   .vehicle-assets-main .widget-block1{
     margin: 10px 13px 0px !important;
   }
+}
+
+[hidden] {
+  display: none !important;
 }

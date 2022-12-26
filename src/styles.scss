@@ -1064,7 +1064,7 @@ table.mat-table.cdk-table.mat-elevation-z8 {
 }
 th.mat-header-cell:last-of-type,
 td.mat-cell:last-of-type {
-  padding: 10px !important;
+  // padding: 10px !important;
 }
 
 @media all and (min-width: 1024px) and (max-width: 1365px) {
@@ -1300,7 +1300,7 @@ h1.cust-list-hero-title.layout {
   //   display: none;
   // }
   .Diagnostics-main .cust-list-group2 .mat-table td.mat-cell:last-of-type {
-    padding: 0px !important;
+    // padding: 10px !important;
   }
   .opt-dashboard .widget-block2.layout {
     display: block !important;
@@ -1479,12 +1479,12 @@ span.close-icon.close5 {
   color: #000 !important;
 }
 .cdk-overlay-backdrop {
-   height: 100vh !important;
+  height: 100vh !important;
   // height: fixed;
 }
-.header-block.layout {
-  height: 100vh !important;
-}
+// .header-block.layout {
+//   height: 100vh !important;
+// }
 .charger-diagnostics button.btnTypeCharger {
   margin-top: 30px;
 }
@@ -1669,8 +1669,8 @@ span.close-icon.close5 {
 
 .my-dialog-container-class2 {
   max-width: 50%;
-  width: 50% !important;
-  height: 561px !important;
+  //width: 50% !important;
+  // height: 561px !important;
   max-height: auto;
 }
 
@@ -1705,7 +1705,7 @@ span.close-icon.close5 {
 .set-charger1 {
   display: block;
   overflow: auto;
-  overflow-y: scroll;
+  // overflow-y: scroll;
   // max-height: 900px;
   max-height: 790px;
 }
@@ -1753,9 +1753,84 @@ button.localList {
   border: 0 !important;
 }
 
-
 .karkar-block11 .charger-diagnostics .cdk-overlay-backdrop {
   // height: 100vh !important;
   height: 1390px !important;
- }
+}
 
+.charger-diagnostics .set-charger1 {
+  max-height: 590px !important;
+  overflow: auto !important;
+}
+
+mat-dialog-container#mat-dialog-0 {
+  overflow-x: clip;
+  //min-width: 700px;
+}
+
+// Rehan Styling
+
+.charger-diagnostics .set-charger1 {
+  max-height: 590px !important;
+  overflow: auto !important;
+}
+
+// .cdk-overlay-pane mat-dialog-container{
+//   max-width: 460px !important;
+// }
+
+.mat-form-field {
+  padding: 0px 5px;
+}
+
+@media (max-width: 768px) {
+  .widget-block8-item {
+    width: 120px;
+    height: 134px;
+  }
+
+  .tool_alignRC.tool-tip-3 {
+    top: 204px !important;
+    right: 10px !important;
+  }
+  .bar-block8 .tool-tip-4 {
+    right: 38% !important;
+  }
+}
+
+// Diagnoistics page styling
+@media (max-width: 768px) {
+  .widget-block8-item .widget-block9 {
+    min-height: 160px !important;
+  }
+
+  .bar-block8 .select-opt-modal {
+    margin: auto 82px !important;
+    top: 0 !important;
+  }
+  .cdk-overlay-pane .mat-dialog-container {
+    min-width: 460px !important;
+  }
+}
+
+// mat-dialog-container#mat-dialog-0 {
+//   min-width: 700px;
+// }
+@media all and (min-width: 480px) and (max-width: 600px) {
+  .cdk-overlay-pane .mat-dialog-container {
+    min-width: 430px !important;
+    margin-left: 25px;
+  }
+  .cdk-global-overlay-wrapper {
+    justify-content: start !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-field.modal-actions.Invoice {
+      max-width: 400px !important;
+      display: block;
+      overflow: auto;
+  }
+  
+  }

@@ -33,6 +33,7 @@ export class StackedAreaChartComponent implements OnInit {
   option: EChartsOption = {}
   dataSet: any
   constructor(private _dashboardService: DashboardService) {}
+
   @Output() areaDetailPage: EventEmitter<any> = new EventEmitter<any>()
 
   ngOnInit(): void {}
@@ -209,8 +210,8 @@ export class StackedAreaChartComponent implements OnInit {
         },
       },
       grid: {
-        left: '12%',
-        right: '0%',
+        left: '14%',
+        right: '5%',
         bottom: '8%',
         top: 50,
         containLabel: true,
@@ -269,7 +270,7 @@ containLabel: true
           // max: maxRange,
           nameLocation: 'middle',
           // fontWeight: 'bolder',
-          nameGap: 60,
+          nameGap: 50,
           /* axisLabel: {
     
  
@@ -317,6 +318,6 @@ containLabel: true
     }
   }
   graphDetailPage() {
-    this.stackedAreaDetailPage.emit(8)
+    this.stackedAreaDetailPage.emit(2)
   }
 }

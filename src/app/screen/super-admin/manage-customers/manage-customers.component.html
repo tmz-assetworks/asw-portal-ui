@@ -190,6 +190,7 @@
   </div>
   <div class="layout mat-data">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <caption></caption>
       <ng-container matColumnDef="OrganisationName">
         <th mat-header-cell *matHeaderCellDef>ORGANIZATION NAME</th>
         <td mat-cell *matCellDef="let element">
@@ -219,7 +220,7 @@
       <ng-container matColumnDef="Status">
         <th mat-header-cell *matHeaderCellDef>STATUS</th>
         <td mat-cell *matCellDef="let element">
-          {{ element.isActive ? 'Active' : 'Inactive' }}
+          {{ element.isActive ? "Active" : "Inactive" }}
         </td>
       </ng-container>
 
@@ -244,13 +245,6 @@
         <th mat-header-cell *matHeaderCellDef>ACTION</th>
         <td mat-cell *matCellDef="let element">
           {{ element.action }}
-          <!-- <span style="margin: 7px;">
-            <img
-              src="../../../../assets/superadmin-icons/Active.png"
-              class="cursorPointer"
-              alt=""
-            />
-          </span> -->
           <span>
             <img
               src="../../../../assets/Super-Admin-icons/Edit.svg"
@@ -258,7 +252,7 @@
               title="Edit"
               class="cursorPointer"
               (click)="editCusotmer(element.id)"
-              style="cursor: pointer;"
+              style="cursor: pointer"
             />
           </span>
           <span>
@@ -289,11 +283,19 @@
       <p class="text-center">No record found</p>
     </ng-container>
   </div>
-  <mat-paginator
+  <!-- <mat-paginator
     #paginator
     (page)="pageChange($event)"
     [length]="totalCount"
     [pageSize]="pageSize"
     [pageSizeOptions]="pageSizeOptions"
-  ></mat-paginator>
+  ></mat-paginator> -->
 </div>
+<mat-paginator
+    #paginator
+    [hidden]="!dataSource.data.length" 
+    (page)="pageChange($event)"
+    [length]="totalCount"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+  ></mat-paginator>

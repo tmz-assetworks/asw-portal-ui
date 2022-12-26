@@ -120,10 +120,13 @@
                             </div>
                           </div>
                           <div class="cust-list-flex3-spacer"></div>
-                          <div class="cust-list-flex3-item1">
+                          <div
+                            class="cust-list-flex3-item1"
+                            style="cursor: pointer;"
+                          >
                             <div
                               class="cust-list-block23 layout"
-                              (click)="downloadAsPDF()"
+                              (click)="downloadFile()"
                             >
                               <div class="cust-list-block23-item">
                                 <div class="cust-list-box10 layout">
@@ -184,7 +187,6 @@
                                 *matCellDef="let element; let i = index"
                               >
                                 <div
-                                  (click)="UpdateOcppEventLogIsRead(element.id)"
                                   [ngStyle]="{
                                     color: element.requestTypeColor
                                   }"
@@ -253,23 +255,26 @@
                                 <img
                                   title="View"
                                   style="cursor: pointer;"
+                                  alt=""
                                   src="../../../../../assets/Operator/View.svg"
                                   (click)="
                                     expandedElement =
                                       expandedElement === element
                                         ? null
-                                        : element
+                                        : element;
+                                    UpdateOcppEventLogIsRead(element.id)
                                   "
                                 />
 
                                 <img
+                                  (click)="openMakePaymentDialog(element.id)"
                                   *ngIf="
                                     element.requestType == 'StopTransaction'
                                   "
                                   style="cursor: pointer;"
-                                  (click)="openMakePaymentDialog(element.id)"
                                   src="../../../../../assets/chart-icon.svg"
                                   title="Make Payment"
+                                  alt=""
                                 />
                               </td>
                             </ng-container>
@@ -328,17 +333,24 @@
                               class="example-detail-row"
                             ></tr>
                           </table>
-
+                          <!-- <table>
+                            <tr *ngIf="!dataSource.data.length">
+                              <td style="text-align: center;" [attr.colspan]="displayedColumns.length">
+                                No Records Found!
+                              </td>
+                            </tr>
+                          </table> -->
                           <ng-container *ngIf="isTableHasData">
                             <p class="text-center">No record found</p>
                           </ng-container>
 
                           <mat-paginator
                             #paginator
+                            [hidden]="!dataSource.data.length"
                             [pageSizeOptions]="pageSizeOptions"
                             (page)="pageChange($event)"
                             [length]="totalCount"
-                            [pageSize]="pageSize"
+                            [pageSize]="10"
                           ></mat-paginator>
                         </div>
                       </div>

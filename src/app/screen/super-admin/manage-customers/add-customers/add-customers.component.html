@@ -1,13 +1,13 @@
 <div class="barbar-block10 layout">
   <div class="barbar-flex layout">
     <div class="barbar-block11 layout">
-      <h3 class="barbar-subtitle layout" style="margin-bottom: 25px;">
+      <h3 class="barbar-subtitle layout" style="margin-bottom: 25px">
         {{ title }}
       </h3>
     </div>
 
     <div class="barbar-block11 layout">
-      <p class="barbar" style="font-size: 18px;">Organization Information</p>
+      <p class="barbar" style="font-size: 18px">Organization Information</p>
     </div>
 
     <form [formGroup]="addCustomerProfile">
@@ -18,7 +18,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Organization Name
-                <span style="color: 'red';">*</span>
+                <span style="color: 'red'">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -47,9 +47,10 @@
               </span>
               <span
                 *ngIf="
-                  !addCustomerProfile.get('userName')?.valid &&
-                  addCustomerProfile.get('userName')?.touched &&
-                  addCustomerProfile.get('userName')?.value.length == 0
+                  (!addCustomerProfile.get('userName')?.valid &&
+                    addCustomerProfile.get('userName')?.touched) ||
+                  (submitted &&
+                    addCustomerProfile.get('userName')?.value.length == 0)
                 "
                 class="error-mess"
               >
@@ -93,7 +94,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Point of Contact
-                <span style="color: 'red';">*</span>
+                <span style="color: 'red'">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -109,6 +110,17 @@
                   formControlName="pointofcontact"
                 />
               </div>
+              <span
+                *ngIf="
+                  (!addCustomerProfile.get('pointofcontact')?.valid &&
+                    addCustomerProfile.get('pointofcontact')?.touched) ||
+                  (submitted &&
+                    addCustomerProfile.get('pointofcontact')?.value.length == 0)
+                "
+                class="error-mess"
+              >
+                Point Of Contact Is Required
+              </span>
               <span
                 *ngIf="
                   !addCustomerProfile.get('pointofcontact')?.valid &&
@@ -128,7 +140,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Email Id
-                <span style="color: 'red';">*</span>
+                <span style="color: 'red'">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -145,9 +157,10 @@
               </div>
               <span
                 *ngIf="
-                  !addCustomerProfile.get('email')?.valid &&
-                  addCustomerProfile.get('email')?.touched &&
-                  addCustomerProfile.get('email')?.value.length == 0
+                  (!addCustomerProfile.get('email')?.valid &&
+                    addCustomerProfile.get('email')?.touched) ||
+                  (submitted &&
+                    addCustomerProfile.get('email')?.value.length == 0)
                 "
                 class="error-mess"
               >
@@ -171,7 +184,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Phone Number
-                <span style="color: 'red';">*</span>
+                <span style="color: 'red'">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -202,9 +215,10 @@
               </span>
               <span
                 *ngIf="
-                  !addCustomerProfile.get('phoneNumber')?.valid &&
-                  addCustomerProfile.get('phoneNumber')?.touched &&
-                  addCustomerProfile.get('phoneNumber')?.value.length == 0
+                  (!addCustomerProfile.get('phoneNumber')?.valid &&
+                    addCustomerProfile.get('phoneNumber')?.touched) ||
+                  (submitted &&
+                    addCustomerProfile.get('phoneNumber')?.value.length == 0)
                 "
                 class="error-mess"
               >
@@ -222,7 +236,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Address Line1
-                <span style="color: 'red';">*</span>
+                <span style="color: 'red'">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -250,9 +264,10 @@
               </span>
               <span
                 *ngIf="
-                  !addCustomerProfile.get('addressLine1')?.valid &&
-                  addCustomerProfile.get('addressLine1')?.touched &&
-                  addCustomerProfile.get('addressLine1')?.value.length == 0
+                  (!addCustomerProfile.get('addressLine1')?.valid &&
+                    addCustomerProfile.get('addressLine1')?.touched) ||
+                  (submitted &&
+                    addCustomerProfile.get('addressLine1')?.value.length == 0)
                 "
                 class="error-mess"
               >
@@ -297,7 +312,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Country
-                <span style="color: 'red';">*</span>
+                <span style="color: 'red'">*</span>
               </h5>
               <mat-form-field
                 class="barbar-box6 layout"
@@ -320,14 +335,14 @@
                   >
                     {{ data.countryName }}
                   </mat-option>
-                  
                 </mat-select>
               </mat-form-field>
               <span
                 *ngIf="
-                  !addCustomerProfile.get('country')?.valid &&
-                  addCustomerProfile.get('country')?.touched &&
-                  addCustomerProfile.get('country')?.value.length == 0
+                  (!addCustomerProfile.get('country')?.valid &&
+                    addCustomerProfile.get('country')?.touched) ||
+                  (submitted &&
+                    addCustomerProfile.get('country')?.value.length == 0)
                 "
                 class="error-mess"
               >
@@ -341,7 +356,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 State/Province
-                <span style="color: 'red';">*</span>
+                <span style="color: 'red'">*</span>
               </h5>
               <mat-form-field
                 class="barbar-box6 layout"
@@ -359,14 +374,14 @@
                   >
                     {{ data.stateName }}
                   </mat-option>
-                  
                 </mat-select>
               </mat-form-field>
               <span
                 *ngIf="
-                  !addCustomerProfile.get('state')?.valid &&
-                  addCustomerProfile.get('state')?.touched &&
-                  addCustomerProfile.get('state')?.value.length == 0
+                  (!addCustomerProfile.get('state')?.valid &&
+                    addCustomerProfile.get('state')?.touched) ||
+                  (submitted &&
+                    addCustomerProfile.get('state')?.value.length == 0)
                 "
                 class="error-mess"
               >
@@ -380,7 +395,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 City
-                <span style="color: 'red';">*</span>
+                <span style="color: 'red'">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -397,31 +412,12 @@
                   (keypress)="omit_special_char($event)"
                 />
               </div>
-              <!-- <mat-form-field
-                class="barbar-box6 layout"
-                [ngClass]="{
-                  'is-invalid':
-                    addCustomerProfile.get('city')?.errors && submitted == true
-                }"
-              >
-                <mat-label>Select</mat-label>
-
-                <mat-select [value]="selectedCityId" formControlName="city">
-                  <mat-option
-                    *ngFor="let data of getAllCityList"
-                    [value]="data.id"
-                    (onSelectionChange)="selectCity($event, data.id)"
-                  >
-                    {{ data.cityName }}
-                  </mat-option>
-                  
-                </mat-select>
-              </mat-form-field> -->
               <span
                 *ngIf="
-                  !addCustomerProfile.get('cityName')?.valid &&
-                  addCustomerProfile.get('cityName')?.touched &&
-                  addCustomerProfile.get('cityName')?.value.length == 0
+                  (!addCustomerProfile.get('cityName')?.valid &&
+                    addCustomerProfile.get('cityName')?.touched) ||
+                  (submitted &&
+                    addCustomerProfile.get('cityName')?.value.length == 0)
                 "
                 class="error-mess"
               >
@@ -435,7 +431,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Zip Code
-                <span style="color: 'red';">*</span>
+                <span style="color: 'red'">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -452,21 +448,12 @@
                   formControlName="zipCode"
                 />
               </div>
-              <!-- <span
-                *ngIf="
-                  !addCustomerProfile.get('zipCode')?.valid &&
-                  addCustomerProfile.get('zipCode')?.touched &&
-                  addCustomerProfile.get('zipCode')?.value.length > 0
-                "
-                class="error-mess"
-              >
-                Zip Code must be Between 0 to 9 Alphanumeric Characters
-              </span> -->
               <span
                 *ngIf="
-                  !addCustomerProfile.get('zipCode')?.valid &&
-                  addCustomerProfile.get('zipCode')?.touched &&
-                  addCustomerProfile.get('zipCode')?.value.length == 0
+                  (!addCustomerProfile.get('zipCode')?.valid &&
+                    addCustomerProfile.get('zipCode')?.touched) ||
+                  (submitted &&
+                    addCustomerProfile.get('zipCode')?.value.length == 0)
                 "
                 class="error-mess"
               >
@@ -496,14 +483,14 @@
               *ngIf="isSaveBtn"
               (click)="addCustomers()"
             >
-              Save
+              SAVE
             </div>
             <div
               class="barbar-text-body1 layout"
               *ngIf="isUpdateBtn"
               (click)="UpdateCustomers()"
             >
-              Save
+              UPDATE
             </div>
           </div>
         </div>

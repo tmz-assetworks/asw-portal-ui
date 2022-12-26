@@ -8,7 +8,7 @@ import { ToastrService } from 'ngx-toastr'
 import { MatDialog } from '@angular/material/dialog'
 import { ChargerService } from '../charger/charger.service'
 import { StorageService } from 'src/app/service/storage.service'
-import { map, Observable, startWith } from 'rxjs'
+import { map, Observable, startWith, interval } from 'rxjs'
 import {
   FormArray,
   FormControl,
@@ -18,6 +18,7 @@ import {
 } from '@angular/forms'
 import { TransactionDialogComponent } from 'src/app/component/dashboard/transaction-dialog/transaction-dialog.component'
 import { DatePipe } from '@angular/common'
+import { number } from 'echarts'
 
 declare let jsPDF: new () => any
 
@@ -38,7 +39,7 @@ declare let jsPDF: new () => any
 })
 export class DiagnosticsComponent implements OnInit {
   jsPDF: any
-
+  numberPhases:any=[1,2,3]
   fromHTML: any
   isFireWareItem = false
   isProvisioning = false
@@ -54,7 +55,7 @@ export class DiagnosticsComponent implements OnInit {
   isSendLocalListVersion = false
   digitValidate = new RegExp('^[0-9]+$')
   chargerId = ''
-  isTableHasData = false
+  isTableHasData: any
   chargerType = ''
   commandType = ''
   connectorID: number = 0
@@ -352,7 +353,7 @@ export class DiagnosticsComponent implements OnInit {
           this.showLoader = false
           this.isProvisioning = false
           this.isGetConfig = false
-          this.setCallFunction(res, 'getConfig')
+          this.setCallFunction(res)
         }
       },
       error: (error: any) => {
@@ -381,7 +382,7 @@ export class DiagnosticsComponent implements OnInit {
           this.showLoader = false
           this.isProvisioning = false
           this.isClearCache = false
-          this.setCallFunction(res, 'clear')
+          this.setCallFunction(res)
         }
       },
       error: (error: any) => {
@@ -417,7 +418,7 @@ export class DiagnosticsComponent implements OnInit {
           this.showLoader = false
           this.isProvisioning = false
           this.isReset = false
-          this.setCallFunction(res, 'reset')
+          this.setCallFunction(res)
         }
       },
       error: (error: any) => {
@@ -451,7 +452,6 @@ export class DiagnosticsComponent implements OnInit {
         res.data !== null &&
         res.data.length > 0
       ) {
-        this.isTableHasData = true
         this.totalCount = res.paginationResponse.totalCount
         this.totalPages = res.paginationResponse.totalPages
         this.pageSize = res.paginationResponse.pageSize
@@ -459,6 +459,7 @@ export class DiagnosticsComponent implements OnInit {
         // let a = '[3,\r\n"StartTransaction",\r\n{\n  "idTagInfo": {\n    "status": "Accepted",\r\n\n    "expiryDate": "2024-06-27T12:15:44.557",\r\n\n    "parentIdTag": {\n      "IdToken": "RFID_CB011"\n    }\n  },\r\n\n  "transactionId": 3104\n}]'
         this.diagnosticList = res.data
         this.dataSource.data = this.diagnosticList
+        this.isTableHasData = false
         /* if (
           res.data[0].responsePayload !== undefined &&
           res.data[0].responsePayload !== ''
@@ -469,7 +470,7 @@ export class DiagnosticsComponent implements OnInit {
           );
         } */
       } else {
-        this.isTableHasData = false
+        this.isTableHasData = true
         this.dataSource.data = []
       }
     })
@@ -517,7 +518,7 @@ export class DiagnosticsComponent implements OnInit {
             this.showLoader = false
             this.isProvisioning = false
             this.isChangeConfiguration = false
-            this.setCallFunction(res, 'changeconfig')
+            this.setCallFunction(res)
           }
         },
         error: (error: any) => {
@@ -557,7 +558,7 @@ export class DiagnosticsComponent implements OnInit {
             this.showLoader = false
             this.isProvisioning = false
             this.isChangeAvailability = false
-            this.setCallFunction(res, 'change')
+            this.setCallFunction(res)
           }
         },
         error: (error: any) => {
@@ -601,13 +602,10 @@ export class DiagnosticsComponent implements OnInit {
   /**
    * Remote Start Transaction
    */
-  /**
-   * Remote Start Transaction
-   */
-
   remoteStartTransaction() {
     this.count = 1
     this.idTag = this.inputTag.nativeElement.value
+    let remoteStartTransactionData = this.remoteStartForm.value.chargingProfile
     // let pBody: any;
     // alert(this.idTag +'kk');
     if (this.chargerId == '') {
@@ -620,7 +618,41 @@ export class DiagnosticsComponent implements OnInit {
       this.toastr.error('RFID Must Be Less Than 20 Characters')
       return
     }
-    let remoteStartTransactionData = this.remoteStartForm.value.chargingProfile
+   else if (this.idTag != '' && this.firstFieldsRemoteStart==true) 
+    {  
+    if (remoteStartTransactionData.chargingProfileId == '') {
+      this.toastr.error('Please Enter Charging Profile Id')
+      return
+    }
+    if (remoteStartTransactionData.transactionId == '') {
+      this.toastr.error('Please Enter Transaction Id')
+      return
+    }
+    if (remoteStartTransactionData.stackLevel == '') {
+      this.toastr.error('Please Enter Stack Level')
+      return
+    }
+    if (remoteStartTransactionData.chargingProfilePurpose == '' ) {
+      this.toastr.error('Please Select Charging Profile Purpose')
+      return
+    }
+    if (remoteStartTransactionData.chargingProfileKind == '' ) {
+      this.toastr.error('Please Select Charging Profile Kind')
+      return
+    }
+    if (remoteStartTransactionData.chargingRateUnit == '') {
+      this.toastr.error('Please Select Charging Rate Unit')
+      return
+    }
+    if (remoteStartTransactionData.startPeriod == '') {
+      this.toastr.error('Please Enter Start Period')
+      return
+    }
+    if (remoteStartTransactionData.limit == '') {
+      this.toastr.error('Please Enter Limit')
+      return
+    }
+  }
     const pBody =
       this.firstFieldsRemoteStart == true
         ? {
@@ -643,24 +675,25 @@ export class DiagnosticsComponent implements OnInit {
               recurrencyKind: remoteStartTransactionData.recurrencyKind
                 ? remoteStartTransactionData.recurrencyKind
                 : undefined,
-              validFrom: remoteStartTransactionData.validFrom
-                ? this.datePipe.transform(
-                    remoteStartTransactionData.validFrom,
-                    'yyyy-MM-ddT' + this.getModifiedDate(),
+                validFrom:  remoteStartTransactionData.validFrom
+                ? this._diagnosticsService.convertToIso(
+                  remoteStartTransactionData.validFrom,
                   )
                 : undefined,
-              validTo: remoteStartTransactionData.validTo
-                ? this.datePipe.transform(
-                    remoteStartTransactionData.validTo,
-                    'yyyy-MM-ddT' + this.getModifiedDate(),
+              validTo:  remoteStartTransactionData.validTo
+                ? this._diagnosticsService.convertToIso(
+                  remoteStartTransactionData.validTo,
                   )
                 : undefined,
               chargingSchedule: {
                 duration: remoteStartTransactionData.duration
                   ? +remoteStartTransactionData.duration
                   : undefined,
-                startSchedule: remoteStartTransactionData.startSchedule
-                  ? remoteStartTransactionData.startSchedule
+                  startSchedule: 
+                  remoteStartTransactionData.startSchedule
+                  ? this._diagnosticsService.convertToIso(
+                    remoteStartTransactionData.startSchedule,
+                    )
                   : undefined,
                 chargingRateUnit: remoteStartTransactionData.chargingRateUnit
                   ? remoteStartTransactionData.chargingRateUnit
@@ -697,7 +730,7 @@ export class DiagnosticsComponent implements OnInit {
           this.showLoader = false
           this.isRemoteControl = false
           this.isRemoteStartTransaction = false
-          this.setCallFunction(res, 'remoteStart')
+          this.setCallFunction(res)
         },
         error: (error) => {
           this.showLoader = false
@@ -754,7 +787,7 @@ export class DiagnosticsComponent implements OnInit {
             this.showLoader = false
             this.isSmartCharging = false
             this.isGetCompositeSchedule = false
-            this.setCallFunction(res, 'composite')
+            this.setCallFunction(res)
           }
         },
         error: (error: any) => {
@@ -806,7 +839,7 @@ export class DiagnosticsComponent implements OnInit {
             this.showLoader = false
             this.isSmartCharging = false
             this.isClearChargingProfile = false
-            this.setCallFunction(res, 'getClearCharging')
+            this.setCallFunction(res)
           }
         },
         error: (error: any) => {
@@ -837,7 +870,7 @@ export class DiagnosticsComponent implements OnInit {
             this.showLoader = false
             this.isAuthorization = false
             this.isGetLocalListVersion = false
-            this.setCallFunction(res, 'localList')
+            this.setCallFunction(res)
           }
         },
         error: (error: any) => {
@@ -1001,7 +1034,7 @@ export class DiagnosticsComponent implements OnInit {
           this.isSendLocalListVersion = false
           this.localList = false
           this.localIdTag = false
-          this.setCallFunction(res, 'sendlocal')
+          this.setCallFunction(res)
         }
       },
       error: (error: any) => {
@@ -1072,7 +1105,7 @@ export class DiagnosticsComponent implements OnInit {
             this.showLoader = false
             this.isRemoteControl = false
             this.isRemoteStopTransaction = false
-            this.setCallFunction(res, 'stop')
+            this.setCallFunction(res)
           }
         },
         error: (error: any) => {
@@ -1135,7 +1168,7 @@ export class DiagnosticsComponent implements OnInit {
           this.isRemoteControl = false
           this.commandType = ''
           this.isUnlock = false
-          this.setCallFunction(res, 'unlock')
+          this.setCallFunction(res)
         }
       },
       error: (error) => {
@@ -1183,7 +1216,7 @@ export class DiagnosticsComponent implements OnInit {
             this.commandType = ''
             this.isCancelReservation = false
             this.showLoader = false
-            this.setCallFunction(res, 'cancel')
+            this.setCallFunction(res)
           }
         },
         error: (error) => {
@@ -1252,7 +1285,7 @@ export class DiagnosticsComponent implements OnInit {
           this.isRemoteControl = false
           this.commandType = ''
           this.isReserveNow = false
-          this.setCallFunction(res, 'isReserveNow')
+          this.setCallFunction(res)
         }
       },
       error: (error) => {
@@ -1297,7 +1330,7 @@ export class DiagnosticsComponent implements OnInit {
           this.commandType = ''
           this.isTriggerMess = false
 
-          this.setCallFunction(res, 'cancel')
+          this.setCallFunction(res)
         }
       },
       error: (error: any) => {
@@ -1367,7 +1400,7 @@ export class DiagnosticsComponent implements OnInit {
           this.isFireWareItem = false
           this.commandType = ''
           this.isUpdateFirmware = false
-          this.setCallFunction(res, 'update')
+          this.setCallFunction(res)
         }
       },
       error: (error: any) => {
@@ -1375,6 +1408,7 @@ export class DiagnosticsComponent implements OnInit {
         this.handleError(error)
       },
     })
+    this.expiryDate = ''
   }
   getDiagnosticsCmd() {
     this.inputReserveTag = this.inputReserveTagValue.nativeElement.value // Retry Interval
@@ -1425,7 +1459,7 @@ export class DiagnosticsComponent implements OnInit {
           this.isFireWareItem = false
           this.commandType = ''
           this.isDiagnostics = false
-          this.setCallFunction(res, 'getdiagnostics')
+          this.setCallFunction(res)
         }
       },
       error: (error: any) => {
@@ -1464,7 +1498,7 @@ export class DiagnosticsComponent implements OnInit {
           this.showLoader = false
           this.commandType = ''
           //  this.isDiagnostics = false;
-          this.setCallFunction(res, 'datatransfer')
+          this.setCallFunction(res)
         }
       },
       error: (error: any) => {
@@ -1544,89 +1578,121 @@ export class DiagnosticsComponent implements OnInit {
     })
   }
 
-  setCallFunction(res: any, cmdType?: string) {
-    this.commandType = ''
-    this.count = 1
-    let cmsRequestPayload = res
-    this.toastr.success(JSON.stringify(res))
-
+  setCallFunction(cmsRequestPayload: any) {
+    const source = interval(3000)
     this.showLoader = true
-    this.intervalId = setInterval(() => {
-      if (this.count < 4 && this.commandType == '') {
-        this._diagnosticsService.CmsReply(cmsRequestPayload).subscribe({
-          next: (res) => {
-            this.showLoader = false
+    this.toastr.success(JSON.stringify(cmsRequestPayload))
+    const subscribe = source.subscribe((val) => {
+      if (val <= 2) {
+        this._diagnosticsService
+          .CmsReply(cmsRequestPayload)
+          .subscribe((res) => {
             if (res == 404) {
-              this.toastr.error('Error Connecting...')
-              this.count = this.count + 1
-            }
-            if (
-              cmdType == 'remoteStart' ||
-              cmdType == 'clear' ||
-              cmdType == 'reset' ||
-              cmdType == 'changeconfig' ||
-              cmdType == 'change' ||
-              cmdType == 'composite' ||
-              cmdType == 'stop' ||
-              cmdType == 'unlock' ||
-              cmdType == 'isReserveNow' ||
-              cmdType == 'triggerMessage' ||
-              cmdType == 'cancel' ||
-              cmdType == 'sendlocal' ||
-              cmdType == 'datatransfer' ||
-              cmdType == 'getClearCharging' ||
-              cmdType == 'set'
-            ) {
-              if (res !== undefined && res.status !== undefined) {
-                this.showLoader = false
-                this.toastr.success(res.status)
-                this.count = 4
-                this.GetOcppEventLog()
-              } else if (res !== undefined && res.meterStart !== undefined) {
-                this.showLoader = false
-                this.toastr.success(JSON.stringify(res))
-                this.count = this.count + 1
-                this.GetOcppEventLog()
-              }
-            } else if (cmdType == 'getConfig') {
-              // unknownKey
-              if (res !== undefined && res.unknownKey !== undefined) {
-                this.count = 4
-              }
+            } else if (res.status === 'Accepted') {
+              let msg = res
+              subscribe.unsubscribe()
+              this.showLoader = false
+              this.toastr.success(JSON.stringify(msg))
               this.GetOcppEventLog()
-            } else if (cmdType == 'localList') {
-              // unknownKey
-              if (res !== undefined && res.listVersion !== undefined) {
-                this.count = 4
-              }
+            } else {
+              subscribe.unsubscribe()
+              this.showLoader = false
+              let msg = res
+              this.toastr.error(JSON.stringify(msg))
               this.GetOcppEventLog()
-            } else if (cmdType == 'update') {
-              if (res == '{}') {
-                this.count = 4
-              }
-            } else if (cmdType == 'getdiagnostics') {
-              if (
-                res !== undefined &&
-                res.fileName !== '' &&
-                res.fileName !== undefined
-              ) {
-                this.count = 4
-              }
             }
-          },
-          error: (error: any) => {
-            this.showLoader = false
-            this.handleError(error)
-          },
-        })
-      }
-      if (this.count > 3) {
-        // >=
-        clearInterval(this.intervalId)
+          })
+      } else {
         this.showLoader = false
+        subscribe.unsubscribe()
+        this.toastr.error('No response from charger.')
       }
-    }, 3000)
+    })
   }
+
+  // setCallFunction1(res: any, cmdType?: string) {
+  //   this.commandType = ''
+  //   this.count = 1
+  //   let cmsRequestPayload = res
+  //   this.toastr.success(JSON.stringify(res))
+
+  //   this.showLoader = true
+  //   this.intervalId = setInterval(() => {
+  //     if (this.count < 4 && this.commandType == '') {
+  //       this._diagnosticsService.CmsReply(cmsRequestPayload).subscribe({
+  //         next: (res) => {
+  //           this.showLoader = false
+  //           if (res == 404) {
+  //             this.toastr.error('Error Connecting...')
+  //             this.count = this.count + 1
+  //           }
+  //           if (
+  //             cmdType == 'remoteStart' ||
+  //             cmdType == 'clear' ||
+  //             cmdType == 'reset' ||
+  //             cmdType == 'changeconfig' ||
+  //             cmdType == 'change' ||
+  //             cmdType == 'composite' ||
+  //             cmdType == 'stop' ||
+  //             cmdType == 'unlock' ||
+  //             cmdType == 'isReserveNow' ||
+  //             cmdType == 'triggerMessage' ||
+  //             cmdType == 'cancel' ||
+  //             cmdType == 'sendlocal' ||
+  //             cmdType == 'datatransfer' ||
+  //             cmdType == 'getClearCharging' ||
+  //             cmdType == 'set'
+  //           ) {
+  //             if (res !== undefined && res.status !== undefined) {
+  //               this.showLoader = false
+  //               this.toastr.success(res.status)
+  //               this.count = 4
+  //               this.GetOcppEventLog()
+  //             } else if (res !== undefined && res.meterStart !== undefined) {
+  //               this.showLoader = false
+  //               this.toastr.success(JSON.stringify(res))
+  //               this.count = this.count + 1
+  //               this.GetOcppEventLog()
+  //             }
+  //           } else if (cmdType == 'getConfig') {
+  //             // unknownKey
+  //             if (res !== undefined && res.unknownKey !== undefined) {
+  //               this.count = 4
+  //             }
+  //             this.GetOcppEventLog()
+  //           } else if (cmdType == 'localList') {
+  //             // unknownKey
+  //             if (res !== undefined && res.listVersion !== undefined) {
+  //               this.count = 4
+  //             }
+  //             this.GetOcppEventLog()
+  //           } else if (cmdType == 'update') {
+  //             if (res == '{}') {
+  //               this.count = 4
+  //             }
+  //           } else if (cmdType == 'getdiagnostics') {
+  //             if (
+  //               res !== undefined &&
+  //               res.fileName !== '' &&
+  //               res.fileName !== undefined
+  //             ) {
+  //               this.count = 4
+  //             }
+  //           }
+  //         },
+  //         error: (error: any) => {
+  //           this.showLoader = false
+  //           this.handleError(error)
+  //         },
+  //       })
+  //     }
+  //     if (this.count > 3) {
+  //       // >=
+  //       clearInterval(this.intervalId)
+  //       this.showLoader = false
+  //     }
+  //   }, 3000)
+  // }
 
   /****************************************** Sub Tool Tip background Color function****************************************************** */
   isGetConfig = false
@@ -1767,6 +1833,9 @@ export class DiagnosticsComponent implements OnInit {
       this.isSetCharging = false
       this._storageService.removeSessionData('setCharging')
     } else if (type == 'isRemoteStartTransaction') {
+      this.firstFieldsRemoteStart=false;
+      this.secondFieldsRemoteStart=false;
+      this.thirdFieldsRemoteStart=false;
       this.isGetLocalListVersion = false
       this.isSendLocalListVersion = false
       this.isChangeAvailability = false
@@ -2032,6 +2101,9 @@ export class DiagnosticsComponent implements OnInit {
       this.isSetCharging = true
       this.isGetLocalListVersion = false
       this.isSendLocalListVersion = false
+      this.firstFields=false;
+      this.secondFields=false;
+      this.thirdFields=false;
       this.isDataTransfer = false
       this.isGetConfig = false
       this.isReset = false
@@ -2097,9 +2169,9 @@ export class DiagnosticsComponent implements OnInit {
 
   openMakePaymentDialog(id: any) {
     const dialogRef = this.dialog.open(TransactionDialogComponent, {
-      width: '30%',
+     // width: '40%',
       autoFocus: false,
-      height: '600px',
+     // height: '600px',
       // panelClass: 'my-dialog-container-class2',
       data: { id: id },
     })
@@ -2120,7 +2192,7 @@ export class DiagnosticsComponent implements OnInit {
 
     let isCharger =
       this.streets.find((elem: any) => {
-        elem.chargeboxid
+        // elem.chargeboxid
       }) == chargerId.value
 
     if (isCharger) {
@@ -2193,7 +2265,7 @@ export class DiagnosticsComponent implements OnInit {
     this.setChargingForm = this._fb.group({
       connectorId: new FormControl('', Validators.required),
       chargingProfile: new FormGroup({
-        chargingProfile: new FormControl('', Validators.required),
+        //chargingProfile: new FormControl('', Validators.required),
         chargingProfileId: new FormControl('', [Validators.required]),
         transactionId: new FormControl(''),
         stackLevel: new FormControl('', [Validators.required]),
@@ -2235,66 +2307,186 @@ export class DiagnosticsComponent implements OnInit {
    */
   checkStartDate() {
     if (
+      this.remoteStartForm.value.chargingProfile.validFrom >
+      this.remoteStartForm.value.chargingProfile.validTo
+    ) {
+      this.remoteStartForm.controls.chargingProfile.patchValue({
+        validTo: '',
+      })
+      return
+    }
+  }
+  checkStartDateForSetCharging() {
+    if (
       this.setChargingForm.value.chargingProfile.validFrom >
       this.setChargingForm.value.chargingProfile.validTo
     ) {
-      this.setChargingForm.value.chargingProfile.validTo.patchValue({
+      this.setChargingForm.controls.chargingProfile.patchValue({
         validTo: '',
       })
+      return
     }
   }
+
   /**
    * Check valid from date
    * @param e
    * @returns
    */
 
-  checkValidFrom(e: any) {
+  checkValidFrom() {
     let fromDate = this.remoteStartForm.value.chargingProfile.validFrom
     if (!fromDate) {
       this.toastr.error('Please select From Date first.')
-      this.remoteStartForm.value.chargingProfile.patchValue({ validTo: '' })
+      this.remoteStartForm.controls.chargingProfile.patchValue({ validTo: '' })
       return
     }
   }
-  checkValidFromForSetCharging(e: any) {
+  checkValidFromForSetCharging() {
     let fromDate = this.setChargingForm.value.chargingProfile.validFrom
     if (!fromDate) {
       this.toastr.error('Please select From Date first.')
-      this.setChargingForm.value.chargingProfile.patchValue({ validTo: '' })
+      this.setChargingForm.controls.chargingProfile.patchValue({ validTo: '' })
       return
     }
   }
 
   dateFilterForEnd = (d: any | null) => {
+    let selectedDate: any = this.datePipe.transform(
+      d,
+      'yyyy-MM-ddT' + this.getModifiedTime(),
+    )
+
     let fromDate = this.remoteStartForm.value.chargingProfile.validFrom
-    return d >= fromDate
+    let validFromDate: any = this.datePipe.transform(
+      fromDate,
+      'yyyy-MM-ddT' + this.getModifiedTime(),
+    )
+    return selectedDate >= validFromDate
+  }
+  dateFilterForStartForSetCharging = (d: any | null) => {
+    let selectedDate: any = this.datePipe.transform(
+      d,
+      'yyyy-MM-ddT' + this.getModifiedTime(),
+    )
+
+    let today = new Date()
+    let todayDate: any = this.datePipe.transform(
+      today,
+      'yyyy-MM-ddT' + this.getModifiedTime(),
+    )
+    return selectedDate >= todayDate
+  }
+  dateFilterForStart = (d: any | null) => {
+    let selectedDate: any = this.datePipe.transform(
+      d,
+      'yyyy-MM-ddT' + this.getModifiedTime(),
+    )
+
+    let today = new Date()
+    let todayDate: any = this.datePipe.transform(
+      today,
+      'yyyy-MM-ddT' + this.getModifiedTime(),
+    )
+    return selectedDate >= todayDate
   }
   dateFilterForEndForSetCharging = (d: any | null) => {
+    let selectedDate: any = this.datePipe.transform(
+      d,
+      'yyyy-MM-ddT' + this.getModifiedTime(),
+    )
     let fromDate = this.setChargingForm.value.chargingProfile.validFrom
-    return d >= fromDate
+    let validFromDate: any = this.datePipe.transform(
+      fromDate,
+      'yyyy-MM-ddT' + this.getModifiedTime(),
+    )
+    return selectedDate >= validFromDate
+  }
+  dateFilterForStartScheduleForSetCharging = (d: any | null) => {
+    let selectedDate: any = this.datePipe.transform(
+      d,
+      'yyyy-MM-ddT' + this.getModifiedTime(),
+    )
+
+    let today = new Date()
+    let todayDate: any = this.datePipe.transform(
+      today,
+      'yyyy-MM-ddT' + this.getModifiedTime(),
+    )
+    return selectedDate >= todayDate
   }
 
   dateFilterForStartSchedule = (d: any | null) => {
+    let selectedDate: any = this.datePipe.transform(
+      d,
+      'yyyy-MM-ddT' + this.getModifiedTime(),
+    )
+
     let today = new Date()
-    return d >= today
+    let todayDate: any = this.datePipe.transform(
+      today,
+      'yyyy-MM-ddT' + this.getModifiedTime(),
+    )
+    return selectedDate >= todayDate
   }
+
+  /**
+   *
+   * @returns
+   *
+   * Get  modefied time
+   */
+
+  getModifiedTime() {
+    let date = new Date()
+    let time = this.datePipe.transform(date, 'HH:mm:ss')
+    return time
+  }
+
   /**
    * Submit SetCharging Cmd
    */
   submitted = false
   submitSetCharging() {
     this.submitted = true
-    if (this.setChargingForm.value.invalid) {
-      this.toastr.error('Please fill mandatory fields.')
-      return
-    }
-
     if (this.chargerId == '') {
       this.toastr.error('Please Enter Charger Id')
       return
     }
     let chargingProfileData = this.setChargingForm.value.chargingProfile
+    if (this.setChargingForm.value.connectorId == '') {
+      this.toastr.error('Please Select Connector Id')
+      return
+    }
+    if (chargingProfileData.chargingProfileId == '') {
+      this.toastr.error('Please Enter Charging Profile Id')
+      return
+    }
+    if (chargingProfileData.stackLevel == '') {
+      this.toastr.error('Please Enter Stack Level')
+      return
+    }
+
+    if (chargingProfileData.chargingProfilePurpose == '') {
+      this.toastr.error('Please Select Charging Profile Purpose')
+      return
+    }
+    if (chargingProfileData.chargingProfileKind == '') {
+      this.toastr.error('Please Select Charging Profile Kind')
+      return
+    }
+    if (chargingProfileData.chargingRateUnit == '') {
+      this.toastr.error('Please Select Charging Rate Unit')
+      return
+    }
+    if (chargingProfileData.startPeriod == '') {
+      this.toastr.error('Please Enter Start Period')
+      return
+    }
+    if (chargingProfileData.limit == '') {
+      this.toastr.error('Please Enter Limit')
+      return
+    }
     const pBody = {
       connectorId: +this.setChargingForm.value.connectorId,
       chargingProfile: {
@@ -2312,25 +2504,26 @@ export class DiagnosticsComponent implements OnInit {
         recurrencyKind: chargingProfileData.recurrencyKind
           ? chargingProfileData.recurrencyKind
           : undefined,
-        validFrom: chargingProfileData.validFrom
-          ? this.datePipe.transform(
+          validFrom:  chargingProfileData.validFrom
+            ? this._diagnosticsService.convertToIso(
               chargingProfileData.validFrom,
-              'yyyy-MM-ddT' + this.getModifiedDate(),
-            )
-          : undefined,
-        validTo: chargingProfileData.validTo
-          ? this.datePipe.transform(
+              )
+            : undefined,
+          validTo:  chargingProfileData.validTo
+            ? this._diagnosticsService.convertToIso(
               chargingProfileData.validTo,
-              'yyyy-MM-ddT' + this.getModifiedDate(),
-            )
-          : undefined,
+              )
+            : undefined,
         chargingSchedule: {
           duration: chargingProfileData.duration
             ? +chargingProfileData.duration
             : undefined,
-          startSchedule: chargingProfileData.startSchedule
-            ? chargingProfileData.startSchedule
-            : undefined,
+            startSchedule: 
+              chargingProfileData.startSchedule
+              ? this._diagnosticsService.convertToIso(
+                chargingProfileData.startSchedule,
+                )
+              : undefined,
           chargingRateUnit: chargingProfileData.chargingRateUnit
             ? chargingProfileData.chargingRateUnit
             : undefined,
@@ -2359,7 +2552,7 @@ export class DiagnosticsComponent implements OnInit {
           if (res) {
             this.showLoader = false
             this.commandType = ''
-            this.setCallFunction(res, 'setCharging')
+            this.setCallFunction(res)
           }
         },
         error: (error: any) => {
@@ -2368,9 +2561,16 @@ export class DiagnosticsComponent implements OnInit {
         },
       })
   }
+
   getModifiedDate() {
     let date = new Date()
     let time = this.datePipe.transform(date, 'HH:mm:ss')
     return time
+  }
+
+  restrictZero(event: any) {
+    if(event.target.value.length === 0 && event.key === "0"){
+      event.preventDefault()
+    }
   }
 }

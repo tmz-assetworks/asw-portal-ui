@@ -2703,7 +2703,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     overflow: visible;
     margin-top: 0px;
     margin-bottom: 0px;
-    margin: 0px;
+    // margin: 0px;
     @include font-face($font_type20, $color_type_12, 0px);
     white-space: pre-wrap;
     @include lg {
@@ -4070,9 +4070,9 @@ element.style {
   display: flex;
 }
 .barbar-text-body1.layout {
-  position: relative;
-  height: min-content;
-  padding: 18px 40px;
+  // position: relative;
+  // height: min-content;
+  //padding: 18px 40px;
   position: relative;
   height: min-content;
   padding: 18px 40px;
@@ -4142,4 +4142,31 @@ button {
 mat-select#mat-select-6 {
   width: 50%;
   float: left;
+}
+
+// .txt_label {
+//   display: block;
+//   font-weight: 400;
+//   margin-left: 50px;
+// }
+
+[hidden] {
+  display: none !important;
+}
+
+.top-header-title {
+  display: flex;
+  align-items: end;
+  margin-right: 42px;
+}
+
+h3.header-subtitle.txt_label {
+  flex: 1;
+}
+.header-title {
+  display: contents;
+}
+.is-invalid {
+  border-color: red !important;
+  background-image: none !important;
 }

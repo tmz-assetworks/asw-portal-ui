@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 import { RoleAuthGuard } from './gurads/role.auth.guard'
-// import { AuthGuard } from './gurads/auth.guard'
 import { ChangePasswordComponent } from './screen/login/change-password/change-password.component'
 import { ConfirmationMailComponent } from './screen/login/confirmation-mail/confirmation-mail.component'
 import { ForgotPasswordComponent } from './screen/login/forgot-password/forgot-password.component'
@@ -14,10 +13,10 @@ const routes: Routes = [
   { path: 'forgotPassword', component: ForgotPasswordComponent },
   { path: 'changePassword', component: ChangePasswordComponent },
   { path: 'verifyOTP', component: LoginVerificationComponent },
-  {path: 'confirmation-mail',component: ConfirmationMailComponent},
+  { path: 'confirmation-mail', component: ConfirmationMailComponent },
   {
     path: 'operator',
-     canActivate: [RoleAuthGuard],
+    canActivate: [RoleAuthGuard],
     loadChildren: () =>
       import('../app/screen/operator/operator.module').then(
         (m) => m.OperatorModule,

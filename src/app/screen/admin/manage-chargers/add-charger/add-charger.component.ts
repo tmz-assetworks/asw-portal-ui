@@ -27,6 +27,7 @@ export class AddChargerComponent implements OnInit {
   isUpdateBtn: boolean = false
 
   UserId: string | null
+  ConnectorId : any = 1
   chargerboxId: any
   locationId: any
   makeMasterId: any
@@ -171,7 +172,7 @@ export class AddChargerComponent implements OnInit {
     pingSchedule: new FormControl('', [
       Validators.pattern('[a-z0-9A-Z]{0,20}'),
     ]),
-    privateStation: new FormControl(false),
+    privateStation: new FormControl(true),
     readingSchedule: new FormControl('', [Validators.maxLength(20)]),
     // serialNumber: new FormControl('', [
     //   Validators.required,
@@ -182,7 +183,10 @@ export class AddChargerComponent implements OnInit {
     installationDate: new FormControl('', Validators.required),
     isActive: new FormControl(''),
     // isAutomatic: new FormControl(false),
-    portCommand: this._fb.array([], Validators.required),
+    portCommand: this._fb.array(
+      [this.addPortsRows(0, 1, '', '' , '', true, '', '', '', '', '')],
+      Validators.required,
+    ),
   })
 
   addPortsRows(
@@ -205,7 +209,7 @@ export class AddChargerComponent implements OnInit {
         Validators.pattern('[0-9]{0,10}'),
       ]),
       connectorType: new FormControl(connectorType, Validators.required),
-      createdBy: new FormControl(UserId, Validators.required),
+      createdBy: new FormControl(this._storageService.getLocalData('user_id'), Validators.required),
       incrementalPower: new FormControl(incrementalPower, [
         Validators.required,
         Validators.pattern('[0-9]{0,10}'),
@@ -576,8 +580,11 @@ export class AddChargerComponent implements OnInit {
         // this.addChargerForm.patchValue = this.chargerData?.serialNumber;
 
         // this.addChargerForm.patchValue({ serialNumber: this.chargerData.serialNumber });
+
+        this.removePortAssigned(0)
         const ports = this.chargerData?.portCommmand
 
+       let portlen=this.chargerData?.portCommmand.length
         /**
          * PORTS
          */
@@ -585,7 +592,7 @@ export class AddChargerComponent implements OnInit {
           this.addPorts(
             this.addPortsRows(
               elem.portId,
-              elem.connectorId,
+             this.ConnectorId,
               elem.connectorType,
               elem.createdBy,
               elem.incrementalPower,
@@ -598,6 +605,7 @@ export class AddChargerComponent implements OnInit {
             ),
           )
         })
+        this.ConnectorId=portlen
       }
     })
   }
@@ -787,17 +795,17 @@ export class AddChargerComponent implements OnInit {
       this.selectedPluging = id
     }
   }
-
   addPorts(fbGroup?: FormGroup): void {
+      this.ConnectorId =this.ConnectorId + 1
     ;(this.addChargerForm.get('portCommand') as FormArray).push(
       fbGroup ||
         this.addPortsRows(
           0,
-          '',
+          this.ConnectorId,
           '',
           this.UserId || '',
           '',
-          '',
+          true,
           '',
           '',
           '',
@@ -847,5 +855,9 @@ export class AddChargerComponent implements OnInit {
     let date = new Date()
     let time = this.datePipe.transform(date, 'HH:mm:ss')
     return time
+  }
+
+  removePortAssigned(index: any) {
+    ;(this.addChargerForm.get('portCommand') as FormArray).removeAt(index)
   }
 }

@@ -48,7 +48,9 @@ export class TokenInterceptorService implements HttpInterceptor {
     request: HttpRequest<any>,
     next: HttpHandler,
   ): Observable<HttpEvent<any>> {
-    this._loaderService.show()
+    if (!request.url.includes('CmsReply')) {
+      this._loaderService.show()
+    }
 
     // next.handle(request).pipe(finalize(() => this._loaderService.hide()))
 

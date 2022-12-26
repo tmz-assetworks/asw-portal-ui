@@ -13,6 +13,7 @@ export class TransactionDialogComponent implements OnInit {
   id: any
   UserId: string | null
   transactionData: any
+  noPriceType:boolean=false;
   constructor(
     public _dialogRef: MatDialogRef<TransactionDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -36,7 +37,7 @@ export class TransactionDialogComponent implements OnInit {
    *
    * @param id
    * Generate Invoice API
-   */
+  */
 
   GenerateInvoiceDetails(id: any) {
     this._loginService.GenerateInvoiceDetails(id).subscribe((res: any) => {
@@ -47,6 +48,10 @@ export class TransactionDialogComponent implements OnInit {
         return
       } else {
         this.transactionData = res.data
+        if(this.transactionData.priceType==null)
+        {
+          this.noPriceType = true;
+        }
       }
     })
   }

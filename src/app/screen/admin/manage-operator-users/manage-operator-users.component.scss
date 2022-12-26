@@ -1341,6 +1341,11 @@ table.mat-table.cdk-table.mat-elevation-z8 {
       min-width: 115px;
       display: flex;
   }
-    }
+ }
   
     td.mat-cell:last-of-type{min-width: 131px;}
+
+
+    [hidden] {
+      display: none !important;
+  }

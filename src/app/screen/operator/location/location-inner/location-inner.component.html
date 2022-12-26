@@ -248,6 +248,7 @@
               </div>
               <mat-paginator
                 #paginator
+                [hidden]="!dataSource.data.length" 
                 (page)="pageChange($event)"
                 [length]="totalCount"
                 [pageSize]="pageSize"

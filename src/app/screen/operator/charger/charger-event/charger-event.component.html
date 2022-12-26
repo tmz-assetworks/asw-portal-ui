@@ -74,7 +74,7 @@
             <div class="cust-list-flex3-item">
               <div class="cust-list-group layout">
                 <div class="cust-list-block19 layout">
-                  <mat-form-field class="barbar-box6 layout">
+                  <mat-form-field class="barbar-box6 layout select-all-opt">
                     <select
                       matNativeControl
                       required
@@ -102,7 +102,7 @@
 
             <div class="cust-list-flex3-spacer"></div>
             <div class="cust-list-flex3-item1">
-              <div class="cust-list-block23 layout" (click)="downloadAsPDF()">
+              <div class="cust-list-block23 layout" (click)="downloadFile()">
                 <div class="cust-list-block23-item">
                   <div class="cust-list-box10 layout">
                     <img
@@ -128,6 +128,8 @@
             multiTemplateDataRows
             matSort
             class="mat-elevation-z8"
+            matTableExporter
+            #exporter="matTableExporter"
           >
             <ng-container matColumnDef="Type">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>
@@ -153,6 +155,7 @@
               <td mat-cell *matCellDef="let element; let i = index">
                 <img
                   style="cursor: pointer;"
+                  alt=""
                   src="../../../../assets/icons/view-icon.png"
                   (click)="
                     expandedElement =
@@ -161,16 +164,18 @@
                 />
 
                 <img
+                  (click)="openMakePaymentDialog(element.id)"
                   *ngIf="element.requestType == 'StopTransaction'"
                   style="cursor: pointer;"
-                  (click)="openMakePaymentDialog(element.id)"
                   src="../../../../../assets/chart-icon.svg"
+                  alt=""
                   title="Make Payment"
                 />
               </td>
             </ng-container>
             <ng-container matColumnDef="expandedDetail">
               <td
+                style="background-color: #fff;"
                 mat-cell
                 *matCellDef="let element"
                 [attr.colspan]="displayedColumns.length"
@@ -216,14 +221,15 @@
           <ng-container *ngIf="isTableHasData">
             <p class="text-center">No record found</p>
           </ng-container>
-          <mat-paginator
-            #paginator
-            (page)="pageChange($event)"
-            [length]="totalCount"
-            [pageSize]="pageSize"
-            [pageSizeOptions]="pageSizeOptions"
-          ></mat-paginator>
         </div>
+        <mat-paginator
+          #paginator
+          [hidden]="!dataSource.data.length"
+          (page)="pageChange($event)"
+          [length]="totalCount"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="pageSizeOptions"
+        ></mat-paginator>
       </div>
     </div>
   </div>

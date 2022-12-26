@@ -1,53 +1,71 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { Observable } from 'rxjs'
+import { Observable, Subject } from 'rxjs'
 import { environment } from 'src/environments/environment'
 
 @Injectable({ providedIn: 'root' })
-export class UserprofileService {
-  userUrl: string
-  assetUrl: string
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'image/png',
-    }),
-  }
+export class UserProfileService {
+  profileSubject = new Subject<string>()
+  alertSubject = new Subject<string>()
+
+  USER_API_URL: string
+  ASSET_API_URL: string
 
   constructor(private _http: HttpClient) {
-    this.userUrl = environment.USER_API_URL
-    this.assetUrl = environment.ASSET_API_URL
+    this.USER_API_URL = environment.USER_API_URL
+    this.ASSET_API_URL = environment.ASSET_API_URL
   }
-
+  /**
+   * UPDATE USER PROFILE
+   * @param params
+   * @returns
+   */
   public UpdateUserProfile(params: any): Observable<any> {
-    return this._http.put<any>(`${this.userUrl}User/UpdateUserProfile`, params)
+    return this._http.put<any>(
+      `${this.USER_API_URL}User/UpdateUserProfile`,
+      params,
+    )
   }
-
+  /**
+   * GET USER PROFILE BY ID
+   * @returns
+   */
   public GetUserProfileById(): Observable<any> {
-    return this._http.get<any>(`${this.userUrl}User/GetUserProfileById`)
+    return this._http.get<any>(`${this.USER_API_URL}User/GetUserProfileById`)
   }
-
+  /**
+   * UPDATE USER PROFILE PICTURES
+   * @param params
+   * @returns
+   */
   public UpdateUserProfilePicture(params: any): Observable<any> {
     return this._http.put<any>(
-      `${this.userUrl}User/UpdateUserProfilePicture`,
+      `${this.USER_API_URL}User/UpdateUserProfilePicture`,
       params,
     )
   }
 
+  /**
+   * GET ALL COUNTRY
+   * @returns
+   */
   public getAllCountry(): Observable<any> {
-    return this._http.get<any>(`${this.assetUrl}Country/getallcountry`)
+    return this._http.get<any>(`${this.ASSET_API_URL}Country/getallcountry`)
   }
+
+  /**
+   * GET ALL STATE BY COUNTRY ID
+   * @param id
+   * @returns
+   */
   public getAllStateByCountryId(id: any): Observable<any> {
     return this._http.get<any>(
-      `${this.assetUrl}Country/getAllStateByCountryId?Id=${id}`,
+      `${this.ASSET_API_URL}Country/getAllStateByCountryId?Id=${id}`,
     )
   }
-  public getAllCityByStateId(id: any): Observable<any> {
-    return this._http.get<any>(
-      `${this.assetUrl}Country/getAllCityByStateId?Id=${id}`,
-    )
-  }
+
+  // GET USER PROFILE IMAGE
   public GetUserProfileImage(): Observable<any> {
-    // let httpHeaders = new HttpHeaders().set('Content-Type', 'image/png')
-    return this._http.get<any>(`${this.userUrl}User/GetUserProfileImage`)
+    return this._http.get<any>(`${this.USER_API_URL}User/GetUserProfileImage`)
   }
 }

@@ -19,6 +19,7 @@
                         <div class="cust-list-box7 layout">
                           <img
                             src="../../../../assets/Admin-SideNav/Vehicles-Icons/Total-Vehicle.svg"
+                            alt=""
                           />
                         </div>
                       </div>
@@ -64,6 +65,7 @@
                         <div class="cust-list-box7 layout">
                           <img
                             src="../../../../assets/Admin-SideNav/Vehicles-Icons/Active.svg"
+                            alt=""
                           />
                         </div>
                       </div>
@@ -109,6 +111,7 @@
                         <div class="cust-list-box7 layout">
                           <img
                             src="../../../../assets/Admin-SideNav/Vehicles-Icons/Inactive-Vehicle.svg"
+                            alt=""
                           />
                         </div>
                       </div>
@@ -157,8 +160,8 @@
           <div class="cust-list-block20 layout">
             <input
               class="cust-list-text-body21 layout"
-              (keyup)="applyFilter($event)"
-              placeholder="Search by VIN"
+              (keyup)="filterVehicle($event)"
+              placeholder="Search by department or vehicle."
               #input
             />
           </div>
@@ -266,7 +269,8 @@
         <th mat-header-cell *matHeaderCellDef>ACTION</th>
         <td mat-cell *matCellDef="let element" style="cursor: pointer;">
           <img
-            src="../../../../assets/Admin-SideNav/Vehicles-Icons/Inactive.svg"
+            src="../../../../assets/Active.svg"
+            alt=""
             title="Inactive"
             (click)="IsActiveVehicleById(element.id, false)"
             *ngIf="element.isActive"
@@ -274,6 +278,7 @@
 
           <img
             src="../../../../assets/Admin-SideNav/Vehicles-Icons/Active-tik.svg"
+            alt=""
             title="Active"
             (click)="IsActiveVehicleById(element.id, true)"
             *ngIf="!element.isActive"
@@ -281,6 +286,7 @@
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <img
             src="../../../../assets/Admin-SideNav/Vehicles-Icons/View.svg"
+            alt=""
             style="cursor: pointer;"
             (click)="viewVehicle(element.id)"
             title="View"
@@ -305,6 +311,7 @@
   </div>
   <mat-paginator
     #paginator
+    [hidden]="!dataSource.data.length"
     (page)="pageChange($event)"
     [length]="totalCount"
     [pageSize]="pageSize"

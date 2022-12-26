@@ -1,18 +1,12 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-} from '@angular/core'
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core'
 import { FormBuilder, FormControl, Validators } from '@angular/forms'
 import { DomSanitizer } from '@angular/platform-browser'
 import { ActivatedRoute, Router } from '@angular/router'
 import { ToastrService } from 'ngx-toastr'
 import { StorageService } from 'src/app/service/storage.service'
 import Swal from 'sweetalert2'
-import { data } from '../operator/dashboard/locations'
-import { UserprofileService } from './user-profile.service'
+// import { data } from '../operator/dashboard/locations'
+import { UserProfileService } from './user-profile.service'
 
 @Component({
   selector: 'app-user-profile',
@@ -20,6 +14,7 @@ import { UserprofileService } from './user-profile.service'
   styleUrls: ['./user-profile.component.scss'],
 })
 export class UserProfileComponent implements OnInit {
+  // DECLARE VARIABLES
   UserId: any
   Title = 'Profile'
   role: string
@@ -30,11 +25,15 @@ export class UserProfileComponent implements OnInit {
   selectedStateId: any
   selectedCityId: any
   selectedCountryId: any
-  submitted=false
+  submitted = false
   showLoader: boolean = false
+
   profileId: any
   file: any = null
   profileImg: any
+  notificationEnable: boolean = true
+  notificationText: any = ''
+  telephoneNumber: string = ''
 
   constructor(
     private formBuilder: FormBuilder,
@@ -42,40 +41,43 @@ export class UserProfileComponent implements OnInit {
     private toastr: ToastrService,
     private _storageService: StorageService,
     private _activatedRoute: ActivatedRoute,
-    private _UserProfileService: UserprofileService,
+    private _UserProfileService: UserProfileService,
     public fb: FormBuilder,
     private cd: ChangeDetectorRef,
     public sanitizer: DomSanitizer,
   ) {
+    //GET USER ROLE
     this.role = localStorage.getItem('role') || ''
+    // GET USER ID
     this.UserId = this._storageService.getLocalData('user_id')
   }
 
   ngOnInit(): void {
+    // API CALL
     this.GetUserProfileById()
-    // this.UpdateUserProfilePicture()
-
     this.getAllCountry()
     this.GetUserProfileImage()
   }
-  userProfileForm = this.formBuilder.group({
+  // FORM GROUP
+
+  userProfileFormGroup = this.formBuilder.group({
     adminName: new FormControl(''),
     emailId: new FormControl(''),
     // dob: new FormControl(''),
     phoneNumber: new FormControl('', Validators.required),
     addressLine1: new FormControl('', Validators.required),
-    addressLine2: new FormControl('',[Validators.maxLength(255)]),
+    addressLine2: new FormControl('', [Validators.maxLength(255)]),
     country: new FormControl('', Validators.required),
     state: new FormControl('', Validators.required),
     cityName: new FormControl('', Validators.required),
     zipcode: new FormControl('', Validators.required),
+    notificationEnable: new FormControl(''),
   })
 
   save() {
-    let formData = this.userProfileForm.value
+    let formData = this.userProfileFormGroup.value
     this.submitted = true
-
-    if (this.userProfileForm.invalid) {
+    if (this.userProfileFormGroup.invalid) {
       this.toastr.error('Please fill mandatory fileds.')
       return
     }
@@ -89,6 +91,7 @@ export class UserProfileComponent implements OnInit {
       stateID: this.selectedStateId,
       cityName: formData.cityName,
       zipCode: formData.zipcode,
+      notificationEnable: formData.notificationEnable,
       modifiedBy: this.UserId,
     }
 
@@ -108,7 +111,6 @@ export class UserProfileComponent implements OnInit {
           this._UserProfileService.UpdateUserProfile(body).subscribe((data) => {
             if (data) {
               this.toastr.success('Record update successfully.')
-              // this.userProfileForm.reset()
               this.showLoader = false
               this.submitted = false
             }
@@ -128,13 +130,13 @@ export class UserProfileComponent implements OnInit {
   set isDisabled(value: boolean) {
     this.isDisabled = value
     if (value) {
-      this.userProfileForm.controls['adminName'].disable()
+      this.userProfileFormGroup.controls['adminName'].disable()
     } else {
-      this.userProfileForm.controls['name'].enable()
+      this.userProfileFormGroup.controls['name'].enable()
     }
   }
-
-  cancel() {
+  // GO BACK
+  revertBack() {
     if (this.role == 'Operator') {
       this._router.navigateByUrl('operator/dashboard')
     } else if (this.role == 'Admin') {
@@ -144,70 +146,69 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-  /*
- Get user -profile  By ID
-*/
+  // GET USER PROFILE BY ID
   GetUserProfileById() {
     this._UserProfileService.GetUserProfileById().subscribe((res) => {
       if (res.data) {
         this.userData = res.data
         this.profileId = res.data.id
-        this.userProfileForm.patchValue({ adminName: this.userData.adminName })
-        this.userProfileForm.patchValue({ emailId: this.userData.emailId })
-        this.userProfileForm.patchValue({ dob: this.userData.dob })
-        this.userProfileForm.patchValue({
+        this.userProfileFormGroup.patchValue({
+          adminName: this.userData.adminName,
+        })
+        this.userProfileFormGroup.patchValue({ emailId: this.userData.emailId })
+        this.userProfileFormGroup.patchValue({ dob: this.userData.dob })
+        this.userProfileFormGroup.patchValue({
           phoneNumber: this.userData.phoneNumber,
         })
-        this.userProfileForm.patchValue({
+        this.userProfileFormGroup.patchValue({
           addressLine1: this.userData.addressLine1,
         })
-        this.userProfileForm.patchValue({
+        this.userProfileFormGroup.patchValue({
           addressLine2: this.userData.addressLine2,
         })
         if (this.userData.countryName) {
           this.selectedCountryId = this.userData.countryID
 
-          this.userProfileForm.patchValue({
+          this.userProfileFormGroup.patchValue({
             country: this.userData.countryName,
           })
         }
         if (this.userData.stateName) {
           this.selectedStateId = this.userData.stateID
-          this.userProfileForm.patchValue({
+          this.userProfileFormGroup.patchValue({
             state: this.userData.stateName,
           })
           this.getAllStateByCountryId(this.selectedCountryId)
           // this.selectState('', this.selectedCountryId);
           // this.getSelected('', this.selectedStateId, 'City');
         }
-        this.userProfileForm.patchValue({ cityName: this.userData.cityName })
+        this.userProfileFormGroup.patchValue({
+          cityName: this.userData.cityName,
+        })
 
-        // if (this.userData.cityName) {
-        //   this.selectedCityId = this.userData.cityID
+        this.userProfileFormGroup.patchValue({ zipcode: this.userData.zipcode })
+        if (this.userData.notificationEnable) {
+          this.notificationText = 'Notification Enable'
+        } else {
+          this.notificationText = 'Notification Disable'
+        }
 
-        //   this.userProfileForm.patchValue({
-        //     city: this.userData.cityName,
-        //   })
-        //   this.getAllCityByStateId(this.selectedStateId)
-        // }
-        // this.userProfileForm.patchValue({ country: this.userData.country })
-        // this.userProfileForm.patchValue({state: this.userData.state})
-        // this.userProfileForm.patchValue({ city: this.userData.city })
-        this.userProfileForm.patchValue({ zipcode: this.userData.zipcode })
+        this.userProfileFormGroup.patchValue({
+          notificationEnable: this.userData.notificationEnable,
+        })
       }
     })
   }
 
-  /*
-   *All Country List
-   *
-   */
+  // ALL COUNTRY LIST
 
   getAllCountry() {
     this._UserProfileService.getAllCountry().subscribe((res: any) => {
       this.GetAllCountryList = res.data
     })
   }
+
+  // GET STATE BY COUNTRY ID
 
   getAllStateByCountryId(id: any) {
     this._UserProfileService
@@ -217,25 +218,25 @@ export class UserProfileComponent implements OnInit {
       })
   }
 
-  getAllCityByStateId(id: any) {
-    this._UserProfileService.getAllCityByStateId(id).subscribe((res: any) => {
-      this.getAllCityList = res.data
-    })
-  }
+  // getAllCityByStateId(id: any) {
+  //   this._UserProfileService.getAllCityByStateId(id).subscribe((res: any) => {
+  //     this.getAllCityList = res.data
+  //   })
+  // }
+
+  // COUNTRY SELECT
 
   selectCountry(event: any, id: any) {
     if (event.isUserInput) {
-      // if (this.selectedStateId && this.selectedCityId) {
-      //   this.userProfileForm.patchValue({ state: '' })
-      //   this.userProfileForm.patchValue({ city: '' })
-      // }
       this.selectedCountryId = id
-      this.userProfileForm.patchValue({ state: '' })
-      this.userProfileForm.patchValue({ cityName: '' })
-      this.selectedStateId=''
+      this.userProfileFormGroup.patchValue({ state: '' })
+      this.userProfileFormGroup.patchValue({ cityName: '' })
+      this.selectedStateId = ''
       this.getAllStateByCountryId(this.selectedCountryId)
     }
   }
+
+  // STATE SELECT
 
   selectState(event: any, id: any) {
     if (event.isUserInput) {
@@ -244,10 +245,7 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-  /**
-   *  Update Profile Picture
-   *
-   */
+  // UPDATE USER PROFILE PICTURE
 
   UpdateUserProfilePicture(data: any) {
     this._UserProfileService
@@ -255,6 +253,7 @@ export class UserProfileComponent implements OnInit {
       .subscribe((res) => {})
   }
 
+  // ON FILE SELECT
   onFileSelected(file: any) {
     this.file = file.target.files[0]
 
@@ -278,8 +277,10 @@ export class UserProfileComponent implements OnInit {
           .UpdateUserProfilePicture(form)
           .subscribe((res: any) => {
             if (res.statusCode == 200) {
+              this._UserProfileService.profileSubject.next('Hello world!')
               let msg = res.statusMessage
               this.GetUserProfileImage()
+
               this.toastr.success(`${msg}`)
             } else {
               this.toastr.error(`Failed to upload!`)
@@ -288,7 +289,7 @@ export class UserProfileComponent implements OnInit {
       }
     })
   }
-
+  // OMIT SPECIAL CHARACTERS
   omit_special_char(event: any) {
     let k = event.charCode //         k = event.keyCode;  (Both can be used)
     return (
@@ -299,9 +300,7 @@ export class UserProfileComponent implements OnInit {
       (k >= 48 && k <= 57)
     )
   }
-  /**
-   * Get User Profile Picture
-   */
+  // GET USER PROFILE IMAGE
   GetUserProfileImage() {
     this._UserProfileService.GetUserProfileImage().subscribe((res: any) => {
       if (res.statusCode == 200) {
@@ -310,23 +309,21 @@ export class UserProfileComponent implements OnInit {
     })
   }
 
-  toDataUrlBase64(url: string) {
-    const toBase64 = fetch(url)
-      .then((response) => response.blob())
-      .then(
-        (blob) =>
-          new Promise((resolve, reject) => {
-            const reader = new FileReader()
-            reader.onloadend = () => resolve(reader.result)
-            reader.onerror = reject
-            reader.readAsDataURL(blob)
-          }),
-      )
+  // toDataUrlBase64(url: string) {
+  //   const toBase64 = fetch(url)
+  //     .then((response) => response.blob())
+  //     .then(
+  //       (blob) =>
+  //         new Promise((resolve, reject) => {
+  //           const reader = new FileReader()
+  //           reader.onloadend = () => resolve(reader.result)
+  //           reader.onerror = reject
+  //           reader.readAsDataURL(blob)
+  //         }),
+  //     )
 
-    return toBase64
-  }
-
-  
+  //   return toBase64
+  // }
 
   numberOnly(event: any): boolean {
     const charCode = event.which ? event.which : event.keyCode
@@ -336,7 +333,7 @@ export class UserProfileComponent implements OnInit {
     return true
   }
 
-  telephoneNumber: string = ''
+  // PHONE NUMBER FORMAT
 
   phoneNumber(event: any) {
     const charCode = event.which ? event.which : event.keyCode
@@ -350,6 +347,15 @@ export class UserProfileComponent implements OnInit {
     }
     if (this.telephoneNumber.length == 9) {
       this.telephoneNumber = this.telephoneNumber + '-'
+    }
+  }
+
+  // IS NOTIFICATION CHECKED
+  isNotificationChecked(event: any) {
+    if (event.checked) {
+      this.notificationText = 'Notification Enable'
+    } else {
+      this.notificationText = 'Notification Disable'
     }
   }
 }

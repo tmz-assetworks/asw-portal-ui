@@ -1234,7 +1234,7 @@ tr.mat-row:last-of-type {
 }  
 
 td.mat-cell:last-of-type{
-  min-width: 107px;
+  min-width: 135px;
 
 }
 th.mat-header-cell{padding: 0 10px;}
@@ -1287,3 +1287,7 @@ td.mat-cell.cdk-cell.cdk-column-RFIDCardAssigned.mat-column-RFIDCardAssigned.ng-
 // table.mat-table.cdk-table.mat-elevation-z8{
 //   display: block !important;
 // }
+
+[hidden] {
+  display: none !important;
+}

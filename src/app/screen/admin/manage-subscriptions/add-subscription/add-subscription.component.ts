@@ -24,12 +24,24 @@ export class AddSubscriptionComponent implements OnInit {
   selectedUnit: any
   selectedCustomer: any
   selectedSubscriptionGroup: any
+  showPriceUnitTitle=''
+  isUnit:boolean=false
+  selectedUnitId: any
   CurrencyList: any
   isChecked: any
   CustomerList: any
   SubscriptionPlanList: any
   customerName: any
+  submitted = false
+  isSaveBtn: boolean = true
+  isUpdateBtn: boolean = false
+  customerData: any
+  customerId: any
+  Title: string = 'Add Subscription Plan'
   ngOnInit(): void {
+    /**
+     * API Call
+     */
     this.getCustomerInfo(0)
     this.GetCurrencyCode()
     this.GetCustomers()
@@ -40,10 +52,6 @@ export class AddSubscriptionComponent implements OnInit {
       this.getSubsccriptionPlanById(this.subsPlanId)
     }
   }
-  submitted = false
-  isSaveBtn: boolean = true
-  isUpdateBtn: boolean = false
-  Title: string = 'Add Subscription Plan'
 
   constructor(
     private formBuilder: FormBuilder,
@@ -65,7 +73,7 @@ export class AddSubscriptionComponent implements OnInit {
       this.Title = 'View Subscription Plan'
       this.isSaveBtn = false
       this.isUpdateBtn = false
-      this.addSubscriptionPlanForm.disable()
+      this.subscriptionPlanFormGroup.disable()
     } else {
       this.Title = 'Add Subscription Plan'
       this.isSaveBtn = true
@@ -73,7 +81,7 @@ export class AddSubscriptionComponent implements OnInit {
     }
   }
 
-  addSubscriptionPlanForm = this.formBuilder.group({
+  subscriptionPlanFormGroup = this.formBuilder.group({
     customerName: new FormControl('', Validators.required),
     subscriptionPlanName: new FormControl('', [
       Validators.required,
@@ -101,53 +109,53 @@ export class AddSubscriptionComponent implements OnInit {
       this.subscriptionData = res.data[0]
       if (this.subscriptionData.customerId) {
         this.subscriptionData.customerId = this.customerId
-        this.addSubscriptionPlanForm.patchValue({
+        this.subscriptionPlanFormGroup.patchValue({
           customerName: this.subscriptionData.customerName,
         })
       }
-      this.addSubscriptionPlanForm.patchValue({
+      this.subscriptionPlanFormGroup.patchValue({
         subscriptionPlanName: this.subscriptionData.subscriptionPlanName,
       })
-      this.addSubscriptionPlanForm.patchValue({
+      this.subscriptionPlanFormGroup.patchValue({
         subscriptionDetails: this.subscriptionData.subscriptionsDetails,
       })
-      this.addSubscriptionPlanForm.patchValue({
+      this.subscriptionPlanFormGroup.patchValue({
         validfrom: this.subscriptionData.validFrom,
       })
-      this.addSubscriptionPlanForm.patchValue({
+      this.subscriptionPlanFormGroup.patchValue({
         validto: this.subscriptionData.validTo,
       })
-      this.addSubscriptionPlanForm.patchValue({
+      this.subscriptionPlanFormGroup.patchValue({
         price: this.subscriptionData.price,
       })
       if (this.subscriptionData.currencyId) {
         this.selectedCurrency = this.subscriptionData.currencyId
-        this.addSubscriptionPlanForm.patchValue({
+        this.subscriptionPlanFormGroup.patchValue({
           currencyId: this.subscriptionData.currencyCode,
         })
       }
       if (this.subscriptionData.priceTypeId) {
         this.selectedPriceType = this.subscriptionData.priceTypeId
         this.GetUnits(this.selectedPriceType)
-        // this.addSubscriptionPlanForm.patchValue({
+        // this.subscriptionPlanFormGroup.patchValue({
         //   priceTypeId: this.subscriptionData.priceTypeName,
         // })
       }
       if (this.subscriptionData.subscriptionsGroupId) {
         this.selectedSubscriptionGroup = this.subscriptionData.subscriptionsGroupId
-        this.addSubscriptionPlanForm.patchValue({
+        this.subscriptionPlanFormGroup.patchValue({
           subscriptionsGroupId: this.subscriptionData.subGroup,
         })
       }
       if (this.subscriptionData.isActive == false) {
         this.isChecked = this.subscriptionData.isActive
-        this.addSubscriptionPlanForm.patchValue({
+        this.subscriptionPlanFormGroup.patchValue({
           isActive: this.subscriptionData.isActive,
         })
       }
       if (this.subscriptionData.unitId) {
         this.selectedUnit = this.subscriptionData.unitId
-        this.addSubscriptionPlanForm.patchValue({
+        this.subscriptionPlanFormGroup.patchValue({
           unitId: this.subscriptionData.unitName,
         })
       }
@@ -189,8 +197,7 @@ export class AddSubscriptionComponent implements OnInit {
       this.UnitList = res.data
     })
   }
-  customerData: any
-  customerId: any
+
   getCustomerInfo(id: any) {
     this._adminService.Getcustomer(id).subscribe((res) => {
       if (res.data) {
@@ -201,15 +208,15 @@ export class AddSubscriptionComponent implements OnInit {
     })
   }
   /**
-   * Add Subscription Plan
+   * Add subscription plan
    */
   saveSubscriptionPlan() {
     this.submitted = true
-    if (this.addSubscriptionPlanForm.invalid) {
+    if (this.subscriptionPlanFormGroup.invalid) {
       this._toastr.error('Please fill mandatory fields.')
       return
     }
-    let formData = this.addSubscriptionPlanForm.value
+    let formData = this.subscriptionPlanFormGroup.value
     const body = {
       customerId: this.customerId,
       subscriptionPlanName: formData.subscriptionPlanName,
@@ -238,7 +245,6 @@ export class AddSubscriptionComponent implements OnInit {
     Swal.fire({
       title: '<strong>Are you sure you want to confirm?</strong>',
       icon: 'success',
-
       focusConfirm: true,
       confirmButtonText: ' <span style="color:#0062A6">CANCEL<span>',
       confirmButtonColor: '#E6E8E9',
@@ -253,7 +259,7 @@ export class AddSubscriptionComponent implements OnInit {
             if (res) {
               //Do your stuffs...
               this._toastr.success('Record saved successfully.')
-              this.addSubscriptionPlanForm.reset()
+              this.subscriptionPlanFormGroup.reset()
               this.showLoader = false
               this.submitted = false
               this._router.navigate(['admin/subscriptions-plans'])
@@ -271,16 +277,16 @@ export class AddSubscriptionComponent implements OnInit {
     })
   }
   /**
-   * Update Subscription Plan
+   * Update subscription plan
    */
   updateSubsccriptionPlan() {
     this.submitted = true
 
-    if (this.addSubscriptionPlanForm.invalid) {
+    if (this.subscriptionPlanFormGroup.invalid) {
       this._toastr.error('Please fill mandatory fields.')
       return
     }
-    let formData = this.addSubscriptionPlanForm.value
+    let formData = this.subscriptionPlanFormGroup.value
     const body = {
       id: this.subsPlanId,
       customerId: this.customerId,
@@ -325,7 +331,7 @@ export class AddSubscriptionComponent implements OnInit {
             if (res) {
               //Do your stuffs...
               this._toastr.success('Record update successfully.')
-              this.addSubscriptionPlanForm.reset()
+              this.subscriptionPlanFormGroup.reset()
               // this.showLoader = false
               this.submitted = false
               this._router.navigate(['admin/subscriptions-plans'])
@@ -342,6 +348,12 @@ export class AddSubscriptionComponent implements OnInit {
       }
     })
   }
+
+  /**
+   * Number only
+   * @param event
+   * @returns
+   */
   numberOnly(event: any): boolean {
     const charCode = event.which ? event.which : event.keyCode
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
@@ -351,13 +363,13 @@ export class AddSubscriptionComponent implements OnInit {
   }
 
   /**
-   * date filter for valid to date
+   * Date filter
    * @param d
    * @returns
    */
 
   dateFilter = (d: any | null) => {
-    let validFrom = this.addSubscriptionPlanForm.value.validfrom
+    let validFrom = this.subscriptionPlanFormGroup.value.validfrom
     return d > validFrom
   }
   /**
@@ -366,13 +378,63 @@ export class AddSubscriptionComponent implements OnInit {
    * @returns
    */
 
-  checkValidFrom(e: any) {
-    let validFrom = this.addSubscriptionPlanForm.value.validfrom
-    if (!validFrom) {
-      this._toastr.error('Please select valid from date first.')
-      this.addSubscriptionPlanForm.patchValue({ validto: '' })
+  // checkValidFrom(e: any) {
+  //   let validFrom = this.subscriptionPlanFormGroup.value.validfrom
+  //   if (!validFrom) {
+  //     this._toastr.error('Please select valid from date first.')
+  //     this.subscriptionPlanFormGroup.patchValue({ validto: '' })
+  //     return
+  //   }
+  // }
+  checkStartDate() {
+    if (
+      this.subscriptionPlanFormGroup.value.validfrom >
+      this.subscriptionPlanFormGroup.value.validto
+    ) {
+      this.subscriptionPlanFormGroup.patchValue({
+        validto: '',
+      })
       return
     }
+  }
+  checkValidFrom() {
+    let fromDate = this.subscriptionPlanFormGroup.value.validfrom
+    if (!fromDate) {
+      this._toastr.error('Please select From Date first.')
+      this.subscriptionPlanFormGroup.patchValue({ validto: '' })
+      return
+    }
+  }
+  dateFilterForStart = (d: any | null) => {
+    let selectedDate: any = this.datePipe.transform(
+      d,
+      'yyyy-MM-ddT' + this.getModifiedTime(),
+    )
+
+    let today = new Date()
+    let todayDate: any = this.datePipe.transform(
+      today,
+      'yyyy-MM-ddT' + this.getModifiedTime(),
+    )
+    return selectedDate >= todayDate
+  }
+  dateFilterForEnd = (d: any | null) => {
+    let selectedDate: any = this.datePipe.transform(
+      d,
+      'yyyy-MM-ddT' + this.getModifiedTime(),
+    )
+
+    let fromDate = this.subscriptionPlanFormGroup.value.validfrom
+    let validFromDate: any = this.datePipe.transform(
+      fromDate,
+      'yyyy-MM-ddT' + this.getModifiedTime(),
+    )
+    return selectedDate >= validFromDate
+  }
+  getModifiedTime() {
+    let date = new Date()
+    let time = this.datePipe.transform(date, 'HH:mm:ss')
+    return time
   }
   selectType(event: any, id: any) {
     if (event.isUserInput) {
@@ -386,5 +448,18 @@ export class AddSubscriptionComponent implements OnInit {
     let date = new Date()
     let time = this.datePipe.transform(date, 'HH:mm:ss')
     return time
+  }
+
+  /**
+   * Select unit
+   * @param event
+   * @param id
+   */
+  selectUnit(event: any, data: any) {
+    if (event.isUserInput) {
+      this.isUnit=true
+      this.selectedUnitId = data.id,
+      this.showPriceUnitTitle=data.unitName
+    }
   }
 }

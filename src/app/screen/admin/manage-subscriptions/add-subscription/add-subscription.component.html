@@ -3,7 +3,7 @@
     <div class="barbar-block11 layout">
       <h3 class="barbar-subtitle layout">{{ Title }}</h3>
     </div>
-    <form [formGroup]="addSubscriptionPlanForm">
+    <form [formGroup]="subscriptionPlanFormGroup">
       <div class="barbar-block12 layout">
         <div class="barbar-block13 layout">
           <div class="barbar-block13-item mbottom">
@@ -34,7 +34,7 @@
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addSubscriptionPlanForm.get('subscriptionPlanName')
+                    subscriptionPlanFormGroup.get('subscriptionPlanName')
                       ?.errors && submitted == true
                 }"
               >
@@ -46,10 +46,11 @@
               </div>
               <span
                 *ngIf="
-                  !addSubscriptionPlanForm.get('subscriptionPlanName')?.valid &&
-                  addSubscriptionPlanForm.get('subscriptionPlanName')
+                  !subscriptionPlanFormGroup.get('subscriptionPlanName')
+                    ?.valid &&
+                  subscriptionPlanFormGroup.get('subscriptionPlanName')
                     ?.touched &&
-                  addSubscriptionPlanForm.get('subscriptionPlanName')?.value
+                  subscriptionPlanFormGroup.get('subscriptionPlanName')?.value
                     .length > 40
                 "
                 class="error-mess"
@@ -59,10 +60,11 @@
               </span>
               <span
                 *ngIf="
-                  !addSubscriptionPlanForm.get('subscriptionPlanName')?.valid &&
-                  addSubscriptionPlanForm.get('subscriptionPlanName')
+                  !subscriptionPlanFormGroup.get('subscriptionPlanName')
+                    ?.valid &&
+                  subscriptionPlanFormGroup.get('subscriptionPlanName')
                     ?.touched &&
-                  addSubscriptionPlanForm.get('subscriptionPlanName')?.value
+                  subscriptionPlanFormGroup.get('subscriptionPlanName')?.value
                     .length == 0
                 "
                 class="error-mess"
@@ -71,20 +73,6 @@
               </span>
             </div>
           </div>
-
-          <!-- <div class="barbar-block13-spacer"></div>
-          <div class="barbar-block13-item">
-            <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">Location</h5>
-              <div class="barbar-box6 layout">
-                <input
-                  formControlName="location"
-                  type="text"
-                  class="barbar-input-text"
-                />
-              </div>
-            </div>
-          </div> -->
 
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item">
@@ -101,8 +89,9 @@
               </div>
               <span
                 *ngIf="
-                  addSubscriptionPlanForm.get('subscriptionDetails')?.touched &&
-                  addSubscriptionPlanForm.get('subscriptionDetails')?.value
+                  subscriptionPlanFormGroup.get('subscriptionDetails')
+                    ?.touched &&
+                  subscriptionPlanFormGroup.get('subscriptionDetails')?.value
                     .length > 250
                 "
                 class="error-mess"
@@ -123,10 +112,11 @@
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addSubscriptionPlanForm.get('currencyCode')?.errors &&
+                    subscriptionPlanFormGroup.get('currencyCode')?.errors &&
                     submitted == true
                 }"
               >
+                <mat-label>Select</mat-label>
                 <mat-select
                   [value]="selectedCurrency"
                   formControlName="currencyCode"
@@ -142,9 +132,9 @@
             </div>
             <span
               *ngIf="
-                !addSubscriptionPlanForm.get('currencyCode')?.valid &&
-                addSubscriptionPlanForm.get('currencyCode')?.touched &&
-                addSubscriptionPlanForm.get('currencyCode')?.value.length == 0
+                !subscriptionPlanFormGroup.get('currencyCode')?.valid &&
+                subscriptionPlanFormGroup.get('currencyCode')?.touched &&
+                subscriptionPlanFormGroup.get('currencyCode')?.value.length == 0
               "
               class="error-mess"
             >
@@ -162,15 +152,16 @@
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addSubscriptionPlanForm.get('validfrom')?.errors &&
+                    subscriptionPlanFormGroup.get('validfrom')?.errors &&
                     submitted == true
                 }"
               >
-                <!-- <mat-label>Choose a date</mat-label> -->
                 <input
                   matInput
                   [matDatepicker]="picker"
+                  [matDatepickerFilter]="dateFilterForStart"
                   formControlName="validfrom"
+                  (dateChange)="checkStartDate()"
                   readonly
                 />
                 <mat-datepicker-toggle
@@ -182,9 +173,9 @@
             </div>
             <span
               *ngIf="
-                !addSubscriptionPlanForm.get('validfrom')?.valid &&
-                addSubscriptionPlanForm.get('validfrom')?.touched &&
-                addSubscriptionPlanForm.get('validfrom')?.value.length == 0
+                !subscriptionPlanFormGroup.get('validfrom')?.valid &&
+                subscriptionPlanFormGroup.get('validfrom')?.touched &&
+                subscriptionPlanFormGroup.get('validfrom')?.value.length == 0
               "
               class="error-mess"
             >
@@ -202,7 +193,7 @@
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addSubscriptionPlanForm.get('validto')?.errors &&
+                    subscriptionPlanFormGroup.get('validto')?.errors &&
                     submitted == true
                 }"
               >
@@ -210,9 +201,10 @@
                 <input
                   matInput
                   [matDatepicker]="picker1"
+                  [matDatepickerFilter]="dateFilterForEnd"
                   formControlName="validto"
+                  (dateChange)="checkValidFrom()"
                   readonly
-                  (dateChange)="checkValidFrom($event)"
                 />
                 <mat-datepicker-toggle
                   matSuffix
@@ -223,9 +215,9 @@
             </div>
             <span
               *ngIf="
-                !addSubscriptionPlanForm.get('validto')?.valid &&
-                addSubscriptionPlanForm.get('validto')?.touched &&
-                addSubscriptionPlanForm.get('validto')?.value.length == 0
+                !subscriptionPlanFormGroup.get('validto')?.valid &&
+                subscriptionPlanFormGroup.get('validto')?.touched &&
+                subscriptionPlanFormGroup.get('validto')?.value.length == 0
               "
               class="error-mess"
             >
@@ -244,10 +236,11 @@
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addSubscriptionPlanForm.get('priceType')?.errors &&
+                    subscriptionPlanFormGroup.get('priceType')?.errors &&
                     submitted == true
                 }"
               >
+                <mat-label>Select</mat-label>
                 <mat-select
                   [value]="selectedPriceType"
                   formControlName="priceType"
@@ -264,9 +257,9 @@
             </div>
             <span
               *ngIf="
-                !addSubscriptionPlanForm.get('priceType')?.valid &&
-                addSubscriptionPlanForm.get('priceType')?.touched &&
-                addSubscriptionPlanForm.get('priceType')?.value.length == 0
+                !subscriptionPlanFormGroup.get('priceType')?.valid &&
+                subscriptionPlanFormGroup.get('priceType')?.touched &&
+                subscriptionPlanFormGroup.get('priceType')?.value.length == 0
               "
               class="error-mess"
             >
@@ -284,12 +277,17 @@
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addSubscriptionPlanForm.get('unit')?.errors &&
+                    subscriptionPlanFormGroup.get('unit')?.errors &&
                     submitted == true
                 }"
               >
+                <mat-label>Select</mat-label>
                 <mat-select [value]="selectedUnit" formControlName="unit">
-                  <mat-option *ngFor="let data of UnitList" [value]="data.id">
+                  <mat-option
+                    *ngFor="let data of UnitList"
+                    [value]="data.id"
+                    (onSelectionChange)="selectUnit($event, data)"
+                  >
                     {{ data.unitName }}
                   </mat-option>
                 </mat-select>
@@ -297,9 +295,9 @@
             </div>
             <span
               *ngIf="
-                !addSubscriptionPlanForm.get('unit')?.valid &&
-                addSubscriptionPlanForm.get('unit')?.touched &&
-                addSubscriptionPlanForm.get('unit')?.value.length == 0
+                !subscriptionPlanFormGroup.get('unit')?.valid &&
+                subscriptionPlanFormGroup.get('unit')?.touched &&
+                subscriptionPlanFormGroup.get('unit')?.value.length == 0
               "
               class="error-mess"
             >
@@ -312,12 +310,13 @@
               <h5 class="barbar-highlights layout">
                 Price
                 <span style="color: 'red';">*</span>
+                <span *ngIf="isUnit">({{ showPriceUnitTitle }})</span>
               </h5>
               <div
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addSubscriptionPlanForm.get('price')?.errors &&
+                    subscriptionPlanFormGroup.get('price')?.errors &&
                     submitted == true
                 }"
               >
@@ -330,9 +329,9 @@
               </div>
               <span
                 *ngIf="
-                  !addSubscriptionPlanForm.get('price')?.valid &&
-                  addSubscriptionPlanForm.get('price')?.touched &&
-                  addSubscriptionPlanForm.get('price')?.value.length > 10
+                  !subscriptionPlanFormGroup.get('price')?.valid &&
+                  subscriptionPlanFormGroup.get('price')?.touched &&
+                  subscriptionPlanFormGroup.get('price')?.value.length > 10
                 "
                 class="error-mess"
               >
@@ -340,9 +339,9 @@
               </span>
               <span
                 *ngIf="
-                  !addSubscriptionPlanForm.get('price')?.valid &&
-                  addSubscriptionPlanForm.get('price')?.touched &&
-                  addSubscriptionPlanForm.get('price')?.value.length == 0
+                  !subscriptionPlanFormGroup.get('price')?.valid &&
+                  subscriptionPlanFormGroup.get('price')?.touched &&
+                  subscriptionPlanFormGroup.get('price')?.value.length == 0
                 "
                 class="error-mess"
               >
@@ -355,6 +354,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">Subscription Group</h5>
               <mat-form-field class="barbar-box6 layout">
+                <mat-label>Select</mat-label>
                 <mat-select
                   [value]="selectedSubscriptionGroup"
                   formControlName="subGroup"

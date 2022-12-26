@@ -3,6 +3,7 @@
     <img
       src="../../../assets/images/myloader.gif"
       class="margin"
+      alt=""
       width="18%"
       height="22%"
     />
@@ -81,331 +82,674 @@
 <!--- REMOTE START TRANACTION -->
 <div class="set-charger1" >
   <div class="form-fields">
-    <form
-      *ngIf="commandType == 'start'"
-      [formGroup]="remoteStartForm"
-    >
-    <span class="close-icon-type" (click)="closeDialog()">X</span>
-      <div class="barbar-block12 layout">
-        <div class="barbar-block13 layout">
-          <div class="barbar-block13-item">
-            <div class="barbar-block14 layout user-form">
+  <form
+    *ngIf="commandType == 'start'"
+    [formGroup]="remoteStartForm"
+  >
+  <span class="close-icon-type" (click)="closeDialog()">X</span>
+    <div class="barbar-block12 layout">
+      <div class="barbar-block13 layout">
+        <div class="barbar-block13-item">
+          <div class="barbar-block14 layout user-form">
+            <span class="required">
+              Select Connector ID
+            </span>
+            <select
+              class="chargerType"
+              formControlName="connectorId"
+            >
+              <option value="">Connector ID</option>
+              <option *ngFor="let item of selectConnectorIds" [value]="item">
+                {{ item }} 
+              </option>
+            </select>
+            <br />
+            <div>
+              <span
+              *ngIf="commandType == 'start'"
+              class="mandatoryField"
+            >
+              Enter RFID
+              <span class="required-field">*</span>
+            </span>
+            <input
+              formControlName="idTag"
+              *ngIf="commandType == 'start'"
+              class="cust-list-text-body21 layout idTagInput"
+              #inputTag
+              class="idTag"
+            />
+            </div>
+            <button
+              class="charging-profile-btn"
+              style="color: #ffffff"
+              (click)="
+                enableFieldsStartTransaction('firstFields')
+              "
+            >
+              Charging Profile
+            </button>
+            <div formGroupName="chargingProfile">
+            <div *ngIf="firstFieldsRemoteStart">
               <span class="required">
-                Select Connector ID
-                <!-- <span class="required-field">*</span> -->
+                Enter Charging Profile Id
+                <span class="required-field">*</span>
+              </span>
+              <input
+              (keydown)="restrictZero($event)"
+                type="text"
+                formControlName="chargingProfileId"
+                placeholder=""
+                (keypress)="numberOnly($event)"
+                class="barbar-input-text"
+              />
+              <span class="required">
+                Enter TransactionId
+                <span class="required-field">*</span>
+              </span>
+              <input
+                type="text"
+                formControlName="transactionId"
+                placeholder=""
+                (keypress)="numberOnly($event)"
+                class="barbar-input-text"
+              />
+              <span class="required">
+                Enter Stack Level
+                <span class="required-field">*</span>
+              </span>
+              <input
+                type="text"
+                formControlName="stackLevel"
+                placeholder=""
+                (keypress)="numberOnly($event)"
+                class="barbar-input-text"
+              />
+
+              <div>
+                <span class="required">
+                  Select Charging Profile Purpose
+                  <span class="required-field">*</span>
+                </span>
+                <select
+                  class="chargerType"
+                  formControlName="chargingProfilePurpose"
+                >
+                  <option value="" disabled>
+                    Please Select
+                  </option>
+                  <option value="TxProfile" selected>
+                    TxProfile
+                  </option>
+                </select>
+              </div>
+              <div>
+                <span class="required">
+                  Select Charging Profile Kind
+                  <span class="required-field">*</span>
+                </span>
+                <select
+                  class="chargerType"
+                  formControlName="chargingProfileKind"
+                >
+                <option value="" disabled>
+                  Please Select
+                </option>
+                  <option
+                    *ngFor="let item of chargingProfileKind"
+                    value="{{ item }}"
+                  >
+                    {{ item }}
+                  </option>
+                </select>
+              </div>
+              
+              <div>
+                <span class="required">
+                  Select Recurrency Kind
+                </span>
+                <select
+                  class="chargerType"
+                  formControlName="recurrencyKind"
+                >
+                <option value="" disabled>Please Select</option>
+                  <option
+                    *ngFor="let item of recurrencyKind"
+                    value="{{ item }}"
+                  >
+                    {{ item }}
+                  </option>
+                </select>
+              </div>
+              
+              <div>
+                <span class="mandatoryField">
+                  Select Valid From
+                </span>
+                <br />
+                <mat-form-field class="mt-space start-date">
+                  <input
+                    matInput
+                    [ngxMatDatetimePicker]="pickerFrom"
+                    [ngxMatDatetimePickerFilter]="dateFilterForStart"
+                    formControlName="validFrom"
+                    style="color: black"
+                    readonly
+                    (dateChange)="checkStartDate()"
+                  />
+  
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="$any(pickerFrom)"
+                  ></mat-datepicker-toggle>
+                  <ngx-mat-datetime-picker
+                  #pickerFrom
+                  [showSpinners]="true"
+                  [showSeconds]="true"
+                  [touchUi]="false"
+                  [enableMeridian]="true"
+                ></ngx-mat-datetime-picker>
+                </mat-form-field>
+                <br />
+              </div>
+              <div>
+                <span class="mandatoryField">
+                  Select Valid To
+                </span>
+                <br />
+                <mat-form-field class="mt-space start-date">
+                  <input
+                    matInput
+                    [ngxMatDatetimePicker]="pickerTo"
+                    [ngxMatDatetimePickerFilter]="dateFilterForEnd"
+                    style="color: black"
+                    formControlName="validTo"
+                    readonly
+                    (dateChange)="
+                      checkValidFrom()
+                    "
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="$any(pickerTo)"
+                  ></mat-datepicker-toggle>
+                  <ngx-mat-datetime-picker
+                  #pickerTo
+                  [showSpinners]="true"
+                  [showSeconds]="true"
+                  [touchUi]="false"
+                  [enableMeridian]="true"
+                ></ngx-mat-datetime-picker>
+                </mat-form-field>
+              </div>
+              
+            </div>
+            <button
+              style="color: #ffffff"
+              *ngIf="firstFieldsRemoteStart"
+              (click)="
+                enableFieldsStartTransaction('secondFields')
+              "
+            >
+              Charging Schedule
+            </button>
+            <div *ngIf="secondFieldsRemoteStart">
+              <span class="required"> Enter Duration </span>
+              <input
+                type="text"
+                formControlName="duration"
+                placeholder=""
+                (keypress)="numberOnly($event)"
+                class="barbar-input-text"
+              />
+              <span class="mandatoryField">
+                Select Start Schedule
+              </span>
+              <br />
+              <mat-form-field class="mt-space start-date">
+                <input
+                  matInput
+                  [ngxMatDatetimePicker]="picker3"
+                  [ngxMatDatetimePickerFilter]="
+                    dateFilterForStartSchedule
+                  "
+                  style="color: black"
+                  [readonly]="true"
+                  formControlName="startSchedule"
+                />
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="$any(picker3)"
+                ></mat-datepicker-toggle>
+                <ngx-mat-datetime-picker
+                  #picker3
+                  [showSpinners]="true"
+                  [showSeconds]="true"
+                  [touchUi]="false"
+                  [enableMeridian]="true"
+                ></ngx-mat-datetime-picker>
+              </mat-form-field>
+              <br />
+              <span class="required">
+                Select Charging Rate Unit
+                <span class="required-field">*</span>
               </span>
               <select
                 class="chargerType"
-                formControlName="connectorId"
+                formControlName="chargingRateUnit"
               >
-                <option value="">Connector ID</option>
+              <option value="" disabled>
+                Please Select
+              </option>
                 <option
-                  *ngFor="let item of selectConnectorIds"
-                  [value]="item"
+                  *ngFor="let item of chargingRateUnit"
+                  value="{{ item }}"
                 >
                   {{ item }}
                 </option>
               </select>
-              <br>
-              <br>
-              <span
-                *ngIf="commandType == 'start'"
-                class="mandatoryField"
-              >
-                Enter RFID
+              <button
+              *ngIf="secondFieldsRemoteStart"
+              style="color: #ffffff;"
+              (click)="
+                enableFieldsStartTransaction('thirdFields')
+              "
+            >
+              Charging Schedule Period
+            </button>
+            <div *ngIf="thirdFieldsRemoteStart">
+              <span class="required">
+                Enter Start Period
                 <span class="required-field">*</span>
               </span>
               <input
-                formControlName="idTag"
-                *ngIf="commandType == 'start'"
-                class="cust-list-text-body21 layout idTagInput"
-                #inputTag
-                class="idTag"
+                type="text"
+                formControlName="startPeriod"
+                placeholder=""
+                (keypress)="numberOnly($event)"
+                class="barbar-input-text"
               />
-              <button
-                class="charging-profile-btn"
-                style="color: #ffffff;"
-                (click)="
-                enableFields('firstFields')
-                "
+              <span class="required">
+                Enter Limit
+                <span class="required-field">*</span>
+              </span>
+              <input
+                type="text"
+                formControlName="limit"
+                placeholder=""
+                (keypress)="numbersDecimalOnly($event)"
+                class="barbar-input-text"
+              />
+              <span class="required">
+                Enter Number Phases
+                <!-- <span class="required-field">*</span> -->
+              </span>
+              <select
+                class="chargerType"
+                formControlName="numberPhases"
               >
-                CS Charging Profiles
-              </button>
-              <div formGroupName="chargingProfile">
-                <div *ngIf="firstFieldsRemoteStart">
-                  <span class="required">
-                    Enter Charging Profile Id
-                    <span class="required-field">*</span>
-                  </span>
-                  <input
-                    type="text"
-                    formControlName="chargingProfileId"
-                    placeholder=""
-                    class="barbar-input-text"
-                  />
-                  <br />
-                  <span class="required">
-                    Enter transactionId
-                  </span>
-                  <input
-                    type="text"
-                    formControlName="transactionId"
-                    placeholder=""
-                    (keypress)="numberOnly($event)"
-                    class="barbar-input-text"
-                  />
-                  <br />
-                  <span class="required">
-                    Enter Start Period
-                    <span class="required-field">*</span>
-                  </span>
-                  <input
-                    type="text"
-                    formControlName="stackLevel"
-                    placeholder=""
-                    (keypress)="numberOnly($event)"
-                    class="barbar-input-text"
-                  />
-                  <br />
-  
-                  <span class="required">
-                    Select Charging Profile Purpose
-                    <span class="required-field">*</span>
-                  </span>
-                  <select
-                    class="chargerType"
-                    formControlName="chargingProfilePurpose"
-                  >
-                    <option value="">
-                      Charging Profile Purpose
-                    </option>
-                    <option
-                      *ngFor="let item of chargingProfilePurpose"
-                      value="{{ item }}"
-                    >
-                      {{ item }}
-                    </option>
-                  </select>
-                  <br />
-                  <span class="required">
-                    Select Charging Profile Kind
-                    <span class="required-field">*</span>
-                  </span>
-                  <select
-                    class="chargerType"
-                    formControlName="chargingProfileKind"
-                  >
-                    <option value="">
-                      Charging Profile Kind
-                    </option>
-                    <option
-                      *ngFor="let item of chargingProfileKind"
-                      value="{{ item }}"
-                    >
-                      {{ item }}
-                    </option>
-                  </select>
-                  
-                <br />
-                  <span class="required">
-                    Select Recurrency Kind
-                  </span>
-                  <select
-                    class="chargerType"
-                    formControlName="recurrencyKind"
-                  >
-                    <option value="">Recurrency Kind</option>
-                    <option
-                      *ngFor="let item of recurrencyKind"
-                      value="{{ item }}"
-                    >
-                      {{ item }}
-                    </option>
-                  </select>
-                  <br />
-                  <span class="mandatoryField">
-                    Select Valid From
-                  </span>
-                  <mat-form-field>
-                    <input
-                      matInput
-                      [ngxMatDatetimePicker]="picker1"
-                      style="color: black;"
-                      [readonly]="true"
-                      formControlName="validFrom"
-                    />
-                    <mat-datepicker-toggle
-                      matSuffix
-                      [for]="$any(picker1)"
-                    ></mat-datepicker-toggle>
-                    <ngx-mat-datetime-picker
-                      #picker1
-                      [showSpinners]="true"
-                      [showSeconds]="true"
-                      [touchUi]="false"
-                      [enableMeridian]="true"
-                    ></ngx-mat-datetime-picker>
-                  </mat-form-field>
-                  <br />
-                  <span class="mandatoryField">
-                    Select Valid TO
-                  </span>
-                  <mat-form-field>
-                    <input
-                      matInput
-                      [ngxMatDatetimePicker]="picker2"
-                      style="color: black;"
-                      [readonly]="true"
-                      formControlName="validTo"
-                    />
-                    <mat-datepicker-toggle
-                      matSuffix
-                      [for]="$any(picker2)"
-                    ></mat-datepicker-toggle>
-                    <ngx-mat-datetime-picker
-                      #picker2
-                      [showSpinners]="true"
-                      [showSeconds]="true"
-                      [touchUi]="false"
-                      [enableMeridian]="true"
-                    ></ngx-mat-datetime-picker>
-                  </mat-form-field>
-                </div>
-                <button
-                  style="color: #ffffff;"
-                  *ngIf="firstFieldsRemoteStart"
-                  (click)="
-                  enableFields('secondFields')
-                  "
+                <option value="" disabled>
+                  Please Select
+                </option>
+                <option
+                  *ngFor="let item of numberPhases"
+                  value="{{ item }}"
                 >
-                  Charging Schedule
-                </button>
-                <div *ngIf="secondFieldsRemoteStart">
-                  <span class="required">Enter Duration</span>
-                  <input
-                    type="text"
-                    formControlName="duration"
-                    placeholder=""
-                    (keypress)="numberOnly($event)"
-                    class="barbar-input-text"
-                  />
-  
-                  <br />
-                  <span class="mandatoryField">
-                    Select Start Schedule
-                  </span>
-                  <mat-form-field>
-                    <input
-                      matInput
-                      [ngxMatDatetimePicker]="picker3"
-                      style="color: black;"
-                      [readonly]="true"
-                      formControlName="startSchedule"
-                    />
-                    <mat-datepicker-toggle
-                      matSuffix
-                      [for]="$any(picker3)"
-                    ></mat-datepicker-toggle>
-                    <ngx-mat-datetime-picker
-                      #picker3
-                      [showSpinners]="true"
-                      [showSeconds]="true"
-                      [touchUi]="false"
-                      [enableMeridian]="true"
-                    ></ngx-mat-datetime-picker>
-                  </mat-form-field>
-                  <br />
-                  <span class="required">
-                    Select Charging Rate Unit
-                    <span class="required-field">*</span>
-                  </span>
-                  <select
-                    class="chargerType"
-                    formControlName="chargingRateUnit"
-                  >
-                    <option value="">Charging Rate Unit</option>
-                    <option
-                      *ngFor="let item of chargingRateUnit"
-                      value="{{ item }}"
-                    >
-                      {{ item }}
-                    </option>
-                  </select>
-                  <button
-                    *ngIf="secondFieldsRemoteStart"
-                    style="color: #ffffff;"
-                    (click)="
-                    enableFields('thirdFields')
-                    "
-                  >
-                    Charging Schedule Period
-                  </button>
-                  <div *ngIf="thirdFieldsRemoteStart">
-                    <span class="required">
-                      Enter Start Period
-                      <span class="required-field">*</span>
-                    </span>
-                    <input
-                      type="text"
-                      formControlName="startPeriod"
-                      placeholder=""
-                      (keypress)="numberOnly($event)"
-                      class="barbar-input-text"
-                    />
-                    <br />
-                    <span class="required">
-                      Enter Limit
-                      <span class="required-field">*</span>
-                    </span>
-                    <input
-                      type="text"
-                      formControlName="limit"
-                      placeholder=""
-                      (keypress)="numberOnly($event)"
-                      class="barbar-input-text"
-                    />
-                    <br />
-                    <span class="required">
-                      Enter Number Phases
-                    </span>
-                    <input
-                      type="text"
-                      formControlName="numberPhases"
-                      placeholder=""
-                      (keypress)="numberOnly($event)"
-                      class="barbar-input-text"
-                    />
-                  </div>
-                  <br />
-                  <span class="required">
-                    Enter Min Charging Rate
-                    <span class="required-field">*</span>
-                  </span>
-                  <input
-                    type="text"
-                    formControlName="minChargingRate"
-                    placeholder=""
-                    (keypress)="numberOnly($event)"
-                    class="barbar-input-text"
-                  />
-                </div>
-              </div>
+                  {{ item }}
+                </option>
+              </select>
+              <!-- <span class="required">
+                Enter Number Phases
+              </span>
+              <input
+              (keydown)="restrictZero($event)"
+                type="text"
+                formControlName="numberPhases"
+                placeholder=""
+                (keypress)="numberOnly($event)"
+                class="barbar-input-text"
+              /> -->
             </div>
+            <div>
+              <span class="required">
+                Enter Min Charging Rate
+              </span>
+              <input
+                type="text"
+                formControlName="minChargingRate"
+                placeholder=""
+                (keypress)="numbersDecimalOnly($event)"
+                class="barbar-input-text"
+              />
+            </div>
+            </div>
+          </div>
+
           </div>
         </div>
       </div>
-      <button
-        *ngIf="commandType == 'start'"
-        class="btnTypeCharger"
-        type="button"
-        (click)="remoteStartTransaction()"
-      >
-        Submit
-      </button>
-    </form>
+    </div>
+    <button
+      *ngIf="commandType == 'start'"
+      class="btnTypeCharger"
+      type="button"
+      (click)="remoteStartTransaction()"
+    >
+      Submit
+    </button>
+  </form>
+</div>
+</div>
+<!-- <div class="set-charger1">
+  <div class="form-fields">
+<form
+*ngIf="commandType == 'start'"
+[formGroup]="remoteStartForm"
+>
+<span class="close-icon-type" (click)="closeDialog()">X</span>
+<div class="barbar-block12 layout">
+  <div class="barbar-block13 layout">
+    <div class="barbar-block13-item">
+      <div class="barbar-block14 layout user-form">
+        <span class="required">
+          Select Connector ID
+        </span>
+        <select
+          class="chargerType"
+          formControlName="connectorId"
+        >
+          <option value="">Connector ID</option>
+          <option *ngFor="let item of selectConnectorIds" [value]="item">
+            {{ item }} 
+          </option>
+        </select>
+        <span
+          *ngIf="commandType == 'start'"
+          class="mandatoryField"
+        >
+          Enter RFID
+          <span class="required-field">*</span>
+        </span>
+        <input
+          formControlName="idTag"
+          *ngIf="commandType == 'start'"
+          class="cust-list-text-body21 layout idTagInput"
+          #inputTag
+          class="idTag"
+        />
+        <button
+          class="charging-profile-btn"
+          style="color: #ffffff"
+          (click)="
+            enableFieldsStartTransaction('firstFields')
+          "
+        >
+          Charging Profile
+        </button>
+        <div formGroupName="chargingProfile">
+        <div *ngIf="firstFieldsRemoteStart">
+          <span class="required">
+            Enter Charging Profile Id
+            <span class="required-field">*</span>
+          </span>
+          <input
+            type="text"
+            formControlName="chargingProfileId"
+            placeholder=""
+            (keypress)="numberOnly($event)"
+            class="barbar-input-text"
+          />
+          <span class="required">
+            Enter TransactionId
+          </span>
+          <input
+            type="text"
+            formControlName="transactionId"
+            placeholder=""
+            (keypress)="numberOnly($event)"
+            class="barbar-input-text"
+          />
+          <span class="required">
+            Enter Stack Level
+            <span class="required-field">*</span>
+          </span>
+          <input
+            type="text"
+            formControlName="stackLevel"
+            placeholder=""
+            (keypress)="numberOnly($event)"
+            class="barbar-input-text"
+          />
+
+          <span class="required">
+            Select Charging Profile Purpose
+            <span class="required-field">*</span>
+          </span>
+          <select
+            class="chargerType"
+            formControlName="chargingProfilePurpose"
+          >
+            <option value="" disabled>
+              Please Select
+            </option>
+            <option value="TxProfile" selected>
+              TxProfile
+            </option>
+          </select>
+          <span class="required">
+            Select Charging Profile Kind
+            <span class="required-field">*</span>
+          </span>
+          <select
+            class="chargerType"
+            formControlName="chargingProfileKind"
+          >
+          <option value="" disabled>
+            Please Select
+          </option>
+            <option
+              *ngFor="let item of chargingProfileKind"
+              value="{{ item }}"
+            >
+              {{ item }}
+            </option>
+          </select>
+          <span class="required">
+            Select Recurrency Kind
+          </span>
+          <select
+            class="chargerType"
+            formControlName="recurrencyKind"
+          >
+          <option value="" disabled>Please Select</option>
+            <option
+              *ngFor="let item of recurrencyKind"
+              value="{{ item }}"
+            >
+              {{ item }}
+            </option>
+          </select>
+          <br />
+          <span class="mandatoryField">
+            Select Valid From
+          </span>
+          <mat-form-field>
+            <input
+              matInput
+              [matDatepicker]="pickerFrom"
+              formControlName="validFrom"
+              style="color: black"
+              readonly
+              (dateChange)="checkStartDate()"
+            />
+
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="pickerFrom"
+            ></mat-datepicker-toggle>
+            <mat-datepicker
+              #pickerFrom
+            ></mat-datepicker>
+          </mat-form-field>
+          <br />
+          <span class="mandatoryField">
+            Select Valid To
+          </span>
+          <mat-form-field>
+            <input
+              matInput
+              [matDatepicker]="pickerTo"
+              [matDatepickerFilter]="dateFilterForEnd"
+              style="color: black"
+              formControlName="validTo"
+              readonly
+              (dateChange)="
+                checkValidFrom()
+              "
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="pickerTo"
+            ></mat-datepicker-toggle>
+            <mat-datepicker
+              #pickerTo
+            ></mat-datepicker>
+          </mat-form-field>
+          
+        </div>
+        <button
+          style="color: #ffffff"
+          *ngIf="firstFieldsRemoteStart"
+          (click)="
+            enableFieldsStartTransaction('secondFields')
+          "
+        >
+          Charging Schedule
+        </button>
+        <div *ngIf="secondFieldsRemoteStart">
+          <span class="required"> Enter Duration </span>
+          <input
+            type="text"
+            formControlName="duration"
+            placeholder=""
+            (keypress)="numberOnly($event)"
+            class="barbar-input-text"
+          />
+          <span class="mandatoryField">
+            Select Start Schedule
+          </span>
+          <mat-form-field class="mt-space">
+            <input
+              matInput
+              [ngxMatDatetimePicker]="picker3"
+              [ngxMatDatetimePickerFilter]="
+                dateFilterForStartSchedule
+              "
+              style="color: black"
+              [readonly]="true"
+              formControlName="startSchedule"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="$any(picker3)"
+            ></mat-datepicker-toggle>
+            <ngx-mat-datetime-picker
+              #picker3
+              [showSpinners]="true"
+              [showSeconds]="true"
+              [touchUi]="false"
+              [enableMeridian]="true"
+            ></ngx-mat-datetime-picker>
+          </mat-form-field>
+          <span class="required">
+            Select Charging Rate Unit
+            <span class="required-field">*</span>
+          </span>
+          <select
+            class="chargerType"
+            formControlName="chargingRateUnit"
+          >
+          <option value="" disabled>
+            Please Select
+          </option>
+            <option
+              *ngFor="let item of chargingRateUnit"
+              value="{{ item }}"
+            >
+              {{ item }}
+            </option>
+          </select>
+          <button
+            *ngIf="secondFieldsRemoteStart"
+            style="color: #ffffff"
+            (click)="
+              enableFieldsStartTransaction('thirdFields')
+            "
+          >
+            Charging Schedule Period
+          </button>
+          <div *ngIf="thirdFieldsRemoteStart">
+            <span class="required">
+              Enter Start Period
+              <span class="required-field">*</span>
+            </span>
+            <input
+              type="text"
+              formControlName="startPeriod"
+              placeholder=""
+              (keypress)="numberOnly($event)"
+              class="barbar-input-text"
+            />
+            <span class="required">
+              Enter Limit
+              <span class="required-field">*</span>
+            </span>
+            <input
+              type="text"
+              formControlName="limit"
+              placeholder=""
+              (keypress)="numbersDecimalOnly($event)"
+              class="barbar-input-text"
+            />
+            <span class="required">
+              Enter Number Phases
+            </span>
+            <input
+              type="text"
+              formControlName="numberPhases"
+              placeholder=""
+              (keypress)="numberOnly($event)"
+              class="barbar-input-text"
+            />
+          </div>
+          <span class="required">
+            Enter Min Charging Rate
+          </span>
+          <input
+            type="text"
+            formControlName="minChargingRate"
+            placeholder=""
+            (keypress)="numbersDecimalOnly($event)"
+            class="barbar-input-text"
+          />
+        </div>
+      </div>
+
+      </div>
+    </div>
   </div>
 </div>
-
+<button
+  *ngIf="commandType == 'start'"
+  class="btnTypeCharger"
+  type="button"
+  (click)="remoteStartTransaction()"
+>
+  Submit
+</button>
+</form>
+</div>
+</div> -->
 <!-- <ng-container *ngIf="commandType == 'start'">
   <span class="option" (click)="closeDialog()">X</span>
   <div class="form-field modal-actions">

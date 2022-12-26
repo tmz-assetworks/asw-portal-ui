@@ -14,6 +14,7 @@
                         <div class="cust-list-box7 layout">
                           <img
                             src="../../../../assets/icons/subscription-icon.svg"
+                            alt=""
                           />
                         </div>
                       </div>
@@ -54,6 +55,7 @@
                         <div class="cust-list-box7 layout">
                           <img
                             src="../../../../assets/icons/SubscriptionActive.svg"
+                            alt=""
                           />
                         </div>
                       </div>
@@ -94,6 +96,7 @@
                         <div class="cust-list-box7 layout">
                           <img
                             src="../../../../assets/icons/SubscriptionInActive.svg"
+                            alt=""
                           />
                         </div>
                       </div>
@@ -171,6 +174,7 @@
   </div>
   <div class="layout mat-data">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <caption></caption>
       <ng-container matColumnDef="CustomerName">
         <th mat-header-cell *matHeaderCellDef>ORGANIZATION NAME</th>
         <td mat-cell *matCellDef="let element">
@@ -180,7 +184,7 @@
 
       <!-- Name Column -->
       <ng-container matColumnDef="SubscriptionPlanName">
-        <th mat-header-cell *matHeaderCellDef>SUBSCRIPTION PLANS NAME</th>
+        <th mat-header-cell *matHeaderCellDef>SUBSCRIPTION PLAN NAME</th>
         <td mat-cell *matCellDef="let element">
           {{ element.subscriptionPlanName }}
         </td>
@@ -225,7 +229,8 @@
             title="Active"
           /> -->
           <img
-            src="../../../../assets/Admin-SideNav/Vehicles-Icons/Inactive.svg"
+            src="../../../../assets/Active.svg"
+            alt=""
             title="Inactive"
             (click)="changeStatusById(element.id, false)"
             *ngIf="element.isActive"
@@ -233,6 +238,7 @@
 
           <img
             src="../../../../assets/Admin-SideNav/Vehicles-Icons/Active-tik.svg"
+            alt=""
             title="Active"
             (click)="changeStatusById(element.id, true)"
             *ngIf="!element.isActive"
@@ -240,6 +246,7 @@
 
           <img
             src="../../../../assets/Admin-SideNav/pricing-Icons/View.svg"
+            alt=""
             style="cursor: pointer;"
             (click)="viewSubscriptionPan(element)"
             title="View"
@@ -264,6 +271,7 @@
   </div>
   <mat-paginator
     #paginator
+    [hidden]="!dataSource.data.length"
     (page)="pageChange($event)"
     [length]="totalCount"
     [pageSize]="pageSize"

@@ -1,19 +1,30 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core'
-import { FormBuilder, FormControl, FormGroup, Validators ,FormArray} from '@angular/forms'
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+  FormArray,
+} from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { ToastrService } from 'ngx-toastr'
 import { interval } from 'rxjs'
 
 import { StorageService } from 'src/app/service/storage.service'
 import { DiagnosticsService } from '../../../diagnostics/diagnostics.service'
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog'
 import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 import { AlertsService } from '../../../alerts/alerts.service'
 import { ChargerService } from '../../../charger/charger.service'
 import { SharedModule } from 'src/app/shared/shared.module'
-import { NgxMatDatetimePickerModule, NgxMatTimepickerModule,NgxMatNativeDateModule  } from '@angular-material-components/datetime-picker';
+import {
+  NgxMatDatetimePickerModule,
+  NgxMatTimepickerModule,
+  NgxMatNativeDateModule,
+} from '@angular-material-components/datetime-picker'
 
-import { TransactionDialogComponent } from 'src/app/component/dashboard/transaction-dialog/transaction-dialog.component';
+import { TransactionDialogComponent } from 'src/app/component/dashboard/transaction-dialog/transaction-dialog.component'
+import { DatePipe } from '@angular/common'
 @Component({
   selector: 'app-command-dialog',
   templateUrl: './command-dialog.component.html',
@@ -24,24 +35,25 @@ export class CommandDialogComponent implements OnInit {
   chargerId: any
   selectConnectorIds = [0]
   UserId: string | null
-  count = 1;
-  idTag = '';
-  intervalId: any;
+  count = 1
+  idTag = ''
+  intervalId: any
   connectorID: any
   transactionId: any
   isSubmitBtn: boolean = true
   showLoader: boolean = false
-  remoteStartForm: any;
-  chargingProfilePurpose: any;
-  firstFieldsRemoteStart:boolean= false;
-  thirdFieldsRemoteStart:boolean= false;
-  secondFieldsRemoteStart:boolean= false;
-
-  firstFields = false;
-  secondFields = false;
-  thirdFields = false;
-  isRemoteControl = false;
-  isRemoteStartTransaction = false;
+  remoteStartForm: any
+  chargingProfilePurpose: any
+  firstFieldsRemoteStart: boolean = false
+  thirdFieldsRemoteStart: boolean = false
+  secondFieldsRemoteStart: boolean = false
+  datePipe = new DatePipe('en-US')
+  numberPhases:any=[1,2,3]
+  firstFields = false
+  secondFields = false
+  thirdFields = false
+  isRemoteControl = false
+  isRemoteStartTransaction = false
   chargingProfileKind: string[]
   recurrencyKind: string[]
   chargingRateUnit = ['A', 'W']
@@ -55,17 +67,16 @@ export class CommandDialogComponent implements OnInit {
     public _chargerService: ChargerService,
     public _sharedModule: SharedModule,
     public dialog: MatDialog,
-    
-    
+
     public SharedMaterialModule: SharedMaterialModule,
-    private _fb: FormBuilder
+    private _fb: FormBuilder,
   ) {
     this.UserId = this._storageService.getLocalData('user_id')
     this.chargerId = data.chargeBoxId
     this.commandType = data.commandType
-    this.chargingProfilePurpose = this._diagnosticsService.getProfilePurpose();
-    this.chargingProfileKind = this._diagnosticsService.getProfileKind();
-    this.recurrencyKind = this._diagnosticsService.getrecurrencyKind();
+    this.chargingProfilePurpose = this._diagnosticsService.getProfilePurpose()
+    this.chargingProfileKind = this._diagnosticsService.getProfileKind()
+    this.recurrencyKind = this._diagnosticsService.getrecurrencyKind()
   }
 
   ngOnInit(): void {
@@ -73,8 +84,8 @@ export class CommandDialogComponent implements OnInit {
     this.remoteStart()
   }
 
-  @ViewChild('inputTag') inputTag: any;
-  @ViewChild('picker1') picker1: any;
+  @ViewChild('inputTag') inputTag: any
+  @ViewChild('picker1') picker1: any
 
   /**
    * changeAvailability
@@ -125,7 +136,6 @@ export class CommandDialogComponent implements OnInit {
       }
     })
   }
-  
 
   /**
    * Remote Start Transaction
@@ -140,7 +150,7 @@ export class CommandDialogComponent implements OnInit {
   //     const pBody = {
   //       connectorId: connectorId, // optional
   //       idTag: idTag,
-        
+
   //        chargingProfile: {
   //         chargingProfileId: 0,
   //         transactionId: 0,
@@ -163,7 +173,7 @@ export class CommandDialogComponent implements OnInit {
   //           ],
   //           minChargingRate: 0,
   //         },
-  //       }, 
+  //       },
   //     }
 
   //     this._diagnosticsService
@@ -216,7 +226,7 @@ export class CommandDialogComponent implements OnInit {
   //   }
   // }
 
-  submitted = false;
+  submitted = false
   // remoteStartTransaction() {
   //   this.submitted = true;
   //   if (this.remoteStartForm.invalid) {
@@ -230,7 +240,6 @@ export class CommandDialogComponent implements OnInit {
   //   }
   //   let chargingProfileData = this.remoteStartForm.value.chargingProfile;
 
-    
   //   const pBody = {
   //     connectorId: +this.remoteStartForm.value.connectorId,
   //     chargingProfile: {
@@ -285,30 +294,56 @@ export class CommandDialogComponent implements OnInit {
   // }
 
   remoteStartTransaction() {
-    this.count = 1;
-    this.idTag = this.inputTag.nativeElement.value;
+    this.count = 1
+    this.idTag = this.inputTag.nativeElement.value
+    let remoteStartTransactionData = this.remoteStartForm.value.chargingProfile
     // let pBody: any;
     // alert(this.idTag +'kk');
     if (this.chargerId == '') {
-      this._toastr.error('Please Enter Charger Id');
-      return;
+      this._toastr.error('Please Enter Charger Id')
+      return
     } else if (this.idTag == '') {
-      this._toastr.error('Please Enter RFID');
-      return;
+      this._toastr.error('Please Enter RFID')
+      return
     } else if (this.idTag.length > 20) {
-      this._toastr.error('RFID Must Be Less Than 20 Characters');
-      return;
+      this._toastr.error('RFID Must Be Less Than 20 Characters')
+      return
     }
-
-    /* const pBody = {
-      connectorId: this.connectorID, // optional
-      idTag: this.idTag
-    }  */
-    // pBody =
-    //   this.connectorID == 0
-    //     ? { idTag: this.idTag }
-    //     : { connectorId: this.connectorID, idTag: this.idTag };
-    let remoteStartTransactionData = this.remoteStartForm.value.chargingProfile;
+   else if (this.idTag != '' && this.firstFieldsRemoteStart==true) 
+    {  
+    if (remoteStartTransactionData.chargingProfileId == '') {
+      this._toastr.error('Please Enter Charging Profile Id')
+      return
+    }
+    if (remoteStartTransactionData.transactionId == '') {
+      this._toastr.error('Please Enter Transaction Id')
+      return
+    }
+    if (remoteStartTransactionData.stackLevel == '') {
+      this._toastr.error('Please Enter Stack Level')
+      return
+    }
+    if (remoteStartTransactionData.chargingProfilePurpose == '' ) {
+      this._toastr.error('Please Select Charging Profile Purpose')
+      return
+    }
+    if (remoteStartTransactionData.chargingProfileKind == '' ) {
+      this._toastr.error('Please Select Charging Profile Kind')
+      return
+    }
+    if (remoteStartTransactionData.chargingRateUnit == '') {
+      this._toastr.error('Please Select Charging Rate Unit')
+      return
+    }
+    if (remoteStartTransactionData.startPeriod == '') {
+      this._toastr.error('Please Enter Start Period')
+      return
+    }
+    if (remoteStartTransactionData.limit == '') {
+      this._toastr.error('Please Enter Limit')
+      return
+    }
+  }
     const pBody =
       this.firstFieldsRemoteStart == true
         ? {
@@ -321,47 +356,52 @@ export class CommandDialogComponent implements OnInit {
               transactionId: remoteStartTransactionData.transactionId
                 ? +remoteStartTransactionData.transactionId
                 : undefined,
-              stackLevel: +remoteStartTransactionData.stackLevel
-                ? remoteStartTransactionData.stackLevel
+              stackLevel: +remoteStartTransactionData.stackLevel,
+              chargingProfilePurpose: remoteStartTransactionData.chargingProfilePurpose
+                ? remoteStartTransactionData.chargingProfilePurpose
                 : undefined,
-              chargingProfilePurpose:
-                remoteStartTransactionData.chargingProfilePurpose
-                  ? remoteStartTransactionData.chargingProfilePurpose
-                  : undefined,
-              chargingProfileKind:
-                remoteStartTransactionData.chargingProfileKind
-                  ? remoteStartTransactionData.chargingProfileKind
-                  : undefined,
+              chargingProfileKind: remoteStartTransactionData.chargingProfileKind
+                ? remoteStartTransactionData.chargingProfileKind
+                : undefined,
               recurrencyKind: remoteStartTransactionData.recurrencyKind
                 ? remoteStartTransactionData.recurrencyKind
                 : undefined,
-              validFrom: remoteStartTransactionData.validFrom
-                ? remoteStartTransactionData.validFrom
+                validFrom:  remoteStartTransactionData.validFrom
+                ? this._diagnosticsService.convertToIso(
+                  remoteStartTransactionData.validFrom,
+                  )
                 : undefined,
-              validTo: remoteStartTransactionData.validTo
-                ? remoteStartTransactionData.validTo
+              validTo:  remoteStartTransactionData.validTo
+                ? this._diagnosticsService.convertToIso(
+                  remoteStartTransactionData.validTo,
+                  )
                 : undefined,
               chargingSchedule: {
-                duration: +remoteStartTransactionData.duration,
-                startSchedule: remoteStartTransactionData.startSchedule
-                  ? remoteStartTransactionData.startSchedule
+                duration: remoteStartTransactionData.duration
+                  ? +remoteStartTransactionData.duration
+                  : undefined,
+                  startSchedule: 
+                  remoteStartTransactionData.startSchedule
+                  ? this._diagnosticsService.convertToIso(
+                    remoteStartTransactionData.startSchedule,
+                    )
                   : undefined,
                 chargingRateUnit: remoteStartTransactionData.chargingRateUnit
                   ? remoteStartTransactionData.chargingRateUnit
                   : undefined,
                 chargingSchedulePeriod: {
                   startPeriod: remoteStartTransactionData.startPeriod
-                    ? remoteStartTransactionData.startPeriod
+                    ? +remoteStartTransactionData.startPeriod
                     : undefined,
                   limit: remoteStartTransactionData.limit
-                    ? remoteStartTransactionData.limit
+                    ? +remoteStartTransactionData.limit
                     : undefined,
                   numberPhases: remoteStartTransactionData.numberPhases
                     ? +remoteStartTransactionData.numberPhases
                     : undefined,
                 },
                 minChargingRate: remoteStartTransactionData.minChargingRate
-                  ? remoteStartTransactionData.minChargingRate
+                  ? +remoteStartTransactionData.minChargingRate
                   : undefined,
               },
             },
@@ -371,52 +411,49 @@ export class CommandDialogComponent implements OnInit {
               ? +this.remoteStartForm.value.connectorId
               : undefined,
             idTag: this.remoteStartForm.value.idTag,
-          };
+          }
 
-    this.showLoader = true;
+    this.showLoader = true
     this._diagnosticsService
       .RemoteStartTransaction(this.chargerId, pBody)
       .subscribe({
         next: (res) => {
-          this.showLoader = false;
-          // this.isRemoteControl = false;
-          // this.isRemoteStartTransaction = false;
+           // this.isRemoteControl = false;
           this.showLoader = true
-  this.showLoader = true
-            let cmsRequestPayload = res
-            setTimeout(() => this.cmsReply(cmsRequestPayload), 3000)
+          this.showLoader = true
+          let cmsRequestPayload = res
+          setTimeout(() => this.cmsReply(cmsRequestPayload), 3000)
         },
         error: (error) => {
-          this.showLoader = false;
+          this.showLoader = false
           if (
             error !== undefined &&
             error.url !== null &&
             error.url.includes('RemoteStartTransaction') &&
             error.error !== undefined
           ) {
-            this._toastr.error(JSON.stringify(error.error.error));
+            this._toastr.error(JSON.stringify(error.error.error))
           }
         },
-      });
+      })
   }
 
   enableFields(type: string) {
-    
     if (type == 'firstFields') {
-      this.firstFieldsRemoteStart = !this.firstFieldsRemoteStart;
+      this.firstFieldsRemoteStart = !this.firstFieldsRemoteStart
     } else if (type == 'secondFields') {
-      this.secondFieldsRemoteStart = !this.secondFieldsRemoteStart;
+      this.secondFieldsRemoteStart = !this.secondFieldsRemoteStart
     } else if (type == 'thirdFields') {
-      this.thirdFieldsRemoteStart = !this.thirdFieldsRemoteStart;
+      this.thirdFieldsRemoteStart = !this.thirdFieldsRemoteStart
     }
   }
 
   numberOnly(event: any): boolean {
-    const charCode = event.which ? event.which : event.keyCode;
+    const charCode = event.which ? event.which : event.keyCode
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-      return false;
+      return false
     }
-    return true;
+    return true
   }
 
   openMakePaymentDialog(id: any) {
@@ -426,11 +463,14 @@ export class CommandDialogComponent implements OnInit {
       height: '600px',
       // panelClass: 'my-dialog-container-class2',
       data: { id: id },
-    });
-    dialogRef.afterClosed().subscribe((result) => {});
+    })
+    dialogRef.afterClosed().subscribe((result) => {})
   }
 
   remoteStart() {
+    this.firstFieldsRemoteStart=false;
+    this.secondFieldsRemoteStart=false;
+    this.thirdFieldsRemoteStart=false;
     this.remoteStartForm = this._fb.group({
       connectorId: new FormControl(''),
       idTag: new FormControl('', Validators.required),
@@ -452,7 +492,7 @@ export class CommandDialogComponent implements OnInit {
         limit: new FormControl('', [Validators.required]),
         numberPhases: new FormControl(''),
       }),
-    });
+    })
   }
 
   handleError(error: any) {
@@ -462,93 +502,93 @@ export class CommandDialogComponent implements OnInit {
       error.error.error !== undefined &&
       error.error.error.length > 0
     ) {
-      this._toastr.error(error.error.error);
+      this._toastr.error(error.error.error)
     }
   }
 
-  setCallFunction(res: any, cmdType?: string) {
-    this.commandType = '';
-    this.count = 1;
-    let cmsRequestPayload = res;
-    this._toastr.success(JSON.stringify(res));
+  // setCallFunction(res: any, cmdType?: string) {
+  //   this.commandType = '';
+  //   this.count = 1;
+  //   let cmsRequestPayload = res;
+  //   this._toastr.success(JSON.stringify(res));
 
-    this.showLoader = true;
-    this.intervalId = setInterval(() => {
-      if (this.count < 4 && this.commandType == '') {
-        this._diagnosticsService.CmsReply(cmsRequestPayload).subscribe({
-          next: (res) => {
-            this.showLoader = false;
-            if (res == 404) {
-              this._toastr.error('Error Connecting...');
-              this.count = this.count + 1;
-            }
-            if (
-              cmdType == 'remoteStart' ||
-              cmdType == 'clear' ||
-              cmdType == 'reset' ||
-              cmdType == 'changeconfig' ||
-              cmdType == 'change' ||
-              cmdType == 'composite' ||
-              cmdType == 'stop' ||
-              cmdType == 'unlock' ||
-              cmdType == 'isReserveNow' ||
-              cmdType == 'triggerMessage' ||
-              cmdType == 'cancel' ||
-              cmdType == 'sendlocal' ||
-              cmdType == 'datatransfer' ||
-              cmdType == 'getClearCharging' ||
-              cmdType == 'setCharging'
-            ) 
-            {
-              if (res !== undefined && res.status !== undefined) {
-                this.showLoader = false;
-                this._toastr.success(res.status);
-                this.count = 4;
-                //this.GetOcppEventLog();
-              } else if (res !== undefined && res.meterStart !== undefined) {
-                this.showLoader = false;
-                this._toastr.success(JSON.stringify(res));
-                this.count = this.count + 1;
-                //this.GetOcppEventLog();
-              }
-            } else if (cmdType == 'getConfig') {
-              // unknownKey
-              if (res !== undefined && res.unknownKey !== undefined) {
-                this.count = 4;
-              }
-              //this.GetOcppEventLog();
-            } else if (cmdType == 'localList') {
-              // unknownKey
-              if (res !== undefined && res.listVersion !== undefined) {
-                this.count = 4;
-              }
-              //this.GetOcppEventLog();
-            } else if (cmdType == 'update') {
-              if (res == '{}') {
-                this.count = 4;
-              }
-            } else if (cmdType == 'getdiagnostics') {
-              if (
-                res !== undefined &&
-                res.fileName !== '' &&
-                res.fileName !== undefined
-              ) {
-                this.count = 4;
-              }
-            }
-          },
-          error: (error: any) => {
-            this.showLoader = false;
-            this.handleError(error);
-          },
-        });
-      }
-      if (this.count > 3) {
-        clearInterval(this.intervalId);
-        this.showLoader = false;
-      }
-    }, 3000);
-  }
+  //   this.showLoader = true;
+  //   this.intervalId = setInterval(() => {
+  //     if (this.count < 4 && this.commandType == '') {
+  //       this._diagnosticsService.CmsReply(cmsRequestPayload).subscribe({
+  //         next: (res) => {
+  //           this.showLoader = false;
+  //           if (res == 404) {
+  //             this._toastr.error('Error Connecting...');
+  //             this.count = this.count + 1;
+  //           }
+  //           if (
+  //             cmdType == 'remoteStart' ||
+  //             cmdType == 'clear' ||
+  //             cmdType == 'reset' ||
+  //             cmdType == 'changeconfig' ||
+  //             cmdType == 'change' ||
+  //             cmdType == 'composite' ||
+  //             cmdType == 'stop' ||
+  //             cmdType == 'unlock' ||
+  //             cmdType == 'isReserveNow' ||
+  //             cmdType == 'triggerMessage' ||
+  //             cmdType == 'cancel' ||
+  //             cmdType == 'sendlocal' ||
+  //             cmdType == 'datatransfer' ||
+  //             cmdType == 'getClearCharging' ||
+  //             cmdType == 'setCharging'
+  //           )
+  //           {
+  //             if (res !== undefined && res.status !== undefined) {
+  //               this.showLoader = false;
+  //               this._toastr.success(res.status);
+  //               this.count = 4;
+  //               //this.GetOcppEventLog();
+  //             } else if (res !== undefined && res.meterStart !== undefined) {
+  //               this.showLoader = false;
+  //               this._toastr.success(JSON.stringify(res));
+  //               this.count = this.count + 1;
+  //               //this.GetOcppEventLog();
+  //             }
+  //           } else if (cmdType == 'getConfig') {
+  //             // unknownKey
+  //             if (res !== undefined && res.unknownKey !== undefined) {
+  //               this.count = 4;
+  //             }
+  //             //this.GetOcppEventLog();
+  //           } else if (cmdType == 'localList') {
+  //             // unknownKey
+  //             if (res !== undefined && res.listVersion !== undefined) {
+  //               this.count = 4;
+  //             }
+  //             //this.GetOcppEventLog();
+  //           } else if (cmdType == 'update') {
+  //             if (res == '{}') {
+  //               this.count = 4;
+  //             }
+  //           } else if (cmdType == 'getdiagnostics') {
+  //             if (
+  //               res !== undefined &&
+  //               res.fileName !== '' &&
+  //               res.fileName !== undefined
+  //             ) {
+  //               this.count = 4;
+  //             }
+  //           }
+  //         },
+  //         error: (error: any) => {
+  //           this.showLoader = false;
+  //           this.handleError(error);
+  //         },
+  //       });
+  //     }
+  //     if (this.count > 3) {
+  //       clearInterval(this.intervalId);
+  //       this.showLoader = false;
+  //     }
+  //   }, 3000);
+  // }
 
   /**
    * Remote Stop Transaction
@@ -585,7 +625,7 @@ export class CommandDialogComponent implements OnInit {
           .CmsReply(cmsRequestPayload)
           .subscribe((res) => {
             if (res == 404) {
-              this._toastr.error('Error Connecting...')
+              // this._toastr.error('Error Connecting...')
               this._dialogRef.close()
             } else if (res.status == 'Accepted') {
               let msg = JSON.stringify(res.status)
@@ -604,7 +644,7 @@ export class CommandDialogComponent implements OnInit {
       } else {
         this.showLoader = false
         subscribe.unsubscribe()
-        this._toastr.error('Error Connecting Charger...')
+        this._toastr.error('No response from charger.')
       }
     })
   }
@@ -654,5 +694,104 @@ export class CommandDialogComponent implements OnInit {
 
   closeDialog() {
     this._dialogRef.close()
+  }
+  numbersDecimalOnly(event: any) {
+    let charCode = event.which ? event.which : event.keyCode
+    if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
+      return false
+    return true
+  }
+  enableFieldsStartTransaction(type: string) {
+    if (type == 'firstFields') {
+      this.firstFieldsRemoteStart = !this.firstFieldsRemoteStart
+    } else if (type == 'secondFields') {
+      this.secondFieldsRemoteStart = !this.secondFieldsRemoteStart
+    } else if (type == 'thirdFields') {
+      this.thirdFieldsRemoteStart = !this.thirdFieldsRemoteStart
+    }
+  }
+  dateFilterForStartSchedule = (d: any | null) => {
+    let selectedDate: any = this.datePipe.transform(
+      d,
+      'yyyy-MM-ddT' + this.getModifiedTime(),
+    )
+
+    let today = new Date()
+    let todayDate: any = this.datePipe.transform(
+      today,
+      'yyyy-MM-ddT' + this.getModifiedTime(),
+    )
+    return selectedDate >= todayDate
+  }
+  dateFilterForStart = (d: any | null) => {
+    let selectedDate: any = this.datePipe.transform(
+      d,
+      'yyyy-MM-ddT' + this.getModifiedTime(),
+    )
+
+    let today = new Date()
+    let todayDate: any = this.datePipe.transform(
+      today,
+      'yyyy-MM-ddT' + this.getModifiedTime(),
+    )
+    return selectedDate >= todayDate
+  }
+
+  /**
+   *
+   * @returns
+   *
+   * Get  modefied time
+   */
+
+  getModifiedTime() {
+    let date = new Date()
+    let time = this.datePipe.transform(date, 'HH:mm:ss')
+    return time
+  }
+  checkValidFrom() {
+    let fromDate = this.remoteStartForm.value.chargingProfile.validFrom
+    if (!fromDate) {
+      this._toastr.error('Please select From Date first.')
+      this.remoteStartForm.controls.chargingProfile.patchValue({ validTo: '' })
+      return
+    }
+  }
+  dateFilterForEnd = (d: any | null) => {
+    let selectedDate: any = this.datePipe.transform(
+      d,
+      'yyyy-MM-ddT' + this.getModifiedTime(),
+    )
+
+    let fromDate = this.remoteStartForm.value.chargingProfile.validFrom
+    let validFromDate: any = this.datePipe.transform(
+      fromDate,
+      'yyyy-MM-ddT' + this.getModifiedTime(),
+    )
+    return selectedDate >= validFromDate
+  }
+  /**
+   * check start date validation
+   */
+  checkStartDate() {
+    if (
+      this.remoteStartForm.value.chargingProfile.validFrom >
+      this.remoteStartForm.value.chargingProfile.validTo
+    ) {
+      this.remoteStartForm.controls.chargingProfile.patchValue({
+        validTo: '',
+      })
+      return
+    }
+  }
+
+  /**
+ * not Allow Zero in Input
+ * @param event 
+ */
+  restrictZero(event: any) {
+    if(event.target.value.length === 0 && event.key === "0"){
+      event.preventDefault()
+    }
   }
 }

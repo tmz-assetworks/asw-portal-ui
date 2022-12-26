@@ -88,7 +88,7 @@ $color_type_6: rgb(255, 255, 255);
     position: relative;
     height: min-content;
     margin: 0;
-    margin-bottom: 0px;
+    // margin-bottom: 0px;
     font: 700 20px/1.2 'Roboto', Helvetica, Arial, serif;
     color: #131b21;
     letter-spacing: 0px;
@@ -96,8 +96,8 @@ $color_type_6: rgb(255, 255, 255);
   }
   &subtitle {
     overflow: visible;
-    margin-top: 0px;
-    margin-bottom: 0px;
+   // margin-top: 0px;
+    //margin-bottom: 0px;
     margin: 0px 18px;
     @include font-face($font_type20, $color_type_2, 0px);
     white-space: pre-wrap;
@@ -669,7 +669,7 @@ $color_type_6: rgb(255, 255, 255);
     width: 1px;
     min-width: 1px;
     margin: 11px 0px;
-    width: 1px;
+    //width: 1px;
     // margin-left: 42px;
     margin: 15px 10px 34px 10px;
     background-color: rgb(141, 131, 131);
@@ -2442,7 +2442,7 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
   overflow: visible;
   margin-top: 0px;
   margin-bottom: 0px;
-  margin: 0px 0px;
+  // margin: 0px 0px;
   font: 700 20px/1.2 'Roboto', Helvetica, Arial, serif;
   color: #131b21;
   letter-spacing: 0px;
@@ -2582,3 +2582,26 @@ mat-expansion-panel-header.mat-expanded{
 .mat-icon {
   color: #ffffff;
 }
+
+@media (max-width: 1366px) {
+  .location-block23-item{
+    max-width: 1068px;
+  }
+  }
+
+  @media all and (min-width: 480px) and (max-width: 1199px) {
+    .location-block15.layout{
+      margin: 22px 0px 0px 5px;
+  }
+  }
+
+  @media (max-width: 1100px) {
+    .location-block23-item {
+      max-width: 795px;
+  }
+  }
+  @media (max-width: 768px) {
+    .location-block23-item {
+      max-width: 640px;
+  }
+  }

@@ -1,11 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
-import { StorageService } from 'src/app/service/storage.service';
-import { AdminService } from '../admin.service';
-// import { VehicleService } from './vehicle.service';
+import { Component, OnInit, ViewChild } from '@angular/core'
+import { MatPaginator } from '@angular/material/paginator'
+import { MatTableDataSource } from '@angular/material/table'
+import { Router } from '@angular/router'
+import { ToastrService } from 'ngx-toastr'
+import { StorageService } from 'src/app/service/storage.service'
+import { AdminService } from '../admin.service'
 
 @Component({
   selector: 'app-manage-vehicles',
@@ -13,17 +12,31 @@ import { AdminService } from '../admin.service';
   styleUrls: ['./manage-vehicles.component.scss'],
 })
 export class ManageVehiclesComponent implements OnInit {
-  vehicleList = [];
-  AllVechicleList = [];
-  isTableHasData: any;
-  totalCount: any;
-  pageSize: number = 10;
-  currentPage: number = 1;
-  totalPages: any;
-  pageSizeOptions = [10, 20, 100];
-  searchParam = '';
-  statusData = [];
-  dataSource = new MatTableDataSource<any>(this.AllVechicleList);
+  /**
+   * Declare variables
+   */
+  vehicleList = []
+  allVehicleList = []
+  isTableHasData: any
+  // totalCount: any
+  // pageSize: number = 10
+  // currentPage: number = 1
+  // totalPages: any
+  // pageSizeOptions = [10, 20, 100]
+  totalCount: any
+  pageSize: number = 10
+  currentPage: number = 1
+  totalPages: any
+  pageSizeOptions = [10, 20, 100]
+  searchParam = ''
+
+  dataSource = new MatTableDataSource<any>(this.allVehicleList)
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator
+
+  /**
+   * Define columns
+   */
   displayedColumns: string[] = [
     'VIN',
     'ModelYear',
@@ -36,116 +49,109 @@ export class ManageVehiclesComponent implements OnInit {
     'RFIDCardAssigned',
     'Status',
     'Action',
-  ];
-  statusDataValue: any;
-  statusDataKey: any;
-  statusDataValue1: any;
-  statusDataValue2: any;
-  UserId: string | null;
+  ]
+
+  UserId: string | null
+
+  statusDataValue1: any
+  statusDataValue: any
+  statusDataValue2: any
 
   constructor(
-    //private _vehicleService: VehicleService,
     private _router: Router,
     private _storageService: StorageService,
     public _adminService: AdminService,
-    private __toastr:ToastrService
+    private __toastr: ToastrService,
   ) {
     this.UserId = this._storageService.getLocalData('user_id')
-
-    let VehicleData = this._storageService.getSessionData('VehicleData');
-    this._storageService.getSessionData('IsSaveBtn');
-    if (VehicleData) {
-      this._storageService.removeSessionData('VehicleData');
-      this._storageService.removeSessionData('IsSaveBtn');
-    }
   }
 
   ngOnInit() {
-    this.GetVechicleList();
+    /**
+     * Api Call
+     */
+    this.getVehicleList()
   }
-
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-
-  searchKey: any;
 
   ngAfterViewInit() {
-    this.paginator._intl.itemsPerPageLabel = 'Rows per page';
+    this.paginator._intl.itemsPerPageLabel = 'Rows per page'
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.searchParam = filterValue;
-    this.GetVechicleList();
-  }
+  filterVehicle(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value
+    this.searchParam = filterValue
+    this.currentPage = 1
+    this.paginator.pageIndex = 0
 
-  /**
-   * view Location
-   */
-  viewLocation(data: any) {
-    this._storageService.setSessionData('VehicleData', data);
-    this._storageService.setSessionData('IsSaveBtn', false);
-    let viewLocationURL = `admin/vehicles/view-vehicle`;
-    this._router.navigateByUrl(viewLocationURL);
+    this.getVehicleList()
   }
 
   /**
-   * Edit Location
-   */
-  // editLocation(data: any) {
-  //   this._storageService.setSessionData('VehicleData', data);
-  //   this._storageService.setSessionData('IsSaveBtn', true);
-  //   // let editLocationURl=`admin/locations/edit-location/${locationId}`
-  //   let editLocationURl = `admin/vehicles/edit-vehicle`;
-  //   this._router.navigateByUrl(editLocationURl);
-  // }
-
-  /**
-   * Edit Vehicle
+   * Edit vehicle
    * @param id
    */
   editVehicle(id: number) {
-    this._router.navigateByUrl(`admin/vehicles/edit-vehicle?id=${id}`);
+    this._router.navigateByUrl(`admin/vehicles/edit-vehicle?id=${id}`)
   }
+  /**
+   *
+   * @param id
+   * View vehicle
+   */
 
   viewVehicle(id: number) {
-    this._router.navigateByUrl(`admin/vehicles/view-vehicle?id=${id}`);
+    this._router.navigateByUrl(`admin/vehicles/view-vehicle?id=${id}`)
   }
 
   /**
    * Get Vehicle List
    */
-  GetVechicleList() {
+  getVehicleList() {
     const body = {
       pageNumber: this.currentPage,
       searchParam: this.searchParam,
       pageSize: this.pageSize,
       orderBy: '',
       opratorid: '',
-    };
+    }
     this._adminService.GetVechicleList(body).subscribe((res) => {
       if (res.data !== undefined && res.data != null && res.data.length > 0) {
-        this.statusData = res.statusData;
-        this.statusDataValue = res.statusData[0];
-
-        this.statusDataValue1 = res.statusData[1];
-
-        this.statusDataValue2 = res.statusData[2];
-
-        this.totalCount = res.paginationResponse.totalCount;
-        this.totalPages = res.paginationResponse.totalPages;
-        this.pageSize = res.paginationResponse.pageSize;
-
-        this.AllVechicleList = res.data;
-        this.dataSource.data = res.data;
-        this.isTableHasData = false;
+        this.statusDataValue = res.statusData[0]
+        this.statusDataValue1 = res.statusData[1]
+        this.statusDataValue2 = res.statusData[2]
+        this.totalCount = res.paginationResponse.totalCount
+        this.totalPages = res.paginationResponse.totalPages
+        this.pageSize = res.paginationResponse.pageSize
+        this.allVehicleList = res.data
+        this.dataSource.data = res.data
+        this.isTableHasData = false
       } else {
-        this.dataSource.data = [];
-        this.isTableHasData = true;
+        this.dataSource.data = []
+        this.isTableHasData = true
       }
-
-
-    });
+    })
   }
+
+  // /**
+  //  *
+  //  * @param event
+  //  * Page event
+  //  */
+
+  // pageChange(event: any) {
+  //   if (event.pageSize !== this.pageSize) {
+  //     this.currentPage = 1
+  //     this.pageSize = event.pageSize
+  //     this.paginator.pageIndex = 0
+  //   } else {
+  //     this.currentPage =
+  //       event.previousPageIndex < event.pageIndex
+  //         ? this.currentPage + 1
+  //         : this.currentPage - 1
+  //   }
+
+  //   this.getVehicleList()
+  // }
 
   /**
    *
@@ -155,41 +161,44 @@ export class ManageVehiclesComponent implements OnInit {
 
   pageChange(event: any) {
     if (event.pageSize !== this.pageSize) {
-      this.currentPage = 1;
-      this.pageSize = event.pageSize;
-      this.paginator.pageIndex = 0;
+      this.currentPage = 1
+      this.pageSize = event.pageSize
+      this.paginator.pageIndex = 0
     } else {
       this.currentPage =
         event.previousPageIndex < event.pageIndex
           ? this.currentPage + 1
-          : this.currentPage - 1;
+          : this.currentPage - 1
     }
 
-    this.GetVechicleList();
+    this.getVehicleList()
   }
 
-   IsActiveVehicleById(id:any,status:any){
-    const pbody={
-      "id": id,
-      "isActive": status,
-      "modifiedBy":this.UserId
+  /**
+   * Make vehicle active/ inactive
+   * @param id
+   * @param status
+   */
+
+  IsActiveVehicleById(id: any, status: any) {
+    const pbody = {
+      id: id,
+      isActive: status,
+      modifiedBy: this.UserId,
     }
 
-    this._adminService.IsActiveVehicleById(pbody).subscribe(res=>{
+    this._adminService.IsActiveVehicleById(pbody).subscribe((res) => {
       if (res) {
         if (status == false) {
           this.__toastr.success('Record inactive successfully')
 
-         
-    this.GetVechicleList();
+          this.getVehicleList()
         } else {
           this.__toastr.success('Record active successfully')
-         
-    this.GetVechicleList();
+
+          this.getVehicleList()
         }
       }
-
     })
   }
-
 }

@@ -1,12 +1,11 @@
 <div class="barbar-block10 layout add-assets-main">
   <div class="barbar-flex layout">
     <div class="barbar-block11 layout">
-      <h3 class="barbar-subtitle layout">{{ assetTitle }}</h3>
+      <h3 class="barbar-subtitle layout">{{ title }}</h3>
     </div>
 
     <form [formGroup]="addAssetsForm">
       <div class="barbar-block12 layout">
-        <!-- <h4 class="barbar-highlights1 layout">Customer Information</h4> -->
         <div class="barbar-block13 layout" formGroupName="assetDetails">
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
@@ -23,7 +22,7 @@
                     submitted == true
                 }"
               >
-                <!-- <mat-label>Select</mat-label> -->
+                <mat-label>Select</mat-label>
                 <mat-select
                   [value]="selectedType"
                   formControlName="AssetCategory"
@@ -101,7 +100,7 @@
                 Asset ID
                 <span style="color: 'red';">*</span>
               </h5>
-              <!-- <div class="barbar-box6 layout"> -->
+
               <input
                 formControlName="AssetID"
                 type="text"
@@ -153,7 +152,7 @@
                     submitted == true
                 }"
               >
-                <!-- <mat-label>Select</mat-label> -->
+                <mat-label>Select</mat-label>
                 <mat-select
                   [value]="selectedLocation"
                   formControlName="Location"
@@ -166,11 +165,6 @@
                     {{ item.locationName }}
                   </mat-option>
                 </mat-select>
-                <!-- <mat-error
-                  *ngIf="addAssetsForm.get('assetDetails.Location')?.invalid"
-                >
-                  Location Name is required
-                </mat-error> -->
               </mat-form-field>
               <span
                 class="is-error"
@@ -202,7 +196,7 @@
                     submitted == true
                 }"
               >
-                <!-- <mat-label>Select</mat-label> -->
+                <mat-label>Select</mat-label>
                 <mat-select [value]="selectedStatus" formControlName="Status">
                   <mat-option
                     *ngFor="let item of statusList"
@@ -262,7 +256,7 @@
                     submitted == true
                 }"
               >
-                <!-- <mat-label>Select</mat-label> -->
+                <mat-label>Select</mat-label>
                 <mat-select [value]="selectedMakeCable" formControlName="Make">
                   <mat-option
                     *ngFor="let item of makeList"
@@ -300,7 +294,7 @@
                     submitted == true
                 }"
               >
-                <!-- <mat-label>Select</mat-label> -->
+                <mat-label>Select</mat-label>
                 <mat-select
                   [value]="selectedModelCable"
                   formControlName="Model"
@@ -376,7 +370,6 @@
                       ?.errors && submitted == true
                 }"
               >
-                <!-- <mat-label>Choose a date</mat-label> -->
                 <input
                   matInput
                   [matDatepicker]="WarrantyEnd"
@@ -384,7 +377,7 @@
                   readonly
                   (dateChange)="calDuration($event, 'cable')"
                 />
-                <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
+
                 <mat-datepicker-toggle
                   matSuffix
                   [for]="WarrantyEnd"
@@ -586,7 +579,7 @@
                     submitted == true
                 }"
               >
-                <!-- <mat-label>Select</mat-label> -->
+                <mat-label>Select</mat-label>
                 <mat-select [value]="selectedMakeModem" formControlName="Make">
                   <mat-option
                     *ngFor="let item of makeList"
@@ -624,7 +617,7 @@
                     submitted == true
                 }"
               >
-                <!-- <mat-label>Select</mat-label> -->
+                <mat-label>Select</mat-label>
                 <mat-select
                   [value]="selectedModelModem"
                   formControlName="Model"
@@ -713,7 +706,7 @@
                     submitted == true
                 }"
               >
-                <!-- <mat-label>Select</mat-label> -->
+                <mat-label>Select</mat-label>
                 <mat-select
                   [value]="selectedModemType"
                   formControlName="ModemType"
@@ -1081,7 +1074,7 @@
                       ?.errors && submitted == true
                 }"
               >
-                <!-- <mat-label>Select</mat-label> -->
+                <mat-label>Select</mat-label>
                 <mat-select
                   [value]="selectedMakePowerCabinet"
                   formControlName="Make"
@@ -1125,7 +1118,7 @@
                       ?.errors && submitted == true
                 }"
               >
-                <!-- <mat-label>Select</mat-label> -->
+                <mat-label>Select</mat-label>
                 <mat-select
                   [value]="selectedModelPowerCabinet"
                   formControlName="Model"
@@ -1461,7 +1454,7 @@
                     submitted == true
                 }"
               >
-                <!-- <mat-label>Select</mat-label> -->
+                <mat-label>Select</mat-label>
                 <mat-select [value]="selectedMakeRFID" formControlName="Make">
                   <mat-option
                     *ngFor="let item of makeList"
@@ -1500,7 +1493,7 @@
                     submitted == true
                 }"
               >
-                <!-- <mat-label>Select</mat-label> -->
+                <mat-label>Select</mat-label>
                 <mat-select [value]="selectedModelRFID" formControlName="Model">
                   <mat-option
                     *ngFor="let item of modelList"

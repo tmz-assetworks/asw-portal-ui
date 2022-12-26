@@ -337,7 +337,7 @@ export class LineChartComponent implements OnInit {
           type: 'value',
           // min: 0,
           // max: 10000,
-          name: 'Energy Used (Kwh)',
+          name: 'Energy Used (kWh)',
           nameLocation: 'middle',
           /* fontWeight: 'bolder', */
           nameGap: 50,
@@ -532,9 +532,7 @@ export class LineChartComponent implements OnInit {
         icon: 'square',
       },
       grid: {
-        left: '10%',
-        // left: '12%',
-        // right: '4%',
+        left: '14%',
         right: '5%',
         bottom: '8%',
         top: 50,
@@ -572,7 +570,7 @@ export class LineChartComponent implements OnInit {
       ],
       yAxis: {
         type: 'value',
-        name: 'Energy Used (Kwh)',
+        name: 'Energy Used (kWh)',
         nameLocation: 'middle',
         nameGap: 50,
         nameTextStyle: {
@@ -635,7 +633,7 @@ export class LineChartComponent implements OnInit {
         name: 'Yearly Subscription',
         nameLocation: 'middle',
         /* fontWeight: 'bolder', */
-        nameGap: 50,
+        nameGap: 90,
         nameTextStyle: {
           fontSize: 14,
           // fontWeight: 800,
@@ -756,7 +754,7 @@ export class LineChartComponent implements OnInit {
         icon: 'square',
       },
       grid: {
-        left: '10%',
+        left: '14%',
         right: '4%',
         // bottom: '8%',
         top: 50,
@@ -804,7 +802,7 @@ export class LineChartComponent implements OnInit {
         type: 'value',
         // min: 0,
         // max: 10000,
-        name: 'ENERGY USED (kwh)',
+        name: 'ENERGY USED (kWh)',
         nameLocation: 'middle',
         /* fontWeight: 'bolder', */
         nameGap: 60,
@@ -846,7 +844,7 @@ export class LineChartComponent implements OnInit {
       grid: {
         left: '10%',
         right: '4%',
-        // bottom: '8%',
+        bottom: '6%',
         top: 50,
         containLabel: true,
       },
@@ -882,7 +880,7 @@ export class LineChartComponent implements OnInit {
           type: 'category',
           name: 'Duration',
           nameLocation: 'middle',
-          nameGap: 50,
+          nameGap: 30,
           nameTextStyle: {
             fontSize: 14,
           },
@@ -1031,7 +1029,7 @@ export class LineChartComponent implements OnInit {
         icon: 'square',
       },
       grid: {
-        left: '8%',
+        left: '10%',
         right: '6%',
         bottom: '8%',
         top: 50,
@@ -1084,7 +1082,7 @@ export class LineChartComponent implements OnInit {
         name: 'Monthly Transaction',
         nameLocation: 'middle',
         /* fontWeight: 'bolder', */
-        nameGap: 50,
+        nameGap: 90,
         nameTextStyle: {
           // align: 'right',
           // verticalAlign: 'top',

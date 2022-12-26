@@ -15,6 +15,7 @@ import { AdminService } from '../../admin.service'
   styleUrls: ['./add-assets.component.scss'],
 })
 export class AddAssetsComponent implements OnInit {
+  //Declare variables
   typeId: any
   showCableForm: boolean = false
   showModemForm: boolean = false
@@ -25,7 +26,7 @@ export class AddAssetsComponent implements OnInit {
   showLoader: boolean = false
   UserId: string | null
   assetId: any
-  assetTitle = 'Add Assets'
+  title = 'Add Assets'
   isSave: boolean = true
   isUpdate: boolean = false
   submitted: boolean = false
@@ -61,15 +62,15 @@ export class AddAssetsComponent implements OnInit {
     let routePath = this._activatedRoute.snapshot.routeConfig?.path
 
     if (this.assetId && routePath != 'view-assets') {
-      this.assetTitle = 'Edit Assets'
+      this.title = 'Edit Assets'
       this.isUpdate = true
       this.isSave = false
     } else if (this.assetId && routePath == 'view-assets') {
-      this.assetTitle = 'View Assets'
+      this.title = 'View Assets'
       this.isSave = false
       this.addAssetsForm.disable()
     } else {
-      this.assetTitle = 'Add Assets'
+      this.title = 'Add Assets'
     }
   }
 
@@ -109,7 +110,7 @@ export class AddAssetsComponent implements OnInit {
       ]),
       Location: new FormControl('', Validators.required),
       Status: new FormControl('', Validators.required),
-      IsActive: new FormControl(false, Validators.required),
+      IsActive: new FormControl(true, Validators.required),
     }),
 
     assetCableDetails: new FormGroup({
@@ -203,6 +204,9 @@ export class AddAssetsComponent implements OnInit {
     }),
   })
   ngOnInit(): void {
+    /**
+     * API Call
+     */
     this.GetAllLocation() // CALL LOCATION API
     this.GetAllMakeMaster() // CALL MAKE API
     this.GetAllModelData(this.UserId) // CALL MODEL API
@@ -548,8 +552,9 @@ export class AddAssetsComponent implements OnInit {
       }
     })
   }
+
   /**
-   * UPDATE PADS
+   * Update pad details
    */
 
   updatePad() {
@@ -615,7 +620,7 @@ export class AddAssetsComponent implements OnInit {
   }
 
   /**
-   * CREATE CABLES
+   * Create cable details
    */
 
   createCable() {
@@ -683,7 +688,7 @@ export class AddAssetsComponent implements OnInit {
   }
 
   /**
-   * UPDATE CABLE
+   * Update cable details
    */
 
   updateCable() {
@@ -756,9 +761,8 @@ export class AddAssetsComponent implements OnInit {
   }
 
   /**
-   *
    * @param id
-   * GET PADS DATA BY ID
+   * Get Pad details By ID
    */
 
   getPadDetailsbyID(id: number) {
@@ -774,10 +778,10 @@ export class AddAssetsComponent implements OnInit {
       }
     })
   }
+
   /**
-   *
    * @param data
-   * SET ASSET DETAILS
+   * Set asset details
    */
   setAssetsDetails(data: any) {
     // this.addAssetsForm['controls']['assetDetails'].patchValue({
@@ -807,8 +811,9 @@ export class AddAssetsComponent implements OnInit {
       IsActive: data.isActive,
     })
   }
+
   /**
-   * CALCULATE DURATION CABLE wARRANTY START
+   * Calculate duration start
    */
 
   calDurationStart(event: any, type: string) {
@@ -947,8 +952,12 @@ export class AddAssetsComponent implements OnInit {
   }
 
   /**
-   * CALULATE DURATION CABLE wARRANTY END
+   * Duration cal end
+   * @param event
+   * @param type
+   * @returns
    */
+
   calDuration(event: any, type: string) {
     if (type == 'cable') {
       let startDate = this.addAssetsForm.value.assetCableDetails.WarrantyStart
@@ -1103,14 +1112,21 @@ export class AddAssetsComponent implements OnInit {
       }
     }
   }
-  //DATE FILTER CABLE
+
+  /**
+   *
+   * @param d
+   * @returns
+   * Date filter
+   */
+
   dateFilter = (d: any | null) => {
     // const date = new Date();
     // date.setDate(date.getDate() - 30);
     return d >= this.addAssetsForm.value.assetCableDetails.WarrantyStart
   }
   /**
-   * GET ALL MAKE
+   * Get all make
    */
 
   GetAllMakeMaster() {
@@ -1119,7 +1135,7 @@ export class AddAssetsComponent implements OnInit {
     })
   }
   /**
-   * GET ALL MODEL_LIST
+   * Get all model data
    * @param UserId
    */
 
@@ -1132,7 +1148,7 @@ export class AddAssetsComponent implements OnInit {
     })
   }
   /**
-   * SELECT MAKE CABLE
+   * Select cable make
    * @param id
    */
   selectMakeCable(event: any, id: number) {
@@ -1143,7 +1159,7 @@ export class AddAssetsComponent implements OnInit {
   }
 
   /**
-   * SELECT MODEL CABLE
+   *Select cable model
    * @param id
    */
 
@@ -1154,7 +1170,11 @@ export class AddAssetsComponent implements OnInit {
     this.selectedModelCable = id
   }
 
-  //CREATE POWER CABINET
+  /**
+   *
+   * @returns
+   * Create power cabinet details
+   */
 
   createPowerCabinet() {
     if (this.addAssetsForm.get('assetPowerCabinetDetails')?.invalid) {
@@ -1235,7 +1255,12 @@ export class AddAssetsComponent implements OnInit {
       }
     })
   }
-  // UPDATE POWER CABINET
+
+  /**
+   *
+   * @returns
+   * Update power cabinet details
+   */
 
   updatePowerCabinet() {
     if (this.addAssetsForm.get('assetPowerCabinetDetails')?.invalid) {
@@ -1318,7 +1343,11 @@ export class AddAssetsComponent implements OnInit {
       }
     })
   }
-  //Get POWER CABINET BY ID
+  /**
+   *
+   * @param id
+   * Get power cabinet details by ID
+   */
 
   getPowerCabinetById(id: number) {
     this._adminService.GetPowerCabinetById(id).subscribe((res) => {
@@ -1373,7 +1402,7 @@ export class AddAssetsComponent implements OnInit {
   /**
    *
    * @param id
-   * SELECT POWER CABINET
+   * Select power cabinet make
    */
   selectMakePowerCabinet(event: any, id: any) {
     if (!event.isUserInput) {
@@ -1382,6 +1411,15 @@ export class AddAssetsComponent implements OnInit {
     this.selectedMakePowerCabinet = id
   }
 
+  /**
+   *
+   * @param event
+   * @param id
+   * @returns
+   *
+   * Select power cabinet model
+   */
+
   selectModelPowerCabinet(event: any, id: any) {
     if (!event.isUserInput) {
       return
@@ -1389,7 +1427,11 @@ export class AddAssetsComponent implements OnInit {
     this.selectedModelPowerCabinet = id
   }
 
-  //CREATE RFID READER
+  /**
+   *
+   * @returns
+   * Create RFID readers details
+   */
 
   createRfIdReader() {
     if (this.addAssetsForm.get('assetRFIDReaderDetails')?.invalid) {
@@ -1460,7 +1502,11 @@ export class AddAssetsComponent implements OnInit {
     })
   }
 
-  // UPDATE RFID READER
+  /**
+   *
+   * @returns
+   * Update RFID reader details
+   */
 
   updateRFIDReader() {
     if (this.addAssetsForm.get('assetRFIDReaderDetails')?.invalid) {
@@ -1532,7 +1578,10 @@ export class AddAssetsComponent implements OnInit {
     })
   }
 
-  // GET RFID READER
+  /**
+   *
+   * Get RFID readers by ID
+   */
 
   getRfidReaderById(id: number) {
     this._adminService.GetRfIdReaderById(id).subscribe((res) => {
@@ -1568,7 +1617,7 @@ export class AddAssetsComponent implements OnInit {
   }
 
   /**
-   * SELECT MAKE RFID
+   * Select RFID make
    * @param id
    */
   selectMakeRFID(event: any, id: number) {
@@ -1579,7 +1628,7 @@ export class AddAssetsComponent implements OnInit {
   }
 
   /**
-   * SELECT MODEL RFID
+   * Select RFID model
    * @param id
    */
 
@@ -1590,6 +1639,13 @@ export class AddAssetsComponent implements OnInit {
     this.selectedModelRFID = id
   }
 
+  /**
+   *
+   * @param event
+   * @returns
+   * Number only
+   */
+
   numberOnly(event: any): boolean {
     const charCode = event.which ? event.which : event.keyCode
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
@@ -1599,7 +1655,7 @@ export class AddAssetsComponent implements OnInit {
   }
 
   /**
-   * SELECT MAKE MODEM
+   * Select modem make
    * @param id
    */
   selectMakeModem(event: any, id: number) {
@@ -1610,7 +1666,7 @@ export class AddAssetsComponent implements OnInit {
   }
 
   /**
-   * SELECT MODEL MODEM
+   * Select modem model
    * @param id
    */
 
@@ -1622,7 +1678,7 @@ export class AddAssetsComponent implements OnInit {
   }
 
   /**
-   * SELECT MODEL TYPE
+   * Select modem type
    * @param id
    */
 
@@ -1632,7 +1688,12 @@ export class AddAssetsComponent implements OnInit {
     }
     this.selectedModemType = id
   }
-  //CREATE MODEM
+
+  /**
+   *
+   * @returns
+   * Create modem
+   */
 
   createModem() {
     if (this.addAssetsForm.get('assetModemDetails')?.invalid) {
@@ -1711,7 +1772,11 @@ export class AddAssetsComponent implements OnInit {
     })
   }
 
-  // GET MODEM DETAILS BY ID
+  /**
+   *
+   * @param id
+   * Get modem details by ID
+   */
 
   getModemDetailsById(id: number) {
     this._adminService.GetModembyid(id).subscribe((res) => {
@@ -1768,7 +1833,11 @@ export class AddAssetsComponent implements OnInit {
     })
   }
 
-  // UPDATE MODEM
+  /**
+   *
+   * @returns
+   * Update modem details
+   */
 
   updateModem() {
     if (this.addAssetsForm.get('assetModemDetails')?.invalid) {
@@ -1850,12 +1919,9 @@ export class AddAssetsComponent implements OnInit {
   /**
    *
    * @param id
-   * Get Switch Gear details by ID
+   * Get switch gear details by ID
    */
   getSwitchGearDetailsById(id: number) {
-    // const pBody = {
-    //   switchGearId: +id,
-    // }
     this._adminService.GetSwitchGearById(id).subscribe((res) => {
       if (res.data) {
         this.setAssetsDetails(res.data)
@@ -1866,7 +1932,11 @@ export class AddAssetsComponent implements OnInit {
     })
   }
 
-  //CREATE SWITCH GEAR
+  /**
+   *
+   * @returns
+   * Create switch gear details
+   */
 
   createSwitchGear() {
     if (this.addAssetsForm.get('assetSwitchGearDetails')?.invalid) {
@@ -1926,7 +1996,10 @@ export class AddAssetsComponent implements OnInit {
     })
   }
 
-  // UPDATE SWITCH GEAR
+  /**
+   * @returns
+   * Update switch gear details
+   */
 
   updateSwitchGear() {
     if (this.addAssetsForm.get('assetSwitchGearDetails')?.invalid) {
@@ -1986,6 +2059,13 @@ export class AddAssetsComponent implements OnInit {
       }
     })
   }
+
+  /**
+   *
+   * @param event
+   * @returns
+   * Omit special characters
+   */
 
   omit_special_char(event: any) {
     let k = event.charCode //         k = event.keyCode;  (Both can be used)
@@ -2064,12 +2144,9 @@ export class AddAssetsComponent implements OnInit {
   }
 
   /**
-   *
    * @returns
-   *
-   * Get  modefied time
+   * Get modefied time
    */
-
   getModifiedTime() {
     let date = new Date()
     let time = this.datePipe.transform(date, 'HH:mm:ss')

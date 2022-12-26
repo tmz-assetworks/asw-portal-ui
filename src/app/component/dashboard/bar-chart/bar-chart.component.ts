@@ -188,7 +188,7 @@ export class BarChartComponent implements OnInit {
       this.option = {
         grid: {
           left: '14%',
-          right: '4%',
+          right: '5%',
           bottom: '8%',
           top: 50,
           containLabel: true,
@@ -221,7 +221,7 @@ export class BarChartComponent implements OnInit {
             nameLocation: 'middle',
 
             // fontWeight: 'bolder',
-            nameGap: 60,
+            nameGap: 50,
             // min: 0,
             // max: maxCountValue,
             nameTextStyle: {
@@ -694,8 +694,8 @@ export class BarChartComponent implements OnInit {
         },
       },
       grid: {
-        left: '10%',
-        right: '4%',
+        left: '14%',
+        right: '5%',
         bottom: '3%',
         containLabel: true,
       },
@@ -709,13 +709,13 @@ export class BarChartComponent implements OnInit {
       },
       yAxis: {
         type: 'value',
-        name: 'Energy Discharge (KWh) Till Date',
+        name: 'Energy Discharge (kWh) Till Date',
         // min: 0,
         // max: maxMeterdedValue,
 
         nameLocation: 'middle',
         /* fontWeight: 'bolder', */
-        nameGap: 80,
+        nameGap: 50,
         nameTextStyle: {
           // align: 'right',
           verticalAlign: 'top',
@@ -814,7 +814,12 @@ export class BarChartComponent implements OnInit {
         icon: 'square',
       },
       grid: {
-        left: '14%',
+        // left: '14%',
+        left: '10%',
+        right: '4%',
+        bottom: '12%',
+        top: 50,
+        containLabel: true,
       },
       tooltip: {
         show: true,
@@ -851,12 +856,11 @@ export class BarChartComponent implements OnInit {
         type: 'value',
         name: 'Monthly Subscription',
         nameLocation: 'middle',
-        nameGap: 60,
-        nameTextStyle: {
-          // align: 'right',
-          verticalAlign: 'top',
-          fontSize: 14,
-        },
+        nameGap: 90,
+        // nameTextStyle: {
+        //   verticalAlign: 'top',
+        //   fontSize: 10,
+        // },
         axisLabel: {
           formatter: '${value}',
           // align: 'center'
@@ -885,7 +889,11 @@ export class BarChartComponent implements OnInit {
         icon: 'square',
       },
       grid: {
-        left: '16%',
+        left: '10%',
+        right: '4%',
+        bottom: '12%',
+        top: 50,
+        containLabel: true,
       },
       tooltip: {
         show: true,
@@ -901,7 +909,7 @@ export class BarChartComponent implements OnInit {
         data: xAxisData,
         name: 'Plans',
         nameLocation: 'middle',
-        nameGap: 45,
+        nameGap: 70,
         //nameGap: 25,
         axisTick: { show: false },
 
@@ -913,7 +921,7 @@ export class BarChartComponent implements OnInit {
         type: 'value',
         name: 'Count',
         nameLocation: 'middle',
-        nameGap: 65,
+        nameGap: 90,
         nameTextStyle: {
           // align: 'right',
           verticalAlign: 'top',
@@ -1099,9 +1107,9 @@ export class BarChartComponent implements OnInit {
     ])
     return {
       grid: {
-        left: '8%',
-        right: '6%',
-        bottom: '8%',
+        left: '10%',
+        right: '4%',
+        bottom: '12%',
         top: 50,
         containLabel: true,
       },
@@ -1155,7 +1163,7 @@ export class BarChartComponent implements OnInit {
           },
 
           /* fontWeight: 'bolder', */
-          nameGap: 60,
+          nameGap: 90,
           // min: 0,
           // max: 1000,
           nameTextStyle: {

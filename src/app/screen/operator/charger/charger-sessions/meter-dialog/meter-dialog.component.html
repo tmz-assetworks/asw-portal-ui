@@ -1,0 +1,8 @@
+<button class="close" mat-button [mat-dialog-close]="true">X</button>
+<br />
+<br />
+<app-meter-chart
+  *ngIf="data.usage !== ''"
+  [chartType]="'session-meter'"
+  [meterReadingData]="data.usage"
+></app-meter-chart>

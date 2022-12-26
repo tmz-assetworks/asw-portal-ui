@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table'
 import { animate, state, style, transition, trigger } from '@angular/animations'
 import { AlertsService } from './alerts.service'
 import { StorageService } from 'src/app/service/storage.service'
+import { UserProfileService } from '../../user-profile/user-profile.service'
 
 @Component({
   selector: 'app-alerts',
@@ -21,6 +22,9 @@ import { StorageService } from 'src/app/service/storage.service'
   ],
 })
 export class AlertsComponent implements OnInit {
+  /**
+   * declare variables
+   */
   UserId: string | null
   totalCount: any
   pageSize: number = 10
@@ -32,31 +36,30 @@ export class AlertsComponent implements OnInit {
   expandedElement: any
   searchParam = ''
 
-  
   constructor(
     public _alertsService: AlertsService,
     private _storageService: StorageService,
+    private _userProfileService: UserProfileService,
   ) {
-    
     this.UserId = this._storageService.getLocalData('user_id')
-    
-    
   }
-  
+
   @ViewChild(MatPaginator) paginator!: MatPaginator
 
   ngOnInit(): void {
+    // API Call
     this.GetOperatorAlerts()
-  
   }
 
   ngAfterViewInit() {
     this.paginator._intl.itemsPerPageLabel = 'Rows per page'
   }
-  /**
-   * Table Source and Columns
-   */
+
   dataSource = new MatTableDataSource<any>(this.alertList)
+
+  /**
+   * Table columns
+   */
 
   displayedColumns = [
     'ChargeBoxId',
@@ -81,7 +84,7 @@ export class AlertsComponent implements OnInit {
   }
 
   /**
-   * Get Operator Alerts
+   * Get operator alerts
    */
 
   GetOperatorAlerts() {
@@ -98,7 +101,6 @@ export class AlertsComponent implements OnInit {
     }
     this._alertsService.GetOperatorAlerts(pBody).subscribe((res: any) => {
       if (res.data !== undefined && res.data != null && res.data.length > 0) {
-
         this.totalCount = res.paginationResponse.totalCount
         this.totalPages = res.paginationResponse.totalPages
         this.pageSize = res.paginationResponse.pageSize
@@ -115,7 +117,7 @@ export class AlertsComponent implements OnInit {
   /**
    *
    * @param event
-   * Page Event
+   * Page event
    */
 
   pageChange(event: any) {
@@ -133,23 +135,22 @@ export class AlertsComponent implements OnInit {
     this.GetOperatorAlerts()
   }
 
-/**
- * update isRead get Operator Alert
- * @param data 
- */
-  UpdateNotificationIsRead(data:any){
-    const body={
+  /**
+   * Update alerts when read.
+   * @param data
+   */
+  UpdateNotificationIsRead(data: any) {
+    const body = {
       id: data.eventLogId,
-      flag: data.flag
+      flag: data.flag,
     }
-    this._alertsService.UpdateNotificationIsRead(body).subscribe((res: any)=>{
-
+    this._alertsService.UpdateNotificationIsRead(body).subscribe((res: any) => {
       let obj1 = this.dataSource.data.find(
-        (o) => o.eventLogId == data.eventLogId
-      );
-
-      let index = this.dataSource.data.indexOf(obj1);
-      this.dataSource.data.fill((obj1.isRead = true), index, index++);
+        (o) => o.eventLogId == data.eventLogId,
+      )
+      let index = this.dataSource.data.indexOf(obj1)
+      this.dataSource.data.fill((obj1.isRead = true), index, index++)
+      this._userProfileService.alertSubject.next('Notication is read')
     })
   }
 }

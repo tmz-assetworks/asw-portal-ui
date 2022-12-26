@@ -6,6 +6,7 @@
   <div>
     <img
       src="../../../assets/images/myloader.gif"
+      alt=""
       class="margin"
       width="18%"
       height="22%"
@@ -271,19 +272,21 @@
                           <ng-container *ngIf="isTableHasData">
                             <p class="text-center">No record found</p>
                           </ng-container>
-                          <mat-paginator
-                            #paginatorCharger
-                            [pageSizeOptions]="pageSizeOptions"
-                            (page)="pageChange($event)"
-                            [length]="totalCount"
-                            [pageSize]="pageSize"
-                          ></mat-paginator>
+                          
                           <!-- <mat-paginator
                             [length]="100"
                             [pageSizeOptions]="[10, 20, 100]"
                             aria-label="Rows per page"
                           ></mat-paginator> -->
                         </div>
+                        <mat-paginator
+                            #paginator
+                            [hidden]="!dataSource.filteredData.length" 
+                            (page)="pageChange($event)"
+                            [length]="totalCount"
+                            [pageSize]="pageSize"
+                            [pageSizeOptions]="pageSizeOptions"
+                          ></mat-paginator>
                       </div>
                     </div>
                   </div>

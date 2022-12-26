@@ -645,3 +645,15 @@ input[type='number'] {
   pointer-events: none;
   opacity: 1px;
 }
+
+select.simple-control:disabled {
+  /*For FireFox*/
+  -webkit-appearance: none;
+  /*For Chrome*/
+  -moz-appearance: none;
+}
+    
+/*For IE10+*/
+select:disabled.simple-control::-ms-expand {
+  display: none;
+}
