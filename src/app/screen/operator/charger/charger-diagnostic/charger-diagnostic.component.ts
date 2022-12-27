@@ -2215,7 +2215,7 @@ export class ChargerDiagnosticComponent implements OnInit {
   createSetCharging() {
     this.setChargingForm = this._fb.group({
       connectorId: new FormControl('', Validators.required),
-      chargingProfile: new FormGroup({
+      csChargingProfiles: new FormGroup({
         // chargingProfile: new FormControl('', Validators.required),
         chargingProfileId: new FormControl('', [Validators.required]),
         transactionId: new FormControl(''),
@@ -2256,7 +2256,7 @@ export class ChargerDiagnosticComponent implements OnInit {
       this.toastr.error('Please Enter Charger Id')
       return
     }
-    let chargingProfileData = this.setChargingForm.value.chargingProfile
+    let chargingProfileData = this.setChargingForm.value.csChargingProfiles
     if (this.setChargingForm.value.connectorId == '') {
       this.toastr.error('Please Select Connector Id')
       return
@@ -2293,7 +2293,7 @@ export class ChargerDiagnosticComponent implements OnInit {
 
     const pBody = {
       connectorId: +this.setChargingForm.value.connectorId,
-      chargingProfile: {
+      csChargingProfiles: {
         chargingProfileId: +chargingProfileData.chargingProfileId,
         transactionId: chargingProfileData.transactionId
           ? +chargingProfileData.transactionId

@@ -2264,7 +2264,7 @@ export class DiagnosticsComponent implements OnInit {
   createSetCharging() {
     this.setChargingForm = this._fb.group({
       connectorId: new FormControl('', Validators.required),
-      chargingProfile: new FormGroup({
+      csChargingProfiles: new FormGroup({
         //chargingProfile: new FormControl('', Validators.required),
         chargingProfileId: new FormControl('', [Validators.required]),
         transactionId: new FormControl(''),
@@ -2307,10 +2307,10 @@ export class DiagnosticsComponent implements OnInit {
    */
   checkStartDate() {
     if (
-      this.remoteStartForm.value.chargingProfile.validFrom >
-      this.remoteStartForm.value.chargingProfile.validTo
+      this.remoteStartForm.value.csChargingProfiles.validFrom >
+      this.remoteStartForm.value.csChargingProfiles.validTo
     ) {
-      this.remoteStartForm.controls.chargingProfile.patchValue({
+      this.remoteStartForm.controls.csChargingProfiles.patchValue({
         validTo: '',
       })
       return
@@ -2318,10 +2318,10 @@ export class DiagnosticsComponent implements OnInit {
   }
   checkStartDateForSetCharging() {
     if (
-      this.setChargingForm.value.chargingProfile.validFrom >
-      this.setChargingForm.value.chargingProfile.validTo
+      this.setChargingForm.value.csChargingProfiles.validFrom >
+      this.setChargingForm.value.csChargingProfiles.validTo
     ) {
-      this.setChargingForm.controls.chargingProfile.patchValue({
+      this.setChargingForm.controls.csChargingProfiles.patchValue({
         validTo: '',
       })
       return
@@ -2335,18 +2335,18 @@ export class DiagnosticsComponent implements OnInit {
    */
 
   checkValidFrom() {
-    let fromDate = this.remoteStartForm.value.chargingProfile.validFrom
+    let fromDate = this.remoteStartForm.value.csChargingProfiles.validFrom
     if (!fromDate) {
       this.toastr.error('Please select From Date first.')
-      this.remoteStartForm.controls.chargingProfile.patchValue({ validTo: '' })
+      this.remoteStartForm.controls.csChargingProfiles.patchValue({ validTo: '' })
       return
     }
   }
   checkValidFromForSetCharging() {
-    let fromDate = this.setChargingForm.value.chargingProfile.validFrom
+    let fromDate = this.setChargingForm.value.csChargingProfiles.validFrom
     if (!fromDate) {
       this.toastr.error('Please select From Date first.')
-      this.setChargingForm.controls.chargingProfile.patchValue({ validTo: '' })
+      this.setChargingForm.controls.csChargingProfiles.patchValue({ validTo: '' })
       return
     }
   }
@@ -2357,7 +2357,7 @@ export class DiagnosticsComponent implements OnInit {
       'yyyy-MM-ddT' + this.getModifiedTime(),
     )
 
-    let fromDate = this.remoteStartForm.value.chargingProfile.validFrom
+    let fromDate = this.remoteStartForm.value.csChargingProfiles.validFrom
     let validFromDate: any = this.datePipe.transform(
       fromDate,
       'yyyy-MM-ddT' + this.getModifiedTime(),
@@ -2395,7 +2395,7 @@ export class DiagnosticsComponent implements OnInit {
       d,
       'yyyy-MM-ddT' + this.getModifiedTime(),
     )
-    let fromDate = this.setChargingForm.value.chargingProfile.validFrom
+    let fromDate = this.setChargingForm.value.csChargingProfiles.validFrom
     let validFromDate: any = this.datePipe.transform(
       fromDate,
       'yyyy-MM-ddT' + this.getModifiedTime(),
@@ -2453,7 +2453,7 @@ export class DiagnosticsComponent implements OnInit {
       this.toastr.error('Please Enter Charger Id')
       return
     }
-    let chargingProfileData = this.setChargingForm.value.chargingProfile
+    let chargingProfileData = this.setChargingForm.value.csChargingProfiles
     if (this.setChargingForm.value.connectorId == '') {
       this.toastr.error('Please Select Connector Id')
       return
@@ -2489,7 +2489,7 @@ export class DiagnosticsComponent implements OnInit {
     }
     const pBody = {
       connectorId: +this.setChargingForm.value.connectorId,
-      chargingProfile: {
+      csChargingProfiles: {
         chargingProfileId: +chargingProfileData.chargingProfileId,
         transactionId: chargingProfileData.transactionId
           ? +chargingProfileData.transactionId
