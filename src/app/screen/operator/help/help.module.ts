@@ -7,7 +7,7 @@ import { HelpComponent } from './help.component'
 const routes: Routes = [{ path: '', component: HelpComponent }]
 
 @NgModule({
-  imports: [CommonModule, RouterModule.forChild(routes),SharedMaterialModule,],
+  imports: [CommonModule, RouterModule.forChild(routes), SharedMaterialModule],
   exports: [],
   declarations: [HelpComponent],
   providers: [],

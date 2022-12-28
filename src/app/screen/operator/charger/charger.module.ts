@@ -11,14 +11,17 @@ import { ChargerEventComponent } from './charger-event/charger-event.component'
 import { SharedModule } from 'src/app/shared/shared.module'
 import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 import { GraphDetailComponent } from '../graph-detail/graph-detail.component'
-// import { TabsBarComponent } from '../../../component/diagnostic/tabs-bar/tabs-bar.component'
-// import { TabComponent } from '../../../component/diagnostic/tab/tab.component'
-// import { DiagWidgetComponent } from '../../../component/diagnostic/diag-widget/diag-widget.component'
-// import { DiagTableComponent } from '../../../component/diagnostic/diag-table/diag-table.component'
-// import { DiagWidgetBarComponent } from '../../../component/diagnostic/diag-widget-bar/diag-widget-bar.component';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatInputModule } from '@angular/material/input';
-import { NgxMatDatetimePickerModule, NgxMatTimepickerModule,NgxMatNativeDateModule  } from '@angular-material-components/datetime-picker';
+import { MatTableExporterModule } from 'mat-table-exporter'
+import { MatDatepickerModule } from '@angular/material/datepicker'
+import { MatInputModule } from '@angular/material/input'
+import { NgxEchartsModule } from 'ngx-echarts'
+import {
+  NgxMatDatetimePickerModule,
+  NgxMatTimepickerModule,
+  NgxMatNativeDateModule,
+} from '@angular-material-components/datetime-picker'
+import { MeterChartComponent } from 'src/app/component/dashboard/meter-chart/meter-chart.component'
+import { MeterDialogComponent } from './charger-sessions/meter-dialog/meter-dialog.component'
 const routes: Routes = [
   {
     path: '',
@@ -33,35 +36,30 @@ const routes: Routes = [
       {
         path: 'chargers-analytics',
         component: ChargerAnalyticsComponent,
-        // pathMatch: 'full',
       },
 
       {
         path: 'chargers-info',
         component: ChargerInformationComponent,
-        // pathMatch: 'full',
       },
       {
         path: 'chargers-session',
         component: ChargerSessionsComponent,
-        // pathMatch: 'full',
       },
       {
         path: 'chargers-diagnostic',
         component: ChargerDiagnosticComponent,
-        // pathMatch: 'full',
       },
       {
         path: 'chargers-event',
         component: ChargerEventComponent,
-        // pathMatch: 'full',
       },
     ],
   },
   { path: 'detail', component: GraphDetailComponent },
   { path: 'detail/:id', component: GraphDetailComponent },
-  {path: 'chargers-analytics/detail', component: GraphDetailComponent},
-  {path: 'chargers-analytics/detail/:id', component: GraphDetailComponent} 
+  { path: 'chargers-analytics/detail', component: GraphDetailComponent },
+  { path: 'chargers-analytics/detail/:id', component: GraphDetailComponent },
 ]
 @NgModule({
   declarations: [
@@ -71,12 +69,25 @@ const routes: Routes = [
     ChargerInformationComponent,
     ChargerSessionsComponent,
     ChargerDiagnosticComponent,
-    ChargerEventComponent
+    ChargerEventComponent,
+    MeterChartComponent,
+    MeterDialogComponent,
   ],
-  imports: [CommonModule, RouterModule.forChild(routes) ,SharedModule, SharedMaterialModule,MatDatepickerModule,
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    NgxEchartsModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts'),
+    }),
+    SharedModule,
+    SharedMaterialModule,
+    MatDatepickerModule,
     MatInputModule,
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
-    NgxMatNativeDateModule],
+    MatTableExporterModule,
+    NgxMatNativeDateModule,
+  ],
 })
 export class ChargerModule {}

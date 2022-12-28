@@ -174,11 +174,11 @@ $font_type_3: 500 14px/1.2 "Roboto", Helvetica, Arial, serif;
     height: 90%;
     margin-left: 5%;
     margin-right: 5%;
-    border: 0;
+   // border: 0;
     border-width: 0;
     border: none;
     border-width: none;
-    border: hidden;
+   // border: hidden;
     outline: none;
     background-color: #fff;
   }
@@ -617,4 +617,34 @@ $font_type_3: 500 14px/1.2 "Roboto", Helvetica, Arial, serif;
   .error-mess {
     color: red;
     padding-top: 5px;
+  }
+
+  /* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+.disable {
+  pointer-events: none;
+  opacity: 1px;
+}
+
+
+
+select.simple-control:disabled {
+    /*For FireFox*/
+    -webkit-appearance: none;
+    /*For Chrome*/
+    -moz-appearance: none;
+  }
+      
+  /*For IE10+*/
+  select:disabled.simple-control::-ms-expand {
+    display: none;
   }

@@ -8,8 +8,7 @@ import { LoaderService } from './service/loader.service'
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'Asset Works'
-
+  title = 'asset-works'
   constructor(private _loaderService: LoaderService) {}
 
   isLoading: Subject<boolean> = this._loaderService.isLoading

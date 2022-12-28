@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import { ToastrService } from 'ngx-toastr'
 import { LoginService } from '../login.service'
-import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-change-password',
@@ -18,6 +17,7 @@ export class ChangePasswordComponent implements OnInit {
   regexPass = new RegExp('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$')
   objectID: any = ''
   username = ''
+
   constructor(
     private _loginService: LoginService,
     private _router: Router,
@@ -34,21 +34,20 @@ export class ChangePasswordComponent implements OnInit {
     // CHECK FOR QUERY PARAM
     // https://qa-portal-ui.azurewebsites.net/changePassword?username=userName&objectID=objectID
     // CHECK IF LINK CREATION TIME GREATER THAN CURRENT TIME
-    
-    let currentDate = new Date();
-    let currentTime = currentDate.getTime()
-    let futureDate = localStorage.getItem('timeInterval') || '';
-    if(futureDate !== '' && parseInt(futureDate) < currentTime) {
-      this.toastr.error('Link Has Expired Please Contact Your Administrator');
-      return;
-    }
 
+    let currentDate = new Date()
+    let currentTime = currentDate.getTime()
+    let futureDate = localStorage.getItem('timeInterval') || ''
+    if (futureDate !== '' && parseInt(futureDate) < currentTime) {
+      this.toastr.error('Link Has Expired Please Contact Your Administrator')
+      return
+    }
 
     this._activatedRoute.queryParams.subscribe((params) => {
       this.username = params['username']
       this.objectID = params['objectID']
     })
-    // alert(this.username)
+
     let email
     email = localStorage.getItem('userEmailVerify') || ''
     if (
@@ -97,28 +96,30 @@ export class ChangePasswordComponent implements OnInit {
         let encryptedPassword = this._loginService.encryptPassword(
           this.changePassForm.value.password.trim(),
         )
-        let resetToken = localStorage.getItem('resetToken') || '';
-        this._loginService.changePassword(email, encryptedPassword,resetToken).subscribe({
-          next: (response) => {
-            this.showLoader = false
-            this.toastr.success('Password Changed Successfully')
-            this._router.navigate(['./login'])
-          },
-          error: (err) => {
-            this.showLoader = false
-            this.toastr.error('Something Went Wrong', 'Please Try Again')
-            setTimeout(() => {
-              this.changePassForm.reset()
-            }, 4000)
-          },
-        })
+        let resetToken = localStorage.getItem('resetToken') || ''
+        this._loginService
+          .changePassword(email, encryptedPassword, resetToken)
+          .subscribe({
+            next: (response) => {
+              this.showLoader = false
+              this.toastr.success('Password Changed Successfully')
+              this._router.navigate(['./login'])
+            },
+            error: (err) => {
+              this.showLoader = false
+              this.toastr.error('Something Went Wrong', 'Please Try Again')
+              setTimeout(() => {
+                this.changePassForm.reset()
+              }, 4000)
+            },
+          })
       } else if (this.username !== '' && this.username !== undefined) {
         let encryptedPassword = this._loginService.encryptPassword(
           this.changePassForm.value.password.trim(),
         )
-        let resetToken = localStorage.getItem('resetToken') || '';
+        let resetToken = localStorage.getItem('resetToken') || ''
         this._loginService
-          .changePasswordObjectId(this.username, encryptedPassword,resetToken)
+          .changePasswordObjectId(this.username, encryptedPassword, resetToken)
           .subscribe({
             next: (response) => {
               this.showLoader = false

@@ -868,3 +868,35 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   display: flex;
   margin-bottom: 2%;
 }
+.isDisable{
+  pointer-events: none;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.disable {
+  pointer-events: none;
+  opacity: 1px;
+}
+
+select.simple-control:disabled {
+  /*For FireFox*/
+  -webkit-appearance: none;
+  /*For Chrome*/
+  -moz-appearance: none;
+}
+    
+/*For IE10+*/
+select:disabled.simple-control::-ms-expand {
+  display: none;
+}

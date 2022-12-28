@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormControl, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import Swal from 'sweetalert2'
@@ -14,17 +14,20 @@ import { DatePipe } from '@angular/common'
   styleUrls: ['./add-pricing-plan.component.scss'],
 })
 export class AddPricingPlanComponent implements OnInit {
+  /**
+   * Declare varibles
+   */
   datePipe = new DatePipe('en-US')
   submitted = false
   registrationForm: any
   isSaveBtn: boolean = true
-
+  showPriceUnitTitle = ''
+  isUnit: boolean = false
   checked = true
   indeterminate = true
   labelPosition: 'before' | 'after' = 'after'
   disabled = true
-
-  addpricingTitle: string = 'Add Pricing Plan'
+  title: string = 'Add Pricing Plan'
   pricePlanId: any
   UserId: string | null
   isUpdateBtn: boolean = false
@@ -32,12 +35,12 @@ export class AddPricingPlanComponent implements OnInit {
   selectedPriceTypeId: any
   selectedUnitId: any
   selectedCurrencyId: any
-  selectedLevelId: any
+  selectedConnectorId: any
   selectedCustomerId: any
   pricingList: any
   currencyList: any
   unitList: any
-  levelList: any
+
   CustomerList: any
   locationList: any
   chargerList: any
@@ -48,6 +51,7 @@ export class AddPricingPlanComponent implements OnInit {
   customerData: any
   customerName: any
   customerId: any
+  connectorTypeList: any
 
   constructor(
     private formBuilder: FormBuilder,
@@ -62,56 +66,55 @@ export class AddPricingPlanComponent implements OnInit {
     let routePath = this._activatedRoute.snapshot.routeConfig?.path
 
     if (this.pricePlanId && routePath == 'edit-pricing') {
-      this.addpricingTitle = 'Edit Pricing Plan'
+      this.title = 'Edit Pricing Plan'
       this.isUpdateBtn = true
       this.isSaveBtn = false
     } else if (this.pricePlanId && routePath == 'view-pricing') {
-      this.addpricingTitle = 'View Pricing Plan'
+      this.title = 'View Pricing Plan'
       this.isSaveBtn = false
       this.isUpdateBtn = false
-      this.addPricingForm.disable()
+      this.pricingPlanFormGroup.disable()
     } else {
-      this.addpricingTitle = 'Add Pricing Plan'
+      this.title = 'Add Pricing Plan'
       this.isSaveBtn = true
       this.isUpdateBtn = false
     }
   }
+  /**
+   * Price plan form group
+   */
 
-  addPricingForm = this.formBuilder.group({
+  pricingPlanFormGroup = this.formBuilder.group({
     customerN: new FormControl('', Validators.required),
     pricingPlanName: new FormControl('', [
       Validators.required,
       Validators.maxLength(40),
     ]),
-    // location: new FormControl('', Validators.required),
     description: new FormControl('', Validators.maxLength(250)),
     currencyCode: new FormControl('', Validators.required),
     validFrom: new FormControl('', Validators.required),
     validTo: new FormControl('', Validators.required),
-    levelRank: new FormControl('', Validators.required),
+    connectorType: new FormControl('', Validators.required),
     priceTypeId: new FormControl('', Validators.required),
     unitName: new FormControl('', Validators.required),
     price: new FormControl('', [Validators.required, Validators.maxLength(10)]),
-    processPayment: new FormControl(false),
+    processPayment: new FormControl(true),
     priceSlot: new FormControl(false),
     parkingFee: new FormControl('', [
       Validators.required,
       Validators.maxLength(10),
     ]),
-    gracePeriod: new FormControl('', [
-      Validators.required,
-      Validators.maxLength(10),
-    ]),
+    gracePeriod: new FormControl(''),
     transactionFees: new FormControl('', [
-      Validators.required,
+      // Validators.required,
       Validators.maxLength(10),
     ]),
     salaryTax: new FormControl('', [
-      Validators.required,
+      // Validators.required,
       Validators.maxLength(10),
     ]),
     salesTax: new FormControl('', [
-      Validators.required,
+      // Validators.required,
       Validators.maxLength(10),
     ]),
     locationId: new FormControl('', Validators.required),
@@ -134,11 +137,15 @@ export class AddPricingPlanComponent implements OnInit {
   // }
 
   ngOnInit() {
+    /**
+     * API call
+     */
     this.getCustomerInfo(0)
     this.GetAllPriceType()
     // this.GetAllUnit()
     this.GetAllCurrencyCode()
-    this.GetAllLevel()
+    // this.GetAllLevel()
+    this.GetConnectorType()
     this.CustomerDDL()
     this.GetLocationName()
 
@@ -146,43 +153,71 @@ export class AddPricingPlanComponent implements OnInit {
       this.getPricePlanbyid(this.pricePlanId)
     }
   }
-
+  /**
+   * Get currency DDL
+   */
   GetCurrencyDDL() {
     this._AdminService.GetCurrencyDDL(this.UserId).subscribe((res: any) => {
       this.currencyList = res.data
     })
   }
+  /**
+   * Get all price types
+   */
   GetAllPriceType() {
     this._AdminService.GetAllPriceType().subscribe((res: any) => {
       this.pricingList = res.data
     })
   }
+  /**
+   * Get all units
+   * @param id
+   */
   GetAllUnit(id: any) {
     this._AdminService.GetAllUnit(id).subscribe((res: any) => {
       this.unitList = res.data
     })
   }
+  /**
+   * Get All currency code
+   */
   GetAllCurrencyCode() {
     this._AdminService.GetAllCurrencyCode().subscribe((res: any) => {
       this.currencyList = res.data
     })
   }
-  GetAllLevel() {
-    this._AdminService.GetAllLevel().subscribe((res: any) => {
-      this.levelList = res.data
-    })
-  }
+  // /**
+  //  * Get all level
+  //  */
+  // GetAllLevel() {
+  //   this._AdminService.GetAllLevel().subscribe((res: any) => {
+  //     this.levelList = res.data
+  //   })
+  // }
+
+  /**
+   * Get customer DDL
+   */
   CustomerDDL() {
     this._AdminService.CustomerDDL().subscribe((res: any) => {
       this.CustomerList = res.data
     })
   }
 
+  /**
+   * Get location name
+   */
   GetLocationName() {
     this._AdminService.GetLocationName().subscribe((res: any) => {
       this.locationList = res.data
     })
   }
+
+  /**
+   * Select customer list
+   * @param event
+   * @param id
+   */
   selecCustomerList(event: any, id: any) {
     if (event.isUserInput) {
       this.selectedCustomerId = id
@@ -190,7 +225,7 @@ export class AddPricingPlanComponent implements OnInit {
   }
 
   /**
-   * Select Price Type
+   * Select price type
    * @param event
    * @param id
    */
@@ -202,25 +237,21 @@ export class AddPricingPlanComponent implements OnInit {
     }
   }
 
-  // selectlocation(event:any, id:any){
-  //   if(event.isUserInput) {
-  //     this.selectedLocationId= id;
-  //   }
-  // }
-
   /**
-   * Select Unit
+   * Select unit
    * @param event
    * @param id
    */
-  selectUnit(event: any, id: any) {
+  selectUnit(event: any, data: any) {
     if (event.isUserInput) {
-      this.selectedUnitId = id
+      this.isUnit = true
+      ;(this.selectedUnitId = data.id),
+        (this.showPriceUnitTitle = data.unitName)
     }
   }
 
   /**
-   * Select Currency Code
+   * Select currency code
    * @param event
    * @param id
    */
@@ -235,34 +266,25 @@ export class AddPricingPlanComponent implements OnInit {
    * @param event
    * @param id
    */
-  selectLevel(event: any, id: any) {
+  selectConnectorType(event: any, id: any) {
     if (event.isUserInput) {
-      this.selectedLevelId = id
+      this.selectedConnectorId = id
     }
   }
 
   /**
-   * Set Form Value
-   * @param data
-   */
-  // selectCustomer(event: any, id: any) {
-  //   if (event.isUserInput) {
-  //     this.selectedCustomerId = id;
-  //   }
-  // }
-
-  /**
-   * Create Price Plan
+   * Add price plan
    * @returns
    */
+  gracePeriod = 0
 
   createPricePlan() {
     this.submitted = true
-    if (this.addPricingForm.invalid) {
+    if (this.pricingPlanFormGroup.invalid) {
       this.toastr.error('Please fill mandatory fields.')
       return
     }
-    let formData = this.addPricingForm.value
+    let formData = this.pricingPlanFormGroup.value
 
     this.locationIdResponse.forEach((elem: any) => {
       let index = this.chargeboxidResponse.findIndex(
@@ -294,18 +316,23 @@ export class AddPricingPlanComponent implements OnInit {
             'yyyy-MM-ddT' + this.getModifiedDate(),
           )
         : '',
-      levelId: parseInt(this.selectedLevelId),
+      connectorId: parseInt(this.selectedConnectorId),
       priceTypeId: parseInt(this.selectedPriceTypeId),
       unitId: parseInt(this.selectedUnitId),
       price: parseInt(formData.price),
       parkingFee: parseInt(formData.parkingFee),
-      gracePeriod: parseInt(formData.gracePeriod),
-      transactionFees: parseInt(formData.transactionFees),
-      salaryTax: parseInt(formData.salaryTax),
-      salesTax: parseInt(formData.salesTax),
+      // gracePeriod: parseInt(formData.gracePeriod),
+      gracePeriod: formData.gracePeriod ? +formData.gracePeriod : 0,
+      //transactionFees: parseInt(formData.transactionFees),
+      transactionFees: formData.transactionFees ? +formData.transactionFees : 0,
+      //salaryTax: parseInt(formData.salaryTax),
+      tax: formData.salaryTax ? +formData.salaryTax : 0,
+      // salesTax: parseInt(formData.salesTax),
+      salesTax: formData.salesTax ? +formData.salesTax : 0,
       pricePlanLocationsMapperCommand: this.chargeboxidResponse,
       processPayment: formData.processPayment,
       priceSlot: formData.priceSlot,
+      isActive: true,
     }
     Swal.fire({
       title: '<strong>Are you sure you want to confirm?</strong>',
@@ -323,7 +350,7 @@ export class AddPricingPlanComponent implements OnInit {
             if (res) {
               //Do your stuffs...
               this.toastr.success('Record saved successfully.')
-              this.addPricingForm.reset()
+              this.pricingPlanFormGroup.reset()
               // this.showLoader = false
               this.submitted = false
               this._router.navigate(['admin/pricing'])
@@ -349,17 +376,17 @@ export class AddPricingPlanComponent implements OnInit {
   }
 
   /**
-   * Update Price Plan
+   * Update price plan
    */
 
   updatePricePlan() {
     this.submitted = true
-    if (this.addPricingForm.invalid) {
+    if (this.pricingPlanFormGroup.invalid) {
       this.toastr.error('Please fill mandatory fields.')
       return
     }
 
-    let formData = this.addPricingForm.value
+    let formData = this.pricingPlanFormGroup.value
 
     this.locationIdResponse.forEach((elem: any) => {
       let index = this.chargeboxidResponse.findIndex(
@@ -391,15 +418,21 @@ export class AddPricingPlanComponent implements OnInit {
             'yyyy-MM-ddT' + this.getModifiedDate(),
           )
         : '',
-      levelId: this.selectedLevelId,
+      connectorId: this.selectedConnectorId,
       priceTypeId: this.selectedPriceTypeId,
       unitId: this.selectedUnitId,
       price: formData.price,
       parkingFee: formData.parkingFee,
-      gracePeriod: formData.gracePeriod,
-      transactionFees: formData.transactionFees,
-      salaryTax: formData.salaryTax,
-      salesTax: formData.salesTax,
+      gracePeriod: formData.gracePeriod ? +formData.gracePeriod : 0,
+      //transactionFees: parseInt(formData.transactionFees),
+      transactionFees: formData.transactionFees ? +formData.transactionFees : 0,
+      tax: formData.salaryTax ? +formData.salaryTax : 0,
+      // salesTax: parseInt(formData.salesTax),
+      salesTax: formData.salesTax ? +formData.salesTax : 0,
+      // gracePeriod: formData.gracePeriod,
+      // transactionFees: formData.transactionFees,
+      // salaryTax: formData.salaryTax,
+      // salesTax: formData.salesTax,
       processPayment: formData.processPayment,
       priceSlot: formData.priceSlot,
       isActive: true,
@@ -421,7 +454,7 @@ export class AddPricingPlanComponent implements OnInit {
             if (res) {
               //Do your stuffs...
               this.toastr.success('Record saved successfully.')
-              this.addPricingForm.reset()
+              this.pricingPlanFormGroup.reset()
               // this.showLoader = false
               this.submitted = false
               this._router.navigate(['admin/pricing'])
@@ -447,60 +480,94 @@ export class AddPricingPlanComponent implements OnInit {
   }
 
   /**
-   * Get Price Plan By ID
+   * Get price plan details by id
    * @param id
    */
   getPricePlanbyid(id: number) {
     this._AdminService.getPricePlanbyid(id).subscribe((res: any) => {
       if (res.data) {
         let pricingData = res.data
-        // this.addPricingForm.patchValue({ customerName: pricingData.customerId });
+        // this.pricingPlanFormGroup.patchValue({ customerName: pricingData.customerId });
         if (pricingData.customerId) {
           // this.customerId = parseInt(pricingData.customerId)
-          this.addPricingForm.patchValue({
+          this.pricingPlanFormGroup.patchValue({
             customerN: pricingData.customerName,
           })
         }
-        this.addPricingForm.patchValue({
+        this.pricingPlanFormGroup.patchValue({
           pricingPlanName: pricingData.pricePlanName,
         })
-        this.addPricingForm.patchValue({
+        this.pricingPlanFormGroup.patchValue({
           description: pricingData.description,
         })
 
         if (pricingData.currencyCode) {
           this.selectedCurrencyId = parseInt(pricingData.currencyCode)
-          this.addPricingForm.patchValue({
+          this.pricingPlanFormGroup.patchValue({
             currencyId: pricingData.currencyName,
           })
         }
-        this.addPricingForm.patchValue({ validFrom: pricingData.validFrom })
-        this.addPricingForm.patchValue({ validTo: pricingData.validTo })
-        if (pricingData.levelId) {
-          this.selectedLevelId = pricingData.levelId
-          this.addPricingForm.patchValue({ levelId: pricingData.levelId })
+        this.pricingPlanFormGroup.patchValue({
+          validFrom: pricingData.validFrom,
+        })
+        this.pricingPlanFormGroup.patchValue({ validTo: pricingData.validTo })
+        if (pricingData.connectorId) {
+          this.selectedConnectorId = pricingData.connectorId
+          this.pricingPlanFormGroup.patchValue({
+            connectorType: pricingData.connectorType,
+          })
         }
         if (pricingData.priceTypeId) {
           this.selectedPriceTypeId = pricingData.priceTypeId
           this.GetAllUnit(this.selectedPriceTypeId)
-          this.addPricingForm.patchValue({
+          this.pricingPlanFormGroup.patchValue({
             priceTypeId: pricingData.pricePlanName,
           })
         }
         if (pricingData.unitId) {
           this.selectedUnitId = pricingData.unitId
-          this.addPricingForm.patchValue({ unitId: pricingData.unitId })
+          this.pricingPlanFormGroup.patchValue({ unitId: pricingData.unitId })
         }
-        this.addPricingForm.patchValue({ price: pricingData.price })
-        this.addPricingForm.patchValue({ parkingFee: pricingData.parkingFess })
-        this.addPricingForm.patchValue({
-          gracePeriod: pricingData.gracePeriod,
+        this.pricingPlanFormGroup.patchValue({ price: pricingData.price })
+        this.pricingPlanFormGroup.patchValue({
+          parkingFee: pricingData.parkingFess,
         })
-        this.addPricingForm.patchValue({
-          transactionFees: pricingData.transactionFess,
-        })
-        this.addPricingForm.patchValue({ salaryTax: pricingData.salaryTax })
-        this.addPricingForm.patchValue({ salesTax: pricingData.salesTax })
+        if (pricingData.gracePeriod == 0) {
+          this.pricingPlanFormGroup.patchValue({
+            gracePeriod: '',
+          })
+        } else {
+          this.pricingPlanFormGroup.patchValue({
+            gracePeriod: pricingData.gracePeriod,
+          })
+        }
+
+        if (pricingData.transactionFess == 0) {
+          this.pricingPlanFormGroup.patchValue({
+            transactionFees: '',
+          })
+        } else {
+          this.pricingPlanFormGroup.patchValue({
+            transactionFees: pricingData.transactionFess,
+          })
+        }
+
+        if (pricingData.tax == 0) {
+          this.pricingPlanFormGroup.patchValue({ salaryTax: '' })
+        } else {
+          this.pricingPlanFormGroup.patchValue({
+            salaryTax: pricingData.tax,
+          })
+        }
+
+        if (pricingData.salesTax == 0) {
+          this.pricingPlanFormGroup.patchValue({ salesTax: '' })
+        } else {
+          this.pricingPlanFormGroup.patchValue({
+            salesTax: pricingData.salesTax,
+          })
+        }
+
         this.selectedLocationId = pricingData.locationIdResponse
 
         if (this.selectedLocationId) {
@@ -508,15 +575,18 @@ export class AddPricingPlanComponent implements OnInit {
           this.locationIdResponse = pricingData.locationIdResponse
         }
         if (pricingData.processPayment) {
-          this.addPricingForm.patchValue({
+          this.pricingPlanFormGroup.patchValue({
             processPayment: pricingData.processPayment,
           })
         }
         if (pricingData.priceSlot) {
-          this.addPricingForm.patchValue({
+          this.pricingPlanFormGroup.patchValue({
             priceSlot: pricingData.priceSlot,
           })
         }
+        // if(pricingData.isActive){
+        //   this.addPricingForm.patchValue({isActive: pricingData.isActive})
+        // }
 
         this.chargeboxidResponse = pricingData.pricePlanLocationsMapperobj
 
@@ -613,10 +683,10 @@ export class AddPricingPlanComponent implements OnInit {
    */
 
   checkValidFrom(e: any) {
-    let validFrom = this.addPricingForm.value.validFrom
+    let validFrom = this.pricingPlanFormGroup.value.validFrom
     if (!validFrom) {
       this.toastr.error('Please select valid from date first.')
-      this.addPricingForm.patchValue({ validTo: '' })
+      this.pricingPlanFormGroup.patchValue({ validTo: '' })
       return
     }
   }
@@ -627,11 +697,12 @@ export class AddPricingPlanComponent implements OnInit {
     // if (
     //   this.addPricingForm.value.validFrom > this.addPricingForm.value.validTo
     // ) {
-    this.addPricingForm.patchValue({ validTo: '' })
+    this.pricingPlanFormGroup.patchValue({ validTo: '' })
     // }
   }
+
   /**
-   * date filter for valid to date
+   * Date filter
    * @param d
    * @returns
    */
@@ -641,7 +712,7 @@ export class AddPricingPlanComponent implements OnInit {
     return d < today
   }
   dateFilterForEnd = (d: any | null) => {
-    let validTo = this.addPricingForm.value.validFrom
+    let validTo = this.pricingPlanFormGroup.value.validFrom
 
     let checkDate = new Date(validTo)
     return d > checkDate
@@ -661,11 +732,16 @@ export class AddPricingPlanComponent implements OnInit {
         this.customerData = res.data[0]
         this.customerName = res.data[0].userName
 
-        this.addPricingForm.patchValue({ customerN: this.customerName })
+        this.pricingPlanFormGroup.patchValue({ customerN: this.customerName })
         this.customerId = res.data[0].id
       }
     })
   }
+  /**
+   * Omit special characters
+   * @param event
+   * @returns
+   */
 
   omit_special_char(event: any) {
     let k = event.charCode //         k = event.keyCode;  (Both can be used)
@@ -682,5 +758,15 @@ export class AddPricingPlanComponent implements OnInit {
     let date = new Date()
     let time = this.datePipe.transform(date, 'HH:mm:ss')
     return time
+  }
+  // CONNECTOR TYPE
+
+  GetConnectorType() {
+    const pBody = {
+      userId: this.UserId,
+    }
+    this._AdminService.GetConnectorType(pBody).subscribe((res) => {
+      this.connectorTypeList = res.data
+    })
   }
 }

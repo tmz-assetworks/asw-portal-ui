@@ -4,16 +4,28 @@ import { environment } from 'src/environments/environment'
 
 @Injectable({ providedIn: 'root' })
 export class VehicleService {
-  url: any
+  PORTAL_API_URL: any
   constructor(private _http: HttpClient) {
-    this.url = environment.PORTAL_API_URL + 'api/v1/VehicleDashboard/'
+    this.PORTAL_API_URL =
+      environment.PORTAL_API_URL + 'api/v1/VehicleDashboard/'
   }
 
+  /**
+   * GET VEHICLE LIST
+   * @param param
+   * @returns
+   */
   getAllVehicle(param: any) {
-    return this._http.post<any>(`${this.url}getallvehicle`, param)
+    return this._http.post<any>(`${this.PORTAL_API_URL}getallvehicle`, param)
   }
+
+  /**
+   * GET VEHICLE BY ID
+   * @param param
+   * @returns
+   */
 
   GetVehicleByID(param: any) {
-    return this._http.get<any>(`${this.url}GetVehicleByID/${param}`)
+    return this._http.get<any>(`${this.PORTAL_API_URL}GetVehicleByID/${param}`)
   }
 }

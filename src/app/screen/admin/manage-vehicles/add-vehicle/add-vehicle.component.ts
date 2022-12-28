@@ -18,10 +18,10 @@ import { AdminService } from '../../admin.service'
 })
 export class AddVehicleComponent implements OnInit {
   submitted = false
-  registrationForm: any
+
   isSaveBtn: boolean = true
   isUpdateBtn: boolean = false
-  addvehicleTitle: string = 'Add Vehicle'
+  vehicleFormTitle: string = 'Add Vehicle'
   list: any
   vehicleId: any
   vehicleData: any
@@ -34,7 +34,7 @@ export class AddVehicleComponent implements OnInit {
 
   viewMode: boolean = false
 
-  addVehicleForm = this.fb.group({
+  vehicleFormGroup = this.fb.group({
     vin: new FormControl('', [
       Validators.required,
       Validators.pattern('[a-z0-9A-Z]{2,20}'),
@@ -44,10 +44,14 @@ export class AddVehicleComponent implements OnInit {
     makeName: new FormControl('', Validators.required),
     modelName: new FormControl('', Validators.required),
     licencePlate: new FormControl('', Validators.maxLength(20)),
+    unitNumber: new FormControl('', Validators.maxLength(20)),
     department: new FormControl('', [Validators.maxLength(255)]),
     domicileLocation: new FormControl('', Validators.maxLength(25)),
     vehicleMacAddress: new FormControl('', Validators.maxLength(20)),
-    rfidCardAssigned: this.fb.array([], Validators.required),
+    rfidCardAssigned: this.fb.array(
+      [this.addRFIDRows(0, '', true)],
+      Validators.required,
+    ),
   })
 
   addRFIDRows(id: any, name: any, status: any): FormGroup {
@@ -71,19 +75,19 @@ export class AddVehicleComponent implements OnInit {
     let routePath = this._activatedRoute.snapshot.routeConfig?.path
 
     if (this.vehicleId && routePath != 'view-vehicle') {
-      this.addvehicleTitle = 'Edit Vehicle'
+      this.vehicleFormTitle = 'Edit Vehicle'
       this.isUpdateBtn = true
       this.isSaveBtn = false
       this.isRFIDAddBtn = true
       this.viewMode = false
     } else if (this.vehicleId && routePath == 'view-vehicle') {
-      this.addvehicleTitle = 'View Vehicle'
+      this.vehicleFormTitle = 'View Vehicle'
       this.isSaveBtn = false
       this.isUpdateBtn = false
-      this.addVehicleForm.disable()
+      this.vehicleFormGroup.disable()
       this.viewMode = true
     } else {
-      this.addvehicleTitle = 'Add Vehicle'
+      this.vehicleFormTitle = 'Add Vehicle'
       this.isSaveBtn = true
       this.isUpdateBtn = false
       this.isRFIDAddBtn = true
@@ -92,17 +96,19 @@ export class AddVehicleComponent implements OnInit {
   }
 
   addRFIDCardAssigned(fbGroup?: FormGroup): void {
-    ;(this.addVehicleForm.get('rfidCardAssigned') as FormArray).push(
-      fbGroup || this.addRFIDRows(0, '', null),
+    ;(this.vehicleFormGroup.get('rfidCardAssigned') as FormArray).push(
+      fbGroup || this.addRFIDRows(0, '', true),
     )
   }
 
   removeRFIDCardAssigned(index: any) {
-    ;(this.addVehicleForm.get('rfidCardAssigned') as FormArray).removeAt(index)
+    ;(this.vehicleFormGroup.get('rfidCardAssigned') as FormArray).removeAt(
+      index,
+    )
   }
 
   getRfidCardFormControls(): any {
-    return (this.addVehicleForm.get('rfidCardAssigned') as FormArray).controls
+    return (this.vehicleFormGroup.get('rfidCardAssigned') as FormArray).controls
   }
 
   ngOnInit() {
@@ -123,25 +129,26 @@ export class AddVehicleComponent implements OnInit {
     // console.log(this.modelYearlist)
 
     if (this.vehicleId) {
-      this.GetAllVehicleById(this.vehicleId)
+      this.getVehicleDetailsById(this.vehicleId)
     }
   }
 
   /**
-   * Add Vehicle
+   * To add vehicle
    */
 
   addVehicle() {
     this.submitted = true
 
-    if (this.addVehicleForm.invalid) {
+    if (this.vehicleFormGroup.invalid) {
       this._toastr.error('Please fill mandatory fields.')
       return
     }
-    let formData = this.addVehicleForm.value
+    let formData = this.vehicleFormGroup.value
     const body = {
       vin: formData.vin,
       licencePlate: formData.licencePlate,
+      unitNumber: formData.unitNumber,
       department: formData.department,
       domicileLocation: formData.domicileLocation,
       vehicleMacAddress: formData.vehicleMacAddress,
@@ -167,13 +174,17 @@ export class AddVehicleComponent implements OnInit {
       if (result.isDismissed) {
         this._adminService.CreateVehicle(body).subscribe(
           (res) => {
-            if (res) {
+            if (res.statusCode == 200) {
               //Do your stuffs...
               this._toastr.success('Record saved successfully.')
-              this.addVehicleForm.reset()
+              this.vehicleFormGroup.reset()
               this.showLoader = false
               this.submitted = false
               this._router.navigate(['admin/vehicles'])
+            } else {
+              let errorMsg = res.statusMessage
+              this._toastr.error(JSON.stringify(errorMsg))
+              this.showLoader = false
             }
           },
           (error) => {
@@ -190,15 +201,22 @@ export class AddVehicleComponent implements OnInit {
 
   /**
    *
-   * Update Vehicle
+   * Update vehicle
    */
 
   UpdateVehicle() {
-    let formData = this.addVehicleForm.value
+    this.submitted = true
+
+    if (this.vehicleFormGroup.invalid) {
+      this._toastr.error('Please fill mandatory fields.')
+      return
+    }
+    let formData = this.vehicleFormGroup.value
     const body = {
       id: this.vehicleId,
       vin: formData.vin,
       licencePlate: formData.licencePlate,
+      unitNumber: formData.unitNumber,
       department: formData.department,
       domicileLocation: formData.domicileLocation,
       vehicleMacAddress: formData.vehicleMacAddress,
@@ -225,13 +243,17 @@ export class AddVehicleComponent implements OnInit {
       if (result.isDismissed) {
         this._adminService.UpdateVehicle(body).subscribe(
           (res) => {
-            if (res) {
+            if (res.statusCode == 200) {
               //Do your stuffs...
               this._toastr.success('Record update successfully.')
-              this.addVehicleForm.reset()
+              this.vehicleFormGroup.reset()
               this.showLoader = false
               this.submitted = false
               this._router.navigate(['admin/vehicles'])
+            } else {
+              let errorMsg = res.statusMessage
+              this._toastr.error(JSON.stringify(errorMsg))
+              this.showLoader = false
             }
           },
           (error) => {
@@ -247,40 +269,43 @@ export class AddVehicleComponent implements OnInit {
   }
 
   /**
-   * Get Vehicle By Id
+   * Get vehicle details by id
    * @param id
    */
 
-  GetAllVehicleById(id: number) {
+  getVehicleDetailsById(id: number) {
     this._adminService.GetAllVehicleById(id).subscribe((res: any) => {
       this.vehicleData = res.data[0]
-      this.addVehicleForm.patchValue({ vin: this.vehicleData.vin })
+      this.vehicleFormGroup.patchValue({ vin: this.vehicleData.vin })
 
-      this.addVehicleForm.patchValue({
+      this.vehicleFormGroup.patchValue({
         licencePlate: this.vehicleData.licencePlate,
       })
-      this.addVehicleForm.patchValue({
+      this.vehicleFormGroup.patchValue({
+        unitNumber: this.vehicleData.unitNumber,
+      })
+      this.vehicleFormGroup.patchValue({
         department: this.vehicleData.department,
       })
-      this.addVehicleForm.patchValue({
+      this.vehicleFormGroup.patchValue({
         domicileLocation: this.vehicleData.domicileLocation,
       })
-      this.addVehicleForm.patchValue({
+      this.vehicleFormGroup.patchValue({
         vehicleMacAddress: this.vehicleData.vehicleMacAddress,
       })
 
-      this.addVehicleForm.patchValue({
+      this.vehicleFormGroup.patchValue({
         modelyear: this.vehicleData.modelYear,
       })
 
-      this.addVehicleForm.patchValue({
+      this.vehicleFormGroup.patchValue({
         makeName: this.vehicleData.makeName,
       })
 
-      this.addVehicleForm.patchValue({
+      this.vehicleFormGroup.patchValue({
         modelName: this.vehicleData.modelName,
       })
-
+      this.removeRFIDCardAssigned(0)
       const rfid = this.vehicleData?.vehicleRFIDIds
       // [
       //   {
@@ -308,92 +333,10 @@ export class AddVehicleComponent implements OnInit {
 
   /**
    *
-   * Get Model Year List
-   */
-  // GetVehicleModelYearDDLList() {
-  //   this._adminService.GetVehicleModelYearDDLList().subscribe((res: any) => {
-  //     this.modelYearlist = res.data
-  //   })
-  // }
-  /**
-   *
-   * Get Make List
-   */
-  // GetVehicleMakeDDLList() {
-  //   this._adminService.GetVehicleMakeDDLList().subscribe((res: any) => {
-  //     this.makeList = res.data
-  //   })
-  // }
-
-  /**
-   *
-   * Get Model List
-   */
-  // GetVehicleModelDDLList() {
-  //   this._adminService.GetVehicleModelDDLList().subscribe((res: any) => {
-  //     this.modelList = res.data
-  //   })
-  // }
-
-  /**
-   * Select Make
    * @param event
-   * @param id
+   * @returns
+   * Omit special characters
    */
-  // selectMake(event: any, data: any) {
-  //   if (event.isUserInput) {
-  //     if (data.isActive == false) {
-  //       this._toastr.error(
-  //         'Selected make is not available.Please select other make',
-  //       )
-
-  //       this.selectedMakeId = ''
-
-  //       return
-  //     }
-  //     this.selectedMakeId = data.id
-  //   }
-  // }
-
-  /**
-   * Select Model
-   * @param event
-   * @param id
-   */
-  // selectModel(event: any, data: any) {
-  //   if (event.isUserInput) {
-  //     if (data.isActive == false) {
-  //       this._toastr.error(
-  //         'Selected model is not available.Please select other model',
-  //       )
-
-  //       this.selectedModelId = ''
-
-  //       return
-  //     }
-  //     this.selectedModelId = data.id
-  //   }
-  // }
-
-  /**
-   * Select Year
-   * @param event
-   * @param id
-   */
-  // selectYear(event: any, data: any) {
-  //   if (event.isUserInput) {
-  //     // if (data.isActive == false) {
-  //     //   this._toastr.error(
-  //     //     'Selected year is not available.Please select other year',
-  //     //   )
-
-  //     //   this.selectedYearId = ''
-
-  //     //   return
-  //     // }
-  //     this.selectedYearId = data.name
-  //   }
-  // }
 
   omit_special_char(event: any) {
     let k = event.charCode //         k = event.keyCode;  (Both can be used)

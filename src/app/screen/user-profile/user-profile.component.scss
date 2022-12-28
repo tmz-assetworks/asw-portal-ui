@@ -174,9 +174,9 @@ $font_type_3: 500 14px/1.2 'Roboto', Helvetica, Arial, serif;
     height: 90%;
     margin-left: 5%;
     margin-right: 5%;
-    border: 0;
+    //border: 0;
     border-width: 0;
-    border: none;
+    //border: none;
     border-width: none;
     border: hidden;
     outline: none;
@@ -676,4 +676,9 @@ $font_type_3: 500 14px/1.2 'Roboto', Helvetica, Arial, serif;
 .error-mess {
   color: red;
   padding-top: 5px;
+}
+
+
+.example-section {
+  margin: 12px 0;
 }

@@ -8,6 +8,8 @@ import { VehicleService } from '../vehicle.service'
   styleUrls: ['./vehicle-assets-details.component.scss'],
 })
 export class VehicleAssetsDetailsComponent implements OnInit {
+  // DECLARE VARIABLES
+
   vehicleId: string | null
   vehicleData: any
   subsPlanData: any
@@ -19,12 +21,11 @@ export class VehicleAssetsDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    //API CALL
     this.GetVehicleByID(this.vehicleId)
   }
 
-  /**
-   * Get Vehicle Details By id
-   */
+  // GET VEHICLE BY ID
 
   GetVehicleByID(vehicleId: any) {
     this._vehicleService.GetVehicleByID(vehicleId).subscribe((res) => {

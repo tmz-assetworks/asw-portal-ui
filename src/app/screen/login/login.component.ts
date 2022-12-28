@@ -6,6 +6,7 @@ import { LoginService } from './login.service'
 import Swal from 'sweetalert2'
 import { StorageService } from 'src/app/service/storage.service'
 import { AuthService } from 'src/app/service/auth/auth.service'
+import { environment } from 'src/environments/environment'
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -102,7 +103,7 @@ export class LoginComponent implements OnInit {
         this.myLoginForm.value.password.trim(),
       )
       this.showLoader = true
-      sessionStorage.setItem('enpass', encryptedPassword)
+      // sessionStorage.setItem('enpass', encryptedPassword)
 
       const pBody = {
         username: this.myLoginForm.value.email.trim(),

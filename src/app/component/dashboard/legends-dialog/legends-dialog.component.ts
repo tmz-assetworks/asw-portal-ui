@@ -13,11 +13,11 @@ export class LegendsDialogComponent implements OnInit {
       description: 'Charger is available for charging.',
       color: '#90993F',
     },
-    {
-      status: 'Connected',
-      description: 'Vehicle is connected to charger.',
-      color: '#ea0088',
-    },
+    // {
+    //   status: 'Connected',
+    //   description: 'Vehicle is connected to charger.',
+    //   color: '#ea0088',
+    // },
     {
       status: 'Offline',
       description: 'Charger is not ready for charging sessions.',
@@ -30,7 +30,7 @@ export class LegendsDialogComponent implements OnInit {
     },
     {
       status: 'Faulted',
-      description: 'Charger is defective',
+      description: 'Charger is defective.',
       color: '#757575',
     },
     {
@@ -44,6 +44,17 @@ export class LegendsDialogComponent implements OnInit {
       description:
         'Charging session has stopped and Vehicle has removed from charger.',
       color: '#0000FF',
+    },
+    {
+      status: 'Reserved',
+      description:
+        'Connector of Charger is reserved as a result of a Reserve Now command.',
+      color: '#675553',
+    },
+    {
+      status: 'Unavailable',
+      description: 'Charger is unavailable for charging.',
+      color: '#FFE333',
     },
   ]
 

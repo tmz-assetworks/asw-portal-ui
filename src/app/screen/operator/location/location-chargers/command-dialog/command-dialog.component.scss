@@ -18,7 +18,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
 .form-fields select {
   height: 40px !important;
   margin-top: 10px;
-  width: 400px;
+  width: 380px !important;
   border: 1px solid #e5e5e5;
   border-radius: 5px;
   // padding: 8px 10px;
@@ -34,7 +34,7 @@ button {
 }
 .form-fields input {
   margin-top: 10px;
-  width: 400px;
+  width: 357px !important;
   border: 1px solid #e5e5e5 !important;
   padding: 8px 10px !important;
   border-radius: 5px;
@@ -87,7 +87,7 @@ span.option4 {
 .mat-button-focus-overlay {
   background: transparent !important;
 }
-button{
+button {
   //width: auto;
   width: 175px;
   height: 40px;
@@ -116,19 +116,14 @@ form-field modal-actions {
 //   border: 0 !important;
 // }
 
-
 .localList {
-
   margin: unset;
 
   margin-top: 0;
-
 }
 
 .disableButton {
-
   opacity: 0.5;
-
 }
 
 .mat-form-field-appearance-legacy .mat-form-field-wrapper {
@@ -147,71 +142,66 @@ form-field modal-actions {
   margin-bottom: 0px !important;
 }
 
-.form-fields input{
+.form-fields input {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-.date-field{margin-top: 0px !important;}
-.form-fields input{
+.date-field {
+  margin-top: 0px !important;
+}
+.form-fields input {
   display: flex !important;
 }
 
-.mat-form-field-appearance-legacy{
+.mat-form-field-appearance-legacy {
   padding: 0px !important;
 }
-@media (max-width: 1920px){
-.mat-form-field-infix{
-  width: 381px;
+@media (max-width: 1920px) {
+  .mat-form-field-infix {
+    width: 381px;
+  }
 }
-}
-
 
 .bar-block8.layout {
   z-index: 0;
 }
-.wd_sub_1.tool_alignAuth.tool-tip-2{
+.wd_sub_1.tool_alignAuth.tool-tip-2 {
   z-index: 1;
   position: absolute;
   margin: auto 35%;
   top: 100%;
-
 }
-
 
 .set-charger1 {
   display: block;
-    overflow: auto;
-    overflow-y: scroll;
-    max-height: 790px;
-    padding: 0px 10px;
+  overflow: auto;
+  // overflow-y: scroll;
+  overflow-x: hidden;
+  width: 100%;
+  max-height: 500px;
 }
 
-button{
+button {
   width: auto;
   min-width: 100%;
   height: 40px;
   margin-bottom: 25px;
 }
 
-
-
-
-
-button{
+button {
   width: auto;
   min-width: 100%;
   height: 40px;
   margin-bottom: 25px;
 }
 
-button.charging-profile-btn{
+button.charging-profile-btn {
   margin-bottom: 25px;
-
 }
-
 
 .form-fields .close-icon-type {
   margin-top: 0px;
+  margin-right: 8px;
 }
 .close-icon {
   float: right;
@@ -227,8 +217,7 @@ button.charging-profile-btn{
   cursor: pointer;
 }
 
-.option1{
-  
+.option1 {
   float: right;
   margin-top: 0px;
   cursor: pointer;
@@ -238,7 +227,7 @@ button.charging-profile-btn{
   font-size: 16px;
 }
 
-.form-fields select{
+.form-fields select {
   height: 40px !important;
   margin: 10px 0px 13px 0px;
   width: 400px;
@@ -284,24 +273,20 @@ button {
 }
 
 .mandatoryField {
-
   color: red;
-
 }
 
-.form-fields span.mandatoryField {
+// .form-fields span.mandatoryField {
 
-  font-size: 14px;
+//   font-size: 14px;
 
-  color: #8f8f8f;
+//   color: #8f8f8f;
 
-  font-weight: 500;
+//   font-weight: 500;
 
-}
+// }
 .disableButton {
-
   opacity: 0.5;
-
 }
 
 .mat-form-field-appearance-legacy .mat-form-field-wrapper {
@@ -320,20 +305,84 @@ button {
   margin-bottom: 0px !important;
 }
 
-.form-fields input{
+.form-fields input {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-.date-field{margin-top: 0px !important;}
-.form-fields input{
+.date-field {
+  margin-top: 0px !important;
+}
+.form-fields input {
   display: flex !important;
 }
 
-.mat-form-field-appearance-legacy{
+.mat-form-field-appearance-legacy {
   padding: 0px !important;
 }
-@media (max-width: 1920px){
-.mat-form-field-infix{
-  width: 381px;
+@media (max-width: 1920px) {
+  .mat-form-field-infix {
+    width: 381px;
+  }
 }
+button.btnTypeCharger {
+  margin-top: 20px;
 }
+
+.form-fields span.required-field {
+  color: red;
+
+  font-size: 14px;
+}
+.mt-space .mat-form-field-infix {
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+}
+.form-fields span.mandatoryField {
+  font-size: 14px;
+  color: #8f8f8f;
+  font-weight: 500px;
+}
+
+mat-form-field.start-date {
+  width: 378px !important;
+}
+
+button {
+  min-width: 380px !important;
+  /* margin: 0px 0px; */
+}
+
+.mt-space {
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+}
+
+.cdk-overlay-pane mat-dialog-container {
+  max-width: 460px !important;
+}
+
+.mat-dialog-container {
+  width: 80% !important;
+}
+
+// @media (max-width: 1920px){
+//   cdk-overlay-pane.cdk-overlay-container .cdk-global-overlay-wrapper {
+//   /* pointer-events: none; */
+//   top: 90px !important;
+//   /* left: 0; */
+//   /* height: 100%; */
+//   /* width: 100%; */
+// }
+
+// }
+// @media (min-width: 767px) {
+// .cdk-overlay-container, .cdk-global-overlay-wrapper {
+//   pointer-events: none;
+//   top: 95px !important;
+//   left: 0;
+//   height: 100%;
+//   width: 100%;
+// }
+// }

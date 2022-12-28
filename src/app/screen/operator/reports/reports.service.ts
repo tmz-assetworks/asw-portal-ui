@@ -5,135 +5,150 @@ import { environment } from 'src/environments/environment'
 
 @Injectable({ providedIn: 'root' })
 export class ReportService {
-  url: string
+  REPORT_API_URL: string
   constructor(private _http: HttpClient) {
-    this.url = environment.REPORT_API_URL
+    this.REPORT_API_URL = environment.REPORT_API_URL
   }
 
   /**
-   *
+   * GET SUBSCRIPTION
+   * @param params
    * @returns
-   * Get Subscription
    */
 
   Subscription(params: any): Observable<any> {
-    return this._http.post<any>(`${this.url}Subscription/Subscription/`, params)
+    return this._http.post<any>(
+      `${this.REPORT_API_URL}Subscription/Subscription/`,
+      params,
+    )
   }
 
   /**
-   *
+   * CHARGING SESSION
+   * @param params
    * @returns
-   * Get Charging Session
    */
 
   ChargingSession(params: any): Observable<any> {
     return this._http.post<any>(
-      `${this.url}v1/Reports/ChargingSession/`,
+      `${this.REPORT_API_URL}v1/Reports/ChargingSession/`,
       params,
     )
   }
 
   /**
-   *
+   * GET UPCOMING SESSION
+   * @param params
    * @returns
-   * Get Upcoming Session
    */
 
   GetUpComingSession(params: any): Observable<any> {
     return this._http.post<any>(
-      `${this.url}v1/Reports/GetUpComingSession/`,
+      `${this.REPORT_API_URL}v1/Reports/GetUpComingSession/`,
       params,
     )
   }
 
   /**
-   *
+   * GET CHARGING SESSION LENGTH
+   * @param params
    * @returns
-   * Get Charging Session Length
    */
 
   ChargingSessionlength(params: any): Observable<any> {
     return this._http.post<any>(
-      `${this.url}v1/Reports/ChargingSessionlength/`,
+      `${this.REPORT_API_URL}v1/Reports/ChargingSessionlength/`,
       params,
     )
   }
+
   /**
-   *
+   * GET ENERGY USED
+   * @param params
    * @returns
-   * Get Energy Used
    */
 
   GetEnergyUsed(params: any): Observable<any> {
-    return this._http.post<any>(`${this.url}v1/Reports/GetEnergyUsed/`, params)
+    return this._http.post<any>(
+      `${this.REPORT_API_URL}v1/Reports/GetEnergyUsed/`,
+      params,
+    )
   }
+
   /**
-   *
+   * GET MT Co2 SAVED
+   * @param params
    * @returns
-   * Get MT Co2 Saved
    */
 
   GetMTCoSavedEnergy(params: any): Observable<any> {
     return this._http.post<any>(
-      `${this.url}v1/Reports/GetMTCoSavedEnergy/`,
+      `${this.REPORT_API_URL}v1/Reports/GetMTCoSavedEnergy/`,
       params,
     )
   }
+
   /**
-   *
+   * GET MILES ADDED
+   * @param params
    * @returns
-   * Get Miles Added
    */
 
   GetMilesAddedByLocation(params: any): Observable<any> {
     return this._http.post<any>(
-      `${this.url}v1/Reports/GetMilesAddedByLocation/`,
+      `${this.REPORT_API_URL}v1/Reports/GetMilesAddedByLocation/`,
       params,
     )
   }
+
   /**
-   *
+   * GET GASOLINE GALLON DATA
+   * @param params
    * @returns
-   * Get Gasoline Gallon
    */
 
   Getgasolinegallon(params: any): Observable<any> {
     return this._http.post<any>(
-      `${this.url}v1/Reports/Getgasolinegallon/`,
+      `${this.REPORT_API_URL}v1/Reports/Getgasolinegallon/`,
       params,
     )
   }
 
   /**
-   *
+   * GET TRANSACTION
+   * @param params
    * @returns
-   * Get Gasoline Gallon
    */
 
   GetTransaction(params: any): Observable<any> {
-    return this._http.post<any>(`${this.url}Subscription/Transaction/`, params)
+    return this._http.post<any>(
+      `${this.REPORT_API_URL}Subscription/Transaction/`,
+      params,
+    )
   }
+
   /**
-   *
+   * GET SUBSCRIPTION DETAILS
+   * @param params
    * @returns
-   * Get Gasoline Gallon
    */
 
   GetSubscriptionDetails(params: any): Observable<any> {
     return this._http.post<any>(
-      `${this.url}Subscription/GetAllSubscription/`,
+      `${this.REPORT_API_URL}Subscription/GetAllSubscription/`,
       params,
     )
   }
+
   /**
-   *
+   * GET TRANSACTION DETAILS
+   * @param params
    * @returns
-   * Get Gasoline Gallon
    */
 
   GetTransactionDetails(params: any): Observable<any> {
     return this._http.post<any>(
-      `${this.url}Subscription/GetAllTransaction/`,
+      `${this.REPORT_API_URL}Subscription/GetAllTransaction/`,
       params,
     )
   }

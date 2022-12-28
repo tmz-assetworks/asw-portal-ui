@@ -8,37 +8,43 @@ import { environment } from 'src/environments/environment'
   providedIn: 'root',
 })
 export class LoginService {
-  url: any
-  pricingUrl: string
+  /**
+   * Declare variables
+   */
+  PRICING_API_URL: string
+  USER_API_URL: string
+
   constructor(private _http: HttpClient) {
-    this.url = environment.AUTH_API_URL + 'api/Auth/'
-    this.pricingUrl = environment.PRICING_API_URL
+    this.USER_API_URL = environment.USER_API_URL
+    this.PRICING_API_URL = environment.PRICING_API_URL
   }
 
   /**
-   * Verify User
+   * Verify user
    * @param email
    * @returns
    */
 
   verifyUser(email: string) {
     let params = '?emailid=' + email
-    return this._http.get<any>(`${this.url}VerifyUser${params}`)
+    return this._http.get<any>(`${this.USER_API_URL}Auth/VerifyUser${params}`)
   }
 
   /**
-   * Verify User
+   * Verify user by otp
    * @param email
    * @returns
    */
 
   verifyUserByOTP(email: string, otp: any) {
     let params = '?emailid=' + email + '&OTP=' + otp
-    return this._http.get<any>(`${this.url}VerifyUserByOTP${params}`)
+    return this._http.get<any>(
+      `${this.USER_API_URL}Auth/VerifyUserByOTP${params}`,
+    )
   }
 
   /**
-   * Change Password
+   * Change password
    * @param email
    * @param password
    */
@@ -48,11 +54,11 @@ export class LoginService {
       password: password,
       accesstoken: token,
     }
-    return this._http.post<any>(`${this.url}ChangePassword`, body)
+    return this._http.post<any>(`${this.USER_API_URL}Auth/ChangePassword`, body)
   }
 
   /**
-   * Change Password
+   * Reset password
    * @param email
    * @param password
    */
@@ -62,11 +68,11 @@ export class LoginService {
       password: password,
       accesstoken: token,
     }
-    return this._http.post<any>(`${this.url}ResetPassword`, body)
+    return this._http.post<any>(`${this.USER_API_URL}Auth/ResetPassword`, body)
   }
 
   /**
-   * Show Password
+   * Show password
    * @param password
    * @returns
    */
@@ -75,7 +81,7 @@ export class LoginService {
   }
 
   /**
-   * Encrypt Password
+   * Encrypt password
    * @param field
    * @returns
    */
@@ -84,7 +90,7 @@ export class LoginService {
     var keySize = 256
     var salt = CryptoJS.lib.WordArray.random(16)
     // well known algorithm to generate key
-    var key = CryptoJS.PBKDF2('E534C8DF286CD5931069B522E695D4F1', salt, {
+    var key = CryptoJS.PBKDF2(environment.ENCRYPT_KEY, salt, {
       keySize: keySize / 32,
       iterations: 100,
     })
@@ -104,7 +110,7 @@ export class LoginService {
   }
 
   /**
-   * Decrypt Token
+   * Decrypt token
    * @param token
    * @returns
    */
@@ -117,14 +123,14 @@ export class LoginService {
     }
   }
   /**
-   * login User
+   * Login user
    * @param email
    * @param password
    * @returns
    */
   loginUser(params: any): Observable<any> {
     // return this._http.post<any>(`${this.url}AuthNew`, params)
-    return this._http.post<any>(`${this.url}`, params)
+    return this._http.post<any>(`${this.USER_API_URL}Auth/`, params)
   }
 
   /**
@@ -135,38 +141,43 @@ export class LoginService {
 
   logout(email: string): Observable<any> {
     let params = '?emailid=' + email
-    return this._http.post<any>(`${this.url}Logout${params}`, '')
+    return this._http.post<any>(`${this.USER_API_URL}Auth/Logout${params}`, '')
   }
 
   /**
-   * Refresh Token
+   * Refresh token API
    * @returns
    */
   refreshToken() {
     let refreshToken =
       JSON.parse(JSON.stringify(localStorage.getItem('token_refresh'))) || ''
     let params = '?refreshToken=' + refreshToken
-
-    return this._http.get<any>(`${this.url}AuthRefresh${params}`)
-  }
-
-  saveToken(res: any) {
-    localStorage.setItem('token_operator', res.data.access_token)
-    localStorage.setItem('token_refresh', res.data.refresh_token)
-    localStorage.setItem('token_id', res.data.id_token) // for role
-    localStorage.setItem('token_expires_on', res.data.expires_on)
-    localStorage.setItem('refreshToken_expires_on', res.data.not_before)
+    return this._http.get<any>(`${this.USER_API_URL}Auth/AuthRefresh${params}`)
   }
 
   /**
-   * Generate Invoice Details
+   *
+   * @param res
+   * Save token details
+   */
+
+  saveToken(data: any) {
+    localStorage.setItem('token_operator', data.data.access_token)
+    localStorage.setItem('token_refresh', data.data.refresh_token)
+    localStorage.setItem('token_id', data.data.id_token) // for role
+    localStorage.setItem('token_expires_on', data.data.expires_on)
+    localStorage.setItem('refreshToken_expires_on', data.data.not_before)
+  }
+
+  /**
+   * Get invoice details
    * @param id
    * @returns
    */
 
   public GenerateInvoiceDetails(id: any): Observable<any> {
     return this._http.get<any>(
-      `${this.pricingUrl}SubscriptionPlan/GenerateInvoiceDetails/${id}`,
+      `${this.PRICING_API_URL}SubscriptionPlan/GenerateInvoiceDetails/${id}`,
     )
   }
 }

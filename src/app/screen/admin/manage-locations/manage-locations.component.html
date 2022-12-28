@@ -18,7 +18,7 @@
                       >
                         <div class="cust-list-box7 layout">
                           <img
-                            src="../../../../assets/Admin-SideNav/Location-Icons/Total-Location.svg"
+                            src="../../../../assets/Admin-SideNav/Location-Icons/Total-Location.svg" alt=""
                           />
                         </div>
                       </div>
@@ -63,7 +63,7 @@
                       >
                         <div class="cust-list-box7 layout">
                           <img
-                            src="../../../../assets/Admin-SideNav/Location-Icons/Live-Location.svg"
+                            src="../../../../assets/Admin-SideNav/Location-Icons/Live-Location.svg" alt=""
                           />
                         </div>
                       </div>
@@ -108,7 +108,7 @@
                       >
                         <div class="cust-list-box7 layout">
                           <img
-                            src="../../../../assets/Admin-SideNav/Location-Icons/Under-Maintenance.svg"
+                            src="../../../../assets/Admin-SideNav/Location-Icons/Under-Maintenance.svg" alt=""
                           />
                         </div>
                       </div>
@@ -153,7 +153,7 @@
                       >
                         <div class="cust-list-box7 layout">
                           <img
-                            src="../../../../assets/Admin-SideNav/Location-Icons/Upcoming.svg"
+                            src="../../../../assets/Admin-SideNav/Location-Icons/Upcoming.svg" alt=""
                           />
                         </div>
                       </div>
@@ -193,7 +193,7 @@
         <div class="cust-list-block19 layout">
           <div class="cust-list-box9 layout" (click)="applyFilter()">
             <img
-              src="../../../../assets/Admin-SideNav/Location-Icons/Search.svg"
+              src="../../../../assets/Admin-SideNav/Location-Icons/Search.svg" 
               alt=""
               class="cust-list-icon layout"
             />
@@ -217,6 +217,7 @@
           <div class="layout">
             <img
               src="../../../../assets/Admin-SideNav/Location-Icons/Add-Location.svg"
+              alt=""
               class="adduserimage"
             />
           </div>
@@ -318,6 +319,7 @@
   </div>
   <mat-paginator
     #paginator
+    [hidden]="!dataSource.data.length" 
     (page)="pageChange($event)"
     [length]="totalCount"
     [pageSize]="pageSize"

@@ -14,6 +14,7 @@
                         <div class="cust-list-box7 layout">
                           <img
                             src="../../../../assets/Super-Admin-icons/Total.svg"
+                            alt=""
                           />
                         </div>
                       </div>
@@ -54,6 +55,7 @@
                         <div class="cust-list-box7 layout">
                           <img
                             src="../../../../assets/Super-Admin-icons/Activelogo.svg"
+                            alt=""
                           />
                         </div>
                       </div>
@@ -95,6 +97,7 @@
                         <div class="cust-list-box7 layout">
                           <img
                             src="../../../../assets/Super-Admin-icons/inactive-Customer.svg"
+                            alt=""
                           />
                         </div>
                       </div>
@@ -203,24 +206,24 @@
           <span
             style="margin: 7px;"
             *ngIf="!element.isActive"
-            title="Active"
             (click)="changeState(element.id, element.isActive)"
           >
             <img
-              src="../../../../assets/Admin-SideNav/Active.svg"
+              src="../../../../assets/Admin-SideNav/Vehicles-Icons/Active-tik.svg"
               class="cursorPointer"
+              title="Active"
               alt=""
             />
           </span>
           <span
             style="margin: 7px;"
             *ngIf="element.isActive"
-            title="Inactive"
             (click)="changeState(element.id, element.isActive)"
           >
             <img
-              src="../../../../assets/icons/inactive.svg"
+              src="../../../../assets/Active.svg"
               class="cursorPointer"
+              title="Inactive"
               alt=""
             />
           </span>
@@ -256,6 +259,7 @@
   </div>
   <mat-paginator
     #paginator
+    [hidden]="!dataSource.data.length"
     (page)="pageChange($event)"
     [length]="totalCount"
     [pageSize]="pageSize"

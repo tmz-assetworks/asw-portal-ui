@@ -2033,7 +2033,7 @@ tr.example-element-row:not(.example-expanded-row):active {
 }
 
 .example-element-description {
-  //padding: 16px;
+  padding: 10px 0px 10px 2px;
 }
 
 .example-element-description-attribution {
@@ -2263,7 +2263,8 @@ button.btnTypeCharger {
 //  CSS FOR POPUP
 
 .select-opt-modal {
-  margin: auto 27%;
+  // margin: auto 27%;
+  margin: -233px 27%;
 }
 
 .form-fields select {
@@ -2909,6 +2910,29 @@ button.charging-profile-btn {
   margin-bottom: 25px;
 }
 
-.mt-space{
+// .mt-space{
+
+// }
+
+[hidden] {
+  display: none !important;
+}
+
+.loader {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  opacity: 0.5;
+  background-color: #fcfcfc;
+  z-index: 99999;
+}
+
+@media (max-width: 480px) {
+.diag-table td.mat-cell:last-of-type, td.mat-footer-cell:last-of-type {
+  padding-right: 10px;
+  min-width: 70px;
+}
 
 }

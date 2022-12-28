@@ -3396,5 +3396,12 @@ td.mat-cell.cdk-cell.cdk-column-contactNumber.mat-column-contactNumber.ng-star-i
 }
 
 
+[hidden] {
+  display: none !important;
+}
 
-
+@media (max-width: 480px){
+  .dashboard-block33  mat-button-toggle {
+    font-size: 11px !important;
+}
+}

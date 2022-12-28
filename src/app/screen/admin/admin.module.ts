@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core'
 import { CustomersComponent } from './customers/customers.component'
-import { ManageSubscriptionsComponent } from './manage-subscriptions/manage-subscriptions.component'
 import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 import { RouterModule, Routes } from '@angular/router'
 import { MasterComponent } from '../master/master.component'

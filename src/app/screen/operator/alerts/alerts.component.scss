@@ -1302,3 +1302,7 @@ tr.example-element-row:not(.example-expanded-row):active {
     min-width: 1200px !important;
 }
 }
+
+[hidden] {
+  display: none !important;
+}

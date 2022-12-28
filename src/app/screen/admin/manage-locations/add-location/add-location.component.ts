@@ -14,6 +14,7 @@ import Swal from 'sweetalert2'
 import { AdminService } from '../../admin.service'
 import {} from 'googlemaps'
 import { Location } from '@angular/common'
+import { map, Observable, startWith } from 'rxjs'
 
 @Component({
   selector: 'app-add-location',
@@ -30,7 +31,8 @@ export class AddLocationComponent implements OnInit {
   stateList: any
   stateId = 0
   cityList: any
-
+  isOpenAllWeek: boolean = false
+  // isOpenAlldays: boolean =false
   locationStatusList: any
   locationStatusId = 0
   countryName = ''
@@ -49,18 +51,18 @@ export class AddLocationComponent implements OnInit {
   selectValue = '0#select'
   selectcountryId = ''
   viewMode: boolean = false
-
+  filteredTimeList: any
   timeList = [
     '00:00',
-    '1:00',
-    '2:00',
-    '3:00',
-    '4:00',
-    '5:00',
-    '6:00',
-    '7:00',
-    '8:00',
-    '9:00',
+    '01:00',
+    '02:00',
+    '03:00',
+    '04:00',
+    '05:00',
+    '06:00',
+    '07:00',
+    '08:00',
+    '09:00',
     '10:00',
     '11:00',
     '12:00',
@@ -203,9 +205,45 @@ export class AddLocationComponent implements OnInit {
     this._adminService.getListApi('locationStatus').subscribe((res) => {
       this.locationStatusList = res.data
     })
-    // this._adminService.getListApi('department').subscribe((res) => {
-    //   this.departmentList = res.data
-    // })
+
+    // const day: any = [
+    //   {
+    //     day: 'Monday',
+    //   },
+    //   {
+    //     day: 'Tuesday',
+    //   },
+    //   {
+    //     day: 'Wednesday',
+    //   },
+    //   {
+    //     day: 'Thursday',
+    //   },
+    //   {
+    //     day: 'Friday',
+    //   },
+    //   {
+    //     day: 'Saturday',
+    //   },
+    //   {
+    //     day: 'Sunday',
+    //   },
+    // ];
+
+    // day.forEach((day: any) => {
+    //   var arrayControl = this.addLocationForm.get('locationScheduleCommand') as FormArray;
+    //   this.filteredTimeList[day.id] = arrayControl.at(day.id).get('startTime').valueChanges.pipe(
+    //     startWith(''),
+    //     map((value) => (value && value.length >= 0 ? this._filter(value) : [])),
+    //   )
+    // });
+  }
+
+  private _filter(value: any): string[] {
+    const filterValue = value.toLowerCase()
+    return this.timeList.filter((option: any) => {
+      return option.toLowerCase().includes(filterValue)
+    })
   }
 
   ngAfterViewInit() {
@@ -239,7 +277,7 @@ export class AddLocationComponent implements OnInit {
           this.locationSchedule[ind].id = this.updatelocationSchedule[i].id
         }
       }
-      this.locationSchedule = this.locationSchedule
+      //this.locationSchedule = this.locationSchedule
       // alert(this.locationRowData.locationStatus.id + this.locationRowData.locationStatus.locationStatusName);
       this.getSelected(
         {
@@ -332,27 +370,39 @@ export class AddLocationComponent implements OnInit {
       })
       const day: any = [
         {
+          id: 0,
           day: 'Monday',
         },
-        {
-          day: 'Tuesday',
-        },
-        {
-          day: 'Wednesday',
-        },
-        {
-          day: 'Thursday',
-        },
-        {
-          day: 'Friday',
-        },
-        {
-          day: 'Saturday',
-        },
-        {
-          day: 'Sunday',
-        },
+        { id: 1, day: 'Tuesday' },
+        { id: 2, day: 'Wednesday' },
+        { id: 3, day: 'Thursday' },
+        { id: 4, day: 'Friday' },
+        { id: 5, day: 'Saturday' },
+        { id: 6, day: 'Sunday' },
       ]
+      // const day: any = [
+      //   {
+      //     day: 'Monday',
+      //   },
+      //   {
+      //     day: 'Tuesday',
+      //   },
+      //   {
+      //     day: 'Wednesday',
+      //   },
+      //   {
+      //     day: 'Thursday',
+      //   },
+      //   {
+      //     day: 'Friday',
+      //   },
+      //   {
+      //     day: 'Saturday',
+      //   },
+      //   {
+      //     day: 'Sunday',
+      //   },
+      // ];
       ;(this.locationSchedule.length ? this.locationSchedule : day).forEach(
         (day: any) => {
           ;(this.addLocationForm.get(
@@ -368,6 +418,41 @@ export class AddLocationComponent implements OnInit {
           )
         },
       )
+      // const days: any = [
+      //   {
+      //     id: 0,
+      //     day: 'Monday',
+      //   },
+      //   { id: 1, day: 'Tuesday' },
+      //   { id: 2, day: 'Wednesday' },
+      //   { id: 3, day: 'Thursday' },
+      //   { id: 4, day: 'Friday' },
+      //   { id: 5, day: 'Saturday' },
+      //   { id: 6, day: 'Sunday' },
+      // ];
+
+      // day.every((day: any) => {
+      //   const isOpenAllDays =
+      //     (this.addLocationForm.get('locationScheduleCommand') as FormArray)
+      //       .controls[day.id].value.isOpenAlldays === true;
+
+      //   if (isOpenAllDays) {
+      //     this.isOpenAllWeek = true;
+      //   }
+      // });
+      let count = 0
+      day.forEach((day: any) => {
+        const isOpenAllDays =
+          (this.addLocationForm.get('locationScheduleCommand') as FormArray)
+            .controls[day.id].value.isOpenAlldays === true
+
+        if (isOpenAllDays == true) {
+          count++
+        }
+      })
+      if (count == 7) {
+        this.isOpenAllWeek = true
+      }
 
       if (
         this.locationRowData.locationAddress.latitude !== 0 &&
@@ -736,6 +821,172 @@ export class AddLocationComponent implements OnInit {
     }
     if (this.telephoneNumber.length == 9) {
       this.telephoneNumber = this.telephoneNumber + '-'
+    }
+  }
+  isOpenAllDays(e: any, index: number) {
+    if (e.checked) {
+      ;(this.addLocationForm.get(
+        'locationScheduleCommand',
+      ) as FormArray).controls[index].patchValue({ isOpenAlldays: true }),
+        (this.addLocationForm.get(
+          'locationScheduleCommand',
+        ) as FormArray).controls[index].patchValue({ startTime: '' }),
+        (this.addLocationForm.get(
+          'locationScheduleCommand',
+        ) as FormArray).controls[index].patchValue({ endTime: '' })
+    } else {
+      this.isOpenAllWeek = false
+      ;(this.addLocationForm.get(
+        'locationScheduleCommand',
+      ) as FormArray).controls[index].patchValue({ isOpenAlldays: false })
+    }
+    // if(index){
+    //   (this.addLocationForm.get('locationScheduleCommand') as FormArray).controls[index].patchValue({ isOpenAlldays: true })
+    //     this.isOpenAllWeek=true
+    // }
+  }
+  //TO CHECK ALL CHECK BOX IS TRUE
+  verifyAllChecked(e: any, index: number) {
+    if (e.checked) {
+      const day: any = [
+        {
+          id: 0,
+          day: 'Monday',
+        },
+        { id: 1, day: 'Tuesday' },
+        { id: 2, day: 'Wednesday' },
+        { id: 3, day: 'Thursday' },
+        { id: 4, day: 'Friday' },
+        { id: 5, day: 'Saturday' },
+        { id: 6, day: 'Sunday' },
+      ]
+      let count = 0
+      day.forEach((day: any) => {
+        const isOpenAllDays =
+          (this.addLocationForm.get('locationScheduleCommand') as FormArray)
+            .controls[day.id].value.isOpenAlldays === true
+
+        if (isOpenAllDays == true) {
+          count++
+        }
+      })
+      if (count == 7) {
+        this.isOpenAllWeek = true
+      }
+    }
+  }
+
+  openAllWeek(e: any) {
+    if (e.checked) {
+      this.isOpenAllWeek = true
+      const day: any = [
+        {
+          id: 0,
+          day: 'Monday',
+        },
+        { id: 1, day: 'Tuesday' },
+        { id: 2, day: 'Wednesday' },
+        { id: 3, day: 'Thursday' },
+        { id: 4, day: 'Friday' },
+        { id: 5, day: 'Saturday' },
+        { id: 6, day: 'Sunday' },
+      ]
+
+      day.forEach((day: any) => {
+        ;(this.addLocationForm.get(
+          'locationScheduleCommand',
+        ) as FormArray).controls[day.id].patchValue({ isOpenAlldays: true }),
+          (this.addLocationForm.get(
+            'locationScheduleCommand',
+          ) as FormArray).controls[day.id].patchValue({ startTime: '' }),
+          (this.addLocationForm.get(
+            'locationScheduleCommand',
+          ) as FormArray).controls[day.id].patchValue({ endTime: '' })
+      })
+    } else {
+      this.isOpenAllWeek = false
+      const day: any = [
+        {
+          id: 0,
+          day: 'Monday',
+        },
+        { id: 1, day: 'Tuesday' },
+        { id: 2, day: 'Wednesday' },
+        { id: 3, day: 'Thursday' },
+        { id: 4, day: 'Friday' },
+        { id: 5, day: 'Saturday' },
+        { id: 6, day: 'Sunday' },
+      ]
+      day.forEach((day: any) => {
+        ;(this.addLocationForm.get(
+          'locationScheduleCommand',
+        ) as FormArray).controls[day.id].patchValue({ isOpenAlldays: false }),
+          (this.addLocationForm.get(
+            'locationScheduleCommand',
+          ) as FormArray).controls[day.id].patchValue({ startTime: '' }),
+          (this.addLocationForm.get(
+            'locationScheduleCommand',
+          ) as FormArray).controls[day.id].patchValue({ endTime: '' })
+      })
+    }
+  }
+  // START TIME IS CLOSED
+  selectStartTime(event: any, index: number, time: any) {
+    if (event.isUserInput && time == 'Closed') {
+      ;(this.addLocationForm.get(
+        'locationScheduleCommand',
+      ) as FormArray).controls[index].patchValue({ endTime: 'Closed' })
+    } else if (
+      event.isUserInput &&
+      time != 'Closed' &&
+      (this.addLocationForm.get('locationScheduleCommand') as FormArray)
+        .controls[index].value.endTime == 'Closed'
+    ) {
+      ;(this.addLocationForm.get(
+        'locationScheduleCommand',
+      ) as FormArray).controls[index].patchValue({ endTime: '' })
+    }
+  }
+
+  selectEndTime(event: any, index: number, time: any) {
+    if (event.isUserInput && time == 'Closed') {
+      ;(this.addLocationForm.get(
+        'locationScheduleCommand',
+      ) as FormArray).controls[index].patchValue({ startTime: 'Closed' })
+    } else if (
+      event.isUserInput &&
+      time != 'Closed' &&
+      (this.addLocationForm.get('locationScheduleCommand') as FormArray)
+        .controls[index].value.startTime == 'Closed'
+    ) {
+      ;(this.addLocationForm.get(
+        'locationScheduleCommand',
+      ) as FormArray).controls[index].patchValue({ startTime: '' })
+    }
+  }
+  // END TIME IS CLOSED
+  // selectEndTime(event: any, index: number, time: any){
+
+  //  console.log( (this.addLocationForm.get('locationScheduleCommand') as FormArray).controls[index].value.startTime);
+
+  //   if (event.isUserInput && ((
+  //     this.addLocationForm.get('locationScheduleCommand') as FormArray
+  //   ).controls[index].value.startTime=='Closed')) {
+
+  //     if(time!='Closed'){
+  //       (
+  //         this.addLocationForm.get('locationScheduleCommand') as FormArray
+  //       ).controls[index].patchValue({ endTime: 'Closed' });
+  //       return
+  //     }
+
+  //   //
+  // }}
+
+  removeFilter(event: any, timeList: any) {
+    let isTimeList = this.timeList.find((elem: any) => {}) == timeList.value
+    if (isTimeList) {
+      this.timeList = timeList.value
     }
   }
 }

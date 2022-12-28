@@ -88,7 +88,7 @@ $color_type_6: rgb(255, 255, 255);
     position: relative;
     height: min-content;
     margin: 0;
-    margin-bottom: 0px;
+    //margin-bottom: 0px;
     font: 700 20px/1.2 'Roboto', Helvetica, Arial, serif;
     color: #131b21;
     letter-spacing: 0px;
@@ -669,7 +669,7 @@ $color_type_6: rgb(255, 255, 255);
     width: 1px;
     min-width: 1px;
     margin: 11px 0px;
-    width: 1px;
+   // width: 1px;
     // margin-left: 42px;
     margin: 15px 10px 34px 10px;
     background-color: rgb(141, 131, 131);
@@ -2727,6 +2727,6 @@ mat-expansion-panel-header.mat-expanded {
   color: #ffffff;
 }
 
-.location-block1.layout {
-  width:1100px;
-}
+// .location-block1.layout {
+//   width:1100px;
+// }

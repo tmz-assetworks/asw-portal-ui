@@ -24,6 +24,7 @@
                 }"
               >
                 <input
+                
                   formControlName="username"
                   type="text"
                   class="barbar-input-text"
@@ -38,7 +39,7 @@
                 "
                 class="error-mess"
               >
-                User Name Must Be Between 5 To 20 Characters
+                User Name Must Be Between 0 To 20 Alphanumeric
               </span>
               <span
                 *ngIf="
@@ -194,8 +195,9 @@
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">Assign Location</h5>
-
+              <h5 class="barbar-highlights layout">Assign Location
+              <span style="color: 'red';">*</span>
+              </h5>
               <mat-form-field class="barbar-box6 layout">
                 <!-- <mat-form-field class="dashboard-text-body1 layout9"> -->
                 <mat-label>Select Location</mat-label>

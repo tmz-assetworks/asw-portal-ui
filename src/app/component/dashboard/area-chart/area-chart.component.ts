@@ -555,8 +555,8 @@ export class AreaChartComponent implements OnInit {
       // },
 
       grid: {
-        left: '12%',
-        right: '4%',
+        left: '14%',
+        right: '5%',
         bottom: '8%',
         containLabel: true,
       },
@@ -598,7 +598,7 @@ export class AreaChartComponent implements OnInit {
 
           nameLocation: 'middle',
           /* fontWeight: 'bolder', */
-          nameGap: 60,
+          nameGap: 50,
           nameTextStyle: {
             // align: 'right',
             verticalAlign: 'top',

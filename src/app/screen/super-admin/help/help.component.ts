@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-help',
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core'
   styleUrls: ['./help.component.scss'],
 })
 export class HelpComponent implements OnInit {
-  panelOpenState = false
+  panelOpenState = false;
   constructor() {}
 
   ngOnInit(): void {}

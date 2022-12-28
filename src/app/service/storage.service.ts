@@ -56,4 +56,8 @@ export class StorageService {
       this.getSessionData('isLoggedIn') === '1'
     )
   }
+  clearAll() {
+    sessionStorage.clear()
+    localStorage.clear()
+  }
 }

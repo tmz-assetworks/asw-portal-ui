@@ -179,14 +179,13 @@
           </div>
         </div>
         <div class="cust-list-block23-spacer"></div>
-        <div class="cust-list-text-body4 layout">
-          ADD ADMIN USER
-        </div>
+        <div class="cust-list-text-body4 layout">ADD ADMIN USER</div>
       </div>
     </div>
   </div>
   <div class="layout mat-data">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <caption></caption>
       <ng-container matColumnDef="CustomerName">
         <th mat-header-cell *matHeaderCellDef class="textalign">
           ORGANIZATION NAME
@@ -226,7 +225,7 @@
             (click)="changeState(element.id, element.isActive)"
           >
             <img
-              src="../../../../assets/Super-Admin-icons/Active.svg"
+              src="../../../../assets/Admin-SideNav/Vehicles-Icons/Active-tik.svg"
               class="cursorPointer"
               alt=""
             />
@@ -237,7 +236,7 @@
             (click)="changeState(element.id, element.isActive)"
           >
             <img
-              src="../../../../assets/Super-Admin-icons/Inactive.svg"
+              src="../../../../assets/Active.svg"
               class="cursorPointer"
               alt=""
             />
@@ -251,7 +250,6 @@
               title="Edit"
             />
           </span>
-          <!-- <span style="margin: 3px;"><img src="../../../../assets/superadmin-icons/Edit.png" alt="" /></span> -->
           <span style="margin: 7px;">
             <img
               src="../../../../assets/Super-Admin-icons/View.svg"
@@ -261,22 +259,30 @@
               (click)="performAction('view', element)"
             />
           </span>
-          <!-- <span style="margin: 3px;"><img src="../../../../assets/superadmin-icons/Add-Admin.png" alt="" /></span> -->
         </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
+    <!-- <table>
+      <tr *ngIf="!dataSource.data.length">
+        <td style="text-align: center;" [attr.colspan]="displayedColumns.length">
+          No Records Found!
+        </td>
+      </tr>
+    </table> -->
     <ng-container *ngIf="isTableHasData">
       <p class="text-center">No record found</p>
     </ng-container>
   </div>
-  <mat-paginator
-    #paginator
-    (page)="pageChange($event)"
-    [length]="totalCount"
-    [pageSize]="pageSize"
-    [pageSizeOptions]="pageSizeOptions"
-  ></mat-paginator>
 </div>
+
+<mat-paginator
+  #paginator
+  [hidden]="!dataSource.data.length"
+  (page)="pageChange($event)"
+  [length]="totalCount"
+  [pageSize]="pageSize"
+  [pageSizeOptions]="pageSizeOptions"
+></mat-paginator>

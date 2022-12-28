@@ -6,12 +6,16 @@ import { AlertsService } from '../../alerts/alerts.service'
 import { StorageService } from 'src/app/service/storage.service'
 import { LocationService } from '../../location/location.service'
 import { ChargerService } from '../charger.service'
+// import { MatTableExporterDirective } from 'mat-table-exporter'
 
-import jsPDF from 'jspdf'
+// import jsPDF from 'jspdf'
 import 'jspdf-autotable'
-import { number } from 'echarts'
+// import { number } from 'echarts'
 import { TransactionDialogComponent } from 'src/app/component/dashboard/transaction-dialog/transaction-dialog.component'
 import { MatDialog } from '@angular/material/dialog'
+import { DatePipe } from '@angular/common'
+
+import * as fs from 'file-saver'
 
 @Component({
   selector: 'app-charger-event',
@@ -32,7 +36,7 @@ export class ChargerEventComponent implements OnInit {
   UserId: string | null
   chargerName: string | null
   selectedChargerIds: string | null
-  jsPDF: any
+  // jsPDF: any
 
   searchParam = 'All'
   dataSource = new MatTableDataSource<any>()
@@ -68,9 +72,12 @@ export class ChargerEventComponent implements OnInit {
   }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator
+  // @ViewChild(MatTableExporterDirective, { static: true })
+  // exporter!: MatTableExporterDirective
+  // @ViewChild('pdfTable', { static: false })
+  // pdfTable!: ElementRef
 
-  @ViewChild('pdfTable', { static: false })
-  pdfTable!: ElementRef
+  datePipe = new DatePipe('en-US')
 
   ngAfterViewInit() {
     this.paginator._intl.itemsPerPageLabel = 'Rows per page'
@@ -116,27 +123,67 @@ export class ChargerEventComponent implements OnInit {
       }
     })
   }
+
   /**
-   * Download Pdf
+   * Download file
    */
 
-  public downloadAsPDF() {
-    var prepare: any = []
-    this.eventLogList.forEach((e: any) => {
-      var tempObj = []
-      tempObj.push(e.requestType)
-      tempObj.push(e.modifiedAt)
-      tempObj.push(e.requestPayload)
-      tempObj.push(e.responsePayload)
-      prepare.push(tempObj)
-    })
-    let doc: any = new jsPDF()
-    doc.autoTable({
-      head: [['Type', 'Date/Time', 'RequestPayload', 'ResponsePayload']],
-      body: prepare,
-    })
-    doc.save('download' + '.pdf')
+  //  exporter.exportTable('csv', { fileName: 'Charger-EventLog' })
+
+  downloadFile() {
+    let newObjArr: any = []
+
+    for (var i = 0; i < this.eventLogList.length; i++) {
+      let newObj = {
+        'REQUEST TYPE': this.eventLogList[i]['requestType'],
+        DATE: this.datePipe.transform(
+          this.eventLogList[i]['modifiedAt'],
+          'dd-MM-yyyy h:mm',
+        ),
+        'REQUEST PAYLOAD': this.eventLogList[i]['requestPayload'],
+        'RESPONSE PAYLOAD': this.eventLogList[i]['responsePayload'],
+      }
+
+      //PUSH INTO NEW ARRAY
+
+      newObjArr.push(newObj)
+    }
+    const replacer = (key: any, value: any) => (value === null ? '' : value) // specify how you want to handle null values here
+    const header = Object.keys(newObjArr[0])
+
+    let csv = newObjArr.map((row: any) =>
+      header
+        .map((fieldName) => JSON.stringify(row[fieldName], replacer))
+        .join(','),
+    )
+
+    csv.unshift(header.join(','))
+    let csvArray = csv.join('\r\n')
+
+    var blob = new Blob([csvArray], { type: 'text/csv' })
+    fs.saveAs(
+      blob,
+      new Date().toDateString() + 'Charger-EventLog_AssetWorks.csv',
+    )
   }
+
+  // public downloadAsCSV() {
+  //   var prepare: any = []
+  //   this.eventLogList.forEach((e: any) => {
+  //     var tempObj = []
+  //     tempObj.push(e.requestType)
+  //     tempObj.push(e.modifiedAt)
+  //     tempObj.push(e.requestPayload)
+  //     tempObj.push(e.responsePayload)
+  //     prepare.push(tempObj)
+  //   })
+  //   let doc: any = new jsPDF()
+  //   doc.autoTable({
+  //     head: [['Type', 'Date/Time', 'RequestPayload', 'ResponsePayload']],
+  //     body: prepare,
+  //   })
+  //   doc.save('download' + '.csv')
+  // }
 
   /**
    * Get command list
@@ -170,12 +217,16 @@ export class ChargerEventComponent implements OnInit {
 
   openMakePaymentDialog(id: any) {
     const dialogRef = this.dialog.open(TransactionDialogComponent, {
-      width: '30%',
+     // width: '50%',
       autoFocus: false,
-      height: '600px',
+     // height: '600px',
       // panelClass: 'my-dialog-container-class2',
       data: { id: id },
     })
     dialogRef.afterClosed().subscribe((result) => {})
   }
+}
+export interface prepare {
+  head: [['Type', 'Date/Time', 'RequestPayload', 'ResponsePayload']]
+  body: prepare
 }

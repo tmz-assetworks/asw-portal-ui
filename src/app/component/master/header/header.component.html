@@ -1,4 +1,4 @@
-<!-- loader -->
+<!-- loader start -->
 <div class="loader" *ngIf="showLoader">
   <div>
     <img
@@ -9,6 +9,7 @@
     />
   </div>
 </div>
+<!-- loader end -->
 <div class="header-block7 layout">
   <div class="header-block8 layout">
     <div class="header-section1">
@@ -21,20 +22,13 @@
               class="header-box2 layout"
               (click)="toggleNav()"
             />
-            <!-- <button (click)="toggleNav()">Click Me!!</button> -->
-            <!-- </div> -->
           </div>
           <div class="header-block9-spacer"></div>
           <div class="header-block9-item1">
             <div class="header-box3 layout"></div>
           </div>
           <div class="header-block9-spacer"></div>
-          <div class="header-block9-item2">
-            <!-- <div
-            style="--src: url(/assets/0ff09a5a2fdeebf5700aca8904a6dc85.png);"
-            class="header-icon layout"
-          ></div> -->
-          </div>
+          <div class="header-block9-item2"></div>
         </div>
       </div>
     </div>
@@ -43,29 +37,17 @@
       <div class="header-block8-item1">
         <div class="header-box4 layout"></div>
       </div>
-      <!-- <div class="menu-header"></div> -->
+
       <div *ngIf="role == 'Operator'" class="txt_menu">
         <img src="../../../../assets/images/bell.png" />
         <div class="count_circle" matTooltip="{{ countByUserId }}">
           <p>{{ countByUserId }}</p>
         </div>
       </div>
-      <p class="profile_txt">Hi ! {{ username }}</p>
+      <p class="profile_txt">Hi! {{ username }}</p>
 
       <div class="header-block8-spacer"></div>
 
-      <!-- <p
-      style="
-        text-align: center;
-
-        width: min-content;
-        white-space: nowrap;
-        vertical-align: middle;
-        height: 100%;
-      "
-    >
-      Hi! John Doe
-    </p> -->
       <div class="header-block8-item2">
         <div class="header-box5 layout">
           <button
@@ -92,7 +74,6 @@
               <span>Profile Settings</span>
             </button>
             <button mat-menu-item class="cursorPointer" (click)="logout()">
-              <!--disabled-->
               <mat-icon>logout</mat-icon>
               <span>Logout</span>
             </button>

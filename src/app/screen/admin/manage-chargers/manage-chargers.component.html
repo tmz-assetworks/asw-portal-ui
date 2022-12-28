@@ -18,7 +18,7 @@
                       >
                         <div class="cust-list-box7 layout">
                           <img
-                            src="../../../../assets/Admin-SideNav/Charger-Icons/Total-port.svg"
+                            src="../../../../assets/Admin-SideNav/Charger-Icons/Total-port.svg" alt="Total Port"
                           />
                         </div>
                       </div>
@@ -69,7 +69,7 @@
                       >
                         <div class="cust-list-box7 layout">
                           <img
-                            src="../../../../assets/Admin-SideNav/Charger-Icons/Total-port.svg"
+                            src="../../../../assets/Admin-SideNav/Charger-Icons/Total-port.svg" alt="Total-ports"
                           />
                         </div>
                       </div>
@@ -114,7 +114,7 @@
                       >
                         <div class="cust-list-box7 layout">
                           <img
-                            src="../../../../assets/Admin-SideNav/Charger-Icons/Total-port.svg"
+                            src="../../../../assets/Admin-SideNav/Charger-Icons/Total-port.svg" alt="Total-ports"
                           />
                         </div>
                       </div>
@@ -154,7 +154,7 @@
         <div class="cust-list-block19 layout">
           <div class="cust-list-box9 layout">
             <img
-              src="../../../../assets/Admin-SideNav/Charger-Icons/Search.svg"
+              src="../../../../assets/Admin-SideNav/Charger-Icons/Search.svg" alt="Search"
               alt=""
               class="cust-list-icon layout"
             />
@@ -177,7 +177,7 @@
         <div class="cust-list-block23-item">
           <div class="cust-list-box10 layout">
             <img
-              src="../../../../assets/Admin-SideNav/Charger-Icons/Add-Charger.svg"
+              src="../../../../assets/Admin-SideNav/Charger-Icons/Add-Charger.svg" 
               alt=""
               srcset=""
             />
@@ -279,6 +279,7 @@
 
   <mat-paginator
     #paginator
+    [hidden]="!dataSource.data.length" 
     (page)="pageChange($event)"
     [length]="totalCount"
     [pageSize]="pageSize"

@@ -3789,3 +3789,16 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
 .charger_main .dashboard-block42-item .card-block40.layout{
   margin: 20px 0px 0px 0px !important;
 }
+
+@media all and (min-width: 480px) and (max-width: 1023px){
+  .dashboard-block14 .dashboard-block42{
+      flex-wrap: wrap;
+  }
+  }
+
+  @media all and (min-width: 1024px) and (max-width: 1920px) {
+    .dashboard-block14 .dashboard-block42{
+      flex-wrap: nowrap;
+  }
+  
+  }

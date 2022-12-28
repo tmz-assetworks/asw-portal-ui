@@ -1,11 +1,11 @@
-import { FormBuilder, FormControl, Validators } from '@angular/forms'
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core'
-import Swal from 'sweetalert2'
-import { Router } from '@angular/router'
-import { ToastrService } from 'ngx-toastr'
-import { SuperAdminService } from '../../super-admin.service'
-import { DatePipe, Location } from '@angular/common'
-import { StorageService } from 'src/app/service/storage.service'
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { SuperAdminService } from '../../super-admin.service';
+import { DatePipe, Location } from '@angular/common';
+import { StorageService } from 'src/app/service/storage.service';
 
 @Component({
   selector: 'app-create-admin',
@@ -13,51 +13,54 @@ import { StorageService } from 'src/app/service/storage.service'
   styleUrls: ['./create-admin.component.scss'],
 })
 export class CreateAdminComponent implements OnInit {
-  submitted = false
-  registrationForm: any
-  disableSelect = new FormControl(false)
-  adminData: any
-  saveBtn: boolean = true
-  title: string = 'Add Admin User'
-  saveBtnValue: any
-  UserId: any
-  countryList: any
-  countryId = 0
-  stateList: any
-  stateId = 0
-  cityList: any
-  cityId = 0
-  selectValue = '0'
-  customerList: any
-  editId = 0
-  role = ''
-  datePipe = new DatePipe('en-US')
-  orgUserId = '0'
+  submitted = false;
+  registrationForm: any;
+  disableSelect = new FormControl(false);
+  adminData: any;
+  saveBtn: boolean = true;
+  title: string = 'Add Admin User';
+  saveBtnValue: any;
+  UserId: any;
+  countryList: any;
+  countryId = 0;
+  stateList: any;
+  stateId = 0;
+  cityList: any;
+  selectValue = '0';
+  customerList: any;
+  editId = 0;
+  role = '';
+  datePipe = new DatePipe('en-US');
+  orgUserId = '0';
+  telephoneNumber: string = '';
+  adminRowData: any
+  customerName:any
+  customerId:any
   constructor(
     private formBuilder: FormBuilder,
     private _router: Router,
     private toastr: ToastrService,
     private _superadminService: SuperAdminService,
     private _location: Location,
-    private _storageService: StorageService,
+    private _storageService: StorageService
   ) {
-    this.role = localStorage.getItem('role') || ''
-    this.editId = 0
-    this.UserId = this._storageService.getLocalData('user_id')
+    this.role = localStorage.getItem('role') || '';
+    this.editId = 0;
+    this.UserId = this._storageService.getLocalData('user_id');
     this.saveBtn =
       sessionStorage.getItem('saveBtn') !== undefined &&
       sessionStorage.getItem('saveBtn') !== null &&
       sessionStorage.getItem('saveBtn') !== ''
         ? JSON.parse(JSON.stringify(sessionStorage.getItem('saveBtn')))
-        : true
+        : true;
     this.adminData =
       sessionStorage.getItem('adminData') !== undefined &&
       sessionStorage.getItem('adminData') !== null
         ? sessionStorage.getItem('adminData')
-        : ''
+        : '';
 
-    this.saveBtnValue = this.saveBtn
-    this.saveBtnValue = JSON.parse(this.saveBtnValue)
+    this.saveBtnValue = this.saveBtn;
+    this.saveBtnValue = JSON.parse(this.saveBtnValue);
 
     if (
       this.saveBtnValue &&
@@ -65,32 +68,34 @@ export class CreateAdminComponent implements OnInit {
       this.adminData !== null &&
       this.adminData !== ''
     ) {
-      this.title = 'Edit Admin User'
-      this.setadminData(this.adminData)
+      this.title = 'Edit Admin User';
+      this.setFormValue(this.adminData);
     } else if (
       !this.saveBtnValue &&
       this.adminData !== undefined &&
       this.adminData !== null &&
       this.adminData !== ''
     ) {
-      this.title = 'View Admin User'
-      this.setadminData(this.adminData)
-      this.addAdminProfile.disable()
+      this.title = 'View Admin User';
+      this.setFormValue(this.adminData);
+      this.addAdminFormGroup.disable();
     } else {
-      this.title = 'Add Admin User'
+      this.title = 'Add Admin User';
     }
   }
 
-  addAdminProfile = this.formBuilder.group({
+  /**
+   * Form group
+   */
+
+  addAdminFormGroup = this.formBuilder.group({
     username: new FormControl('', [
       Validators.required,
       Validators.maxLength(20),
     ]),
     emailid: new FormControl('', [Validators.required, Validators.email]),
-    // dob: new FormControl('', Validators.required),
     phoneNumber: new FormControl('', Validators.required),
-    organizationName: new FormControl(this.selectValue, Validators.required),
-    // organizationName: new FormControl(this.selectValue, [Validators.required,Validators.minLength(2)]),
+    organizationName: new FormControl(Validators.required),
     addressLine1: new FormControl('', [
       Validators.required,
       Validators.maxLength(255),
@@ -98,66 +103,72 @@ export class CreateAdminComponent implements OnInit {
     addressLine2: new FormControl('', [Validators.maxLength(255)]),
     country: new FormControl(this.selectValue, Validators.required),
     state: new FormControl(this.selectValue, Validators.required),
-    // city: new FormControl(this.selectValue, Validators.required),
     cityName: new FormControl('', Validators.required),
     zipcode: new FormControl('', [Validators.required]),
-  })
+  });
 
   ngOnInit() {
-    this.orgUserId = sessionStorage.getItem('orgUserId') || ''
+    /**
+     * Get org user from local storage
+     */
+    this.orgUserId = sessionStorage.getItem('orgUserId') || '';
     this._superadminService.getListApi('country').subscribe((res) => {
-      this.countryList = res.data
-    })
+      this.countryList = res.data;
+    });
+    /**
+     * Call API
+     */
     this._superadminService.getListApi('org').subscribe((res) => {
-      this.customerList = res.data
-    })
+      this.customerList = res.data;
+      this.customerName = res.data[0].customerName
+      this.customerId = res.data[0].id
+    });
   }
 
   ngAfterViewInit() {
     if (this.title == 'Add Admin User' && this.orgUserId !== '') {
-      this.addAdminProfile.patchValue({
+      this.addAdminFormGroup.patchValue({
         organizationName: this.orgUserId.toString(),
-      })
+      });
     }
   }
 
-  saveForm() {
-    let formField = this.addAdminProfile.value
+  /**
+   * Add  or update admin user
+   * @returns
+   */
+  addUpdateAdmin() {
+    let formField = this.addAdminFormGroup.value;
 
-    this.submitted = true
+    this.submitted = true;
     if (
-      this.addAdminProfile.value.organizationName == '0' ||
-      this.addAdminProfile.value.country == '0' ||
-      this.addAdminProfile.value.state == '0' ||
-      this.addAdminProfile.value.city == '0'
+      this.addAdminFormGroup.value.organizationName == '0' ||
+      this.addAdminFormGroup.value.country == '0' ||
+      this.addAdminFormGroup.value.state == '0' ||
+      this.addAdminFormGroup.value.city == '0'
     ) {
-      this.toastr.error('Please fill mandatory fields.')
-      return
+      this.toastr.error('Please fill mandatory fields.');
+      return;
     }
-    if (this.addAdminProfile.invalid) {
-      this.toastr.error('Please fill mandatory fields.')
-      return
+    if (this.addAdminFormGroup.invalid) {
+      this.toastr.error('Please fill mandatory fields.');
+      return;
     }
     if (this.editId == 0) {
-      let pass = sessionStorage.getItem('enpass')
       let body = {
         displayName: this.role,
         objectid: '',
         userPrincipalName: '',
         mailNickname: '',
         isActive: true,
-        //  password: pass,
-        // isForceChangePasswordNextSignIn: true,
         emailId: formField.emailid,
         name: formField.username,
-        // dob: this.datePipe.transform(formField.dob, 'yyyy-MM-ddThh:mm:ss'),
         phoneNumber: formField.phoneNumber,
         addressLine1: formField.addressLine1,
         addressLine2: formField.addressLine2,
         countryID: parseInt(formField.country),
-        customerID: parseInt(formField.organizationName),
+        customerID: this.customerId,
         stateID: parseInt(formField.state),
-        // cityID: parseInt(formField.city),
         cityName: formField.cityName,
         zipCode: formField.zipcode,
         createdBy: this.UserId,
@@ -171,7 +182,7 @@ export class CreateAdminComponent implements OnInit {
           locationId: 0
         }
       ] */,
-      }
+      };
       Swal.fire({
         title: '<strong>Are you sure you want to confirm?</strong>',
         icon: 'success',
@@ -188,38 +199,36 @@ export class CreateAdminComponent implements OnInit {
           this._superadminService.CreateUser(body).subscribe({
             next: (res) => {
               if (res.statusCode === 200) {
-                sessionStorage.removeItem('orgUserId')
-                this.toastr.success(res.statusMessage)
-                this._location.back()
+                sessionStorage.removeItem('orgUserId');
+                this.toastr.success(res.statusMessage);
+                this._location.back();
               } else {
-                this.toastr.error(res.statusMessage)
-                return
+                this.toastr.error(res.statusMessage);
+                return;
               }
             },
             error: (error) => {
               if (error.status == 400) {
-                let errorMsg = error.error.errors
+                let errorMsg = error.error.errors;
 
-                this.toastr.error(errorMsg)
+                this.toastr.error(errorMsg);
                 // this.showLoader = false
               }
             },
-          })
+          });
         }
-      })
+      });
     } else {
       let body = {
         id: this.editId,
         emailId: formField.emailid,
         name: formField.username,
-        // dob: this.datePipe.transform(formField.dob, 'yyyy-MM-ddThh:mm:ss'),
         phoneNumber: formField.phoneNumber,
         addressLine1: formField.addressLine1,
         addressLine2: formField.addressLine2,
         countryID: parseInt(formField.country),
-        customerID: parseInt(formField.organizationName),
+        customerID: this.customerId,
         stateID: parseInt(formField.state),
-        // cityId: parseInt(formField.city),
         cityName: formField.cityName,
         zipCode: formField.zipcode,
         modifiedBy: this.UserId,
@@ -235,7 +244,7 @@ export class CreateAdminComponent implements OnInit {
         //     locationId: 0,
         //   },
         // ],
-      }
+      };
 
       Swal.fire({
         title: '<strong>Are you sure you want to confirm?</strong>',
@@ -254,240 +263,191 @@ export class CreateAdminComponent implements OnInit {
           this._superadminService.UpdateUser(body).subscribe({
             next: (res) => {
               if (res.statusCode == 400) {
-                this.toastr.error(res.statusMessage)
-                // this._location.back()
+                this.toastr.error(res.statusMessage);
               } else {
-                this.toastr.success(res.statusMessage)
-                this._location.back()
+                this.toastr.success(res.statusMessage);
+                this._location.back();
               }
             },
-
-            // (error: any) => {
-            //   if (error.status == 400) {
-            //     let errorMsg = error.error.errors
-            //     this._toastr.error(JSON.stringify(errorMsg))
-            //     this.showLoader = false
-            //   }
-            // },
             error: (error) => {
               if (error.status == 400) {
-                let errorMsg = error.error.errors
-                this.toastr.error(errorMsg)
+                let errorMsg = error.error.errors;
+                this.toastr.error(errorMsg);
                 // this.showLoader = false
               }
             },
-          })
+          });
         }
-      })
+      });
     }
   }
-  btnClick() {
-    this._router.navigateByUrl('superadmin/admin/')
-  }
+
+  /**
+   * Country or state dropdown event
+   * @param event
+   * @param type
+   */
 
   getSelected(event: any, type: string) {
     if (type == 'state') {
       if (this.countryId !== parseInt(event.value)) {
         // NEW COUNTRY IS SELECTED
-        this.stateId = 0
-        // this.stateName = ''
-        // this.cityId = 0
-        // this.cityName = ''
-        this.addAdminProfile.patchValue({ state: this.selectValue })
-        this.addAdminProfile.patchValue({ city: this.selectValue })
-        this.stateList = []
-        // this.cityList = []
+        this.stateId = 0;
+
+        this.addAdminFormGroup.patchValue({ state: this.selectValue });
+        this.addAdminFormGroup.patchValue({ city: this.selectValue });
+        this.stateList = [];
       }
-      this.countryId = parseInt(event.value)
+      this.countryId = parseInt(event.value);
       // this.countryName = event.value.split('#')[1];
       // CALL STATE API
       this._superadminService
         .getListApi('state', this.countryId)
         .subscribe((res) => {
-          this.stateList = res.data
+          this.stateList = res.data;
           if (this.countryId == 0) {
             // FOR NEW LOCATION
-            this.addAdminProfile.patchValue({ state: this.selectValue })
-            this.stateId = 0
+            this.addAdminFormGroup.patchValue({ state: this.selectValue });
+            this.stateId = 0;
             // this.stateName = ''
           } else if (this.countryId > 0 && this.stateId > 0) {
             // FOR EDIT COUNTRY AND STATE BOTH ARE SELECTED
-            this.addAdminProfile.patchValue({ state: this.stateId.toString() })
-          } else if (
-            this.countryId > 0 &&
-            this.stateId > 0 &&
-            this.cityId > 0
-          ) {
-            // FOR EDIT COUNTRY AND STATE BOTH ARE SELECTED
-            this.addAdminProfile.patchValue({ city: this.cityId.toString() })
+            this.addAdminFormGroup.patchValue({ state: this.stateId.toString() });
           } else if (this.countryId > 0 && this.stateId == 0) {
             // WHEN CHANGING COUNTRY
-            this.addAdminProfile.patchValue({ state: this.selectValue })
+            this.addAdminFormGroup.patchValue({ state: this.selectValue });
           }
-        })
+        });
     }
-    // else if (type == 'city') {
-    //   if (this.stateId !== parseInt(event.value)) {
-    //     // NEW STATE IS SELECTED
-    //     this.cityId = 0
-    //     //  this.cityName = ''
-    //   }
-    //   this.stateId = parseInt(event.value)
-    //   // this.stateName = event.value.split('#')[1];
-    //   // CALL STATE API
-    //   this._superadminService
-    //     .getListApi('city', 0, this.stateId)
-    //     .subscribe((res) => {
-    //       this.cityList = res.data
-    //       if (this.stateId == 0) {
-    //         // FOR NEW LOCATION
-    //         this.addAdminProfile.patchValue({ city: this.selectValue })
-    //         this.cityId = 0
-    //         //  this.cityName = ''
-    //       } else if (this.stateId > 0 && this.cityId > 0) {
-    //         // FOR EDIT STATE AND CITY BOTH ARE SELECTED
-    //         this.addAdminProfile.patchValue({ state: this.stateId.toString() })
-    //         this.addAdminProfile.patchValue({ city: this.cityId.toString() })
-    //       } else if (this.stateId > 0 && this.cityId == 0) {
-    //         // WHEN CHANGING STATE
-    //         // this.addAdminProfile.patchValue({ city: this.selectValue })
-    //         // this.addAdminProfile.patchValue({
-    //         //   cityName: this.customerData.cityName,
-    //         // });
-    //         this.addAdminProfile.patchValue({ state: this.stateId.toString() })
-    //       }
-
-    //     })
-    // } else {
-    //   // FOR CITY ID AND NAME
-    //   this.cityId = parseInt(event.value)
-    //   // this.cityName = event.value.split('#')[1];
-    // }
   }
 
   /**
-   * Set Form Value
+   * Set form value
    * @param data
    */
-  adminRowData: any
-  setadminData(data: any) {
-    const body = {}
-    data = JSON.parse(data)
-    this.editId = data.id
+  setFormValue(data: any) {
+    const body = {};
+    data = JSON.parse(data);
+    this.editId = data.id;
     this._superadminService.getListApi('admin', data.id).subscribe((res) => {
-      this.adminRowData = res.data
-      this.countryId = this.adminRowData.countryID
-      this.stateId = this.adminRowData.stateID
-      // this.cityId = this.adminRowData.cityID
+      this.adminRowData = res.data;
+
+      this.countryId = this.adminRowData.countryID;
+      this.stateId = this.adminRowData.stateID;
 
       this.getSelected(
         {
           value: this.adminRowData.countryID,
         },
-        'state',
-      )
+        'state'
+      );
       this.getSelected(
         {
           value: this.adminRowData.stateID,
         },
-        'city',
-      )
+        'city'
+      );
 
-      this.addAdminProfile.patchValue({
+      this.addAdminFormGroup.patchValue({
         username: this.adminRowData.adminName,
-      })
-      this.addAdminProfile.patchValue({
+      });
+      this.addAdminFormGroup.patchValue({
         emailid: this.adminRowData.emailId,
-      })
-      this.addAdminProfile.patchValue({
+      });
+      this.addAdminFormGroup.patchValue({
         phoneNumber: this.adminRowData.phoneNumber,
-      })
+      });
 
-      this.addAdminProfile.patchValue({
+      this.addAdminFormGroup.patchValue({
         addressLine1: this.adminRowData.addressLine1,
-      })
-      this.addAdminProfile.patchValue({
+      });
+      this.addAdminFormGroup.patchValue({
         addressLine2: this.adminRowData.addressLine2,
-      })
+      });
 
-      this.addAdminProfile.patchValue({
+      this.addAdminFormGroup.patchValue({
         country:
           this.adminRowData.countryID !== 0
             ? this.adminRowData.countryID.toString()
             : this.selectValue,
-      })
-      this.addAdminProfile.patchValue({
+      });
+      this.addAdminFormGroup.patchValue({
         state:
           this.adminRowData.stateID !== 0
             ? this.adminRowData.stateID
             : this.selectValue,
-      })
+      });
 
-      this.addAdminProfile.patchValue({
+      this.addAdminFormGroup.patchValue({
         cityName: this.adminRowData.cityName,
-      })
+      });
 
-      // this.addAdminProfile.patchValue({
-      //   city:
-      //     this.adminRowData.cityId !== 0
-      //       ? this.adminRowData.cityId
-      //       : this.selectValue,
-      // })
-      this.addAdminProfile.patchValue({
+      this.addAdminFormGroup.patchValue({
         zipcode: this.adminRowData.zipcode,
-      })
-      // this.addAdminProfile.patchValue({
-      //   dob: this.adminRowData.dob,
-      // })
+      });
 
-      this.addAdminProfile.patchValue({
+      this.addAdminFormGroup.patchValue({
         organizationName:
           this.adminRowData.customerID !== 0
             ? this.adminRowData.customerID.toString()
             : 0,
-      })
-    })
-    this.addAdminProfile
+      });
+    });
   }
 
-  //dob filter
-  dateFilter = (d: any | null) => {
-    return d < new Date()
-  }
+  /**
+   * Omit special character
+   * @param event
+   * @returns
+   */
 
   omit_special_char(event: any) {
-    let k = event.charCode //         k = event.keyCode;  (Both can be used)
+    let k = event.charCode; //         k = event.keyCode;  (Both can be used)
     return (
       (k > 64 && k < 91) ||
       (k > 96 && k < 123) ||
       k == 8 ||
       k == 32 ||
       (k >= 48 && k <= 57)
-    )
+    );
   }
+
+  /**
+   * Number only
+   * @param event
+   * @returns
+   */
 
   numberOnly(event: any): boolean {
-    const charCode = event.which ? event.which : event.keyCode
+    const charCode = event.which ? event.which : event.keyCode;
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-      return false
+      return false;
     }
-    return true
+    return true;
   }
 
-  telephoneNumber: string = ''
+  
+
+  /**
+   * Phone number format
+   * @param event
+   * @returns
+   */
 
   phoneNumber(event: any) {
-    const charCode = event.which ? event.which : event.keyCode
+    const charCode = event.which ? event.which : event.keyCode;
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-      return
+      return;
     }
-    let filterValue = (event.target as HTMLInputElement).value
-    this.telephoneNumber = filterValue
+    let filterValue = (event.target as HTMLInputElement).value;
+    this.telephoneNumber = filterValue;
     if (this.telephoneNumber.length == 3) {
-      this.telephoneNumber = '(' + this.telephoneNumber + ')' + ' '
+      this.telephoneNumber = '(' + this.telephoneNumber + ')' + ' ';
     }
     if (this.telephoneNumber.length == 9) {
-      this.telephoneNumber = this.telephoneNumber + '-'
+      this.telephoneNumber = this.telephoneNumber + '-';
     }
   }
+
+  
 }
