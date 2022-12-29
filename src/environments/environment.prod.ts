@@ -1,11 +1,11 @@
 export const environment = {
   production: true,
-  PORTAL_API_URL: 'https://asw-portal-rest-service.azurewebsites.net/',
-  USER_API_URL: 'https://user-mgmt-service.azurewebsites.net/api/',
-  DIAGNOSTIC_API_URL: 'https://ocpp-core.azurewebsites.net/',
-  ASSET_API_URL: 'https://assets-service.azurewebsites.net/api/',
-  REPORT_API_URL: 'https://asw-report-service.azurewebsites.net/api/',
-  PRICING_API_URL: 'https://pricing-service.azurewebsites.net/api/',
+  PORTAL_API_URL: 'https://app-eus-cms-internal-portalapi-dev.azurewebsites.net/',
+  USER_API_URL: 'https://app-eus-cms-internal-usermgmt-dev.azurewebsites.net/api/',
+  DIAGNOSTIC_API_URL: 'https://app-eus-cms-internal-ocpp-dev.azurewebsites.net/',
+  ASSET_API_URL: 'https://app-eus-cms-internal-assets-dev.azurewebsites.net/api/',
+  REPORT_API_URL: 'https://app-eus-cms-internal-report-dev.azurewebsites.net/api/',
+  PRICING_API_URL: 'https://app-eus-cms-internal-pricing-dev.azurewebsites.net/api/',
   NOTIFICATION_API_URL:
     'https://notification-appservices.azurewebsites.net/api/',
   imagePath: '',
