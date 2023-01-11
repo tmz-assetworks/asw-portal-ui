@@ -7,7 +7,7 @@
 #
 
 trigger:
-- main
+- none
 
 pool: 'CMS Project' 
 
@@ -16,26 +16,34 @@ variables:
 
 jobs: 
 - job: BuildAngular
-  displayName: 'Publish Angular Project Artifacts'
+  displayName: 'Publish Angular Project'
   steps:
 
-  # build the project
+    # build the project
     - task: PowerShell@2
       displayName: 'Build Project'
       inputs:
         targetType: 'inline'
-        script: |          
+        script: |
           npm i
-          ng build --output-path $(Build.ArtifactStagingDirectory)/dist/asset-works
+          ng build
+
+    # remove the node modules/dist folders as we'll be rebuilding this project in the release pipeline
+    - task: DeleteFiles@1
+      displayName: 'Delete Build Files'
+      inputs:
+        SourceFolder: '$(Build.SourcesDirectory)'
+        Contents: |
+          node_modules
+          dist
 
     # copy the output & source to the output directory  
     - task: CopyFiles@2
       displayName: 'Copy Output'
       inputs:
         SourceFolder: '$(Build.SourcesDirectory)'
-        Contents: '*'
-        TargetFolder: '$(Build.ArtifactStagingDirectory)'
-        flattenFolders: true
+        Contents: '**'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'        
 
     # add build tags
     - task: PowerShell@2
