@@ -6,7 +6,7 @@ import { AlertsService } from '../../alerts/alerts.service'
 import { StorageService } from 'src/app/service/storage.service'
 import { LocationService } from '../../location/location.service'
 import { ChargerService } from '../charger.service'
-// import { MatTableExporterDirective } from 'mat-table-exporter'
+
 
 // import jsPDF from 'jspdf'
 import 'jspdf-autotable'
@@ -72,8 +72,7 @@ export class ChargerEventComponent implements OnInit {
   }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator
-  // @ViewChild(MatTableExporterDirective, { static: true })
-  // exporter!: MatTableExporterDirective
+
   // @ViewChild('pdfTable', { static: false })
   // pdfTable!: ElementRef
 

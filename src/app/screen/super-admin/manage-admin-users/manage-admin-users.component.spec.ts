@@ -1,25 +1,68 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ManageAdminUsersComponent } from './manage-admin-users.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing'
+import { ManageAdminUsersComponent } from './manage-admin-users.component'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { ToastrModule } from 'ngx-toastr'
+import { RouterTestingModule } from '@angular/router/testing'
+import { ReactiveFormsModule } from '@angular/forms'
+import { MatPaginatorModule } from '@angular/material/paginator'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { SuperAdminService } from '../super-admin.service'
+import { MatTableModule } from '@angular/material/table'
 
 describe('ManageAdminUsersComponent', () => {
-  let component: ManageAdminUsersComponent;
-  let fixture: ComponentFixture<ManageAdminUsersComponent>;
+  let component: ManageAdminUsersComponent
+  let fixture: ComponentFixture<ManageAdminUsersComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ManageAdminUsersComponent ]
-    })
-    .compileComponents();
-  });
+      imports: [
+        ReactiveFormsModule,
+        RouterTestingModule,
+        ToastrModule.forRoot(),
+        HttpClientTestingModule,
+        MatPaginatorModule,
+        BrowserAnimationsModule,
+        MatTableModule,
+      ],
+      declarations: [ManageAdminUsersComponent],
+      providers: [SuperAdminService],
+    }).compileComponents()
+  })
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ManageAdminUsersComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(ManageAdminUsersComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
+
+  it('should call GetAllUsers() method on init', () => {
+    // set up spies, could also call a fake method in case you don't want the API call to go through
+
+    const componentSpy = spyOn(component, 'getAdminList').and.callThrough()
+
+    // make sure they haven't been called yet
+
+    expect(componentSpy).not.toHaveBeenCalled()
+
+    // depending on how your component is set up, fixture.detectChanges() might be enough
+    component.ngOnInit()
+
+    // expect(userServiceSpy).toHaveBeenCalledTimes(1)
+    expect(componentSpy).toHaveBeenCalledTimes(1)
+  })
+
+  it('should have page size 10', async () => {
+    expect(component.pageSize).toEqual(10)
+  })
+
+  it('should have page size 10', async () => {
+    expect(component.pageSize).toEqual(10)
+  })
+  it('should have current page  1', async () => {
+    expect(component.currentPage).toEqual(1)
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { StackedAreaChartComponent } from './stacked-area-chart.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('StackedAreaChartComponent', () => {
   let component: StackedAreaChartComponent;
@@ -8,6 +9,7 @@ describe('StackedAreaChartComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports:[HttpClientTestingModule],
       declarations: [ StackedAreaChartComponent ]
     })
     .compileComponents();

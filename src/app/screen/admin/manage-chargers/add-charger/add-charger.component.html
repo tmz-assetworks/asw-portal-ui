@@ -4,7 +4,7 @@
       <h3 class="barbar-subtitle layout">{{ chargerTitle }}</h3>
     </div>
 
-    <form [formGroup]="addChargerForm">
+    <form [formGroup]="addChargerFormGroup">
       <div></div>
       <div></div>
       <div class="barbar-block12 layout">
@@ -20,7 +20,8 @@
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addChargerForm.get('assetId')?.errors && submitted == true
+                    addChargerFormGroup.get('assetId')?.errors &&
+                    submitted == true
                 }"
               >
                 <input
@@ -31,9 +32,9 @@
               </div>
               <span
                 *ngIf="
-                  !addChargerForm.get('assetId')?.valid &&
-                  addChargerForm.get('assetId')?.touched &&
-                  addChargerForm.get('assetId')?.value.length > 0
+                  !addChargerFormGroup.get('assetId')?.valid &&
+                  addChargerFormGroup.get('assetId')?.touched &&
+                  addChargerFormGroup.get('assetId')?.value.length > 0
                 "
                 class="error-mess"
               >
@@ -41,9 +42,9 @@
               </span>
               <span
                 *ngIf="
-                  !addChargerForm.get('assetId')?.valid &&
-                  addChargerForm.get('assetId')?.touched &&
-                  addChargerForm.get('assetId')?.value.length == 0
+                  !addChargerFormGroup.get('assetId')?.valid &&
+                  addChargerFormGroup.get('assetId')?.touched &&
+                  addChargerFormGroup.get('assetId')?.value.length == 0
                 "
                 class="error-mess"
               >
@@ -62,7 +63,7 @@
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addChargerForm.get('chargeBoxId')?.errors &&
+                    addChargerFormGroup.get('chargeBoxId')?.errors &&
                     submitted == true
                 }"
               >
@@ -74,9 +75,9 @@
               </div>
               <span
                 *ngIf="
-                  !addChargerForm.get('chargeBoxId')?.valid &&
-                  addChargerForm.get('chargeBoxId')?.touched &&
-                  addChargerForm.get('chargeBoxId')?.value.length > 0
+                  !addChargerFormGroup.get('chargeBoxId')?.valid &&
+                  addChargerFormGroup.get('chargeBoxId')?.touched &&
+                  addChargerFormGroup.get('chargeBoxId')?.value.length > 0
                 "
                 class="error-mess"
               >
@@ -84,9 +85,9 @@
               </span>
               <span
                 *ngIf="
-                  !addChargerForm.get('chargeBoxId')?.valid &&
-                  addChargerForm.get('chargeBoxId')?.touched &&
-                  addChargerForm.get('chargeBoxId')?.value.length == 0
+                  !addChargerFormGroup.get('chargeBoxId')?.valid &&
+                  addChargerFormGroup.get('chargeBoxId')?.touched &&
+                  addChargerFormGroup.get('chargeBoxId')?.value.length == 0
                 "
                 class="error-mess"
               >
@@ -106,7 +107,7 @@
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addChargerForm.get('locationId')?.errors &&
+                    addChargerFormGroup.get('locationId')?.errors &&
                     submitted == true
                 }"
               >
@@ -127,9 +128,9 @@
             </div>
             <span
               *ngIf="
-                !addChargerForm.get('locationId')?.valid &&
-                addChargerForm.get('locationId')?.touched &&
-                addChargerForm.get('locationId')?.value.length == 0
+                !addChargerFormGroup.get('locationId')?.valid &&
+                addChargerFormGroup.get('locationId')?.touched &&
+                addChargerFormGroup.get('locationId')?.value.length == 0
               "
               class="error-mess"
             >
@@ -177,7 +178,7 @@
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addChargerForm.get('makeMasterId')?.errors &&
+                    addChargerFormGroup.get('makeMasterId')?.errors &&
                     submitted == true
                 }"
               >
@@ -191,9 +192,9 @@
             </div>
             <span
               *ngIf="
-                !addChargerForm.get('makeMasterId')?.valid &&
-                addChargerForm.get('makeMasterId')?.touched &&
-                addChargerForm.get('makeMasterId')?.value.length == 0
+                !addChargerFormGroup.get('makeMasterId')?.valid &&
+                addChargerFormGroup.get('makeMasterId')?.touched &&
+                addChargerFormGroup.get('makeMasterId')?.value.length == 0
               "
               class="error-mess"
             >
@@ -201,8 +202,8 @@
             </span>
             <span
               *ngIf="
-                addChargerForm.get('makeMasterId')?.touched &&
-                addChargerForm.get('makeMasterId')?.value.length > 40
+                addChargerFormGroup.get('makeMasterId')?.touched &&
+                addChargerFormGroup.get('makeMasterId')?.value.length > 40
               "
               class="error-mess"
             >
@@ -220,7 +221,8 @@
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addChargerForm.get('modelId')?.errors && submitted == true
+                    addChargerFormGroup.get('modelId')?.errors &&
+                    submitted == true
                 }"
               >
                 <input
@@ -233,9 +235,9 @@
             </div>
             <span
               *ngIf="
-                !addChargerForm.get('modelId')?.valid &&
-                addChargerForm.get('modelId')?.touched &&
-                addChargerForm.get('modelId')?.value.length == 0
+                !addChargerFormGroup.get('modelId')?.valid &&
+                addChargerFormGroup.get('modelId')?.touched &&
+                addChargerFormGroup.get('modelId')?.value.length == 0
               "
               class="error-mess"
             >
@@ -244,8 +246,8 @@
 
             <span
               *ngIf="
-                addChargerForm.get('modelId')?.touched &&
-                addChargerForm.get('modelId')?.value.length > 40
+                addChargerFormGroup.get('modelId')?.touched &&
+                addChargerFormGroup.get('modelId')?.value.length > 40
               "
               class="error-mess"
             >
@@ -274,9 +276,9 @@
             </div>
             <!-- <span
               *ngIf="
-                !addChargerForm.get('padId')?.valid &&
-                addChargerForm.get('padId')?.touched &&
-                addChargerForm.get('padId')?.value.length == 0
+                !addChargerFormGroup.get('padId')?.valid &&
+                addChargerFormGroup.get('padId')?.touched &&
+                addChargerFormGroup.get('padId')?.value.length == 0
               "
               class="error-mess"
             >
@@ -306,9 +308,9 @@
             </div>
             <!-- <span
               *ngIf="
-                !addChargerForm.get('cableId')?.valid &&
-                addChargerForm.get('cableId')?.touched &&
-                addChargerForm.get('cableId')?.value.length == 0
+                !addChargerFormGroup.get('cableId')?.valid &&
+                addChargerFormGroup.get('cableId')?.touched &&
+                addChargerFormGroup.get('cableId')?.value.length == 0
               "
               class="error-mess"
             >
@@ -337,9 +339,9 @@
             </div>
             <!-- <span
               *ngIf="
-                !addChargerForm.get('modemId')?.valid &&
-                addChargerForm.get('modemId')?.touched &&
-                addChargerForm.get('modemId')?.value.length == 0
+                !addChargerFormGroup.get('modemId')?.valid &&
+                addChargerFormGroup.get('modemId')?.touched &&
+                addChargerFormGroup.get('modemId')?.value.length == 0
               "
               class="error-mess"
             >
@@ -371,9 +373,9 @@
             </div>
             <!-- <span
               *ngIf="
-                !addChargerForm.get('switchGearId')?.valid &&
-                addChargerForm.get('switchGearId')?.touched &&
-                addChargerForm.get('switchGearId')?.value.length == 0
+                !addChargerFormGroup.get('switchGearId')?.valid &&
+                addChargerFormGroup.get('switchGearId')?.touched &&
+                addChargerFormGroup.get('switchGearId')?.value.length == 0
               "
               class="error-mess"
             >
@@ -406,9 +408,9 @@
             </div>
             <!-- <span
               *ngIf="
-                !addChargerForm.get('rfidReaderId')?.valid &&
-                addChargerForm.get('rfidReaderId')?.touched &&
-                addChargerForm.get('rfidReaderId')?.value.length == 0
+                !addChargerFormGroup.get('rfidReaderId')?.valid &&
+                addChargerFormGroup.get('rfidReaderId')?.touched &&
+                addChargerFormGroup.get('rfidReaderId')?.value.length == 0
               "
               class="error-mess"
             >
@@ -441,9 +443,9 @@
             </div>
             <!-- <span
               *ngIf="
-                !addChargerForm.get('powerCabinetId')?.valid &&
-                addChargerForm.get('powerCabinetId')?.touched &&
-                addChargerForm.get('powerCabinetId')?.value.length == 0
+                !addChargerFormGroup.get('powerCabinetId')?.valid &&
+                addChargerFormGroup.get('powerCabinetId')?.touched &&
+                addChargerFormGroup.get('powerCabinetId')?.value.length == 0
               "
               class="error-mess"
             >
@@ -462,7 +464,7 @@
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addChargerForm.get('protocolName')?.errors &&
+                    addChargerFormGroup.get('protocolName')?.errors &&
                     submitted == true
                 }"
               >
@@ -486,7 +488,7 @@
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addChargerForm.get('dispenserStatusId')?.errors &&
+                    addChargerFormGroup.get('dispenserStatusId')?.errors &&
                     submitted == true
                 }"
               >
@@ -506,9 +508,9 @@
             </div>
             <span
               *ngIf="
-                !addChargerForm.get('dispenserStatusId')?.valid &&
-                addChargerForm.get('dispenserStatusId')?.touched &&
-                addChargerForm.get('dispenserStatusId')?.value.length == 0
+                !addChargerFormGroup.get('dispenserStatusId')?.valid &&
+                addChargerFormGroup.get('dispenserStatusId')?.touched &&
+                addChargerFormGroup.get('dispenserStatusId')?.value.length == 0
               "
               class="error-mess"
             >
@@ -526,7 +528,7 @@
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addChargerForm.get('hardwareSerialNumber')?.errors &&
+                    addChargerFormGroup.get('hardwareSerialNumber')?.errors &&
                     submitted == true
                 }"
               >
@@ -538,9 +540,10 @@
               </div>
               <span
                 *ngIf="
-                  !addChargerForm.get('hardwareSerialNumber')?.valid &&
-                  addChargerForm.get('hardwareSerialNumber')?.touched &&
-                  addChargerForm.get('hardwareSerialNumber')?.value.length > 20
+                  !addChargerFormGroup.get('hardwareSerialNumber')?.valid &&
+                  addChargerFormGroup.get('hardwareSerialNumber')?.touched &&
+                  addChargerFormGroup.get('hardwareSerialNumber')?.value
+                    .length > 20
                 "
                 class="error-mess"
               >
@@ -548,9 +551,10 @@
               </span>
               <span
                 *ngIf="
-                  !addChargerForm.get('hardwareSerialNumber')?.valid &&
-                  addChargerForm.get('hardwareSerialNumber')?.touched &&
-                  addChargerForm.get('hardwareSerialNumber')?.value.length == 0
+                  !addChargerFormGroup.get('hardwareSerialNumber')?.valid &&
+                  addChargerFormGroup.get('hardwareSerialNumber')?.touched &&
+                  addChargerFormGroup.get('hardwareSerialNumber')?.value
+                    .length == 0
                 "
                 class="error-mess"
               >
@@ -573,9 +577,9 @@
               </div>
               <span
                 *ngIf="
-                  !addChargerForm.get('readingSchedule')?.valid &&
-                  addChargerForm.get('readingSchedule')?.touched &&
-                  addChargerForm.get('readingSchedule')?.value.length > 20
+                  !addChargerFormGroup.get('readingSchedule')?.valid &&
+                  addChargerFormGroup.get('readingSchedule')?.touched &&
+                  addChargerFormGroup.get('readingSchedule')?.value.length > 20
                 "
                 class="error-mess"
               >
@@ -599,9 +603,9 @@
               </div>
               <span
                 *ngIf="
-                  !addChargerForm.get('meterType')?.valid &&
-                  addChargerForm.get('meterType')?.touched &&
-                  addChargerForm.get('meterType')?.value.length > 20
+                  !addChargerFormGroup.get('meterType')?.valid &&
+                  addChargerFormGroup.get('meterType')?.touched &&
+                  addChargerFormGroup.get('meterType')?.value.length > 20
                 "
                 class="error-mess"
               >
@@ -625,9 +629,9 @@
               </div>
               <span
                 *ngIf="
-                  !addChargerForm.get('pingSchedule')?.valid &&
-                  addChargerForm.get('pingSchedule')?.touched &&
-                  addChargerForm.get('pingSchedule')?.value.length > 20
+                  !addChargerFormGroup.get('pingSchedule')?.valid &&
+                  addChargerFormGroup.get('pingSchedule')?.touched &&
+                  addChargerFormGroup.get('pingSchedule')?.value.length > 20
                 "
                 class="error-mess"
               >
@@ -646,7 +650,7 @@
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    addChargerForm.get('installationDate')?.errors &&
+                    addChargerFormGroup.get('installationDate')?.errors &&
                     submitted == true
                 }"
               >
@@ -665,8 +669,8 @@
               </mat-form-field>
               <span
                 *ngIf="
-                  !addChargerForm.get('installationDate')?.valid &&
-                  addChargerForm.get('installationDate')?.touched
+                  !addChargerFormGroup.get('installationDate')?.valid &&
+                  addChargerFormGroup.get('installationDate')?.touched
                 "
                 class="error-mess"
               >
@@ -762,7 +766,8 @@
                 }"
               >
                 <input
-                  formControlName="connectorId" readonly
+                  formControlName="connectorId"
+                  readonly
                   type="number"
                   class="barbar-input-text"
                   (keypress)="numberOnly($event)"

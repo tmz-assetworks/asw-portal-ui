@@ -12,7 +12,9 @@
                     <div class="cust-list-block7-item">
                       <div
                         class="cust-list-block8 layout"
-                        [style.background-color]="statusData[0].color"
+                        [style.background-color]="
+                          statusData ? statusData[0].color : ''
+                        "
                       >
                         <div class="cust-list-box7 layout">
                           <img
@@ -27,7 +29,7 @@
                     <div class="cust-list-block7-item1">
                       <div class="cust-list-block9 layout">
                         <h1 class="cust-list-hero-title layout mt_zero">
-                          {{ statusData[0].value }}
+                          {{ statusData ? statusData[0].value : '' }}
                         </h1>
                         <div class="cust-list-text-body2 layout">
                           Total Admin Users
@@ -39,12 +41,7 @@
               </div>
               <div class="cust-list-block5-spacer"></div>
               <div class="cust-list-block5-item1">
-                <div
-                  style="
-                    --src: url(/assets/79bc613acca208fbbe5d5ee8be3a0594.png);
-                  "
-                  class="cust-list-image layout"
-                ></div>
+                <div class="cust-list-image layout"></div>
               </div>
             </div>
           </div>
@@ -57,7 +54,9 @@
                     <div class="cust-list-block12-item">
                       <div
                         class="cust-list-block13 layout"
-                        [style.background-color]="statusData[1].color"
+                        [style.background-color]="
+                          statusData ? statusData[1].color : ''
+                        "
                       >
                         <div class="cust-list-box7 layout">
                           <img
@@ -71,10 +70,10 @@
                     <div class="cust-list-block12-item1">
                       <div class="cust-list-block14 layout">
                         <h1 class="cust-list-hero-title layout">
-                          {{ statusData[1].value }}
+                          {{ statusData ? statusData[1].value : '' }}
                         </h1>
                         <div class="cust-list-text-body2 layout1 act-value">
-                          {{ statusData[1].key }}
+                          {{ statusData ? statusData[1].key : '' }}
                         </div>
                       </div>
                     </div>
@@ -83,12 +82,7 @@
               </div>
               <div class="cust-list-block10-spacer"></div>
               <div class="cust-list-block10-item1">
-                <div
-                  style="
-                    --src: url(/assets/79bc613acca208fbbe5d5ee8be3a0594.png);
-                  "
-                  class="cust-list-image layout1"
-                ></div>
+                <div class="cust-list-image layout1"></div>
               </div>
             </div>
           </div>
@@ -101,7 +95,9 @@
                     <div class="cust-list-block17-item">
                       <div
                         class="cust-list-block18 layout"
-                        [style.background-color]="statusData[2].color"
+                        [style.background-color]="
+                          statusData ? statusData[2].color : ''
+                        "
                       >
                         <div class="cust-list-box7 layout">
                           <img
@@ -115,10 +111,10 @@
                     <div class="cust-list-block17-item1">
                       <div class="cust-list-block14 layout">
                         <h1 class="cust-list-hero-title layout">
-                          {{ statusData[2].value }}
+                          {{ statusData ? statusData[2].value : '' }}
                         </h1>
                         <div class="cust-list-text-body2 layout2">
-                          {{ statusData[2].key }}
+                          {{ statusData ? statusData[2].key : '' }}
                         </div>
                       </div>
                     </div>
@@ -127,12 +123,7 @@
               </div>
               <div class="cust-list-block15-spacer"></div>
               <div class="cust-list-block15-item1">
-                <div
-                  style="
-                    --src: url(/assets/79bc613acca208fbbe5d5ee8be3a0594.png);
-                  "
-                  class="cust-list-image layout2"
-                ></div>
+                <div class="cust-list-image layout2"></div>
               </div>
             </div>
           </div>

@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DashboardStatusPanelComponent } from './dashboard-status-panel.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('DashboardStatusPanelComponent', () => {
   let component: DashboardStatusPanelComponent;
@@ -8,6 +9,7 @@ describe('DashboardStatusPanelComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports:[HttpClientTestingModule],
       declarations: [ DashboardStatusPanelComponent ]
     })
     .compileComponents();

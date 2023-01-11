@@ -37,10 +37,10 @@
       <div class="invoice-details">
         <h4>Charging Information</h4>
         <div class="discription1">
-          <div class="field-value">
+          <!-- <div class="field-value">
             <p class="info-label">Start Meter Value</p>
             <p class="info">{{ transactionData?.startMeterValue }}</p>
-          </div>
+          </div> -->
           <div class="field-value">
             <p class="info-label">Duration</p>
             <p class="info">{{ transactionData?.chargingDuration }}</p>
@@ -50,10 +50,10 @@
       <div class="invoice-details2 invoice-details">
         <h4>Description</h4>
         <div class="discription1">
-          <div class="field-value">
+          <!-- <div class="field-value">
             <p class="info-label">End Meter Value</p>
             <p class="info">{{ transactionData?.endMeterValue }}</p>
-          </div>
+          </div> -->
 
           <div class="field-value">
             <p class="info-label">Energy Used</p>
@@ -72,8 +72,10 @@
           </div>
           <div class="field-value">
             <p class="info-label">Unit Name</p>
-            <p *ngIf="transactionData?.unitName!==''" class="info">{{ transactionData?.unitName }}</p>
-            <p *ngIf="transactionData?.unitName==''" class="info">NA</p>
+            <p *ngIf="transactionData?.unitName !== ''" class="info">
+              {{ transactionData?.unitName }}
+            </p>
+            <p *ngIf="transactionData?.unitName == ''" class="info">NA</p>
           </div>
           <div class="field-value">
             <p class="info-label">Grace Period (Minutes)</p>
@@ -84,8 +86,8 @@
             <p class="info">{{ transactionData?.parkingFee }}</p>
           </div> -->
           <div class="field-value">
-            <p class="info-label">Tax</p>
-            <p class="info">{{ transactionData?.tax }}</p>
+            <p class="info-label">Tax ({{ transactionData?.currencyName }})</p>
+            <p class="info">${{ transactionData?.tax }}</p>
           </div>
         </div>
       </div>
@@ -94,15 +96,19 @@
         <div class="discription1">
           <div class="field-value">
             <p class="info-label">Price Type</p>
-            <p *ngIf="!noPriceType" class="info">{{ transactionData?.priceType }}</p>
+            <p *ngIf="!noPriceType" class="info">
+              {{ transactionData?.priceType }}
+            </p>
             <p *ngIf="noPriceType" class="info">NA</p>
           </div>
           <div class="field-value">
-            <p class="info-label">Price</p>
-            <p class="info">{{ transactionData?.price }}</p>
+            <p class="info-label">
+              Price ({{ transactionData?.currencyName }})
+            </p>
+            <p class="info">${{ transactionData?.price }}</p>
           </div>
           <div class="field-value">
-            <p class="info-label">Parking Fee (Per min)</p>
+            <p class="info-label">Parking Fee</p>
             <p class="info">{{ transactionData?.parkingFee }}</p>
           </div>
           <!-- <div class="field-value">
@@ -110,8 +116,10 @@
             <p class="info">{{ transactionData?.gracePeriod }}</p>
           </div> -->
           <div class="field-value">
-            <p class="info-label">Sales Tax</p>
-            <p class="info">{{ transactionData?.salesTax }}</p>
+            <p class="info-label">
+              Sales Tax ({{ transactionData?.currencyName }})
+            </p>
+            <p class="info">${{ transactionData?.salesTax }}</p>
           </div>
         </div>
       </div>
@@ -120,16 +128,18 @@
     <div class="st8">
       <div class="invoice-details">
         <div class="discription1">
-          <p class="info-label">Total Amount :</p>
+          <p class="info-label">
+            Total Amount ({{ transactionData?.currencyName }}) :
+          </p>
         </div>
       </div>
       <div class="invoice-details2 invoice-details">
         <div style="margin-left: -34px;">
-          <h4>{{ transactionData?.totalAmount }}</h4>
+          <h4>${{ transactionData?.totalAmount }}</h4>
         </div>
       </div>
     </div>
 
-    <button [disabled]="true" style="background:#adadad;">Make Payment</button>
+    <!-- <button [disabled]="true" style="background: #adadad;">Make Payment</button> -->
   </div>
 </ng-container>

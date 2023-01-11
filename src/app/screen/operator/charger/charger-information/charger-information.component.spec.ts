@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ChargerInformationComponent } from './charger-information.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('ChargerInformationComponent', () => {
   let component: ChargerInformationComponent;
@@ -8,6 +9,7 @@ describe('ChargerInformationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports:[HttpClientTestingModule],
       declarations: [ ChargerInformationComponent ]
     })
     .compileComponents();

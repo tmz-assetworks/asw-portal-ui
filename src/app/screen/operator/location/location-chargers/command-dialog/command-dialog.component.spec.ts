@@ -1,25 +1,27 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing'
+import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog'
 
-import { CommandDialogComponent } from './command-dialog.component';
+import { CommandDialogComponent } from './command-dialog.component'
 
 describe('CommandDialogComponent', () => {
-  let component: CommandDialogComponent;
-  let fixture: ComponentFixture<CommandDialogComponent>;
+  let component: CommandDialogComponent
+  let fixture: ComponentFixture<CommandDialogComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CommandDialogComponent ]
-    })
-    .compileComponents();
-  });
+      imports:[MatDialogModule],
+      declarations: [CommandDialogComponent],
+      providers: [MatDialogRef],
+    }).compileComponents()
+  })
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CommandDialogComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(CommandDialogComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

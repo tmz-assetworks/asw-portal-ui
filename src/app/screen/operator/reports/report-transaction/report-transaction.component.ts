@@ -21,7 +21,7 @@ export class ReportTransactionComponent implements OnInit {
   barChargersTitle = 'Transaction Amount'
   UserId: string | null
   reportTransactionMonthlyData = ''
-  reportTransactionYearlyData: any
+  reportTransactionYearlyData = ''
 
   constructor(
     private _router: Router,

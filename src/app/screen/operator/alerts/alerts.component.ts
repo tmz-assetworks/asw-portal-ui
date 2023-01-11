@@ -22,9 +22,7 @@ import { UserProfileService } from '../../user-profile/user-profile.service'
   ],
 })
 export class AlertsComponent implements OnInit {
-  /**
-   * declare variables
-   */
+  // DECLARE VARIABLES
   UserId: string | null
   totalCount: any
   pageSize: number = 10
@@ -57,9 +55,7 @@ export class AlertsComponent implements OnInit {
 
   dataSource = new MatTableDataSource<any>(this.alertList)
 
-  /**
-   * Table columns
-   */
+  // TABLE COLUMNS
 
   displayedColumns = [
     'ChargeBoxId',
@@ -72,9 +68,8 @@ export class AlertsComponent implements OnInit {
   ]
 
   /**
-   *
+   * FILTER ALERTS
    * @param event
-   * Search filter event
    */
 
   applyFilter(event: Event) {
@@ -82,10 +77,7 @@ export class AlertsComponent implements OnInit {
     this.searchParam = filterValue
     this.GetOperatorAlerts()
   }
-
-  /**
-   * Get operator alerts
-   */
+  // GET OPERATOR ALERT
 
   GetOperatorAlerts() {
     const pBody = {
@@ -136,10 +128,13 @@ export class AlertsComponent implements OnInit {
   }
 
   /**
-   * Update alerts when read.
+   * UPDATE NOTIFICATION IS READ
    * @param data
    */
   UpdateNotificationIsRead(data: any) {
+    if (data.isRead) {
+      return
+    }
     const body = {
       id: data.eventLogId,
       flag: data.flag,
