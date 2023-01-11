@@ -7,7 +7,7 @@
 #
 
 trigger:
-- none
+- main
 
 pool: 'CMS Project' 
 
