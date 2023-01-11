@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LocationStatusPanelComponent } from './location-status-panel.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('LocationStatusPanelComponent', () => {
   let component: LocationStatusPanelComponent;
@@ -8,6 +9,7 @@ describe('LocationStatusPanelComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports:[HttpClientTestingModule],
       declarations: [ LocationStatusPanelComponent ]
     })
     .compileComponents();

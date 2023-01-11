@@ -36,9 +36,9 @@ export class NavigationComponent implements OnInit {
       this.clicked = true
       const value = document.getElementsByClassName('nav-block2')
       if (this.messages) {
-        value[0].classList.add('col-md-6')
+        value[0]?.classList.add('col-md-6')
       } else {
-        value[0].classList.remove('col-md-6')
+        value[0]?.classList.remove('col-md-6')
       }
     })
   }
@@ -168,11 +168,11 @@ export class NavigationComponent implements OnInit {
           text: 'Pricing',
           icon: '../../../../assets/Admin-SideNav/Pricing.svg',
         },
-        {
-          routerLink: ['subscriptions-plans'],
-          text: 'Subscription Plans',
-          icon: '../../../../assets/icons/Subscription.svg',
-        },
+        // {
+        //   routerLink: ['subscriptions-plans'],
+        //   text: 'Subscription Plans',
+        //   icon: '../../../../assets/icons/Subscription.svg',
+        // },
         {
           routerLink: ['help'],
           text: 'Help',

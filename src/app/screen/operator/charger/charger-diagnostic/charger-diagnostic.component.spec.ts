@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ChargerDiagnosticComponent } from './charger-diagnostic.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ToastrModule } from 'ngx-toastr';
+import { MatDialogModule } from '@angular/material/dialog';
+import {  ReactiveFormsModule } from '@angular/forms';
 
 describe('ChargerDiagnosticComponent', () => {
   let component: ChargerDiagnosticComponent;
@@ -8,6 +12,7 @@ describe('ChargerDiagnosticComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports:[HttpClientTestingModule,ToastrModule.forRoot(),MatDialogModule,ReactiveFormsModule],
       declarations: [ ChargerDiagnosticComponent ]
     })
     .compileComponents();

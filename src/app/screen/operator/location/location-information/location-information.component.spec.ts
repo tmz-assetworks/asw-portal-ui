@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LocationInformationComponent } from './location-information.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('LocationInformationComponent', () => {
   let component: LocationInformationComponent;
@@ -8,6 +9,7 @@ describe('LocationInformationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports:[HttpClientTestingModule],
       declarations: [ LocationInformationComponent ]
     })
     .compileComponents();

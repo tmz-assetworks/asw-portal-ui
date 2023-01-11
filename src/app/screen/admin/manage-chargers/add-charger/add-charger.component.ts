@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import {
   FormBuilder,
   FormControl,
@@ -11,7 +11,6 @@ import { ToastrService } from 'ngx-toastr'
 import { StorageService } from 'src/app/service/storage.service'
 import Swal from 'sweetalert2'
 import { AdminService } from '../../admin.service'
-import { MatCheckboxModule } from '@angular/material/checkbox'
 import { DatePipe } from '@angular/common'
 
 @Component({
@@ -20,6 +19,7 @@ import { DatePipe } from '@angular/common'
   styleUrls: ['./add-charger.component.scss'],
 })
 export class AddChargerComponent implements OnInit {
+  // DECLARE VARIABLES
   isSaveBtn: boolean = true
   submitted = false
   registrationForm: any
@@ -27,7 +27,7 @@ export class AddChargerComponent implements OnInit {
   isUpdateBtn: boolean = false
 
   UserId: string | null
-  ConnectorId : any = 1
+  ConnectorId: any = 1
   chargerboxId: any
   locationId: any
   makeMasterId: any
@@ -94,7 +94,7 @@ export class AddChargerComponent implements OnInit {
       this.chargerTitle = 'View Charger'
       this.isSaveBtn = false
       this.isUpdateBtn = false
-      this.addChargerForm.disable()
+      this.addChargerFormGroup.disable()
       this.viewMode = true
       this.isPortAddBtn = false
     } else {
@@ -107,9 +107,7 @@ export class AddChargerComponent implements OnInit {
   }
 
   ngOnInit() {
-    /**
-     * call dropdown
-     */
+    // API CALL
     this.GetSwitchGearDropDown(this.chargerboxId)
     this.GetCableDropDown(this.UserId, this.chargerboxId)
     this.GetConnectorType()
@@ -129,21 +127,26 @@ export class AddChargerComponent implements OnInit {
         this.GetDispenserDetailsById(this.chargerboxId)
       }
 
-      let addChargerLocation = JSON.parse(
-        this._storageService.getSessionData('addChargerLocation') || '',
-      )
+      let value = this._storageService.getSessionData('addChargerLocation')
 
-      if (addChargerLocation) {
-        this.selectedLocation = parseInt(addChargerLocation.id)
+      // CHECK IS USER REDIRECTED FROM LOCATION
 
-        this.addChargerForm.patchValue({
-          locationId: addChargerLocation.locationName,
-        })
+      if (value) {
+        let addChargerLocation = JSON.parse(value)
+
+        if (addChargerLocation) {
+          this.selectedLocation = parseInt(addChargerLocation.id)
+
+          this.addChargerFormGroup.patchValue({
+            locationId: addChargerLocation.locationName,
+          })
+        }
       }
     }, 2000)
   }
+  // ADD CHARGER FORM GROUP
 
-  addChargerForm = this._fb.group({
+  addChargerFormGroup = this._fb.group({
     assetId: new FormControl('', [
       Validators.required,
       Validators.maxLength(20),
@@ -184,7 +187,7 @@ export class AddChargerComponent implements OnInit {
     isActive: new FormControl(''),
     // isAutomatic: new FormControl(false),
     portCommand: this._fb.array(
-      [this.addPortsRows(0, 1, '', '' , '', true, '', '', '', '', '')],
+      [this.addPortsRows(0, 1, '', '', '', true, '', '', '', '', '')],
       Validators.required,
     ),
   })
@@ -209,7 +212,10 @@ export class AddChargerComponent implements OnInit {
         Validators.pattern('[0-9]{0,10}'),
       ]),
       connectorType: new FormControl(connectorType, Validators.required),
-      createdBy: new FormControl(this._storageService.getLocalData('user_id'), Validators.required),
+      createdBy: new FormControl(
+        this._storageService.getLocalData('user_id'),
+        Validators.required,
+      ),
       incrementalPower: new FormControl(incrementalPower, [
         Validators.required,
         Validators.pattern('[0-9]{0,10}'),
@@ -235,19 +241,17 @@ export class AddChargerComponent implements OnInit {
     })
   }
 
-  /**
-   * Add Charger
-   */
-
+  // ADD CHARGER
   addCharger() {
     this.submitted = true
-    if (this.addChargerForm.invalid) {
+    if (this.addChargerFormGroup.invalid) {
       this._toastr.error('Please fill mandatory fields.')
       return
     }
 
-    let portCmdArray = (this.addChargerForm.get('portCommand') as FormArray)
-      .controls
+    let portCmdArray = (this.addChargerFormGroup.get(
+      'portCommand',
+    ) as FormArray).controls
 
     let isUnique = this.isUnique(portCmdArray)
 
@@ -258,7 +262,7 @@ export class AddChargerComponent implements OnInit {
       return
     }
 
-    let formData = this.addChargerForm.value
+    let formData = this.addChargerFormGroup.value
 
     const pBody = {
       assetId: formData.assetId,
@@ -311,7 +315,7 @@ export class AddChargerComponent implements OnInit {
             if (res) {
               //Do your stuffs...
               this._toastr.success('Record saved successfully.')
-              this.addChargerForm.reset()
+              this.addChargerFormGroup.reset()
               this.showLoader = false
               this.submitted = false
               this._router.navigate(['admin/chargers'])
@@ -336,20 +340,18 @@ export class AddChargerComponent implements OnInit {
     })
   }
 
-  /**
-   * Update charger
-   * @returns
-   */
+  // UPDATE CHARGER
 
   UpdateCharger() {
     this.submitted = true
 
-    if (this.addChargerForm.invalid) {
+    if (this.addChargerFormGroup.invalid) {
       this._toastr.error('Please fill mandatory fields.')
       return
     }
-    let portCmdArray = (this.addChargerForm.get('portCommand') as FormArray)
-      .controls
+    let portCmdArray = (this.addChargerFormGroup.get(
+      'portCommand',
+    ) as FormArray).controls
 
     let isUnique = this.isUnique(portCmdArray)
 
@@ -360,7 +362,7 @@ export class AddChargerComponent implements OnInit {
       return
     }
 
-    let formData = this.addChargerForm.value
+    let formData = this.addChargerFormGroup.value
     const body = {
       id: this.chargerboxId,
       assetId: formData.assetId,
@@ -414,7 +416,7 @@ export class AddChargerComponent implements OnInit {
             if (res) {
               //Do your stuffs...
               this._toastr.success('Record saved successfully.')
-              this.addChargerForm.reset()
+              this.addChargerFormGroup.reset()
               this.showLoader = false
               this.submitted = false
               this._router.navigate(['admin/chargers'])
@@ -438,7 +440,7 @@ export class AddChargerComponent implements OnInit {
     })
   }
   /**
-   * To check unique value
+   * CHECK UNIQUE VALUE
    * @param arr
    * @returns
    */
@@ -455,51 +457,54 @@ export class AddChargerComponent implements OnInit {
     return true // No duplicate values found for connector id
   }
 
+  // GET DISPENSER DETAILS BY ID
   GetDispenserDetailsById(id: number) {
     this._adminService.GetDispenserDetailsById(id).subscribe((res: any) => {
       if (res.data) {
         this.chargerData = res.data[0]
 
-        this.addChargerForm.patchValue({ assetId: this.chargerData.assetId })
-        this.addChargerForm.patchValue({
+        this.addChargerFormGroup.patchValue({
+          assetId: this.chargerData.assetId,
+        })
+        this.addChargerFormGroup.patchValue({
           chargeBoxId: this.chargerData.chargeBoxId,
         })
 
         if (this.chargerData.locationName) {
           this.selectedLocation = this.chargerData.locationId
 
-          this.addChargerForm.patchValue({
+          this.addChargerFormGroup.patchValue({
             locationId: this.chargerData.locationName,
           })
         }
-        this.addChargerForm.patchValue({
+        this.addChargerFormGroup.patchValue({
           description: this.chargerData.description,
         })
-        this.addChargerForm.patchValue({
+        this.addChargerFormGroup.patchValue({
           endPointUrl: this.chargerData.endPointUrl,
         })
-        this.addChargerForm.patchValue({
+        this.addChargerFormGroup.patchValue({
           firmwareVersion: this.chargerData.firmwareVersion,
         })
 
-        this.addChargerForm.patchValue({
+        this.addChargerFormGroup.patchValue({
           makeMasterId: this.chargerData.makeName,
         })
 
-        this.addChargerForm.patchValue({
+        this.addChargerFormGroup.patchValue({
           modelId: this.chargerData.modelName,
         })
 
         if (this.chargerData.modemId) {
           this.selectedModem = this.chargerData.modemId
-          this.addChargerForm.patchValue({
+          this.addChargerFormGroup.patchValue({
             modemId: this.chargerData.modemSerialNumber,
           })
         }
 
         if (this.chargerData.switchGearId) {
           this.selectedSwitch = this.chargerData.switchGearId
-          this.addChargerForm.patchValue({
+          this.addChargerFormGroup.patchValue({
             switchGearId: this.chargerData.switchGearName,
           })
         }
@@ -507,7 +512,7 @@ export class AddChargerComponent implements OnInit {
         if (this.chargerData.padId != 0) {
           this.selectedPad = this.chargerData.padId
 
-          this.addChargerForm.patchValue({
+          this.addChargerFormGroup.patchValue({
             padId: this.chargerData.padName,
           })
         }
@@ -515,14 +520,14 @@ export class AddChargerComponent implements OnInit {
         if (this.chargerData.cableId) {
           this.selectedCable = this.chargerData.cableId
 
-          this.addChargerForm.patchValue({
+          this.addChargerFormGroup.patchValue({
             cableId: this.chargerData.cableSerialNumber,
           })
         }
 
         if (this.chargerData.rfidReader) {
           this.selectedRfidReader = this.chargerData.rfidReaderId
-          this.addChargerForm.patchValue({
+          this.addChargerFormGroup.patchValue({
             rfidReader: this.chargerData.rfidReader,
           })
         }
@@ -530,61 +535,61 @@ export class AddChargerComponent implements OnInit {
         if (this.chargerData.powerCabinetSerialNumber) {
           this.selectedPowerCabinet = this.chargerData.powerCabinetId
 
-          this.addChargerForm.patchValue({
+          this.addChargerFormGroup.patchValue({
             powerCabinet: this.chargerData.powerCabinetSerialNumber,
           })
         }
-        this.addChargerForm.patchValue({
+        this.addChargerFormGroup.patchValue({
           protocolName: this.chargerData.protocolName,
         })
-        this.addChargerForm.patchValue({
+        this.addChargerFormGroup.patchValue({
           installationDate: this.chargerData.installationDate,
         })
 
         // if (this.chargerData.status) {
         //   this.selectedStatus = this.chargerData.dispenserStatusId
 
-        //   this.addChargerForm.patchValue({
+        //   this.addChargerFormGroup.patchValue({
         //     statu: this.chargerData.status,
         //   })
         // }
-        this.addChargerForm.patchValue({
+        this.addChargerFormGroup.patchValue({
           hardwareSerialNumber: this.chargerData.hardwareSerialNumber,
         })
-        this.addChargerForm.patchValue({
+        this.addChargerFormGroup.patchValue({
           meterType: this.chargerData.meterType,
         })
 
-        // this.addChargerForm.patchValue = this.chargerData.multiplePorts;
-        // this.addChargerForm.patchValue({
+        // this.addChargerFormGroup.patchValue = this.chargerData.multiplePorts;
+        // this.addChargerFormGroup.patchValue({
         //   multiplePorts: this.chargerData.multiplePorts,
         // })
-        //this.addChargerForm.patchValue({ multiplePorts: "" });
+        //this.addChargerFormGroup.patchValue({ multiplePorts: "" });
 
-        this.addChargerForm.patchValue({
+        this.addChargerFormGroup.patchValue({
           pingSchedule: this.chargerData.pingSchedule,
         })
-        // this.addChargerForm.patchValue = this.chargerData?.privateStation;
-        this.addChargerForm.patchValue({
+        // this.addChargerFormGroup.patchValue = this.chargerData?.privateStation;
+        this.addChargerFormGroup.patchValue({
           privateStation: this.chargerData.fleetStation,
         })
-        this.addChargerForm.patchValue({
+        this.addChargerFormGroup.patchValue({
           readingSchedule: this.chargerData.readingSchedule,
         })
-        // this.addChargerForm.patchValue({
+        // this.addChargerFormGroup.patchValue({
         //   serialNumber: this.chargerData.serialNumber,
         // })
-        // this.addChargerForm.patchValue({
+        // this.addChargerFormGroup.patchValue({
         //   isAutomatic: this.chargerData.isAutomatic,
         // })
-        // this.addChargerForm.patchValue = this.chargerData?.serialNumber;
+        // this.addChargerFormGroup.patchValue = this.chargerData?.serialNumber;
 
-        // this.addChargerForm.patchValue({ serialNumber: this.chargerData.serialNumber });
+        // this.addChargerFormGroup.patchValue({ serialNumber: this.chargerData.serialNumber });
 
         this.removePortAssigned(0)
         const ports = this.chargerData?.portCommmand
 
-       let portlen=this.chargerData?.portCommmand.length
+        let portlen = this.chargerData?.portCommmand.length
         /**
          * PORTS
          */
@@ -592,7 +597,7 @@ export class AddChargerComponent implements OnInit {
           this.addPorts(
             this.addPortsRows(
               elem.portId,
-             this.ConnectorId,
+              this.ConnectorId,
               elem.connectorType,
               elem.createdBy,
               elem.incrementalPower,
@@ -605,7 +610,7 @@ export class AddChargerComponent implements OnInit {
             ),
           )
         })
-        this.ConnectorId=portlen
+        this.ConnectorId = portlen
       }
     })
   }
@@ -796,8 +801,8 @@ export class AddChargerComponent implements OnInit {
     }
   }
   addPorts(fbGroup?: FormGroup): void {
-      this.ConnectorId =this.ConnectorId + 1
-    ;(this.addChargerForm.get('portCommand') as FormArray).push(
+    this.ConnectorId = this.ConnectorId + 1
+    ;(this.addChargerFormGroup.get('portCommand') as FormArray).push(
       fbGroup ||
         this.addPortsRows(
           0,
@@ -816,11 +821,11 @@ export class AddChargerComponent implements OnInit {
   }
 
   getPortFormControls(): any {
-    return (this.addChargerForm.get('portCommand') as FormArray).controls
+    return (this.addChargerFormGroup.get('portCommand') as FormArray).controls
   }
 
   disableInputs() {
-    ;(<FormArray>this.addChargerForm.get('portCommand')).controls.forEach(
+    ;(<FormArray>this.addChargerFormGroup.get('portCommand')).controls.forEach(
       (control) => {
         control.disable()
       },
@@ -858,6 +863,6 @@ export class AddChargerComponent implements OnInit {
   }
 
   removePortAssigned(index: any) {
-    ;(this.addChargerForm.get('portCommand') as FormArray).removeAt(index)
+    ;(this.addChargerFormGroup.get('portCommand') as FormArray).removeAt(index)
   }
 }

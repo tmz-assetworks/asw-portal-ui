@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MeterDialogComponent } from './meter-dialog.component';
+import {  MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
 describe('MeterDialogComponent', () => {
   let component: MeterDialogComponent;
@@ -8,7 +9,9 @@ describe('MeterDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MeterDialogComponent ]
+      imports:[MatDialogModule,MatDialogRef ],
+      declarations: [ MeterDialogComponent ],
+
     })
     .compileComponents();
 

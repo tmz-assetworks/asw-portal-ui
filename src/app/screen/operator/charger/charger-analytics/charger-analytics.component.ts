@@ -29,7 +29,7 @@ export class ChargerAnalyticsComponent implements OnInit {
 
   locationAnalyticsMilesAdd = 'locationAnalyticsMilesAdd'
   locationAnalyticsMilesAddTitle = 'Miles Added'
-  locationAnalyticsMilesAddData: any
+  locationAnalyticsMilesAddData: any = ''
 
   chargingSessionTitle = 'Charging Session'
   chargingSession = 'chargingSession'

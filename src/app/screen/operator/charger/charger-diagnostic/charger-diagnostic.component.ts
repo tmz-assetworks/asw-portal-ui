@@ -105,7 +105,7 @@ export class ChargerDiagnosticComponent implements OnInit {
   chargingProfileKind: any
   recurrencyKind: any
   chargingRateUnit: any
-  numberPhases:any=[1,2,3]
+  numberPhases: any = [1, 2, 3]
   firstFields: boolean = false
   secondFields: boolean = false
   thirdFields: boolean = false
@@ -1381,9 +1381,9 @@ export class ChargerDiagnosticComponent implements OnInit {
       this.isSetCharging = false
       this._storageService.removeSessionData('start')
     } else if (type == 'isRemoteStartTransaction') {
-      this.firstFieldsRemoteStart=false;
-      this.secondFieldsRemoteStart=false;
-      this.thirdFieldsRemoteStart=false;
+      this.firstFieldsRemoteStart = false
+      this.secondFieldsRemoteStart = false
+      this.thirdFieldsRemoteStart = false
       this.isGetLocalListVersion = false
       this.isSendLocalListVersion = false
       this.isChangeAvailability = false
@@ -1650,9 +1650,9 @@ export class ChargerDiagnosticComponent implements OnInit {
       this.isGetLocalListVersion = false
       this.isSendLocalListVersion = false
       this.isDataTransfer = false
-      this.firstFields=false;
-      this.secondFields=false;
-      this.thirdFields=false;
+      this.firstFields = false
+      this.secondFields = false
+      this.thirdFields = false
       this.isGetConfig = false
       this.isReset = false
       this.isClearCache = false
@@ -2203,9 +2203,9 @@ export class ChargerDiagnosticComponent implements OnInit {
 
   openMakePaymentDialog(id: any) {
     const dialogRef = this.dialog.open(TransactionDialogComponent, {
-      width: '30%',
+      // width: '30%',
       autoFocus: false,
-      height: '600px',
+      // height: '600px',
       // panelClass: 'my-dialog-container-class2',
       data: { id: id },
     })
@@ -2308,26 +2308,21 @@ export class ChargerDiagnosticComponent implements OnInit {
         recurrencyKind: chargingProfileData.recurrencyKind
           ? chargingProfileData.recurrencyKind
           : undefined,
-          validFrom:  chargingProfileData.validFrom
-            ? this._diagnosticsService.convertToIso(
-              chargingProfileData.validFrom,
-              )
-            : undefined,
-          validTo:  chargingProfileData.validTo
-            ? this._diagnosticsService.convertToIso(
-              chargingProfileData.validTo,
-              )
-            : undefined,
+        validFrom: chargingProfileData.validFrom
+          ? this._diagnosticsService.convertToIso(chargingProfileData.validFrom)
+          : undefined,
+        validTo: chargingProfileData.validTo
+          ? this._diagnosticsService.convertToIso(chargingProfileData.validTo)
+          : undefined,
         chargingSchedule: {
           duration: chargingProfileData.duration
             ? +chargingProfileData.duration
             : undefined,
-            startSchedule: 
-              chargingProfileData.startSchedule
-              ? this._diagnosticsService.convertToIso(
+          startSchedule: chargingProfileData.startSchedule
+            ? this._diagnosticsService.convertToIso(
                 chargingProfileData.startSchedule,
-                )
-              : undefined,
+              )
+            : undefined,
           chargingRateUnit: chargingProfileData.chargingRateUnit
             ? chargingProfileData.chargingRateUnit
             : undefined,
@@ -2574,17 +2569,13 @@ export class ChargerDiagnosticComponent implements OnInit {
     let time = this.datePipe.transform(date, 'HH:mm:ss')
     return time
   }
-/**
- * not Allow Zero in Input
- * @param event 
- */
+  /**
+   * not Allow Zero in Input
+   * @param event
+   */
   restrictZero(event: any) {
-    if(event.target.value.length === 0 && event.key === "0"){
+    if (event.target.value.length === 0 && event.key === '0') {
       event.preventDefault()
     }
   }
-
-
-  
-  
 }

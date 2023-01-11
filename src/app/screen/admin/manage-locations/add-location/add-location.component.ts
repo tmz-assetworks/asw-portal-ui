@@ -7,7 +7,6 @@ import {
   Validators,
 } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
-
 import { ToastrService } from 'ngx-toastr'
 import { StorageService } from 'src/app/service/storage.service'
 import Swal from 'sweetalert2'
@@ -51,8 +50,36 @@ export class AddLocationComponent implements OnInit {
   selectValue = '0#select'
   selectcountryId = ''
   viewMode: boolean = false
-  filteredTimeList: any
-  timeList = [
+  telephoneNumber: string = ''
+
+  timeListforStart = [
+    '00:00',
+    '01:00',
+    '02:00',
+    '03:00',
+    '04:00',
+    '05:00',
+    '06:00',
+    '07:00',
+    '08:00',
+    '09:00',
+    '10:00',
+    '11:00',
+    '12:00',
+    '13:00',
+    '14:00',
+    '15:00',
+    '16:00',
+    '17:00',
+    '18:00',
+    '19:00',
+    '20:00',
+    '21:00',
+    '22:00',
+    '23:00',
+    'Closed',
+  ]
+  timeListforEnd = [
     '00:00',
     '01:00',
     '02:00',
@@ -92,10 +119,13 @@ export class AddLocationComponent implements OnInit {
 
   @ViewChild('map') mapElement: any
   map: google.maps.Map | any
-  /**
-   * Add Location Information Form
-   *
-   */ addLocationForm = this.formBuilder.group({
+
+  filteredStartTime: any
+  filteredEndTime: any
+
+  // ADD LOCATION FORM GROUP
+
+  addLocationFormGroup = this.formBuilder.group({
     LocationId: new FormControl('', [
       Validators.required,
       Validators.pattern('[a-zA-Z0-9 ]+'),
@@ -132,12 +162,12 @@ export class AddLocationComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private _router: Router,
-    private _activatedRoute: ActivatedRoute,
+    // private _router: Router,
+    // private _activatedRoute: ActivatedRoute,
     private _storageService: StorageService,
     private toastr: ToastrService,
     private _adminService: AdminService,
-    private _route: ActivatedRoute,
+    // private _route: ActivatedRoute,
     private _location: Location,
   ) {
     this.isEdit = false
@@ -157,7 +187,7 @@ export class AddLocationComponent implements OnInit {
       this.isSaveBtn = false
       this.isEdit = false
       this.setLocationData(JSON.parse(IsLocationData))
-      this.addLocationForm.disable()
+      this.addLocationFormGroup.disable()
       this.viewMode = true
     } else {
       this.locationInfoTitle = 'Add Location'
@@ -187,13 +217,16 @@ export class AddLocationComponent implements OnInit {
         },
       ]
       day.forEach((day: any) => {
-        ;(this.addLocationForm.get(
+        ;(this.addLocationFormGroup.get(
           'locationScheduleCommand',
         ) as FormArray).push(
           this.addLocationSchedule(day.id, day.day, '', '', false),
         )
       })
     }
+
+    this.filteredStartTime = Observable
+    this.filteredEndTime = Observable
   }
 
   ngOnInit() {
@@ -202,9 +235,29 @@ export class AddLocationComponent implements OnInit {
       this.countryList = res.data
     })
 
+    // GET LOCATIONS
+
     this._adminService.getListApi('locationStatus').subscribe((res) => {
       this.locationStatusList = res.data
     })
+
+    // const days: any = [
+    //   {
+    //     id: 0,
+    //     day: 'Monday',
+    //   },
+    //   { id: 1, day: 'Tuesday' },
+    //   { id: 2, day: 'Wednesday' },
+    //   { id: 3, day: 'Thursday' },
+    //   { id: 4, day: 'Friday' },
+    //   { id: 5, day: 'Saturday' },
+    //   { id: 6, day: 'Sunday' },
+    // ]
+
+    // days.forEach((element: any) => {
+    //   // this.manageNameControlStart(element.id)
+    //   // this.manageNameControlEnd(element.id)
+    // })
 
     // const day: any = [
     //   {
@@ -231,26 +284,62 @@ export class AddLocationComponent implements OnInit {
     // ];
 
     // day.forEach((day: any) => {
-    //   var arrayControl = this.addLocationForm.get('locationScheduleCommand') as FormArray;
+    //   var arrayControl = this.addLocationFormGroup.get('locationScheduleCommand') as FormArray;
     //   this.filteredTimeList[day.id] = arrayControl.at(day.id).get('startTime').valueChanges.pipe(
     //     startWith(''),
     //     map((value) => (value && value.length >= 0 ? this._filter(value) : [])),
     //   )
     // });
   }
+  manageNameControlStart(index: any) {
+    this.filteredStartTime[index] = (this.addLocationFormGroup.get(
+      'locationScheduleCommand',
+    ) as FormArray)
+      .at(index)
+      .get('startTime')
+      ?.valueChanges.pipe(
+        startWith(''),
+        // map((value) => (typeof value === 'string' ? value : value)),
+        map((value) => this._filterStartValue(value)),
+      )
+  }
 
-  private _filter(value: any): string[] {
+  manageNameControlEnd(index: number) {
+    this.filteredEndTime[index] = (this.addLocationFormGroup.get(
+      'locationScheduleCommand',
+    ) as FormArray)
+      .at(index)
+      .get('endTime')
+      ?.valueChanges.pipe(
+        startWith(''),
+        // map((value) => (typeof value === 'string' ? value : value)),
+        map((value) => this._filterEndValue(value)),
+      )
+  }
+
+  // FILTER START VALUES
+
+  private _filterStartValue(value: any) {
     const filterValue = value.toLowerCase()
-    return this.timeList.filter((option: any) => {
-      return option.toLowerCase().includes(filterValue)
-    })
+    return this.timeListforStart.filter((option) =>
+      option.toLowerCase().includes(filterValue),
+    )
+  }
+
+  // FILTER END VALUES
+
+  private _filterEndValue(value: any) {
+    const filterValue = value.toLowerCase()
+    return this.timeListforEnd.filter((option) =>
+      option.toLowerCase().includes(filterValue),
+    )
   }
 
   ngAfterViewInit() {
     this.getReverseGeocodingData(36.2082629, -113.737393, 5)
   }
   /**
-   * Set Form Value
+   * SET FORM VALUE
    * @param data
    */
 
@@ -304,43 +393,43 @@ export class AddLocationComponent implements OnInit {
       //   this.departmentList = res.data
       // })
 
-      this.addLocationForm.patchValue({
+      this.addLocationFormGroup.patchValue({
         LocationId: this.locationRowData.locationId,
       })
-      this.addLocationForm.patchValue({
+      this.addLocationFormGroup.patchValue({
         LocationName: this.locationRowData.locationName,
       })
-      this.addLocationForm.patchValue({
+      this.addLocationFormGroup.patchValue({
         locationStatus: this.locationRowData.locationStatusId.toString(),
       })
-      this.addLocationForm.patchValue({
+      this.addLocationFormGroup.patchValue({
         departmentId: this.locationRowData.departmentName,
       })
-      this.addLocationForm.patchValue({
+      this.addLocationFormGroup.patchValue({
         Description: this.locationRowData.description,
       })
-      this.addLocationForm.patchValue({
+      this.addLocationFormGroup.patchValue({
         contactPersonName: this.locationRowData.contactPersonName,
       })
-      this.addLocationForm.patchValue({
+      this.addLocationFormGroup.patchValue({
         contactPersonNumber: this.locationRowData.contactPersonNumber,
       })
-      this.addLocationForm.patchValue({
+      this.addLocationFormGroup.patchValue({
         email: this.locationRowData.email,
       })
-      this.addLocationForm.patchValue({
+      this.addLocationFormGroup.patchValue({
         Latitude: this.locationRowData.locationAddress.latitude,
       })
-      this.addLocationForm.patchValue({
+      this.addLocationFormGroup.patchValue({
         Longitude: this.locationRowData.locationAddress.longitude,
       })
-      this.addLocationForm.patchValue({
+      this.addLocationFormGroup.patchValue({
         addressLine1: this.locationRowData.locationAddress.addressLine1,
       })
-      this.addLocationForm.patchValue({
+      this.addLocationFormGroup.patchValue({
         addressLine2: this.locationRowData.locationAddress.addressLine2,
       })
-      this.addLocationForm.patchValue({
+      this.addLocationFormGroup.patchValue({
         Country:
           this.locationRowData.locationAddress.countryId !== 0
             ? this.locationRowData.locationAddress.countryId +
@@ -348,7 +437,7 @@ export class AddLocationComponent implements OnInit {
               this.locationRowData.locationAddress.countryName
             : this.selectValue,
       })
-      this.addLocationForm.patchValue({
+      this.addLocationFormGroup.patchValue({
         State:
           this.locationRowData.locationAddress.stateId !== 0
             ? this.locationRowData.locationAddress.stateId +
@@ -356,16 +445,16 @@ export class AddLocationComponent implements OnInit {
               this.locationRowData.locationAddress.stateName
             : this.selectValue,
       })
-      this.addLocationForm.patchValue({
+      this.addLocationFormGroup.patchValue({
         cityName: this.locationRowData.locationAddress.cityName,
       })
-      this.addLocationForm.patchValue({
+      this.addLocationFormGroup.patchValue({
         zipcode: this.locationRowData.locationAddress.pinCode,
       })
-      this.addLocationForm.patchValue({
+      this.addLocationFormGroup.patchValue({
         totalcapacity: this.locationRowData.totalCapacity,
       })
-      this.addLocationForm.patchValue({
+      this.addLocationFormGroup.patchValue({
         utilityservice: this.locationRowData.utilityService,
       })
       const day: any = [
@@ -405,7 +494,7 @@ export class AddLocationComponent implements OnInit {
       // ];
       ;(this.locationSchedule.length ? this.locationSchedule : day).forEach(
         (day: any) => {
-          ;(this.addLocationForm.get(
+          ;(this.addLocationFormGroup.get(
             'locationScheduleCommand',
           ) as FormArray).push(
             this.addLocationSchedule(
@@ -433,7 +522,7 @@ export class AddLocationComponent implements OnInit {
 
       // day.every((day: any) => {
       //   const isOpenAllDays =
-      //     (this.addLocationForm.get('locationScheduleCommand') as FormArray)
+      //     (this.addLocationFormGroup.get('locationScheduleCommand') as FormArray)
       //       .controls[day.id].value.isOpenAlldays === true;
 
       //   if (isOpenAllDays) {
@@ -443,8 +532,9 @@ export class AddLocationComponent implements OnInit {
       let count = 0
       day.forEach((day: any) => {
         const isOpenAllDays =
-          (this.addLocationForm.get('locationScheduleCommand') as FormArray)
-            .controls[day.id].value.isOpenAlldays === true
+          (this.addLocationFormGroup.get(
+            'locationScheduleCommand',
+          ) as FormArray).controls[day.id].value.isOpenAlldays === true
 
         if (isOpenAllDays == true) {
           count++
@@ -468,8 +558,8 @@ export class AddLocationComponent implements OnInit {
   }
 
   addChargerDetails() {
-    let formField = this.addLocationForm.value
-    let ind = this.addLocationForm.value.locationScheduleCommand.findIndex(
+    let formField = this.addLocationFormGroup.value
+    let ind = this.addLocationFormGroup.value.locationScheduleCommand.findIndex(
       (x: any) =>
         (x.startTime == '' && !x.isOpenAlldays) ||
         (x.endTime == '' && !x.isOpenAlldays),
@@ -493,7 +583,7 @@ export class AddLocationComponent implements OnInit {
     } else if (ind !== -1) {
       this.toastr.error('Please select time')
       return
-    } else if (this.addLocationForm.status == 'INVALID') {
+    } else if (this.addLocationFormGroup.status == 'INVALID') {
       this.toastr.error('Please correct invalid fields')
       return
     }
@@ -528,7 +618,7 @@ export class AddLocationComponent implements OnInit {
 
     if (this.isEdit) {
       this.submitted = true
-      let formField = this.addLocationForm.value
+      let formField = this.addLocationFormGroup.value
 
       const body = {
         id: this.id,
@@ -583,7 +673,7 @@ export class AddLocationComponent implements OnInit {
   }
 
   /**
-   * Add Location
+   * ADD LOCATION
    * @param data
    */
 
@@ -616,8 +706,8 @@ export class AddLocationComponent implements OnInit {
         this.stateName = ''
 
         this.cityName = ''
-        this.addLocationForm.patchValue({ State: this.selectValue })
-        // this.addLocationForm.patchValue({ City: this.selectValue })
+        this.addLocationFormGroup.patchValue({ State: this.selectValue })
+        // this.addLocationFormGroup.patchValue({ City: this.selectValue })
         this.stateList = []
       }
       this.countryId = parseInt(event.value.split('#')[0])
@@ -629,17 +719,17 @@ export class AddLocationComponent implements OnInit {
           this.stateList = res.data
           if (this.countryId == 0) {
             // FOR NEW LOCATION
-            this.addLocationForm.patchValue({ State: this.selectValue })
+            this.addLocationFormGroup.patchValue({ State: this.selectValue })
             this.stateId = 0
             this.stateName = ''
           } else if (this.countryId > 0 && this.stateId > 0) {
             // FOR EDIT COUNTRY AND STATE BOTH ARE SELECTED
-            this.addLocationForm.patchValue({
+            this.addLocationFormGroup.patchValue({
               State: this.stateId + '#' + this.stateName,
             })
           } else if (this.countryId > 0 && this.stateId == 0) {
             // WHEN CHANGING COUNTRY
-            this.addLocationForm.patchValue({ State: this.selectValue })
+            this.addLocationFormGroup.patchValue({ State: this.selectValue })
           }
         })
     } else if (type == 'city') {
@@ -657,21 +747,21 @@ export class AddLocationComponent implements OnInit {
       //     this.cityList = res.data
       //     if (this.stateId == 0) {
       //       // FOR NEW LOCATION
-      //       this.addLocationForm.patchValue({ City: this.selectValue })
+      //       this.addLocationFormGroup.patchValue({ City: this.selectValue })
       //       this.cityId = 0
       //       this.cityName = ''
       //     } else if (this.stateId > 0 && this.cityId > 0) {
       //       // FOR EDIT STATE AND CITY BOTH ARE SELECTED
-      //       this.addLocationForm.patchValue({
+      //       this.addLocationFormGroup.patchValue({
       //         State: this.stateId + '#' + this.stateName,
       //       })
-      //       this.addLocationForm.patchValue({
+      //       this.addLocationFormGroup.patchValue({
       //         City: this.cityId + '#' + this.cityName,
       //       })
       //     } else if (this.stateId > 0 && this.cityId == 0) {
       //       // WHEN CHANGING STATE
-      //       this.addLocationForm.patchValue({ City: this.selectValue })
-      //       this.addLocationForm.patchValue({
+      //       this.addLocationFormGroup.patchValue({ City: this.selectValue })
+      //       this.addLocationFormGroup.patchValue({
       //         State: this.stateId + '#' + this.stateName,
       //       })
       //     }
@@ -692,14 +782,14 @@ export class AddLocationComponent implements OnInit {
     this.userLatitude = address.geometry.location.lat()
     this.userLongitude = address.geometry.location.lng()
     // SET VALUE IN FIELDS
-    this.addLocationForm.patchValue({ Latitude: this.userLatitude })
-    this.addLocationForm.patchValue({ Longitude: this.userLongitude })
+    this.addLocationFormGroup.patchValue({ Latitude: this.userLatitude })
+    this.addLocationFormGroup.patchValue({ Longitude: this.userLongitude })
     this.getReverseGeocodingData(this.userLatitude, this.userLongitude, 5)
   }
 
   showLocation() {
-    let lat = this.addLocationForm.value.Latitude
-    let long = this.addLocationForm.value.Longitude
+    let lat = this.addLocationFormGroup.value.Latitude
+    let long = this.addLocationFormGroup.value.Longitude
     if (lat !== '' && long !== '') {
       this.getReverseGeocodingData(lat, long, 15)
     }
@@ -709,8 +799,8 @@ export class AddLocationComponent implements OnInit {
     this.userLatitude = lat
     this.userLongitude = lng
     // SET VALUE IN FIELDS
-    this.addLocationForm.patchValue({ Latitude: this.userLatitude })
-    this.addLocationForm.patchValue({ Longitude: this.userLongitude })
+    this.addLocationFormGroup.patchValue({ Latitude: this.userLatitude })
+    this.addLocationFormGroup.patchValue({ Longitude: this.userLongitude })
     this.getReverseGeocodingData(this.userLatitude, this.userLongitude, 5)
   }
 
@@ -757,8 +847,9 @@ export class AddLocationComponent implements OnInit {
    */
 
   getLocationScheduledFormControls() {
-    return (this.addLocationForm.get('locationScheduleCommand') as FormArray)
-      .controls
+    return (this.addLocationFormGroup.get(
+      'locationScheduleCommand',
+    ) as FormArray).controls
   }
   /**
    *
@@ -807,8 +898,6 @@ export class AddLocationComponent implements OnInit {
     return true
   }
 
-  telephoneNumber: string = ''
-
   phoneNumber(event: any) {
     const charCode = event.which ? event.which : event.keyCode
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
@@ -825,27 +914,29 @@ export class AddLocationComponent implements OnInit {
   }
   isOpenAllDays(e: any, index: number) {
     if (e.checked) {
-      ;(this.addLocationForm.get(
+      ;(this.addLocationFormGroup.get(
         'locationScheduleCommand',
       ) as FormArray).controls[index].patchValue({ isOpenAlldays: true }),
-        (this.addLocationForm.get(
+        (this.addLocationFormGroup.get(
           'locationScheduleCommand',
         ) as FormArray).controls[index].patchValue({ startTime: '' }),
-        (this.addLocationForm.get(
+        (this.addLocationFormGroup.get(
           'locationScheduleCommand',
         ) as FormArray).controls[index].patchValue({ endTime: '' })
     } else {
       this.isOpenAllWeek = false
-      ;(this.addLocationForm.get(
+      ;(this.addLocationFormGroup.get(
         'locationScheduleCommand',
       ) as FormArray).controls[index].patchValue({ isOpenAlldays: false })
     }
     // if(index){
-    //   (this.addLocationForm.get('locationScheduleCommand') as FormArray).controls[index].patchValue({ isOpenAlldays: true })
+    //   (this.addLocationFormGroup.get('locationScheduleCommand') as FormArray).controls[index].patchValue({ isOpenAlldays: true })
     //     this.isOpenAllWeek=true
     // }
   }
+
   //TO CHECK ALL CHECK BOX IS TRUE
+
   verifyAllChecked(e: any, index: number) {
     if (e.checked) {
       const day: any = [
@@ -863,8 +954,9 @@ export class AddLocationComponent implements OnInit {
       let count = 0
       day.forEach((day: any) => {
         const isOpenAllDays =
-          (this.addLocationForm.get('locationScheduleCommand') as FormArray)
-            .controls[day.id].value.isOpenAlldays === true
+          (this.addLocationFormGroup.get(
+            'locationScheduleCommand',
+          ) as FormArray).controls[day.id].value.isOpenAlldays === true
 
         if (isOpenAllDays == true) {
           count++
@@ -875,6 +967,7 @@ export class AddLocationComponent implements OnInit {
       }
     }
   }
+  // ALL DAY OPEN 24 HOUR
 
   openAllWeek(e: any) {
     if (e.checked) {
@@ -893,13 +986,13 @@ export class AddLocationComponent implements OnInit {
       ]
 
       day.forEach((day: any) => {
-        ;(this.addLocationForm.get(
+        ;(this.addLocationFormGroup.get(
           'locationScheduleCommand',
         ) as FormArray).controls[day.id].patchValue({ isOpenAlldays: true }),
-          (this.addLocationForm.get(
+          (this.addLocationFormGroup.get(
             'locationScheduleCommand',
           ) as FormArray).controls[day.id].patchValue({ startTime: '' }),
-          (this.addLocationForm.get(
+          (this.addLocationFormGroup.get(
             'locationScheduleCommand',
           ) as FormArray).controls[day.id].patchValue({ endTime: '' })
       })
@@ -918,75 +1011,167 @@ export class AddLocationComponent implements OnInit {
         { id: 6, day: 'Sunday' },
       ]
       day.forEach((day: any) => {
-        ;(this.addLocationForm.get(
+        ;(this.addLocationFormGroup.get(
           'locationScheduleCommand',
         ) as FormArray).controls[day.id].patchValue({ isOpenAlldays: false }),
-          (this.addLocationForm.get(
+          (this.addLocationFormGroup.get(
             'locationScheduleCommand',
           ) as FormArray).controls[day.id].patchValue({ startTime: '' }),
-          (this.addLocationForm.get(
+          (this.addLocationFormGroup.get(
             'locationScheduleCommand',
           ) as FormArray).controls[day.id].patchValue({ endTime: '' })
       })
     }
   }
-  // START TIME IS CLOSED
+  // WHEN START TIME IS CLOSED
+
   selectStartTime(event: any, index: number, time: any) {
     if (event.isUserInput && time == 'Closed') {
-      ;(this.addLocationForm.get(
+      ;(this.addLocationFormGroup.get(
         'locationScheduleCommand',
       ) as FormArray).controls[index].patchValue({ endTime: 'Closed' })
     } else if (
       event.isUserInput &&
       time != 'Closed' &&
-      (this.addLocationForm.get('locationScheduleCommand') as FormArray)
+      (this.addLocationFormGroup.get('locationScheduleCommand') as FormArray)
         .controls[index].value.endTime == 'Closed'
     ) {
-      ;(this.addLocationForm.get(
+      ;(this.addLocationFormGroup.get(
         'locationScheduleCommand',
       ) as FormArray).controls[index].patchValue({ endTime: '' })
     }
   }
+  // INITIALIZE START VALUE
+
+  initializeValueStart(event: any) {
+    this.timeListforStart = [
+      '00:00',
+      '01:00',
+      '02:00',
+      '03:00',
+      '04:00',
+      '05:00',
+      '06:00',
+      '07:00',
+      '08:00',
+      '09:00',
+      '10:00',
+      '11:00',
+      '12:00',
+      '13:00',
+      '14:00',
+      '15:00',
+      '16:00',
+      '17:00',
+      '18:00',
+      '19:00',
+      '20:00',
+      '21:00',
+      '22:00',
+      '23:00',
+      'Closed',
+    ]
+
+    const days: any = [
+      {
+        id: 0,
+        day: 'Monday',
+      },
+      { id: 1, day: 'Tuesday' },
+      { id: 2, day: 'Wednesday' },
+      { id: 3, day: 'Thursday' },
+      { id: 4, day: 'Friday' },
+      { id: 5, day: 'Saturday' },
+      { id: 6, day: 'Sunday' },
+    ]
+
+    days.forEach((element: any) => {
+      this.manageNameControlStart(element.id)
+    })
+  }
+  // INITIALIZE END VALUE
+  initializeValueEnd(event: any) {
+    this.timeListforEnd = [
+      '00:00',
+      '01:00',
+      '02:00',
+      '03:00',
+      '04:00',
+      '05:00',
+      '06:00',
+      '07:00',
+      '08:00',
+      '09:00',
+      '10:00',
+      '11:00',
+      '12:00',
+      '13:00',
+      '14:00',
+      '15:00',
+      '16:00',
+      '17:00',
+      '18:00',
+      '19:00',
+      '20:00',
+      '21:00',
+      '22:00',
+      '23:00',
+      'Closed',
+    ]
+
+    const days: any = [
+      {
+        id: 0,
+        day: 'Monday',
+      },
+      { id: 1, day: 'Tuesday' },
+      { id: 2, day: 'Wednesday' },
+      { id: 3, day: 'Thursday' },
+      { id: 4, day: 'Friday' },
+      { id: 5, day: 'Saturday' },
+      { id: 6, day: 'Sunday' },
+    ]
+
+    days.forEach((element: any) => {
+      this.manageNameControlEnd(element.id)
+    })
+  }
+
+  // END TIME SELECT
 
   selectEndTime(event: any, index: number, time: any) {
     if (event.isUserInput && time == 'Closed') {
-      ;(this.addLocationForm.get(
+      ;(this.addLocationFormGroup.get(
         'locationScheduleCommand',
       ) as FormArray).controls[index].patchValue({ startTime: 'Closed' })
     } else if (
       event.isUserInput &&
       time != 'Closed' &&
-      (this.addLocationForm.get('locationScheduleCommand') as FormArray)
+      (this.addLocationFormGroup.get('locationScheduleCommand') as FormArray)
         .controls[index].value.startTime == 'Closed'
     ) {
-      ;(this.addLocationForm.get(
+      ;(this.addLocationFormGroup.get(
         'locationScheduleCommand',
       ) as FormArray).controls[index].patchValue({ startTime: '' })
     }
   }
+
   // END TIME IS CLOSED
   // selectEndTime(event: any, index: number, time: any){
 
-  //  console.log( (this.addLocationForm.get('locationScheduleCommand') as FormArray).controls[index].value.startTime);
+  //  console.log( (this.addLocationFormGroup.get('locationScheduleCommand') as FormArray).controls[index].value.startTime);
 
   //   if (event.isUserInput && ((
-  //     this.addLocationForm.get('locationScheduleCommand') as FormArray
+  //     this.addLocationFormGroup.get('locationScheduleCommand') as FormArray
   //   ).controls[index].value.startTime=='Closed')) {
 
   //     if(time!='Closed'){
   //       (
-  //         this.addLocationForm.get('locationScheduleCommand') as FormArray
+  //         this.addLocationFormGroup.get('locationScheduleCommand') as FormArray
   //       ).controls[index].patchValue({ endTime: 'Closed' });
   //       return
   //     }
 
   //   //
   // }}
-
-  removeFilter(event: any, timeList: any) {
-    let isTimeList = this.timeList.find((elem: any) => {}) == timeList.value
-    if (isTimeList) {
-      this.timeList = timeList.value
-    }
-  }
 }
