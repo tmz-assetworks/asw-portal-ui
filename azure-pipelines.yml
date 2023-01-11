@@ -9,9 +9,6 @@
 trigger:
 - main
 
-# disable pr build
-pr: none
-
 pool: 'CMS Project' 
 
 variables:    
