@@ -319,7 +319,7 @@ export class LineChartComponent implements OnInit {
         },
         /* xAxis: {
           type: 'category',
-    
+
         }, */
         xAxis: [
           {
@@ -376,7 +376,7 @@ export class LineChartComponent implements OnInit {
         this.option = {}
         return
       }
-      this.chartTitle = 'Monthly Transaction'
+      this.chartTitle = 'Cost by Month'
       this.option = this.setReportTransactionMonthlyDataChartOptions(
         this.reportTransactionMonthlyDataSet,
       ) as EChartsOption
@@ -781,7 +781,7 @@ export class LineChartComponent implements OnInit {
       },
       /* xAxis: {
         type: 'category',
-  
+
       }, */
       xAxis: [
         {
@@ -873,7 +873,7 @@ export class LineChartComponent implements OnInit {
       },
       /* xAxis: {
         type: 'category',
-  
+
       }, */
       xAxis: [
         {
@@ -968,7 +968,7 @@ export class LineChartComponent implements OnInit {
       },
       /* xAxis: {
         type: 'category',
-  
+
       }, */
       xAxis: [
         {
@@ -1042,7 +1042,7 @@ export class LineChartComponent implements OnInit {
       dataset: {
         source: [
           //   ['category', 'Energy Used'],
-          ['category', 'MONTHLY TRANSACTION'],
+          ['category', 'COST BY MONTH'],
           // ['July 20', 50],
           // ['Aug 20', 70],
           // ['Sep 20', 110],
@@ -1060,7 +1060,7 @@ export class LineChartComponent implements OnInit {
       },
       /* xAxis: {
         type: 'category',
-  
+
       }, */
       xAxis: [
         {

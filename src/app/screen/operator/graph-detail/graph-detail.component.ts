@@ -492,7 +492,7 @@ export class GraphDetailComponent implements OnInit {
           let newObj = {
             'CHARGER NAME': this.chartListFilter[i]['chargerName'],
             'CHARGER TYPE': this.chartListFilter[i]['chargerType'],
-            'FAULT SINCE': this.chartListFilter[i]['faultSince'],
+            ' LAST FAULT': this.chartListFilter[i]['faultSince'],
             'TIME REPORTED': this.datePipe.transform(
               this.chartListFilter[i]['timeReported'],
               'dd-MM-yyyy h:mm',
@@ -524,7 +524,7 @@ export class GraphDetailComponent implements OnInit {
             'CHARGER NAME': this.chartListFilter[i]['chargerName'],
             UID: this.chartListFilter[i]['chargerType'],
             'CHARGER TYPE': this.chartListFilter[i]['chargerType'],
-            'FAULT SINCE': this.chartListFilter[i]['faultSince'],
+            'LAST FAULT': this.chartListFilter[i]['faultSince'],
             'FAULT DESCRIPTION': this.chartListFilter[i]['faultDescription'],
             'TIME REPORTED': this.datePipe.transform(
               this.chartListFilter[i]['timeReported'],

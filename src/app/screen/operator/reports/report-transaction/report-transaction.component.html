@@ -27,7 +27,7 @@
             <div class="location-block4-item">
               <div class="location-block6 layout">
                 <a [routerLink]="['../report-transaction']">
-                  <div class="location-text-body layout">TRANSACTION</div>
+                  <div class="location-text-body layout">TRANSACTIONS</div>
                 </a>
               </div>
             </div>
@@ -117,7 +117,7 @@
               [reportTransactionMonthlyData]="reportTransactionMonthlyData"
               [chartType]="'reportTransactionMonthly'"
               (lineDetailPage)="
-                openReportDetailPage(4, 'Monthly Transaction', 'REPORTS', 1)
+                openReportDetailPage(4, 'Cost by Month', 'REPORTS', 1)
               "
             ></app-line-chart>
           </div>
@@ -128,7 +128,7 @@
               [reportTransactionYearlyData]="reportTransactionYearlyData"
               [chartType]="'reportTransactionYearly'"
               (barDetailPage)="
-                openReportDetailPage(5, 'Transaction Amount', 'REPORTS', 1)
+                openReportDetailPage(5, 'Cost by Year', 'REPORTS', 1)
               "
             ></app-bar-chart>
           </div>

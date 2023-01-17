@@ -32,6 +32,38 @@ describe('ManageAssetsComponent', () => {
     fixture.detectChanges()
   })
 
+  it('should have page size 10', async () => {
+    expect(component.pageSize).toEqual(10)
+  })
+
+  it('should have page size 10', async () => {
+    expect(component.pageSize).toEqual(10)
+  })
+  it('should have current page  1', async () => {
+    expect(component.currentPage).toEqual(1)
+  })
+
+  it('should call #GetAssetList() method on init', () => {
+    const componentSpy = spyOn(component, 'getAssetList').and.callThrough()
+    expect(componentSpy).not.toHaveBeenCalled()
+
+    component.ngOnInit()
+
+    expect(componentSpy).toHaveBeenCalledTimes(1)
+  })
+
+  it('should have header data ', async () => {
+    let mockDisplayedColumns = [
+      'type',
+      'serialNumber',
+      'location',
+      'locationStatus',
+      'Status',
+      'Action',
+    ]
+
+    expect(component.displayedColumns).toEqual(mockDisplayedColumns)
+  })
   it('should create', () => {
     expect(component).toBeTruthy()
   })
