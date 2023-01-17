@@ -5,9 +5,9 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { RouterTestingModule } from '@angular/router/testing'
 import { ToastrModule } from 'ngx-toastr'
 
-import { HttpClientTestingModule } from '@angular/common/http/testing'
-import { MatSelectModule } from '@angular/material/select'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MatSelectModule } from '@angular/material/select';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('CreateAdminComponent', () => {
   let component: CreateAdminComponent
@@ -24,8 +24,8 @@ describe('CreateAdminComponent', () => {
         BrowserAnimationsModule,
       ],
       declarations: [CreateAdminComponent],
-    }).compileComponents()
-  })
+    }).compileComponents();
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CreateAdminComponent)

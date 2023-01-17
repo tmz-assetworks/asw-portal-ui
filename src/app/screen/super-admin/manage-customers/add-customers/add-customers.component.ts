@@ -36,10 +36,11 @@ export class AddCustomersComponent implements OnInit {
   getAllStateList: any
   getAllCityList: any
   telephoneNumber: string = ''
+  router: any
 
   constructor(
     private _fb: FormBuilder,
-    private _router: Router,
+    public _router: Router,
     private _toastr: ToastrService,
     private _superAdminService: SuperAdminService,
     private _storageService: StorageService,
@@ -382,5 +383,13 @@ export class AddCustomersComponent implements OnInit {
     if (this.telephoneNumber.length == 9) {
       this.telephoneNumber = this.telephoneNumber + '-'
     }
+  }
+/**
+ * Cancel function
+ */
+  cancel(){
+
+
+    this._router.navigate(['superadmin/customer'])
   }
 }

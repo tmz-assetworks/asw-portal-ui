@@ -565,7 +565,7 @@ export class BarChartComponent implements OnInit {
         ) as EChartsOption
       }
     } else if (chartType == 'reportTransactionYearly') {
-      this.chartTitle = 'Transaction Amount'
+      this.chartTitle = 'Cost by Year'
 
       if (this.reportTransactionYearlyDataSet.length == 0) {
         this.option = {}
@@ -1121,7 +1121,7 @@ export class BarChartComponent implements OnInit {
       tooltip: {},
       dataset: {
         source: [
-          ['Yearly', 'TRANSACTION AMOUNT'],
+          ['Yearly', 'COST BY YEAR'],
           // ['2022', 600],
           // ['2023', 650],
           // ['2024', 450],

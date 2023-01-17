@@ -103,7 +103,9 @@ export class ManageChargersComponent implements OnInit {
         this.totalPages = res.paginationResponse.totalPages
         this.pageSize = res.paginationResponse.pageSize
 
-        this.dataSource.data = res.data
+        this.dataSource.data = res.data;
+       // console.log(this.dataSource.data,"HOORYYEE");
+
         this.portType = res.portType
 
         this.isTableHasData = false

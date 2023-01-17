@@ -36,18 +36,12 @@ describe('ManageAdminUsersComponent', () => {
   })
 
   it('should call GetAllUsers() method on init', () => {
-    // set up spies, could also call a fake method in case you don't want the API call to go through
-
     const componentSpy = spyOn(component, 'getAdminList').and.callThrough()
-
-    // make sure they haven't been called yet
 
     expect(componentSpy).not.toHaveBeenCalled()
 
-    // depending on how your component is set up, fixture.detectChanges() might be enough
     component.ngOnInit()
 
-    // expect(userServiceSpy).toHaveBeenCalledTimes(1)
     expect(componentSpy).toHaveBeenCalledTimes(1)
   })
 

@@ -22,7 +22,7 @@ export class ManageCustomersComponent implements OnInit {
   pageSizeOptions = [10, 20, 100];
   searchParam = '';
   OrganisationName = '';
-  allCustomerlist = [];
+  allCustomerlist= [];
   statusData: any;
   statusDataValue: any;
 
@@ -47,7 +47,7 @@ export class ManageCustomersComponent implements OnInit {
     public _superAdminService: SuperAdminService,
     public _router: Router,
     private _route: ActivatedRoute,
-    private _storageService: StorageService
+    public _storageService: StorageService
   ) {
     let customerData = this._storageService.getSessionData('customerData');
     this._storageService.getSessionData('IsSaveBtn');
@@ -133,6 +133,7 @@ export class ManageCustomersComponent implements OnInit {
       if (res.data !== undefined && res.data != null && res.data.length > 0) {
         this.statusData = res.statusData;
 
+
         this.totalCount = res.paginationResponse.totalCount;
         this.totalPages = res.paginationResponse.totalPages;
         this.pageSize = res.paginationResponse.pageSize;
@@ -167,5 +168,10 @@ export class ManageCustomersComponent implements OnInit {
     }
 
     this.GetAllCustomer();
+  }
+
+  addOrganization(){
+   // [routerLink]="['create-customer']"
+    this._router.navigate(['superadmin/customer/create-customer'])
   }
 }

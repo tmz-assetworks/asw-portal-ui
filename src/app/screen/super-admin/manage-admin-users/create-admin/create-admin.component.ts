@@ -120,8 +120,8 @@ export class CreateAdminComponent implements OnInit {
      */
     this._superadminService.getListApi('org').subscribe((res) => {
       this.customerList = res.data;
-      this.customerName = res.data[0].customerName
-      this.customerId = res.data[0].id
+      this.customerName = res.data[0].customerName;
+      this.customerId = res.data[0].id;
     });
   }
 
@@ -426,7 +426,7 @@ export class CreateAdminComponent implements OnInit {
     return true;
   }
 
-  
+
 
   /**
    * Phone number format
@@ -449,5 +449,5 @@ export class CreateAdminComponent implements OnInit {
     }
   }
 
-  
+
 }

@@ -218,16 +218,16 @@ export class AddChargerComponent implements OnInit {
       ),
       incrementalPower: new FormControl(incrementalPower, [
         Validators.required,
-        Validators.pattern('[0-9]{0,10}'),
+        // Validators.pattern('[0-9].[0-9]{0,10}'),
       ]),
       isActive: new FormControl(status ? true : false),
       maxPower: new FormControl(maxPower, [
         Validators.required,
-        Validators.pattern('[0-9]{0,10}'),
+        // Validators.pattern('[0-9].[0-9]{0,10}'),
       ]),
       minPower: new FormControl(minPower, [
         Validators.required,
-        Validators.pattern('[0-9]{0,10}'),
+        //Validators.pattern('[0-9].[0-9]{0,10}'),
       ]),
       plugTypeId: new FormControl(plugTypeId, Validators.required),
       portName: new FormControl(portName, [
@@ -236,7 +236,7 @@ export class AddChargerComponent implements OnInit {
       ]),
       power: new FormControl(power, [
         Validators.required,
-        Validators.pattern('[0-9]{0,10}'),
+        // Validators.pattern('[0-9].[0-9]{0,10}'),
       ]),
     })
   }
@@ -838,6 +838,16 @@ export class AddChargerComponent implements OnInit {
     }
     return true
   }
+
+  //NUMBER WITH DECIMAL ONLY
+  numberWithDecimalOnly(event: any): boolean {
+    const charCode = event.which ? event.which : event.keyCode
+    if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false
+    }
+    return true
+  }
+
   omit_special_char(event: any) {
     let k = event.charCode //         k = event.keyCode;  (Both can be used)
     return (

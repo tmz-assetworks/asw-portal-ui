@@ -7,7 +7,7 @@ import { ForgotPasswordComponent } from './screen/login/forgot-password/forgot-p
 import { LoginVerificationComponent } from './screen/login/login-verification/login-verification.component'
 import { LoginComponent } from './screen/login/login.component'
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'forgotPassword', component: ForgotPasswordComponent },

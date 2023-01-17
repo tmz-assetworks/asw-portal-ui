@@ -113,6 +113,7 @@
               >
                 <mat-label>Select</mat-label>
                 <mat-select
+                  class="selectLocationData"
                   [value]="selectedLocation"
                   formControlName="locationId"
                 >
@@ -922,9 +923,10 @@
               >
                 <input
                   formControlName="power"
-                  type="number"
-                  (keypress)="numberOnly($event)"
+                  type="text"
+                  (keypress)="numberWithDecimalOnly($event)"
                   class="barbar-input-text"
+                  maxlength="10"
                 />
               </div>
               <span
@@ -966,9 +968,10 @@
               >
                 <input
                   formControlName="minPower"
-                  type="number"
-                  (keypress)="numberOnly($event)"
+                  type="text"
+                  (keypress)="numberWithDecimalOnly($event)"
                   class="barbar-input-text"
+                  maxlength="10"
                 />
               </div>
               <span
@@ -1009,9 +1012,10 @@
               >
                 <input
                   formControlName="maxPower"
-                  type="number"
+                  type="text"
                   class="barbar-input-text"
-                  (keypress)="numberOnly($event)"
+                  (keypress)="numberWithDecimalOnly($event)"
+                  maxlength="10"
                 />
               </div>
               <span
@@ -1040,7 +1044,7 @@
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
-                Increment Power
+                Power Increment
                 <span style="color: 'red';">*</span>
               </h5>
               <div
@@ -1052,8 +1056,9 @@
               >
                 <input
                   formControlName="incrementalPower"
-                  type="number"
-                  (keypress)="numberOnly($event)"
+                  type="text"
+                  (keypress)="numberWithDecimalOnly($event)"
+                  maxlength="10"
                   class="barbar-input-text"
                 />
               </div>
@@ -1065,7 +1070,7 @@
                 "
                 class="error-mess"
               >
-                Increment Power Must Be Between 0 To 10 Numeric
+                Power Increment Must Be Between 0 To 10 Numeric
               </span>
               <span
                 *ngIf="
@@ -1075,7 +1080,7 @@
                 "
                 class="error-mess"
               >
-                Increment Power Is Required
+                Power Increment Is Required
               </span>
             </div>
           </div>
