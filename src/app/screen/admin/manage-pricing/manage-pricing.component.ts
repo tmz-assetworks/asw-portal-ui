@@ -36,6 +36,7 @@ export class ManagePricingComponent implements OnInit {
   dataSource = new MatTableDataSource<any>(this.pricingPlanList)
   isTableHasData: any
   statusData: any
+  adminService: any
 
   constructor(
     private _adminService: AdminService,
@@ -82,7 +83,6 @@ export class ManagePricingComponent implements OnInit {
         this.totalCount = res.paginationResponse.totalCount
         this.totalPages = res.paginationResponse.totalPages
         this.pageSize = res.paginationResponse.pageSize
-
         this.dataSource.data = res.data
         this.isTableHasData = false
       } else {
