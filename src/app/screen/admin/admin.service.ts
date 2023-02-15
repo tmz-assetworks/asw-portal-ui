@@ -606,4 +606,7 @@ export class AdminService {
       params,
     )
   }
+  public GetAllModemTypeData(): Observable<any> {
+    return this._http.get<any>(`${this.ASSET_API_URL}Modem/GetAllModemTypeData`)
+  }
 }

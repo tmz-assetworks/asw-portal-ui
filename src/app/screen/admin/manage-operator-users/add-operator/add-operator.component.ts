@@ -13,6 +13,7 @@ import { StorageService } from 'src/app/service/storage.service'
   styleUrls: ['./add-operator.component.scss'],
 })
 export class AddOperatorComponent implements OnInit {
+
   submitted = false
   registrationForm: any
   countryList: any
@@ -34,9 +35,9 @@ export class AddOperatorComponent implements OnInit {
   datePipe = new DatePipe('en-US')
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router,
-    private _adminService: AdminService,
-    private toastr: ToastrService,
+    public router: Router,
+    public _adminService: AdminService,
+    public toastr: ToastrService,
     private _location: Location,
     private _storageService: StorageService,
   ) {
@@ -158,31 +159,21 @@ export class AddOperatorComponent implements OnInit {
   }
 
 
-  
-  
+
+
 
   saveForm() {
-    // this.submitted = true
-    // if (this.addOperatorProfile.invalid) {
-    //   this.toastr.error('Please fill mandatory fields.')
-    //   return
-    // }
-    // let formData = this.addOperatorProfile.value;
+
     this.submitted = true
     if (this.addOperatorProfile.invalid) {
 
 
-//       if(this.addOperatorProfile.status=="INVALID"){
 
-//         this.toastr.error('Please fill user name.')
-// return 
-
-//       }
       this.toastr.error('Please fill mandatory fields.')
       return
     }
-    
-    
+
+
 
     // let pass = sessionStorage.getItem('enpass')
     let formField = this.addOperatorProfile.value
@@ -338,6 +329,8 @@ export class AddOperatorComponent implements OnInit {
       })
     }
   }
+
+
   btnClick() {
     this.router.navigateByUrl('admin/manage-operator/')
   }
@@ -373,14 +366,7 @@ export class AddOperatorComponent implements OnInit {
               state: this.stateId.toString(),
             })
           }
-          // else if (
-          //   this.countryId > 0 &&
-          //   this.stateId > 0 &&
-          //   this.cityId > 0
-          // ) {
-          //   // FOR EDIT COUNTRY AND STATE BOTH ARE SELECTED
-          //   this.addOperatorProfile.patchValue({ city: this.cityId.toString() })
-          // }
+
           else if (this.countryId > 0 && this.stateId == 0) {
             // WHEN CHANGING COUNTRY
             this.addOperatorProfile.patchValue({ state: this.selectValue })

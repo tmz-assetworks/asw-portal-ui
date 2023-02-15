@@ -218,7 +218,7 @@ export class AddPricingPlanComponent implements OnInit {
    * @param event
    * @param id
    */
-  selecCustomerList(event: any, id: any) {
+  selectCustomerList(event: any, id: any) {
     if (event.isUserInput) {
       this.selectedCustomerId = id
     }

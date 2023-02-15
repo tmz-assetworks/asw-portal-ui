@@ -136,14 +136,19 @@ describe('AddChargerComponent', () => {
   it('should call GetDispenserDetailsById method on init', () => {
     const componentSpy = spyOn(
       component,
-      'GetDispenserDetailsById',
-    ).and.callThrough()
+      'GetDispenserDetailsById'
+    ).and.callThrough();
 
-    expect(componentSpy).not.toHaveBeenCalled()
+    expect(componentSpy).not.toHaveBeenCalled();
 
-    component.ngOnInit()
-    expect(componentSpy).toHaveBeenCalledTimes(0)
-  })
+    // depending on how your component is set up, fixture.detectChanges() might be enough
+    component.ngOnInit();
+    expect(componentSpy).toHaveBeenCalledTimes(0);
+  });
+  it('should not valid', () => {
+    // console.log(component.addCustomerProfile.controls)
+    expect(component.addChargerFormGroup.valid).not.toBeTruthy();
+  });
 
   it('should be valid if form value is valid', () => {
     component.addChargerFormGroup.setValue({
@@ -154,27 +159,27 @@ describe('AddChargerComponent', () => {
       firmwareVersion: '',
       makeMasterId: 'asas',
       modelId: 'asas',
-      modemId: 11,
+      modemId:  11,
       switchGearId: '',
       rfidReaderId: '',
       powerCabinetId: '',
-      protocolName: '1.6J',
-      hardwareSerialNumber: '21121',
+      protocolName: "1.6J",
+      hardwareSerialNumber: "21121",
       meterType: '',
       pingSchedule: '',
       privateStation: '',
       readingSchedule: '',
-      padId: 12,
-      cableId: 12,
-      installationDate: '2023-01-31T16:48:47',
+      padId:12,
+      cableId:12,
+      installationDate: "2023-01-31T16:48:47",
       isActive: '',
       portCommand: [
         {
           id: 0,
           connectorId: 1,
           connectorType: 3,
-          createdBy: '2e8687a7-ab66-4637-83be-9ccc3b66e876',
-          incrementalPower: 1234,
+          createdBy: "2e8687a7-ab66-4637-83be-9ccc3b66e876",
+          incrementalPower:1234,
           isActive: '',
           maxPower: 121212,
           minPower: 12121,
@@ -192,5 +197,15 @@ describe('AddChargerComponent', () => {
     component.selectLocation(null, 1)
     component.selectedLocation = 1
     expect(component.selectedLocation).toBe(1)
+  })
+  it('should update the select connector  on selecting a value from connector drop down', () => {
+    component.selectconnector(null, 1)
+    component.selectedconnectorType = 1
+    expect(component.selectedconnectorType).toBe(1)
+  })
+  it('should update the select connector  on selecting a value from connector drop down', () => {
+    component.selectModem(null, 1)
+    component.selectedconnectorType = 1
+    expect(component.selectedconnectorType).toBe(1)
   })
 })

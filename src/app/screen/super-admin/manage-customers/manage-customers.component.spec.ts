@@ -1,29 +1,41 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing'
+import {
+  ComponentFixture,
+  TestBed,
+  fakeAsync,
+  inject,
+  tick,
+} from '@angular/core/testing';
 
-import { ManageCustomersComponent } from './manage-customers.component'
-import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { ManageCustomersComponent } from './manage-customers.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-import { RouterTestingModule } from '@angular/router/testing'
-import { MatPaginatorModule } from '@angular/material/paginator'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { SuperAdminService } from '../super-admin.service'
-import { MatTableModule } from '@angular/material/table'
-
-import { of } from 'rxjs'
-import { CdkTableModule } from '@angular/cdk/table'
-import { BidiModule } from '@angular/cdk/bidi'
-import { _MatTableDataSource } from '@angular/material/table'
-import { DebugElement } from '@angular/core'
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { ToastrModule } from 'ngx-toastr'
-import { MatFormFieldModule } from '@angular/material/form-field'
-import { StorageService } from 'src/app/service/storage.service'
-
+import { RouterTestingModule } from '@angular/router/testing';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SuperAdminService } from '../super-admin.service';
+import { MatTableModule } from '@angular/material/table';
+import { NavigationEnd  } from '@angular/router';
+import { By } from '@angular/platform-browser';
+import { AddCustomersComponent } from './add-customers/add-customers.component';
+import { Observable, from, of } from 'rxjs';
+import { CdkTableModule } from '@angular/cdk/table';
+import { BidiModule } from '@angular/cdk/bidi';
+import { _MatTableDataSource } from '@angular/material/table';
+import { DebugElement } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { StorageService } from 'src/app/service/storage.service';
+// import { routes } from 'src/app/app-routing.module';
 describe('ManageCustomersComponent', () => {
-  let de: DebugElement
-  let component: ManageCustomersComponent
-  let fixture: ComponentFixture<ManageCustomersComponent>
-
+  let applyFilter: any;
+  let router: Router;
+  let de: DebugElement;
+  let component: ManageCustomersComponent;
+  let fixture: ComponentFixture<ManageCustomersComponent>;
+  let superAdminService: SuperAdminService;
+   let storageService: StorageService;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
@@ -40,13 +52,16 @@ describe('ManageCustomersComponent', () => {
       ],
       declarations: [ManageCustomersComponent],
       providers: [SuperAdminService, StorageService],
-    }).compileComponents()
-  })
+    }).compileComponents();
+    router=TestBed.inject(Router);
+    // router = jasmine.createSpyObj('_router', ['navigate']);
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ManageCustomersComponent)
     component = fixture.componentInstance
     fixture.autoDetectChanges()
+    storageService=TestBed.get(StorageService)
     de = fixture.debugElement
   })
 
@@ -130,12 +145,122 @@ describe('ManageCustomersComponent', () => {
             },
           ],
         },
-      ])
-    })
-  })
+      ]);
+    });
+  });
+
+  it(`should have as title 'Add Organization'`, () => {
+    const fixture = TestBed.createComponent(AddCustomersComponent);
+    const app = fixture.componentInstance;
+    expect(app.title).toEqual('Add Organization');
+  });
 
   it('should have as customer list equal to array', async () => {
-    component.ngOnInit()
-    expect(component.customerList).toEqual([])
-  })
-})
+    component.ngOnInit();
+    expect(component.customerList).toEqual([]);
+  });
+
+  it('should have as OrganisationName string', async () => {
+    component.ngOnInit();
+    expect(component.OrganisationName).toEqual('');
+  });
+
+  // it('should have as OrganisationName ', async () => {
+
+  //    component.ngAfterViewInit();
+  //    expect(component.itemsPerPageLabel).toEqual('customerData');
+  //   // console.log(component._storageService.removeSessionData,'HHIIIII');
+
+  // });
+
+  it('should be status data value undefined.', () => {
+    expect(component.statusDataValue).toBeUndefined();
+  });
+  it('should be status data  undefined.', () => {
+    expect(component.statusData).toBeUndefined();
+  });
+  it('should be  total page undefined.', () => {
+    expect(component.totalPages).toBeUndefined();
+  });
+  it('should be isTableHasData undefined.', () => {
+    expect(component.isTableHasData).toBeUndefined();
+  });
+
+  it('should be showCustomersList true.', () => {
+    expect(component.showCustomersList).toEqual(true);
+  });
+  it('should be showAddCustomer false.', () => {
+    expect(component.showAddCustomer).toEqual(false);
+  });
+  it('should be current Page 1.', () => {
+    expect(component.currentPage).toEqual(1);
+  });
+
+  /**Cancel navigation button working  */
+
+  it('should navigate to superadmin/customer when click on addOrganization', () => {
+    spyOn(router, 'navigate');
+    component.addOrganization();
+    expect(router.navigate).toHaveBeenCalledWith(['superadmin/customer/create-customer']);
+  });
+
+  /**call GetAllCustomer method for filter customers */
+  it('should call GetAllCustomer method', fakeAsync(() => {
+    component = fixture.componentInstance;
+    spyOn(component, 'GetAllCustomer');
+    fixture.detectChanges();
+    const fakeEvent = new Event('input');
+    component.inputValue = {nativeElement: {value: 'test'}}
+    component.applyFilter(fakeEvent);
+    tick();
+    expect(component.GetAllCustomer).toHaveBeenCalled();
+  }));
+  /** navigate to the correct URL when viewCustomer is called*/
+
+  //  it('should navigate to the correct URL when viewCustomer is called', () => {
+  //    component.viewCustomer(123);
+  //    expect(router.url).toBe('superadmin/customer/edit-customer?id=123');
+  //  });
+
+  // it('should navigate to the correct URL when editCustomer is called', (done) => {
+  //   router.navigateByUrl('').then(() => {
+  //       component.editCusotmer(123);
+  //       router.events.subscribe((event) => {
+  //           if (event instanceof NavigationEnd) {
+  //               expect(router.url).toBe('/superadmin/customer/edit-customer?id=123');
+  //               done();
+  //           }
+  //       });
+  //   });
+  // });
+
+/** navigate to the correct URL when editCustomer is called*/
+  // it('should navigate to the correct URL when editCustomer is called', () => {
+
+  //   component.editCusotmer(123);
+  //   expect(router.url).toBe('superadmin/customer/edit-customer?id=123');
+  // });
+
+  // it('should remove customerData and IsSaveBtn from session storage', () => {
+  //   spyOn(storageService, 'getSessionData').and.returnValue({'customerData': { name: 'John Doe' },'IsSaveBtn': true});
+  //   spyOn(storageService, 'removeSessionData');
+
+  //   component.ngOnInit();
+
+  //   expect(storageService.getSessionData).toHaveBeenCalledWith('customerData');
+  //   expect(storageService.getSessionData).toHaveBeenCalledWith('IsSaveBtn');
+  //   expect(storageService.removeSessionData).toHaveBeenCalledWith('customerData');
+  //   expect(storageService.removeSessionData).toHaveBeenCalledWith('IsSaveBtn');
+  // });
+
+  // it('should not remove customerData and IsSaveBtn from session storage if customerData does not exist', () => {
+  //   spyOn(storageService, 'getSessionData').and.returnValue(null);
+  //   spyOn(storageService, 'removeSessionData');
+
+  //   component.ngOnInit();
+
+  //   expect(storageService.getSessionData).toHaveBeenCalledWith('customerData');
+  //   expect(storageService.getSessionData).toHaveBeenCalledWith('IsSaveBtn');
+  //   expect(storageService.removeSessionData).not.toHaveBeenCalled();
+  // });
+});

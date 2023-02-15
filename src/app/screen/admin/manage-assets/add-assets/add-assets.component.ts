@@ -47,6 +47,7 @@ export class AddAssetsComponent implements OnInit {
   selectedModelModem: any
   selectedModemType: any
   datePipe = new DatePipe('en-US')
+  modemTypeList: any = []
 
   constructor(
     private _fb: FormBuilder,
@@ -87,11 +88,6 @@ export class AddAssetsComponent implements OnInit {
     { id: 1, name: 'Commissioned' },
     { id: 2, name: 'DeCommissioned' },
     { id: 3, name: 'PreCommissioned' },
-  ]
-
-  modemTypeList = [
-    { id: 1, name: 'modemtype1' },
-    { id: 2, name: 'modemtype2' },
   ]
 
   /**
@@ -210,6 +206,7 @@ export class AddAssetsComponent implements OnInit {
     this.GetAllLocation() // CALL LOCATION API
     this.GetAllMakeMaster() // CALL MAKE API
     this.GetAllModelData(this.UserId) // CALL MODEL API
+    this.GetAllModemTypeData() // CALL MODEM TYPE API
 
     if (this.assetName == 'Cables' && this.assetId) {
       this.typeId = 1
@@ -1145,6 +1142,17 @@ export class AddAssetsComponent implements OnInit {
     }
     this._adminService.GetAllModelData(body).subscribe((res: any) => {
       this.modelList = res.data
+    })
+  }
+
+  /**
+   * Get all modem type
+   *
+   */
+
+  GetAllModemTypeData() {
+    this._adminService.GetAllModemTypeData().subscribe((res: any) => {
+      this.modemTypeList = res.data
     })
   }
   /**

@@ -19,6 +19,21 @@ describe('HelpComponent', () => {
   })
 
   it('should create', () => {
+    component.ngOnInit()
     expect(component).toBeTruthy()
   })
+  it('should be panelOpenState false.', () => {
+    expect(component.panelOpenState).toEqual(false);
+  });
+  it('should be panelOpenState1 false.', () => {
+    expect(component.panelOpenState1).toEqual(false);
+  });
+  it('should be panelOpenState2 false.', () => {
+    expect(component.panelOpenState2).toEqual(false);
+  });
+  it('should be panelOpenState3 false.', () => {
+    expect(component.panelOpenState3).toEqual(false);
+  });
+
+
 })
