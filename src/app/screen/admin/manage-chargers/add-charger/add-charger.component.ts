@@ -153,7 +153,7 @@ export class AddChargerComponent implements OnInit {
     ]),
     chargeBoxId: new FormControl('', [
       Validators.required,
-      Validators.maxLength(20),
+      Validators.maxLength(100),
     ]),
     locationId: new FormControl('', Validators.required),
     endPointUrl: new FormControl(''),
@@ -168,7 +168,7 @@ export class AddChargerComponent implements OnInit {
     // dispenserStatusId: new FormControl('', Validators.required),
     hardwareSerialNumber: new FormControl('', [
       Validators.required,
-      Validators.maxLength(20),
+      Validators.maxLength(100),
     ]),
     meterType: new FormControl('', [Validators.pattern('[a-z0-9A-Z]{0,20}')]),
     // multiplePorts: new FormControl(false),

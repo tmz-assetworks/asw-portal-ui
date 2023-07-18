@@ -81,7 +81,7 @@
                 "
                 class="error-mess"
               >
-                Charger Box ID Must Be Between 1 To 20 Alphanumeric Only
+                Charger Box ID Must Be Between 1 To 100 Alphanumeric Only
               </span>
               <span
                 *ngIf="
@@ -544,11 +544,11 @@
                   !addChargerFormGroup.get('hardwareSerialNumber')?.valid &&
                   addChargerFormGroup.get('hardwareSerialNumber')?.touched &&
                   addChargerFormGroup.get('hardwareSerialNumber')?.value
-                    .length > 20
+                    .length > 100
                 "
                 class="error-mess"
               >
-                Hardware Serial Number Must Be Between 1 To 20 Alphanumeric
+                Hardware Serial Number Must Be Between 1 To 100 Alphanumeric
               </span>
               <span
                 *ngIf="
