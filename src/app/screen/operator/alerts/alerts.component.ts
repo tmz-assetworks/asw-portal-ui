@@ -58,6 +58,7 @@ export class AlertsComponent implements OnInit {
   // TABLE COLUMNS
 
   displayedColumns = [
+    'assetId',
     'ChargeBoxId',
     'Category',
     'MessageType',

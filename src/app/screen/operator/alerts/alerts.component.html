@@ -34,6 +34,25 @@
         matSorts
         class="mat-elevation-z8"
       >
+      <ng-container matColumnDef="assetId">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          class="fontsize14"
+        >
+          ASSET ID
+        </th>
+        <td
+          mat-cell
+          *matCellDef="let element; let i = index"
+          [ngStyle]="{
+            'font-weight': element.isRead === true ? 'normal' : 'bold'
+          }"
+        >
+          {{ element.assetId}}
+        </td>
+      </ng-container>
         <ng-container matColumnDef="ChargeBoxId">
           <th
             mat-header-cell

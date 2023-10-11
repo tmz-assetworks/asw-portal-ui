@@ -72,6 +72,8 @@ export class ReportDetailComponent implements OnInit {
       this.isSubscription = false
       this.GetTransactionDetails(false)
       this.displayedColumnsTransaction = [
+        'assetId',
+        'department',
         'locationName',
         'vin',
         'rfid',
@@ -207,6 +209,8 @@ export class ReportDetailComponent implements OnInit {
             // if (this.flag == 'chargerSession') {
             for (var i = 0; i < this.chartList.length; i++) {
               let newObj = {
+                'ASSET ID': this.chartList[i]['assetId'],
+                'DEPARTMENT': this.chartList[i]['department'],
                 'LOCATION NAME': this.chartList[i]['locationName'],
                 'CONSUMED ENERGY': this.chartList[i]['consumedEnergy'],
                 'CONSUMED TIME': this.chartList[i]['consumedTime'],
