@@ -44,7 +44,7 @@ export class AddVehicleComponent implements OnInit {
     makeName: new FormControl('', Validators.required),
     modelName: new FormControl('', Validators.required),
     licencePlate: new FormControl('', Validators.maxLength(20)),
-    unitNumber: new FormControl('', Validators.maxLength(20)),
+    unitNumber: new FormControl('',[Validators.required,Validators.maxLength(20)] ),
     department: new FormControl('', [Validators.maxLength(255)]),
     domicileLocation: new FormControl('', Validators.maxLength(25)),
     vehicleMacAddress: new FormControl('', Validators.maxLength(20)),
