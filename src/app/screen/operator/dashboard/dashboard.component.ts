@@ -165,11 +165,13 @@ export class DashboardComponent implements OnInit {
       }
 
       var markers = []
-
+      console.log(this.mapstatusdata,"HEELo")
       for (var i = 0; i < this.mapstatusdata.length; i++) {
         const accident_title = this.mapstatusdata[i].status
         const chargeBoxId = this.mapstatusdata[i].chargeBoxid
-
+        const assetId = this.mapstatusdata[i].assetId
+        const makeName = this.mapstatusdata[i].makeName
+        const modelName = this.mapstatusdata[i].modelName
         const accident_LatLng = new google.maps.LatLng(
           this.mapstatusdata[i].latitude,
           this.mapstatusdata[i].longitude,
@@ -187,8 +189,12 @@ export class DashboardComponent implements OnInit {
         const contentString =
           '<p><b style="color:blue">' +
           chargeBoxId +
-          '</b><br/>Status:' +
-          accident_title +
+          '</b><br/>Asset ID: ' +
+          assetId+
+          '<br/>Make: ' +
+          makeName +
+          '<br/>Model: ' +
+          modelName +
           ''
 
         var infoWindow = new google.maps.InfoWindow({
