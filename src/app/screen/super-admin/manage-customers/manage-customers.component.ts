@@ -34,7 +34,6 @@ export class ManageCustomersComponent implements OnInit {
     'PointOfContact',
     'CustomerEmail',
     'PhoneNumber',
-    'Status',
     'NumberOfEvChargers',
     'Assets',
     'User',
