@@ -38,7 +38,7 @@ export class AddVehicleComponent implements OnInit {
     vin: new FormControl('', [
       Validators.required,
       Validators.pattern('[a-z0-9A-Z]{2,20}'),
-      Validators.pattern('^[a-zA-Z0-9!@#$%^&*()]+$'),
+      Validators.pattern('^[a-zA-Z0-9!@#$%^&*()/-]+$'),
     ]),
     modelyear: new FormControl('', Validators.required),
     makeName: new FormControl('', Validators.required),
@@ -345,6 +345,8 @@ export class AddVehicleComponent implements OnInit {
       (k > 96 && k < 123) ||
       k == 8 ||
       k == 32 ||
+      k == 47 ||
+      k == 45 ||
       (k >= 48 && k <= 57)
     )
   }
