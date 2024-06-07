@@ -2438,10 +2438,10 @@ export class ChargerDiagnosticComponent implements OnInit {
    */
   checkStartDate() {
     if (
-      this.remoteStartForm.value.chargingProfile.validFrom >
-      this.remoteStartForm.value.chargingProfile.validTo
+      this.remoteStartForm.value.csChargingProfiles.validFrom >
+      this.remoteStartForm.value.csChargingProfiles.validTo
     ) {
-      this.remoteStartForm.controls.chargingProfile.patchValue({
+      this.remoteStartForm.controls.csChargingProfiles.patchValue({
         validTo: '',
       })
       return
@@ -2449,10 +2449,10 @@ export class ChargerDiagnosticComponent implements OnInit {
   }
   checkStartDateForSetCharging() {
     if (
-      this.setChargingForm.value.chargingProfile.validFrom >
-      this.setChargingForm.value.chargingProfile.validTo
+      this.setChargingForm.value.csChargingProfiles.validFrom >
+      this.setChargingForm.value.csChargingProfiles.validTo
     ) {
-      this.setChargingForm.controls.chargingProfile.patchValue({
+      this.setChargingForm.controls.csChargingProfiles.patchValue({
         validTo: '',
       })
       return
@@ -2465,18 +2465,18 @@ export class ChargerDiagnosticComponent implements OnInit {
    */
 
   checkValidFrom() {
-    let fromDate = this.remoteStartForm.value.chargingProfile.validFrom
+    let fromDate = this.remoteStartForm.value.csChargingProfiles.validFrom
     if (!fromDate) {
       this.toastr.error('Please select From Date first.')
-      this.remoteStartForm.controls.chargingProfile.patchValue({ validTo: '' })
+      this.remoteStartForm.controls.csChargingProfiles.patchValue({ validTo: '' })
       return
     }
   }
   checkValidFromForSetCharging() {
-    let fromDate = this.setChargingForm.value.chargingProfile.validFrom
+    let fromDate = this.setChargingForm.value.csChargingProfiles.validFrom
     if (!fromDate) {
       this.toastr.error('Please select From Date first.')
-      this.setChargingForm.controls.chargingProfile.patchValue({ validTo: '' })
+      this.setChargingForm.controls.csChargingProfiles.patchValue({ validTo: '' })
       return
     }
   }
@@ -2486,7 +2486,7 @@ export class ChargerDiagnosticComponent implements OnInit {
       'yyyy-MM-ddT' + this.getModifiedTime(),
     )
 
-    let fromDate = this.remoteStartForm.value.chargingProfile.validFrom
+    let fromDate = this.remoteStartForm.value.csChargingProfiles.validFrom
     let validFromDate: any = this.datePipe.transform(
       fromDate,
       'yyyy-MM-ddT' + this.getModifiedTime(),
@@ -2498,7 +2498,7 @@ export class ChargerDiagnosticComponent implements OnInit {
       d,
       'yyyy-MM-ddT' + this.getModifiedTime(),
     )
-    let fromDate = this.setChargingForm.value.chargingProfile.validFrom
+    let fromDate = this.setChargingForm.value.csChargingProfiles.validFrom
     let validFromDate: any = this.datePipe.transform(
       fromDate,
       'yyyy-MM-ddT' + this.getModifiedTime(),

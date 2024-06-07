@@ -173,26 +173,8 @@
                     <td mat-cell *matCellDef="let element">
                       {{ element.department }}
                     </td>
-                  </ng-container>
-                  <!-- Domicile Location Column -->
-                  <ng-container matColumnDef="DomicileLocation">
-                    <th mat-header-cell *matHeaderCellDef>
-                      DOMICILE LOCATION
-                    </th>
-                    <td mat-cell *matCellDef="let element">
-                      {{ element.domicileLocation }}
-                    </td>
-                  </ng-container>
+                  </ng-container>                    
 
-                  <!--  Vehicle MAC ADDRESS-->
-                  <ng-container matColumnDef="VehicleMacAddress">
-                    <th mat-header-cell *matHeaderCellDef>
-                      VEHICLE MAC ADDRESS
-                    </th>
-                    <td mat-cell *matCellDef="let element">
-                      {{ element.vehicleMacAddress }}
-                    </td>
-                  </ng-container>
                   <!--  RFID Card Assigned Column-->
                   <ng-container matColumnDef="RFIDCardAssigned">
                     <th mat-header-cell *matHeaderCellDef>
@@ -202,6 +184,7 @@
                       {{ element.rfidCardAssigned }}
                     </td>
                   </ng-container>
+                  
                   <!--  Status Column-->
                   <ng-container matColumnDef="Status">
                     <th mat-header-cell *matHeaderCellDef>STATUS</th>
