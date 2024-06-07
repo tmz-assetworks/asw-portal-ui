@@ -40,8 +40,6 @@ export class VehicleAssetsComponent implements OnInit {
     'Modal',
     'LicencePlate',
     'Department',
-    'DomicileLocation',
-    'VehicleMacAddress',
     'RFIDCardAssigned',
     'Status',
     'Action',
