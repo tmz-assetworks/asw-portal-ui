@@ -24,15 +24,17 @@ export class AlertsService {
     )
   }
 
-  /**
-   * Update notification
-   * @param params
-   * @returns
-   */
+  
 
-  UpdateNotificationIsRead(params: any) {
+  /**
+ * Updates the read status of OCPP event logs to 'read' for the given list of IDs.
+ * @param params
+ * @returns
+ */
+
+  UpdateOcppEventLogAreReadByOperator(params: string[]) {
     return this._http.post<any>(
-      `${this.PORTAL_API_URL}UpdateNotificationIsRead`,
+      `${this.PORTAL_API_URL}UpdateOcppEventLogAreReadByOperator`,
       params,
     )
   }

@@ -34,12 +34,12 @@ export class VehicleAssetsComponent implements OnInit {
    */
 
   displayedColumns = [
+    'UnitNumber',
     'VIN',
     'ModelYear',
     'Name',
     'Modal',
     'LicencePlate',
-    'Department',
     'RFIDCardAssigned',
     'Status',
     'Action',
