@@ -5,6 +5,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { AlertsService } from './alerts.service'
 import { StorageService } from 'src/app/service/storage.service'
 import { UserProfileService } from '../../user-profile/user-profile.service'
+import { ActivatedRoute, Router } from '@angular/router'
 
 @Component({
   selector: 'app-alerts',
@@ -33,13 +34,25 @@ export class AlertsComponent implements OnInit {
   isTableHasData = false
   expandedElement: any
   searchParam = ''
+  eventlogIdList: string[] = []
+  isRead = false
 
   constructor(
     public _alertsService: AlertsService,
     private _storageService: StorageService,
     private _userProfileService: UserProfileService,
+    private _activatedRoute: ActivatedRoute,
   ) {
     this.UserId = this._storageService.getLocalData('user_id')
+
+    this._activatedRoute.queryParams.subscribe(params => {
+      const pageurl = params['type'];
+      if (pageurl == "notification")
+        this.isRead = false
+      else
+        this.isRead = true
+      this.GetOperatorAlerts()
+    });
   }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator
@@ -91,6 +104,7 @@ export class AlertsComponent implements OnInit {
 
       chargerBoxIds: [],
       opratorid: this.UserId,
+      isRead: this.isRead
     }
     this._alertsService.GetOperatorAlerts(pBody).subscribe((res: any) => {
       if (res.data !== undefined && res.data != null && res.data.length > 0) {
@@ -100,6 +114,11 @@ export class AlertsComponent implements OnInit {
 
         this.dataSource.data = res.data
         this.isTableHasData = false
+        // API will be call after load operator alerts
+        this.eventlogIdList = res.data.filter((item: any) => !item.isRead).map((item: any) => item.eventLogId)
+        if (this.eventlogIdList.length > 0) {
+          this.UpdateOcppEventLogAreReadByOperator(this.eventlogIdList)
+        }
       } else {
         this.dataSource.data = []
         this.isTableHasData = true
@@ -129,24 +148,22 @@ export class AlertsComponent implements OnInit {
   }
 
   /**
-   * UPDATE NOTIFICATION IS READ
-   * @param data
-   */
-  UpdateNotificationIsRead(data: any) {
-    if (data.isRead) {
-      return
-    }
+  * UPDATE Ocpp event
+  */
+  /**
+ * Updates the read status of OCPP event logs to 'read' for the given list of IDs.
+ * @param {string[]} data - An array of OCPP event log IDs to be marked as read.
+ */
+  UpdateOcppEventLogAreReadByOperator(data: string[]) {
+    // Create the request body with the event log IDs
     const body = {
-      id: data.eventLogId,
-      flag: data.flag,
-    }
-    this._alertsService.UpdateNotificationIsRead(body).subscribe((res: any) => {
-      let obj1 = this.dataSource.data.find(
-        (o) => o.eventLogId == data.eventLogId,
-      )
-      let index = this.dataSource.data.indexOf(obj1)
-      this.dataSource.data.fill((obj1.isRead = true), index, index++)
-      this._userProfileService.alertSubject.next('Notication is read')
-    })
+      ocppIds: data
+    };
+
+    // Call the alerts service to update the read status of the event logs
+    this._alertsService.UpdateOcppEventLogAreReadByOperator(data).subscribe((res: any) => {
+      // Notify the user profile service that the notification is read
+      this._userProfileService.alertSubject.next('Notification is read');
+    });
   }
 }

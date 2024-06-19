@@ -38,7 +38,7 @@
         <div class="header-box4 layout"></div>
       </div>
 
-      <div *ngIf="role == 'Operator'" class="txt_menu">
+      <div *ngIf="role == 'Operator'" class="txt_menu" [routerLink]="['alerts']" [queryParams]="{type: 'notification'}">
         <img src="../../../../assets/images/bell.png" />
         <div class="count_circle" matTooltip="{{ countByUserId }}">
           <p>{{ countByUserId }}</p>
@@ -47,14 +47,12 @@
       <p class="profile_txt">Hi! {{ username }}</p>
 
       <div class="header-block8-spacer"></div>
-
       <div class="header-block8-item2">
         <div class="header-box5 layout">
           <button
             mat-icon-button
             [matMenuTriggerFor]="menu"
-            aria-label="Example icon-button with a menu"
-          >
+            aria-label="Example icon-button with a menu">
             <img
               class="profile-image"
               src="{{
@@ -68,8 +66,7 @@
             <button
               mat-menu-item
               class="cursorPointer"
-              [routerLink]="['user-profile']"
-            >
+              [routerLink]="['user-profile']">
               <mat-icon>settings</mat-icon>
               <span>Profile Settings</span>
             </button>
