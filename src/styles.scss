@@ -60,6 +60,21 @@ $font_type26: 700 18px/1.2 'Roboto', Helvetica, Arial, serif;
   width: 13%;
 }
 
+h1 {
+  font-family: 'Roboto' !important;
+  font-size: 24px !important;
+  line-height: 32px !important;
+}
+
+h2 {
+  font-family: 'Roboto' !important;
+}
+
+h3 {
+  font-family: 'Roboto' !important;
+}
+
+
 @mixin tn {
   @media (max-width: 383px) {
     @content;
