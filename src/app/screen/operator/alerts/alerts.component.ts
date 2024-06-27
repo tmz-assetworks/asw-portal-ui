@@ -34,7 +34,7 @@ export class AlertsComponent implements OnInit {
   isTableHasData = false
   expandedElement: any
   searchParam = ''
-  eventlogIdList: string[] = []
+  eventlogIdList: any
   isRead = false
 
   constructor(
@@ -115,9 +115,15 @@ export class AlertsComponent implements OnInit {
         this.dataSource.data = res.data
         this.isTableHasData = false
         // API will be call after load operator alerts
-        this.eventlogIdList = res.data.filter((item: any) => !item.isRead).map((item: any) => item.eventLogId)
+        this.eventlogIdList = res.data
+          .filter((item: any) => !item.isRead) // Filter items where isRead is false
+          .map((item: any) => ({
+            eventLogId: item.eventLogId,
+            category: item.category
+          }));
+
         if (this.eventlogIdList.length > 0) {
-          this.UpdateOcppEventLogAreReadByOperator(this.eventlogIdList)
+          this.UpdateOcppEventLogAndTaskNotification(this.eventlogIdList)
         }
       } else {
         this.dataSource.data = []
@@ -151,17 +157,17 @@ export class AlertsComponent implements OnInit {
   * UPDATE Ocpp event
   */
   /**
- * Updates the read status of OCPP event logs to 'read' for the given list of IDs.
- * @param {string[]} data - An array of OCPP event log IDs to be marked as read.
+ * Updates the read status of OCPP event logs to 'read' for the given list of IDs and categories.
+ * @param {string[]} data
  */
-  UpdateOcppEventLogAreReadByOperator(data: string[]) {
-    // Create the request body with the event log IDs
+  UpdateOcppEventLogAndTaskNotification(data: []) {
+    // Create the request body with the event log IDs and categories
     const body = {
       ocppIds: data
     };
 
     // Call the alerts service to update the read status of the event logs
-    this._alertsService.UpdateOcppEventLogAreReadByOperator(data).subscribe((res: any) => {
+    this._alertsService.UpdateOcppEventLogAndTaskNotification(data).subscribe((res: any) => {
       // Notify the user profile service that the notification is read
       this._userProfileService.alertSubject.next('Notification is read');
     });

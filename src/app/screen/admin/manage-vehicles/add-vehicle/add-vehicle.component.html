@@ -12,36 +12,23 @@
                 VIN
                 <span style="color: 'red';">*</span>
               </h5>
-              <div
-                class="barbar-box6 layout"
-                [ngClass]="{
+              <div class="barbar-box6 layout" [ngClass]="{
                   'is-invalid':
                     vehicleFormGroup.get('vin')?.errors && submitted == true
-                }"
-              >
-                <input
-                  formControlName="vin"
-                  type="text"
-                  class="barbar-input-text"
-                />
+                }">
+                <input formControlName="vin" type="text" class="barbar-input-text" />
               </div>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !vehicleFormGroup.get('vin')?.valid &&
                   vehicleFormGroup.get('vin')?.touched &&
                   vehicleFormGroup.get('vin')?.value.length > 0
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 VIN must be in between 1 to 20 characters and Alphanumeric
               </span>
-              <span
-                *ngIf="
+              <span *ngIf="
                   (vehicleFormGroup.get('vin')?.touched || submitted) &&
                   vehicleFormGroup.get('vin')?.value.length == 0
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 VIN Is Required
               </span>
             </div>
@@ -53,14 +40,11 @@
                 Model Year
                 <span style="color: 'red';">*</span>
               </h5>
-              <mat-form-field
-                class="barbar-box6 layout"
-                [ngClass]="{
+              <mat-form-field class="barbar-box6 layout" [ngClass]="{
                   'is-invalid':
                     vehicleFormGroup.get('modelyear')?.errors &&
                     submitted == true
-                }"
-              >
+                }">
                 <mat-label>Select</mat-label>
                 <mat-select formControlName="modelyear">
                   <mat-option *ngFor="let data of modelYearlist" [value]="data">
@@ -69,14 +53,11 @@
                 </mat-select>
               </mat-form-field>
               <!-- <span *ngIf="!vehicleFormGroup.get('modelyear')?.valid && vehicleFormGroup.get('modelyear')?.touched && addVehicleForm.get('modelyear')?.value.length > 20" class="error-mess">VIN Must Be Between 1 To 20 Characters And Number Only</span> -->
-              <span
-                *ngIf="
+              <span *ngIf="
                   !vehicleFormGroup.get('modelyear')?.valid &&
                   (vehicleFormGroup.get('modelyear')?.touched || submitted) &&
                   vehicleFormGroup.get('modelyear')?.value.length == 0
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Model Year Is Required
               </span>
             </div>
@@ -89,39 +70,26 @@
                 Make
                 <span style="color: 'red';">*</span>
               </h5>
-              <div
-                class="barbar-box6 layout"
-                [ngClass]="{
+              <div class="barbar-box6 layout" [ngClass]="{
                   'is-invalid':
                     vehicleFormGroup.get('makeName')?.errors &&
                     submitted == true
-                }"
-              >
-                <input
-                  formControlName="makeName"
-                  (keypress)="omit_special_char($event)"
-                  type="text"
-                  class="barbar-input-text"
-                />
+                }">
+                <input formControlName="makeName" (keypress)="omit_special_char($event)" type="text"
+                  class="barbar-input-text" />
               </div>
 
-              <span
-                *ngIf="
+              <span *ngIf="
                   !vehicleFormGroup.get('makeName')?.valid &&
                   (vehicleFormGroup.get('makeName')?.touched || submitted) &&
                   vehicleFormGroup.get('makeName')?.value.length == 0
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Make Is Required
               </span>
-              <span
-                *ngIf="
+              <span *ngIf="
                   vehicleFormGroup.get('makeName')?.touched &&
                   vehicleFormGroup.get('makeName')?.value.length > 40
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Make Must Be less than 40 Alphanumeric Character
               </span>
             </div>
@@ -134,39 +102,26 @@
                 Model
                 <span style="color: 'red';">*</span>
               </h5>
-              <div
-                class="barbar-box6 layout"
-                [ngClass]="{
+              <div class="barbar-box6 layout" [ngClass]="{
                   'is-invalid':
                     vehicleFormGroup.get('modelName')?.errors &&
                     submitted == true
-                }"
-              >
-                <input
-                  formControlName="modelName"
-                  (keypress)="omit_special_char($event)"
-                  type="text"
-                  class="barbar-input-text"
-                />
+                }">
+                <input formControlName="modelName" (keypress)="omit_special_char($event)" type="text"
+                  class="barbar-input-text" />
               </div>
 
-              <span
-                *ngIf="
+              <span *ngIf="
                   !vehicleFormGroup.get('modelName')?.valid &&
                   (vehicleFormGroup.get('modelName')?.touched || submitted) &&
                   vehicleFormGroup.get('modelName')?.value.length == 0
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Model Is Required
               </span>
-              <span
-                *ngIf="
+              <span *ngIf="
                   vehicleFormGroup.get('modelName')?.touched &&
                   vehicleFormGroup.get('modelName')?.value.length > 40
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Model Must Be less than 40 Alphanumeric Character
               </span>
             </div>
@@ -178,12 +133,7 @@
                 License Plate
               </h5>
               <div class="barbar-box6 layout">
-                <input
-                  formControlName="licencePlate"
-                  type="text"
-                  maxlength="20"
-                  class="barbar-input-text"
-                />
+                <input formControlName="licencePlate" type="text" maxlength="20" class="barbar-input-text" />
               </div>
             </div>
           </div>
@@ -194,38 +144,25 @@
                 Equipment ID/ Unit Number
                 <span style="color: 'red';">*</span>
               </h5>
-              <div class="barbar-box6 layout"
-              [ngClass]="{
+              <div class="barbar-box6 layout" [ngClass]="{
                 'is-invalid':
                   vehicleFormGroup.get('unitNumber')?.errors &&
                   submitted == true
-              }"
-              >
-                <input
-                  formControlName="unitNumber"
-                  type="text"
-                  maxlength="20"
-                  class="barbar-input-text"
-                />
+              }">
+                <input formControlName="unitNumber" type="text" maxlength="20" class="barbar-input-text" />
               </div>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !vehicleFormGroup.get('unitNumber')?.valid &&
                   vehicleFormGroup.get('unitNumber')?.touched &&
                   vehicleFormGroup.get('unitNumber')?.value.length > 0
-                "
-                class="error-mess"
-              >
-              Equipment ID/ Unit Number must be in between 1 to 20 characters
+                " class="error-mess">
+                Equipment ID/ Unit Number must be in between 1 to 20 characters
               </span>
-              <span
-                *ngIf="
+              <span *ngIf="
                   (vehicleFormGroup.get('unitNumber')?.touched || submitted) &&
                   vehicleFormGroup.get('unitNumber')?.value.length == 0
-                "
-                class="error-mess"
-              >
-              Equipment ID/ Unit Number Is Required
+                " class="error-mess">
+                Equipment ID/ Unit Number Is Required
               </span>
             </div>
           </div>
@@ -236,12 +173,7 @@
                 Department
               </h5>
               <div class="barbar-box6 layout">
-                <input
-                  formControlName="department"
-                  type="text"
-                  maxlength="255"
-                  class="barbar-input-text"
-                />
+                <input formControlName="department" type="text" maxlength="255" class="barbar-input-text" />
               </div>
             </div>
           </div>
@@ -252,12 +184,7 @@
                 Domicile Location
               </h5>
               <div class="barbar-box6 layout">
-                <input
-                  formControlName="domicileLocation"
-                  type="text"
-                  maxlength="25"
-                  class="barbar-input-text"
-                />
+                <input formControlName="domicileLocation" type="text" maxlength="25" class="barbar-input-text" />
               </div>
             </div>
           </div>
@@ -268,12 +195,7 @@
                 Vehicle Mac Address
               </h5>
               <div class="barbar-box6 layout">
-                <input
-                  formControlName="vehicleMacAddress"
-                  type="text"
-                  maxlength="25"
-                  class="barbar-input-text"
-                />
+                <input formControlName="vehicleMacAddress" type="text" maxlength="25" class="barbar-input-text" />
               </div>
             </div>
           </div>
@@ -282,59 +204,39 @@
             <div class="barbar-block13-item add-rfid">
               <div class="barbar-block14 layout">
                 <h5 class="barbar-highlights layout subtitle">
-                  RFID Card Assigned
+                  Add Another RFID Card
                   <span style="color: 'red';">*</span>
                 </h5>
-
-                <button
-                  class="add-rfid-btn"
-                  type="button"
-                  *ngIf="isRFIDAddBtn"
-                  (click)="addRFIDCardAssigned()"
-                >
-                  Add New RFID
-                </button>
-                <div
-                  [ngClass]="viewMode ? 'disable' : ''"
-                  formArrayName="rfidCardAssigned"
-                  *ngFor="let rfid of getRfidCardFormControls(); let i = index"
-                >
+                <div [ngClass]="viewMode ? 'disable' : ''" formArrayName="rfidCardAssigned"
+                  *ngFor="let rfid of getRfidCardFormControls(); let i = index">
                   <div [formGroupName]="i">
                     <div>
-                      <input
-                        type="text"
-                        class="barbar-box6 layout barbar-input-text"
-                        [ngClass]="{
+                      <input type="text" class="barbar-box6 layout barbar-input-text" [ngClass]="{
                           'is-invalid':
                             rfid.get('name')?.errors && submitted == true
-                        }"
-                        formControlName="name"
-                      />
+                        }" formControlName="name" />
                     </div>
-                    <span
-                      *ngIf="
+                    <span *ngIf="
                         !rfid.get('name')?.valid &&
                         (rfid.get('name')?.touched || submitted) &&
                         rfid.get('name')?.value.length == 0
-                      "
-                      class="error-mess"
-                    >
+                      " class="error-mess">
                       RFID Name Is Required
                     </span>
-                    <br />
+                    <!-- <br />
                     <h5 class="barbar-highlights layout">
                       Active
                     </h5>
-                    <mat-checkbox
-                      class="example-margin"
-                      formControlName="isActive"
-                    ></mat-checkbox>
+                    <mat-checkbox class="example-margin" formControlName="isActive"></mat-checkbox> -->
                     <!-- Remove Rfid -->
                     <!-- <button type="button" (click)="removeRFIDCardAssigned(i)">
                     Remove RFID
                   </button> -->
                   </div>
                 </div>
+                <button class="add-rfid-btn" type="button" *ngIf="isRFIDAddBtn" (click)="addRFIDCardAssigned()">
+                  Add New RFID
+                </button>
               </div>
             </div>
           </div>
@@ -350,10 +252,7 @@
       <div class="barbar-flex1 layout">
         <div class="barbar-flex1-item">
           <div class="barbar-block17 layout">
-            <div
-              class="barbar-text-body2 layout"
-              [routerLink]="['../../vehicles']"
-            >
+            <div class="barbar-text-body2 layout" [routerLink]="['../../vehicles']">
               CANCEL
             </div>
           </div>
@@ -361,18 +260,10 @@
         <div class="barbar-flex1-spacer"></div>
         <div class="barbar-flex1-item">
           <div class="barbar-block16 layout">
-            <div
-              class="barbar-text-body1 layout"
-              *ngIf="isSaveBtn"
-              (click)="addVehicle()"
-            >
+            <div class="barbar-text-body1 layout" *ngIf="isSaveBtn" (click)="addVehicle()">
               SAVE
             </div>
-            <div
-              class="barbar-text-body1 layout"
-              *ngIf="isUpdateBtn"
-              (click)="UpdateVehicle()"
-            >
+            <div class="barbar-text-body1 layout" *ngIf="isUpdateBtn" (click)="UpdateVehicle()">
               UPDATE
             </div>
           </div>
