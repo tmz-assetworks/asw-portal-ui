@@ -2103,8 +2103,11 @@
 }
 
 .dashboard-map-title {
-  font-family: 'Roboto';
-  font-size: 20px;
+  // font-family: 'Roboto';
+  // font-size: 20px;
+  font: 500 18px / 1.2 "Roboto", Helvetica, Arial, serif;
+  color: #131b21;
+  letter-spacing: 0px;
   line-height: 28px;
 }
 
