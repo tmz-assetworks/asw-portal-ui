@@ -1,5 +1,5 @@
 <div class="dashboard-block12 layout">
-  <h1 class="dashboard-subtitle layout">Operator Dashboard</h1>
+  <h1 class="dashboard-subtitle layout">Operations Dashboard</h1>
 </div>
 <div class="dashboard-block13 layout opt-dashboard">
   <div class="dashboard-block13-item">
@@ -163,11 +163,11 @@
             *ngIf="energyUsedData !== ''"
             [energyUsedData]="energyUsedData"
             [chartType]="'dashboardEnergyUsed'"
-            [chartTitle]="'Energy Demand Over Time'"
+            [chartTitle]="'Energy Use Over Time'"
             (lineDetailPage)="
               openDetailPage(
                 3,
-                'Energy Demand Over Time',
+                'Energy Use Over Time',
                 'DASHBOARD',
                 selectedTime,
                 selecteLocationIds
@@ -180,7 +180,7 @@
           <app-bar-chart
             *ngIf="locationPerformingData !== ''"
             [chartType]="'dashboardlocationPerform'"
-            [chartTitle]="'Locations Performing'"
+            [chartTitle]="'Charging by Location'"
             [toggle]="true"
             [locationPerformingData]="locationPerformingData"
             (toggleValueChanges)="changeToggleValue($event)"
