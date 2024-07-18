@@ -24,11 +24,11 @@ export class ManageChargersComponent implements OnInit {
   isTableHasData = false
 
   displayedColumns: string[] = [
+    'assetId',
     'chargeBoxId',
     'locationName',
     'make',
     'model',
-    'rfidReader',
     'status',
     'protocol',
     'Action',
