@@ -13,6 +13,7 @@ pool: 'CMS Project'
 
 variables:
   runDateTag: $[format('{0:yyyyMMddHHmmss}', pipeline.startTime)]
+  sonarOrg: "assetworks-fleet"
   sonarProjectKey: "AssetworksLLC_INN-CMS-asw-portal-ui"
 
 jobs: 
@@ -24,7 +25,7 @@ jobs:
       displayName: 'Prepare Analysis'
       inputs:
         SonarCloud: 'Sonarcloud-CMS'
-        organization: 'assetworks-fleet'
+        organization: '$(sonarOrg)'
         scannerMode: 'CLI'
         configMode: 'manual'
         cliProjectKey: '$(sonarProjectKey)'
