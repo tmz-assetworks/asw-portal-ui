@@ -13,6 +13,7 @@ pool: 'CMS Project'
 
 variables:
   runDateTag: $[format('{0:yyyyMMddHHmmss}', pipeline.startTime)]
+  sonarProjectKey: "AssetworksLLC_INN-CMS-asw-portal-ui"
 
 jobs: 
 - job: AnalyzeSourceCode
@@ -26,7 +27,7 @@ jobs:
         organization: 'assetworks-fleet'
         scannerMode: 'CLI'
         configMode: 'manual'
-        cliProjectKey: 'INN-CMS-asw-portal-ui'
+        cliProjectKey: '$(sonarProjectKey)'
         cliSources: '.'
         extraProperties: |
           sonar.exclusions=node_modules/**/*
