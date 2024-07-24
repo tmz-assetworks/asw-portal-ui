@@ -37,12 +37,12 @@ jobs:
       inputs:
         jdkversion: 'JAVA_HOME_17_X64'
     
-#     - task: SonarCloudPublish@2
-#       inputs:
-#         pollingTimeoutSec: '300'
+    - task: SonarCloudPublish@2
+      inputs:
+        pollingTimeoutSec: '300'
 
-# - job: BuildAngular
-#   displayName: 'Publish Angular Project'
+# - job: BuildAndPublishArtifacts
+#   displayName: 'Publish Angular Project Artifacts'
 #   steps:
 
 #     # build the project
@@ -69,7 +69,7 @@ jobs:
 #       inputs:
 #         SourceFolder: '$(Build.SourcesDirectory)'
 #         Contents: '**'
-#         TargetFolder: '$(Build.ArtifactStagingDirectory)'        
+#         TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
 #     # add build tags
 #     - task: PowerShell@2
