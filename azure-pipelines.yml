@@ -40,6 +40,7 @@ stages:
           jdkversion: 'JAVA_HOME_17_X64'
       
       - task: SonarCloudPublish@2
+        displayName: 'Publish Analysis'
         inputs:
           pollingTimeoutSec: '300'
 
