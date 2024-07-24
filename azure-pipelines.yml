@@ -16,74 +16,78 @@ variables:
   sonarOrg: "assetworks-fleet"
   sonarProjectKey: "AssetworksLLC_INN-CMS-asw-portal-ui"
 
-jobs: 
-- job: AnalyzeSourceCode
-  displayName: 'Analyze Source Code'
-  steps:
+stages:
+- stage: Analyze
+  jobs: 
+  - job: AnalyzeSourceCode
+    displayName: 'Analyze Source Code'
+    steps:
 
-    - task: SonarCloudPrepare@2
-      displayName: 'Prepare Analysis'
-      inputs:
-        SonarCloud: 'Sonarcloud-CMS'
-        organization: '$(sonarOrg)'
-        scannerMode: 'CLI'
-        configMode: 'manual'
-        cliProjectKey: '$(sonarProjectKey)'
-        cliSources: '.'
-        extraProperties: |
-          sonar.exclusions=node_modules/**/*
-    - task: SonarCloudAnalyze@2
-      displayName: 'Run Code Analysis'
-      inputs:
-        jdkversion: 'JAVA_HOME_17_X64'
-    
-    - task: SonarCloudPublish@2
-      inputs:
-        pollingTimeoutSec: '300'
+      - task: SonarCloudPrepare@2
+        displayName: 'Prepare Analysis'
+        inputs:
+          SonarCloud: 'Sonarcloud-CMS'
+          organization: '$(sonarOrg)'
+          scannerMode: 'CLI'
+          configMode: 'manual'
+          cliProjectKey: '$(sonarProjectKey)'
+          cliSources: '.'
+          extraProperties: |
+            sonar.exclusions=node_modules/**/*
+      - task: SonarCloudAnalyze@2
+        displayName: 'Run Code Analysis'
+        inputs:
+          jdkversion: 'JAVA_HOME_17_X64'
+      
+      - task: SonarCloudPublish@2
+        inputs:
+          pollingTimeoutSec: '300'
 
-- job: BuildAndPublishArtifacts
-  displayName: 'Publish Angular Project Artifacts'
-  steps:
+- stage: Build
+  jobs:
+  - job: BuildAndPublishArtifacts
+    displayName: 'Publish Angular Project Artifacts'
+    steps:
 
-    # build the project
-    - task: PowerShell@2
-      displayName: 'Build Project'
-      inputs:
-        targetType: 'inline'
-        script: |
-          npm i
-          ng build
+      # build the project
+      - task: PowerShell@2
+        displayName: 'Build Project'
+        inputs:
+          targetType: 'inline'
+          script: |
+            npm i
+            ng build
 
-    # remove the node modules/dist folders as we'll be rebuilding this project in the release pipeline
-    - task: DeleteFiles@1
-      displayName: 'Delete Build Files'
-      inputs:
-        SourceFolder: '$(Build.SourcesDirectory)'
-        Contents: |
-          node_modules
-          dist
+      # remove the node modules/dist folders as we'll be rebuilding this project in the release pipeline
+      - task: DeleteFiles@1
+        displayName: 'Delete Build Files'
+        inputs:
+          SourceFolder: '$(Build.SourcesDirectory)'
+          Contents: |
+            node_modules
+            dist
 
-    # copy the output & source to the output directory  
-    - task: CopyFiles@2
-      displayName: 'Copy Output'
-      inputs:
-        SourceFolder: '$(Build.SourcesDirectory)'
-        Contents: '**'
-        TargetFolder: '$(Build.ArtifactStagingDirectory)'
+      # copy the output & source to the output directory  
+      - task: CopyFiles@2
+        displayName: 'Copy Output'
+        inputs:
+          SourceFolder: '$(Build.SourcesDirectory)'
+          Contents: '**'
+          TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
-    # add build tags
-    - task: PowerShell@2
-      displayName: Add Build Tags
-      inputs:
-        targetType: 'inline'
-        script: |
-          Write-Host "##vso[build.addbuildtag]$(runDateTag)"
-          Write-Host "##vso[build.addbuildtag]$(Build.SourceBranchName)"
-    
-    # publish the artifacts
-    - task: PublishBuildArtifacts@1
-      displayName: 'Publish Artifacts'
-      inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'drop'
-        publishLocation: 'Container'
+      # add build tags
+      - task: PowerShell@2
+        displayName: Add Build Tags
+        inputs:
+          targetType: 'inline'
+          script: |
+            Write-Host "##vso[build.addbuildtag]$(runDateTag)"
+            Write-Host "##vso[build.addbuildtag]$(Build.SourceBranchName)"
+      
+      # publish the artifacts
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish Artifacts'
+        inputs:
+          PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+          ArtifactName: 'drop'
+          publishLocation: 'Container'
