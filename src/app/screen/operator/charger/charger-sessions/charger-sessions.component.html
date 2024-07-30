@@ -119,6 +119,12 @@
           </div>
           <div class="cust-list-group2 layout mat-data" id="pdfTable" #pdfTable>
             <table mat-table [dataSource]="dataSource">
+              <ng-container matColumnDef="assetId">
+                <th mat-header-cell *matHeaderCellDef>ASSET ID</th>
+                <td mat-cell *matCellDef="let element">
+                  {{ element.assetId }}
+                </td>
+              </ng-container>
               <ng-container matColumnDef="sessionid">
                 <th mat-header-cell *matHeaderCellDef>SESSION ID</th>
                 <td mat-cell *matCellDef="let element">
@@ -159,7 +165,7 @@
               </ng-container>
 
               <!-- Symbol Column -->
-              <ng-container matColumnDef="meterreading">
+              <!-- <ng-container matColumnDef="meterreading">
                 <th mat-header-cell *matHeaderCellDef>METER READING</th>
                 <td mat-cell *matCellDef="let element" style="cursor: pointer;">
                   <img
@@ -168,7 +174,7 @@
                     matTooltip="{{ element.usage + ' kWh' }}"
                   />
                 </td>
-              </ng-container>
+              </ng-container>-->
 
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
