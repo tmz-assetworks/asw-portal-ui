@@ -42,12 +42,12 @@ export class ChargerSessionsComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator
 
   displayedColumns: string[] = [
+    'assetId',
     'sessionid',
     'duration',
     'usage',
     'starttime',
     'endtime',
-    'meterreading',
   ]
 
   dataSource = new MatTableDataSource<PeriodicElement>()
@@ -94,12 +94,12 @@ export class ChargerSessionsComponent implements OnInit {
   ) {
     this.pageSize = event !== undefined && event !== '' ? event.pageSize : 10
     this.displayedColumns = [
+      'assetId',
       'sessionid',
       'duration',
       'usage',
       'starttime',
       'endtime',
-      'meterreading',
     ]
     this.currentPage =
       event !== undefined && event !== ''
@@ -155,6 +155,7 @@ export class ChargerSessionsComponent implements OnInit {
 
     for (var i = 0; i < this.eventLogList.length; i++) {
       let newObj = {
+        'ASSET ID': this.eventLogList[i]['assetId'],
         'SESSION ID': this.eventLogList[i]['sessionid'],
         'DURATION (HH:MM:SS)': this.eventLogList[i]['duration'],
         'USAGE (kWh)': this.eventLogList[i]['usage'],
