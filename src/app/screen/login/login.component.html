@@ -21,7 +21,7 @@
         <div class="login-block2-spacer"></div>
 
         <div class="login-block2-item">
-          <form [formGroup]="myLoginForm">
+          <form [formGroup]="myLoginForm" (keyup.enter)="login()">
             <div class="login-block3 layout">
               <div class="login-block12 layout">
                 <img src="../../../assets/images/logo_asset.svg" alt="" />
