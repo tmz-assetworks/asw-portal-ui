@@ -128,7 +128,7 @@ export class CreateAdminComponent implements OnInit {
   ngAfterViewInit() {
     if (this.title == 'Add Admin User' && this.orgUserId !== '') {
       this.addAdminFormGroup.patchValue({
-        organizationName: this.orgUserId.toString(),
+        // organizationName: this.orgUserId.toString(),
       });
     }
   }
@@ -386,12 +386,12 @@ export class CreateAdminComponent implements OnInit {
         zipcode: this.adminRowData.zipcode,
       });
 
-      this.addAdminFormGroup.patchValue({
-        organizationName:
-          this.adminRowData.customerID !== 0
-            ? this.adminRowData.customerID.toString()
-            : 0,
-      });
+      // this.addAdminFormGroup.patchValue({
+      //   organizationName:
+      //     this.adminRowData.customerID !== 0
+      //       ? this.adminRowData.customerID.toString()
+      //       : 0,
+      // });
     });
   }
 
