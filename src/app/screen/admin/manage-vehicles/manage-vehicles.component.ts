@@ -38,14 +38,12 @@ export class ManageVehiclesComponent implements OnInit {
    * Define columns
    */
   displayedColumns: string[] = [
+    'UnitNumber',
     'VIN',
     'ModelYear',
     'Name',
     'Modal',
     'LicencePlate',
-    'Department',
-    'DomicileLocation',
-    'VehicleMacAddress',
     'RFIDCardAssigned',
     'Status',
     'Action',
