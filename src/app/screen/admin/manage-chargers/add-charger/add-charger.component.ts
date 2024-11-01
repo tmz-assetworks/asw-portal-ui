@@ -324,7 +324,7 @@ export class AddChargerComponent implements OnInit {
 
           (error: any) => {
             if (error.status == 400) {
-              if (error.error.statusCode == 200) {
+              if (error.error.statusCode == 400) {
                 let errorMsg = error.error.statusMessage
                 this._toastr.error(errorMsg)
                 this.showLoader = false
