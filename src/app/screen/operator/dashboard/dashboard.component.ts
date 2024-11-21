@@ -165,7 +165,6 @@ export class DashboardComponent implements OnInit {
       }
 
       var markers = []
-      console.log(this.mapstatusdata,"HEELo")
       for (var i = 0; i < this.mapstatusdata.length; i++) {
         const accident_title = this.mapstatusdata[i].status
         const chargeBoxId = this.mapstatusdata[i].chargeBoxid

@@ -12,11 +12,11 @@ import 'jspdf'
 import { ChargerService } from '../charger.service'
 import { MatDialog } from '@angular/material/dialog'
 import {
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
+   FormArray,
+   FormBuilder,
+   FormControl,
+   FormGroup,
+   Validators,
 } from '@angular/forms'
 import { interval, map, Observable, startWith } from 'rxjs'
 import { TransactionDialogComponent } from 'src/app/component/dashboard/transaction-dialog/transaction-dialog.component'
@@ -113,6 +113,9 @@ export class ChargerDiagnosticComponent implements OnInit {
   firstFieldsRemoteStart: boolean = false
   thirdFieldsRemoteStart: boolean = false
   secondFieldsRemoteStart: boolean = false
+  GetConfigurationKey:string[] = [];
+  keyTypeGetConfig: string = ''; 
+  keyTypeChangeConfig: string = '';
   datePipe = new DatePipe('en-US')
   constructor(
     public _alertsService: AlertsService,
@@ -156,6 +159,16 @@ export class ChargerDiagnosticComponent implements OnInit {
       startWith(''),
       map((value) => (value && value.length >= 0 ? this._filter(value) : [])),
     )
+     // call 
+     this._diagnosticsService.GetConfigurationKey().subscribe(
+      (response) => {
+        this.GetConfigurationKey = response?.key;
+        
+      },
+      (error) => {
+        console.error('Error fetching dropdown data', error);
+      }
+    );
   }
 
   jsPDF: any
@@ -327,27 +340,24 @@ export class ChargerDiagnosticComponent implements OnInit {
       this.getClearChargingProfile()
       return
     }
-    this.inputKeyConfig = ''
-    this.inputKeyConfig =
-      this.inputKey.nativeElement.value.length == 0
-        ? ''
-        : this.inputKey.nativeElement.value
-    if (
-      this.inputKeyConfig !== '' &&
-      this.inputKey.nativeElement.value.length > 50
-    ) {
-      this.toastr.error('Key Must Be Less Than 50 Characters in Length')
-      return
-    }
+    
     if (this.chargerId == '') {
       this.toastr.error('Please Enter Charger Id')
       return
     }
+    if (this.keyTypeGetConfig === '' || this.keyTypeGetConfig === 'enterKey') {
+      this.toastr.error('Please Select key');
+      return;
+    }
 
-    this.inputKeyConfig = this.inputKey.nativeElement.value
+    
+    if(this.keyTypeGetConfig === 'All'){
+         this.keyTypeGetConfig= ""
+    }
+   //  this.inputKeyConfig = this.inputKey.nativeElement.value
     const pBody = {
       // key: [''],
-      key: [this.inputKeyConfig],
+      key: [this.keyTypeGetConfig],
     }
 
     this._diagnosticsService.GetConfiguration(this.chargerId, pBody).subscribe({
@@ -360,6 +370,7 @@ export class ChargerDiagnosticComponent implements OnInit {
           this.isProvisioning = false
           this.isGetConfig = false
           this.setCallFunction(res)
+          this.keyTypeGetConfig=''
         }
       },
       error: (error: any) => {
@@ -465,7 +476,7 @@ export class ChargerDiagnosticComponent implements OnInit {
         ) {
           let a = res.data[0].responsePayload
           this.transactionId = parseInt(
-            a.split('transactionId')[1].split(':')[1].split('\n')[0].trim(),
+            a.split('transactionId')[1]?.split(':')[1]?.split('\n')[0]?.trim(),
           )
         }
       } else {
@@ -479,29 +490,28 @@ export class ChargerDiagnosticComponent implements OnInit {
    * changeConfiguration
    */
   changeConfiguration() {
-    this.inputKeyConfig = ''
+    
     this.inputValueConfig = ''
     if (this.chargerId == '') {
       this.toastr.error('Please Enter Charger Id')
       return
-    } else if (this.inputKey.nativeElement.value.length == 0) {
-      this.toastr.error('Please Enter Key')
+    } 
+    else if(this.keyTypeChangeConfig == ''){
+      this.toastr.error('Please Select key')
       return
-    } else if (this.inputKey.nativeElement.value.length > 50) {
-      this.toastr.error('Key Must Be Less Than 50 Characters')
-      return
-    } else if (this.inputValue.nativeElement.value.length == 0) {
+    }
+     else if (this.inputValue.nativeElement.value.length == 0) {
       this.toastr.error('Please Enter Value')
       return
     } else if (this.inputValue.nativeElement.value.length > 500) {
       this.toastr.error('Value Must Be Less Than 500 Characters')
       return
     }
-    this.inputKeyConfig = this.inputKey.nativeElement.value
+   //  this.inputKeyConfig = this.inputKey.nativeElement.value
     this.inputValueConfig = this.inputValue.nativeElement.value
 
     const pBody = {
-      key: this.inputKeyConfig,
+      key: this.keyTypeChangeConfig,
       value: this.inputValueConfig,
     }
 
@@ -514,6 +524,7 @@ export class ChargerDiagnosticComponent implements OnInit {
             this.showLoader = false
             this.isProvisioning = false
             this.setCallFunction(res)
+            this.keyTypeChangeConfig=''
           }
         },
         error: (error: any) => {
@@ -982,6 +993,29 @@ export class ChargerDiagnosticComponent implements OnInit {
       return
     }
   }
+  selectOptionKey(event:any,type: string){
+   const selectedValue = event.target.value;
+    // Determine which config type is being updated
+    if (type === 'getConfig') {
+      this.keyTypeGetConfig = selectedValue;
+      // Handle getConfig logic
+      if (this.keyTypeGetConfig=="") {
+        this.toastr.error('Please Select Key');
+      }
+     } else if (type === 'changeConfig') {
+      this.keyTypeChangeConfig = selectedValue;
+      // Handle changeConfig logic
+      if (this.keyTypeChangeConfig =="") {
+        this.toastr.error('Please Select Key');
+      }
+    
+   }
+   
+  }
+
+  showAllOption(): boolean {
+   return this.GetConfigurationKey.some((item) => item !== null && item !== undefined);
+ }
   charingRateUnit = ''
   selectChargingRateUnit(event: any) {
     this.charingRateUnit = ''

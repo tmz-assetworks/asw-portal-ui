@@ -1534,33 +1534,37 @@
                   <option value="Hard">Hard</option>
                   <option value="Soft">Soft</option>
                 </select>
-                <span
-                  *ngIf="commandType == 'getconfig'"
-                  class="required inpt-field"
-                >
-                  Enter Key
-                </span>
-                <input
-                  *ngIf="commandType == 'getconfig'"
-                  class="cust-list-text-body21 layout idTagInput"
-                  #inputKey
-                  placeholder="Key"
-                  class="connector_id"
-                />
-                <span
-                  *ngIf="commandType == 'changeconfig'"
-                  class="required inpt-field"
-                >
-                  Enter Key
+                <span *ngIf="commandType == 'getconfig'" class="required">
+                  Select key
                   <span class="required-field">*</span>
                 </span>
-                <input
+                <select
+                  *ngIf="commandType == 'getconfig'"
+                  class="chargerType"
+                  name="chargerType"
+                  (change)="selectOptionKey($event,'getConfig')"
+                >
+                  <option value="">Select key</option>
+                  <option *ngIf="showAllOption()" value="All">All</option>
+                  <option *ngFor="let item of GetConfigurationKey" [value]="item || ''">
+                     {{ item || 'N/A'}}
+                   </option>
+                </select>
+                <span *ngIf="commandType == 'changeconfig'" class="required">
+                  Select key
+                  <span class="required-field">*</span>
+                </span>
+                <select
                   *ngIf="commandType == 'changeconfig'"
-                  class="cust-list-text-body21 layout idTagInput"
-                  placeholder="Key"
-                  #inputKey
-                  class="connector_id"
-                />
+                  class="chargerType"
+                  name="chargerType"
+                  (change)="selectOptionKey($event,'changeConfig')"
+                >
+                  <option value="">Select key</option>
+                  <option *ngFor="let item of GetConfigurationKey" [value]="item">
+                     {{ item }}
+                   </option>
+                </select>
                 <span
                   *ngIf="commandType == 'changeconfig'"
                   class="required inpt-field"

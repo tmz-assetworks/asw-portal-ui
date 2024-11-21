@@ -377,4 +377,19 @@ export class DiagnosticsService {
   getChargingRateUnit() {
     return this.chargingRateUnit
   }
+
+
+   /**
+   * Get ConfigurationKey
+   * @param params
+   * @param requestbody
+   * @returns
+   */
+
+   GetConfigurationKey(): Observable<{ key: string[] }> {
+      return this._http.post<{ key: string[] }>(
+        `${this.url}api/ConfigurationKey/ConfigurationKey`,
+        {}
+      );
+    }
 }

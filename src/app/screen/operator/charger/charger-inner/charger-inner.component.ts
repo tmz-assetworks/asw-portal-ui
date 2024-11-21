@@ -216,7 +216,6 @@ export class ChargerInnerComponent implements OnInit {
     }
 
     this._chargerService.GetDispensersDetail(body).subscribe((res: any) => {
-      debugger;
       if (res.data !== undefined && res.data != null && res.data.length > 0) {
         this.totalCount = res.paginationResponse.totalCount
         this.totalPages = res.paginationResponse.totalPages

@@ -8,7 +8,7 @@
   }
   &block8 {
     display: flex;
-    background-color: #8E1537;
+    background-color: rgb(255, 255, 255);
   }
   &block8.layout {
     position: relative;
@@ -151,7 +151,7 @@
     }
   }
   &box4 {
-    background-color:#8E1537;
+   background-color: rgb(255, 255, 255);
   }
   &box4.layout {
     position: relative;
@@ -220,7 +220,7 @@
   font-weight: 600;
   font-family: 'Roboto';
   line-height: 15.23px;
-  color: #FFFFFF;
+//   color: #FFFFFF;
 }
 .txt_menu {
   margin: 17px 17px;
@@ -273,3 +273,9 @@
 //     flex: 1;
 // }
 // }
+
+.headerAdmin {
+   display: flex;
+   background-color: #8E1537;
+   color: #FFFFFF;
+}
