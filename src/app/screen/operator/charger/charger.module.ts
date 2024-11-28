@@ -6,7 +6,6 @@ import { ChargerInnerComponent } from './charger-inner/charger-inner.component'
 import { ChargerAnalyticsComponent } from './charger-analytics/charger-analytics.component'
 import { ChargerInformationComponent } from './charger-information/charger-information.component'
 import { ChargerSessionsComponent } from './charger-sessions/charger-sessions.component'
-import { ChargerDiagnosticComponent } from './charger-diagnostic/charger-diagnostic.component'
 import { ChargerEventComponent } from './charger-event/charger-event.component'
 import { SharedModule } from 'src/app/shared/shared.module'
 import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
@@ -22,6 +21,7 @@ import {
 } from '@angular-material-components/datetime-picker'
 import { MeterChartComponent } from 'src/app/component/dashboard/meter-chart/meter-chart.component'
 import { MeterDialogComponent } from './charger-sessions/meter-dialog/meter-dialog.component'
+import { CommonDiagnosticsComponent } from 'src/app/component/common-diagnostics/common-diagnostics.component'
 const routes: Routes = [
   {
     path: '',
@@ -48,7 +48,7 @@ const routes: Routes = [
       },
       {
         path: 'chargers-diagnostic',
-        component: ChargerDiagnosticComponent,
+        component: CommonDiagnosticsComponent,
       },
       {
         path: 'chargers-event',
@@ -68,7 +68,6 @@ const routes: Routes = [
     ChargerAnalyticsComponent,
     ChargerInformationComponent,
     ChargerSessionsComponent,
-    ChargerDiagnosticComponent,
     ChargerEventComponent,
     MeterChartComponent,
     MeterDialogComponent,

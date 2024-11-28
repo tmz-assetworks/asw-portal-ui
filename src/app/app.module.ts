@@ -7,7 +7,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { LoginModule } from './screen/login/login.module'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { TokenInterceptorService } from './service/interceptor/token-interceptor.service'
-import { ToastrModule } from 'ngx-toastr'
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [AppComponent],

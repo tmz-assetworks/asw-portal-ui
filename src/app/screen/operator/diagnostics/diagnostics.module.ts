@@ -4,13 +4,12 @@ import { RouterModule, Routes } from '@angular/router'
 import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 import { SharedModule } from 'src/app/shared/shared.module'
 
-import { DiagnosticsComponent } from './diagnostics.component'
 import { MatAutocompleteModule } from '@angular/material/autocomplete'
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { NgxMatDatetimePickerModule, NgxMatTimepickerModule,NgxMatNativeDateModule  } from '@angular-material-components/datetime-picker';
-
-const routes: Routes = [{ path: '', component: DiagnosticsComponent }]
+import { CommonDiagnosticsComponent } from 'src/app/component/common-diagnostics/common-diagnostics.component'
+const routes: Routes = [{ path: '', component: CommonDiagnosticsComponent }]
 
 @NgModule({
   imports: [
@@ -25,7 +24,8 @@ const routes: Routes = [{ path: '', component: DiagnosticsComponent }]
     NgxMatNativeDateModule
   ],
   exports: [],
-  declarations: [DiagnosticsComponent],
+  declarations: [CommonDiagnosticsComponent],
   providers: [],
 })
 export class DiagnosticsModule {}
+
