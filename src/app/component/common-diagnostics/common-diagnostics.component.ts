@@ -120,6 +120,34 @@ export class CommonDiagnosticsComponent implements OnInit {
   href: string = "";
   isChargerDiagnostics:boolean=true
   chargerBoxIdArr: any
+
+  chargerDeteailTab=[
+    {
+      text:"ANALYTICS",
+      link:"../chargers-analytics"
+
+    },
+    {
+      text:"CHARGER INFORMATION",
+      link:"../chargers-info"
+
+    },
+    {
+      text:"CHARGE SESSIONS",
+      link:"../chargers-session"
+
+    },
+    {
+      text:"DIAGNOSTIC",
+      link:"../chargers-diagnostic"
+
+    },
+    {
+      text:"EVENT LOGS",
+      link:"../chargers-event"
+
+    }
+]
   constructor(
     public _alertsService: AlertsService,
     private _storageService: StorageService,
@@ -257,7 +285,6 @@ export class CommonDiagnosticsComponent implements OnInit {
       this._chargerService.GetChargeBoxIDList().subscribe((res) => {
         this.chargerBoxIdArr = res.data
         this.streets = res.data
-        console.log(res.data,'ddddddddddddddddddddd')
       })
     }
 
@@ -330,87 +357,100 @@ export class CommonDiagnosticsComponent implements OnInit {
   /**
    * Get Configurations
    */
-  getConfiguration(cmdTye: string) {
-    this.count = 1
-    if (cmdTye == 'changeconfig') {
-      this.changeConfiguration()
-      return
-    } else if (cmdTye == 'getComposite') {
-      this.getCompositeSchedule()
-      return
-    } else if (this.commandType == 'change') {
-      this.changeAvailability(this.chargerType, this.connectorID)
-      return
-    } else if (this.commandType == 'reset') {
-      this.reset(this.chargerType)
-      return
-    } else if (this.commandType == 'unlock') {
-      this.unlock(this.connectorID)
-      return
-    } else if (this.commandType == 'isCancelReservation') {
-      this.cancelReservation()
-      return
-    } else if (this.commandType == 'isReserveNow') {
-      this.reserveNow(this.connectorID)
-      return
-    } else if (this.commandType == 'triggerMessage') {
-      this.triggerMessage(this.connectorID)
-      return
-    } else if (this.commandType == 'updatefirmware') {
-      this.updateFirmware(this.connectorID)
-      return
-    } else if (this.commandType == 'getdiagnostics') {
-      this.getDiagnosticsCmd()
-      return
-    } else if (this.commandType == 'datatransfer') {
-      this.dataTransferCmd()
-      return
-    } else if (this.commandType == 'getClearCharging') {
-      this.getClearChargingProfile()
-      return
-    }
-    
-    if (this.chargerId == '') {
-      this.toastr.error('Please Enter Charger Id')
-      return
-    } else if (!this.hasChargerBoxId()) {
-      this.toastr.error('Invalid Charge Box id')
-      return
-    }
+  
+
+  getConfiguration(cmdType: string) {
+    this.count = 1;
+    if (this.handleCommandType(cmdType)) return;
+
+    if (!this.isChargerValid()) return;
+
     if (this.keyTypeGetConfig === '' || this.keyTypeGetConfig === 'enterKey') {
-      this.toastr.error('Please Select key');
-      return;
+        this.toastr.error('Please Select key');
+        return;
     }
 
-    
-    if(this.keyTypeGetConfig === 'All'){
-         this.keyTypeGetConfig= ""
+    if (this.keyTypeGetConfig === 'All') {
+        this.keyTypeGetConfig = '';
     }
-   //  this.inputKeyConfig = this.inputKey.nativeElement.value
+
     const pBody = {
-      // key: [''],
-      key: [this.keyTypeGetConfig],
-    }
+        key: [this.keyTypeGetConfig],
+    };
 
     this._diagnosticsService.GetConfiguration(this.chargerId, pBody).subscribe({
-      next: (res: any) => {
-        this.showLoader = true
-        if (res) {
-          // let cmsRequestPayload = res
-          // alert(JSON.stringify(res))
-          this.showLoader = false
-          this.isProvisioning = false
-          this.isGetConfig = false
-          this.setCallFunction(res)
-          this.keyTypeGetConfig=''
-        }
-      },
-      error: (error: any) => {
-        this.showLoader = false
-        this.handleError(error)
-      },
-    })
-  }
+        next: (res: any) => {
+            this.showLoader = true;
+            if (res) {
+                this.showLoader = false;
+                this.isProvisioning = false;
+                this.isGetConfig = false;
+                this.setCallFunction(res);
+                this.keyTypeGetConfig = '';
+            }
+        },
+        error: (error: any) => {
+            this.showLoader = false;
+            this.handleError(error);
+        },
+    });
+}
+
+handleCommandType(cmdType: string) {
+    switch (cmdType) {
+        case 'changeconfig':
+            this.changeConfiguration();
+            return true;
+        case 'getComposite':
+            this.getCompositeSchedule();
+            return true;
+        case 'getdiagnostics':
+            this.getDiagnosticsCmd();
+            return true;
+        case 'datatransfer':
+            this.dataTransferCmd();
+            return true;
+        case 'getClearCharging':
+            this.getClearChargingProfile();
+            return true;
+        case 'change':
+            this.changeAvailability(this.chargerType, this.connectorID);
+            return true;
+        case 'reset':
+            this.reset(this.chargerType);
+            return true;
+        case 'unlock':
+            this.unlock(this.connectorID);
+            return true;
+        case 'isCancelReservation':
+            this.cancelReservation();
+            return true;
+        case 'isReserveNow':
+            this.reserveNow(this.connectorID);
+            return true;
+        case 'triggerMessage':
+            this.triggerMessage(this.connectorID);
+            return true;
+        case 'updatefirmware':
+            this.updateFirmware(this.connectorID);
+            return true;
+        default:
+            return false;
+    }
+}
+
+isChargerValid() {
+    if (this.chargerId === '') {
+        this.toastr.error('Please Enter Charger Id');
+        return false;
+    } else if (!this.hasChargerBoxId()) {
+        this.toastr.error('Invalid Charge Box id');
+        return false;
+    }
+    return true;
+}
+
+
   /**
    * Clear Cache
    */
@@ -648,146 +688,123 @@ export class CommonDiagnosticsComponent implements OnInit {
   /**
    * Remote Start Transaction
    */
-  remoteStartTransaction() {
-    this.count = 1
-    this.idTag = this.inputTag.nativeElement.value
-    let remoteStartTransactionData = this.remoteStartForm.value.chargingProfile
-    // let pBody: any;
-    // alert(this.idTag +'kk');
-    if (this.chargerId == '') {
-      this.toastr.error('Please Enter Charger Id')
-      return
-    } else if (this.idTag == '') {
-      this.toastr.error('Please Enter RFID')
-      return
-    } else if (this.idTag.length > 20) {
-      this.toastr.error('RFID Must Be Less Than 20 Characters')
-      return
-    } else if (this.idTag != '' && this.firstFieldsRemoteStart == true) {
-      if (remoteStartTransactionData.chargingProfileId == '') {
-        this.toastr.error('Please Enter Charging Profile Id')
-        return
-      }
-      if (remoteStartTransactionData.transactionId == '') {
-        this.toastr.error('Please Enter Transaction Id')
-        return
-      }
-      if (remoteStartTransactionData.stackLevel == '') {
-        this.toastr.error('Please Enter Stack Level')
-        return
-      }
-      if (remoteStartTransactionData.chargingProfilePurpose == '') {
-        this.toastr.error('Please Select Charging Profile Purpose')
-        return
-      }
-      if (remoteStartTransactionData.chargingProfileKind == '') {
-        this.toastr.error('Please Select Charging Profile Kind')
-        return
-      }
-      if (remoteStartTransactionData.chargingRateUnit == '') {
-        this.toastr.error('Please Select Charging Rate Unit')
-        return
-      }
-      if (remoteStartTransactionData.startPeriod == '') {
-        this.toastr.error('Please Enter Start Period')
-        return
-      }
-      if (remoteStartTransactionData.limit == '') {
-        this.toastr.error('Please Enter Limit')
-        return
-      }
-    }
-    const pBody =
-      this.firstFieldsRemoteStart == true
-        ? {
-            connectorId: this.remoteStartForm.value.connectorId
-              ? +this.remoteStartForm.value.connectorId
-              : undefined,
-            idTag: this.remoteStartForm.value.idTag,
-            chargingProfile: {
-              chargingProfileId: +remoteStartTransactionData.chargingProfileId,
-              transactionId: remoteStartTransactionData.transactionId
-                ? +remoteStartTransactionData.transactionId
-                : undefined,
-              stackLevel: +remoteStartTransactionData.stackLevel,
-              chargingProfilePurpose: remoteStartTransactionData.chargingProfilePurpose
-                ? remoteStartTransactionData.chargingProfilePurpose
-                : undefined,
-              chargingProfileKind: remoteStartTransactionData.chargingProfileKind
-                ? remoteStartTransactionData.chargingProfileKind
-                : undefined,
-              recurrencyKind: remoteStartTransactionData.recurrencyKind
-                ? remoteStartTransactionData.recurrencyKind
-                : undefined,
-              validFrom: remoteStartTransactionData.validFrom
-                ? this._diagnosticsService.convertToIso(
-                    remoteStartTransactionData.validFrom,
-                  )
-                : undefined,
-              validTo: remoteStartTransactionData.validTo
-                ? this._diagnosticsService.convertToIso(
-                    remoteStartTransactionData.validTo,
-                  )
-                : undefined,
-              chargingSchedule: {
-                duration: remoteStartTransactionData.duration
-                  ? +remoteStartTransactionData.duration
-                  : undefined,
-                startSchedule: remoteStartTransactionData.startSchedule
-                  ? this._diagnosticsService.convertToIso(
-                      remoteStartTransactionData.startSchedule,
-                    )
-                  : undefined,
-                chargingRateUnit: remoteStartTransactionData.chargingRateUnit
-                  ? remoteStartTransactionData.chargingRateUnit
-                  : undefined,
-                chargingSchedulePeriod: {
-                  startPeriod: remoteStartTransactionData.startPeriod
-                    ? +remoteStartTransactionData.startPeriod
-                    : undefined,
-                  limit: remoteStartTransactionData.limit
-                    ? +remoteStartTransactionData.limit
-                    : undefined,
-                  numberPhases: remoteStartTransactionData.numberPhases
-                    ? +remoteStartTransactionData.numberPhases
-                    : undefined,
-                },
-                minChargingRate: remoteStartTransactionData.minChargingRate
-                  ? +remoteStartTransactionData.minChargingRate
-                  : undefined,
-              },
-            },
-          }
-        : {
-            connectorId: this.remoteStartForm.value.connectorId
-              ? +this.remoteStartForm.value.connectorId
-              : undefined,
-            idTag: this.remoteStartForm.value.idTag,
-          }
 
-    this.showLoader = true
-    this._diagnosticsService
-      .RemoteStartTransaction(this.chargerId, pBody)
-      .subscribe({
+  remoteStartTransaction() {
+    this.count = 1;
+    this.idTag = this.inputTag.nativeElement.value;
+
+    if (!this.isChargerAndRFIDValid()) return;
+    if (this.firstFieldsRemoteStart && !this.isRemoteStartTransactionDataValid()) return;
+
+    const pBody = this.getTransactionPayload();
+
+    this.showLoader = true;
+    this._diagnosticsService.RemoteStartTransaction(this.chargerId, pBody).subscribe({
         next: (res) => {
-          this.showLoader = false
-          this.isRemoteControl = false
-          this.isRemoteStartTransaction = false
-          this.setCallFunction(res)
+            this.showLoader = false;
+            this.isRemoteControl = false;
+            this.isRemoteStartTransaction = false;
+            this.setCallFunction(res);
         },
         error: (error) => {
-          this.showLoader = false
-          if (
-            error !== undefined &&
-            error.url !== null &&
-            error.url.includes('RemoteStartTransaction') &&
-            error.error !== undefined
-          ) {
-            this.toastr.error(JSON.stringify(error.error.error))
-          }
+            this.showLoader = false;
+            if (this.isErrorFromRemoteStart(error)) {
+                this.toastr.error(JSON.stringify(error.error.error));
+            }
         },
-      })
-  }
+    });
+}
+
+isChargerAndRFIDValid() {
+    if (this.chargerId === '') {
+        this.toastr.error('Please Enter Charger Id');
+        return false;
+    } else if (this.idTag === '') {
+        this.toastr.error('Please Enter RFID');
+        return false;
+    } else if (this.idTag.length > 20) {
+        this.toastr.error('RFID Must Be Less Than 20 Characters');
+        return false;
+    }
+    return true;
+}
+
+isRemoteStartTransactionDataValid() {
+    const remoteStartTransactionData = this.remoteStartForm.value.chargingProfile;
+
+    const fields = [
+        { field: remoteStartTransactionData.chargingProfileId, message: 'Please Enter Charging Profile Id' },
+        { field: remoteStartTransactionData.transactionId, message: 'Please Enter Transaction Id' },
+        { field: remoteStartTransactionData.stackLevel, message: 'Please Enter Stack Level' },
+        { field: remoteStartTransactionData.chargingProfilePurpose, message: 'Please Select Charging Profile Purpose' },
+        { field: remoteStartTransactionData.chargingProfileKind, message: 'Please Select Charging Profile Kind' },
+        { field: remoteStartTransactionData.chargingRateUnit, message: 'Please Select Charging Rate Unit' },
+        { field: remoteStartTransactionData.startPeriod, message: 'Please Enter Start Period' },
+        { field: remoteStartTransactionData.limit, message: 'Please Enter Limit' },
+    ];
+
+    for (const { field, message } of fields) {
+        if (!field) {
+            this.toastr.error(message);
+            return false;
+        }
+    }
+
+    return true;
+}
+
+getTransactionPayload() {
+    const remoteStartTransactionData = this.remoteStartForm.value.chargingProfile;
+
+    return this.firstFieldsRemoteStart ? {
+        connectorId: this.getValue(this.remoteStartForm.value.connectorId),
+        idTag: this.remoteStartForm.value.idTag,
+        chargingProfile: this.getChargingProfilePayload(remoteStartTransactionData)
+    } : {
+        connectorId: this.getValue(this.remoteStartForm.value.connectorId),
+        idTag: this.remoteStartForm.value.idTag,
+    };
+}
+
+getChargingProfilePayload(remoteStartTransactionData: any) {
+    return {
+        chargingProfileId: +remoteStartTransactionData.chargingProfileId,
+        transactionId: this.getValue(remoteStartTransactionData.transactionId),
+        stackLevel: +remoteStartTransactionData.stackLevel,
+        chargingProfilePurpose: remoteStartTransactionData.chargingProfilePurpose,
+        chargingProfileKind: remoteStartTransactionData.chargingProfileKind,
+        recurrencyKind: remoteStartTransactionData.recurrencyKind,
+        validFrom: this.convertToIsoIfValid(remoteStartTransactionData.validFrom),
+        validTo: this.convertToIsoIfValid(remoteStartTransactionData.validTo),
+        chargingSchedule: this.getChargingSchedulePayload(remoteStartTransactionData)
+    };
+}
+
+getChargingSchedulePayload(remoteStartTransactionData: any) {
+    return {
+        duration: this.getValue(remoteStartTransactionData.duration),
+        startSchedule: this.convertToIsoIfValid(remoteStartTransactionData.startSchedule),
+        chargingRateUnit: remoteStartTransactionData.chargingRateUnit,
+        chargingSchedulePeriod: {
+            startPeriod: this.getValue(remoteStartTransactionData.startPeriod),
+            limit: this.getValue(remoteStartTransactionData.limit),
+            numberPhases: this.getValue(remoteStartTransactionData.numberPhases),
+        },
+        minChargingRate: this.getValue(remoteStartTransactionData.minChargingRate),
+    };
+}
+
+convertToIsoIfValid(date: any) {
+    return date ? this._diagnosticsService.convertToIso(date) : undefined;
+}
+
+getValue(value: any) {
+    return value ? +value : undefined;
+}
+
+isErrorFromRemoteStart(error: any) {
+    return error?.url?.includes('RemoteStartTransaction') && error?.error;
+}
 
   /**
    * Get Composite Schedule
@@ -1346,398 +1363,54 @@ export class CommonDiagnosticsComponent implements OnInit {
     }
 
     if (type == 'isGetConfig') {
-      this.isGetConfig = true
-      this.isClearCache = false
-      this.isReset = false
-      this.isChangeConfiguration = false
-      this.isChangeAvailability = false
-      this.isRemoteStopTransaction = false
-      this.isClearChargingProfile = false
-      this.isDataTransfer = false
-      this.isRemoteStartTransaction = false
-      this.isGetCompositeSchedule = false
-      this.isUnlock = false
-      this.isCancelReservation = false
-      this.isReserveNow = false
-      this.isDiagnosticsItem = false
-      this.isDiagnostics = false
-      this.isGetLocalListVersion = false
-      this.isSendLocalListVersion = false
-      this.isUpdateFirmware = false
-      this.isSetCharging = false
-      this._storageService.removeSessionData('start')
+      this.isGetConfigShow()
     } else if (type == 'isClearCache') {
-      this.isGetLocalListVersion = false
-      this.isSendLocalListVersion = false
-      this.isClearChargingProfile = false
-      this.isClearCache = true
-      this.isGetConfig = false
-      this.isDataTransfer = false
-      this.isReset = false
-      this.isChangeConfiguration = false
-      this.isChangeAvailability = false
-      this.isRemoteStopTransaction = false
-      this.isRemoteStartTransaction = false
-      this.isGetCompositeSchedule = false
-      this.isUnlock = false
-      this.isCancelReservation = false
-      this.isReserveNow = false
-      this.isDiagnosticsItem = false
-      this.isDiagnostics = false
-      this.isUpdateFirmware = false
-      this.isSetCharging = false
-      this._storageService.removeSessionData('start')
+        this.isClearCacheShow()
     } else if (type == 'isReset') {
-      this.isGetLocalListVersion = false
-      this.isSendLocalListVersion = false
-      this.isReset = true
-      this.isGetConfig = false
-      this.isClearChargingProfile = false
-      this.isClearCache = false
-      this.isDataTransfer = false
-      this.isChangeConfiguration = false
-      this.isChangeAvailability = false
-      this.isRemoteStopTransaction = false
-      this.isRemoteStartTransaction = false
-      this.isGetCompositeSchedule = false
-      this.isUnlock = false
-      this.isCancelReservation = false
-      this.isReserveNow = false
-      this.isDiagnosticsItem = false
-      this.isDiagnostics = false
-      this.isUpdateFirmware = false
-      this.isSetCharging = false
-      this._storageService.removeSessionData('start')
+     this.isResetShow()
     } else if (type == 'isChangeConfiguration') {
-      this.isGetLocalListVersion = false
-      this.isSendLocalListVersion = false
-      this.isChangeConfiguration = true
-      this.isGetConfig = false
-      this.isReset = false
-      this.isDataTransfer = false
-      this.isClearChargingProfile = false
-      this.isClearCache = false
-      this.isChangeAvailability = false
-      this.isRemoteStopTransaction = false
-      this.isRemoteStartTransaction = false
-      this.isGetCompositeSchedule = false
-      this.isUnlock = false
-      this.isCancelReservation = false
-      this.isReserveNow = false
-      this.isDiagnosticsItem = false
-      this.isDiagnostics = false
-      this.isUpdateFirmware = false
-      this.isSetCharging = false
-      this._storageService.removeSessionData('start')
+      this.isChangeConfigurationShow()
     } else if (type == 'isChangeAvailability') {
-      this.isGetLocalListVersion = false
-      this.isSendLocalListVersion = false
-      this.isChangeAvailability = true
-      this.isClearChargingProfile = false
-      this.isGetConfig = false
-      this.isReset = false
-      this.isDataTransfer = false
-      this.isClearCache = false
-      this.isChangeConfiguration = false
-      this.isRemoteStopTransaction = false
-      this.isRemoteStartTransaction = false
-      this.isGetCompositeSchedule = false
-      this.isUnlock = false
-      this.isCancelReservation = false
-      this.isReserveNow = false
-      this.isDiagnosticsItem = false
-      this.isDiagnostics = false
-      this.isUpdateFirmware = false
-      this.isSetCharging = false
-      this._storageService.removeSessionData('start')
+     this.isChangeAvailabilityShow()
     } else if (type == 'isRemoteStopTransaction') {
-      this.isGetLocalListVersion = false
-      this.isSendLocalListVersion = false
-      this.isChangeAvailability = false
-      this.isDataTransfer = false
-      this.isGetConfig = false
-      this.isReset = false
-      this.isClearCache = false
-      this.isChangeConfiguration = false
-      this.isClearChargingProfile = false
-      this.isRemoteStartTransaction = false
-      this.isRemoteStopTransaction = true
-      this.isGetCompositeSchedule = false
-      this.isUnlock = false
-      this.isCancelReservation = false
-      this.isReserveNow = false
-      this.isDiagnosticsItem = false
-      this.isDiagnostics = false
-      this.isSetCharging = false
-      this._storageService.removeSessionData('start')
+     this.isRemoteStopTransactionShow()
     } else if (type == 'isRemoteStartTransaction') {
-      this.firstFieldsRemoteStart = false
-      this.secondFieldsRemoteStart = false
-      this.thirdFieldsRemoteStart = false
-      this.isGetLocalListVersion = false
-      this.isSendLocalListVersion = false
-      this.isChangeAvailability = false
-      this.isGetConfig = false
-      this.isReset = false
-      this.isClearCache = false
-      this.isClearChargingProfile = false
-      this.isChangeConfiguration = false
-      this.isDataTransfer = false
-      this.isRemoteStopTransaction = false
-      this.isRemoteStartTransaction = true
-      this.isGetCompositeSchedule = false
-      this.isUnlock = false
-      this.isCancelReservation = false
-      this.isReserveNow = false
-      this.isDiagnosticsItem = false
-      this.isDiagnostics = false
-      this.isUpdateFirmware = false
-      this.isSetCharging = false
-      this._storageService.removeSessionData('start')
+      this.isRemoteStartTransactionShow()
     } else if (type == 'isGetCompositeSchedule') {
-      this.isGetLocalListVersion = false
-      this.isSendLocalListVersion = false
-      this.isClearChargingProfile = false
-      this.isRemoteStopTransaction = false
-      this.isRemoteStartTransaction = false
-      this.isChangeAvailability = false
-      this.isGetConfig = false
-      this.isReset = false
-      this.isDataTransfer = false
-      this.isClearCache = false
-      this.isChangeConfiguration = false
-      this.isGetCompositeSchedule = true
-      this.isUnlock = false
-      this.isCancelReservation = false
-      this.isReserveNow = false
-      this.isDiagnosticsItem = false
-      this.isDiagnostics = false
-      this.isUpdateFirmware = false
-      this.isSetCharging = false
-      this._storageService.removeSessionData('start')
+    this.isGetCompositeScheduleShow()
     } else if (type == 'isGetLocalListVersion') {
-      this.isGetLocalListVersion = true
-      this.isClearChargingProfile = false
-      this.isSendLocalListVersion = false
-      this.isRemoteStopTransaction = false
-      this.isRemoteStartTransaction = false
-      this.isChangeAvailability = false
-      this.isGetConfig = false
-      this.isReset = false
-      this.isDataTransfer = false
-      this.isClearCache = false
-      this.isChangeConfiguration = false
-      this.isGetCompositeSchedule = false
-      this.isUnlock = false
-      this.isCancelReservation = false
-      this.isReserveNow = false
-      this.isDiagnosticsItem = false
-      this.isDiagnostics = false
-      this.isUpdateFirmware = false
-      this.isSetCharging = false
-      this._storageService.removeSessionData('start')
+      this.isGetLocalListVersionShow()
     } else if (type == 'isSendLocalListVersion') {
-      this.isGetLocalListVersion = false
-      this.isRemoteStopTransaction = false
-      this.isRemoteStartTransaction = false
-      this.isDataTransfer = false
-      this.isChangeAvailability = false
-      this.isGetConfig = false
-      this.isClearChargingProfile = false
-      this.isReset = false
-      this.isClearCache = false
-      this.isChangeConfiguration = false
-      this.isGetCompositeSchedule = false
-      this.isUnlock = false
-      this.isCancelReservation = false
-      this.isReserveNow = false
-      this.isDiagnosticsItem = false
-      this.isDiagnostics = false
-      this.isSendLocalListVersion = true
-      this.isUpdateFirmware = false
-      this.localList = false
-      this.localIdTag = false
-      this.isSetCharging = false
-      this._storageService.removeSessionData('start')
+     this.isSendLocalListVersionShow()
     } else if (type == 'updatefirmware') {
-      this.isUpdateFirmware = true
-      this.isPublishFirmware = false
-      this.isGetLocalListVersion = false
-      this.isDataTransfer = false
-      this.isSendLocalListVersion = false
-      this.isRemoteStopTransaction = false
-      this.isClearChargingProfile = false
-      this.isRemoteStartTransaction = false
-      this.isChangeAvailability = false
-      this.isGetConfig = false
-      this.isReset = false
-      this.isClearCache = false
-      this.isChangeConfiguration = false
-      this.isGetCompositeSchedule = false
-      this.isUnlock = false
-      this.isDiagnosticsItem = false
-      this.isCancelReservation = false
-      this.isReserveNow = false
-      this.isDiagnostics = false
-      this.isSetCharging = false
-      this._storageService.removeSessionData('start')
+      this.isUpdateFirmwarShow()
     } else if (type == 'isPublishFirmware') {
       this.isPublishFirmware = true
       this.isUpdateFirmware = false
     } else if (type == 'isUnlock') {
-      this.isGetLocalListVersion = false
-      this.isSendLocalListVersion = false
-      this.isClearChargingProfile = false
-      this.isRemoteStopTransaction = false
-      this.isRemoteStartTransaction = false
-      this.isChangeAvailability = false
-      this.isGetConfig = false
-      this.isReset = false
-      this.isClearCache = false
-      this.isDataTransfer = false
-      this.isChangeConfiguration = false
-      this.isGetCompositeSchedule = false
-      this.isUnlock = true
-      this.isDiagnosticsItem = false
-      this.isCancelReservation = false
-      this.isReserveNow = false
-      this.isDiagnostics = false
-      this.isUpdateFirmware = false
-      this.isSetCharging = false
-      this._storageService.removeSessionData('start')
+      this.isUnlockShow()
     } else if (type == 'isCancelReservation') {
-      this.isGetLocalListVersion = false
-      this.isSendLocalListVersion = false
-      this.isRemoteStopTransaction = false
-      this.isRemoteStartTransaction = false
-      this.isChangeAvailability = false
-      this.isGetConfig = false
-      this.isReset = false
-      this.isClearChargingProfile = false
-      this.isClearCache = false
-      this.isDataTransfer = false
-      this.isChangeConfiguration = false
-      this.isGetCompositeSchedule = false
-      this.isUnlock = false
-      this.isCancelReservation = true
-      this.isDiagnosticsItem = false
-      this.isReserveNow = false
-      this.isDiagnostics = false
-      this.isUpdateFirmware = false
-      this.isSetCharging = false
-      this._storageService.removeSessionData('start')
+      this.isCancelReservationShow()
     } else if (type == 'isReserveNow') {
-      this.randomSixDigit = Math.floor(100000 + Math.random() * 900000)
-      this.isGetLocalListVersion = false
-      this.isSendLocalListVersion = false
-      this.isRemoteStopTransaction = false
-      this.isRemoteStartTransaction = false
-      this.isChangeAvailability = false
-      this.isDataTransfer = false
-      this.isGetConfig = false
-      this.isClearChargingProfile = false
-      this.isReset = false
-      this.isClearCache = false
-      this.isChangeConfiguration = false
-      this.isGetCompositeSchedule = false
-      this.isUnlock = false
-      this.isCancelReservation = false
-      this.isReserveNow = true
-      this.isDiagnosticsItem = false
-      this.isDiagnostics = false
-      this.isUpdateFirmware = false
-      this.isSetCharging = false
-      this._storageService.removeSessionData('start')
+      this.isReserveNowShow()
     } else if (type == 'triggerMessage') {
-      this.isUpdateFirmware = false
-      this.isGetLocalListVersion = false
-      this.isTriggerMess = true
-      this.isSendLocalListVersion = false
-      this.isDataTransfer = false
-      this.isRemoteStopTransaction = false
-      this.isRemoteStartTransaction = false
-      this.isChangeAvailability = false
-      this.isGetConfig = false
-      this.isReset = false
-      this.isClearCache = false
-      this.isClearChargingProfile = false
-      this.isChangeConfiguration = false
-      this.isGetCompositeSchedule = false
-      this.isUnlock = false
-      this.isCancelReservation = false
-      this.isReserveNow = false
-      // this.isDiagnosticsItem = true;
-      this.isTriggerMess = true
-      this.isDiagnostics = false
-      this.isSetCharging = false
-      this._storageService.removeSessionData('start')
+      this.triggerMessageShow()
     } else if (type == 'getdiagnostics') {
-      this.isUpdateFirmware = false
-      this.isGetLocalListVersion = true
-      this.isSendLocalListVersion = false
-      this.isRemoteStopTransaction = false
-      this.isRemoteStartTransaction = false
-      this.isChangeAvailability = false
-      this.isGetConfig = false
-      this.isDataTransfer = false
-      this.isReset = false
-      this.isClearChargingProfile = false
-      this.isClearCache = false
-      this.isChangeConfiguration = false
-      this.isGetCompositeSchedule = false
-      this.isUnlock = false
-      this.isCancelReservation = false
-      this.isReserveNow = false
-      this.isDiagnosticsItem = false
-      this.isTriggerMess = false
-      this.isDiagnostics = true
-      this.isSetCharging = false
-      this._storageService.removeSessionData('start')
+     this.getDiagnosticsShow()
     } else if (type == 'isDataTransfer') {
-      this.isDataTransfer = true
-      this.isUpdateFirmware = false
-      this.isGetLocalListVersion = true
-      this.isSendLocalListVersion = false
-      this.isClearChargingProfile = false
-      this.isRemoteStopTransaction = false
-      this.isRemoteStartTransaction = false
-      this.isChangeAvailability = false
-      this.isGetConfig = false
-      this.isReset = false
-      this.isClearCache = false
-      this.isChangeConfiguration = false
-      this.isGetCompositeSchedule = false
-      this.isUnlock = false
-      this.isCancelReservation = false
-      this.isReserveNow = false
-      this.isDiagnosticsItem = false
-      this.isTriggerMess = false
-      this.isDiagnostics = true
-      this.isSetCharging = false
-      this._storageService.removeSessionData('start')
+      this.isDataTransferShow()
     } else if (type == 'isClearChargingProfile') {
-      this.isClearChargingProfile = true
-      this.isGetLocalListVersion = false
-      this.isSendLocalListVersion = false
-      this.isRemoteStopTransaction = false
-      this.isRemoteStartTransaction = false
-      this.isChangeAvailability = false
-      this.isGetConfig = false
-      this.isReset = false
-      this.isDataTransfer = false
-      this.isClearCache = false
-      this.isChangeConfiguration = false
-      this.isGetCompositeSchedule = false
-      this.isUnlock = false
-      this.isCancelReservation = false
-      this.isReserveNow = false
-      this.isDiagnosticsItem = false
-      this.isDiagnostics = false
-      this.isUpdateFirmware = false
-      this.isSetCharging = false
-      this._storageService.removeSessionData('start')
+      this.isClearChargingProfileShow()
     } else if (type == 'setCharging') {
-      this.isGetLocalListVersion = false
+      this.setChargingShow()
+    }
+  }
+
+
+
+
+  setChargingShow(){
+    this.isGetLocalListVersion = false
       this.isSendLocalListVersion = false
       this.isDataTransfer = false
       this.firstFields = false
@@ -1760,8 +1433,442 @@ export class CommonDiagnosticsComponent implements OnInit {
       this.isUpdateFirmware = false
       this.isSetCharging = true
       this._storageService.setSessionData('start', 'true')
-    }
   }
+
+  isClearChargingProfileShow(){
+    this.isClearChargingProfile = true
+      this.isGetLocalListVersion = false
+      this.isSendLocalListVersion = false
+      this.isRemoteStopTransaction = false
+      this.isRemoteStartTransaction = false
+      this.isChangeAvailability = false
+      this.isGetConfig = false
+      this.isReset = false
+      this.isDataTransfer = false
+      this.isClearCache = false
+      this.isChangeConfiguration = false
+      this.isGetCompositeSchedule = false
+      this.isUnlock = false
+      this.isCancelReservation = false
+      this.isReserveNow = false
+      this.isDiagnosticsItem = false
+      this.isDiagnostics = false
+      this.isUpdateFirmware = false
+      this.isSetCharging = false
+      this._storageService.removeSessionData('start')
+  }
+
+  isDataTransferShow(){
+    this.isDataTransfer = true
+      this.isUpdateFirmware = false
+      this.isGetLocalListVersion = true
+      this.isSendLocalListVersion = false
+      this.isClearChargingProfile = false
+      this.isRemoteStopTransaction = false
+      this.isRemoteStartTransaction = false
+      this.isChangeAvailability = false
+      this.isGetConfig = false
+      this.isReset = false
+      this.isClearCache = false
+      this.isChangeConfiguration = false
+      this.isGetCompositeSchedule = false
+      this.isUnlock = false
+      this.isCancelReservation = false
+      this.isReserveNow = false
+      this.isDiagnosticsItem = false
+      this.isTriggerMess = false
+      this.isDiagnostics = true
+      this.isSetCharging = false
+      this._storageService.removeSessionData('start')
+  }
+
+  getDiagnosticsShow(){
+    this.isUpdateFirmware = false
+    this.isGetLocalListVersion = true
+    this.isSendLocalListVersion = false
+    this.isRemoteStopTransaction = false
+    this.isRemoteStartTransaction = false
+    this.isChangeAvailability = false
+    this.isGetConfig = false
+    this.isDataTransfer = false
+    this.isReset = false
+    this.isClearChargingProfile = false
+    this.isClearCache = false
+    this.isChangeConfiguration = false
+    this.isGetCompositeSchedule = false
+    this.isUnlock = false
+    this.isCancelReservation = false
+    this.isReserveNow = false
+    this.isDiagnosticsItem = false
+    this.isTriggerMess = false
+    this.isDiagnostics = true
+    this.isSetCharging = false
+    this._storageService.removeSessionData('start')
+  }
+
+
+  triggerMessageShow(){
+    this.isUpdateFirmware = false
+      this.isGetLocalListVersion = false
+      this.isTriggerMess = true
+      this.isSendLocalListVersion = false
+      this.isDataTransfer = false
+      this.isRemoteStopTransaction = false
+      this.isRemoteStartTransaction = false
+      this.isChangeAvailability = false
+      this.isGetConfig = false
+      this.isReset = false
+      this.isClearCache = false
+      this.isClearChargingProfile = false
+      this.isChangeConfiguration = false
+      this.isGetCompositeSchedule = false
+      this.isUnlock = false
+      this.isCancelReservation = false
+      this.isReserveNow = false
+      // this.isDiagnosticsItem = true;
+      this.isTriggerMess = true
+      this.isDiagnostics = false
+      this.isSetCharging = false
+      this._storageService.removeSessionData('start')
+  }
+
+  isReserveNowShow(){
+    const array = new Uint32Array(1);
+      window.crypto.getRandomValues(array);
+      this.randomSixDigit = 100000 + (array[0] % 900000)
+      // this.randomSixDigit = Math.floor(100000 + Math.random() * 900000)
+      this.isGetLocalListVersion = false
+      this.isSendLocalListVersion = false
+      this.isRemoteStopTransaction = false
+      this.isRemoteStartTransaction = false
+      this.isChangeAvailability = false
+      this.isDataTransfer = false
+      this.isGetConfig = false
+      this.isClearChargingProfile = false
+      this.isReset = false
+      this.isClearCache = false
+      this.isChangeConfiguration = false
+      this.isGetCompositeSchedule = false
+      this.isUnlock = false
+      this.isCancelReservation = false
+      this.isReserveNow = true
+      this.isDiagnosticsItem = false
+      this.isDiagnostics = false
+      this.isUpdateFirmware = false
+      this.isSetCharging = false
+      this._storageService.removeSessionData('start')
+  }
+
+  isCancelReservationShow(){
+    this.isGetLocalListVersion = false
+      this.isSendLocalListVersion = false
+      this.isRemoteStopTransaction = false
+      this.isRemoteStartTransaction = false
+      this.isChangeAvailability = false
+      this.isGetConfig = false
+      this.isReset = false
+      this.isClearChargingProfile = false
+      this.isClearCache = false
+      this.isDataTransfer = false
+      this.isChangeConfiguration = false
+      this.isGetCompositeSchedule = false
+      this.isUnlock = false
+      this.isCancelReservation = true
+      this.isDiagnosticsItem = false
+      this.isReserveNow = false
+      this.isDiagnostics = false
+      this.isUpdateFirmware = false
+      this.isSetCharging = false
+      this._storageService.removeSessionData('start')
+  }
+
+  isUnlockShow(){
+    this.isGetLocalListVersion = false
+    this.isSendLocalListVersion = false
+    this.isClearChargingProfile = false
+    this.isRemoteStopTransaction = false
+    this.isRemoteStartTransaction = false
+    this.isChangeAvailability = false
+    this.isGetConfig = false
+    this.isReset = false
+    this.isClearCache = false
+    this.isDataTransfer = false
+    this.isChangeConfiguration = false
+    this.isGetCompositeSchedule = false
+    this.isUnlock = true
+    this.isDiagnosticsItem = false
+    this.isCancelReservation = false
+    this.isReserveNow = false
+    this.isDiagnostics = false
+    this.isUpdateFirmware = false
+    this.isSetCharging = false
+    this._storageService.removeSessionData('start')
+
+  }
+
+
+  isUpdateFirmwarShow(){
+    this.isUpdateFirmware = true
+      this.isPublishFirmware = false
+      this.isGetLocalListVersion = false
+      this.isDataTransfer = false
+      this.isSendLocalListVersion = false
+      this.isRemoteStopTransaction = false
+      this.isClearChargingProfile = false
+      this.isRemoteStartTransaction = false
+      this.isChangeAvailability = false
+      this.isGetConfig = false
+      this.isReset = false
+      this.isClearCache = false
+      this.isChangeConfiguration = false
+      this.isGetCompositeSchedule = false
+      this.isUnlock = false
+      this.isDiagnosticsItem = false
+      this.isCancelReservation = false
+      this.isReserveNow = false
+      this.isDiagnostics = false
+      this.isSetCharging = false
+      this._storageService.removeSessionData('start')
+  }
+
+  isSendLocalListVersionShow(){
+    this.isGetLocalListVersion = false
+    this.isRemoteStopTransaction = false
+    this.isRemoteStartTransaction = false
+    this.isDataTransfer = false
+    this.isChangeAvailability = false
+    this.isGetConfig = false
+    this.isClearChargingProfile = false
+    this.isReset = false
+    this.isClearCache = false
+    this.isChangeConfiguration = false
+    this.isGetCompositeSchedule = false
+    this.isUnlock = false
+    this.isCancelReservation = false
+    this.isReserveNow = false
+    this.isDiagnosticsItem = false
+    this.isDiagnostics = false
+    this.isSendLocalListVersion = true
+    this.isUpdateFirmware = false
+    this.localList = false
+    this.localIdTag = false
+    this.isSetCharging = false
+    this._storageService.removeSessionData('start')
+
+  }
+  isGetLocalListVersionShow(){
+    this.isGetLocalListVersion = true
+    this.isClearChargingProfile = false
+    this.isSendLocalListVersion = false
+    this.isRemoteStopTransaction = false
+    this.isRemoteStartTransaction = false
+    this.isChangeAvailability = false
+    this.isGetConfig = false
+    this.isReset = false
+    this.isDataTransfer = false
+    this.isClearCache = false
+    this.isChangeConfiguration = false
+    this.isGetCompositeSchedule = false
+    this.isUnlock = false
+    this.isCancelReservation = false
+    this.isReserveNow = false
+    this.isDiagnosticsItem = false
+    this.isDiagnostics = false
+    this.isUpdateFirmware = false
+    this.isSetCharging = false
+    this._storageService.removeSessionData('start')
+
+  }
+  isGetCompositeScheduleShow(){
+
+    this.isGetLocalListVersion = false
+    this.isSendLocalListVersion = false
+    this.isClearChargingProfile = false
+    this.isRemoteStopTransaction = false
+    this.isRemoteStartTransaction = false
+    this.isChangeAvailability = false
+    this.isGetConfig = false
+    this.isReset = false
+    this.isDataTransfer = false
+    this.isClearCache = false
+    this.isChangeConfiguration = false
+    this.isGetCompositeSchedule = true
+    this.isUnlock = false
+    this.isCancelReservation = false
+    this.isReserveNow = false
+    this.isDiagnosticsItem = false
+    this.isDiagnostics = false
+    this.isUpdateFirmware = false
+    this.isSetCharging = false
+    this._storageService.removeSessionData('start')
+    
+  }
+
+
+  isGetConfigShow(){
+    this.isGetConfig = true
+    this.isClearCache = false
+    this.isReset = false
+    this.isChangeConfiguration = false
+    this.isChangeAvailability = false
+    this.isRemoteStopTransaction = false
+    this.isClearChargingProfile = false
+    this.isDataTransfer = false
+    this.isRemoteStartTransaction = false
+    this.isGetCompositeSchedule = false
+    this.isUnlock = false
+    this.isCancelReservation = false
+    this.isReserveNow = false
+    this.isDiagnosticsItem = false
+    this.isDiagnostics = false
+    this.isGetLocalListVersion = false
+    this.isSendLocalListVersion = false
+    this.isUpdateFirmware = false
+    this.isSetCharging = false
+    this._storageService.removeSessionData('start')
+  }
+
+  isClearCacheShow(){
+    this.isGetLocalListVersion = false
+    this.isSendLocalListVersion = false
+    this.isClearChargingProfile = false
+    this.isClearCache = true
+    this.isGetConfig = false
+    this.isDataTransfer = false
+    this.isReset = false
+    this.isChangeConfiguration = false
+    this.isChangeAvailability = false
+    this.isRemoteStopTransaction = false
+    this.isRemoteStartTransaction = false
+    this.isGetCompositeSchedule = false
+    this.isUnlock = false
+    this.isCancelReservation = false
+    this.isReserveNow = false
+    this.isDiagnosticsItem = false
+    this.isDiagnostics = false
+    this.isUpdateFirmware = false
+    this.isSetCharging = false
+    this._storageService.removeSessionData('start')
+  }
+
+   isResetShow(){
+    this.isGetLocalListVersion = false
+    this.isSendLocalListVersion = false
+    this.isReset = true
+    this.isGetConfig = false
+    this.isClearChargingProfile = false
+    this.isClearCache = false
+    this.isDataTransfer = false
+    this.isChangeConfiguration = false
+    this.isChangeAvailability = false
+    this.isRemoteStopTransaction = false
+    this.isRemoteStartTransaction = false
+    this.isGetCompositeSchedule = false
+    this.isUnlock = false
+    this.isCancelReservation = false
+    this.isReserveNow = false
+    this.isDiagnosticsItem = false
+    this.isDiagnostics = false
+    this.isUpdateFirmware = false
+    this.isSetCharging = false
+    this._storageService.removeSessionData('start')
+   }
+
+
+   isChangeConfigurationShow(){
+    this.isGetLocalListVersion = false
+      this.isSendLocalListVersion = false
+      this.isChangeConfiguration = true
+      this.isGetConfig = false
+      this.isReset = false
+      this.isDataTransfer = false
+      this.isClearChargingProfile = false
+      this.isClearCache = false
+      this.isChangeAvailability = false
+      this.isRemoteStopTransaction = false
+      this.isRemoteStartTransaction = false
+      this.isGetCompositeSchedule = false
+      this.isUnlock = false
+      this.isCancelReservation = false
+      this.isReserveNow = false
+      this.isDiagnosticsItem = false
+      this.isDiagnostics = false
+      this.isUpdateFirmware = false
+      this.isSetCharging = false
+      this._storageService.removeSessionData('start')
+   }
+
+
+   isChangeAvailabilityShow(){
+    this.isGetLocalListVersion = false
+    this.isSendLocalListVersion = false
+    this.isChangeAvailability = true
+    this.isClearChargingProfile = false
+    this.isGetConfig = false
+    this.isReset = false
+    this.isDataTransfer = false
+    this.isClearCache = false
+    this.isChangeConfiguration = false
+    this.isRemoteStopTransaction = false
+    this.isRemoteStartTransaction = false
+    this.isGetCompositeSchedule = false
+    this.isUnlock = false
+    this.isCancelReservation = false
+    this.isReserveNow = false
+    this.isDiagnosticsItem = false
+    this.isDiagnostics = false
+    this.isUpdateFirmware = false
+    this.isSetCharging = false
+    this._storageService.removeSessionData('start')
+   }
+
+   isRemoteStopTransactionShow(){
+    this.isGetLocalListVersion = false
+    this.isSendLocalListVersion = false
+    this.isChangeAvailability = false
+    this.isDataTransfer = false
+    this.isGetConfig = false
+    this.isReset = false
+    this.isClearCache = false
+    this.isChangeConfiguration = false
+    this.isClearChargingProfile = false
+    this.isRemoteStartTransaction = false
+    this.isRemoteStopTransaction = true
+    this.isGetCompositeSchedule = false
+    this.isUnlock = false
+    this.isCancelReservation = false
+    this.isReserveNow = false
+    this.isDiagnosticsItem = false
+    this.isDiagnostics = false
+    this.isSetCharging = false
+    this._storageService.removeSessionData('start')
+   }
+
+   isRemoteStartTransactionShow(){
+    this.firstFieldsRemoteStart = false
+      this.secondFieldsRemoteStart = false
+      this.thirdFieldsRemoteStart = false
+      this.isGetLocalListVersion = false
+      this.isSendLocalListVersion = false
+      this.isChangeAvailability = false
+      this.isGetConfig = false
+      this.isReset = false
+      this.isClearCache = false
+      this.isClearChargingProfile = false
+      this.isChangeConfiguration = false
+      this.isDataTransfer = false
+      this.isRemoteStopTransaction = false
+      this.isRemoteStartTransaction = true
+      this.isGetCompositeSchedule = false
+      this.isUnlock = false
+      this.isCancelReservation = false
+      this.isReserveNow = false
+      this.isDiagnosticsItem = false
+      this.isDiagnostics = false
+      this.isUpdateFirmware = false
+      this.isSetCharging = false
+      this._storageService.removeSessionData('start')
+   }
 
   control = new FormControl('')
   streets = []
@@ -2361,117 +2468,104 @@ export class CommonDiagnosticsComponent implements OnInit {
    * Submit SetCharging Cmd
    */
   submitted = false
+  
   submitSetCharging() {
-    this.submitted = true
-    if (this.chargerId == '') {
-      this.toastr.error('Please Enter Charger Id')
-      return
+    this.submitted = true;
+  
+    if (!this.validateForm()) return;
+  
+    const pBody = this.buildChargingProfilePayload();
+  
+    this._diagnosticsService.SetChargingProfile(this.chargerId, pBody).subscribe({
+      next: (res) => {
+        this.showLoader = true;
+        if (res) {
+          this.showLoader = false;
+          this.commandType = '';
+          this.setCallFunction(res);
+        }
+      },
+      error: (error: any) => {
+        this.showLoader = false;
+        this.handleError(error);
+      },
+    });
+  }
+  
+  private validateForm(): boolean {
+    if (!this.chargerId) {
+      this.toastr.error('Please Enter Charger Id');
+      return false;
     }
-    let chargingProfileData = this.setChargingForm.value.csChargingProfiles
-    if (this.setChargingForm.value.connectorId == '') {
-      this.toastr.error('Please Select Connector Id')
-      return
+  
+    const { csChargingProfiles, connectorId } = this.setChargingForm.value;
+  
+    if (!connectorId) {
+      this.toastr.error('Please Select Connector Id');
+      return false;
     }
-    if (chargingProfileData.chargingProfileId == '') {
-      this.toastr.error('Please Enter Charging Profile Id')
-      return
+    if (!csChargingProfiles.chargingProfileId) {
+      this.toastr.error('Please Enter Charging Profile Id');
+      return false;
     }
-    if (chargingProfileData.stackLevel == '') {
-      this.toastr.error('Please Enter Stack Level')
-      return
+    if (!csChargingProfiles.stackLevel) {
+      this.toastr.error('Please Enter Stack Level');
+      return false;
     }
-
-    if (chargingProfileData.chargingProfilePurpose == '') {
-      this.toastr.error('Please Select Charging Profile Purpose')
-      return
+    if (!csChargingProfiles.chargingProfilePurpose) {
+      this.toastr.error('Please Select Charging Profile Purpose');
+      return false;
     }
-    if (chargingProfileData.chargingProfileKind == '') {
-      this.toastr.error('Please Select Charging Profile Kind')
-      return
+    if (!csChargingProfiles.chargingProfileKind) {
+      this.toastr.error('Please Select Charging Profile Kind');
+      return false;
     }
-    if (chargingProfileData.chargingRateUnit == '') {
-      this.toastr.error('Please Select Charging Rate Unit')
-      return
+    if (!csChargingProfiles.chargingRateUnit) {
+      this.toastr.error('Please Select Charging Rate Unit');
+      return false;
     }
-    if (chargingProfileData.startPeriod == '') {
-      this.toastr.error('Please Enter Start Period')
-      return
+    if (!csChargingProfiles.startPeriod) {
+      this.toastr.error('Please Enter Start Period');
+      return false;
     }
-    if (chargingProfileData.limit == '') {
-      this.toastr.error('Please Enter Limit')
-      return
+    if (!csChargingProfiles.limit) {
+      this.toastr.error('Please Enter Limit');
+      return false;
     }
-
-    const pBody = {
+  
+    return true;
+  }
+  
+  private buildChargingProfilePayload() {
+    const chargingProfileData = this.setChargingForm.value.csChargingProfiles;
+    const convertToIso = this._diagnosticsService.convertToIso.bind(this._diagnosticsService);
+  
+    return {
       connectorId: +this.setChargingForm.value.connectorId,
       csChargingProfiles: {
         chargingProfileId: +chargingProfileData.chargingProfileId,
-        transactionId: chargingProfileData.transactionId
-          ? +chargingProfileData.transactionId
-          : undefined,
+        transactionId: chargingProfileData.transactionId ? +chargingProfileData.transactionId : undefined,
         stackLevel: chargingProfileData.stackLevel,
-        chargingProfilePurpose: chargingProfileData.chargingProfilePurpose
-          ? chargingProfileData.chargingProfilePurpose
-          : undefined,
-        chargingProfileKind: chargingProfileData.chargingProfileKind
-          ? chargingProfileData.chargingProfileKind
-          : undefined,
-        recurrencyKind: chargingProfileData.recurrencyKind
-          ? chargingProfileData.recurrencyKind
-          : undefined,
-        validFrom: chargingProfileData.validFrom
-          ? this._diagnosticsService.convertToIso(chargingProfileData.validFrom)
-          : undefined,
-        validTo: chargingProfileData.validTo
-          ? this._diagnosticsService.convertToIso(chargingProfileData.validTo)
-          : undefined,
+        chargingProfilePurpose: chargingProfileData.chargingProfilePurpose || undefined,
+        chargingProfileKind: chargingProfileData.chargingProfileKind || undefined,
+        recurrencyKind: chargingProfileData.recurrencyKind || undefined,
+        validFrom: chargingProfileData.validFrom ? convertToIso(chargingProfileData.validFrom) : undefined,
+        validTo: chargingProfileData.validTo ? convertToIso(chargingProfileData.validTo) : undefined,
         chargingSchedule: {
-          duration: chargingProfileData.duration
-            ? +chargingProfileData.duration
-            : undefined,
-          startSchedule: chargingProfileData.startSchedule
-            ? this._diagnosticsService.convertToIso(
-                chargingProfileData.startSchedule,
-              )
-            : undefined,
-          chargingRateUnit: chargingProfileData.chargingRateUnit
-            ? chargingProfileData.chargingRateUnit
-            : undefined,
+          duration: chargingProfileData.duration ? +chargingProfileData.duration : undefined,
+          startSchedule: chargingProfileData.startSchedule ? convertToIso(chargingProfileData.startSchedule) : undefined,
+          chargingRateUnit: chargingProfileData.chargingRateUnit || undefined,
           chargingSchedulePeriod: {
-            startPeriod: chargingProfileData.startPeriod
-              ? chargingProfileData.startPeriod
-              : undefined,
-            limit: chargingProfileData.limit
-              ? chargingProfileData.limit
-              : undefined,
-            numberPhases: chargingProfileData.numberPhases
-              ? +chargingProfileData.numberPhases
-              : undefined,
+            startPeriod: chargingProfileData.startPeriod || undefined,
+            limit: chargingProfileData.limit || undefined,
+            numberPhases: chargingProfileData.numberPhases ? +chargingProfileData.numberPhases : undefined,
           },
-          minChargingRate: chargingProfileData.minChargingRate
-            ? chargingProfileData.minChargingRate
-            : undefined,
+          minChargingRate: chargingProfileData.minChargingRate || undefined,
         },
       },
-    }
-
-    this._diagnosticsService
-      .SetChargingProfile(this.chargerId, pBody)
-      .subscribe({
-        next: (res) => {
-          this.showLoader = true
-          if (res) {
-            this.showLoader = false
-            this.commandType = ''
-            this.setCallFunction(res)
-          }
-        },
-        error: (error: any) => {
-          this.showLoader = false
-          this.handleError(error)
-        },
-      })
+    };
   }
+  
 
   /****
    * Remote Start Transaction Create

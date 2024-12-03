@@ -13,47 +13,16 @@
     <div class="header-block1 layout">
       <div class="header-flex layout">
         <h1 class="header-subtitle-box layout">{{ (chargerId!='' && isChargerDiagnostics)?chargerId:'Diagnostics' }}</h1>
-        <!-- <div class="location-block12 layout"></div> -->
         <div class="location-block2 layout" *ngIf="chargerId!='' && isChargerDiagnostics">
           <div class="location-block2-item">
             <div class="location-block4 layout">
-              <div class="location-block4-item">
-                <div class="location-block5 layout">
-                  <a [routerLink]="['../chargers-analytics']">
-                    <div class="location-text-body layout">ANALYTICS</div>
+              <div class="location-block4-item" *ngFor="let item of chargerDeteailTab">
+                <div class="{{ item?.text === 'DIAGNOSTIC' ? 'location-block6 layout' : 'location-block5 layout' }}">
+                  <a [routerLink]="[item?.link]">
+                    <div class="location-text-body layout">{{item?.text}}</div>
                   </a>
                 </div>
-              </div>
-              <div class="location-block4-item">
-                <div class="location-block5 layout">
-                  <a [routerLink]="['../chargers-info']">
-                    <div class="location-text-body layout">
-                      CHARGER INFORMATION
-                    </div>
-                  </a>
-                </div>
-              </div>
-              <div class="location-block4-item">
-                <div class="location-block5 layout">
-                  <a [routerLink]="['../chargers-session']">
-                    <div class="location-text-body layout">CHARGE SESSIONS</div>
-                  </a>
-                </div>
-              </div>
-              <div class="location-block4-item">
-                <div class="location-block6 layout">
-                  <a [routerLink]="['../chargers-diagnostic']">
-                    <div class="location-text-body layout">DIAGNOSTIC</div>
-                  </a>
-                </div>
-              </div>
-              <div class="location-block4-item">
-                <div class="location-block5 layout">
-                  <a [routerLink]="['../chargers-event']">
-                    <div class="location-text-body layout">EVENT LOGS</div>
-                  </a>
-                </div>
-              </div>
+              </div>            
             </div>
           </div>
   
@@ -79,7 +48,6 @@
           </div>
         </div>
         <div class="cust-list-flex1 layout" *ngIf="chargerId!='' && isChargerDiagnostics">
-          <!-- <h3 class="cust-list-subtitle layout">Alerts</h3> -->
           <div class="cust-list-flex3 layout">
             <div class="cust-list-flex3-item">
               <div class="cust-list-group layout">
@@ -119,33 +87,80 @@
             </div>
           </div>
         </div>
-        <!-- <div class="location-block15 layout">
-          <div class="location-flex14 layout"> -->
+       
   
         <app-diag-widget-bar>
           <app-diag-widget
             (click)="viewToolTip('provisioning')"
+            (keydown.enter)="viewToolTip('provisioning')"
             [isProvisioning]="isProvisioning"
             style="cursor: pointer; border-left: 1px solid #aea4a4;"
             class="wd_sub_1"
+            id="provisioningWidget"
           >
-            <img class="img" src="assets/images/provising.png" />
-  
+            <img class="img" src="assets/images/provising.png" />  
             <div class="text">Provisioning</div>
           </app-diag-widget>
+
+          <app-diag-widget
+          class="wd_sub_1"
+          (click)="viewToolTip('authorization')"
+          [isAuthorization]="isAuthorization"
+          (keydown.enter)="viewToolTip('authorization')"
+          id="Authorization"
+        >
+          <img class="img" src="assets/images/authrization.png" alt="" />
+          <div class="text">Authorization</div>
+        </app-diag-widget>
+
+        <app-diag-widget
+        class="wd_sub_1"
+        (click)="viewToolTip('remoteControl')"
+        (keydown.enter)="viewToolTip('remoteControl')"
+        [isRemoteControl]="isRemoteControl"
+        id="Remote Control"
+      >
+        <img class="img" src="assets/images/remotecontrol.png" alt="" />
+        <div class="text">Remote Control</div>
+      </app-diag-widget>
+
+          <app-diag-widget
+          class="wd_sub_1"
+          (click)="viewToolTip('smartcharging')"
+          [isSmartCharging]="isSmartCharging"
+          (keydown.enter)="viewToolTip('smartcharging')"
+          id="Smart Charging"
+        >
+          <img class="img" src="assets/images/smartcharging.png" alt="" />
+          <div class="text">Smart Charging</div>
+        </app-diag-widget>
+          <app-diag-widget
+          (click)="viewToolTip('fireware')"
+          [isFireWareItem]="isFireWareItem"
+          class="wd_sub_1"
+          (keydown.enter)="viewToolTip('fireware')"
+          id="Firmware Management"          
+        >
+          <img class="img" src="../../../../assets/logo-collapse1.svg" alt="" />
+          <div class="text">Firmware Management</div>
+        </app-diag-widget>
+
   
           <ng-container *ngIf="isProvisioning">
             <app-tool-tip class="wd_sub_1 tool_alignP tool-tip-11">
               <div class="title modal-title">
                 Provisioning
-                <span class="close-icon" (click)="closePopup()">X</span>
+                <span class="close-icon"
+                (keydown.enter)="closePopup()"
+                 (click)="closePopup()">X</span>
               </div>
   
-              <!-- <app-tool-tip-item class="item" (click)="getConfiguration()"> -->
               <app-tool-tip-item
                 class="item"
+                (keydown.enter)="showMessage('getconfig'); viewToolTipTtem('isGetConfig')"
                 (click)="showMessage('getconfig'); viewToolTipTtem('isGetConfig')"
                 [isGetConfig]="isGetConfig"
+                id="isGetConfig"
               >
                 <div class="title">GetConfiguration</div>
                 <img
@@ -160,6 +175,8 @@
                 class="item"
                 (click)="clearCache(); viewToolTipTtem('isClearCache')"
                 [isClearCache]="isClearCache"
+                (keydown.enter)="clearCache(); viewToolTipTtem('isClearCache')"
+                id="ClearCache"
               >
                 <div class="title">ClearCache</div>
                 <img
@@ -173,6 +190,8 @@
                 class="item"
                 (click)="showMessage('reset'); viewToolTipTtem('isReset')"
                 [isReset]="isReset"
+                (keydown.enter)="showMessage('reset'); viewToolTipTtem('isReset')"
+                id="Reset"
               >
                 <div class="title">Reset</div>
                 <img
@@ -182,7 +201,6 @@
                   src="../../../../assets/diagnostic/reset.png"
                 />
               </app-tool-tip-item>
-              <!-- <app-tool-tip-item class="item" (click)="changeConfiguration()"> -->
               <app-tool-tip-item
                 class="item"
                 (click)="
@@ -190,6 +208,9 @@
                   viewToolTipTtem('isChangeConfiguration')
                 "
                 [isChangeConfiguration]="isChangeConfiguration"
+                (keydown.enter)="showMessage('changeconfig');
+                viewToolTipTtem('isChangeConfiguration')"
+                id="ChangeConfiguration"
               >
                 <div class="title">ChangeConfiguration</div>
                 <img
@@ -206,6 +227,8 @@
                   showMessage('change'); viewToolTipTtem('isChangeAvailability')
                 "
                 [isChangeAvailability]="isChangeAvailability"
+                (keydown.enter)="showMessage('change'); viewToolTipTtem('isChangeAvailability')"
+                id="ChangeAvailability"
               >
                 <div class="title">ChangeAvailability</div>
                 <img
@@ -220,7 +243,9 @@
                 (click)="
                   showMessage('datatransfer'); viewToolTipTtem('isDataTransfer')
                 "
+                (keydown.enter)="showMessage('datatransfer'); viewToolTipTtem('isDataTransfer')"
                 [isDataTransfer]="isDataTransfer"
+                id="DataTransfer"
               >
                 <div class="title">DataTransfer</div>
                 <img
@@ -232,20 +257,14 @@
               </app-tool-tip-item>
             </app-tool-tip>
           </ng-container>
-          <app-diag-widget
-            class="wd_sub_1"
-            (click)="viewToolTip('authorization')"
-            [isAuthorization]="isAuthorization"
-          >
-            <img class="img" src="assets/images/authrization.png" alt="" />
-            <div class="text">Authorization</div>
-          </app-diag-widget>
+         
   
           <ng-container *ngIf="isAuthorization">
             <app-tool-tip class="wd_sub_1 tool_alignAuth tool-tip-2">
               <div class="title modal-title">
                 Authorization
-                <span class="close-icon auth-close close1" (click)="closePopup()">
+                <span class="close-icon auth-close close1" (click)="closePopup()" 
+                (keydown.enter)="closePopup()">
                   X
                 </span>
               </div>
@@ -256,6 +275,7 @@
                   getLocalListVersion(); viewToolTipTtem('isGetLocalListVersion')
                 "
                 [isGetLocalListVersion]="isGetLocalListVersion"
+                (keydown.enter)="getLocalListVersion(); viewToolTipTtem('isGetLocalListVersion')"
               >
                 <div class="title">GetLocalListVersion</div>
                 <img
@@ -272,6 +292,8 @@
                   viewToolTipTtem('isSendLocalListVersion')
                 "
                 [isSendLocalListVersion]="isSendLocalListVersion"
+                (keydown.enter)=" showMessage('sendlocal');
+                viewToolTipTtem('isSendLocalListVersion')"
               >
                 <div class="title">SendLocalListRequest</div>
                 <img
@@ -283,20 +305,13 @@
               </app-tool-tip-item>
             </app-tool-tip>
           </ng-container>
-          <app-diag-widget
-            class="wd_sub_1"
-            (click)="viewToolTip('remoteControl')"
-            [isRemoteControl]="isRemoteControl"
-          >
-            <img class="img" src="assets/images/remotecontrol.png" alt="" />
-            <div class="text">Remote Control</div>
-          </app-diag-widget>
+        
   
           <ng-container *ngIf="isRemoteControl">
             <app-tool-tip class="wd_sub_1 tool_alignRC tool-tip-3">
               <div class="title modal-title">
                 Remote Control
-                <span class="close-icon close5" (click)="closePopup()">X</span>
+                <span class="close-icon close5"  (keydown.enter)="closePopup()" (click)="closePopup()">X</span>
               </div>
   
               <app-tool-tip-item
@@ -306,6 +321,8 @@
                   viewToolTipTtem('isRemoteStartTransaction')
                 "
                 [isRemoteStartTransaction]="isRemoteStartTransaction"
+                (keydown.enter)="showMessage('start');
+                viewToolTipTtem('isRemoteStartTransaction')"
               >
                 <div class="title">RemoteStartTransaction</div>
                 <img
@@ -322,6 +339,9 @@
                   remoteStopTransaction();
                   viewToolTipTtem('isRemoteStopTransaction')
                 "
+                (keydown.enter)="remoteStopTransaction();
+                viewToolTipTtem('isRemoteStopTransaction')"
+
                 [isRemoteStopTransaction]="isRemoteStopTransaction"
               >
                 <div class="title">RemoteStopTransaction</div>
@@ -336,6 +356,7 @@
                 class="item"
                 (click)="showMessage('unlock'); viewToolTipTtem('isUnlock')"
                 [isUnlock]="isUnlock"
+                (keydown.enter)="showMessage('unlock'); viewToolTipTtem('isUnlock')"
               >
                 <div class="title">UnlockConnector</div>
                 <img
@@ -351,6 +372,8 @@
                   showMessage('isReserveNow'); viewToolTipTtem('isReserveNow')
                 "
                 [isReserveNow]="isReserveNow"
+                (keydown.enter)="showMessage('isReserveNow'); viewToolTipTtem('isReserveNow')"
+
               >
                 <div class="title">ReserveNow</div>
                 <img
@@ -367,6 +390,8 @@
                   viewToolTipTtem('isCancelReservation')
                 "
                 [isCancelReservation]="isCancelReservation"
+                (keydown.enter)="showMessage('isCancelReservation');
+                viewToolTipTtem('isCancelReservation')"
               >
                 <div class="title">CancelReservation</div>
                 <img
@@ -381,6 +406,7 @@
                 (click)="
                   showMessage('triggerMessage'); viewToolTipTtem('triggerMessage')
                 "
+                (keydown.enter)="showMessage('triggerMessage'); viewToolTipTtem('triggerMessage')"
                 [isTriggerMess]="isTriggerMess"
               >
                 <div class="title">TriggerMessageRequest</div>
@@ -393,19 +419,12 @@
               </app-tool-tip-item>
             </app-tool-tip>
           </ng-container>
-          <app-diag-widget
-            class="wd_sub_1"
-            (click)="viewToolTip('smartcharging')"
-            [isSmartCharging]="isSmartCharging"
-          >
-            <img class="img" src="assets/images/smartcharging.png" alt="" />
-            <div class="text">Smart Charging</div>
-          </app-diag-widget>
+         
           <ng-container *ngIf="isSmartCharging">
             <app-tool-tip class="wd_sub_1 tool_alignSC tool-tip-4">
               <div class="title modal-title">
                 Smart Charging
-                <span class="close-icon auth-close close2" (click)="closePopup()">
+                <span class="close-icon auth-close close2" (click)="closePopup()" (keydown.enter)="closePopup">
                   X
                 </span>
               </div>
@@ -417,6 +436,8 @@
                   viewToolTipTtem('isGetCompositeSchedule')
                 "
                 [isGetCompositeSchedule]="isGetCompositeSchedule"
+                (keydown.enter)="showMessage('getComposite');
+                viewToolTipTtem('isGetCompositeSchedule')"
               >
                 <div class="title">GetCompositeSchedule</div>
                 <img
@@ -433,6 +454,8 @@
                   viewToolTipTtem('isClearChargingProfile')
                 "
                 [isClearChargingProfile]="isClearChargingProfile"
+                (keydown.enter)="showMessage('getClearCharging');
+                viewToolTipTtem('isClearChargingProfile')"
               >
                 <div class="title">ClearChargingProfile</div>
                 <img
@@ -447,6 +470,7 @@
                 (click)="
                   showMessage('setCharging'); viewToolTipTtem('setCharging')
                 "
+                (keydown.enter)="showMessage('setCharging'); viewToolTipTtem('setCharging')"
                 [isSetCharging]="isSetCharging"
               >
                 <div class="title">SetChargingProfle</div>
@@ -460,19 +484,12 @@
             </app-tool-tip>
           </ng-container>
   
-          <app-diag-widget
-            (click)="viewToolTip('fireware')"
-            [isFireWareItem]="isFireWareItem"
-            class="wd_sub_1"
-          >
-            <img class="img" src="../../../../assets/logo-collapse1.svg" alt="" />
-            <div class="text">Firmware Management</div>
-          </app-diag-widget>
+        
           <ng-container *ngIf="isFireWareItem">
             <app-tool-tip class="wd_sub_1 tool_align tool-tip-5">
               <div class="title modal-title">
                 Firmware Management
-                <span class="close-icon close5" (click)="closePopup()">X</span>
+                <span class="close-icon close5" (click)="closePopup()" (keydown.enter)="closePopup()">X</span>
               </div>
               <app-tool-tip-item
                 class="item"
@@ -480,6 +497,7 @@
                   showMessage('updatefirmware'); viewToolTipTtem('updatefirmware')
                 "
                 [isUpdateFirmware]="isUpdateFirmware"
+                (keydown.enter)="showMessage('updatefirmware'); viewToolTipTtem('updatefirmware')"
               >
                 <div class="title">UpdateFirmware</div>
                 <img
@@ -495,6 +513,7 @@
                   showMessage('getdiagnostics'); viewToolTipTtem('getdiagnostics')
                 "
                 [isDiagnostics]="isDiagnostics"
+                (keydown.enter)="showMessage('getdiagnostics'); viewToolTipTtem('getdiagnostics')"
               >
                 <div class="title">Get Diagnostics</div>
                 <img
@@ -538,10 +557,9 @@
                   class="title"
                   [ngStyle]="{ width: commandType == 'sendlocal' ? '395px' : '' }"
                 >
-                  <span class="close-icon-type" (click)="closePopupType()">
+                  <span class="close-icon-type" (click)="closePopupType()" (keydown.enter)="closePopupType()">
                     X
                   </span>
-                  <!-- <button  *ngIf="commandType == 'getlocal'" type="button" (click)="addLocalList()" style="color:#ffffff ;">Add Local List</button> -->
                   <form
                     *ngIf="commandType == 'sendlocal'"
                     [formGroup]="getListVersionForm"
@@ -608,7 +626,6 @@
                                   maxlength="20"
                                   class="barbar-input-text"
                                 />
-                                <!-- <button *ngIf="getListTagFormControls()?.length > 0" type="button" (click)="addLocalList()" style="color:#ffffff;">IdTagInfo</button> -->
                               </div>
                             </div>
                             <button
@@ -635,13 +652,7 @@
                               "
                             >
                               <div [formGroupName]="i">
-                                <!-- <span class="required">
-                          Enter RFId Tag
-                        </span>
-                        <input
-                        type="text" formControlName="idTag" placeholder="RFId Tag" maxlength="20"
-                        class="barbar-input-text" step="1"
-                      /> -->
+                            
                                 <span class="required">Expiry Date</span>
                                 <input
                                   type="text"
