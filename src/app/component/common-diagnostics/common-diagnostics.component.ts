@@ -1357,54 +1357,48 @@ isErrorFromRemoteStart(error: any) {
   isGetLocalListVersion = false
   isUpdateFirmware = false
   isPublishFirmware = false
+  
+
   viewToolTipTtem(type: any) {
-    if (this.chargerId == '') {
-      return
+    if (this.chargerId === '') {
+        return;
     }
 
-    if (type == 'isGetConfig') {
-      this.isGetConfigShow()
-    } else if (type == 'isClearCache') {
-        this.isClearCacheShow()
-    } else if (type == 'isReset') {
-     this.isResetShow()
-    } else if (type == 'isChangeConfiguration') {
-      this.isChangeConfigurationShow()
-    } else if (type == 'isChangeAvailability') {
-     this.isChangeAvailabilityShow()
-    } else if (type == 'isRemoteStopTransaction') {
-     this.isRemoteStopTransactionShow()
-    } else if (type == 'isRemoteStartTransaction') {
-      this.isRemoteStartTransactionShow()
-    } else if (type == 'isGetCompositeSchedule') {
-    this.isGetCompositeScheduleShow()
-    } else if (type == 'isGetLocalListVersion') {
-      this.isGetLocalListVersionShow()
-    } else if (type == 'isSendLocalListVersion') {
-     this.isSendLocalListVersionShow()
-    } else if (type == 'updatefirmware') {
-      this.isUpdateFirmwarShow()
-    } else if (type == 'isPublishFirmware') {
-      this.isPublishFirmware = true
-      this.isUpdateFirmware = false
-    } else if (type == 'isUnlock') {
-      this.isUnlockShow()
-    } else if (type == 'isCancelReservation') {
-      this.isCancelReservationShow()
-    } else if (type == 'isReserveNow') {
-      this.isReserveNowShow()
-    } else if (type == 'triggerMessage') {
-      this.triggerMessageShow()
-    } else if (type == 'getdiagnostics') {
-     this.getDiagnosticsShow()
-    } else if (type == 'isDataTransfer') {
-      this.isDataTransferShow()
-    } else if (type == 'isClearChargingProfile') {
-      this.isClearChargingProfileShow()
-    } else if (type == 'setCharging') {
-      this.setChargingShow()
+    const typeActionMap = this.getTypeActionMap();
+    const action = typeActionMap[type];
+    if (action) {
+        action();
     }
-  }
+}
+
+ getTypeActionMap(): { [key: string]: () => void } {
+  return {
+      isGetConfig: () => this.isGetConfigShow(),
+      isClearCache: () => this.isClearCacheShow(),
+      isReset: () => this.isResetShow(),
+      isChangeConfiguration: () => this.isChangeConfigurationShow(),
+      isChangeAvailability: () => this.isChangeAvailabilityShow(),
+      isRemoteStopTransaction: () => this.isRemoteStopTransactionShow(),
+      isRemoteStartTransaction: () => this.isRemoteStartTransactionShow(),
+      isGetCompositeSchedule: () => this.isGetCompositeScheduleShow(),
+      isGetLocalListVersion: () => this.isGetLocalListVersionShow(),
+      isSendLocalListVersion: () => this.isSendLocalListVersionShow(),
+      updatefirmware: () => this.isUpdateFirmwarShow(),
+      isPublishFirmware: () => {
+          this.isPublishFirmware = true;
+          this.isUpdateFirmware = false;
+      },
+      isUnlock: () => this.isUnlockShow(),
+      isCancelReservation: () => this.isCancelReservationShow(),
+      isReserveNow: () => this.isReserveNowShow(),
+      triggerMessage: () => this.triggerMessageShow(),
+      getdiagnostics: () => this.getDiagnosticsShow(),
+      isDataTransfer: () => this.isDataTransferShow(),
+      isClearChargingProfile: () => this.isClearChargingProfileShow(),
+      setCharging: () => this.setChargingShow(),
+  };
+}
+
 
 
 

@@ -98,7 +98,7 @@
             class="wd_sub_1"
             id="provisioningWidget"
           >
-            <img class="img" src="assets/images/provising.png" />  
+            <img class="img" alt="proising" src="assets/images/provising.png" />  
             <div class="text">Provisioning</div>
           </app-diag-widget>
 
@@ -276,6 +276,7 @@
                 "
                 [isGetLocalListVersion]="isGetLocalListVersion"
                 (keydown.enter)="getLocalListVersion(); viewToolTipTtem('isGetLocalListVersion')"
+                id="GetLocalListVersion"
               >
                 <div class="title">GetLocalListVersion</div>
                 <img
@@ -294,6 +295,7 @@
                 [isSendLocalListVersion]="isSendLocalListVersion"
                 (keydown.enter)=" showMessage('sendlocal');
                 viewToolTipTtem('isSendLocalListVersion')"
+                id="SendLocalListRequest"
               >
                 <div class="title">SendLocalListRequest</div>
                 <img
@@ -323,6 +325,7 @@
                 [isRemoteStartTransaction]="isRemoteStartTransaction"
                 (keydown.enter)="showMessage('start');
                 viewToolTipTtem('isRemoteStartTransaction')"
+                id="RemoteStartTransaction"
               >
                 <div class="title">RemoteStartTransaction</div>
                 <img
@@ -343,6 +346,7 @@
                 viewToolTipTtem('isRemoteStopTransaction')"
 
                 [isRemoteStopTransaction]="isRemoteStopTransaction"
+                id="RemoteStopTransaction"
               >
                 <div class="title">RemoteStopTransaction</div>
                 <img
@@ -357,6 +361,7 @@
                 (click)="showMessage('unlock'); viewToolTipTtem('isUnlock')"
                 [isUnlock]="isUnlock"
                 (keydown.enter)="showMessage('unlock'); viewToolTipTtem('isUnlock')"
+                id="UnlockConnector"
               >
                 <div class="title">UnlockConnector</div>
                 <img
@@ -373,6 +378,7 @@
                 "
                 [isReserveNow]="isReserveNow"
                 (keydown.enter)="showMessage('isReserveNow'); viewToolTipTtem('isReserveNow')"
+                id="ReserveNow"
 
               >
                 <div class="title">ReserveNow</div>
@@ -392,6 +398,7 @@
                 [isCancelReservation]="isCancelReservation"
                 (keydown.enter)="showMessage('isCancelReservation');
                 viewToolTipTtem('isCancelReservation')"
+                id="CancelReservation"
               >
                 <div class="title">CancelReservation</div>
                 <img
@@ -408,6 +415,7 @@
                 "
                 (keydown.enter)="showMessage('triggerMessage'); viewToolTipTtem('triggerMessage')"
                 [isTriggerMess]="isTriggerMess"
+                id="TriggerMessageRequest"
               >
                 <div class="title">TriggerMessageRequest</div>
                 <img
@@ -438,6 +446,7 @@
                 [isGetCompositeSchedule]="isGetCompositeSchedule"
                 (keydown.enter)="showMessage('getComposite');
                 viewToolTipTtem('isGetCompositeSchedule')"
+                id="GetCompositeSchedule"
               >
                 <div class="title">GetCompositeSchedule</div>
                 <img
@@ -456,6 +465,7 @@
                 [isClearChargingProfile]="isClearChargingProfile"
                 (keydown.enter)="showMessage('getClearCharging');
                 viewToolTipTtem('isClearChargingProfile')"
+                id="ClearChargingProfile"
               >
                 <div class="title">ClearChargingProfile</div>
                 <img
@@ -472,6 +482,7 @@
                 "
                 (keydown.enter)="showMessage('setCharging'); viewToolTipTtem('setCharging')"
                 [isSetCharging]="isSetCharging"
+                id="SetChargingProfle"
               >
                 <div class="title">SetChargingProfle</div>
                 <img
@@ -498,6 +509,7 @@
                 "
                 [isUpdateFirmware]="isUpdateFirmware"
                 (keydown.enter)="showMessage('updatefirmware'); viewToolTipTtem('updatefirmware')"
+                id="UpdateFirmware"
               >
                 <div class="title">UpdateFirmware</div>
                 <img
@@ -514,6 +526,7 @@
                 "
                 [isDiagnostics]="isDiagnostics"
                 (keydown.enter)="showMessage('getdiagnostics'); viewToolTipTtem('getdiagnostics')"
+                id="Get_diagnostics"
               >
                 <div class="title">Get Diagnostics</div>
                 <img
@@ -2283,6 +2296,7 @@
                 (click)="
                   expandedElement = expandedElement === element ? null : element
                 "
+                (keydown.enter)="expandedElement = expandedElement === element ? null : element"
               />
   
               <img
@@ -2290,6 +2304,7 @@
                 alt=""
                 src="../../../../assets/icons/download.png"
                 (click)="downloadAsPDF()"
+                (keydown.enter)="downloadAsPDF()"
               />
               <img
                 (click)="openMakePaymentDialog(element.id)"
@@ -2298,6 +2313,7 @@
                 src="../../../../../assets/chart-icon.svg"
                 alt=""
                 title="Make Payment"
+                (keydown.enter)="openMakePaymentDialog(element.id)"
               />
             </td>
           </ng-container>
