@@ -7,7 +7,7 @@ import { SharedModule } from 'src/app/shared/shared.module'
 import { MatAutocompleteModule } from '@angular/material/autocomplete'
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
-import { NgxMatDatetimePickerModule, NgxMatTimepickerModule,NgxMatNativeDateModule  } from '@angular-material-components/datetime-picker';
+import { NgxMatDatetimePickerModule, NgxMatTimepickerModule, NgxMatNativeDateModule } from '@angular-material-components/datetime-picker';
 import { CommonDiagnosticsComponent } from 'src/app/component/common-diagnostics/common-diagnostics.component'
 const routes: Routes = [{ path: '', component: CommonDiagnosticsComponent }]
 
@@ -27,5 +27,5 @@ const routes: Routes = [{ path: '', component: CommonDiagnosticsComponent }]
   declarations: [CommonDiagnosticsComponent],
   providers: [],
 })
-export class DiagnosticsModule {}
+export class DiagnosticsModule { }
 

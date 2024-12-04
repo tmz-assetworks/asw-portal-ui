@@ -205,8 +205,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
   &subtitle {
     overflow: visible;
-    margin-top: 0px;
-    margin-bottom: 0px;
     margin: 0px 18px;
     @include font-face($font_type20, $color_type_2, 0px);
     white-space: pre-wrap;

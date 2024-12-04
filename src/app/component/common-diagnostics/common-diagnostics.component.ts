@@ -12,11 +12,11 @@ import 'jspdf'
 import { ChargerService } from 'src/app/screen/operator/charger/charger.service'
 import { MatDialog } from '@angular/material/dialog'
 import {
-   FormArray,
-   FormBuilder,
-   FormControl,
-   FormGroup,
-   Validators,
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
 } from '@angular/forms'
 import { interval, map, Observable, startWith } from 'rxjs'
 import { TransactionDialogComponent } from 'src/app/component/dashboard/transaction-dialog/transaction-dialog.component'
@@ -113,41 +113,41 @@ export class CommonDiagnosticsComponent implements OnInit {
   firstFieldsRemoteStart: boolean = false
   thirdFieldsRemoteStart: boolean = false
   secondFieldsRemoteStart: boolean = false
-  GetConfigurationKey:string[] = [];
-  keyTypeGetConfig: string = ''; 
+  GetConfigurationKey: string[] = [];
+  keyTypeGetConfig: string = '';
   keyTypeChangeConfig: string = '';
   datePipe = new DatePipe('en-US')
   href: string = "";
-  isChargerDiagnostics:boolean=true
+  isChargerDiagnostics: boolean = true
   chargerBoxIdArr: any
 
-  chargerDeteailTab=[
+  chargerDeteailTab = [
     {
-      text:"ANALYTICS",
-      link:"../chargers-analytics"
+      text: "ANALYTICS",
+      link: "../chargers-analytics"
 
     },
     {
-      text:"CHARGER INFORMATION",
-      link:"../chargers-info"
+      text: "CHARGER INFORMATION",
+      link: "../chargers-info"
 
     },
     {
-      text:"CHARGE SESSIONS",
-      link:"../chargers-session"
+      text: "CHARGE SESSIONS",
+      link: "../chargers-session"
 
     },
     {
-      text:"DIAGNOSTIC",
-      link:"../chargers-diagnostic"
+      text: "DIAGNOSTIC",
+      link: "../chargers-diagnostic"
 
     },
     {
-      text:"EVENT LOGS",
-      link:"../chargers-event"
+      text: "EVENT LOGS",
+      link: "../chargers-event"
 
     }
-]
+  ]
   constructor(
     public _alertsService: AlertsService,
     private _storageService: StorageService,
@@ -156,7 +156,7 @@ export class CommonDiagnosticsComponent implements OnInit {
     public _chargerService: ChargerService,
     public dialog: MatDialog,
     private _fb: FormBuilder,
-    private router : Router
+    private router: Router
   ) {
     this.requestMessTypes = [
       'BootNotification',
@@ -180,18 +180,18 @@ export class CommonDiagnosticsComponent implements OnInit {
     this.chargingRateUnit = this._diagnosticsService.getChargingRateUnit()
     this.currentDate = this._diagnosticsService.currentDate() + 'T00:00'
     this.UserId = this._storageService.getLocalData('user_id')
-   
+
 
     this.chargerName = this._storageService.getSessionData('chargerName')
   }
   ngOnInit(): void {
-    if(this.router.url=='/operator/diagonstics'){
-     this._storageService.removeSessionData('chargerBoxId')
-     this.isChargerDiagnostics=false
-     this.chargerId = ''
-    }else{
+    if (this.router.url == '/operator/diagonstics') {
+      this._storageService.removeSessionData('chargerBoxId')
+      this.isChargerDiagnostics = false
+      this.chargerId = ''
+    } else {
       this.chargerId = this._storageService.getSessionData('chargerBoxId')
-      this.isChargerDiagnostics=true
+      this.isChargerDiagnostics = true
       this.getConnectorIds('')
     }
     this.href = this.router.url;
@@ -201,11 +201,11 @@ export class CommonDiagnosticsComponent implements OnInit {
       startWith(''),
       map((value) => (value && value.length >= 0 ? this._filter(value) : [])),
     )
-     // call 
-     this._diagnosticsService.GetConfigurationKey().subscribe(
+    // call 
+    this._diagnosticsService.GetConfigurationKey().subscribe(
       (response) => {
         this.GetConfigurationKey = response?.key;
-        
+
       },
       (error) => {
         console.error('Error fetching dropdown data', error);
@@ -277,18 +277,18 @@ export class CommonDiagnosticsComponent implements OnInit {
   }
 
 
-    /**
-   * Get Charger List
-   */
+  /**
+ * Get Charger List
+ */
 
-    GetChargeBoxIDList() {
-      this._chargerService.GetChargeBoxIDList().subscribe((res) => {
-        this.chargerBoxIdArr = res.data
-        this.streets = res.data
-      })
-    }
+  GetChargeBoxIDList() {
+    this._chargerService.GetChargeBoxIDList().subscribe((res) => {
+      this.chargerBoxIdArr = res.data
+      this.streets = res.data
+    })
+  }
 
-    
+
 
   viewToolTip(tileType: string) {
     if (tileType == 'fireware') {
@@ -357,7 +357,7 @@ export class CommonDiagnosticsComponent implements OnInit {
   /**
    * Get Configurations
    */
-  
+
 
   getConfiguration(cmdType: string) {
     this.count = 1;
@@ -366,89 +366,89 @@ export class CommonDiagnosticsComponent implements OnInit {
     if (!this.isChargerValid()) return;
 
     if (this.keyTypeGetConfig === '' || this.keyTypeGetConfig === 'enterKey') {
-        this.toastr.error('Please Select key');
-        return;
+      this.toastr.error('Please Select key');
+      return;
     }
 
     if (this.keyTypeGetConfig === 'All') {
-        this.keyTypeGetConfig = '';
+      this.keyTypeGetConfig = '';
     }
 
     const pBody = {
-        key: [this.keyTypeGetConfig],
+      key: [this.keyTypeGetConfig],
     };
 
     this._diagnosticsService.GetConfiguration(this.chargerId, pBody).subscribe({
-        next: (res: any) => {
-            this.showLoader = true;
-            if (res) {
-                this.showLoader = false;
-                this.isProvisioning = false;
-                this.isGetConfig = false;
-                this.setCallFunction(res);
-                this.keyTypeGetConfig = '';
-            }
-        },
-        error: (error: any) => {
-            this.showLoader = false;
-            this.handleError(error);
-        },
+      next: (res: any) => {
+        this.showLoader = true;
+        if (res) {
+          this.showLoader = false;
+          this.isProvisioning = false;
+          this.isGetConfig = false;
+          this.setCallFunction(res);
+          this.keyTypeGetConfig = '';
+        }
+      },
+      error: (error: any) => {
+        this.showLoader = false;
+        this.handleError(error);
+      },
     });
-}
+  }
 
-handleCommandType(cmdType: string) {
+  handleCommandType(cmdType: string) {
     switch (cmdType) {
-        case 'changeconfig':
-            this.changeConfiguration();
-            return true;
-        case 'getComposite':
-            this.getCompositeSchedule();
-            return true;
-        case 'getdiagnostics':
-            this.getDiagnosticsCmd();
-            return true;
-        case 'datatransfer':
-            this.dataTransferCmd();
-            return true;
-        case 'getClearCharging':
-            this.getClearChargingProfile();
-            return true;
-        case 'change':
-            this.changeAvailability(this.chargerType, this.connectorID);
-            return true;
-        case 'reset':
-            this.reset(this.chargerType);
-            return true;
-        case 'unlock':
-            this.unlock(this.connectorID);
-            return true;
-        case 'isCancelReservation':
-            this.cancelReservation();
-            return true;
-        case 'isReserveNow':
-            this.reserveNow(this.connectorID);
-            return true;
-        case 'triggerMessage':
-            this.triggerMessage(this.connectorID);
-            return true;
-        case 'updatefirmware':
-            this.updateFirmware(this.connectorID);
-            return true;
-        default:
-            return false;
+      case 'changeconfig':
+        this.changeConfiguration();
+        return true;
+      case 'getComposite':
+        this.getCompositeSchedule();
+        return true;
+      case 'getdiagnostics':
+        this.getDiagnosticsCmd();
+        return true;
+      case 'datatransfer':
+        this.dataTransferCmd();
+        return true;
+      case 'getClearCharging':
+        this.getClearChargingProfile();
+        return true;
+      case 'change':
+        this.changeAvailability(this.chargerType, this.connectorID);
+        return true;
+      case 'reset':
+        this.reset(this.chargerType);
+        return true;
+      case 'unlock':
+        this.unlock(this.connectorID);
+        return true;
+      case 'isCancelReservation':
+        this.cancelReservation();
+        return true;
+      case 'isReserveNow':
+        this.reserveNow(this.connectorID);
+        return true;
+      case 'triggerMessage':
+        this.triggerMessage(this.connectorID);
+        return true;
+      case 'updatefirmware':
+        this.updateFirmware(this.connectorID);
+        return true;
+      default:
+        return false;
     }
-}
+  }
 
-isChargerValid() {
+  isChargerValid() {
     if (this.chargerId === '') {
-        this.toastr.error('Please Enter Charger Id');
-        return false;
+      this.toastr.error('Please Enter Charger Id');
+      return false;
     } else if (!this.hasChargerBoxId()) {
-        this.toastr.error('Invalid Charge Box id');
-        return false;
+      this.toastr.error('Invalid Charge Box id');
+      return false;
     }
     return true;
-}
+  }
 
 
   /**
@@ -568,7 +568,7 @@ isChargerValid() {
    * changeConfiguration
    */
   changeConfiguration() {
-    
+
     this.inputValueConfig = ''
     if (this.chargerId == '') {
       this.toastr.error('Please Enter Charger Id')
@@ -576,19 +576,19 @@ isChargerValid() {
     } else if (!this.hasChargerBoxId()) {
       this.toastr.error('Invalid Charge Box id')
       return
-    } 
-    else if(this.keyTypeChangeConfig == ''){
+    }
+    else if (this.keyTypeChangeConfig == '') {
       this.toastr.error('Please Select key')
       return
     }
-     else if (this.inputValue.nativeElement.value.length == 0) {
+    else if (this.inputValue.nativeElement.value.length == 0) {
       this.toastr.error('Please Enter Value')
       return
     } else if (this.inputValue.nativeElement.value.length > 500) {
       this.toastr.error('Value Must Be Less Than 500 Characters')
       return
     }
-   //  this.inputKeyConfig = this.inputKey.nativeElement.value
+    //  this.inputKeyConfig = this.inputKey.nativeElement.value
     this.inputValueConfig = this.inputValue.nativeElement.value
 
     const pBody = {
@@ -605,7 +605,7 @@ isChargerValid() {
             this.showLoader = false
             this.isProvisioning = false
             this.setCallFunction(res)
-            this.keyTypeChangeConfig=''
+            this.keyTypeChangeConfig = ''
           }
         },
         error: (error: any) => {
@@ -700,111 +700,111 @@ isChargerValid() {
 
     this.showLoader = true;
     this._diagnosticsService.RemoteStartTransaction(this.chargerId, pBody).subscribe({
-        next: (res) => {
-            this.showLoader = false;
-            this.isRemoteControl = false;
-            this.isRemoteStartTransaction = false;
-            this.setCallFunction(res);
-        },
-        error: (error) => {
-            this.showLoader = false;
-            if (this.isErrorFromRemoteStart(error)) {
-                this.toastr.error(JSON.stringify(error.error.error));
-            }
-        },
+      next: (res) => {
+        this.showLoader = false;
+        this.isRemoteControl = false;
+        this.isRemoteStartTransaction = false;
+        this.setCallFunction(res);
+      },
+      error: (error) => {
+        this.showLoader = false;
+        if (this.isErrorFromRemoteStart(error)) {
+          this.toastr.error(JSON.stringify(error.error.error));
+        }
+      },
     });
-}
+  }
 
-isChargerAndRFIDValid() {
+  isChargerAndRFIDValid() {
     if (this.chargerId === '') {
-        this.toastr.error('Please Enter Charger Id');
-        return false;
+      this.toastr.error('Please Enter Charger Id');
+      return false;
     } else if (this.idTag === '') {
-        this.toastr.error('Please Enter RFID');
-        return false;
+      this.toastr.error('Please Enter RFID');
+      return false;
     } else if (this.idTag.length > 20) {
-        this.toastr.error('RFID Must Be Less Than 20 Characters');
-        return false;
+      this.toastr.error('RFID Must Be Less Than 20 Characters');
+      return false;
     }
     return true;
-}
+  }
 
-isRemoteStartTransactionDataValid() {
+  isRemoteStartTransactionDataValid() {
     const remoteStartTransactionData = this.remoteStartForm.value.chargingProfile;
 
     const fields = [
-        { field: remoteStartTransactionData.chargingProfileId, message: 'Please Enter Charging Profile Id' },
-        { field: remoteStartTransactionData.transactionId, message: 'Please Enter Transaction Id' },
-        { field: remoteStartTransactionData.stackLevel, message: 'Please Enter Stack Level' },
-        { field: remoteStartTransactionData.chargingProfilePurpose, message: 'Please Select Charging Profile Purpose' },
-        { field: remoteStartTransactionData.chargingProfileKind, message: 'Please Select Charging Profile Kind' },
-        { field: remoteStartTransactionData.chargingRateUnit, message: 'Please Select Charging Rate Unit' },
-        { field: remoteStartTransactionData.startPeriod, message: 'Please Enter Start Period' },
-        { field: remoteStartTransactionData.limit, message: 'Please Enter Limit' },
+      { field: remoteStartTransactionData.chargingProfileId, message: 'Please Enter Charging Profile Id' },
+      { field: remoteStartTransactionData.transactionId, message: 'Please Enter Transaction Id' },
+      { field: remoteStartTransactionData.stackLevel, message: 'Please Enter Stack Level' },
+      { field: remoteStartTransactionData.chargingProfilePurpose, message: 'Please Select Charging Profile Purpose' },
+      { field: remoteStartTransactionData.chargingProfileKind, message: 'Please Select Charging Profile Kind' },
+      { field: remoteStartTransactionData.chargingRateUnit, message: 'Please Select Charging Rate Unit' },
+      { field: remoteStartTransactionData.startPeriod, message: 'Please Enter Start Period' },
+      { field: remoteStartTransactionData.limit, message: 'Please Enter Limit' },
     ];
 
     for (const { field, message } of fields) {
-        if (!field) {
-            this.toastr.error(message);
-            return false;
-        }
+      if (!field) {
+        this.toastr.error(message);
+        return false;
+      }
     }
 
     return true;
-}
+  }
 
-getTransactionPayload() {
+  getTransactionPayload() {
     const remoteStartTransactionData = this.remoteStartForm.value.chargingProfile;
 
     return this.firstFieldsRemoteStart ? {
-        connectorId: this.getValue(this.remoteStartForm.value.connectorId),
-        idTag: this.remoteStartForm.value.idTag,
-        chargingProfile: this.getChargingProfilePayload(remoteStartTransactionData)
+      connectorId: this.getValue(this.remoteStartForm.value.connectorId),
+      idTag: this.remoteStartForm.value.idTag,
+      chargingProfile: this.getChargingProfilePayload(remoteStartTransactionData)
     } : {
-        connectorId: this.getValue(this.remoteStartForm.value.connectorId),
-        idTag: this.remoteStartForm.value.idTag,
+      connectorId: this.getValue(this.remoteStartForm.value.connectorId),
+      idTag: this.remoteStartForm.value.idTag,
     };
-}
+  }
 
-getChargingProfilePayload(remoteStartTransactionData: any) {
+  getChargingProfilePayload(remoteStartTransactionData: any) {
     return {
-        chargingProfileId: +remoteStartTransactionData.chargingProfileId,
-        transactionId: this.getValue(remoteStartTransactionData.transactionId),
-        stackLevel: +remoteStartTransactionData.stackLevel,
-        chargingProfilePurpose: remoteStartTransactionData.chargingProfilePurpose,
-        chargingProfileKind: remoteStartTransactionData.chargingProfileKind,
-        recurrencyKind: remoteStartTransactionData.recurrencyKind,
-        validFrom: this.convertToIsoIfValid(remoteStartTransactionData.validFrom),
-        validTo: this.convertToIsoIfValid(remoteStartTransactionData.validTo),
-        chargingSchedule: this.getChargingSchedulePayload(remoteStartTransactionData)
+      chargingProfileId: +remoteStartTransactionData.chargingProfileId,
+      transactionId: this.getValue(remoteStartTransactionData.transactionId),
+      stackLevel: +remoteStartTransactionData.stackLevel,
+      chargingProfilePurpose: remoteStartTransactionData.chargingProfilePurpose,
+      chargingProfileKind: remoteStartTransactionData.chargingProfileKind,
+      recurrencyKind: remoteStartTransactionData.recurrencyKind,
+      validFrom: this.convertToIsoIfValid(remoteStartTransactionData.validFrom),
+      validTo: this.convertToIsoIfValid(remoteStartTransactionData.validTo),
+      chargingSchedule: this.getChargingSchedulePayload(remoteStartTransactionData)
     };
-}
+  }
 
-getChargingSchedulePayload(remoteStartTransactionData: any) {
+  getChargingSchedulePayload(remoteStartTransactionData: any) {
     return {
-        duration: this.getValue(remoteStartTransactionData.duration),
-        startSchedule: this.convertToIsoIfValid(remoteStartTransactionData.startSchedule),
-        chargingRateUnit: remoteStartTransactionData.chargingRateUnit,
-        chargingSchedulePeriod: {
-            startPeriod: this.getValue(remoteStartTransactionData.startPeriod),
-            limit: this.getValue(remoteStartTransactionData.limit),
-            numberPhases: this.getValue(remoteStartTransactionData.numberPhases),
-        },
-        minChargingRate: this.getValue(remoteStartTransactionData.minChargingRate),
+      duration: this.getValue(remoteStartTransactionData.duration),
+      startSchedule: this.convertToIsoIfValid(remoteStartTransactionData.startSchedule),
+      chargingRateUnit: remoteStartTransactionData.chargingRateUnit,
+      chargingSchedulePeriod: {
+        startPeriod: this.getValue(remoteStartTransactionData.startPeriod),
+        limit: this.getValue(remoteStartTransactionData.limit),
+        numberPhases: this.getValue(remoteStartTransactionData.numberPhases),
+      },
+      minChargingRate: this.getValue(remoteStartTransactionData.minChargingRate),
     };
-}
+  }
 
-convertToIsoIfValid(date: any) {
+  convertToIsoIfValid(date: any) {
     return date ? this._diagnosticsService.convertToIso(date) : undefined;
-}
+  }
 
-getValue(value: any) {
+  getValue(value: any) {
     return value ? +value : undefined;
-}
+  }
 
-isErrorFromRemoteStart(error: any) {
+  isErrorFromRemoteStart(error: any) {
     return error?.url?.includes('RemoteStartTransaction') && error?.error;
-}
+  }
 
   /**
    * Get Composite Schedule
@@ -816,7 +816,7 @@ isErrorFromRemoteStart(error: any) {
     if (this.chargerId == '') {
       this.toastr.error('Please Enter Charger Id')
       return
-    }else if (!this.hasChargerBoxId()) {
+    } else if (!this.hasChargerBoxId()) {
       this.toastr.error('Invalid Charge Box id')
       return
     }
@@ -831,10 +831,10 @@ isErrorFromRemoteStart(error: any) {
 
     let pBody = this.charingRateUnit
       ? {
-          connectorId: this.connectorID,
-          duration: this.inputDurationValue,
-          chargingRateUnit: this.charingRateUnit,
-        }
+        connectorId: this.connectorID,
+        duration: this.inputDurationValue,
+        chargingRateUnit: this.charingRateUnit,
+      }
       : { connectorId: this.connectorID, duration: this.inputDurationValue }
 
     this._diagnosticsService
@@ -865,7 +865,7 @@ isErrorFromRemoteStart(error: any) {
     if (this.chargerId == '') {
       this.toastr.error('Please Enter Charger Id')
       return
-    }else if (!this.hasChargerBoxId()) {
+    } else if (!this.hasChargerBoxId()) {
       this.toastr.error('Invalid Charge Box id')
       return
     }
@@ -901,7 +901,7 @@ isErrorFromRemoteStart(error: any) {
     if (this.chargerId == '') {
       this.toastr.error('Please Enter Charger Id')
       return
-    }else if (!this.hasChargerBoxId()) {
+    } else if (!this.hasChargerBoxId()) {
       this.toastr.error('Invalid Charge Box id')
       return
     }
@@ -964,9 +964,9 @@ isErrorFromRemoteStart(error: any) {
 
   addListTag(fbGroup?: FormGroup): void {
     this.localList = true
-    ;(this.getListVersionForm.get('listTagControls') as FormArray).push(
-      fbGroup || this.newListTag(''),
-    )
+      ; (this.getListVersionForm.get('listTagControls') as FormArray).push(
+        fbGroup || this.newListTag(''),
+      )
   }
 
   addLocalList(fbGroup?: FormGroup): void {
@@ -991,9 +991,9 @@ isErrorFromRemoteStart(error: any) {
         next: (res) => {
           this.showLoader = false
           this.rfidExpDate = res.expiryDate
-          ;(this.getListVersionForm.get('idTagControls') as FormArray).push(
-            fbGroup || this.newLocalList(this.rfidExpDate, '', ''),
-          )
+            ; (this.getListVersionForm.get('idTagControls') as FormArray).push(
+              fbGroup || this.newLocalList(this.rfidExpDate, '', ''),
+            )
         },
         error: (error) => {
           this.showLoader = false
@@ -1063,29 +1063,29 @@ isErrorFromRemoteStart(error: any) {
       return
     }
   }
-  selectOptionKey(event:any,type: string){
-   const selectedValue = event.target.value;
+  selectOptionKey(event: any, type: string) {
+    const selectedValue = event.target.value;
     // Determine which config type is being updated
     if (type === 'getConfig') {
       this.keyTypeGetConfig = selectedValue;
       // Handle getConfig logic
-      if (this.keyTypeGetConfig=="") {
+      if (this.keyTypeGetConfig == "") {
         this.toastr.error('Please Select Key');
       }
-     } else if (type === 'changeConfig') {
+    } else if (type === 'changeConfig') {
       this.keyTypeChangeConfig = selectedValue;
       // Handle changeConfig logic
-      if (this.keyTypeChangeConfig =="") {
+      if (this.keyTypeChangeConfig == "") {
         this.toastr.error('Please Select Key');
       }
-    
-   }
-   
+
+    }
+
   }
 
   showAllOption(): boolean {
-   return this.GetConfigurationKey.some((item) => item !== null && item !== undefined);
- }
+    return this.GetConfigurationKey.some((item) => item !== null && item !== undefined);
+  }
   charingRateUnit = ''
   selectChargingRateUnit(event: any) {
     this.charingRateUnit = ''
@@ -1128,7 +1128,7 @@ isErrorFromRemoteStart(error: any) {
     if (this.chargerId == '') {
       this.toastr.error('Please Enter Charger Id')
       return
-    }else if (!this.hasChargerBoxId()) {
+    } else if (!this.hasChargerBoxId()) {
       this.toastr.error('Invalid Charge Box id')
       return
     }
@@ -1357,22 +1357,22 @@ isErrorFromRemoteStart(error: any) {
   isGetLocalListVersion = false
   isUpdateFirmware = false
   isPublishFirmware = false
-  
+
 
   viewToolTipTtem(type: any) {
     if (this.chargerId === '') {
-        return;
+      return;
     }
 
     const typeActionMap = this.getTypeActionMap();
     const action = typeActionMap[type];
     if (action) {
-        action();
+      action();
     }
-}
+  }
 
- getTypeActionMap(): { [key: string]: () => void } {
-  return {
+  getTypeActionMap(): { [key: string]: () => void } {
+    return {
       isGetConfig: () => this.isGetConfigShow(),
       isClearCache: () => this.isClearCacheShow(),
       isReset: () => this.isResetShow(),
@@ -1385,8 +1385,8 @@ isErrorFromRemoteStart(error: any) {
       isSendLocalListVersion: () => this.isSendLocalListVersionShow(),
       updatefirmware: () => this.isUpdateFirmwarShow(),
       isPublishFirmware: () => {
-          this.isPublishFirmware = true;
-          this.isUpdateFirmware = false;
+        this.isPublishFirmware = true;
+        this.isUpdateFirmware = false;
       },
       isUnlock: () => this.isUnlockShow(),
       isCancelReservation: () => this.isCancelReservationShow(),
@@ -1396,87 +1396,87 @@ isErrorFromRemoteStart(error: any) {
       isDataTransfer: () => this.isDataTransferShow(),
       isClearChargingProfile: () => this.isClearChargingProfileShow(),
       setCharging: () => this.setChargingShow(),
-  };
-}
+    };
+  }
 
 
 
 
 
-  setChargingShow(){
+  setChargingShow() {
     this.isGetLocalListVersion = false
-      this.isSendLocalListVersion = false
-      this.isDataTransfer = false
-      this.firstFields = false
-      this.secondFields = false
-      this.thirdFields = false
-      this.isGetConfig = false
-      this.isReset = false
-      this.isClearCache = false
-      this.isChangeConfiguration = false
-      this.isRemoteStopTransaction = false
-      this.isChangeAvailability = false
-      this.isRemoteStartTransaction = false
-      this.isGetCompositeSchedule = false
-      this.isClearChargingProfile = false
-      this.isUnlock = false
-      this.isCancelReservation = false
-      this.isReserveNow = false
-      this.isDiagnosticsItem = false
-      this.isDiagnostics = false
-      this.isUpdateFirmware = false
-      this.isSetCharging = true
-      this._storageService.setSessionData('start', 'true')
+    this.isSendLocalListVersion = false
+    this.isDataTransfer = false
+    this.firstFields = false
+    this.secondFields = false
+    this.thirdFields = false
+    this.isGetConfig = false
+    this.isReset = false
+    this.isClearCache = false
+    this.isChangeConfiguration = false
+    this.isRemoteStopTransaction = false
+    this.isChangeAvailability = false
+    this.isRemoteStartTransaction = false
+    this.isGetCompositeSchedule = false
+    this.isClearChargingProfile = false
+    this.isUnlock = false
+    this.isCancelReservation = false
+    this.isReserveNow = false
+    this.isDiagnosticsItem = false
+    this.isDiagnostics = false
+    this.isUpdateFirmware = false
+    this.isSetCharging = true
+    this._storageService.setSessionData('start', 'true')
   }
 
-  isClearChargingProfileShow(){
+  isClearChargingProfileShow() {
     this.isClearChargingProfile = true
-      this.isGetLocalListVersion = false
-      this.isSendLocalListVersion = false
-      this.isRemoteStopTransaction = false
-      this.isRemoteStartTransaction = false
-      this.isChangeAvailability = false
-      this.isGetConfig = false
-      this.isReset = false
-      this.isDataTransfer = false
-      this.isClearCache = false
-      this.isChangeConfiguration = false
-      this.isGetCompositeSchedule = false
-      this.isUnlock = false
-      this.isCancelReservation = false
-      this.isReserveNow = false
-      this.isDiagnosticsItem = false
-      this.isDiagnostics = false
-      this.isUpdateFirmware = false
-      this.isSetCharging = false
-      this._storageService.removeSessionData('start')
+    this.isGetLocalListVersion = false
+    this.isSendLocalListVersion = false
+    this.isRemoteStopTransaction = false
+    this.isRemoteStartTransaction = false
+    this.isChangeAvailability = false
+    this.isGetConfig = false
+    this.isReset = false
+    this.isDataTransfer = false
+    this.isClearCache = false
+    this.isChangeConfiguration = false
+    this.isGetCompositeSchedule = false
+    this.isUnlock = false
+    this.isCancelReservation = false
+    this.isReserveNow = false
+    this.isDiagnosticsItem = false
+    this.isDiagnostics = false
+    this.isUpdateFirmware = false
+    this.isSetCharging = false
+    this._storageService.removeSessionData('start')
   }
 
-  isDataTransferShow(){
+  isDataTransferShow() {
     this.isDataTransfer = true
-      this.isUpdateFirmware = false
-      this.isGetLocalListVersion = true
-      this.isSendLocalListVersion = false
-      this.isClearChargingProfile = false
-      this.isRemoteStopTransaction = false
-      this.isRemoteStartTransaction = false
-      this.isChangeAvailability = false
-      this.isGetConfig = false
-      this.isReset = false
-      this.isClearCache = false
-      this.isChangeConfiguration = false
-      this.isGetCompositeSchedule = false
-      this.isUnlock = false
-      this.isCancelReservation = false
-      this.isReserveNow = false
-      this.isDiagnosticsItem = false
-      this.isTriggerMess = false
-      this.isDiagnostics = true
-      this.isSetCharging = false
-      this._storageService.removeSessionData('start')
+    this.isUpdateFirmware = false
+    this.isGetLocalListVersion = true
+    this.isSendLocalListVersion = false
+    this.isClearChargingProfile = false
+    this.isRemoteStopTransaction = false
+    this.isRemoteStartTransaction = false
+    this.isChangeAvailability = false
+    this.isGetConfig = false
+    this.isReset = false
+    this.isClearCache = false
+    this.isChangeConfiguration = false
+    this.isGetCompositeSchedule = false
+    this.isUnlock = false
+    this.isCancelReservation = false
+    this.isReserveNow = false
+    this.isDiagnosticsItem = false
+    this.isTriggerMess = false
+    this.isDiagnostics = true
+    this.isSetCharging = false
+    this._storageService.removeSessionData('start')
   }
 
-  getDiagnosticsShow(){
+  getDiagnosticsShow() {
     this.isUpdateFirmware = false
     this.isGetLocalListVersion = true
     this.isSendLocalListVersion = false
@@ -1501,82 +1501,82 @@ isErrorFromRemoteStart(error: any) {
   }
 
 
-  triggerMessageShow(){
+  triggerMessageShow() {
     this.isUpdateFirmware = false
-      this.isGetLocalListVersion = false
-      this.isTriggerMess = true
-      this.isSendLocalListVersion = false
-      this.isDataTransfer = false
-      this.isRemoteStopTransaction = false
-      this.isRemoteStartTransaction = false
-      this.isChangeAvailability = false
-      this.isGetConfig = false
-      this.isReset = false
-      this.isClearCache = false
-      this.isClearChargingProfile = false
-      this.isChangeConfiguration = false
-      this.isGetCompositeSchedule = false
-      this.isUnlock = false
-      this.isCancelReservation = false
-      this.isReserveNow = false
-      // this.isDiagnosticsItem = true;
-      this.isTriggerMess = true
-      this.isDiagnostics = false
-      this.isSetCharging = false
-      this._storageService.removeSessionData('start')
-  }
-
-  isReserveNowShow(){
-    const array = new Uint32Array(1);
-      window.crypto.getRandomValues(array);
-      this.randomSixDigit = 100000 + (array[0] % 900000)
-      // this.randomSixDigit = Math.floor(100000 + Math.random() * 900000)
-      this.isGetLocalListVersion = false
-      this.isSendLocalListVersion = false
-      this.isRemoteStopTransaction = false
-      this.isRemoteStartTransaction = false
-      this.isChangeAvailability = false
-      this.isDataTransfer = false
-      this.isGetConfig = false
-      this.isClearChargingProfile = false
-      this.isReset = false
-      this.isClearCache = false
-      this.isChangeConfiguration = false
-      this.isGetCompositeSchedule = false
-      this.isUnlock = false
-      this.isCancelReservation = false
-      this.isReserveNow = true
-      this.isDiagnosticsItem = false
-      this.isDiagnostics = false
-      this.isUpdateFirmware = false
-      this.isSetCharging = false
-      this._storageService.removeSessionData('start')
-  }
-
-  isCancelReservationShow(){
     this.isGetLocalListVersion = false
-      this.isSendLocalListVersion = false
-      this.isRemoteStopTransaction = false
-      this.isRemoteStartTransaction = false
-      this.isChangeAvailability = false
-      this.isGetConfig = false
-      this.isReset = false
-      this.isClearChargingProfile = false
-      this.isClearCache = false
-      this.isDataTransfer = false
-      this.isChangeConfiguration = false
-      this.isGetCompositeSchedule = false
-      this.isUnlock = false
-      this.isCancelReservation = true
-      this.isDiagnosticsItem = false
-      this.isReserveNow = false
-      this.isDiagnostics = false
-      this.isUpdateFirmware = false
-      this.isSetCharging = false
-      this._storageService.removeSessionData('start')
+    this.isTriggerMess = true
+    this.isSendLocalListVersion = false
+    this.isDataTransfer = false
+    this.isRemoteStopTransaction = false
+    this.isRemoteStartTransaction = false
+    this.isChangeAvailability = false
+    this.isGetConfig = false
+    this.isReset = false
+    this.isClearCache = false
+    this.isClearChargingProfile = false
+    this.isChangeConfiguration = false
+    this.isGetCompositeSchedule = false
+    this.isUnlock = false
+    this.isCancelReservation = false
+    this.isReserveNow = false
+    // this.isDiagnosticsItem = true;
+    this.isTriggerMess = true
+    this.isDiagnostics = false
+    this.isSetCharging = false
+    this._storageService.removeSessionData('start')
   }
 
-  isUnlockShow(){
+  isReserveNowShow() {
+    const array = new Uint32Array(1);
+    window.crypto.getRandomValues(array);
+    this.randomSixDigit = 100000 + (array[0] % 900000)
+    // this.randomSixDigit = Math.floor(100000 + Math.random() * 900000)
+    this.isGetLocalListVersion = false
+    this.isSendLocalListVersion = false
+    this.isRemoteStopTransaction = false
+    this.isRemoteStartTransaction = false
+    this.isChangeAvailability = false
+    this.isDataTransfer = false
+    this.isGetConfig = false
+    this.isClearChargingProfile = false
+    this.isReset = false
+    this.isClearCache = false
+    this.isChangeConfiguration = false
+    this.isGetCompositeSchedule = false
+    this.isUnlock = false
+    this.isCancelReservation = false
+    this.isReserveNow = true
+    this.isDiagnosticsItem = false
+    this.isDiagnostics = false
+    this.isUpdateFirmware = false
+    this.isSetCharging = false
+    this._storageService.removeSessionData('start')
+  }
+
+  isCancelReservationShow() {
+    this.isGetLocalListVersion = false
+    this.isSendLocalListVersion = false
+    this.isRemoteStopTransaction = false
+    this.isRemoteStartTransaction = false
+    this.isChangeAvailability = false
+    this.isGetConfig = false
+    this.isReset = false
+    this.isClearChargingProfile = false
+    this.isClearCache = false
+    this.isDataTransfer = false
+    this.isChangeConfiguration = false
+    this.isGetCompositeSchedule = false
+    this.isUnlock = false
+    this.isCancelReservation = true
+    this.isDiagnosticsItem = false
+    this.isReserveNow = false
+    this.isDiagnostics = false
+    this.isUpdateFirmware = false
+    this.isSetCharging = false
+    this._storageService.removeSessionData('start')
+  }
+
+  isUnlockShow() {
     this.isGetLocalListVersion = false
     this.isSendLocalListVersion = false
     this.isClearChargingProfile = false
@@ -1601,31 +1601,31 @@ isErrorFromRemoteStart(error: any) {
   }
 
 
-  isUpdateFirmwarShow(){
+  isUpdateFirmwarShow() {
     this.isUpdateFirmware = true
-      this.isPublishFirmware = false
-      this.isGetLocalListVersion = false
-      this.isDataTransfer = false
-      this.isSendLocalListVersion = false
-      this.isRemoteStopTransaction = false
-      this.isClearChargingProfile = false
-      this.isRemoteStartTransaction = false
-      this.isChangeAvailability = false
-      this.isGetConfig = false
-      this.isReset = false
-      this.isClearCache = false
-      this.isChangeConfiguration = false
-      this.isGetCompositeSchedule = false
-      this.isUnlock = false
-      this.isDiagnosticsItem = false
-      this.isCancelReservation = false
-      this.isReserveNow = false
-      this.isDiagnostics = false
-      this.isSetCharging = false
-      this._storageService.removeSessionData('start')
+    this.isPublishFirmware = false
+    this.isGetLocalListVersion = false
+    this.isDataTransfer = false
+    this.isSendLocalListVersion = false
+    this.isRemoteStopTransaction = false
+    this.isClearChargingProfile = false
+    this.isRemoteStartTransaction = false
+    this.isChangeAvailability = false
+    this.isGetConfig = false
+    this.isReset = false
+    this.isClearCache = false
+    this.isChangeConfiguration = false
+    this.isGetCompositeSchedule = false
+    this.isUnlock = false
+    this.isDiagnosticsItem = false
+    this.isCancelReservation = false
+    this.isReserveNow = false
+    this.isDiagnostics = false
+    this.isSetCharging = false
+    this._storageService.removeSessionData('start')
   }
 
-  isSendLocalListVersionShow(){
+  isSendLocalListVersionShow() {
     this.isGetLocalListVersion = false
     this.isRemoteStopTransaction = false
     this.isRemoteStartTransaction = false
@@ -1650,7 +1650,7 @@ isErrorFromRemoteStart(error: any) {
     this._storageService.removeSessionData('start')
 
   }
-  isGetLocalListVersionShow(){
+  isGetLocalListVersionShow() {
     this.isGetLocalListVersion = true
     this.isClearChargingProfile = false
     this.isSendLocalListVersion = false
@@ -1673,7 +1673,7 @@ isErrorFromRemoteStart(error: any) {
     this._storageService.removeSessionData('start')
 
   }
-  isGetCompositeScheduleShow(){
+  isGetCompositeScheduleShow() {
 
     this.isGetLocalListVersion = false
     this.isSendLocalListVersion = false
@@ -1695,11 +1695,11 @@ isErrorFromRemoteStart(error: any) {
     this.isUpdateFirmware = false
     this.isSetCharging = false
     this._storageService.removeSessionData('start')
-    
+
   }
 
 
-  isGetConfigShow(){
+  isGetConfigShow() {
     this.isGetConfig = true
     this.isClearCache = false
     this.isReset = false
@@ -1722,7 +1722,7 @@ isErrorFromRemoteStart(error: any) {
     this._storageService.removeSessionData('start')
   }
 
-  isClearCacheShow(){
+  isClearCacheShow() {
     this.isGetLocalListVersion = false
     this.isSendLocalListVersion = false
     this.isClearChargingProfile = false
@@ -1745,7 +1745,7 @@ isErrorFromRemoteStart(error: any) {
     this._storageService.removeSessionData('start')
   }
 
-   isResetShow(){
+  isResetShow() {
     this.isGetLocalListVersion = false
     this.isSendLocalListVersion = false
     this.isReset = true
@@ -1766,34 +1766,34 @@ isErrorFromRemoteStart(error: any) {
     this.isUpdateFirmware = false
     this.isSetCharging = false
     this._storageService.removeSessionData('start')
-   }
+  }
 
 
-   isChangeConfigurationShow(){
+  isChangeConfigurationShow() {
     this.isGetLocalListVersion = false
-      this.isSendLocalListVersion = false
-      this.isChangeConfiguration = true
-      this.isGetConfig = false
-      this.isReset = false
-      this.isDataTransfer = false
-      this.isClearChargingProfile = false
-      this.isClearCache = false
-      this.isChangeAvailability = false
-      this.isRemoteStopTransaction = false
-      this.isRemoteStartTransaction = false
-      this.isGetCompositeSchedule = false
-      this.isUnlock = false
-      this.isCancelReservation = false
-      this.isReserveNow = false
-      this.isDiagnosticsItem = false
-      this.isDiagnostics = false
-      this.isUpdateFirmware = false
-      this.isSetCharging = false
-      this._storageService.removeSessionData('start')
-   }
+    this.isSendLocalListVersion = false
+    this.isChangeConfiguration = true
+    this.isGetConfig = false
+    this.isReset = false
+    this.isDataTransfer = false
+    this.isClearChargingProfile = false
+    this.isClearCache = false
+    this.isChangeAvailability = false
+    this.isRemoteStopTransaction = false
+    this.isRemoteStartTransaction = false
+    this.isGetCompositeSchedule = false
+    this.isUnlock = false
+    this.isCancelReservation = false
+    this.isReserveNow = false
+    this.isDiagnosticsItem = false
+    this.isDiagnostics = false
+    this.isUpdateFirmware = false
+    this.isSetCharging = false
+    this._storageService.removeSessionData('start')
+  }
 
 
-   isChangeAvailabilityShow(){
+  isChangeAvailabilityShow() {
     this.isGetLocalListVersion = false
     this.isSendLocalListVersion = false
     this.isChangeAvailability = true
@@ -1814,9 +1814,9 @@ isErrorFromRemoteStart(error: any) {
     this.isUpdateFirmware = false
     this.isSetCharging = false
     this._storageService.removeSessionData('start')
-   }
+  }
 
-   isRemoteStopTransactionShow(){
+  isRemoteStopTransactionShow() {
     this.isGetLocalListVersion = false
     this.isSendLocalListVersion = false
     this.isChangeAvailability = false
@@ -1836,33 +1836,33 @@ isErrorFromRemoteStart(error: any) {
     this.isDiagnostics = false
     this.isSetCharging = false
     this._storageService.removeSessionData('start')
-   }
+  }
 
-   isRemoteStartTransactionShow(){
+  isRemoteStartTransactionShow() {
     this.firstFieldsRemoteStart = false
-      this.secondFieldsRemoteStart = false
-      this.thirdFieldsRemoteStart = false
-      this.isGetLocalListVersion = false
-      this.isSendLocalListVersion = false
-      this.isChangeAvailability = false
-      this.isGetConfig = false
-      this.isReset = false
-      this.isClearCache = false
-      this.isClearChargingProfile = false
-      this.isChangeConfiguration = false
-      this.isDataTransfer = false
-      this.isRemoteStopTransaction = false
-      this.isRemoteStartTransaction = true
-      this.isGetCompositeSchedule = false
-      this.isUnlock = false
-      this.isCancelReservation = false
-      this.isReserveNow = false
-      this.isDiagnosticsItem = false
-      this.isDiagnostics = false
-      this.isUpdateFirmware = false
-      this.isSetCharging = false
-      this._storageService.removeSessionData('start')
-   }
+    this.secondFieldsRemoteStart = false
+    this.thirdFieldsRemoteStart = false
+    this.isGetLocalListVersion = false
+    this.isSendLocalListVersion = false
+    this.isChangeAvailability = false
+    this.isGetConfig = false
+    this.isReset = false
+    this.isClearCache = false
+    this.isClearChargingProfile = false
+    this.isChangeConfiguration = false
+    this.isDataTransfer = false
+    this.isRemoteStopTransaction = false
+    this.isRemoteStartTransaction = true
+    this.isGetCompositeSchedule = false
+    this.isUnlock = false
+    this.isCancelReservation = false
+    this.isReserveNow = false
+    this.isDiagnosticsItem = false
+    this.isDiagnostics = false
+    this.isUpdateFirmware = false
+    this.isSetCharging = false
+    this._storageService.removeSessionData('start')
+  }
 
   control = new FormControl('')
   streets = []
@@ -1949,10 +1949,10 @@ isErrorFromRemoteStart(error: any) {
     if (this.chargerId == '') {
       this.toastr.error('Please Enter Charger Id')
       return
-    }else if (!this.hasChargerBoxId()) {
+    } else if (!this.hasChargerBoxId()) {
       this.toastr.error('Invalid Charge Box id')
       return
-    }else if (connectorID == 0) {
+    } else if (connectorID == 0) {
       this.toastr.error('Please Select Connector ID')
       return
     }
@@ -1989,7 +1989,7 @@ isErrorFromRemoteStart(error: any) {
     } else if (!this.hasChargerBoxId()) {
       this.toastr.error('Invalid Charge Box id')
       return
-    }  else if (this.inputReserveTag.length == 0) {
+    } else if (this.inputReserveTag.length == 0) {
       this.toastr.error('Please Enter ReservationId')
       return
     }
@@ -2041,7 +2041,7 @@ isErrorFromRemoteStart(error: any) {
     if (this.chargerId == '') {
       this.toastr.error('Please Enter Charger Id')
       return
-    }else if (!this.hasChargerBoxId()) {
+    } else if (!this.hasChargerBoxId()) {
       this.toastr.error('Invalid Charge Box id')
       return
     } else if (this.expiryDate == '') {
@@ -2104,7 +2104,7 @@ isErrorFromRemoteStart(error: any) {
     if (this.chargerId == '') {
       this.toastr.error('Please Enter Charger Id')
       return
-    }else if (!this.hasChargerBoxId()) {
+    } else if (!this.hasChargerBoxId()) {
       this.toastr.error('Invalid Charge Box id')
       return
     } else if (this.vendorId == '') {
@@ -2138,7 +2138,7 @@ isErrorFromRemoteStart(error: any) {
     if (this.chargerId == '') {
       this.toastr.error('Please Enter Charger Id')
       return
-    }else if (!this.hasChargerBoxId()) {
+    } else if (!this.hasChargerBoxId()) {
       this.toastr.error('Invalid Charge Box id')
       return
     } else if (this.reqMessType == '') {
@@ -2150,12 +2150,12 @@ isErrorFromRemoteStart(error: any) {
     pBody =
       connectorID > 0
         ? {
-            connectorId: connectorID,
-            requestedMessage: this.reqMessType,
-          }
+          connectorId: connectorID,
+          requestedMessage: this.reqMessType,
+        }
         : {
-            requestedMessage: this.reqMessType,
-          }
+          requestedMessage: this.reqMessType,
+        }
 
     this._diagnosticsService.triggerMessage(this.chargerId, pBody).subscribe({
       next: (res) => {
@@ -2254,7 +2254,7 @@ isErrorFromRemoteStart(error: any) {
     if (this.chargerId == '') {
       this.toastr.error('Please Enter Charger Id')
       return
-    }else if (!this.hasChargerBoxId()) {
+    } else if (!this.hasChargerBoxId()) {
       this.toastr.error('Invalid Charge Box id')
       return
     } else if (this.enterLocationValue.length == 0) {
@@ -2321,7 +2321,7 @@ isErrorFromRemoteStart(error: any) {
     if (this.chargerId == '') {
       this.toastr.error('Please Enter Charger Id')
       return
-    }else if (!this.hasChargerBoxId()) {
+    } else if (!this.hasChargerBoxId()) {
       this.toastr.error('Invalid Charge Box id')
       return
     } else if (this.enterLocationValue.length == 0) {
@@ -2421,7 +2421,7 @@ isErrorFromRemoteStart(error: any) {
       // panelClass: 'my-dialog-container-class2',
       data: { id: id },
     })
-    dialogRef.afterClosed().subscribe((result) => {})
+    dialogRef.afterClosed().subscribe((result) => { })
   }
 
   createSetCharging() {
@@ -2462,14 +2462,14 @@ isErrorFromRemoteStart(error: any) {
    * Submit SetCharging Cmd
    */
   submitted = false
-  
+
   submitSetCharging() {
     this.submitted = true;
-  
+
     if (!this.validateForm()) return;
-  
+
     const pBody = this.buildChargingProfilePayload();
-  
+
     this._diagnosticsService.SetChargingProfile(this.chargerId, pBody).subscribe({
       next: (res) => {
         this.showLoader = true;
@@ -2485,15 +2485,15 @@ isErrorFromRemoteStart(error: any) {
       },
     });
   }
-  
+
   private validateForm(): boolean {
     if (!this.chargerId) {
       this.toastr.error('Please Enter Charger Id');
       return false;
     }
-  
+
     const { csChargingProfiles, connectorId } = this.setChargingForm.value;
-  
+
     if (!connectorId) {
       this.toastr.error('Please Select Connector Id');
       return false;
@@ -2526,14 +2526,14 @@ isErrorFromRemoteStart(error: any) {
       this.toastr.error('Please Enter Limit');
       return false;
     }
-  
+
     return true;
   }
-  
+
   private buildChargingProfilePayload() {
     const chargingProfileData = this.setChargingForm.value.csChargingProfiles;
     const convertToIso = this._diagnosticsService.convertToIso.bind(this._diagnosticsService);
-  
+
     return {
       connectorId: +this.setChargingForm.value.connectorId,
       csChargingProfiles: {
@@ -2559,7 +2559,7 @@ isErrorFromRemoteStart(error: any) {
       },
     };
   }
-  
+
 
   /****
    * Remote Start Transaction Create
@@ -2589,7 +2589,7 @@ isErrorFromRemoteStart(error: any) {
     })
   }
   /** TO Match Chargerbox ID Is Coming In Drop Down OR NOT */
-   hasChargerBoxId() {
+  hasChargerBoxId() {
     let ind = 0
 
     ind = this.chargerBoxIdArr?.findIndex(

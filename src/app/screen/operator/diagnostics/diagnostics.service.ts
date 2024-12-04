@@ -327,7 +327,7 @@ export class DiagnosticsService {
       '((\\d{1,3}\\.){3}\\d{1,3}))' + // validate OR ip (v4) address
       '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // validate port and path
       '(\\?[;&a-z\\d%_.~+=-]*)?' + // validate query string
-        '(\\#[-a-z\\d_]*)?$',
+      '(\\#[-a-z\\d_]*)?$',
       'i',
     )
     return url.match(urlPattern)
@@ -379,18 +379,18 @@ export class DiagnosticsService {
   }
 
 
-   /**
-   * Get ConfigurationKey
-   * @param params
-   * @param requestbody
-   * @returns
-   */
+  /**
+  * Get ConfigurationKey
+  * @param params
+  * @param requestbody
+  * @returns
+  */
 
-   GetConfigurationKey(): Observable<{ key: string[] }> {
-      return this._http.post<{ key: string[] }>(
-        `${this.url}api/ConfigurationKey/ConfigurationKey`,
-        {}
-      );
-    }
+  GetConfigurationKey(): Observable<{ key: string[] }> {
+    return this._http.post<{ key: string[] }>(
+      `${this.url}api/ConfigurationKey/ConfigurationKey`,
+      {}
+    );
+  }
 }
 
