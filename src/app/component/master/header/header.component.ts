@@ -21,6 +21,7 @@ export class HeaderComponent implements OnInit {
   profileImg: any
   imageSubscription: any
   notificationSubscription: any
+  isAdmin: boolean = false;
 
   constructor(
     public _headerService: HeaderService,
@@ -46,7 +47,9 @@ export class HeaderComponent implements OnInit {
     if (this.role == 'Operator') {
       this.GetNotificationCountsByUserid()
     }
-
+    
+    this.isAdmin = this.role === 'Admin'; 
+    
     /**
      * SUBJECT CALL ON IMAGE UPLOAD
      */

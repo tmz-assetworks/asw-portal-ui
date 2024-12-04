@@ -28,7 +28,11 @@ import { DiagWidgetBarComponent } from '../component/diagnostic/diag-widget-bar/
 import { MatTableComponent } from '../component/dashboard/mat-table/mat-table.component'
 import { ToolTipComponent } from '../component/diagnostic/tool-tip/tool-tip.component'
 import { ToolTipItemComponent } from '../component/diagnostic/tool-tip-item/tool-tip-item.component'
-
+import {
+  NgxMatDatetimePickerModule,
+  NgxMatTimepickerModule,
+  NgxMatNativeDateModule,
+} from '@angular-material-components/datetime-picker'
 @NgModule({
   imports: [
     NavigationModule,
@@ -41,6 +45,9 @@ import { ToolTipItemComponent } from '../component/diagnostic/tool-tip-item/tool
     SharedMaterialModule,
     CommonModule,
     RouterModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule
   ],
   exports: [
     FormsModule,

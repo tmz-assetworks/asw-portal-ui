@@ -11,14 +11,14 @@
 </div>
 <!-- loader end -->
 <div class="header-block7 layout">
-  <div class="header-block8 layout">
+  <div [ngClass]="isAdmin ? 'headerAdmin':'header-block8 layout'">
     <div class="header-section1">
       <div class="header-block8-item">
         <div class="header-block9 layout">
           <div class="header-block9-item">
             <img
               id="900923"
-              src="../../../../assets/Toggle-btn.svg"
+              [src]="isAdmin ? '../../../../assets/Toggle-btnForAdmin.svg' : '../../../../assets/Toggle-btn.svg'"
               class="header-box2 layout"
               (click)="toggleNav()"
             />
@@ -33,10 +33,7 @@
       </div>
     </div>
     <div class="header-section2">
-      <div class="header-block8-spacer"></div>
-      <div class="header-block8-item1">
-        <div class="header-box4 layout"></div>
-      </div>
+      
 
       <div *ngIf="role == 'Operator'" class="txt_menu" [routerLink]="['alerts']" [queryParams]="{type: 'notification'}">
         <img src="../../../../assets/images/bell.png" />

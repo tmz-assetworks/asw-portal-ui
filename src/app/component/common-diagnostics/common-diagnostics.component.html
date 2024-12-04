@@ -1,0 +1,1482 @@
+<div class="loader" *ngIf="showLoader">
+  <div>
+    <img src="../../../assets/images/myloader.gif" alt="" class="margin" width="18%" height="22%" />
+  </div>
+</div>
+<div class="header header-block layout charger-diagnostics">
+  <div class="header-block1 layout">
+    <div class="header-flex layout">
+      <h1 class="header-subtitle-box layout">{{ (chargerId!='' && isChargerDiagnostics)?chargerId:'Diagnostics' }}</h1>
+      <div class="location-block2 layout" *ngIf="chargerId!='' && isChargerDiagnostics">
+        <div class="location-block2-item">
+          <div class="location-block4 layout">
+            <div class="location-block4-item" *ngFor="let item of chargerDeteailTab">
+              <div class="{{ item?.text === 'DIAGNOSTIC' ? 'location-block6 layout' : 'location-block5 layout' }}">
+                <a [routerLink]="[item?.link]">
+                  <div class="location-text-body layout">{{item?.text}}</div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="location-block2-spacer"></div>
+        <div class="location-block2-item1">
+          <div class="location-block3 layout" style="
+                display: flex;
+                flex-direction: column;
+                background-color: #ebebeb;
+                border-left: 1px solid white;
+              ">
+            <div class="location-box3 layout">
+              <img src="../../../../../assets/charger-diago.svg" alt="" srcset="" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cust-list-flex1 layout" *ngIf="chargerId!='' && isChargerDiagnostics">
+        <div class="cust-list-flex3 layout">
+          <div class="cust-list-flex3-item">
+            <div class="cust-list-group layout">
+              <div class="cust-list-block19 layout">
+                <div style="text-align: left; margin: 12px 0px 0px 17px;">
+                  {{ chargerId }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cust-list-flex3-spacer"></div>
+        </div>
+      </div>
+      <div class="cust-list-flex1" *ngIf="!isChargerDiagnostics">
+        <div class="cust-list-group layout">
+          <div class="cust-list-block19 layout">
+            <div class="cust-list-block20 layout">
+              <input type="text" class="cust-list-text-body21 layout" placeholder="Enter Charge Box ID"
+                [formControl]="control" [matAutocomplete]="auto" #ChargerName
+                (keyup)="removeFilter($event, ChargerName)" />
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option (onSelectionChange)="selectCharger($event, item.chargeboxid)"
+                  *ngFor="let item of filteredStreets | async" [value]="item.chargeboxid">
+                  {{ item.chargeboxid }}
+                </mat-option>
+              </mat-autocomplete>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <app-diag-widget-bar>
+        <app-diag-widget (click)="viewToolTip('provisioning')" (keydown.enter)="viewToolTip('provisioning')"
+          [isProvisioning]="isProvisioning" style="cursor: pointer; border-left: 1px solid #aea4a4;" class="wd_sub_1"
+          id="provisioningWidget">
+          <img class="img" alt="proising" src="assets/images/provising.png" />
+          <div class="text">Provisioning</div>
+        </app-diag-widget>
+
+        <app-diag-widget class="wd_sub_1" (click)="viewToolTip('authorization')" [isAuthorization]="isAuthorization"
+          (keydown.enter)="viewToolTip('authorization')" id="Authorization">
+          <img class="img" src="assets/images/authrization.png" alt="" />
+          <div class="text">Authorization</div>
+        </app-diag-widget>
+
+        <app-diag-widget class="wd_sub_1" (click)="viewToolTip('remoteControl')"
+          (keydown.enter)="viewToolTip('remoteControl')" [isRemoteControl]="isRemoteControl" id="Remote Control">
+          <img class="img" src="assets/images/remotecontrol.png" alt="" />
+          <div class="text">Remote Control</div>
+        </app-diag-widget>
+
+        <app-diag-widget class="wd_sub_1" (click)="viewToolTip('smartcharging')" [isSmartCharging]="isSmartCharging"
+          (keydown.enter)="viewToolTip('smartcharging')" id="Smart Charging">
+          <img class="img" src="assets/images/smartcharging.png" alt="" />
+          <div class="text">Smart Charging</div>
+        </app-diag-widget>
+        <app-diag-widget (click)="viewToolTip('fireware')" [isFireWareItem]="isFireWareItem" class="wd_sub_1"
+          (keydown.enter)="viewToolTip('fireware')" id="Firmware Management">
+          <img class="img" src="../../../../assets/logo-collapse1.svg" alt="" />
+          <div class="text">Firmware Management</div>
+        </app-diag-widget>
+
+
+        <ng-container *ngIf="isProvisioning">
+          <app-tool-tip class="wd_sub_1 tool_alignP tool-tip-11">
+            <div class="title modal-title">
+              Provisioning
+              <span class="close-icon" (keydown.enter)="closePopup()" (click)="closePopup()">X</span>
+            </div>
+
+            <app-tool-tip-item class="item" (keydown.enter)="showMessage('getconfig'); viewToolTipTtem('isGetConfig')"
+              (click)="showMessage('getconfig'); viewToolTipTtem('isGetConfig')" [isGetConfig]="isGetConfig"
+              id="isGetConfig">
+              <div class="title">GetConfiguration</div>
+              <img class="img" style="width: 100%; height: 100%;"
+                src="../../../../assets/diagnostic/getConfiguration.png" alt="" />
+            </app-tool-tip-item>
+
+            <app-tool-tip-item class="item" (click)="clearCache(); viewToolTipTtem('isClearCache')"
+              [isClearCache]="isClearCache" (keydown.enter)="clearCache(); viewToolTipTtem('isClearCache')"
+              id="ClearCache">
+              <div class="title">ClearCache</div>
+              <img class="img" alt="" style="width: 100%; height: 100%;"
+                src="../../../../assets/diagnostic/clearCache.png" />
+            </app-tool-tip-item>
+            <app-tool-tip-item class="item" (click)="showMessage('reset'); viewToolTipTtem('isReset')"
+              [isReset]="isReset" (keydown.enter)="showMessage('reset'); viewToolTipTtem('isReset')" id="Reset">
+              <div class="title">Reset</div>
+              <img alt="" class="img" style="width: 100%; height: 100%;"
+                src="../../../../assets/diagnostic/reset.png" />
+            </app-tool-tip-item>
+            <app-tool-tip-item class="item" (click)="
+                  showMessage('changeconfig');
+                  viewToolTipTtem('isChangeConfiguration')
+                " [isChangeConfiguration]="isChangeConfiguration" (keydown.enter)="showMessage('changeconfig');
+                viewToolTipTtem('isChangeConfiguration')" id="ChangeConfiguration">
+              <div class="title">ChangeConfiguration</div>
+              <img class="img" alt="" style="width: 100%; height: 100%;"
+                src="../../../../assets/diagnostic/changeConfiguration.png" />
+            </app-tool-tip-item>
+
+            <app-tool-tip-item class="item" (click)="
+                  showMessage('change'); viewToolTipTtem('isChangeAvailability')
+                " [isChangeAvailability]="isChangeAvailability"
+              (keydown.enter)="showMessage('change'); viewToolTipTtem('isChangeAvailability')" id="ChangeAvailability">
+              <div class="title">ChangeAvailability</div>
+              <img class="img" alt="" style="width: 100%; height: 100%;"
+                src="../../../../assets/diagnostic/changeAvailability.png" />
+            </app-tool-tip-item>
+            <app-tool-tip-item class="item" (click)="
+                  showMessage('datatransfer'); viewToolTipTtem('isDataTransfer')
+                " (keydown.enter)="showMessage('datatransfer'); viewToolTipTtem('isDataTransfer')"
+              [isDataTransfer]="isDataTransfer" id="DataTransfer">
+              <div class="title">DataTransfer</div>
+              <img class="img" alt="" style="width: 100%; height: 100%;"
+                src="../../../../assets/Operator/Diagnostics-Icon/Datatransfer.svg" />
+            </app-tool-tip-item>
+          </app-tool-tip>
+        </ng-container>
+
+
+        <ng-container *ngIf="isAuthorization">
+          <app-tool-tip class="wd_sub_1 tool_alignAuth tool-tip-2">
+            <div class="title modal-title">
+              Authorization
+              <span class="close-icon auth-close close1" (click)="closePopup()" (keydown.enter)="closePopup()">
+                X
+              </span>
+            </div>
+
+            <app-tool-tip-item class="item" (click)="
+                  getLocalListVersion(); viewToolTipTtem('isGetLocalListVersion')
+                " [isGetLocalListVersion]="isGetLocalListVersion"
+              (keydown.enter)="getLocalListVersion(); viewToolTipTtem('isGetLocalListVersion')"
+              id="GetLocalListVersion">
+              <div class="title">GetLocalListVersion</div>
+              <img class="img" alt="" style="width: 100%; height: 100%;"
+                src="../../../../../assets/Operator/Diagnostics-Icon/GetLocalListVersion.svg" />
+            </app-tool-tip-item>
+            <app-tool-tip-item class="item" (click)="
+                  showMessage('sendlocal');
+                  viewToolTipTtem('isSendLocalListVersion')
+                " [isSendLocalListVersion]="isSendLocalListVersion" (keydown.enter)=" showMessage('sendlocal');
+                viewToolTipTtem('isSendLocalListVersion')" id="SendLocalListRequest">
+              <div class="title">SendLocalListRequest</div>
+              <img class="img" alt="" style="width: 100%; height: 100%;"
+                src="../../../../../assets/Operator/Diagnostics-Icon/SendLocalListRequest.svg" />
+            </app-tool-tip-item>
+          </app-tool-tip>
+        </ng-container>
+
+
+        <ng-container *ngIf="isRemoteControl">
+          <app-tool-tip class="wd_sub_1 tool_alignRC tool-tip-3">
+            <div class="title modal-title">
+              Remote Control
+              <span class="close-icon close5" (keydown.enter)="closePopup()" (click)="closePopup()">X</span>
+            </div>
+
+            <app-tool-tip-item class="item" (click)="
+                  showMessage('start');
+                  viewToolTipTtem('isRemoteStartTransaction')
+                " [isRemoteStartTransaction]="isRemoteStartTransaction" (keydown.enter)="showMessage('start');
+                viewToolTipTtem('isRemoteStartTransaction')" id="RemoteStartTransaction">
+              <div class="title">RemoteStartTransaction</div>
+              <img class="img" alt="" style="width: 100%; height: 100%;"
+                src="../../../../assets/diagnostic/RemoteStartTransaction.svg" />
+            </app-tool-tip-item>
+
+            <app-tool-tip-item class="item" (click)="
+                  remoteStopTransaction();
+                  viewToolTipTtem('isRemoteStopTransaction')
+                " (keydown.enter)="remoteStopTransaction();
+                viewToolTipTtem('isRemoteStopTransaction')" [isRemoteStopTransaction]="isRemoteStopTransaction"
+              id="RemoteStopTransaction">
+              <div class="title">RemoteStopTransaction</div>
+              <img class="img" alt="" style="width: 100%; height: 100%;"
+                src="../../../../assets/diagnostic/RemoteStopTransaction.svg" />
+            </app-tool-tip-item>
+            <app-tool-tip-item class="item" (click)="showMessage('unlock'); viewToolTipTtem('isUnlock')"
+              [isUnlock]="isUnlock" (keydown.enter)="showMessage('unlock'); viewToolTipTtem('isUnlock')"
+              id="UnlockConnector">
+              <div class="title">UnlockConnector</div>
+              <img class="img" alt="" style="width: 100%; height: 100%;"
+                src="../../../../../assets/Operator/Diagnostics-Icon/UnlockConnector.svg" />
+            </app-tool-tip-item>
+            <app-tool-tip-item class="item" (click)="
+                  showMessage('isReserveNow'); viewToolTipTtem('isReserveNow')
+                " [isReserveNow]="isReserveNow"
+              (keydown.enter)="showMessage('isReserveNow'); viewToolTipTtem('isReserveNow')" id="ReserveNow">
+              <div class="title">ReserveNow</div>
+              <img class="img" alt="" style="width: 100%; height: 100%;"
+                src="../../../../../assets/Operator/Diagnostics-Icon/ReserveNow.svg" />
+            </app-tool-tip-item>
+            <app-tool-tip-item class="item" (click)="
+                  showMessage('isCancelReservation');
+                  viewToolTipTtem('isCancelReservation')
+                " [isCancelReservation]="isCancelReservation" (keydown.enter)="showMessage('isCancelReservation');
+                viewToolTipTtem('isCancelReservation')" id="CancelReservation">
+              <div class="title">CancelReservation</div>
+              <img class="img" alt="" style="width: 100%; height: 100%;"
+                src="../../../../../assets/Operator/Diagnostics-Icon/CancelReservation.svg" />
+            </app-tool-tip-item>
+            <app-tool-tip-item class="item" (click)="
+                  showMessage('triggerMessage'); viewToolTipTtem('triggerMessage')
+                " (keydown.enter)="showMessage('triggerMessage'); viewToolTipTtem('triggerMessage')"
+              [isTriggerMess]="isTriggerMess" id="TriggerMessageRequest">
+              <div class="title">TriggerMessageRequest</div>
+              <img class="img" alt="" style="width: 100%; height: 100%;"
+                src="../../../../assets/diagnostic/update-firmware.svg" />
+            </app-tool-tip-item>
+          </app-tool-tip>
+        </ng-container>
+
+        <ng-container *ngIf="isSmartCharging">
+          <app-tool-tip class="wd_sub_1 tool_alignSC tool-tip-4">
+            <div class="title modal-title">
+              Smart Charging
+              <span class="close-icon auth-close close2" (click)="closePopup()" (keydown.enter)="closePopup">
+                X
+              </span>
+            </div>
+
+            <app-tool-tip-item class="item" (click)="
+                  showMessage('getComposite');
+                  viewToolTipTtem('isGetCompositeSchedule')
+                " [isGetCompositeSchedule]="isGetCompositeSchedule" (keydown.enter)="showMessage('getComposite');
+                viewToolTipTtem('isGetCompositeSchedule')" id="GetCompositeSchedule">
+              <div class="title">GetCompositeSchedule</div>
+              <img class="img" alt="" style="width: 100%; height: 100%;"
+                src="../../../../assets/diagnostic/GetCompositeSchedule.svg" />
+            </app-tool-tip-item>
+            <app-tool-tip-item class="item" (click)="
+                  showMessage('getClearCharging');
+                  viewToolTipTtem('isClearChargingProfile')
+                " [isClearChargingProfile]="isClearChargingProfile" (keydown.enter)="showMessage('getClearCharging');
+                viewToolTipTtem('isClearChargingProfile')" id="ClearChargingProfile">
+              <div class="title">ClearChargingProfile</div>
+              <img class="img" alt="" style="width: 100%; height: 100%;"
+                src="../../../../assets/diagnostic/ClearChargingProfile.svg" />
+            </app-tool-tip-item>
+            <app-tool-tip-item class="item" (click)="
+                  showMessage('setCharging'); viewToolTipTtem('setCharging')
+                " (keydown.enter)="showMessage('setCharging'); viewToolTipTtem('setCharging')"
+              [isSetCharging]="isSetCharging" id="SetChargingProfle">
+              <div class="title">SetChargingProfle</div>
+              <img class="img" alt="" style="width: 100%; height: 100%;"
+                src="../../../../assets/diagnostic/GetCompositeSchedule.svg" />
+            </app-tool-tip-item>
+          </app-tool-tip>
+        </ng-container>
+
+
+        <ng-container *ngIf="isFireWareItem">
+          <app-tool-tip class="wd_sub_1 tool_align tool-tip-5">
+            <div class="title modal-title">
+              Firmware Management
+              <span class="close-icon close5" (click)="closePopup()" (keydown.enter)="closePopup()">X</span>
+            </div>
+            <app-tool-tip-item class="item" (click)="
+                  showMessage('updatefirmware'); viewToolTipTtem('updatefirmware')
+                " [isUpdateFirmware]="isUpdateFirmware"
+              (keydown.enter)="showMessage('updatefirmware'); viewToolTipTtem('updatefirmware')" id="UpdateFirmware">
+              <div class="title">UpdateFirmware</div>
+              <img class="img" alt="" style="width: 100%; height: 100%;"
+                src="../../../../../assets/Operator/Diagnostics-Icon/UpdateFirmware.svg" />
+            </app-tool-tip-item>
+            <app-tool-tip-item class="item" (click)="
+                  showMessage('getdiagnostics'); viewToolTipTtem('getdiagnostics')
+                " [isDiagnostics]="isDiagnostics"
+              (keydown.enter)="showMessage('getdiagnostics'); viewToolTipTtem('getdiagnostics')" id="Get_diagnostics">
+              <div class="title">Get Diagnostics</div>
+              <img class="img" alt="" style="width: 100%; height: 100%;"
+                src="../../../../../assets/Operator/Diagnostics-Icon/GetDiagnostics.svg" />
+            </app-tool-tip-item>
+          </app-tool-tip>
+        </ng-container>
+      </app-diag-widget-bar>
+      <div class="form-fields">
+        <div *ngIf="commandType !== ''"
+          class="cdk-overlay-backdrop cdk-overlay-dark-backdrop cdk-overlay-backdrop-showing"></div>
+        <app-diag-widget-bar>
+          <ng-container *ngIf="
+                commandType == 'change' ||
+                commandType == 'reset' ||
+                commandType == 'start' ||
+                commandType == 'getconfig' ||
+                commandType == 'changeconfig' ||
+                commandType == 'getComposite' ||
+                commandType == 'unlock' ||
+                commandType == 'isCancelReservation' ||
+                commandType == 'isReserveNow' ||
+                commandType == 'triggerMessage' ||
+                commandType == 'updatefirmware' ||
+                commandType == 'sendlocal' ||
+                commandType == 'getdiagnostics' ||
+                commandType == 'datatransfer' ||
+                commandType == 'getClearCharging' ||
+                commandType == 'setCharging'
+              ">
+            <app-tool-tip class="wd_sub_1 select-opt-modal tool_alignP">
+              <div class="title" [ngStyle]="{ width: commandType == 'sendlocal' ? '395px' : '' }">
+                <span class="close-icon-type" (click)="closePopupType()" (keydown.enter)="closePopupType()">
+                  X
+                </span>
+                <form *ngIf="commandType == 'sendlocal'" [formGroup]="getListVersionForm">
+                  <div class="barbar-block12 layout">
+                    <div class="barbar-block13 layout">
+                      <div class="barbar-block13-item">
+                        <div class="barbar-block14 layout">
+                          <span class="required">
+                            Enter List Version
+                            <span class="required-field">*</span>
+                          </span>
+                          <input type="text" formControlName="listVersion" placeholder="List Version"
+                            class="barbar-input-text" />
+                          <span class="required">
+                            Select Update Type
+                            <span class="required-field">*</span>
+                          </span>
+                          <select class="chargerType" formControlName="updateType">
+                            <option value="">Update Type</option>
+                            <option *ngFor="let item of updateDatas" value="{{ item }}">
+                              {{ item }}
+                            </option>
+                          </select>
+                          <button class="addAuth" type="button" (click)="addListTag()" [disabled]="localList"
+                            style="color: #ffffff;" class="localList"
+                            [ngClass]="localList == true ? 'disableButton' : ''">
+                            Add Local Authorization
+                          </button>
+
+                          <div class="barbar-box6 layout" formArrayName="listTagControls" *ngFor="
+                                let id of getListTagFormControls();
+                                let i = index
+                              ">
+                            <div [formGroupName]="i">
+                              <span class="required">
+                                Enter Id Tag
+                                <span class="required-field">*</span>
+                              </span>
+                              <input type="text" formControlName="idTag" placeholder="RFId Tag" maxlength="20"
+                                class="barbar-input-text" />
+                            </div>
+                          </div>
+                          <button class="addAuth" *ngIf="getListTagFormControls()?.length > 0" [disabled]="localIdTag"
+                            type="button" class="localList" [ngClass]="
+                                localIdTag == true ? 'disableButton' : ''
+                              " (click)="addLocalList()" style="color: #ffffff; margin-top: 2.5%;">
+                            Add IdTagInfo
+                          </button>
+
+                          <div class="barbar-box6 layout" formArrayName="idTagControls" *ngFor="
+                                let id of getIdFormControls();
+                                let i = index
+                              ">
+                            <div [formGroupName]="i">
+
+                              <span class="required">Expiry Date</span>
+                              <input type="text" class="barbar-box6 layout date1" formControlName="localListDate"
+                                id="date1" placeholder="Enter Date" value="{{ rfidExpDate }}" readonly />
+
+                              <span class="required">Enter ParentIdTag</span>
+                              <input type="text" formControlName="rfid" placeholder="ParentIdTag" maxlength="20"
+                                class="barbar-input-text" />
+                              <span class="required">
+                                Select Status
+                                <span class="required-field">*</span>
+                              </span>
+                              <select class="chargerType" formControlName="status">
+                                <option value="">Status</option>
+                                <option *ngFor="let item of statusData" value="{{ item }}">
+                                  {{ item }}
+                                </option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <button *ngIf="commandType == 'sendlocal'" type="button" (click)="submit()" style="color: #ffffff;">
+                    Submit
+                  </button>
+                </form>
+
+                <!--- SET CHARGING PROFILE START -->
+                <div class="set-charger-profile">
+                  <form *ngIf="commandType == 'setCharging'" [formGroup]="setChargingForm">
+                    <div class="barbar-block12 layout">
+                      <div class="barbar-block13 layout">
+                        <div class="barbar-block13-item">
+                          <div class="barbar-block14 layout user-form">
+                            <div>
+                              <span class="required">
+                                Select Connector ID
+                                <span class="required-field">*</span>
+                              </span>
+                              <select class="chargerType" formControlName="connectorId">
+                                <option value="">Connector ID</option>
+                                <option *ngFor="let item of selectConnectorIds" [value]="item">
+                                  {{ item }}
+                                </option>
+                              </select>
+                              <button class="charging-profile-btn" style="color: #ffffff;"
+                                (click)="enableFields('firstFields')">
+                                Charging Profile
+                              </button>
+                            </div>
+
+                            <div formGroupName="csChargingProfiles">
+                              <div *ngIf="firstFields">
+                                <span class="required">
+                                  Enter Charging Profile Id
+                                  <span class="required-field">*</span>
+                                </span>
+                                <input type="text" (keydown)="restrictZero($event)" formControlName="chargingProfileId"
+                                  placeholder="" (keypress)="numberOnly($event)" class="barbar-input-text" />
+                                <span class="required">
+                                  Enter TransactionId
+                                </span>
+                                <input type="text" formControlName="transactionId" placeholder=""
+                                  (keypress)="numberOnly($event)" class="barbar-input-text" />
+                                <span class="required">
+                                  Enter Stack Level
+                                  <span class="required-field">*</span>
+                                </span>
+                                <input type="text" formControlName="stackLevel" placeholder=""
+                                  (keypress)="numberOnly($event)" class="barbar-input-text" />
+
+                                <span class="required">
+                                  Select Charging Profile Purpose
+                                  <span class="required-field">*</span>
+                                </span>
+                                <select class="chargerType" formControlName="chargingProfilePurpose">
+                                  <option value="" disabled>
+                                    Please Select
+                                  </option>
+                                  <option *ngFor="let item of chargingProfilePurpose" value="{{ item }}">
+                                    {{ item }}
+                                  </option>
+                                </select>
+                                <span class="required">
+                                  Select Charging Profile Kind
+                                  <span class="required-field">*</span>
+                                </span>
+                                <select class="chargerType" formControlName="chargingProfileKind">
+                                  <option value="" disabled>
+                                    Please Select
+                                  </option>
+                                  <option *ngFor="let item of chargingProfileKind" value="{{ item }}">
+                                    {{ item }}
+                                  </option>
+                                </select>
+                                <span class="required">
+                                  Select Recurrency Kind
+                                </span>
+                                <select class="chargerType" formControlName="recurrencyKind">
+                                  <option value="" disabled>
+                                    Please Select
+                                  </option>
+                                  <option *ngFor="let item of recurrencyKind" value="{{ item }}">
+                                    {{ item }}
+                                  </option>
+                                </select>
+                                <span class="mandatoryField">
+                                  Select Valid From
+                                </span>
+                                <mat-form-field class="mt-space">
+                                  <input matInput [ngxMatDatetimePicker]="pickerFrom" [ngxMatDatetimePickerFilter]="
+                                        dateFilterForStartForSetCharging
+                                      " formControlName="validFrom" style="color: black;" readonly (dateChange)="
+                                        checkStartDateForSetCharging()
+                                      " />
+
+                                  <mat-datepicker-toggle matSuffix [for]="$any(pickerFrom)"></mat-datepicker-toggle>
+                                  <ngx-mat-datetime-picker #pickerFrom [showSpinners]="true" [showSeconds]="true"
+                                    [touchUi]="false" [enableMeridian]="true"></ngx-mat-datetime-picker>
+                                  <!-- <mat-datepicker
+                                        #pickerFrom
+                                      ></mat-datepicker> -->
+                                </mat-form-field>
+
+                                <span class="mandatoryField">
+                                  Select Valid To
+                                </span>
+                                <mat-form-field class="mt-space">
+                                  <input matInput [ngxMatDatetimePicker]="pickerTo" [ngxMatDatetimePickerFilter]="
+                                        dateFilterForEndForSetCharging
+                                      " style="color: black;" formControlName="validTo" readonly (dateChange)="
+                                        checkValidFromForSetCharging()
+                                      " />
+                                  <mat-datepicker-toggle matSuffix [for]="$any(pickerTo)"></mat-datepicker-toggle>
+                                  <ngx-mat-datetime-picker #pickerTo [showSpinners]="true" [showSeconds]="true"
+                                    [touchUi]="false" [enableMeridian]="true"></ngx-mat-datetime-picker>
+                                  <!-- <mat-datepicker
+                                        #pickerTo
+                                      ></mat-datepicker> -->
+                                </mat-form-field>
+                              </div>
+                              <button class="charging-profile-btn" style="color: #ffffff;" *ngIf="firstFields"
+                                (click)="enableFields('secondFields')">
+                                Charging Schedule
+                              </button>
+                              <div *ngIf="secondFields">
+                                <span class="required">Enter Duration</span>
+                                <input type="text" formControlName="duration" placeholder=""
+                                  (keypress)="numberOnly($event)" class="barbar-input-text" />
+                                <span class="mandatoryField">
+                                  Select Start Schedule
+                                </span>
+                                <mat-form-field class="mt-space">
+                                  <input matInput [ngxMatDatetimePicker]="picker3" [ngxMatDatetimePickerFilter]="
+                                        dateFilterForStartScheduleForSetCharging
+                                      " style="color: black;" [readonly]="true" formControlName="startSchedule" />
+                                  <mat-datepicker-toggle matSuffix [for]="$any(picker3)"></mat-datepicker-toggle>
+                                  <ngx-mat-datetime-picker #picker3 [showSpinners]="true" [showSeconds]="true"
+                                    [touchUi]="false" [enableMeridian]="true"></ngx-mat-datetime-picker>
+                                </mat-form-field>
+                                <span class="required">
+                                  Select Charging Rate Unit
+                                  <span class="required-field">*</span>
+                                </span>
+                                <select class="chargerType" formControlName="chargingRateUnit">
+                                  <option value="" disabled>
+                                    Please Select
+                                  </option>
+                                  <option *ngFor="let item of chargingRateUnit" value="{{ item }}">
+                                    {{ item }}
+                                  </option>
+                                </select>
+                                <button *ngIf="secondFields" style="color: #ffffff;"
+                                  (click)="enableFields('thirdFields')">
+                                  Charging Schedule Period
+                                </button>
+                                <div *ngIf="thirdFields">
+                                  <span class="required">
+                                    Enter Start Period
+                                    <span class="required-field">*</span>
+                                  </span>
+                                  <input type="text" formControlName="startPeriod" placeholder=""
+                                    (keypress)="numberOnly($event)" class="barbar-input-text" />
+                                  <span class="required">
+                                    Enter Limit
+                                    <span class="required-field">*</span>
+                                  </span>
+                                  <input type="text" formControlName="limit" placeholder=""
+                                    (keypress)="numbersDecimalOnly($event)" class="barbar-input-text" />
+                                  <span class="required">
+                                    Enter Number Phases
+                                    <!-- <span class="required-field">*</span> -->
+                                  </span>
+                                  <select class="chargerType" formControlName="numberPhases">
+                                    <option value="" disabled>
+                                      Please Select
+                                    </option>
+                                    <option *ngFor="let item of numberPhases" value="{{ item }}">
+                                      {{ item }}
+                                    </option>
+                                  </select>
+                                  <!-- <span class="required">
+                                      Enter Number Phases
+                                    </span>
+                                    <input
+                                      type="text"
+                                      (keydown)="restrictZero($event)"
+                                      formControlName="numberPhases"
+                                      placeholder=""
+                                      (keypress)="numberOnly($event)"
+                                      class="barbar-input-text"
+                                    /> -->
+                                </div>
+                                <span class="required">
+                                  Enter Min Charging Rate
+                                </span>
+                                <input type="text" formControlName="minChargingRate" placeholder=""
+                                  (keypress)="numbersDecimalOnly($event)" class="barbar-input-text" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <button *ngIf="commandType == 'setCharging'" type="button" (click)="submitSetCharging()"
+                      style="color: #ffffff;">
+                      Submit
+                    </button>
+                  </form>
+                </div>
+                <!-- SET CHARGING PROFILE END-->
+                <span *ngIf="commandType == 'change'" class="mandatoryField">
+                  Select Type
+                  <span class="required-field">*</span>
+                </span>
+                <select *ngIf="commandType == 'change'" name="chargerType" class="chargerType"
+                  (change)="selectOption($event)">
+                  <option value="">Type</option>
+                  <option value="Inoperative">Inoperative</option>
+                  <option value="Operative">Operative</option>
+                </select>
+                <br />
+                <br />
+
+                <span *ngIf="
+                      commandType == 'change' ||
+                      commandType == 'getComposite' ||
+                      commandType == 'unlock' ||
+                      commandType == 'isReserveNow'
+                    " class="required">
+                  Select Connector ID
+                  <span class="required-field">*</span>
+                </span>
+                <select *ngIf="
+                      commandType == 'change' ||
+                      commandType == 'getComposite' ||
+                      commandType == 'unlock' ||
+                      commandType == 'isReserveNow'
+                    " class="chargerType" name="chargerType" (change)="selectConnectorID($event)">
+                  <option value="">Connector ID</option>
+                  <option *ngFor="let item of selectConnectorIds">
+                    {{ item }}
+                  </option>
+                </select>
+                <span *ngIf="commandType == 'isReserveNow'" class="mandatoryField">
+                  Expiry Date
+                  <span class="required-field">*</span>
+                </span>
+                <!--   <input *ngIf="commandType == 'isReserveNow'" type="datetime-local" class="barbar-box6 layout date1"
+                    (change)="selectDate($event)" min="{{currentDate}}" id="date1" /> -->
+
+                <mat-form-field *ngIf="commandType == 'isReserveNow'">
+                  <input matInput [ngxMatDatetimePicker]="picker1" [min]="minDate" (dateChange)="changeDateTime($event)"
+                    style="color: black;" [readonly]="true" />
+                  <mat-datepicker-toggle matSuffix [for]="$any(picker1)"></mat-datepicker-toggle>
+                  <ngx-mat-datetime-picker #picker1 [showSpinners]="true" [showSeconds]="true" [touchUi]="false"
+                    [enableMeridian]="true"></ngx-mat-datetime-picker>
+                </mat-form-field>
+
+                <span *ngIf="commandType == 'isReserveNow'" class="mandatoryField">
+                  Enter RFID
+                  <span class="required-field">*</span>
+                </span>
+
+                <input *ngIf="commandType == 'isReserveNow'" class="barbar-box6 layout" #inputTag
+                  class="connector_id" />
+                <!-- <span *ngIf="commandType == 'isReserveNow'" class="validity"></span> -->
+                <span *ngIf="commandType == 'isReserveNow'" class="mandatoryField">
+                  Enter ParentIdTag
+                </span>
+
+                <input *ngIf="commandType == 'isReserveNow'" class="barbar-box6 layout" #inputKey
+                  class="connector_id" />
+                <span *ngIf="commandType == 'isReserveNow'" class="mandatoryField">
+                  Enter ReservationId
+                  <span class="required-field">*</span>
+                </span>
+
+                <input *ngIf="commandType == 'isReserveNow'" value="{{ randomSixDigit }}" class="barbar-box6 layout"
+                  #inputReserveTag class="connector_id" />
+                <!-- trigger messgae-->
+
+                <span *ngIf="commandType == 'triggerMessage'" class="required">
+                  Requested Message
+                  <span class="required-field">*</span>
+                </span>
+                <select *ngIf="commandType == 'triggerMessage'" class="chargerType" name="chargerType"
+                  (change)="selectRequestMessage($event)">
+                  <option value="">Requested Message</option>
+                  <option *ngFor="let item of requestMessTypes">
+                    {{ item }}
+                  </option>
+                </select>
+
+                <span *ngIf="commandType == 'triggerMessage'" class="required">
+                  Select Connector ID
+                </span>
+                <select *ngIf="commandType == 'triggerMessage'" class="chargerType" name="chargerType"
+                  (change)="selectConnectorID($event)">
+                  <option value="">Connector ID</option>
+                  <option *ngFor="let item of selectConnectorIds">
+                    {{ item }}
+                  </option>
+                </select>
+
+                <!-- trigger message-->
+
+                <!-- update firmware -->
+                <span *ngIf="commandType == 'updatefirmware'" class="mandatoryField">
+                  Enter location URL
+                  <span class="required-field">*</span>
+                </span>
+                <input *ngIf="commandType == 'updatefirmware'" class="cust-list-text-body21 layout idTagInput"
+                  #enterLocation class="connector_id" />
+                <span *ngIf="commandType == 'updatefirmware'" class="mandatoryField">
+                  Enter No. of retries
+                </span>
+                <input *ngIf="commandType == 'updatefirmware'" class="cust-list-text-body21 layout idTagInput"
+                  #inputretries class="connector_id" />
+                <span *ngIf="commandType == 'updatefirmware'" class="mandatoryField">
+                  Select Retrieve Date
+                  <span class="required-field">*</span>
+                </span>
+
+                <!-- <input *ngIf="commandType == 'updatefirmware'" type="datetime-local" class="barbar-box6 layout date1"
+                    (change)="selectDate($event)" min="{{currentDate}}" id="date1" /> -->
+                <mat-form-field *ngIf="commandType == 'updatefirmware'" class="mt-space">
+                  <input matInput [ngxMatDatetimePicker]="picker1" [min]="minDate" (dateChange)="changeDateTime($event)"
+                    style="color: black;" [readonly]="true" />
+                  <mat-datepicker-toggle matSuffix [for]="$any(picker1)"></mat-datepicker-toggle>
+                  <ngx-mat-datetime-picker #picker1 [showSpinners]="true" [showSeconds]="true" [touchUi]="false"
+                    [enableMeridian]="true"></ngx-mat-datetime-picker>
+                </mat-form-field>
+                <span *ngIf="commandType == 'updatefirmware'" class="mandatoryField">
+                  Enter Retry Interval
+                </span>
+                <input *ngIf="commandType == 'updatefirmware'" placeholder="Enter time in Seconds"
+                  class="cust-list-text-body21 layout idTagInput" #inputReserveTag class="connector_id" />
+
+                <!-- update firmware -->
+
+                <!-- Get Diagnostics Start -->
+                <span *ngIf="commandType == 'getdiagnostics'" class="mandatoryField">
+                  Enter location URL
+                  <span class="required-field">*</span>
+                </span>
+                <input *ngIf="commandType == 'getdiagnostics'" class="cust-list-text-body21 layout idTagInput"
+                  #enterLocation class="connector_id" />
+                <span *ngIf="commandType == 'getdiagnostics'" class="mandatoryField">
+                  Enter No. of retries
+                </span>
+                <input *ngIf="commandType == 'getdiagnostics'" class="cust-list-text-body21 layout idTagInput"
+                  #inputretries class="connector_id" />
+
+                <span *ngIf="commandType == 'getdiagnostics'" class="mandatoryField">
+                  Enter Retry Interval
+                </span>
+                <input *ngIf="commandType == 'getdiagnostics'" placeholder="Enter time in Seconds"
+                  class="cust-list-text-body21 layout idTagInput" #inputReserveTag class="connector_id" />
+
+                <span *ngIf="commandType == 'getdiagnostics'" class="mandatoryField">
+                  Select Start Date
+                </span>
+
+                <!-- <input *ngIf="commandType == 'getdiagnostics'" type="datetime-local" class="barbar-box6 layout date1"
+                    (change)="selectDate($event,'start')" id="date1" /> -->
+                <mat-form-field *ngIf="commandType == 'getdiagnostics'" class="mt-space">
+                  <input matInput [ngxMatDatetimePicker]="picker1" (dateChange)="changeDateTime($event, 'start')"
+                    style="color: black;" [readonly]="true" />
+                  <mat-datepicker-toggle matSuffix [for]="$any(picker1)"></mat-datepicker-toggle>
+                  <ngx-mat-datetime-picker #picker1 [showSpinners]="true" [showSeconds]="true" [touchUi]="false"
+                    [enableMeridian]="true"></ngx-mat-datetime-picker>
+                </mat-form-field>
+                <span *ngIf="commandType == 'getdiagnostics'" class="validity" title="close"></span>
+                <span *ngIf="commandType == 'getdiagnostics'" class="mandatoryField">
+                  Select Stop Date
+                </span>
+
+                <!--  <input *ngIf="commandType == 'getdiagnostics'" type="datetime-local" class="barbar-box6 layout date1"
+                    (change)="selectDate($event,'end')" id="date1" /> -->
+                <mat-form-field *ngIf="commandType == 'getdiagnostics'" class="mt-space">
+                  <input matInput [ngxMatDatetimePicker]="picker2" (dateChange)="changeDateTime($event, 'end')"
+                    style="color: black;" [readonly]="true" />
+                  <mat-datepicker-toggle matSuffix [for]="$any(picker2)"></mat-datepicker-toggle>
+                  <ngx-mat-datetime-picker #picker2 [showSpinners]="true" [showSeconds]="true" [touchUi]="false"
+                    [enableMeridian]="true"></ngx-mat-datetime-picker>
+                </mat-form-field>
+                <span *ngIf="commandType == 'getdiagnostics'" class="validity" title="close"></span>
+                <!-- Get Diagnostics End-->
+                <!-- Data Transfer Popup Start-->
+                <span *ngIf="commandType == 'datatransfer'" class="required inpt-field">
+                  Enter Vendor Id
+                  <span class="required-field">*</span>
+                </span>
+                <input *ngIf="commandType == 'datatransfer'" class="cust-list-text-body21 layout idTagInput" #vendrId
+                  placeholder="Vendor Id" class="connector_id" />
+                <span *ngIf="commandType == 'datatransfer'" class="required inpt-field">
+                  <br />
+                  Enter Message Id
+                </span>
+                <input *ngIf="commandType == 'datatransfer'" class="cust-list-text-body21 layout idTagInput" #msgId
+                  placeholder="Message Id" class="connector_id" />
+                <span *ngIf="commandType == 'datatransfer'" class="required inpt-field">
+                  <br />
+                  Enter Data
+                </span>
+                <input *ngIf="commandType == 'datatransfer'" class="cust-list-text-body21 layout idTagInput" #addData
+                  placeholder="Data" class="connector_id" />
+                <button *ngIf="commandType == 'datatransfer'" class="btnTypeCharger" type="button"
+                  (click)="dataTransferCmd()">
+                  Submit
+                </button>
+                <!-- Data Transfer Popup End-->
+
+                <!-- Clear Charging Profile Popup Start-->
+                <span *ngIf="commandType == 'getClearCharging'" class="required inpt-field">
+                  Enter Id
+                </span>
+                <input *ngIf="commandType == 'getClearCharging'" class="cust-list-text-body21 layout idTagInput"
+                  (keypress)="numberOnly($event)" #clearChargingId placeholder="Id" class="connector_id" />
+
+                <span *ngIf="commandType == 'getClearCharging'" class="required">
+                  Select Connector ID
+                </span>
+                <select *ngIf="commandType == 'getClearCharging'" class="chargerType" name="chargerType"
+                  (change)="selectConnectorID($event)">
+                  <option value="">Connector ID</option>
+                  <option *ngFor="let item of selectConnectorIds">
+                    {{ item }}
+                  </option>
+                </select>
+
+                <span *ngIf="commandType == 'getClearCharging'" class="required">
+                  Enter Charging Profile Purpose
+                </span>
+                <select *ngIf="commandType == 'getClearCharging'" class="chargerType" name="chargingProfilePurpose"
+                  (change)="selectChargingProfilePurpose($event)">
+                  <option value="" disabled selected>Please Select</option>
+
+                  <option value="{{ item }}" *ngFor="let item of chargingProfilePurpose">
+                    {{ item }}
+                  </option>
+                </select>
+
+                <span *ngIf="commandType == 'getClearCharging'" class="required inpt-field">
+                  <br />
+                  Enter Stack Level
+                </span>
+                <input *ngIf="commandType == 'getClearCharging'" class="cust-list-text-body21 layout idTagInput"
+                  (keypress)="numberOnly($event)" #stakLevel placeholder="Stack Level" class="connector_id" />
+                <button *ngIf="commandType == 'getClearCharging'" class="btnTypeCharger" type="button"
+                  (click)="getClearChargingProfile()">
+                  Submit
+                </button>
+
+                <!-- Clear Charging Profile Popup End-->
+                <span *ngIf="commandType == 'getComposite'" class="required inpt-field">
+                  Enter Duration
+                  <span class="required-field">*</span>
+                </span>
+
+                <input *ngIf="commandType == 'getComposite'" class="cust-list-text-body21 layout idTagInput"
+                  placeholder="Duration" #inputDuration class="connector_id" />
+
+                <span *ngIf="commandType == 'getComposite'" class="required">
+                  Select Charging Rate Unit
+                  <span class="required-field"></span>
+                </span>
+                <select *ngIf="commandType == 'getComposite'" class="chargerType" name="ChargingRateUnit"
+                  (change)="selectChargingRateUnit($event)">
+                  <option>Charging Rate Unit</option>
+
+                  <option value="W">W</option>
+                  <option value="A">A</option>
+                </select>
+                <span *ngIf="commandType == 'reset'" class="required">
+                  Select Type
+                  <span class="required-field">*</span>
+                </span>
+                <select *ngIf="commandType == 'reset'" class="chargerType" name="chargerType"
+                  (change)="selectOption($event)">
+                  <option value="">Type</option>
+                  <option value="Hard">Hard</option>
+                  <option value="Soft">Soft</option>
+                </select>
+                <span *ngIf="commandType == 'getconfig'" class="required">
+                  Select key
+                  <span class="required-field">*</span>
+                </span>
+                <select *ngIf="commandType == 'getconfig'" class="chargerType" name="chargerType"
+                  (change)="selectOptionKey($event,'getConfig')">
+                  <option value="">Select key</option>
+                  <option *ngIf="showAllOption()" value="All">All</option>
+                  <option *ngFor="let item of GetConfigurationKey" [value]="item || ''">
+                    {{ item || 'N/A'}}
+                  </option>
+                </select>
+                <span *ngIf="commandType == 'changeconfig'" class="required">
+                  Select key
+                  <span class="required-field">*</span>
+                </span>
+                <select *ngIf="commandType == 'changeconfig'" class="chargerType" name="chargerType"
+                  (change)="selectOptionKey($event,'changeConfig')">
+                  <option value="">Select key</option>
+                  <option *ngFor="let item of GetConfigurationKey" [value]="item">
+                    {{ item }}
+                  </option>
+                </select>
+                <span *ngIf="commandType == 'changeconfig'" class="required inpt-field">
+                  <br />
+                  Enter Value
+                  <span class="required-field">*</span>
+                </span>
+                <input *ngIf="commandType == 'changeconfig'" class="cust-list-text-body21 layout idTagInput" #inputValue
+                  placeholder="Value" class="connector_id" />
+                <span *ngIf="commandType == 'isCancelReservation'" class="mandatoryField">
+                  Enter ReservationId
+                  <span class="required-field">*</span>
+                </span>
+                <input *ngIf="commandType == 'isCancelReservation'" class="cust-list-text-body21 layout idTagInput"
+                  #inputReserveTag class="connector_id" />
+                <button *ngIf="
+                      commandType == 'getconfig' ||
+                      commandType == 'changeconfig' ||
+                      commandType == 'getComposite' ||
+                      commandType == 'change' ||
+                      commandType == 'reset' ||
+                      commandType == 'unlock' ||
+                      commandType == 'isCancelReservation' ||
+                      commandType == 'isReserveNow' ||
+                      commandType == 'triggerMessage' ||
+                      commandType == 'updatefirmware' ||
+                      commandType == 'getdiagnostics'
+                    " class="btnTypeCharger" type="button" (click)="getConfiguration(commandType)">
+                  Submit
+                </button>
+                <!-- <span *ngIf="commandType == 'start'" class="required">
+                    Select Connector ID
+                  </span>
+                  <select
+                    *ngIf="commandType == 'start'"
+                    class="chargerTypeStart"
+                    name="chargerType"
+                    (change)="selectConnectorID($event)"
+                  >
+                    <option value="">Connector ID</option>
+                    <option *ngFor="let item of selectConnectorIds">
+                      {{ item }}
+                    </option>
+                  </select>
+                  <br />
+                  <br />
+                  <span *ngIf="commandType == 'start'" class="mandatoryField">
+                    Enter RFID
+                    <span class="required-field">*</span>
+                  </span>
+                  <input
+                    *ngIf="commandType == 'start'"
+                    class="cust-list-text-body21 layout idTagInput"
+                    #inputTag
+                    class="connector_id"
+                  />
+  
+                  <button
+                    *ngIf="commandType == 'start'"
+                    class="btnTypeCharger"
+                    type="button"
+                    (click)="remoteStartTransaction()"
+                  >
+                    Submit
+                  </button> -->
+
+                <!--- REMOTE START TRANACTION -->
+
+                <div class="set-charger1 set-charger-profile3">
+                  <form class="remote-Start" *ngIf="commandType == 'start'" [formGroup]="remoteStartForm">
+                    <div class="barbar-block12 layout">
+                      <div class="barbar-block13 layout">
+                        <div class="barbar-block13-item">
+                          <div class="barbar-block14 layout user-form">
+                            <span class="required">
+                              Select Connector ID
+                              <!-- <span class="required-field">*</span> -->
+                            </span>
+                            <select class="chargerType" formControlName="connectorId">
+                              <option value="">Connector ID</option>
+                              <option *ngFor="let item of selectConnectorIds" [value]="item">
+                                {{ item }}
+                              </option>
+                            </select>
+                            <span *ngIf="commandType == 'start'" class="mandatoryField">
+                              Enter RFID
+                              <span class="required-field">*</span>
+                            </span>
+                            <input formControlName="idTag" *ngIf="commandType == 'start'"
+                              class="cust-list-text-body21 layout idTagInput" #inputTag class="idTag" />
+                            <button class="charging-profile-btn" style="color: #ffffff;" (click)="
+                                  enableFieldsStartTransaction('firstFields')
+                                ">
+                              Charging Profile
+                            </button>
+                            <div formGroupName="chargingProfile">
+                              <div *ngIf="firstFieldsRemoteStart">
+                                <span class="required">
+                                  Enter Charging Profile Id
+                                  <span class="required-field">*</span>
+                                </span>
+                                <input type="text" (keydown)="restrictZero($event)" formControlName="chargingProfileId"
+                                  placeholder="" (keypress)="numberOnly($event)" class="barbar-input-text" />
+                                <span class="required">
+                                  Enter TransactionId
+                                  <span class="required-field">*</span>
+                                </span>
+                                <input type="text" formControlName="transactionId" placeholder=""
+                                  (keypress)="numberOnly($event)" class="barbar-input-text" />
+                                <span class="required">
+                                  Enter Stack Level
+                                  <span class="required-field">*</span>
+                                </span>
+                                <input type="text" formControlName="stackLevel" placeholder=""
+                                  (keypress)="numberOnly($event)" class="barbar-input-text" />
+
+                                <span class="required">
+                                  Select Charging Profile Purpose
+                                  <span class="required-field">*</span>
+                                </span>
+                                <select class="chargerType" formControlName="chargingProfilePurpose">
+                                  <option value="" disabled>
+                                    Please Select
+                                  </option>
+                                  <option value="TxProfile" selected>
+                                    TxProfile
+                                  </option>
+                                </select>
+                                <span class="required">
+                                  Select Charging Profile Kind
+                                  <span class="required-field">*</span>
+                                </span>
+                                <select class="chargerType" formControlName="chargingProfileKind">
+                                  <option value="" disabled>
+                                    Please Select
+                                  </option>
+                                  <option *ngFor="let item of chargingProfileKind" value="{{ item }}">
+                                    {{ item }}
+                                  </option>
+                                </select>
+                                <span class="required">
+                                  Select Recurrency Kind
+                                </span>
+                                <select class="chargerType" formControlName="recurrencyKind">
+                                  <option value="" disabled>
+                                    Please Select
+                                  </option>
+                                  <option *ngFor="let item of recurrencyKind" value="{{ item }}">
+                                    {{ item }}
+                                  </option>
+                                </select>
+                                <span class="mandatoryField">
+                                  Select Valid From
+                                </span>
+                                <mat-form-field class="mt-space">
+                                  <input matInput [ngxMatDatetimePicker]="pickerFrom" [ngxMatDatetimePickerFilter]="
+                                        dateFilterForStart
+                                      " formControlName="validFrom" style="color: black;" readonly
+                                    (dateChange)="checkStartDate()" />
+
+                                  <mat-datepicker-toggle matSuffix [for]="$any(pickerFrom)"></mat-datepicker-toggle>
+                                  <ngx-mat-datetime-picker #pickerFrom [showSpinners]="true" [showSeconds]="true"
+                                    [touchUi]="false" [enableMeridian]="true"></ngx-mat-datetime-picker>
+                                  <!-- <mat-datepicker
+                                    #pickerFrom
+                                  ></mat-datepicker> -->
+                                </mat-form-field>
+                                <span class="mandatoryField">
+                                  Select Valid To
+                                </span>
+                                <mat-form-field class="mt-space">
+                                  <input matInput [ngxMatDatetimePicker]="pickerTo" [ngxMatDatetimePickerFilter]="
+                                        dateFilterForEnd
+                                      " style="color: black;" formControlName="validTo" readonly
+                                    (dateChange)="checkValidFrom()" />
+                                  <mat-datepicker-toggle matSuffix [for]="$any(pickerTo)"></mat-datepicker-toggle>
+                                  <ngx-mat-datetime-picker #pickerTo [showSpinners]="true" [showSeconds]="true"
+                                    [touchUi]="false" [enableMeridian]="true"></ngx-mat-datetime-picker>
+                                  <!-- <mat-datepicker
+                                    #pickerTo
+                                  ></mat-datepicker> -->
+                                </mat-form-field>
+                              </div>
+                              <button style="color: #ffffff;" *ngIf="firstFieldsRemoteStart" (click)="
+                                    enableFieldsStartTransaction('secondFields')
+                                  ">
+                                Charging Schedule
+                              </button>
+                              <div *ngIf="secondFieldsRemoteStart">
+                                <span class="required">Enter Duration</span>
+                                <input type="text" formControlName="duration" placeholder=""
+                                  (keypress)="numberOnly($event)" class="barbar-input-text" />
+                                <span class="mandatoryField">
+                                  Select Start Schedule
+                                </span>
+                                <mat-form-field class="mt-space">
+                                  <input matInput [ngxMatDatetimePicker]="picker3" [ngxMatDatetimePickerFilter]="
+                                        dateFilterForStartSchedule
+                                      " style="color: black;" [readonly]="true" formControlName="startSchedule" />
+                                  <mat-datepicker-toggle matSuffix [for]="$any(picker3)"></mat-datepicker-toggle>
+                                  <ngx-mat-datetime-picker #picker3 [showSpinners]="true" [showSeconds]="true"
+                                    [touchUi]="false" [enableMeridian]="true"></ngx-mat-datetime-picker>
+                                </mat-form-field>
+                                <span class="required">
+                                  Select Charging Rate Unit
+                                  <span class="required-field">*</span>
+                                </span>
+                                <select class="chargerType" formControlName="chargingRateUnit">
+                                  <option value="" disabled>
+                                    Please Select
+                                  </option>
+                                  <option *ngFor="let item of chargingRateUnit" value="{{ item }}">
+                                    {{ item }}
+                                  </option>
+                                </select>
+                                <button *ngIf="secondFieldsRemoteStart" style="color: #ffffff;" (click)="
+                                      enableFieldsStartTransaction('thirdFields')
+                                    ">
+                                  Charging Schedule Period
+                                </button>
+                                <div *ngIf="thirdFieldsRemoteStart">
+                                  <span class="required">
+                                    Enter Start Period
+                                    <span class="required-field">*</span>
+                                  </span>
+                                  <input type="text" formControlName="startPeriod" placeholder=""
+                                    (keypress)="numberOnly($event)" class="barbar-input-text" />
+                                  <span class="required">
+                                    Enter Limit
+                                    <span class="required-field">*</span>
+                                  </span>
+                                  <input type="text" formControlName="limit" placeholder=""
+                                    (keypress)="numbersDecimalOnly($event)" class="barbar-input-text" />
+                                  <span class="required">
+                                    Enter Number Phases
+                                    <!-- <span class="required-field">*</span> -->
+                                  </span>
+                                  <select class="chargerType" formControlName="numberPhases">
+                                    <option value="" disabled>
+                                      Please Select
+                                    </option>
+                                    <option *ngFor="let item of numberPhases" value="{{ item }}">
+                                      {{ item }}
+                                    </option>
+                                  </select>
+                                  <!-- <span class="required">
+                                      Enter Number Phases
+                                    </span>
+                                    <input
+                                    (keydown)="restrictZero($event)"
+                                      type="text"
+                                      formControlName="numberPhases"
+                                      placeholder=""
+                                      (keypress)="numberOnly($event)"
+                                      class="barbar-input-text"
+                                    /> -->
+                                </div>
+                                <span class="required">
+                                  Enter Min Charging Rate
+                                </span>
+                                <input type="text" formControlName="minChargingRate" placeholder=""
+                                  (keypress)="numbersDecimalOnly($event)" class="barbar-input-text" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <button *ngIf="commandType == 'start'" class="btnTypeCharger" type="button"
+                      (click)="remoteStartTransaction()">
+                      Submit
+                    </button>
+                  </form>
+                </div>
+
+                <!--- REMOTE END TRANACTION -->
+              </div>
+            </app-tool-tip>
+          </ng-container>
+        </app-diag-widget-bar>
+      </div>
+      <!-- <div class="form-fields">
+          <div
+            *ngIf="commandType !== ''"
+            class="cdk-overlay-backdrop cdk-overlay-dark-backdrop cdk-overlay-backdrop-showing"
+          ></div>
+          <app-diag-widget-bar>
+            <ng-container
+              *ngIf="
+                commandType == 'change' ||
+                commandType == 'reset' ||
+                commandType == 'start' ||
+                commandType == 'getconfig' ||
+                commandType == 'changeconfig' ||
+                commandType == 'getComposite' || commandType == 'unlock'
+              "
+            >
+              <app-tool-tip
+                class="wd_sub_1 select-opt-modal tool_alignP setMarginTool"
+              >
+                <div class="title">
+                  <span class="close-icon-type" (click)="closePopupType()">
+                    X
+                  </span>
+                  <span *ngIf="commandType == 'change'" class="mandatoryField">
+                    Select Type
+                    <span class="required-field">*</span>
+                  </span>
+                  <select
+                    *ngIf="commandType == 'change'"
+                    name="chargerType"
+                    class="chargerType"
+                    (change)="selectOption($event)"
+                  >
+                    <option value="">Type</option>
+                    <option value="Inoperative">Inoperative</option>
+                    <option value="Operative">Operative</option>
+                  </select>
+                  <br />
+                  <br />
+  
+                  <span
+                    *ngIf="
+                      commandType == 'change' || commandType == 'getComposite' || commandType == 'unlock'
+                    "
+                    class="required"
+                  >
+                    Select Connector ID
+                    <span class="required-field">*</span>
+                  </span>
+                  <select
+                    *ngIf="
+                      commandType == 'change' || commandType == 'getComposite' || commandType == 'unlock'
+                    "
+                    class="chargerType"
+                    name="chargerType"
+                    (change)="selectConnectorID($event)"
+                  >
+                    <option value="">Connector ID</option>
+                    <option *ngFor="let item of selectConnectorIds">
+                      {{ item }}
+                    </option>
+                  </select>
+                 
+                  <span
+                    *ngIf="commandType == 'getComposite'"
+                    class="required inpt-field"
+                  >
+                    Enter Duration
+                    <span class="required-field">*</span>
+                  </span>
+  
+                  <input
+                    *ngIf="commandType == 'getComposite'"
+                    class="cust-list-text-body21 layout idTagInput"
+                    placeholder="Duration"
+                    #inputDuration
+                    class="connector_id"
+                  />
+                  <br />
+                  <br />
+                  <span *ngIf="commandType == 'getComposite'" class="required">
+                    Select Charging Rate Unit
+                    <span class="required-field"></span>
+                  </span>
+                  <select
+                    *ngIf="commandType == 'getComposite'"
+                    class="chargerType"
+                    name="ChargingRateUnit"
+                    (change)="selectChargingRateUnit($event)"
+                  >
+                    <option>Charging Rate Unit</option>
+  
+                    <option value="W">W</option>
+                    <option value="A">A</option>
+                  </select>
+                  <span *ngIf="commandType == 'reset'" class="required">
+                    Select Type
+                    <span class="required-field">*</span>
+                  </span>
+                  <select
+                    *ngIf="commandType == 'reset'"
+                    class="chargerType"
+                    name="chargerType"
+                    (change)="selectOption($event)"
+                  >
+                    <option value="">Type</option>
+                    <option value="Hard">Hard</option>
+                    <option value="Soft">Soft</option>
+                  </select>
+                  <span
+                    *ngIf="commandType == 'getconfig'"
+                    class="required inpt-field"
+                  >
+                    Enter Key
+                  </span>
+                  <input
+                    *ngIf="commandType == 'getconfig'"
+                    class="cust-list-text-body21 layout idTagInput"
+                    #inputKey
+                    placeholder="Key"
+                    class="connector_id"
+                  />
+                  <span
+                    *ngIf="commandType == 'changeconfig'"
+                    class="required inpt-field"
+                  >
+                    Enter Key
+                    <span class="required-field">*</span>
+                  </span>
+                  <input
+                    *ngIf="commandType == 'changeconfig'"
+                    class="cust-list-text-body21 layout idTagInput"
+                    placeholder="Key"
+                    #inputKey
+                    class="connector_id"
+                  />
+                  <span
+                    *ngIf="commandType == 'changeconfig'"
+                    class="required inpt-field"
+                  >
+                    <br />
+                    Enter Value
+                    <span class="required-field">*</span>
+                  </span>
+                  <input
+                    *ngIf="commandType == 'changeconfig'"
+                    class="cust-list-text-body21 layout idTagInput"
+                    #inputValue
+                    placeholder="Value"
+                    class="connector_id"
+                  />
+                  <br />
+                  <button
+                    *ngIf="
+                      commandType == 'getconfig' ||
+                      commandType == 'changeconfig' ||
+                      commandType == 'getComposite' ||
+                      commandType == 'change' ||
+                      commandType == 'reset' || commandType == 'unlock'
+                    "
+                    class="btnTypeCharger"
+                    type="button"
+                    (click)="getConfiguration(commandType)"
+                  >
+                    Submit
+                  </button>
+                  <span *ngIf="commandType == 'start'" class="required">
+                    Select Connector ID
+                  </span>
+                  <select
+                    *ngIf="commandType == 'start'"
+                    class="chargerTypeStart"
+                    name="chargerType"
+                    (change)="selectConnectorID($event)"
+                  >
+                    <option value="">Connector ID</option>
+                    <option *ngFor="let item of selectConnectorIds">
+                      {{ item }}
+                    </option>
+                  </select>
+                  <br />
+                  <br />
+                  <span *ngIf="commandType == 'start'" class="mandatoryField">
+                    Enter RFID
+                    <span class="required-field">*</span>
+                  </span>
+                  <input
+                    *ngIf="commandType == 'start'"
+                    class="cust-list-text-body21 layout idTagInput"
+                    #inputTag
+                    class="connector_id"
+                  />
+                  <br />
+                  <button
+                    *ngIf="commandType == 'start'"
+                    class="btnTypeCharger"
+                    type="button"
+                    (click)="remoteStartTransaction()"
+                  >
+                    Submit
+                  </button>
+                </div>
+              </app-tool-tip>
+            </ng-container>
+          </app-diag-widget-bar>
+        </div> -->
+    </div>
+
+    <div class="cust-list-group2 layout">
+      <table mat-table [dataSource]="dataSource" multiTemplateDataRows matSort class="mat-elevation-z8">
+        <caption></caption>
+        <ng-container matColumnDef="OperatorType">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            OPERATION TYPE
+          </th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            {{ element.requestType }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="Datetime">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>DATE/ TIME</th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            {{ element.modifiedAt | date: 'dd-MM-yyyy h:mm' }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>ACTION</th>
+          <td mat-cell *matCellDef="let element; let i = index">
+            <img style="cursor: pointer;" src="../../../../assets/icons/view-icon.png" alt="" (click)="
+                  expandedElement = expandedElement === element ? null : element
+                " (keydown.enter)="expandedElement = expandedElement === element ? null : element" />
+
+            <img style="cursor: pointer; margin: 3px;" alt="" src="../../../../assets/icons/download.png"
+              (click)="downloadAsPDF()" (keydown.enter)="downloadAsPDF()" />
+            <img (click)="openMakePaymentDialog(element.id)" *ngIf="element.requestType == 'StopTransaction'"
+              style="cursor: pointer;" src="../../../../../assets/chart-icon.svg" alt="" title="Make Payment"
+              (keydown.enter)="openMakePaymentDialog(element.id)" />
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="expandedDetail">
+          <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+            <div class="example-element-detail" [@detailExpand]="
+                  element === expandedElement ? 'expanded' : 'collapsed'
+                ">
+              <div class="example-element-description" id="pdfTable" #pdfTable>
+                <div class="">
+                  <div class="">
+                    <pre style="text-transform: none;">{{
+                        element.requestPayload
+                      }}</pre>
+                  </div>
+                </div>
+                <hr />
+                <div class="example-element-description">
+                  <pre style="text-transform: none;">{{
+                      element.responsePayload
+                    }}</pre>
+                </div>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let element; columns: displayedColumns" class="example-element-row"
+          [class.example-expanded-row]="expandedElement === element"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+      </table>
+      <ng-container *ngIf="!isTableHasData">
+        <p class="text-center">No record found</p>
+      </ng-container>
+
+      <mat-paginator #paginator [hidden]="!dataSource.data.length" (page)="pageChange($event)" [length]="totalCount"
+        [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"></mat-paginator>
+    </div>
+  </div>
+</div>
