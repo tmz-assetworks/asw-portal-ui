@@ -155,6 +155,7 @@ export class AddChargerComponent implements OnInit {
       Validators.required,
       Validators.maxLength(100),
     ]),
+    simCardMSIDN: new FormControl(''),
     locationId: new FormControl('', Validators.required),
     endPointUrl: new FormControl(''),
     firmwareVersion: new FormControl(''),
@@ -266,6 +267,7 @@ export class AddChargerComponent implements OnInit {
 
     const pBody = {
       assetId: formData.assetId,
+      simCardMSIDN:formData.simCardMSIDN,
       chargeBoxId: formData.chargeBoxId,
       endPointUrl: formData.endPointUrl,
       firmwareVersion: formData.firmwareVersion,
@@ -365,6 +367,7 @@ export class AddChargerComponent implements OnInit {
     let formData = this.addChargerFormGroup.value
     const body = {
       id: this.chargerboxId,
+      simCardMSIDN:formData.simCardMSIDN,
       assetId: formData.assetId,
       chargeBoxId: formData.chargeBoxId,
       locationId: formData.locationId,
@@ -468,6 +471,9 @@ export class AddChargerComponent implements OnInit {
         })
         this.addChargerFormGroup.patchValue({
           chargeBoxId: this.chargerData.chargeBoxId,
+        })
+        this.addChargerFormGroup.patchValue({
+          simCardMSIDN: this.chargerData.simCardMSIDN,
         })
 
         if (this.chargerData.locationName) {

@@ -131,6 +131,7 @@ export class NavigationComponent implements OnInit {
         },
       ]
     } else if (role == 'Admin') {
+
       this.menuItems = [
         {
           routerLink: ['profile'],
@@ -138,31 +139,56 @@ export class NavigationComponent implements OnInit {
           icon: '../../../../assets/Admin-SideNav/Customer.svg',
         },
         {
+          routerLink: ['dashboard'],
+          text: 'Dashboard',
+          icon: '../../../../assets/Operator/Dashboard.svg',
+        },
+        {
+          routerLink: ['charger'],
+          text: 'Chargers',
+          icon: '../../../../assets/Operator/Charger.svg',
+        },
+        {
+          
+          text: 'Master',
+          icon: '../../../../assets/Operator/Charger.svg',
+          isOpen: false, // Initially collapsed
+          subMenu: [
+            {
+              routerLink: ['locations'],
+              text: 'Locations',
+              icon: '../../../../assets/Admin-SideNav/Location.svg',
+            },
+            {
+              routerLink: ['vehicles'],
+              text: 'Vehicles',
+              icon: '../../../../assets/Admin-SideNav/Vehicles.svg',
+            },
+            {
+              routerLink: ['chargers'],
+              text: 'Chargers',
+              icon: '../../../../assets/Admin-SideNav/Charger.svg',
+            },
+            {
+              routerLink: ['assets'],
+              text: 'Assets',
+              icon: '../../../../assets/Admin-SideNav/Assets.svg',
+            },
+          ],
+        },
+       
+       
+        {
           routerLink: ['users'],
           text: 'Users',
           icon: '../../../../assets/Admin-SideNav/Operator-Users.svg',
         },
-
         {
-          routerLink: ['locations'],
-          text: 'Locations',
-          icon: '../../../../assets/Admin-SideNav/Location.svg',
-        },
-        {
-          routerLink: ['vehicles'],
-          text: 'Vehicles',
-          icon: '../../../../assets/Admin-SideNav/Vehicles.svg',
-        },
-        {
-          routerLink: ['chargers'],
-          text: 'Chargers',
-          icon: '../../../../assets/Admin-SideNav/Charger.svg',
-        },
-        {
-          routerLink: ['assets'],
-          text: 'Assets',
-          icon: '../../../../assets/Admin-SideNav/Assets.svg',
-        },
+          routerLink: ['diagonstics'],
+          text: 'Diagnostics',
+          icon: '../../../../assets/Operator/Diagnostics.svg',
+        },      
+        
         {
           routerLink: ['pricing'],
           text: 'Pricing',
@@ -179,10 +205,18 @@ export class NavigationComponent implements OnInit {
           icon: '../../../../assets/Admin-SideNav/Help.svg',
         },
       ]
+      
+      
     } else {
       this._router.navigate(['/login'])
     }
   }
+
+  toggleSubMenu(index: number): void {
+    this.menuItems[index].isOpen = !this.menuItems[index].isOpen;
+  }
+
+  
 
   /**
    * Redirects the user to the home page
@@ -195,7 +229,7 @@ export class NavigationComponent implements OnInit {
     } else if (role === 'SuperAdmin') {
       this._router.navigateByUrl('superadmin')
     } else {
-      this._router.navigateByUrl('admin/profile')
+      this._router.navigateByUrl('admin/dashboard')
     }
   }
   ngAfterViewInit() {}

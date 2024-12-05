@@ -140,7 +140,7 @@ export class UserProfileComponent implements OnInit {
     if (this.role == 'Operator') {
       this._router.navigateByUrl('operator/dashboard')
     } else if (this.role == 'Admin') {
-      this._router.navigateByUrl('admin/profile')
+      this._router.navigateByUrl('admin/dashboard')
     } else {
       this._router.navigateByUrl('superadmin/customer')
     }

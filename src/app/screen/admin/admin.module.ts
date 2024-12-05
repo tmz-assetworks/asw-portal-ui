@@ -10,6 +10,8 @@ import { ManageAsstesModule } from './manage-assets/manage-assets.module'
 import { ManageSubscriptionsModule } from './manage-subscriptions/manage-subscription-module'
 import { HelpComponent } from './help/help.component'
 import { CommonModule } from '@angular/common'
+import { DashboardComponent } from '../operator/dashboard/dashboard.component'
+import { GraphDetailComponent } from '../operator/graph-detail/graph-detail.component'
 
 const routes: Routes = [
   {
@@ -19,15 +21,26 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'profile',
+        redirectTo: 'dashboard',
         pathMatch: 'full',
       },
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+        pathMatch: 'full',
+      },
+      { path: 'dashboard/detail', component: GraphDetailComponent},
+      { path: 'dashboard/detail/:id', component: GraphDetailComponent},
       {
         path: 'profile',
         component: CustomersComponent,
         pathMatch: 'full',
       },
-
+      {
+        path: 'charger',
+        loadChildren: () =>
+          import('../../screen/operator/charger/charger.module').then((m) => m.ChargerModule),
+      },
       {
         path: 'users',
         loadChildren: () =>
@@ -37,13 +50,23 @@ const routes: Routes = [
       },
 
       {
+        path: 'diagonstics',
+        loadChildren: () =>
+          import('../../screen/operator/diagnostics/diagnostics.module').then(
+            (m)=>m.DiagnosticsModule
+          ),
+          // import('./diagnostics/diagnostics.module').then(
+          //   (m) => m.DiagnosticsModule,
+          // ),
+      },
+
+      {
         path: 'locations',
         loadChildren: () =>
           import('../admin/manage-locations/manage-locations.module').then(
             (m) => m.ManageLocationModule,
           ),
       },
-
       {
         path: 'vehicles',
         loadChildren: () =>

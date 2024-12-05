@@ -18,7 +18,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatListModule } from '@angular/material/list'
 import { MatCardModule } from '@angular/material/card'
 import { MatToolbarModule } from '@angular/material/toolbar'
-
+import { MatMenuModule} from '@angular/material/menu';
 /* import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule} from '@angular/material/checkbox' */
 
@@ -35,6 +35,7 @@ import { MatCheckboxModule} from '@angular/material/checkbox' */
     MatSnackBarModule,
     MatSidenavModule,
     MatToolbarModule,
+    MatMenuModule
   ],
   exports: [NavigationComponent],
   declarations: [NavigationComponent],
