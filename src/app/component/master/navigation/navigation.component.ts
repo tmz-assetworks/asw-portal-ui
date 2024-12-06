@@ -23,7 +23,7 @@ export class NavigationComponent implements OnInit {
   isExpandedState = true
   subscription: Subscription
   menuItems: any[] = []
-  private wasInside = false
+  public wasInside = false
   private clicked = false
   constructor(
     public _headerService: HeaderService,

@@ -33,19 +33,25 @@
     </div>
     <ng-container *ngFor="let item of menuItems; let i = index">
       <div>
-        <a routerLink="{{ item.routerLink }}" *ngIf="!item.subMenu">
-          <div
-            [ngClass]="
-              messages ? 'navbtn-block4 layout-colapse' : 'navbtn-block4 layout'
-            "
+        <!-- Common structure for both regular and subMenu items -->
+        <div
+          (click)="item.subMenu ? toggleSubMenu(i) : null"
+          (keydown.enter)="item.subMenu ? toggleSubMenu(i) : null"
+          class="menu-item"
+        >
+          <a
+            *ngIf="!item.subMenu"
+            [routerLink]="item.routerLink"
+            [ngClass]="messages ? 'navbtn-block4 layout-colapse' : 'navbtn-block4 layout'"
           >
             <div
               class="navbtn-block5 layout pointer"
               routerLinkActive="link-active"
+              id="menulink"
             >
               <div class="navbtn-block5-item">
                 <div class="navbtn-box1 layout">
-                  <img src="{{ item.icon }}" alt="" />
+                  <img [src]="item.icon" alt="" />
                 </div>
               </div>
               <div class="navbtn-block5-spacer"></div>
@@ -65,22 +71,20 @@
                 </div>
               </div>
             </div>
-          </div>
-        </a>
+          </a>
     
-        <div (click)="toggleSubMenu(i)" *ngIf="item.subMenu" class="menu-with-submenu">
           <div
-            [ngClass]="
-              messages ? 'navbtn-block4 layout-colapse' : 'navbtn-block4 layout'
-            "
+            *ngIf="item.subMenu"
+            [ngClass]="messages ? 'navbtn-block4 layout-colapse' : 'navbtn-block4 layout'"
           >
             <div
               class="navbtn-block5 layout pointer"
               routerLinkActive="link-active"
+              id="submenulink"
             >
               <div class="navbtn-block5-item">
                 <div class="navbtn-box1 layout">
-                  <img src="{{ item.icon }}" alt="" />
+                  <img [src]="item.icon" alt="" />
                 </div>
               </div>
               <div class="navbtn-block5-spacer"></div>
@@ -105,11 +109,11 @@
         </div>
     
         <!-- Submenu section -->
-        <div *ngIf="item.isOpen" class="submenu">
+        <div *ngIf="item.isOpen" class="submenu" id="submenu">
           <ng-container *ngFor="let subItem of item.subMenu">
-            <a routerLink="{{ subItem.routerLink }}" class="submenu-item">
+            <a [routerLink]="subItem.routerLink" class="submenu-item">
               <div class="submenu-icon">
-                <img src="{{ subItem.icon }}" alt="" />
+                <img [src]="subItem.icon" alt="" />
               </div>
               <div class="submenu-text">{{ subItem.text }}</div>
             </a>
@@ -117,6 +121,7 @@
         </div>
       </div>
     </ng-container>
+    
     
     
     
