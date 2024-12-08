@@ -31,41 +31,99 @@
         </div>
       </div>
     </div>
-    <ng-container *ngFor="let item of menuItems">
-      <a routerLink="{{ item.routerLink }}">
+    <ng-container *ngFor="let item of menuItems; let i = index">
+      <div>
+        <!-- Common structure for both regular and subMenu items -->
         <div
-          [ngClass]="
-            messages ? 'navbtn-block4 layout-colapse' : 'navbtn-block4 layout'
-          "
+          (click)="item.subMenu ? toggleSubMenu(i) : null"
+          (keydown.enter)="item.subMenu ? toggleSubMenu(i) : null"
+          class="menu-item"
         >
-          <div
-            class="navbtn-block5 layout pointer"
-            routerLinkActive="link-active"
+          <a
+            *ngIf="!item.subMenu"
+            [routerLink]="item.routerLink"
+            [ngClass]="messages ? 'navbtn-block4 layout-colapse' : 'navbtn-block4 layout'"
           >
-            <div class="navbtn-block5-item">
-              <div class="navbtn-box1 layout">
-                <img src="{{ item.icon }}" alt="" />
-              </div>
-            </div>
-            <div class="navbtn-block5-spacer"></div>
             <div
-              [ngClass]="
-                messages ? 'navbtn-block5-item1-colapse' : 'navbtn-block5-item1'
-              "
+              class="navbtn-block5 layout pointer"
+              routerLinkActive="link-active"
+              id="menulink"
             >
+              <div class="navbtn-block5-item">
+                <div class="navbtn-box1 layout">
+                  <img [src]="item.icon" alt="" />
+                </div>
+              </div>
+              <div class="navbtn-block5-spacer"></div>
               <div
                 [ngClass]="
-                  messages
-                    ? 'navbtn-text-body-collapse'
-                    : 'navbtn-text-body layout'
+                  messages ? 'navbtn-block5-item1-colapse' : 'navbtn-block5-item1'
                 "
               >
-                {{ item.text }}
+                <div
+                  [ngClass]="
+                    messages
+                      ? 'navbtn-text-body-collapse'
+                      : 'navbtn-text-body layout'
+                  "
+                >
+                  {{ item.text }}
+                </div>
+              </div>
+            </div>
+          </a>
+    
+          <div
+            *ngIf="item.subMenu"
+            [ngClass]="messages ? 'navbtn-block4 layout-colapse' : 'navbtn-block4 layout'"
+          >
+            <div
+              class="navbtn-block5 layout pointer"
+              routerLinkActive="link-active"
+              id="submenulink"
+            >
+              <div class="navbtn-block5-item">
+                <div class="navbtn-box1 layout">
+                  <img [src]="item.icon" alt="" />
+                </div>
+              </div>
+              <div class="navbtn-block5-spacer"></div>
+              <div
+                [ngClass]="
+                  messages ? 'navbtn-block5-item1-colapse' : 'navbtn-block5-item1'
+                "
+              >
+                <div
+                  [ngClass]="
+                    messages
+                      ? 'navbtn-text-body-collapse'
+                      : 'navbtn-text-body layout'
+                  "
+                >
+                  {{ item.text }}
+                  <span class="arrow-icon">{{ item.isOpen ? '↑' : '↓' }}</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </a>
+    
+        <!-- Submenu section -->
+        <div *ngIf="item.isOpen" class="submenu" id="submenu">
+          <ng-container *ngFor="let subItem of item.subMenu">
+            <a [routerLink]="subItem.routerLink" class="submenu-item">
+              <div class="submenu-icon">
+                <img [src]="subItem.icon" alt="" />
+              </div>
+              <div class="submenu-text">{{ subItem.text }}</div>
+            </a>
+          </ng-container>
+        </div>
+      </div>
     </ng-container>
+    
+    
+    
+    
   </div>
 </div>

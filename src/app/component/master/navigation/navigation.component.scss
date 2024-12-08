@@ -290,3 +290,33 @@ a {
 .nav-box.layout{
   width: auto;
 }
+
+.submenu {
+  margin-left: 20px; // Adjust as needed
+  padding-left: 10px;
+  border-left: 2px solid #57616a;
+  display: block;
+  transition: all 0.3s ease-in-out;
+}
+
+.menu-with-submenu {
+  cursor: pointer;
+}
+
+.submenu-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+  text-decoration: none;
+  color: #fff;
+}
+
+.submenu-item:hover {
+  color: #00aaff; // Highlight color on hover
+}
+
+.arrow-icon {
+  margin-left: 5px;
+  font-size: 14px;
+  color: #fff;
+}

@@ -145,7 +145,7 @@ export class LoginComponent implements OnInit {
           } else if (decodeData.roles[0] == 'Admin') {
             localStorage.setItem('role', 'Admin')
             // admin/customer
-            this._router.navigate(['/admin/profile'])
+            this._router.navigate(['/admin/dashboard'])
           } else if (decodeData.roles[0] == 'SuperAdmin') {
             localStorage.setItem('role', 'SuperAdmin')
             this._router.navigate(['/superadmin/customer'])
@@ -173,7 +173,7 @@ export class LoginComponent implements OnInit {
       } else if (role == 'Admin') {
         // localStorage.setItem('role', 'Admin')
         // admin/customer
-        this._router.navigate(['/admin/profile'])
+        this._router.navigate(['/admin/dashboard'])
       } else if (role == 'SuperAdmin') {
         //localStorage.setItem('role', 'SuperAdmin')
         this._router.navigate(['/superadmin/customer'])

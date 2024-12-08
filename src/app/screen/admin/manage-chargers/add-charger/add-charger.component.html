@@ -142,12 +142,12 @@
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item mbottom">
             <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">End Point</h5>
+              <h5 class="barbar-highlights layout">Sim Card MSIDN</h5>
               <div class="barbar-box6 layout">
                 <input
-                  formControlName="endPointUrl"
+                  formControlName="simCardMSIDN"
                   type="text"
-                  maxlength="20"
+                  maxlength="15"
                   class="barbar-input-text"
                 />
               </div>
@@ -681,7 +681,7 @@
           </div>
 
           <div class="barbar-block13-spacer"></div>
-          <div class="barbar-block13-item">
+          <!-- <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">Fleet Station</h5>
 
@@ -690,7 +690,7 @@
                 formControlName="privateStation"
               ></mat-checkbox>
             </div>
-          </div>
+          </div> -->
           <!-- <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
@@ -725,23 +725,23 @@
                   <span style="color: 'red';">*</span>
                 </h5>
 
-                <button
+                <!-- <button
                   class="add-port-btn"
                   type="button"
                   *ngIf="isPortAddBtn"
                   (click)="addPorts()"
                 >
                   Add port
-                </button>
+                </button> -->
               </div>
             </div>
           </div>
-          <div class="barbar-block13-spacer"></div>
+          <!-- <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item"></div>
           <div class="barbar-block13-spacer"></div>
-          <div class="barbar-block13-item"></div>
-          <div class="barbar-block13-spacer"></div>
-          <div class="barbar-block13-item"></div>
+          <div class="barbar-block13-item"></div> -->
+          <!-- <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item"></div> -->
         </div>
       </div>
 
@@ -1085,7 +1085,7 @@
             </div>
           </div>
 
-          <div class="barbar-block13-spacer"></div>
+          <!-- <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">Active</h5>
@@ -1095,10 +1095,30 @@
                 formControlName="isActive"
               ></mat-checkbox>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
 
+      <div class="barbar-block13-spacer"></div>
+          <div class="rfid-form">
+            <div class="barbar-block13-item add-port">
+              <div class="barbar-block14 layout">
+                <!-- <h5 class="barbar-highlights layout subtitle">
+                  Ports
+                  <span style="color: 'red';">*</span>
+                </h5> -->
+
+                <button
+                  class="add-port-btn"
+                  type="button"
+                  *ngIf="isPortAddBtn"
+                  (click)="addPorts()"
+                >
+                  Add port
+                </button>
+              </div>
+            </div>
+          </div>
       <div class="barbar-flex1 layout">
         <div class="barbar-flex1-item">
           <div class="barbar-block17 layout">

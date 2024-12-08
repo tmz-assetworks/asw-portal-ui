@@ -350,13 +350,13 @@
                             Enter List Version
                             <span class="required-field">*</span>
                           </span>
-                          <input type="text" formControlName="listVersion" placeholder="List Version"
+                          <input type="text" formControlName="listVersion" id="listVersion" placeholder="List Version"
                             class="barbar-input-text" />
                           <span class="required">
                             Select Update Type
                             <span class="required-field">*</span>
                           </span>
-                          <select class="chargerType" formControlName="updateType">
+                          <select class="chargerType" formControlName="updateType" id="updateType">
                             <option value="">Update Type</option>
                             <option *ngFor="let item of updateDatas" value="{{ item }}">
                               {{ item }}
@@ -377,7 +377,7 @@
                                 Enter Id Tag
                                 <span class="required-field">*</span>
                               </span>
-                              <input type="text" formControlName="idTag" placeholder="RFId Tag" maxlength="20"
+                              <input type="text" formControlName="idTag" id="idTag" placeholder="RFId Tag" maxlength="20"
                                 class="barbar-input-text" />
                             </div>
                           </div>
@@ -399,13 +399,13 @@
                                 id="date1" placeholder="Enter Date" value="{{ rfidExpDate }}" readonly />
 
                               <span class="required">Enter ParentIdTag</span>
-                              <input type="text" formControlName="rfid" placeholder="ParentIdTag" maxlength="20"
+                              <input type="text" formControlName="rfid" id="rfid" placeholder="ParentIdTag" maxlength="20"
                                 class="barbar-input-text" />
                               <span class="required">
                                 Select Status
                                 <span class="required-field">*</span>
                               </span>
-                              <select class="chargerType" formControlName="status">
+                              <select class="chargerType" formControlName="status" id="status">
                                 <option value="">Status</option>
                                 <option *ngFor="let item of statusData" value="{{ item }}">
                                   {{ item }}
@@ -434,7 +434,7 @@
                                 Select Connector ID
                                 <span class="required-field">*</span>
                               </span>
-                              <select class="chargerType" formControlName="connectorId">
+                              <select class="chargerType" formControlName="connectorId" id="connectorId">
                                 <option value="">Connector ID</option>
                                 <option *ngFor="let item of selectConnectorIds" [value]="item">
                                   {{ item }}
@@ -452,25 +452,25 @@
                                   Enter Charging Profile Id
                                   <span class="required-field">*</span>
                                 </span>
-                                <input type="text" (keydown)="restrictZero($event)" formControlName="chargingProfileId"
+                                <input type="text" id="chargingProfileId" (keydown)="restrictZero($event)" formControlName="chargingProfileId"
                                   placeholder="" (keypress)="numberOnly($event)" class="barbar-input-text" />
                                 <span class="required">
                                   Enter TransactionId
                                 </span>
-                                <input type="text" formControlName="transactionId" placeholder=""
+                                <input type="text"  id="transactionId" formControlName="transactionId" placeholder=""
                                   (keypress)="numberOnly($event)" class="barbar-input-text" />
                                 <span class="required">
                                   Enter Stack Level
                                   <span class="required-field">*</span>
                                 </span>
-                                <input type="text" formControlName="stackLevel" placeholder=""
+                                <input type="text" formControlName="stackLevel" id="stackLevel" placeholder=""
                                   (keypress)="numberOnly($event)" class="barbar-input-text" />
 
                                 <span class="required">
                                   Select Charging Profile Purpose
                                   <span class="required-field">*</span>
                                 </span>
-                                <select class="chargerType" formControlName="chargingProfilePurpose">
+                                <select class="chargerType" formControlName="chargingProfilePurpose" id="chargingProfilePurpose">
                                   <option value="" disabled>
                                     Please Select
                                   </option>
@@ -482,7 +482,7 @@
                                   Select Charging Profile Kind
                                   <span class="required-field">*</span>
                                 </span>
-                                <select class="chargerType" formControlName="chargingProfileKind">
+                                <select class="chargerType" formControlName="chargingProfileKind" id="chargingProfileKind">
                                   <option value="" disabled>
                                     Please Select
                                   </option>
@@ -493,7 +493,7 @@
                                 <span class="required">
                                   Select Recurrency Kind
                                 </span>
-                                <select class="chargerType" formControlName="recurrencyKind">
+                                <select class="chargerType" formControlName="recurrencyKind" id="recurrencyKind">
                                   <option value="" disabled>
                                     Please Select
                                   </option>
@@ -509,7 +509,7 @@
                                         dateFilterForStartForSetCharging
                                       " formControlName="validFrom" style="color: black;" readonly (dateChange)="
                                         checkStartDateForSetCharging()
-                                      " />
+                                      " id="pickerFrom" />
 
                                   <mat-datepicker-toggle matSuffix [for]="$any(pickerFrom)"></mat-datepicker-toggle>
                                   <ngx-mat-datetime-picker #pickerFrom [showSpinners]="true" [showSeconds]="true"
@@ -527,7 +527,7 @@
                                         dateFilterForEndForSetCharging
                                       " style="color: black;" formControlName="validTo" readonly (dateChange)="
                                         checkValidFromForSetCharging()
-                                      " />
+                                      " id="validTo"/>
                                   <mat-datepicker-toggle matSuffix [for]="$any(pickerTo)"></mat-datepicker-toggle>
                                   <ngx-mat-datetime-picker #pickerTo [showSpinners]="true" [showSeconds]="true"
                                     [touchUi]="false" [enableMeridian]="true"></ngx-mat-datetime-picker>
@@ -544,7 +544,7 @@
                                 <span class="required">Enter Duration</span>
                                 <input type="text" formControlName="duration" placeholder=""
                                   (keypress)="numberOnly($event)" class="barbar-input-text" />
-                                <span class="mandatoryField">
+                                <span class="mandatoryField" id="duration">
                                   Select Start Schedule
                                 </span>
                                 <mat-form-field class="mt-space">
@@ -559,7 +559,7 @@
                                   Select Charging Rate Unit
                                   <span class="required-field">*</span>
                                 </span>
-                                <select class="chargerType" formControlName="chargingRateUnit">
+                                <select class="chargerType" id="chargingRateUnit" formControlName="chargingRateUnit">
                                   <option value="" disabled>
                                     Please Select
                                   </option>
@@ -577,18 +577,18 @@
                                     <span class="required-field">*</span>
                                   </span>
                                   <input type="text" formControlName="startPeriod" placeholder=""
-                                    (keypress)="numberOnly($event)" class="barbar-input-text" />
+                                    (keypress)="numberOnly($event)" class="barbar-input-text"  id="startPeriod"/>
                                   <span class="required">
                                     Enter Limit
                                     <span class="required-field">*</span>
                                   </span>
                                   <input type="text" formControlName="limit" placeholder=""
-                                    (keypress)="numbersDecimalOnly($event)" class="barbar-input-text" />
+                                    (keypress)="numbersDecimalOnly($event)" class="barbar-input-text" id="limit"/>
                                   <span class="required">
                                     Enter Number Phases
                                     <!-- <span class="required-field">*</span> -->
                                   </span>
-                                  <select class="chargerType" formControlName="numberPhases">
+                                  <select class="chargerType" formControlName="numberPhases" id="numberPhases">
                                     <option value="" disabled>
                                       Please Select
                                     </option>
@@ -611,7 +611,7 @@
                                 <span class="required">
                                   Enter Min Charging Rate
                                 </span>
-                                <input type="text" formControlName="minChargingRate" placeholder=""
+                                <input type="text" formControlName="minChargingRate" id="minChargingRate" placeholder=""
                                   (keypress)="numbersDecimalOnly($event)" class="barbar-input-text" />
                               </div>
                             </div>
@@ -619,7 +619,7 @@
                         </div>
                       </div>
                     </div>
-                    <button *ngIf="commandType == 'setCharging'" type="button" (click)="submitSetCharging()"
+                    <button *ngIf="commandType == 'setCharging'" type="button" id="setchargingButton" (click)="submitSetCharging()"
                       style="color: #ffffff;">
                       Submit
                     </button>
@@ -631,7 +631,7 @@
                   <span class="required-field">*</span>
                 </span>
                 <select *ngIf="commandType == 'change'" name="chargerType" class="chargerType"
-                  (change)="selectOption($event)">
+                  (change)="selectOption($event)" id="chargerType">
                   <option value="">Type</option>
                   <option value="Inoperative">Inoperative</option>
                   <option value="Operative">Operative</option>
@@ -653,7 +653,7 @@
                       commandType == 'getComposite' ||
                       commandType == 'unlock' ||
                       commandType == 'isReserveNow'
-                    " class="chargerType" name="chargerType" (change)="selectConnectorID($event)">
+                    " class="chargerType" name="chargerType" (change)="selectConnectorID($event)" id="chargerTypeConnectorId">
                   <option value="">Connector ID</option>
                   <option *ngFor="let item of selectConnectorIds">
                     {{ item }}
@@ -702,7 +702,7 @@
                   <span class="required-field">*</span>
                 </span>
                 <select *ngIf="commandType == 'triggerMessage'" class="chargerType" name="chargerType"
-                  (change)="selectRequestMessage($event)">
+                  (change)="selectRequestMessage($event)" id="chargerTypeRequestMessage">
                   <option value="">Requested Message</option>
                   <option *ngFor="let item of requestMessTypes">
                     {{ item }}
@@ -713,7 +713,7 @@
                   Select Connector ID
                 </span>
                 <select *ngIf="commandType == 'triggerMessage'" class="chargerType" name="chargerType"
-                  (change)="selectConnectorID($event)">
+                  (change)="selectConnectorID($event)" id="chargerTypeConnectorId">
                   <option value="">Connector ID</option>
                   <option *ngFor="let item of selectConnectorIds">
                     {{ item }}

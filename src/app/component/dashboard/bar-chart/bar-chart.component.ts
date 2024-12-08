@@ -421,7 +421,7 @@ export class BarChartComponent implements OnInit {
       if (this.performingDataSet !== undefined) {
         this.barChartId = 4
 
-        if (this.performingDataSet.length == 0) {
+        if (this.performingDataSet?.length == 0) {
           this.option = {}
           return
         }
@@ -644,7 +644,7 @@ export class BarChartComponent implements OnInit {
    */
 
   setPerformChartOptions(dataSet: any) {
-    const len = dataSet.length
+    const len = dataSet?.length
 
     const meteredValue = dataSet.map((accu: any) => `${accu.meterValue}`)
 
@@ -652,9 +652,9 @@ export class BarChartComponent implements OnInit {
 
     // const color = dataSet.map((elem: any) => `${elem.color}`)
 
-    const legends = dataSet.map((accu: any) => accu.locationName)
+    const legends = dataSet?.map((accu: any) => accu.locationName)
 
-    const u = dataSet.map((accu: any, index: any) => {
+    const u = dataSet?.map((accu: any, index: any) => {
       let arr: any = []
 
       arr.length = len
