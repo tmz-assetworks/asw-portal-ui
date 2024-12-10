@@ -101,7 +101,12 @@
                   "
                 >
                   {{ item.text }}
-                  <span class="arrow-icon">{{ item.isOpen ? '↑' : '↓' }}</span>
+                  <ng-container *ngIf="item.isOpen ; else isClose">
+                    <img class="arrow-icon" src="assets/icons/down-arrow.svg" alt="" />
+                  </ng-container>
+                  <ng-template #isClose>
+                    <img class="arrow-icon" src="assets/icons/right-arrow.svg" alt="" />
+                  </ng-template>
                 </div>
               </div>
             </div>
@@ -111,12 +116,38 @@
         <!-- Submenu section -->
         <div *ngIf="item.isOpen" class="submenu" id="submenu">
           <ng-container *ngFor="let subItem of item.subMenu">
-            <a [routerLink]="subItem.routerLink" class="submenu-item">
-              <div class="submenu-icon">
-                <img [src]="subItem.icon" alt="" />
+            <a
+            [routerLink]="subItem.routerLink"
+            [ngClass]="messages ? 'navbtn-block4 layout-colapse' : 'navbtn-block4 layout'"
+          >
+            <div
+              class="navbtn-block5 layout pointer"
+              routerLinkActive="link-active"
+              id="menulink"
+            >
+              <div class="navbtn-block5-item">
+                <div class="navbtn-box1 layout space-left">
+                  <img [src]="subItem.icon" alt="" />
+                </div>
               </div>
-              <div class="submenu-text">{{ subItem.text }}</div>
-            </a>
+              <div class="navbtn-block5-spacer"></div>
+              <div
+                [ngClass]="
+                  messages ? 'navbtn-block5-item1-colapse' : 'navbtn-block5-item1'
+                "
+              >
+                <div
+                  [ngClass]="
+                    messages
+                      ? 'navbtn-text-body-collapse'
+                      : 'navbtn-text-body layout'
+                  "
+                >
+                  {{ subItem.text }}
+                </div>
+              </div>
+            </div>
+          </a>
           </ng-container>
         </div>
       </div>

@@ -185,7 +185,7 @@ export class CommonDiagnosticsComponent implements OnInit {
     this.chargerName = this._storageService.getSessionData('chargerName')
   }
   ngOnInit(): void {
-    if (this.router.url == '/operator/diagonstics') {
+    if (this.router.url == '/operator/diagonstics' || this.router.url == '/admin/diagonstics') {
       this._storageService.removeSessionData('chargerBoxId')
       this.isChargerDiagnostics = false
       this.chargerId = ''
