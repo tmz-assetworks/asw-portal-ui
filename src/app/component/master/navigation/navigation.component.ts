@@ -150,19 +150,19 @@ export class NavigationComponent implements OnInit {
         },
         {
           
-          text: 'Master',
+          text: 'Admin Setup',
           icon: '../../../../assets/Operator/Charger.svg',
           isOpen: false, // Initially collapsed
           subMenu: [
             {
+              routerLink: ['users'],
+              text: 'Users',
+              icon: '../../../../assets/Admin-SideNav/Operator-Users.svg',
+            },
+            {
               routerLink: ['locations'],
               text: 'Locations',
               icon: '../../../../assets/Admin-SideNav/Location.svg',
-            },
-            {
-              routerLink: ['vehicles'],
-              text: 'Vehicles',
-              icon: '../../../../assets/Admin-SideNav/Vehicles.svg',
             },
             {
               routerLink: ['chargers'],
@@ -174,26 +174,27 @@ export class NavigationComponent implements OnInit {
               text: 'Assets',
               icon: '../../../../assets/Admin-SideNav/Assets.svg',
             },
+            {
+              routerLink: ['vehicles'],
+              text: 'Vehicles',
+              icon: '../../../../assets/Admin-SideNav/Vehicles.svg',
+            },
+          
+            {
+              routerLink: ['pricing'],
+              text: 'Pricing',
+              icon: '../../../../assets/Admin-SideNav/Pricing.svg',
+            },
           ],
         },
-       
-       
-        {
-          routerLink: ['users'],
-          text: 'Users',
-          icon: '../../../../assets/Admin-SideNav/Operator-Users.svg',
-        },
+        
         {
           routerLink: ['diagonstics'],
           text: 'Diagnostics',
           icon: '../../../../assets/Operator/Diagnostics.svg',
         },      
         
-        {
-          routerLink: ['pricing'],
-          text: 'Pricing',
-          icon: '../../../../assets/Admin-SideNav/Pricing.svg',
-        },
+        
         // {
         //   routerLink: ['subscriptions-plans'],
         //   text: 'Subscription Plans',
