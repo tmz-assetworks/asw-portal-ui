@@ -901,28 +901,36 @@
                   <option value="Soft">Soft</option>
                 </select>
                 <span *ngIf="commandType == 'getconfig'" class="required">
-                  Select key
-                  <span class="required-field">*</span>
+                      Enter Key
+                  <!-- <span class="required-field">*</span> -->
+                  
+                  <input type="text" class="cust-list-text-body21 layout" placeholder="Key"
+                  [formControl]="control1" [matAutocomplete]="auto1" #getConfig
+                  (keyup)="removeFilter1($event, getConfig)" />
+                <mat-autocomplete #auto1="matAutocomplete">
+                  <mat-option (onSelectionChange)="selectOptionKey($event, item,'getConfig')"
+                    *ngFor="let item of filteredStreets1 | async" [value]="item || ''">
+                    {{ item || 'N/A' }}
+                  </mat-option>
+                </mat-autocomplete>
+              
                 </span>
-                <select *ngIf="commandType == 'getconfig'" class="chargerType" name="chargerType"
-                  (change)="selectOptionKey($event,'getConfig')">
-                  <option value="">Select key</option>
-                  <option *ngIf="showAllOption()" value="All">All</option>
-                  <option *ngFor="let item of GetConfigurationKey" [value]="item || ''">
-                    {{ item || 'N/A'}}
-                  </option>
-                </select>
+               
                 <span *ngIf="commandType == 'changeconfig'" class="required">
-                  Select key
+                  Enter Key
                   <span class="required-field">*</span>
+                  <input type="text" class="cust-list-text-body21 layout" placeholder="Key"
+                  [formControl]="control1" [matAutocomplete]="auto2" #changeConfig
+                  (keyup)="removeFilter2($event, changeConfig)" />
+                <mat-autocomplete #auto2="matAutocomplete">
+                  <mat-option (onSelectionChange)="selectOptionKey($event, item,'changeConfig')"
+                    *ngFor="let item of filteredStreets1 | async" [value]="item || ''">
+                    {{ item || 'N/A' }}
+                  </mat-option>
+                </mat-autocomplete>
+                
                 </span>
-                <select *ngIf="commandType == 'changeconfig'" class="chargerType" name="chargerType"
-                  (change)="selectOptionKey($event,'changeConfig')">
-                  <option value="">Select key</option>
-                  <option *ngFor="let item of GetConfigurationKey" [value]="item">
-                    {{ item }}
-                  </option>
-                </select>
+             
                 <span *ngIf="commandType == 'changeconfig'" class="required inpt-field">
                   <br />
                   Enter Value

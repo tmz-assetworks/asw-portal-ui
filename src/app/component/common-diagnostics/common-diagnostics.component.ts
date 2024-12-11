@@ -196,21 +196,18 @@ export class CommonDiagnosticsComponent implements OnInit {
     }
     this.href = this.router.url;
     this.GetChargeBoxIDList()
+    this.getConfigurationKeyList();
     this.GetOcppEventLog()
     this.filteredStreets = this.control.valueChanges.pipe(
       startWith(''),
       map((value) => (value && value.length >= 0 ? this._filter(value) : [])),
     )
-    // call 
-    this._diagnosticsService.GetConfigurationKey().subscribe(
-      (response) => {
-        this.GetConfigurationKey = response?.key;
 
-      },
-      (error) => {
-        console.error('Error fetching dropdown data', error);
-      }
-    );
+    this.filteredStreets1 = this.control1.valueChanges.pipe(
+      startWith(''),
+      map((value) => (value && value.length >= 0 ? this._filter1(value) : [])),
+    )
+
   }
 
   jsPDF: any
@@ -288,6 +285,19 @@ export class CommonDiagnosticsComponent implements OnInit {
     })
   }
 
+  getConfigurationKeyList(){
+    this._diagnosticsService.GetConfigurationKey().subscribe(
+      (response) => {
+        this.GetConfigurationKey = response?.key;
+        this.streets1=response?.key;
+
+      },
+      (error) => {
+        console.error('Error fetching dropdown data', error);
+      }
+    );
+  }
+
 
 
   viewToolTip(tileType: string) {
@@ -299,6 +309,7 @@ export class CommonDiagnosticsComponent implements OnInit {
       this.isAuthorization = false
       this.isDiagnosticsItem = false
     } else if (tileType == 'provisioning') {
+      this.control1.reset();
       this.isFireWareItem = false
       this.isProvisioning = true
       this.isRemoteControl = false
@@ -360,6 +371,7 @@ export class CommonDiagnosticsComponent implements OnInit {
 
 
   getConfiguration(cmdType: string) {
+    
     this.count = 1;
     if (this.handleCommandType(cmdType)) return;
 
@@ -1063,23 +1075,26 @@ export class CommonDiagnosticsComponent implements OnInit {
       return
     }
   }
-  selectOptionKey(event: any, type: string) {
-    const selectedValue = event.target.value;
-    // Determine which config type is being updated
-    if (type === 'getConfig') {
-      this.keyTypeGetConfig = selectedValue;
-      // Handle getConfig logic
-      if (this.keyTypeGetConfig == "") {
-        this.toastr.error('Please Select Key');
+  selectOptionKey(event: any, value:any, type: string) {
+    if(event.isUserInput){
+      if (type === 'getConfig') {
+        this.keyTypeGetConfig = value;
+        // Handle getConfig logic
+        // if (this.keyTypeGetConfig == "") {
+        //   this.toastr.error('Please Select Key');
+        // }
+      } else if (type === 'changeConfig') {
+        this.keyTypeChangeConfig = value;
+        // Handle changeConfig logic
+        if (this.keyTypeChangeConfig == "") {
+          this.toastr.error('Please Select Configuration Key');
+        }
+  
       }
-    } else if (type === 'changeConfig') {
-      this.keyTypeChangeConfig = selectedValue;
-      // Handle changeConfig logic
-      if (this.keyTypeChangeConfig == "") {
-        this.toastr.error('Please Select Key');
-      }
-
     }
+ 
+    // Determine which config type is being updated
+   
 
   }
 
@@ -1360,6 +1375,7 @@ export class CommonDiagnosticsComponent implements OnInit {
 
 
   viewToolTipTtem(type: any) {
+    this.control1.reset();
     if (this.chargerId === '') {
       return;
     }
@@ -1864,14 +1880,26 @@ export class CommonDiagnosticsComponent implements OnInit {
     this._storageService.removeSessionData('start')
   }
 
-  control = new FormControl('')
+  control = new FormControl('');
+  control1 = new FormControl('');
+
   streets = []
+  streets1: string[] = []
+
   filteredStreets!: Observable<any[]>
+  filteredStreets1!: Observable<any[]>
 
   private _filter(value: any): string[] {
     const filterValue = value.toLowerCase()
     return this.streets.filter((option: any) => {
       return option.chargeboxid.toLowerCase().includes(filterValue)
+    })
+  }
+
+  private _filter1(value: any): string[] {
+    const filterValue = value.toLowerCase()
+    return this.streets1.filter((option: any) => {
+      return option.toLowerCase().includes(filterValue)
     })
   }
 
@@ -1918,9 +1946,35 @@ export class CommonDiagnosticsComponent implements OnInit {
         this.dataSource.data = []
       }
 
-      // this.get
     }
   }
+
+
+
+  removeFilter1(event: any, getConfig: any) {
+  
+    let isCharger =
+      this.streets1.find((elem: any) => {
+        //elem.chargeboxid
+      }) == getConfig.value
+
+    if (isCharger) {
+      this.chargerId = getConfig.value
+
+    }
+  }
+
+  removeFilter2(event: any, changeConfig: any) {
+    let isCharger =
+    this.streets1.find((elem: any) => {
+      //elem.chargeboxid
+    }) == changeConfig.value
+
+  if (isCharger) {
+    this.chargerId = changeConfig.value
+  }
+  }
+
   /**
    *
    * @param event
