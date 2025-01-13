@@ -535,7 +535,7 @@ export class BarChartComponent implements OnInit {
       this.barChartId = 2
 
       if (this.performingDataSet !== undefined) {
-        if (this.performingDataSet.length == 0) {
+        if (this.performingDataSet?.length == 0) {
           this.option = {}
           return
         }
@@ -646,7 +646,7 @@ export class BarChartComponent implements OnInit {
   setPerformChartOptions(dataSet: any) {
     const len = dataSet?.length
 
-    const meteredValue = dataSet.map((accu: any) => `${accu.meterValue}`)
+    const meteredValue = dataSet?.map((accu: any) => `${accu.meterValue}`)
 
     // const maxMeterdedValue = Math.max(...meteredValue)
 

@@ -38,7 +38,11 @@ export class ChargerInnerComponent implements OnInit {
   viewCharger(data: any) {
     this._storageService.setSessionData('chargerBoxId', data.chargerBoxId)
     this._storageService.setSessionData('chargerName', data.chargerName)
-    this._router.navigate(['operator/charger/chargers-analytics'])
+    if(this._storageService.getLocalData('role')=='Admin'){
+      this._router.navigate(['admin/charger/chargers-analytics'])
+    }else{
+      this._router.navigate(['operator/charger/chargers-analytics'])
+    }
   }
 
   /**

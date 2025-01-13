@@ -133,15 +133,20 @@ export class NavigationComponent implements OnInit {
     } else if (role == 'Admin') {
 
       this.menuItems = [
-        {
-          routerLink: ['profile'],
-          text: 'Profile',
-          icon: '../../../../assets/Admin-SideNav/Customer.svg',
-        },
+        // {
+        //   routerLink: ['profile'],
+        //   text: 'Profile',
+        //   icon: '../../../../assets/Admin-SideNav/Customer.svg',
+        // },
         {
           routerLink: ['dashboard'],
           text: 'Dashboard',
           icon: '../../../../assets/Operator/Dashboard.svg',
+        },
+        {
+          routerLink: ['location'],
+          text: 'Locations',
+          icon: '../../../../assets/Operator/Locations.svg',
         },
         {
           routerLink: ['charger'],
@@ -151,7 +156,7 @@ export class NavigationComponent implements OnInit {
         {
           
           text: 'Admin Setup',
-          icon: '../../../../assets/Operator/Charger.svg',
+          icon: '../../../../assets/Admin-SideNav/account-cog.svg',
           isOpen: false, // Initially collapsed
           subMenu: [
             {
@@ -192,7 +197,12 @@ export class NavigationComponent implements OnInit {
           routerLink: ['diagonstics'],
           text: 'Diagnostics',
           icon: '../../../../assets/Operator/Diagnostics.svg',
-        },      
+        },  
+        {
+          routerLink: ['reports'],
+          text: 'Reports',
+          icon: '../../../../assets/Operator/Reports.svg',
+        },    
         
         
         // {
