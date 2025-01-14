@@ -67,6 +67,13 @@
               <mat-icon>settings</mat-icon>
               <span>Profile Settings</span>
             </button>
+              <button
+                mat-menu-item
+                class="cursorPointer"
+                [routerLink]="['profile']">
+                <mat-icon>domain</mat-icon>
+                <span>Organization Profile</span>
+              </button>
             <button mat-menu-item class="cursorPointer" (click)="logout()">
               <mat-icon>logout</mat-icon>
               <span>Logout</span>

@@ -70,7 +70,10 @@ export class LocationInnerComponent implements OnInit {
   viewLocation(data: any) {
     this._storageService.setSessionData('locationId', data.locationId)
     this._storageService.setSessionData('locationName', data.locationName)
-    this._router.navigate(['operator/location/analytics'])
+    let userRole=this._storageService.getLocalData('role')?.toLowerCase();
+    if(userRole){
+      this._router.navigate([`${userRole}/location/analytics`]);
+    }   
   }
 
   locations = '../../../../../assets/Operator/Location-Icons.svg'

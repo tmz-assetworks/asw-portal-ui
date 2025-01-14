@@ -37,6 +37,11 @@ const routes: Routes = [
         pathMatch: 'full',
       },
       {
+        path: 'location',
+        loadChildren: () =>
+          import('../operator/location/location.module').then((m) => m.LocationModule),
+      },
+      {
         path: 'charger',
         loadChildren: () =>
           import('../../screen/operator/charger/charger.module').then((m) => m.ChargerModule),
@@ -110,7 +115,11 @@ const routes: Routes = [
             (m) => m.UserProfileModule,
           ),
       },
-
+      {
+        path: 'reports',
+        loadChildren: () =>
+          import('../operator/reports/reports.module').then((m) => m.ReportsModule),
+      },
       {
         path: 'help',
         component: HelpComponent,
