@@ -377,13 +377,8 @@ export class CommonDiagnosticsComponent implements OnInit {
 
     if (!this.isChargerValid()) return;
 
-    if (this.keyTypeGetConfig === '' || this.keyTypeGetConfig === 'enterKey') {
-      this.toastr.error('Please Select key');
-      return;
-    }
-
-    if (this.keyTypeGetConfig === 'All') {
-      this.keyTypeGetConfig = '';
+    if (this.keyTypeGetConfig === "") {
+      this.keyTypeGetConfig=this.control1.value??"";
     }
 
     const pBody = {
@@ -585,45 +580,47 @@ export class CommonDiagnosticsComponent implements OnInit {
     if (this.chargerId == '') {
       this.toastr.error('Please Enter Charger Id')
       return
-    } else if (!this.hasChargerBoxId()) {
+    } 
+    if (!this.hasChargerBoxId()) {
       this.toastr.error('Invalid Charge Box id')
       return
     }
-    else if (this.keyTypeChangeConfig == '') {
-      this.toastr.error('Please Select key')
+     if (this.keyTypeChangeConfig == '' || this.control1.value=="") {
+      this.keyTypeChangeConfig=this.control1.value??"";
+      if(this.keyTypeChangeConfig==''){
+        this.toastr.error('Please Select key')
       return
+      }
     }
-    else if (this.inputValue.nativeElement.value.length == 0) {
+     if (this.inputValue.nativeElement.value.length == 0) {
       this.toastr.error('Please Enter Value')
-      return
+      
     } else if (this.inputValue.nativeElement.value.length > 500) {
       this.toastr.error('Value Must Be Less Than 500 Characters')
-      return
-    }
-    //  this.inputKeyConfig = this.inputKey.nativeElement.value
-    this.inputValueConfig = this.inputValue.nativeElement.value
-
-    const pBody = {
-      key: this.keyTypeChangeConfig,
-      value: this.inputValueConfig,
-    }
-
-    this._diagnosticsService
-      .changeConfiguration(this.chargerId, pBody)
-      .subscribe({
-        next: (res) => {
-          this.showLoader = true
-          if (res) {
+    }else{
+      this.inputValueConfig = this.inputValue.nativeElement.value
+      const pBody = {
+        key: this.keyTypeChangeConfig,
+        value: this.inputValueConfig,
+      }
+  
+      this._diagnosticsService
+        .changeConfiguration(this.chargerId, pBody)
+        .subscribe({
+          next: (res) => {
+            this.showLoader = true
+            if (res) {
+              this.showLoader = false
+              this.isProvisioning = false
+              this.setCallFunction(res)
+              this.keyTypeChangeConfig = ''
+            }
+          },
+          error: (error: any) => {
             this.showLoader = false
-            this.isProvisioning = false
-            this.setCallFunction(res)
-            this.keyTypeChangeConfig = ''
-          }
-        },
-        error: (error: any) => {
-          this.showLoader = false
-        },
-      })
+          },
+        })
+    }
   }
 
   /**
