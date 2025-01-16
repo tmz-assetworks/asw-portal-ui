@@ -378,7 +378,7 @@ export class CommonDiagnosticsComponent implements OnInit {
     if (!this.isChargerValid()) return;
 
     if (this.keyTypeGetConfig === "") {
-      this.keyTypeGetConfig=this.control1.value==null?"":this.control1.value;
+      this.keyTypeGetConfig=this.control1.value??"";
     }
 
     const pBody = {
@@ -580,12 +580,13 @@ export class CommonDiagnosticsComponent implements OnInit {
     if (this.chargerId == '') {
       this.toastr.error('Please Enter Charger Id')
       return
-    } if (!this.hasChargerBoxId()) {
+    } 
+    if (!this.hasChargerBoxId()) {
       this.toastr.error('Invalid Charge Box id')
       return
     }
      if (this.keyTypeChangeConfig == '' || this.control1.value=="") {
-      this.keyTypeChangeConfig=this.control1.value==null?"":this.control1.value;
+      this.keyTypeChangeConfig=this.control1.value??"";
       if(this.keyTypeChangeConfig==''){
         this.toastr.error('Please Select key')
       return
@@ -593,10 +594,9 @@ export class CommonDiagnosticsComponent implements OnInit {
     }
      if (this.inputValue.nativeElement.value.length == 0) {
       this.toastr.error('Please Enter Value')
-      return
+      
     } else if (this.inputValue.nativeElement.value.length > 500) {
       this.toastr.error('Value Must Be Less Than 500 Characters')
-      return
     }else{
       this.inputValueConfig = this.inputValue.nativeElement.value
       const pBody = {
