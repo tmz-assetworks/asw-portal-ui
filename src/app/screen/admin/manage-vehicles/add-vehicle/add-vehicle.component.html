@@ -9,138 +9,6 @@
           <div class="barbar-block13-item mbottom">
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
-                VIN
-                <span style="color: 'red';">*</span>
-              </h5>
-              <div class="barbar-box6 layout" [ngClass]="{
-                  'is-invalid':
-                    vehicleFormGroup.get('vin')?.errors && submitted == true
-                }">
-                <input formControlName="vin" type="text" class="barbar-input-text" />
-              </div>
-              <span *ngIf="
-                  !vehicleFormGroup.get('vin')?.valid &&
-                  vehicleFormGroup.get('vin')?.touched &&
-                  vehicleFormGroup.get('vin')?.value.length > 0
-                " class="error-mess">
-                VIN must be in between 1 to 20 characters and Alphanumeric
-              </span>
-              <span *ngIf="
-                  (vehicleFormGroup.get('vin')?.touched || submitted) &&
-                  vehicleFormGroup.get('vin')?.value.length == 0
-                " class="error-mess">
-                VIN Is Required
-              </span>
-            </div>
-          </div>
-          <div class="barbar-block13-spacer"></div>
-          <div class="barbar-block13-item">
-            <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">
-                Model Year
-                <span style="color: 'red';">*</span>
-              </h5>
-              <mat-form-field class="barbar-box6 layout" [ngClass]="{
-                  'is-invalid':
-                    vehicleFormGroup.get('modelyear')?.errors &&
-                    submitted == true
-                }">
-                <mat-label>Select</mat-label>
-                <mat-select formControlName="modelyear">
-                  <mat-option *ngFor="let data of modelYearlist" [value]="data">
-                    {{ data }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-              <!-- <span *ngIf="!vehicleFormGroup.get('modelyear')?.valid && vehicleFormGroup.get('modelyear')?.touched && addVehicleForm.get('modelyear')?.value.length > 20" class="error-mess">VIN Must Be Between 1 To 20 Characters And Number Only</span> -->
-              <span *ngIf="
-                  !vehicleFormGroup.get('modelyear')?.valid &&
-                  (vehicleFormGroup.get('modelyear')?.touched || submitted) &&
-                  vehicleFormGroup.get('modelyear')?.value.length == 0
-                " class="error-mess">
-                Model Year Is Required
-              </span>
-            </div>
-          </div>
-
-          <div class="barbar-block13-spacer"></div>
-          <div class="barbar-block13-item">
-            <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">
-                Make
-                <span style="color: 'red';">*</span>
-              </h5>
-              <div class="barbar-box6 layout" [ngClass]="{
-                  'is-invalid':
-                    vehicleFormGroup.get('makeName')?.errors &&
-                    submitted == true
-                }">
-                <input formControlName="makeName" (keypress)="omit_special_char($event)" type="text"
-                  class="barbar-input-text" />
-              </div>
-
-              <span *ngIf="
-                  !vehicleFormGroup.get('makeName')?.valid &&
-                  (vehicleFormGroup.get('makeName')?.touched || submitted) &&
-                  vehicleFormGroup.get('makeName')?.value.length == 0
-                " class="error-mess">
-                Make Is Required
-              </span>
-              <span *ngIf="
-                  vehicleFormGroup.get('makeName')?.touched &&
-                  vehicleFormGroup.get('makeName')?.value.length > 40
-                " class="error-mess">
-                Make Must Be less than 40 Alphanumeric Character
-              </span>
-            </div>
-          </div>
-
-          <div class="barbar-block13-spacer"></div>
-          <div class="barbar-block13-item">
-            <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">
-                Model
-                <span style="color: 'red';">*</span>
-              </h5>
-              <div class="barbar-box6 layout" [ngClass]="{
-                  'is-invalid':
-                    vehicleFormGroup.get('modelName')?.errors &&
-                    submitted == true
-                }">
-                <input formControlName="modelName" (keypress)="omit_special_char($event)" type="text"
-                  class="barbar-input-text" />
-              </div>
-
-              <span *ngIf="
-                  !vehicleFormGroup.get('modelName')?.valid &&
-                  (vehicleFormGroup.get('modelName')?.touched || submitted) &&
-                  vehicleFormGroup.get('modelName')?.value.length == 0
-                " class="error-mess">
-                Model Is Required
-              </span>
-              <span *ngIf="
-                  vehicleFormGroup.get('modelName')?.touched &&
-                  vehicleFormGroup.get('modelName')?.value.length > 40
-                " class="error-mess">
-                Model Must Be less than 40 Alphanumeric Character
-              </span>
-            </div>
-          </div>
-          <div class="barbar-block13-spacer"></div>
-          <div class="barbar-block13-item mbottom">
-            <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">
-                License Plate
-              </h5>
-              <div class="barbar-box6 layout">
-                <input formControlName="licencePlate" type="text" maxlength="20" class="barbar-input-text" />
-              </div>
-            </div>
-          </div>
-          <div class="barbar-block13-spacer"></div>
-          <div class="barbar-block13-item mbottom">
-            <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">
                 Equipment ID/ Unit Number
                 <span style="color: 'red';">*</span>
               </h5>
@@ -164,6 +32,121 @@
                 " class="error-mess">
                 Equipment ID/ Unit Number Is Required
               </span>
+            </div>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Model Year
+              </h5>
+              <mat-form-field class="barbar-box6 layout" [ngClass]="{
+                  'is-invalid':
+                    vehicleFormGroup.get('modelyear')?.errors &&
+                    submitted == true
+                }">
+                <mat-label>Select</mat-label>
+                <mat-select formControlName="modelyear">
+                  <mat-option [value]="">Select</mat-option>
+                  <mat-option *ngFor="let data of modelYearlist" [value]="data">
+                    {{ data }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <!-- <span *ngIf="!vehicleFormGroup.get('modelyear')?.valid && vehicleFormGroup.get('modelyear')?.touched && addVehicleForm.get('modelyear')?.value.length > 20" class="error-mess">VIN Must Be Between 1 To 20 Characters And Number Only</span> -->
+              <!-- <span *ngIf="
+                  !vehicleFormGroup.get('modelyear')?.valid &&
+                  (vehicleFormGroup.get('modelyear')?.touched || submitted) &&
+                  vehicleFormGroup.get('modelyear')?.value.length == 0
+                " class="error-mess">
+                Model Year Is Required
+              </span>-->
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Make
+                
+              </h5>
+              <div class="barbar-box6 layout" [ngClass]="{
+                  'is-invalid':
+                    vehicleFormGroup.get('makeName')?.errors &&
+                    submitted == true
+                }">
+                <input formControlName="makeName" (keypress)="omit_special_char($event)" type="text"
+                  class="barbar-input-text" />
+              </div>
+
+              
+              <span *ngIf="
+                  vehicleFormGroup.get('makeName')?.touched &&
+                  vehicleFormGroup.get('makeName')?.value.length > 40
+                " class="error-mess">
+                Make Must Be less than 40 Alphanumeric Character
+              </span>
+            </div>
+          </div>
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Model
+                
+              </h5>
+              <div class="barbar-box6 layout" [ngClass]="{
+                  'is-invalid':
+                    vehicleFormGroup.get('modelName')?.errors &&
+                    submitted == true
+                }">
+                <input formControlName="modelName" (keypress)="omit_special_char($event)" type="text"
+                  class="barbar-input-text" />
+              </div>
+
+              
+              <span *ngIf="
+                  vehicleFormGroup.get('modelName')?.touched &&
+                  vehicleFormGroup.get('modelName')?.value.length > 40
+                " class="error-mess">
+                Model Must Be less than 40 Alphanumeric Character
+              </span>
+            </div>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item mbottom">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                License Plate
+              </h5>
+              <div class="barbar-box6 layout">
+                <input formControlName="licencePlate" type="text" maxlength="20" class="barbar-input-text" />
+              </div>
+            </div>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item mbottom">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                VIN
+                
+              </h5>
+              <div class="barbar-box6 layout" [ngClass]="{
+                  'is-invalid':
+                    vehicleFormGroup.get('vin')?.errors && submitted == true
+                }">
+                <input formControlName="vin" type="text" class="barbar-input-text" />
+              </div>
+              <span *ngIf="
+                  !vehicleFormGroup.get('vin')?.valid &&
+                  vehicleFormGroup.get('vin')?.touched &&
+                  vehicleFormGroup.get('vin')?.value.length > 0
+                " class="error-mess">
+                VIN must be less than 20 characters and Alphanumeric
+              </span>
+              
             </div>
           </div>
           <div class="barbar-block13-spacer"></div>
