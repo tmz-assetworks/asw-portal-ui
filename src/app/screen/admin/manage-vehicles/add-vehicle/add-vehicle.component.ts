@@ -35,14 +35,13 @@ export class AddVehicleComponent implements OnInit {
   viewMode: boolean = false
 
   vehicleFormGroup = this.fb.group({
-    vin: new FormControl('', [
-      Validators.required,
+    vin: new FormControl('', [      
       Validators.pattern('[a-z0-9A-Z]{2,20}'),
       Validators.pattern('^[a-zA-Z0-9!@#$%^&*()/-]+$'),
     ]),
-    modelyear: new FormControl('', Validators.required),
-    makeName: new FormControl('', Validators.required),
-    modelName: new FormControl('', Validators.required),
+    modelyear: new FormControl(''),
+    makeName: new FormControl('', [Validators.maxLength(40)]),
+    modelName: new FormControl('', [Validators.maxLength(400)]),
     licencePlate: new FormControl('', Validators.maxLength(20)),
     unitNumber: new FormControl('',[Validators.required,Validators.maxLength(20)] ),
     department: new FormControl('', [Validators.maxLength(255)]),
@@ -153,7 +152,7 @@ export class AddVehicleComponent implements OnInit {
       domicileLocation: formData.domicileLocation,
       vehicleMacAddress: formData.vehicleMacAddress,
       createdBy: this.UserId,
-      modelYear: +formData.modelyear,
+      modelYear: formData.modelyear==""?null:+formData.modelyear,
       modelName: formData.modelName,
       makeName: formData.makeName,
       RfIdCardsAssigneds: formData.rfidCardAssigned,
@@ -222,7 +221,7 @@ export class AddVehicleComponent implements OnInit {
       vehicleMacAddress: formData.vehicleMacAddress,
       isActive: true,
       modifiedBy: this.UserId,
-      modelYear: +formData.modelyear,
+      modelYear: formData.modelyear==""?null:+formData.modelyear,
       modelName: formData.modelName,
       makeName: formData.makeName,
       rfIdCardsAssigneds: formData.rfidCardAssigned,
@@ -295,7 +294,7 @@ export class AddVehicleComponent implements OnInit {
       })
 
       this.vehicleFormGroup.patchValue({
-        modelyear: this.vehicleData.modelYear,
+        modelyear: this.vehicleData.modelYear==null?"":this.vehicleData.modelYear,
       })
 
       this.vehicleFormGroup.patchValue({
