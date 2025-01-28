@@ -7,6 +7,7 @@ import Swal from 'sweetalert2'
 import { StorageService } from 'src/app/service/storage.service'
 import { AuthService } from 'src/app/service/auth/auth.service'
 import { environment } from 'src/environments/environment'
+import { UserProfileService } from '../user-profile/user-profile.service'
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -26,6 +27,7 @@ export class LoginComponent implements OnInit {
     private toastr: ToastrService,
     private _storageService: StorageService,
     private _authService: AuthService,
+    private _userProfileService: UserProfileService
   ) {
     this.email =
       localStorage.getItem('emailEleVehi') != null &&
@@ -137,6 +139,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('token_expires_on', decodeData.exp)
           this._storageService.setLocalData('user_id', decodeData.oid)
           this._storageService.setLocalData('username', decodeData.name)
+          this.getUserProfileById();
 
           this.showLoader = false
           if (decodeData.roles[0] == 'Operator') {
@@ -144,7 +147,6 @@ export class LoginComponent implements OnInit {
             this._router.navigate(['/operator'])
           } else if (decodeData.roles[0] == 'Admin') {
             localStorage.setItem('role', 'Admin')
-            // admin/customer
             this._router.navigate(['/admin/dashboard'])
           } else if (decodeData.roles[0] == 'SuperAdmin') {
             localStorage.setItem('role', 'SuperAdmin')
@@ -157,6 +159,13 @@ export class LoginComponent implements OnInit {
         },
       })
     }
+  }
+
+  getUserProfileById(){
+    this._userProfileService.GetUserProfileById().subscribe((res) => {
+     localStorage.setItem('time_zone', res.data.timezone);
+    })
+
   }
 
   showPassword() {

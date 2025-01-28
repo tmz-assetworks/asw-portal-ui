@@ -226,8 +226,52 @@
               </span>
             </div>
           </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Time Zone
+                <span style="color: 'red'">*</span>
+              </h5>
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addCustomerProfile.get('timeZone')?.errors &&
+                    submitted == true
+                }"
+              >
+                <mat-label>Select</mat-label>
+
+                <mat-select
+                  [value]="selectedTimeZoneId"
+                  formControlName="timeZone"
+                >
+                  <mat-option
+                    *ngFor="let data of GetTimeZoneList"
+                    [value]="data.id"
+                    (onSelectionChange)="selectTimeZone($event, data.id)"
+                  >
+                    {{ data.timeZoneText }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <span
+                *ngIf="
+                  (!addCustomerProfile.get('timeZone')?.valid &&
+                    addCustomerProfile.get('timeZone')?.touched) ||
+                  (submitted &&
+                    addCustomerProfile.get('timeZone')?.value.length == 0)
+                "
+                class="error-mess"
+              >
+              Time Zone Is Required
+              </span>
+            </div>
+          </div>
         </div>
       </div>
+
 
       <div class="barbar-block12 layout">
         <h4 class="barbar-highlights1 layout">Address informtion</h4>

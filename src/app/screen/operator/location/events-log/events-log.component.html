@@ -216,7 +216,7 @@
                               >
                                 <!-- {{ element.DateTime }}  -->
                                 {{
-                                  element.createdAt | date: 'dd-MM-yyyy hh:mm'
+                                  element.createdAt | date: 'dd-MM-yyyy hh:mm':userTimeZone
                                 }}
                               </td>
                             </ng-container>

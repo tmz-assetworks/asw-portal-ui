@@ -77,7 +77,7 @@ export class GraphDetailComponent implements OnInit {
     toDate: new FormControl(''),
     status: new FormControl(),
   })
-
+  userTimeZone:any;
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _location: Location,
@@ -90,6 +90,7 @@ export class GraphDetailComponent implements OnInit {
     this.pageHeading = this._storageService.getSessionData('pageHeading')
     this.duration = this._storageService.getSessionData('duration')
     this.UserId = this._storageService.getLocalData('user_id')
+    this.userTimeZone=this._storageService.getLocalData('time_zone')
   }
 
   ngOnInit(): void {

@@ -23,6 +23,7 @@ export class AddCustomersComponent implements OnInit {
   isUpdateBtn: boolean = false
   countryList: any
   selectedCountryId: any
+  selectedTimeZoneId: any
   selectedStateId: any
   countryId = 0
   stateList: any
@@ -33,6 +34,7 @@ export class AddCustomersComponent implements OnInit {
   submitted: any
   showLoader: boolean = false
   GetAllCountryList: any
+  GetTimeZoneList: any
   getAllStateList: any
   getAllCityList: any
   telephoneNumber: string = ''
@@ -84,6 +86,7 @@ export class AddCustomersComponent implements OnInit {
       Validators.email,
     ]),
     phoneNumber: new FormControl('', Validators.required),
+    timeZone: new FormControl('', Validators.required),
     addressLine1: new FormControl('', [
       Validators.required,
       Validators.maxLength(255),
@@ -107,6 +110,7 @@ export class AddCustomersComponent implements OnInit {
       this.GetCustomerbyID(this.customersId)
     }
     this.getAllCountry()
+    this.getTimeZoneList();
   }
   /**
    *  Patch data for edit fuction
@@ -152,6 +156,15 @@ export class AddCustomersComponent implements OnInit {
         })
       }
 
+
+      if (this.customerData.timeZoneText) {
+        this.selectedTimeZoneId = this.customerData.timeZoneID
+
+        this.addCustomerProfile.patchValue({
+          timeZone: this.customerData.timeZoneText,
+        })
+      }
+
       if (this.customerData.stateName) {
         this.selectedStateId = this.customerData.stateID
         this.addCustomerProfile.patchValue({
@@ -189,6 +202,7 @@ export class AddCustomersComponent implements OnInit {
       countryID: this.selectedCountryId,
       stateID: this.selectedStateId,
       cityName: formData.cityName,
+      timeZoneID:this.selectedTimeZoneId,
 
       createdBy: this.UserId,
     }
@@ -251,6 +265,7 @@ export class AddCustomersComponent implements OnInit {
       countryID: this.selectedCountryId,
       stateID: this.selectedStateId,
       cityName: formData.cityName,
+      timeZoneID:this.selectedTimeZoneId,
       modifiedBy: this.UserId,
     }
     Swal.fire({
@@ -329,6 +344,12 @@ export class AddCustomersComponent implements OnInit {
     })
   }
 
+  getTimeZoneList() {
+    this._superAdminService.getTimeZoneList().subscribe((res: any) => {
+      this.GetTimeZoneList = res.data
+    })
+  }
+
   /*
    *All getAllStateByCountryId List
    *
@@ -353,6 +374,12 @@ export class AddCustomersComponent implements OnInit {
       this.getAllStateByCountryId(this.selectedCountryId)
     }
   }
+
+  selectTimeZone(event: any, zoneId: any) {
+    if (event.isUserInput) {
+        this.selectedTimeZoneId = zoneId
+  }
+}
 
   /**
    * Select State

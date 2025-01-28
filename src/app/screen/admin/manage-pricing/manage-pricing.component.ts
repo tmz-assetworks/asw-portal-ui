@@ -37,6 +37,7 @@ export class ManagePricingComponent implements OnInit {
   isTableHasData: any
   statusData: any
   adminService: any
+  userTimeZone:any;
 
   constructor(
     private _adminService: AdminService,
@@ -45,6 +46,7 @@ export class ManagePricingComponent implements OnInit {
     private _toastr:ToastrService
   ) {
     this.UserId = this._storageService.getLocalData('user_id')
+    this.userTimeZone=this._storageService.getLocalData('time_zone');  
   }
 
   ngOnInit() {

@@ -154,13 +154,13 @@
               <ng-container matColumnDef="starttime">
                 <th mat-header-cell *matHeaderCellDef>START TIME</th>
                 <td mat-cell *matCellDef="let element">
-                  {{ element.startTime | date: 'dd-MM-yyyy h:mm' }}
+                  {{ element.startTime | date: 'dd-MM-yyyy h:mm':userTimeZone }}
                 </td>
               </ng-container>
               <ng-container matColumnDef="endtime">
                 <th mat-header-cell *matHeaderCellDef>END TIME</th>
                 <td mat-cell *matCellDef="let element">
-                  {{ element.endTime | date: 'dd-MM-yyyy h:mm' }}
+                  {{ element.endTime | date: 'dd-MM-yyyy h:mm':userTimeZone }}
                 </td>
               </ng-container>
 

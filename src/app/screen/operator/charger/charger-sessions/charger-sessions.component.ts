@@ -57,6 +57,7 @@ export class ChargerSessionsComponent implements OnInit {
   selecteChargerIds: string | null
   chargerBoxId: any
   datePipe = new DatePipe('en-US')
+  userTimeZone:any;
 
   ngAfterViewInit() {
     this.paginator._intl.itemsPerPageLabel = 'Rows per page'
@@ -73,6 +74,7 @@ export class ChargerSessionsComponent implements OnInit {
     this.selecteChargerIds = this._storageService.getSessionData('chargerBoxId')
 
     this.chargerName = this._storageService.getSessionData('chargerName')
+    this.userTimeZone = this._storageService.getLocalData('time_zone');
   }
 
   ngOnInit(): void {
@@ -162,7 +164,7 @@ export class ChargerSessionsComponent implements OnInit {
         'START TIME': this.eventLogList[i]['startTime'],
         'END TIME': this.datePipe.transform(
           this.eventLogList[i]['endTime'],
-          'dd-MM-yyyy h:mm',
+          'dd-MM-yyyy h:mm',this.userTimeZone
         ),
       }
 
