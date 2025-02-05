@@ -81,6 +81,11 @@ export class SuperAdminService {
   public getAllCountry(): Observable<any> {
     return this._http.get<any>(`${this.assetUrl}Country/getallcountry`)
   }
+
+  public getTimeZoneList(): Observable<any> {
+    return this._http.get<any>(`${this.assetUrl}TimeZone/GetAllTimeZones`)
+  }
+  
   public getAllStateByCountryId(id: any): Observable<any> {
     return this._http.get<any>(
       `${this.assetUrl}Country/getAllStateByCountryId?Id=${id}`,

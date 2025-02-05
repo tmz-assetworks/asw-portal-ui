@@ -37,6 +37,7 @@ export class ManageCustomersComponent implements OnInit {
     'NumberOfEvChargers',
     'Assets',
     'User',
+    'TimeZone',
     'action',
   ];
 

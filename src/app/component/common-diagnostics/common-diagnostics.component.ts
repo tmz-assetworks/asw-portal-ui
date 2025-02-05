@@ -120,6 +120,7 @@ export class CommonDiagnosticsComponent implements OnInit {
   href: string = "";
   isChargerDiagnostics: boolean = true
   chargerBoxIdArr: any
+  userTimeZone:any;
 
   chargerDeteailTab = [
     {
@@ -180,6 +181,7 @@ export class CommonDiagnosticsComponent implements OnInit {
     this.chargingRateUnit = this._diagnosticsService.getChargingRateUnit()
     this.currentDate = this._diagnosticsService.currentDate() + 'T00:00'
     this.UserId = this._storageService.getLocalData('user_id')
+    this.userTimeZone=this._storageService.getLocalData('time_zone');
 
 
     this.chargerName = this._storageService.getSessionData('chargerName')

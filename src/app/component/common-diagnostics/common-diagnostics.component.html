@@ -1432,7 +1432,7 @@
         <ng-container matColumnDef="Datetime">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>DATE/ TIME</th>
           <td mat-cell *matCellDef="let element; let i = index">
-            {{ element.modifiedAt | date: 'dd-MM-yyyy h:mm' }}
+            {{ element.modifiedAt | date: 'dd-MM-yyyy h:mm': userTimeZone}}
           </td>
         </ng-container>
 

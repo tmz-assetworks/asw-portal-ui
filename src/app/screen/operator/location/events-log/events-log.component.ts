@@ -41,6 +41,7 @@ export class EventsLogComponent implements OnInit {
   totalPages: any
   pageSizeOptions = [10, 20, 100]
   eventLogList: any[] = []
+  userTimeZone:any;
 
   @ViewChild(MatPaginator) paginator: any
   @ViewChild('pdfTable', { static: false })
@@ -58,6 +59,7 @@ export class EventsLogComponent implements OnInit {
     this.locationId = this._storageService.getSessionData('locationId')
 
     this.UserId = this._storageService.getLocalData('user_id')
+    this.userTimeZone = this._storageService.getLocalData("time_zone");
   }
 
   displayedColumns = ['Type', 'DateTime', 'SerialNumber', 'action']
