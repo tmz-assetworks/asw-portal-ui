@@ -183,24 +183,7 @@
                         {{ chargerInfo?.installedDate | date: 'dd MMMM yyyy' }}
                       </h5>
                     </div>
-                    <div class="fill-image layout"></div>
-                    <!-- <div class="fill-block5-spacer"></div>
-                    <div class="fill-block5-item">
-                      <div class="fill-group layout">
-                        <div class="fill-block6 layout">
-                          <div class="fill-text-body1 layout">
-                            Status
-                          </div>
-                          <h5 class="fill-highlights layout">{{status}}</h5>
-                        </div>
-                        <div
-                          style="
-                            --src: url(/assets/6f9f170d72615beea8e11bdd988574dc.png);
-                          "
-                          class="fill-image layout"
-                        ></div>
-                      </div>
-                    </div> -->
+                    <div class="fill-image layout"></div>                    
                   </div>
                 </div>
                 <div class="fill-block5-spacer"></div>
@@ -210,6 +193,20 @@
 
             <div class="fill-block4 layout">
               <div class="fill-block5 layout">
+                <div class="fill-block5-item">
+                  <div class="fill-group layout">
+                    <div class="fill-block6 layout">
+                      <div class="fill-text-body1 layout">
+                        Sim Card MSIDN
+                      </div>
+                      <h5 class="fill-highlights layout">
+                        {{ chargerInfo?.simCardMSIDN }}
+                      </h5>
+                    </div>
+                    <div class="fill-image layout"></div>
+                  </div>
+                </div>
+                <div class="fill-block5-spacer"></div>
                 <div class="fill-block5-item">
                   <div class="fill-group layout">
                     <div class="fill-block6 layout">

@@ -212,8 +212,12 @@ export class DashboardComponent implements OnInit {
         marker.addListener('click', () => {
           // if (accident_title == 'Faulted') {
           this._storageService.setSessionData('chargerBoxId', chargeBoxId)
-          this._storageService.setSessionData('chargerName', chargeBoxId)
-          this._router.navigate(['operator/charger/chargers-diagnostic'])
+          this._storageService.setSessionData('chargerName', chargeBoxId);
+          let userRole=this._storageService.getLocalData('role')?.toLowerCase();
+          if(userRole){
+            this._router.navigate([`${userRole}/charger/chargers-diagnostic`]);
+          }
+          
           // }
           // infoWindow.setContent(contentString)
           // infoWindow.open(map, marker)

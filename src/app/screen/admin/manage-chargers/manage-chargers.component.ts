@@ -31,6 +31,7 @@ export class ManageChargersComponent implements OnInit {
     'model',
     'status',
     'protocol',
+    'simCardMSIDN',
     'Action',
   ]
 

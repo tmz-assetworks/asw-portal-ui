@@ -56,6 +56,7 @@ export class ChargerInnerComponent implements OnInit {
     'timereported',
     'locationid',
     'state',
+    'simCardMSIDN',
     'locationcontactnumber',
     'action',
   ]

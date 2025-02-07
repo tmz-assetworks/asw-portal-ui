@@ -809,8 +809,8 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &group.layout {
     position: relative;
     height: 49px;
-    width: 480px;
-    max-width: 480px;
+    width: 520px;
+    max-width: 520px;
   }
   &block19 {
     @include flex-column;
@@ -893,8 +893,8 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block20.layout {
     position: relative;
     height: min-content;
-    width: 81.73%;
-    margin: 8px 0.5% 7px 2.54%;
+    width: 91.73%;
+    margin: 8px 0.5% 7px 1.94%;
     @include lg {
       margin: 7px 0.5% 6px 2.54%;
     }
