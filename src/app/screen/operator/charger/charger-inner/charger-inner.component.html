@@ -127,7 +127,7 @@
                               <input
                                 class="cust-list-text-body21 layout"
                                 (keyup)="applyFilter($event)"
-                                placeholder="Search by asset id, charge box id, location name, make, model"
+                                placeholder="Search by asset id, charge box id, location name, make, model, sim card"
                                 #input
                               />
                             </div>
@@ -219,6 +219,14 @@
                           </td>
                         </ng-container>
 
+                        <!-- State Column -->
+                        <ng-container matColumnDef="simCardMSIDN">
+                          <th mat-header-cell *matHeaderCellDef>SIM CARD MSIDN</th>
+                          <td mat-cell *matCellDef="let element">
+                            {{ element.simCardMSIDN }}
+                          </td>
+                        </ng-container>
+
                         <!-- Location Conatct Number Column -->
                         <ng-container matColumnDef="locationcontactnumber">
                           <th mat-header-cell *matHeaderCellDef>
@@ -228,6 +236,7 @@
                             {{ element.locationContactNumber }}
                           </td>
                         </ng-container>
+                        
 
                         <!-- Action Column -->
                         <ng-container matColumnDef="action">
