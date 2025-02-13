@@ -114,7 +114,7 @@
                               </th>
                               <td mat-cell *matCellDef="let element">
                                 {{
-                                  element.timeReported | date: 'dd-MM-yyyy h:mm':userTimeZone
+                                  element.timeReported +"Z" | date: 'MM-dd-yyyy HH:mm':userTimeZone
                                 }}
                               </td>
                             </ng-container>
@@ -377,7 +377,7 @@
                               </th>
                               <td mat-cell *matCellDef="let element">
                                 {{
-                                  element.timeReported | date: 'dd-MM-yyyy h:mm':userTimeZone
+                                  element.timeReported +"Z" | date: 'MM-dd-yyyy HH:mm':userTimeZone
                                 }}
                               </td>
                             </ng-container>
@@ -411,7 +411,7 @@
                               </th>
                               <td mat-cell *matCellDef="let element">
                                 {{
-                                  element.startTime | date: 'dd-MM-yyyy h:mm':userTimeZone
+                                  element.startTime +"Z" | date: 'MM-dd-yyyy HH:mm':userTimeZone
                                 }}
                               </td>
                             </ng-container>
@@ -420,7 +420,7 @@
                                 END TIME
                               </th>
                               <td mat-cell *matCellDef="let element">
-                                {{ element.endTime | date: 'dd-MM-yyyy h:mm':userTimeZone }}
+                                {{ element.endTime +"Z" | date: 'MM-dd-yyyy HH:mm':userTimeZone }}
                               </td>
                             </ng-container>
                             <ng-container matColumnDef="startmetervalue">

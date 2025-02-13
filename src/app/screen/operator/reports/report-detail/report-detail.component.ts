@@ -36,6 +36,8 @@ export class ReportDetailComponent implements OnInit {
   datePipe = new DatePipe('en-US')
   chartList: any
   submitted = false
+  userTimeZone:any;
+  
   constructor(
     private _storageService: StorageService,
     private _activatedRoute: ActivatedRoute,
@@ -48,6 +50,7 @@ export class ReportDetailComponent implements OnInit {
     this.pageHeading = this._storageService.getSessionData('pageHeading')
     this.duration = this._storageService.getSessionData('duration')
     this.UserId = this._storageService.getLocalData('user_id')
+    this.userTimeZone=this._storageService.getLocalData('time_zone');
   }
 
   ngOnInit(): void {

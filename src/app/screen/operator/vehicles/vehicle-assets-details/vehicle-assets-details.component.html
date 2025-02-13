@@ -253,7 +253,7 @@
                             Valid From
                           </div>
                           <h5 class="fill-highlights layout">
-                            {{ item?.validFrom | date: 'dd-MM-yyyy' }}
+                            {{ item?.validFrom +"Z" | date: 'MM-dd-yyyy':userTimeZone }}
                           </h5>
                         </div>
                         <div class="fill-image layout"></div>
@@ -267,7 +267,7 @@
                             Valid To
                           </div>
                           <h5 class="fill-highlights layout">
-                            {{ item?.validTo | date: 'dd-MM-yyyy' }}
+                            {{ item?.validTo +"Z" | date: 'MM-dd-yyyy':userTimeZone }}
                           </h5>
                         </div>
                         <div class="fill-image layout"></div>

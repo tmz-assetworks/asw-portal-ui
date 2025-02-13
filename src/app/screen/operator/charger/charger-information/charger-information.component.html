@@ -180,7 +180,7 @@
                         Installed Date
                       </div>
                       <h5 class="fill-highlights layout">
-                        {{ chargerInfo?.installedDate | date: 'dd MMMM yyyy' }}
+                        {{ chargerInfo?.installedDate +"Z" | date: 'dd MMMM yyyy':userTimeZone }}
                       </h5>
                     </div>
                     <div class="fill-image layout"></div>                    

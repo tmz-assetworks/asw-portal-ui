@@ -195,13 +195,13 @@
       <ng-container matColumnDef="ValidFrom">
         <th mat-header-cell *matHeaderCellDef>VALID FROM</th>
         <td mat-cell *matCellDef="let element">
-          {{ element.validFrom | date: 'dd MMMM yyyy':userTimeZone }}
+          {{ element.validFrom| date: 'dd MMMM yyyy' }}
         </td>
       </ng-container>
       <ng-container matColumnDef="ValidTo">
         <th mat-header-cell *matHeaderCellDef>VALID TO</th>
         <td mat-cell *matCellDef="let element">
-          {{ element.validTo | date: 'dd MMMM yyyy':userTimeZone }}
+          {{ element.validTo | date: 'dd MMMM yyyy' }}
         </td>
       </ng-container>
       <ng-container matColumnDef="Level">

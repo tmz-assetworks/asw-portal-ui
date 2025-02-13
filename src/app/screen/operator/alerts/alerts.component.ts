@@ -36,6 +36,7 @@ export class AlertsComponent implements OnInit {
   searchParam = ''
   eventlogIdList: any
   isRead = false
+  userTimeZone: any
 
   constructor(
     public _alertsService: AlertsService,
@@ -44,6 +45,7 @@ export class AlertsComponent implements OnInit {
     private _activatedRoute: ActivatedRoute,
   ) {
     this.UserId = this._storageService.getLocalData('user_id')
+    this.userTimeZone=this._storageService.getLocalData('time_zone');
 
     this._activatedRoute.queryParams.subscribe(params => {
       const pageurl = params['type'];

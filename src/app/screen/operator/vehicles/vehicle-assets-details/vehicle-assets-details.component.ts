@@ -13,11 +13,15 @@ export class VehicleAssetsDetailsComponent implements OnInit {
   vehicleId: string | null
   vehicleData: any
   subsPlanData: any
+  userTimeZone: any
+  
   constructor(
     private _storageService: StorageService,
     public _vehicleService: VehicleService,
   ) {
     this.vehicleId = this._storageService.getSessionData('vehicleId')
+    this.userTimeZone = this._storageService.getLocalData("time_zone");
+
   }
 
   ngOnInit(): void {

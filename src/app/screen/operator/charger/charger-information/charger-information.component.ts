@@ -12,6 +12,7 @@ export class ChargerInformationComponent implements OnInit {
   chargerName: string | null
   selecteLocationIds: string | null
   chargerInfo: any
+  userTimeZone:any
 
   constructor(
     private _storageService: StorageService,
@@ -22,6 +23,8 @@ export class ChargerInformationComponent implements OnInit {
       'chargerBoxId',
     )
     this.chargerName = this._storageService.getSessionData('chargerName')
+    this.userTimeZone=this._storageService.getLocalData('time_zone');  
+
   }
 
   ngOnInit(): void {
