@@ -135,14 +135,14 @@ export class GraphDetailComponent implements OnInit {
         this.flag = 'locationStatus'
         this.isCharger = false
         this.displayedColumnsLocation = [
-          'chargerName',
+          'ChargerName',
           // 'uid',
-          'chargerType',
-          'faultSince',
+          'ChargerType',
+          'FaultSince',
           // 'faultDescription',
-          'timeReported',
+          'TimeReported',
           // 'locationId',
-          'locationName',
+          'LocationName',
         ]
         this.GetChartDetailsList(this.flag)
       }
