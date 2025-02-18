@@ -806,7 +806,7 @@ export class CommonDiagnosticsComponent implements OnInit {
   }
 
   convertToIsoIfValid(date: any) {
-    return date ? this._diagnosticsService.convertToIso(date) : undefined;
+    return date ? this._diagnosticsService.convertToUTC(date) : undefined;
   }
 
   getValue(value: any) {
@@ -2427,27 +2427,27 @@ export class CommonDiagnosticsComponent implements OnInit {
     if (type !== undefined) {
       if (type == 'start') {
         //  this.startDate = this._convertToIso(this.selectedDate)
-        this.startDate = this._diagnosticsService.convertToIso(event.value)
+        this.startDate = this._diagnosticsService.convertToUTC(event.value)
       } else if (type == 'end') {
-        this.endDate = this._diagnosticsService.convertToIso(event.value)
+        this.endDate = this._diagnosticsService.convertToUTC(event.value)
       }
     }
-    this.expiryDate = this._diagnosticsService.convertToIso(event.value)
+    this.expiryDate = this._diagnosticsService.convertToUTC(event.value)
   }
   selectDate(event: any, type?: string) {
     this.selectedDate = event.target.value
     if (type !== undefined) {
       if (type == 'start') {
         //  this.startDate = this._convertToIso(this.selectedDate)
-        this.startDate = this._diagnosticsService.convertToIso(
+        this.startDate = this._diagnosticsService.convertToUTC(
           this.selectedDate,
         )
       } else if (type == 'end') {
-        this.endDate = this._diagnosticsService.convertToIso(this.selectedDate)
+        this.endDate = this._diagnosticsService.convertToUTC(this.selectedDate)
       }
     }
 
-    this.expiryDate = this._diagnosticsService.convertToIso(this.selectedDate)
+    this.expiryDate = this._diagnosticsService.convertToUTC(this.selectedDate)
   }
 
   handleError(error: any) {
@@ -2585,7 +2585,7 @@ export class CommonDiagnosticsComponent implements OnInit {
 
   private buildChargingProfilePayload() {
     const chargingProfileData = this.setChargingForm.value.csChargingProfiles;
-    const convertToIso = this._diagnosticsService.convertToIso.bind(this._diagnosticsService);
+    const convertToUTC = this._diagnosticsService.convertToUTC.bind(this._diagnosticsService);
 
     return {
       connectorId: +this.setChargingForm.value.connectorId,
@@ -2596,11 +2596,11 @@ export class CommonDiagnosticsComponent implements OnInit {
         chargingProfilePurpose: chargingProfileData.chargingProfilePurpose || undefined,
         chargingProfileKind: chargingProfileData.chargingProfileKind || undefined,
         recurrencyKind: chargingProfileData.recurrencyKind || undefined,
-        validFrom: chargingProfileData.validFrom ? convertToIso(chargingProfileData.validFrom) : undefined,
-        validTo: chargingProfileData.validTo ? convertToIso(chargingProfileData.validTo) : undefined,
+        validFrom: chargingProfileData.validFrom ? convertToUTC(chargingProfileData.validFrom) : undefined,
+        validTo: chargingProfileData.validTo ? convertToUTC(chargingProfileData.validTo) : undefined,
         chargingSchedule: {
           duration: chargingProfileData.duration ? +chargingProfileData.duration : undefined,
-          startSchedule: chargingProfileData.startSchedule ? convertToIso(chargingProfileData.startSchedule) : undefined,
+          startSchedule: chargingProfileData.startSchedule ? convertToUTC(chargingProfileData.startSchedule) : undefined,
           chargingRateUnit: chargingProfileData.chargingRateUnit || undefined,
           chargingSchedulePeriod: {
             startPeriod: chargingProfileData.startPeriod || undefined,
@@ -2690,10 +2690,10 @@ export class CommonDiagnosticsComponent implements OnInit {
    */
   checkStartDate() {
     if (
-      this.remoteStartForm.value.csChargingProfiles.validFrom >
-      this.remoteStartForm.value.csChargingProfiles.validTo
+      this.remoteStartForm.value.chargingProfile.validFrom >
+      this.remoteStartForm.value.chargingProfile.validTo
     ) {
-      this.remoteStartForm.controls.csChargingProfiles.patchValue({
+      this.remoteStartForm.controls.chargingProfile.patchValue({
         validTo: '',
       })
       return
@@ -2717,10 +2717,10 @@ export class CommonDiagnosticsComponent implements OnInit {
    */
 
   checkValidFrom() {
-    let fromDate = this.remoteStartForm.value.csChargingProfiles.validFrom
+    let fromDate = this.remoteStartForm.value.chargingProfile?.validFrom
     if (!fromDate) {
       this.toastr.error('Please select From Date first.')
-      this.remoteStartForm.controls.csChargingProfiles.patchValue({ validTo: '' })
+      this.remoteStartForm.controls.chargingProfile.patchValue({ validTo: '' })
       return
     }
   }
@@ -2738,7 +2738,7 @@ export class CommonDiagnosticsComponent implements OnInit {
       'yyyy-MM-ddT' + this.getModifiedTime(),
     )
 
-    let fromDate = this.remoteStartForm.value.csChargingProfiles.validFrom
+    let fromDate = this.remoteStartForm.value.chargingProfile.validFrom
     let validFromDate: any = this.datePipe.transform(
       fromDate,
       'yyyy-MM-ddT' + this.getModifiedTime(),

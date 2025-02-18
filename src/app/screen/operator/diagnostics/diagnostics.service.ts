@@ -340,6 +340,11 @@ export class DiagnosticsService {
     ).toISOString()
   }
 
+  convertToUTC(dateString: string): string {
+    const date = new Date(dateString);
+    return date.toISOString();
+  }
+
   /* convertToIsoSendLocal(date: any) {
     let newDate = new Date(date);
     return new Date(
