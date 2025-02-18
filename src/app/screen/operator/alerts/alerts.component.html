@@ -127,7 +127,7 @@
               'font-weight': element.isRead === true ? 'normal' : 'bold'
             }"
           >
-            {{ element.dateTime | date: 'dd-MM-yyyy h:mm' }}
+            {{ element.dateTime +"Z" | date: 'MM-dd-yyyy HH:mm': userTimeZone }}
           </td>
         </ng-container>
         <ng-container matColumnDef="IpAddress">

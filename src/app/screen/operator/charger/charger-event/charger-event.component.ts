@@ -53,6 +53,7 @@ export class ChargerEventComponent implements OnInit {
   pageSizeOptions = [10, 20, 100]
   chargerBoxId: any
   eventLogList: any
+  userTimeZone:any
   constructor(
     public _alertsService: AlertsService,
     private _storageService: StorageService,
@@ -65,6 +66,7 @@ export class ChargerEventComponent implements OnInit {
       'chargerBoxId',
     )
     this.chargerName = this._storageService.getSessionData('chargerName')
+    this.userTimeZone=this._storageService.getLocalData('time_zone');
   }
   ngOnInit(): void {
     this.GetEventLogByLocation()

@@ -144,7 +144,7 @@
                 Date/ Time
               </th>
               <td mat-cell *matCellDef="let element; let i = index">
-                {{ element.modifiedAt }}
+                {{ element.modifiedAt + "Z"| date: 'MM-dd-yyyy HH:mm':userTimeZone}}
               </td>
             </ng-container>
 
