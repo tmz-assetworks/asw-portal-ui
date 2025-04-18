@@ -6,6 +6,7 @@
     <form [formGroup]="pricingPlanFormGroup">
       <div class="barbar-block12 layout">
         <div class="barbar-block13 layout">
+          <div [hidden]='true'>
           <div class="barbar-block13-item mbottom">
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
@@ -31,6 +32,7 @@
               Organization Name Is Required
             </span>
           </div>
+        </div>
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
@@ -542,7 +544,7 @@
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
-                Transaction Fee
+                Per Transaction Markup Fee
                 <!-- <span style="color: 'red';">*</span> -->
               </h5>
               <div class="barbar-box6 layout">
@@ -571,52 +573,16 @@
                 "
                 class="error-mess"
               >
-                Transaction Fees should not be greater than 10 number.
+              Transaction Markup Fee should not be greater than 10 number.
               </span>
             </div>
           </div>
+          
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
-                Tax (Processed Transactions Only)
-                <!-- <span style="color: 'red';">*</span> -->
-              </h5>
-              <div class="barbar-box6 layout">
-                <input
-                  type="text"
-                  formControlName="salaryTax"
-                  class="barbar-input-text"
-                  (keypress)="numbersDecimalOnly($event)"
-                />
-              </div>
-              <!-- <span
-                *ngIf="
-                  !pricingPlanFormGroup.get('salaryTax')?.valid &&
-                  pricingPlanFormGroup.get('salaryTax')?.touched &&
-                  pricingPlanFormGroup.get('salaryTax')?.value.length == 0
-                "
-                class="error-mess"
-              >
-                Tax Fee Is Required
-              </span> -->
-              <span
-                *ngIf="
-                  !pricingPlanFormGroup.get('salaryTax')?.valid &&
-                  pricingPlanFormGroup.get('salaryTax')?.touched &&
-                  pricingPlanFormGroup.get('salaryTax')?.value.length > 10
-                "
-                class="error-mess"
-              >
-                Tax should not be greater than 10 number.
-              </span>
-            </div>
-          </div>
-          <div class="barbar-block13-spacer"></div>
-          <div class="barbar-block13-item">
-            <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">
-                Sales Tax
+                Per KWH Markup Fee
                 <!-- <span style="color: 'red';">*</span> -->
               </h5>
               <div class="barbar-box6 layout">
@@ -645,7 +611,7 @@
                 "
                 class="error-mess"
               >
-                Sales Tax should not be greater than 10 number.
+              KWH Markup Fee should not be greater than 10 number.
               </span>
             </div>
           </div>
@@ -694,28 +660,6 @@
             </span> -->
           </div>
 
-          <div class="barbar-block13-spacer"></div>
-          <div class="barbar-block13-item">
-            <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">Process Payment</h5>
-
-              <mat-checkbox
-                color="accent"
-                formControlName="processPayment"
-              ></mat-checkbox>
-            </div>
-          </div>
-          <div class="barbar-block13-spacer"></div>
-          <div class="barbar-block13-item">
-            <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">Price Slot</h5>
-              <section class="example-section">
-                <mat-checkbox color="accent" formControlName="priceSlot">
-                  All Days (24 hours)
-                </mat-checkbox>
-              </section>
-            </div>
-          </div>
         </div>
       </div>
       <div class="barbar-flex1 layout">
