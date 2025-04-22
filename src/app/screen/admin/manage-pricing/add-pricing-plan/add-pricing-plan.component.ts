@@ -97,9 +97,7 @@ export class AddPricingPlanComponent implements OnInit {
     connectorType: new FormControl('', Validators.required),
     priceTypeId: new FormControl('', Validators.required),
     unitName: new FormControl('', Validators.required),
-    price: new FormControl('', [Validators.required, Validators.maxLength(10)]),
-    processPayment: new FormControl(true),
-    priceSlot: new FormControl(false),
+    price: new FormControl('', [Validators.required, Validators.maxLength(10)]),   
     parkingFee: new FormControl('', [
       Validators.required,
       Validators.maxLength(10),
@@ -109,10 +107,7 @@ export class AddPricingPlanComponent implements OnInit {
       // Validators.required,
       Validators.maxLength(10),
     ]),
-    salaryTax: new FormControl('', [
-      // Validators.required,
-      Validators.maxLength(10),
-    ]),
+    
     salesTax: new FormControl('', [
       // Validators.required,
       Validators.maxLength(10),
@@ -326,12 +321,12 @@ export class AddPricingPlanComponent implements OnInit {
       //transactionFees: parseInt(formData.transactionFees),
       transactionFees: formData.transactionFees ? +formData.transactionFees : 0,
       //salaryTax: parseInt(formData.salaryTax),
-      tax: formData.salaryTax ? +formData.salaryTax : 0,
+      tax: 0,
       // salesTax: parseInt(formData.salesTax),
       salesTax: formData.salesTax ? +formData.salesTax : 0,
       pricePlanLocationsMapperCommand: this.chargeboxidResponse,
-      processPayment: formData.processPayment,
-      priceSlot: formData.priceSlot,
+      processPayment: true,
+      priceSlot: true,
       isActive: true,
     }
     Swal.fire({
@@ -426,15 +421,15 @@ export class AddPricingPlanComponent implements OnInit {
       gracePeriod: formData.gracePeriod ? +formData.gracePeriod : 0,
       //transactionFees: parseInt(formData.transactionFees),
       transactionFees: formData.transactionFees ? +formData.transactionFees : 0,
-      tax: formData.salaryTax ? +formData.salaryTax : 0,
+      tax:  0,
       // salesTax: parseInt(formData.salesTax),
       salesTax: formData.salesTax ? +formData.salesTax : 0,
       // gracePeriod: formData.gracePeriod,
       // transactionFees: formData.transactionFees,
       // salaryTax: formData.salaryTax,
       // salesTax: formData.salesTax,
-      processPayment: formData.processPayment,
-      priceSlot: formData.priceSlot,
+      processPayment: true,
+      priceSlot: true,
       isActive: true,
       pricePlanLocationsMapperCommand: this.chargeboxidResponse,
     }
@@ -552,13 +547,7 @@ export class AddPricingPlanComponent implements OnInit {
           })
         }
 
-        if (pricingData.tax == 0) {
-          this.pricingPlanFormGroup.patchValue({ salaryTax: '' })
-        } else {
-          this.pricingPlanFormGroup.patchValue({
-            salaryTax: pricingData.tax,
-          })
-        }
+        
 
         if (pricingData.salesTax == 0) {
           this.pricingPlanFormGroup.patchValue({ salesTax: '' })
