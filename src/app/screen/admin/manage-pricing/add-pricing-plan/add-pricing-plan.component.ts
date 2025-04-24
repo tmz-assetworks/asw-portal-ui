@@ -102,7 +102,9 @@ export class AddPricingPlanComponent implements OnInit {
       Validators.required,
       Validators.maxLength(10),
     ]),
-    gracePeriod: new FormControl(''),
+    gracePeriod: new FormControl('',[
+      Validators.maxLength(10),
+    ]),
     transactionFees: new FormControl('', [
       // Validators.required,
       Validators.maxLength(10),
