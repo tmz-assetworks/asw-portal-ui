@@ -97,14 +97,13 @@ export class CreateAdminComponent implements OnInit {
     phoneNumber: new FormControl('', Validators.required),
     organizationName: new FormControl(Validators.required),
     addressLine1: new FormControl('', [
-      Validators.required,
       Validators.maxLength(255),
     ]),
     addressLine2: new FormControl('', [Validators.maxLength(255)]),
     country: new FormControl(this.selectValue, Validators.required),
     state: new FormControl(this.selectValue, Validators.required),
-    cityName: new FormControl('', Validators.required),
-    zipcode: new FormControl('', [Validators.required]),
+    cityName: new FormControl(''),
+    zipcode: new FormControl(''),
   });
 
   ngOnInit() {
@@ -143,8 +142,6 @@ export class CreateAdminComponent implements OnInit {
     this.submitted = true;
     if (
       this.addAdminFormGroup.value.organizationName == '0' ||
-      this.addAdminFormGroup.value.country == '0' ||
-      this.addAdminFormGroup.value.state == '0' ||
       this.addAdminFormGroup.value.city == '0'
     ) {
       this.toastr.error('Please fill mandatory fields.');

@@ -182,17 +182,9 @@
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
-                Address Line1
-                <span style="color: 'red';">*</span>
+                Address Line1                
               </h5>
-              <div
-                class="barbar-box6 layout"
-                [ngClass]="{
-                  'is-invalid':
-                    addAdminFormGroup.get('addressLine1')?.errors &&
-                    submitted == true
-                }"
-              >
+              <div class="barbar-box6 layout">
                 <input
                   formControlName="addressLine1"
                   type="text"
@@ -209,17 +201,7 @@
               >
                 Address Line1 Must Not Exceed More Than 255 Characters
               </span>
-              <span
-                *ngIf="
-                  !addAdminFormGroup.get('addressLine1')?.valid &&
-                  (addAdminFormGroup.get('addressLine1')?.touched ||
-                    submitted) &&
-                  addAdminFormGroup.get('addressLine1')?.value.length == 0
-                "
-                class="error-mess"
-              >
-                Address Line1 Is Required
-              </span>
+              
             </div>
           </div>
 
@@ -253,15 +235,11 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Country
-                <span style="color: 'red';">*</span>
+               
               </h5>
               <mat-form-field
                 class="barbar-box6 layout"
-                [ngClass]="{
-                  'is-invalid':
-                    addAdminFormGroup.get('country')?.value == '0' &&
-                    submitted == true
-                }"
+                
               >
                 <mat-select
                   formControlName="country"
@@ -273,15 +251,7 @@
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-              <span
-                *ngIf="
-                  (addAdminFormGroup.get('country')?.touched || submitted) &&
-                  addAdminFormGroup.get('country')?.value == '0'
-                "
-                class="error-mess"
-              >
-                Country Is Required
-              </span>
+              
             </div>
           </div>
 
@@ -290,16 +260,11 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 State/Province
-                <span style="color: 'red';">*</span>
               </h5>
 
               <mat-form-field
                 class="barbar-box6 layout"
-                [ngClass]="{
-                  'is-invalid':
-                    addAdminFormGroup.get('state')?.value == '0' &&
-                    submitted == true
-                }"
+                
               >
                 <mat-select
                   formControlName="state"
@@ -311,15 +276,7 @@
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-              <span
-                *ngIf="
-                  (addAdminFormGroup.get('state')?.touched || submitted) &&
-                  addAdminFormGroup.get('state')?.value == '0'
-                "
-                class="error-mess"
-              >
-                State Is Required
-              </span>
+              
             </div>
           </div>
 
@@ -328,15 +285,10 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 City
-                <span style="color: 'red';">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
-                [ngClass]="{
-                  'is-invalid':
-                    addAdminFormGroup.get('cityName')?.errors &&
-                    submitted == true
-                }"
+                
               >
                 <input
                   formControlName="cityName"
@@ -346,15 +298,6 @@
                 />
               </div>
 
-              <span
-                *ngIf="
-                  (addAdminFormGroup.get('cityName')?.touched || submitted) &&
-                  addAdminFormGroup.get('cityName')?.value == ''
-                "
-                class="error-mess"
-              >
-                City Is Required
-              </span>
             </div>
           </div>
 
@@ -363,15 +306,10 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Zip Code
-                <span style="color: 'red';">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
-                [ngClass]="{
-                  'is-invalid':
-                    addAdminFormGroup.get('zipcode')?.errors &&
-                    submitted == true
-                }"
+                
               >
                 <input
                   formControlName="zipcode"
@@ -382,16 +320,7 @@
                 />
               </div>
 
-              <span
-                *ngIf="
-                  !addAdminFormGroup.get('zipcode')?.valid &&
-                  (addAdminFormGroup.get('zipcode')?.touched || submitted) &&
-                  addAdminFormGroup.get('zipcode')?.value.length == 0
-                "
-                class="error-mess"
-              >
-                Zip Code Is Required
-              </span>
+              
             </div>
           </div>
         </div>
