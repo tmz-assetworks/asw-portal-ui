@@ -94,16 +94,15 @@ export class AddOperatorComponent implements OnInit {
     // dob: new FormControl('', Validators.required),
     phonenumber: new FormControl('', Validators.required),
     addressLine1: new FormControl('', [
-      Validators.required,
       Validators.maxLength(255),
     ]),
     addressLine2: new FormControl('', [Validators.maxLength(255)]),
     locationIds: new FormControl([], Validators.required),
     country: new FormControl(this.selectValue, Validators.required),
     state: new FormControl(this.selectValue, Validators.required),
-    cityName: new FormControl('', Validators.required),
+    cityName: new FormControl(''),
     // city: new FormControl(this.selectValue, Validators.required),
-    zipcode: new FormControl('', [Validators.required]),
+    zipcode: new FormControl(''),
   })
 
   ngOnInit() {
@@ -182,11 +181,9 @@ export class AddOperatorComponent implements OnInit {
       formField.username == '' ||
       // formField.dob == '' ||
       formField.phonenumber == '' ||
-      formField.addressLine1 == '' ||
-      parseInt(formField.country) == 0 ||
-      parseInt(formField.state) == 0 ||
       parseInt(formField.city) == 0
     ) {
+      alert(formField.city)
       this.toastr.error('Fill all Mandatory Fields')
       return
     }

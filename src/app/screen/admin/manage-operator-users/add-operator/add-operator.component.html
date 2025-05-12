@@ -230,7 +230,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Address Line 1
-                <span style="color: 'red';">*</span>
+                
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -256,16 +256,7 @@
               >
                 Address Line1 Must Not Exceed More Than 255 Characters
               </span>
-              <span
-                *ngIf="
-                  !addOperatorProfile.get('addressLine1')?.valid &&
-                  addOperatorProfile.get('addressLine1')?.touched &&
-                  addOperatorProfile.get('addressLine1')?.value.length == 0
-                "
-                class="error-mess"
-              >
-                Address Line1 Is Required
-              </span>
+              
             </div>
           </div>
 
@@ -300,7 +291,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Country
-                <span style="color: 'red';">*</span>
+               
               </h5>
 
               <mat-form-field
@@ -340,7 +331,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 State/Province
-                <span style="color: 'red';">*</span>
+               
               </h5>
 
               <mat-form-field
@@ -378,7 +369,6 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 City
-                <span style="color: 'red';">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -429,7 +419,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Zip Code
-                <span style="color: 'red';">*</span>
+                
               </h5>
               <div
                 class="barbar-box6 layout"

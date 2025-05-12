@@ -184,7 +184,13 @@
               <h5 class="barbar-highlights layout">
                 Address Line1                
               </h5>
-              <div class="barbar-box6 layout">
+              <div class="barbar-box6 layout"
+              [ngClass]="{
+                'is-invalid':
+                  addAdminFormGroup.get('addressLine1')?.errors &&
+                  submitted == true
+              }"
+              >
                 <input
                   formControlName="addressLine1"
                   type="text"

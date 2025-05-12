@@ -150,6 +150,7 @@ export class AddLocationComponent implements OnInit {
       Validators.maxLength(255),
     ]),
     addressLine2: new FormControl('', [Validators.maxLength(255)]),
+    //Country: new FormControl(this.selectValue),
     Country: new FormControl(this.selectValue),
     State: new FormControl(this.selectValue),
     // City: new FormControl(this.selectValue),
@@ -239,7 +240,9 @@ export class AddLocationComponent implements OnInit {
 
     this._adminService.getListApi('locationStatus').subscribe((res) => {
       this.locationStatusList = res.data
-    })
+    })    
+    
+    
 
     // const days: any = [
     //   {
