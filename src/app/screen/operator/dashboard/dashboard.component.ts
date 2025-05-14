@@ -140,6 +140,17 @@ export class DashboardComponent implements OnInit {
         mapTypeControl: false,
       })
 
+      const legendColors = {
+  Available: '#90993F',
+  Offline: '#ea002a',
+  Occupied: '#000C66',
+  Faulted: '#757575',
+  Busy: '#E97300',
+  'EV Disconnected': '#0000FF',
+  Reserved: '#675553',
+  Unavailable: '#FFE333',
+};
+
       var opt = {
         // styles: [
         //   { textColor: 'black', textSize: 15, height: 60, width: 60 },
@@ -161,11 +172,16 @@ export class DashboardComponent implements OnInit {
           Unavailable: '#FFE333',
         },
 
-        styles: [{ width: 80, height: 80 }],
+        styles: [{ width: 80, height: 80,url: 'assets/cluster-icons/m' }],
       }
 
+   
+
       var markers = []
+       var markers1 = []
+       var counter=0
       for (var i = 0; i < this.mapstatusdata.length; i++) {
+    
         const accident_title = this.mapstatusdata[i].status
         const chargeBoxId = this.mapstatusdata[i].chargeBoxid
         const assetId = this.mapstatusdata[i].assetId
@@ -178,12 +194,66 @@ export class DashboardComponent implements OnInit {
         let newLat = accident_LatLng.lat() + (Math.random() - 0.5) / 1500 // * (Math.random() * (max - min) + min);
         let newLng = accident_LatLng.lng() + (Math.random() - 0.5) / 1500 // * (Math.random() * (max - min) + min);
         let finalLatLng = new google.maps.LatLng(newLat, newLng)
+        let  color 
+        let  scale 
+       let customSymbol1
+        if (accident_title === "Available")
+        {
+          console.log(finalLatLng)
+          scale =1.5
+          color ='#90993F'
+          customSymbol1 =new google.maps.Point(15, 0) 
+       
+        }
+
+        if (accident_title === "Offline")
+        {
+          color ='#ea002a'
+           scale =1.5
+        }
+
+          if (accident_title === "Reserved")
+        {
+          color ='#675553'
+           scale =1.5
+        }
+
+        if (accident_title === "BusySE")
+        {
+          color ='#E97300'
+           scale =1.5
+        }
+        // else{
+        //    color ='#000'
+        // }
+      
+      const customSymbol: google.maps.Symbol = {
+      path: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z M12 11.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z', // simple triangle path
+      fillColor: color,
+      fillOpacity: 0.7,
+      scale: scale,
+      strokeColor: '#000000',
+      strokeWeight: 1,
+      anchor: customSymbol1
+    };
+
+    
 
         let marker = new google.maps.Marker({
           position: finalLatLng,
+          icon: customSymbol,
           title: accident_title,
-          map: map,
+          map: map
+
         })
+
+        //   let marker1 = new google.maps.Marker({
+        //   position: finalLatLng,
+        //    icon: customSymbol,
+        //   title: accident_title,
+        //   map: map
+
+        // })
 
         const contentString =
           '<p><b style="color:blue">' +
@@ -220,13 +290,14 @@ export class DashboardComponent implements OnInit {
           
           // }
           // infoWindow.setContent(contentString)
-          // infoWindow.open(map, marker)
+          
         })
 
         markers.push(marker)
+        //markers1.push(marker1)
       }
-
-      new MarkerClusterer(map, markers, opt)
+      new MarkerClusterer({map, markers,opt})
+      
     }
 
     google.load('visualization', '1', { packages: ['corechart'] })
