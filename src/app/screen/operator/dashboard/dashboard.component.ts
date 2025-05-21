@@ -139,7 +139,7 @@ export class DashboardComponent implements OnInit {
         mapTypeControl: false,
       })
 
-      var opt:any = {
+      let opt:any = {
         // styles: [
         //   { textColor: 'black', textSize: 15, height: 60, width: 60 },
         //   { textColor: 'black', textSize: 15, height: 70, width: 70 },
@@ -158,7 +158,6 @@ export class DashboardComponent implements OnInit {
           'EV Disconnected': '#0000FF',
           Reserved: '#675553',
           Unavailable: '#FFE333',
-         
         },
         styles: [{ width:80, height: 80}],
       }
@@ -280,7 +279,7 @@ export class DashboardComponent implements OnInit {
 
     // Add the legend to the map
     map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(legend);
-    new MarkerClusterer({map, markers})
+    // const markerCluster = new MarkerClusterer({map, markers})
    
     }
     google.load('visualization', '1', { packages: ['corechart'] })

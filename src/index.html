@@ -20,7 +20,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCX40o4SSWDp_a0DDw1u0OjdY-gLKjO18o&libraries=places&language=en"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
 
     <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCX40o4SSWDp_a0DDw1u0OjdY-gLKjO18o"></script> -->
     <script>
@@ -1313,11 +1313,8 @@
           pieSliceText: 'none',
 
         }
-
-        
         var chart = new google.visualization.PieChart(this.chart_div_)
-        this.chart_div_.innerHTML = '<i class="fas fa-map-marker-alt"></i>';
-        //chart.draw(data, options)
+        chart.draw(data, options)
       }
 
       /**
