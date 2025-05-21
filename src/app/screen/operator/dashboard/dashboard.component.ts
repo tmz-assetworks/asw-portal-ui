@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { FormControl } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
-
 import { AuthService } from 'src/app/service/auth/auth.service'
 import { StorageService } from 'src/app/service/storage.service'
 import { DashboardService } from './dashboard.service'
@@ -140,7 +139,7 @@ export class DashboardComponent implements OnInit {
         mapTypeControl: false,
       })
 
-      var opt = {
+      var opt:any = {
         // styles: [
         //   { textColor: 'black', textSize: 15, height: 60, width: 60 },
         //   { textColor: 'black', textSize: 15, height: 70, width: 70 },
@@ -159,14 +158,14 @@ export class DashboardComponent implements OnInit {
           'EV Disconnected': '#0000FF',
           Reserved: '#675553',
           Unavailable: '#FFE333',
+         
         },
-
-        styles: [{ width: 80, height: 80,url: 'assets/cluster-icons/m' }],
+        styles: [{ width:80, height: 80}],
       }
 
       var markers = []
       for (var i = 0; i < this.mapstatusdata.length; i++) {
-    
+        
         const accident_title = this.mapstatusdata[i].status
         const chargeBoxId = this.mapstatusdata[i].chargeBoxid
         const assetId = this.mapstatusdata[i].assetId
@@ -179,41 +178,38 @@ export class DashboardComponent implements OnInit {
         let newLat = accident_LatLng.lat() + (Math.random() - 0.5) / 1500 // * (Math.random() * (max - min) + min);
         let newLng = accident_LatLng.lng() + (Math.random() - 0.5) / 1500 // * (Math.random() * (max - min) + min);
         let finalLatLng = new google.maps.LatLng(newLat, newLng)
+      
+        let color: string;
+        let customSymbol1: google.maps.Point | undefined;
+        const scale = 1.5;
 
-        let  color
-        let  scale 
-        let customSymbol1 = new google.maps.Point(15, 0) 
-        if (accident_title === "Available")
-        {
-          scale =1.5
-          color ='#90993F'
-          customSymbol1 =new google.maps.Point(15, 0) 
+        switch (accident_title) {
+          case "Available":
+            color = '#90993F';
+            customSymbol1 = new google.maps.Point(15, 0);
+            break;
+          case "Offline":
+            color = '#ea002a';
+            break;
+          case "Reserved":
+            color = '#675553';
+            break;
+          case "BusySE":
+            color = '#E97300';
+            break;
+          default:
+            color = '#000000'; // fallback color if needed
         }
-        if (accident_title === "Offline")
-        {
-          color ='#ea002a'
-          scale =1.5
-        }
-        if (accident_title === "Reserved")
-        {
-          color ='#675553'
-          scale =1.5
-        }
-        if (accident_title === "BusySE")
-        {
-          color ='#E97300'
-          scale =1.5
-        }
-       
-      const customSymbol: google.maps.Symbol = {
-      path: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z M12 11.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z', // simple triangle path
-      fillColor: color,
-      fillOpacity: 0.7,
-      scale: scale,
-      strokeColor: '#000000',
-      strokeWeight: 1,
-      anchor: customSymbol1
-    };
+
+        const customSymbol: google.maps.Symbol = {
+          path: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z M12 11.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z',
+          fillColor: color,
+          fillOpacity: 0.7,
+          scale: scale,
+          strokeColor: '#000000',
+          strokeWeight: 1,
+          anchor: customSymbol1,
+        };
         let marker = new google.maps.Marker({
           position: finalLatLng,
           icon: customSymbol,
@@ -262,8 +258,30 @@ export class DashboardComponent implements OnInit {
 
         markers.push(marker)
       }
-      new MarkerClusterer({map, markers,opt})
-      MarkerClusterer.clearMarkers();
+
+    const legend = document.createElement('div');
+    legend.id = 'legend';
+    legend.style.backgroundColor = 'white';
+    legend.style.padding = '10px';
+    legend.style.fontFamily = 'Arial, sans-serif';
+    legend.style.fontSize = '14px';
+
+    // Loop through the legend data and create the legend entries
+    for (const status in opt.legend) {
+      const color = opt?.legend[status];
+      const div = document.createElement('div');
+      div.style.marginBottom ='8px'; // Add space between legend items
+      div.innerHTML = `<div style="display: flex; align-items: center;">
+                          <div style="width: 15px; height: 15px; background-color: ${color}; margin-right: 5px;"></div>
+                          ${status}
+                        </div>`;
+      legend.appendChild(div);
+    }
+
+    // Add the legend to the map
+    map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(legend);
+    new MarkerClusterer({map, markers})
+   
     }
     google.load('visualization', '1', { packages: ['corechart'] })
     google.setOnLoadCallback(initialize)
