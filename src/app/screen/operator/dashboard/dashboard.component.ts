@@ -162,7 +162,6 @@ export class DashboardComponent implements OnInit {
         styles: [{ width:80, height: 80}],
       }
 
-      var markers = []
       for (var i = 0; i < this.mapstatusdata.length; i++) {
         
         const accident_title = this.mapstatusdata[i].status
@@ -254,8 +253,6 @@ export class DashboardComponent implements OnInit {
           // infoWindow.setContent(contentString)
           
         })
-
-        markers.push(marker)
       }
 
     const legend = document.createElement('div');
@@ -279,9 +276,6 @@ export class DashboardComponent implements OnInit {
 
     // Add the legend to the map
     map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(legend);
-
-    const markerCluster = new MarkerClusterer({map, markers})
-
     }
     google.load('visualization', '1', { packages: ['corechart'] })
     google.setOnLoadCallback(initialize)
