@@ -213,16 +213,21 @@
                   <div class="fill-group layout">
                     <div class="fill-block6 layout">
                       <div class="fill-text-body1 layout">Action</div>     
-                        <span>
-                          <img
-                            src="../../../../assets/Super-Admin-icons/Edit.svg"
-                            alt=""
-                            title="Edit"
-                            class="cursorPointer"
-                            (click)="editCusotmer(customerData.id)"
-                            style="cursor: pointer;"
-                          />
-                        </span>
+            <span
+              role="button"
+              tabindex="0"
+              (click)="editCusotmer(customerData.id)"
+              (keydown.enter)="editCusotmer(customerData.id)"
+              (keydown.space)="editCusotmer(customerData.id)"
+              title="Edit"
+            >
+              <img
+                src="../../../../assets/Super-Admin-icons/Edit.svg"
+                alt="Edit Organization"
+                class="cursorPointer"
+                style="cursor: pointer;"
+              />
+            </span>
                     </div>
                     <div class="fill-image layout"></div>
                   </div>

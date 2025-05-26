@@ -12,10 +12,10 @@ export class CustomersComponent implements OnInit {
   customerData: any
 
   constructor(
-    private _adminService: AdminService,
-    public _router: Router,
-    private _route: ActivatedRoute,
-      public _storageService: StorageService
+    private readonly _adminService: AdminService,
+    public readonly  _router: Router,
+    private readonly _route: ActivatedRoute,
+      public readonly _storageService: StorageService
     ) {
       let customerData = this._storageService.getSessionData('customerData');
       this._storageService.getSessionData('IsSaveBtn');

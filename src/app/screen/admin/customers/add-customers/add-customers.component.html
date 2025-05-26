@@ -12,7 +12,6 @@
 
     <form [formGroup]="addCustomerProfile">
       <div class="barbar-block12 layout">
-        <h4 class="barbar-highlights1 layout"></h4>
         <div class="barbar-block13 layout">
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
@@ -535,16 +534,24 @@
         <div class="barbar-flex1-item">
           <div class="barbar-block16 layout">
             <div
-              class="barbar-text-body1 layout"
+              role="button"
+              tabindex="0"
               *ngIf="isSaveBtn"
               (click)="addCustomers()"
+              (keydown.enter)="addCustomers()"
+              (keydown.space)="addCustomers()"
+              class="barbar-text-body1 layout"
             >
               SAVE
             </div>
             <div
-              class="barbar-text-body1 layout"
+              role="button"
+              tabindex="0"
               *ngIf="isUpdateBtn"
               (click)="UpdateCustomers()"
+              (keydown.enter)="UpdateCustomers()"
+              (keydown.space)="UpdateCustomers()"
+              class="barbar-text-body1 layout"
             >
               UPDATE
             </div>

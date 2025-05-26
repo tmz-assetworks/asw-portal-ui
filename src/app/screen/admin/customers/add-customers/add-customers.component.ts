@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { FormBuilder, Validators } from '@angular/forms'
-import { FormControl, FormGroup, Validator } from '@angular/forms'
+import { FormControl } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import Swal from 'sweetalert2'
 import { ToastrService } from 'ngx-toastr'
@@ -42,12 +42,12 @@ showAddCustomer: boolean | undefined
   router: any
 
   constructor(
-    private _fb: FormBuilder,
-    public _router: Router,
-    private _toastr: ToastrService,
-    private _AdminService: AdminService,
-    private _storageService: StorageService,
-    private _activatedRoute: ActivatedRoute,
+    private readonly _fb: FormBuilder,
+    public readonly _router: Router,
+    private readonly _toastr: ToastrService,
+    private readonly _AdminService: AdminService,
+    private readonly _storageService: StorageService,
+    private readonly _activatedRoute: ActivatedRoute,
   ) {
     this.UserId = this._storageService.getLocalData('user_id')
     this.customersId = this._activatedRoute.snapshot.queryParams['id']
@@ -100,13 +100,6 @@ showAddCustomer: boolean | undefined
   })
 
   ngOnInit() {
-    // this._adminService.getListApi('country').subscribe((res) => {
-    //   this.countryList = res.data;
-    // });
-
-    /**
-     * Call Country API
-     */
     if (this.customersId) {
       this.GetCustomerbyID(this.customersId)
     }
@@ -327,7 +320,7 @@ showAddCustomer: boolean | undefined
    * @returns
    */
   numberOnly(event: any): boolean {
-    const charCode = event.which ? event.which : event.keyCode
+    const charCode = event.which ?? event.keyCode
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
       return false
     }
@@ -399,7 +392,7 @@ showAddCustomer: boolean | undefined
    * @returns
    */
   phoneNumber(event: any) {
-    const charCode = event.which ? event.which : event.keyCode
+    const charCode = event.which ?? event.keyCode
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
       return
     }
@@ -416,8 +409,6 @@ showAddCustomer: boolean | undefined
  * Cancel function
  */
   cancel(){
-
-
     this._router.navigate(['admin/profile'])
   }
 }
