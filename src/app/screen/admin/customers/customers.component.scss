@@ -2239,3 +2239,10 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     flex-wrap: wrap;
   }
 }
+.icon-button {
+  all: unset;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core'
-import { FormBuilder, Validators } from '@angular/forms'
-import { FormControl } from '@angular/forms'
+import { FormBuilder, Validators, FormControl } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import Swal from 'sweetalert2'
 import { ToastrService } from 'ngx-toastr'
@@ -82,10 +81,9 @@ showAddCustomer: boolean | undefined
       Validators.maxLength(255),
     ]),
     email: new FormControl('', [
-      Validators.required,
-      Validators.pattern(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/),
-      Validators.email,
-    ]),
+    Validators.required,
+    Validators.email
+  ]),
     phoneNumber: new FormControl('', Validators.required),
     timeZone: new FormControl('', Validators.required),
     addressLine1: new FormControl('', [

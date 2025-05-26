@@ -545,3 +545,12 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+button.barbar-text-body1 {
+  all: unset;
+  cursor: pointer;
+  display: inline-block;
+  font: 500 14px / 1.2 Roboto, Helvetica, Arial, serif;
+  color: #fff;
+  letter-spacing: 0px;
+}

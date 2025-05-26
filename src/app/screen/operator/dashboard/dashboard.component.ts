@@ -279,8 +279,9 @@ export class DashboardComponent implements OnInit {
 
     // Add the legend to the map
     map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(legend);
-    // const markerCluster = new MarkerClusterer({map, markers})
-   
+
+    const markerCluster = new MarkerClusterer({map, markers})
+
     }
     google.load('visualization', '1', { packages: ['corechart'] })
     google.setOnLoadCallback(initialize)
