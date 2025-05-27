@@ -610,36 +610,12 @@ export class AdminService {
     return this._http.get<any>(`${this.ASSET_API_URL}Modem/GetAllModemTypeData`)
   }
 
-  // adarsh
-
-   public GetCustomerbyID(id: any): Observable<any> {
-    return this._http.get<any>(
-      `${this.USER_API_URL}Customer/GetCustomerbyID?id=${id}`,
-    )
-  }
-
-    public CreateCustomer(params: any): Observable<any> {
-    return this._http.post<any>(
-      `${this.USER_API_URL}Customer/CreateCustomer`,
-      params,
-    )
-  }
-
-    public UpdateCustomer(params: any): Observable<any> {
+    public ModifyCustomer(params: any): Observable<any> {
     return this._http.put<any>(`${this.USER_API_URL}Customer/UpdateCustomer`, params)
   }
 
-    public getAllCountry(): Observable<any> {
-    return this._http.get<any>(`${this.ASSET_API_URL}Country/getallcountry`)
-  }
-
-   public getTimeZoneList(): Observable<any> {
+   public TimeZoneList(): Observable<any> {
     return this._http.get<any>(`${this.ASSET_API_URL}TimeZone/GetAllTimeZones`)
   }
 
-   public getAllStateByCountryId(id: any): Observable<any> {
-    return this._http.get<any>(
-      `${this.ASSET_API_URL}Country/getAllStateByCountryId?Id=${id}`,
-    )
-  }
 }

@@ -252,9 +252,9 @@
                   formControlName="timeZone"
                 >
                   <mat-option
-                    *ngFor="let data of GetTimeZoneList"
+                    *ngFor="let data of TimeZoneList"
                     [value]="data.id"
-                    (onSelectionChange)="selectTimeZone($event, data.id)"
+                    (onSelectionChange)="setTimeZone($event, data.id)"
                   >
                     {{ data.timeZoneText }}
                   </mat-option>
@@ -380,9 +380,9 @@
                    [disabled]="true"
                 >
                   <mat-option
-                    *ngFor="let data of GetAllCountryList"
+                    *ngFor="let data of CountryList"
                     [value]="data.id"
-                    (onSelectionChange)="selectCountry($event, data.id)"
+                    (onSelectionChange)="setCountry($event, data.id)"
                   >
                     {{ data.countryName }}
                   </mat-option>
@@ -419,9 +419,9 @@
                 <mat-label>Select</mat-label>
                 <mat-select [value]="selectedStateId" formControlName="state"   [disabled]="true">
                   <mat-option
-                    *ngFor="let data of getAllStateList"
+                    *ngFor="let data of StateList"
                     [value]="data.id"
-                    (onSelectionChange)="selectState($event, data.id)"
+                    (onSelectionChange)="setState($event, data.id)"
                   
                   >
                     {{ data.stateName }}
@@ -523,7 +523,7 @@
           <div class="barbar-block17 layout">
            <button
             class="barbar-text-body2 layout"
-            (click)="cancel()">
+            (click)="redirect()">
             CANCEL
           </button>
           </div>
@@ -531,15 +531,9 @@
         <div class="barbar-flex1-spacer"></div>
         <div class="barbar-flex1-item">
           <div class="barbar-block16 layout">
-          <button
-          *ngIf="isSaveBtn"
-          (click)="addCustomers()"
-          class="barbar-text-body1 layout">
-           SAVE
-          </button>
            <button
             *ngIf="isUpdateBtn"
-            (click)="UpdateCustomers()"
+            (click)="ModifyCustomer()"
             class="barbar-text-body1 layout">
             UPDATE
           </button>

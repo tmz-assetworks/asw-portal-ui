@@ -1,10 +1,10 @@
-import { Component } from '@angular/core'
-import { FormBuilder, Validators, FormControl } from '@angular/forms'
-import { ActivatedRoute, Router } from '@angular/router'
-import Swal from 'sweetalert2'
-import { ToastrService } from 'ngx-toastr'
-import { AdminService } from '../../admin.service'
-import { StorageService } from 'src/app/service/storage.service'
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators, FormControl } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
+import { ToastrService } from 'ngx-toastr';
+import { AdminService } from '../../admin.service';
+import { StorageService } from 'src/app/service/storage.service';
 
 @Component({
   selector: 'app-add-customers',
@@ -13,10 +13,10 @@ import { StorageService } from 'src/app/service/storage.service'
 })
 export class AddCustomersComponent {
 
-showAddCustomer: boolean | undefined
+  showAddCustomer: boolean | undefined
   showCustomersList: boolean | undefined
   title: string = 'Add Customer'
-  customerData: any
+  data: any
   UserId: string | null
   customersId: any
   isSaveBtn: boolean = true
@@ -26,51 +26,39 @@ showAddCustomer: boolean | undefined
   selectedTimeZoneId: any
   selectedStateId: any
   countryId = 0
-  stateList: any
   stateId = 0
   cityId = 0
   cityList: any
   selectedCityId: any
   submitted: any
   showLoader: boolean = false
-  GetAllCountryList: any
-  GetTimeZoneList: any
-  getAllStateList: any
-  getAllCityList: any
+  CountryList: any
+  TimeZoneList: any
+  StateList: any
   telephoneNumber: string = ''
-  router: any
 
   constructor(
-    private readonly _fb: FormBuilder,
-    public readonly _router: Router,
-    private readonly _toastr: ToastrService,
-    private readonly _AdminService: AdminService,
-    private readonly _storageService: StorageService,
-    private readonly _activatedRoute: ActivatedRoute,
+    private readonly fb: FormBuilder,
+    public readonly router: Router,
+    private readonly toastr: ToastrService,
+    private readonly adminService: AdminService,
+    private readonly storageService: StorageService,
+    private readonly activatedRoute: ActivatedRoute,
   ) {
-    this.UserId = this._storageService.getLocalData('user_id')
-    this.customersId = this._activatedRoute.snapshot.queryParams['id']
-    let routePath = this._activatedRoute.snapshot.routeConfig?.path
+    this.UserId = this.storageService.getLocalData('user_id')
+    this.customersId = this.activatedRoute.snapshot.queryParams['id']
+    let routePath = this.activatedRoute.snapshot.routeConfig?.path
 
     if (this.customersId && routePath != 'view-customer') {
       this.title = 'Edit Organization'
       this.isUpdateBtn = true
       this.isSaveBtn = false
-    } else if (this.customersId && routePath == 'view-customer') {
-      this.title = 'View Organization'
-      this.isSaveBtn = false
-      this.isUpdateBtn = false
-      this.addCustomerProfile.disable()
-    } else {
-      this.title = 'Add Organization'
-      this.isSaveBtn = true
-      this.isUpdateBtn = false
     }
   }
   /**
    * Form group
    */
-  addCustomerProfile = this._fb.group({
+  addCustomerProfile = this.fb.group({
     userName: new FormControl('', [
       Validators.required,
       Validators.maxLength(20),
@@ -99,203 +87,136 @@ showAddCustomer: boolean | undefined
 
   ngOnInit() {
     if (this.customersId) {
-      this.GetCustomerbyID(this.customersId)
+      this.LoadCustomerbyID(this.customersId)
     }
-    this.getAllCountry()
-    this.getTimeZoneList();
+    this.LoadCountries()
+    this.LoadTimeZones();
   }
   /**
    *  Patch data for edit fuction
    */
-
-  GetCustomerbyID(id: number) {
-    this._AdminService.GetCustomerbyID(id).subscribe((res: any) => {
-      this.customerData = res.data[0]
-
-      this.addCustomerProfile.patchValue({
-        userName: this.customerData.userName,
-      })
-      this.addCustomerProfile.patchValue({
-        notes: this.customerData.description,
-      })
-      this.addCustomerProfile.patchValue({
-        pointofcontact: this.customerData.pointofcontact,
-      })
-      this.addCustomerProfile.patchValue({
-        ponitOfContact: this.customerData.ponitOfContact,
-      })
-      this.addCustomerProfile.patchValue({ email: this.customerData.email })
-      this.addCustomerProfile.patchValue({
-        phoneNumber: this.customerData.phoneNumber,
-      })
-      this.addCustomerProfile.patchValue({
-        addressLine1: this.customerData.addressLine1,
-      })
+  LoadCustomerbyID(id: number) {
+    this.adminService.Getcustomer(id).subscribe((res: any) => {
+      this.data = res.data[0]
 
       this.addCustomerProfile.patchValue({
-        addressLine2: this.customerData.addressLine2,
+        userName: this.data.userName,
+      })
+      this.addCustomerProfile.patchValue({
+        notes: this.data.description,
+      })
+      this.addCustomerProfile.patchValue({
+        pointofcontact: this.data.pointofcontact,
+      })
+      this.addCustomerProfile.patchValue({
+        ponitOfContact: this.data.ponitOfContact,
+      })
+      this.addCustomerProfile.patchValue({ email: this.data.email })
+      this.addCustomerProfile.patchValue({
+        phoneNumber: this.data.phoneNumber,
+      })
+      this.addCustomerProfile.patchValue({
+        addressLine1: this.data.addressLine1,
       })
 
       this.addCustomerProfile.patchValue({
-        zipCode: this.customerData.zipCode,
+        addressLine2: this.data.addressLine2,
       })
 
-      if (this.customerData.countryName) {
-        this.selectedCountryId = this.customerData.countryID
+      this.addCustomerProfile.patchValue({
+        zipCode: this.data.zipCode,
+      })
+
+      if (this.data.countryName) {
+        this.selectedCountryId = this.data.countryID
 
         this.addCustomerProfile.patchValue({
-          country: this.customerData.countryName,
+          country: this.data.countryName,
+        })
+      }
+      if (this.data.timeZoneText) {
+        this.selectedTimeZoneId = this.data.timeZoneID
+
+        this.addCustomerProfile.patchValue({
+          timeZone: this.data.timeZoneText,
         })
       }
 
-
-      if (this.customerData.timeZoneText) {
-        this.selectedTimeZoneId = this.customerData.timeZoneID
-
+      if (this.data.stateName) {
+        this.selectedStateId = this.data.stateID
         this.addCustomerProfile.patchValue({
-          timeZone: this.customerData.timeZoneText,
+          state: this.data.stateName,
         })
-      }
-
-      if (this.customerData.stateName) {
-        this.selectedStateId = this.customerData.stateID
-        this.addCustomerProfile.patchValue({
-          state: this.customerData.stateName,
-        })
-        this.getAllStateByCountryId(this.selectedCountryId)
+        this.LoadStatesByCountry(this.selectedCountryId)
       }
       this.addCustomerProfile.patchValue({
-        cityName: this.customerData.cityName,
+        cityName: this.data.cityName,
       })
     })
   }
-
-  /**
-   * Add Customer Profile
-   */
-  addCustomers() {
-    let formData = this.addCustomerProfile.value
-    this.submitted = true
-    if (this.addCustomerProfile.invalid) {
-      this._toastr.error('Please fill mandatory fields.')
-      return
-    }
-
-    const body = {
-      id: this.customersId,
-      userName: formData.userName,
-      email: formData.email,
-      notes: formData.notes,
-      pointofcontact: formData.pointofcontact,
-      phoneNumber: formData.phoneNumber,
-      addressLine1: formData.addressLine1,
-      addressLine2: formData.addressLine2,
-      zipCode: formData.zipCode,
-      countryID: this.selectedCountryId,
-      stateID: this.selectedStateId,
-      cityName: formData.cityName,
-      timeZoneID:this.selectedTimeZoneId,
-
-      createdBy: this.UserId,
-    }
-    Swal.fire({
-      title: '<strong>Are you sure you want to confirm?</strong>',
-      icon: 'success',
-
-      focusConfirm: true,
-      confirmButtonText: ' <span style="color:#0062A6">CANCEL<span>',
-      confirmButtonColor: '#E6E8E9',
-
-      cancelButtonColor: '#0062A6',
-      cancelButtonText: ' CONFIRM',
-      showCancelButton: true,
-    }).then((result) => {
-      if (result.isDismissed) {
-        this._AdminService.CreateCustomer(body).subscribe(
-          (data) => {
-            if (data) {
-              //Do your stuffs...
-              this._toastr.success('Record saved successfully.')
-              this.addCustomerProfile.reset()
-              this.showLoader = false
-              this.submitted = false
-              this._router.navigate(['superadmin/customer'])
-            }
-          },
-          (error: any) => {
-            if (error.status == 400) {
-              let errorMsg = error.error.errors
-              this._toastr.error(JSON.stringify(errorMsg))
-              this.showLoader = false
-            }
-          },
-        )
-      }
-    })
-  }
-
   /**
    * Update Customer Profile
    */
-  UpdateCustomers() {
-    this.submitted = true
-    if (this.addCustomerProfile.invalid) {
-      this._toastr.error('Please fill mandatory fields.')
-      return
-    }
-    let formData = this.addCustomerProfile.value
-    const body = {
-      id: this.customersId,
-      userName: formData.userName,
-      email: formData.email,
-      notes: formData.notes,
-      phoneNumber: formData.phoneNumber,
-      pointofcontact: formData.pointofcontact,
-      addressLine1: formData.addressLine1,
-      addressLine2: formData.addressLine2,
-      zipCode: formData.zipCode,
-      countryID: this.selectedCountryId,
-      stateID: this.selectedStateId,
-      cityName: formData.cityName,
-      timeZoneID:this.selectedTimeZoneId,
-      modifiedBy: this.UserId,
-    }
-    Swal.fire({
-      title: '<strong>Are you sure you want to confirm?</strong>',
-      icon: 'success',
+ ModifyCustomer() {
+  this.submitted = true;
 
-      focusConfirm: true,
-      confirmButtonText: ' <span style="color:#0062A6">CANCEL<span>',
-      confirmButtonColor: '#E6E8E9',
-
-      cancelButtonColor: '#0062A6',
-      cancelButtonText: ' CONFIRM',
-      showCancelButton: true,
-    }).then((result) => {
-      if (result.isDismissed) {
-        this._AdminService.UpdateCustomer(body).subscribe(
-          (data) => {
-            if (data) {
-              //Do your stuffs...
-              this._toastr.success('Record update successfully.')
-              this.addCustomerProfile.reset()
-              this.showLoader = false
-              this.submitted = false
-              this._router.navigate(['admin/profile'])
-            }
-          },
-          (error: any) => {
-            if (error.status == 400) {
-              let errorMsg = error.error.errors
-              this._toastr.error(JSON.stringify(errorMsg))
-              this.showLoader = false
-            }
-          },
-        )
-      }
-    })
+  if (this.addCustomerProfile.invalid) {
+    this.toastr.error('Please fill mandatory fields.');
+    return;
   }
 
+  const formData = this.addCustomerProfile.value;
+  const body = {
+    id: this.customersId,
+    userName: formData.userName,
+    email: formData.email,
+    notes: formData.notes,
+    phoneNumber: formData.phoneNumber,
+    pointofcontact: formData.pointofcontact,
+    addressLine1: formData.addressLine1,
+    addressLine2: formData.addressLine2,
+    zipCode: formData.zipCode,
+    countryID: this.selectedCountryId,
+    stateID: this.selectedStateId,
+    cityName: formData.cityName,
+    timeZoneID: this.selectedTimeZoneId,
+    modifiedBy: this.UserId,
+  };
+
+  Swal.fire({
+    title: '<strong>Are you sure you want to confirm?</strong>',
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonText: '<span style="color:#0062A6">CONFIRM</span>',
+    cancelButtonText: '<span style="color:#fff">CANCEL</span>',
+    confirmButtonColor: '#E6E8E9',
+    cancelButtonColor: '#0062A6',
+    focusConfirm: false,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.updateCustomer(body);
+    }
+  });
+}
+
+private updateCustomer(body: any) {
+  this.showLoader = true;
+
+  this.adminService.ModifyCustomer(body).subscribe({
+    next: (data) => {
+      this.toastr.success('Record updated successfully.');
+      this.addCustomerProfile.reset();
+      this.submitted = false;
+      this.showLoader = false;
+      this.router.navigate(['admin/profile']);
+    },
+    error: (error) => {
+      this.showLoader = false;
+      const errorMsg = error?.error?.errors || 'An error occurred.';
+      this.toastr.error(JSON.stringify(errorMsg));
+    },
+  });
+}
   /**
    * Omit special character
    * @param event
@@ -325,30 +246,21 @@ showAddCustomer: boolean | undefined
     return true
   }
 
-  /*
-   *All Country List
-   *
-   */
-
-  getAllCountry() {
-    this._AdminService.getAllCountry().subscribe((res: any) => {
-      this.GetAllCountryList = res.data
+  LoadCountries() {
+    this.adminService.getListApi('',0,0).subscribe((res: any) => {
+      this.CountryList = res.data
     })
   }
 
-  getTimeZoneList() {
-    this._AdminService.getTimeZoneList().subscribe((res: any) => {
-      this.GetTimeZoneList = res.data
+  LoadTimeZones(){
+    this.adminService.TimeZoneList().subscribe((res: any) => {
+      this.TimeZoneList = res.data
     })
   }
 
-  /*
-   *All getAllStateByCountryId List
-   *
-   */
-  getAllStateByCountryId(id: any) {
-    this._AdminService.getAllStateByCountryId(id).subscribe((res: any) => {
-      this.getAllStateList = res.data
+  LoadStatesByCountry(id: any){
+    this.adminService.getListApi('state',id,0).subscribe((res: any) => {
+      this.StateList = res.data
     })
   }
 
@@ -357,17 +269,17 @@ showAddCustomer: boolean | undefined
    * @param event
    * @returns
    */
-  selectCountry(event: any, id: any) {
+  setCountry(event: any, id: any) {
     if (event.isUserInput) {
       if (this.selectedStateId && this.selectedCityId) {
         this.addCustomerProfile.patchValue({ state: '' })
       }
       this.selectedCountryId = id
-      this.getAllStateByCountryId(this.selectedCountryId)
+      this.LoadStatesByCountry(this.selectedCountryId)
     }
   }
 
-  selectTimeZone(event: any, zoneId: any) {
+  setTimeZone(event: any, zoneId: any) {
     if (event.isUserInput) {
         this.selectedTimeZoneId = zoneId
   }
@@ -378,7 +290,7 @@ showAddCustomer: boolean | undefined
    * @param event
    * @returns
    */
-  selectState(event: any, id: any) {
+  setState(event: any, id: any) {
     if (event.isUserInput) {
       this.selectedStateId = id
     }
@@ -406,7 +318,7 @@ showAddCustomer: boolean | undefined
 /**
  * Cancel function
  */
-  cancel(){
-    this._router.navigate(['admin/profile'])
+  redirect(){
+    this.router.navigate(['admin/profile']);
   }
 }
