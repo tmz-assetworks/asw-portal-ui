@@ -49,7 +49,7 @@
                   <div class="fill-group layout">
                     <div class="fill-block6 layout">
                       <div class="fill-text-body1 layout">
-                        Email
+                       Primary Contact Email
                       </div>
                       <h5 class="fill-highlights layout">
                         {{ customerData?.email }}
@@ -63,7 +63,7 @@
                   <div class="fill-group layout">
                     <div class="fill-block6 layout">
                       <div class="fill-text-body1 layout">
-                        Phone Number
+                        Primary Contact Phone
                       </div>
                       <h5 class="fill-highlights layout">
                         {{ customerData?.phoneNumber }}
@@ -85,7 +85,7 @@
             <div class="location-flex15 layout">
               <div class="location-flex15-item">
                 <div class="location-text-body2 layout1 text-uppercase">
-                  ADDRESS INFORMATION
+                  Main Address
                 </div>
               </div>
               <div class="location-flex15-spacer"></div>
@@ -175,6 +175,58 @@
                   </div>
                 </div>
                 <div class="fill-block5-spacer"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="location-block15 layout">
+        <div class="location-flex14 layout">
+          <div class="location-block17 layout">
+            <div class="location-flex15 layout">
+              <div class="location-flex15-item">
+                <div class="location-text-body2 layout1 text-uppercase">
+                  Time Zone
+                </div>
+              </div>
+              <div class="location-flex15-spacer"></div>
+              <div class="location-flex15-item1"></div>
+            </div>
+          </div>
+          <div class="location-block16 layout">
+            <div class="fill-block4 layout">
+              <div class="fill-block5 layout">
+                <div class="fill-block5-item">
+                  <div class="fill-group layout">
+                    <div class="fill-block6 layout">
+                      <div class="fill-text-body1 layout">Time Zone</div>
+                      <h5 class="fill-highlights layout">
+                        {{ customerData?.timeZoneText }}
+                      </h5>
+                    </div>
+                    <div class="fill-image layout"></div>
+                  </div>
+                </div>
+                 <div class="fill-block5-spacer"></div>
+
+                    <div class="fill-block5-item">
+                  <div class="fill-group layout">
+                    <div class="fill-block6 layout">
+                      <div class="fill-text-body1 layout">Action</div>     
+                        <button
+                          (click)="editCusotmer(customerData.id)"
+                          title="Edit"
+                          class="icon-button">
+                          <img
+                            src="../../../../assets/Super-Admin-icons/Edit.svg"
+                            alt="Edit Organization"
+                            class="cursorPointer"
+                          />
+                          </button>
+                    </div>
+                    <div class="fill-image layout"></div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

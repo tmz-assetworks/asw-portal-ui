@@ -609,4 +609,13 @@ export class AdminService {
   public GetAllModemTypeData(): Observable<any> {
     return this._http.get<any>(`${this.ASSET_API_URL}Modem/GetAllModemTypeData`)
   }
+
+    public ModifyCustomer(params: any): Observable<any> {
+    return this._http.put<any>(`${this.USER_API_URL}Customer/UpdateCustomer`, params)
+  }
+
+   public TimeZoneList(): Observable<any> {
+    return this._http.get<any>(`${this.ASSET_API_URL}TimeZone/GetAllTimeZones`)
+  }
+
 }

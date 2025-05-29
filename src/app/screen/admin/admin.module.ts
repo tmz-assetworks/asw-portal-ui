@@ -11,7 +11,8 @@ import { ManageSubscriptionsModule } from './manage-subscriptions/manage-subscri
 import { HelpComponent } from './help/help.component'
 import { CommonModule } from '@angular/common'
 import { DashboardComponent } from '../operator/dashboard/dashboard.component'
-import { GraphDetailComponent } from '../operator/graph-detail/graph-detail.component'
+import { GraphDetailComponent } from '../operator/graph-detail/graph-detail.component';
+import { AddCustomersComponent } from './customers/add-customers/add-customers.component'
 
 const routes: Routes = [
   {
@@ -30,7 +31,24 @@ const routes: Routes = [
         pathMatch: 'full',
       },
       { path: 'dashboard/detail', component: GraphDetailComponent},
-      { path: 'dashboard/detail/:id', component: GraphDetailComponent},
+      { path: 'dashboard/detail/:id', component: GraphDetailComponent},    
+        {
+        path: 'customer',
+        loadChildren: () =>
+          import('../operator/location/location.module').then((m) => m.LocationModule),
+        children:[
+           {
+            path: 'edit-customer',
+            component: AddCustomersComponent,
+          pathMatch: 'full',
+           },
+          {
+            path: 'customer',
+            component: AddCustomersComponent,
+            pathMatch: 'full',
+           },
+        ]
+      },
       {
         path: 'profile',
         component: CustomersComponent,
@@ -120,6 +138,7 @@ const routes: Routes = [
         loadChildren: () =>
           import('../operator/reports/reports.module').then((m) => m.ReportsModule),
       },
+     
       {
         path: 'help',
         component: HelpComponent,
@@ -139,8 +158,8 @@ const routes: Routes = [
     SharedModule,
     CommonModule,
   ],
-  exports: [],
-  declarations: [CustomersComponent, HelpComponent],
+  exports: [AddCustomersComponent],
+  declarations: [CustomersComponent, HelpComponent, AddCustomersComponent],
   providers: [],
 })
 export class AdminModule {}
