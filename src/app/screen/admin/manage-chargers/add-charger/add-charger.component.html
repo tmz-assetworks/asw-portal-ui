@@ -142,12 +142,12 @@
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item mbottom">
             <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">Sim Card MSIDN</h5>
+              <h5 class="barbar-highlights layout">SIM ICCID</h5>
               <div class="barbar-box6 layout">
                 <input
                   formControlName="simCardMSIDN"
                   type="text"
-                  maxlength="15"
+                  maxlength="25"
                   class="barbar-input-text"
                 />
               </div>
@@ -563,6 +563,51 @@
               </span>
             </div>
           </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                OEM Order Number
+                <span style="color: 'red';">*</span>
+              </h5>
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addChargerFormGroup.get('oemOrderNumber')?.errors &&
+                    submitted == true
+                }"
+              >
+                <input
+                  formControlName="oemOrderNumber"
+                  type="text"
+                  class="barbar-input-text"
+                />
+              </div>
+              <span
+                *ngIf="
+                  !addChargerFormGroup.get('oemOrderNumber')?.valid &&
+                  addChargerFormGroup.get('oemOrderNumber')?.touched &&
+                  addChargerFormGroup.get('oemOrderNumber')?.value
+                    .length > 100
+                "
+                class="error-mess"
+              >
+                OEM Order Number Must Be Between 1 To 100 Alphanumeric
+              </span>
+              <span
+                *ngIf="
+                  !addChargerFormGroup.get('oemOrderNumber')?.valid &&
+                  addChargerFormGroup.get('oemOrderNumber')?.touched &&
+                  addChargerFormGroup.get('oemOrderNumber')?.value
+                    .length == 0
+                "
+                class="error-mess"
+              >
+                OEM Order Number Is Required
+              </span>
+            </div>
+          </div>
           <!--<div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
@@ -680,6 +725,63 @@
             </div>
           </div>
 
+          
+          
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item" *ngIf="isSaveBtn==false ">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Charger Status
+                <span style="color: 'red';">*</span>
+              </h5>
+<mat-form-field class="barbar-box6 layout">
+  <mat-select formControlName="isActive">
+    <mat-option [value]="true">Active</mat-option>
+    <mat-option [value]="false">Deactivated</mat-option>
+  </mat-select>
+              
+  </mat-form-field>
+            </div>
+          </div> 
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item" *ngIf="isSaveBtn==false && this.addChargerFormGroup.get('isActive')?.value==false" >
+            <div class="barbar-block14 layout" >
+              <h5 class="barbar-highlights layout">
+                Deactivation Date
+                <span style="color: 'red';">*</span>
+              </h5>
+              <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addChargerFormGroup.get('deactivationDate')?.errors &&
+                    submitted == true
+                }"
+              >
+                <input
+                  matInput
+                  [matDatepicker]="DeactivationDate"
+                  formControlName="deactivationDate"
+                  readonly
+                />
+
+                <mat-datepicker-toggle
+                  matSuffix
+                  [for]="DeactivationDate"
+                ></mat-datepicker-toggle>
+                <mat-datepicker #DeactivationDate></mat-datepicker>
+              </mat-form-field>
+              <span
+                *ngIf="
+                  !addChargerFormGroup.get('deactivationDate')?.valid &&
+                  addChargerFormGroup.get('deactivationDate')?.touched
+                "
+                class="error-mess"
+              >
+                Deactivation Date is Required
+              </span>
+            </div>
+          </div>
           <div class="barbar-block13-spacer"></div>
           <!-- <div class="barbar-block13-item">
             <div class="barbar-block14 layout">

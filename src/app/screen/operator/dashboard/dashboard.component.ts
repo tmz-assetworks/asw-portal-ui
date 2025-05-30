@@ -273,10 +273,9 @@ export class DashboardComponent implements OnInit {
                         </div>`;
       legend.appendChild(div);
     }
-
-    // Add the legend to the map
     map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(legend);
     }
+
     google.load('visualization', '1', { packages: ['corechart'] })
     google.setOnLoadCallback(initialize)
   }
