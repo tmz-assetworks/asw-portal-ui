@@ -143,6 +143,14 @@ export class AddChargerComponent implements OnInit {
         }
       }
     }, 2000)
+    setTimeout(() => {
+        this.addChargerFormGroup.get('isActive')?.valueChanges.subscribe((value: boolean) => {
+        if (value) {
+          this.onIsActiveUnchecked(); // Call your function when unchecked
+        }
+      });
+    }, 4000)
+
   }
   // ADD CHARGER FORM GROUP
 
@@ -182,10 +190,12 @@ export class AddChargerComponent implements OnInit {
     //   Validators.required,
     //   Validators.maxLength(20),
     // ]),
+    oemOrderNumber: new FormControl('',[Validators.required,Validators.maxLength(100)]),
     padId: new FormControl('0'),
     cableId: new FormControl('0'),
     installationDate: new FormControl('', Validators.required),
-    isActive: new FormControl(''),
+    isActive: new FormControl(true, Validators.required),
+    deactivationDate: new FormControl(''),
     // isAutomatic: new FormControl(false),
     portCommand: this._fb.array(
       [this.addPortsRows(0, 1, '', '', '', true, '', '', '', '', '')],
@@ -249,6 +259,14 @@ export class AddChargerComponent implements OnInit {
       this._toastr.error('Please fill mandatory fields.')
       return
     }
+    let isChecked = this.addChargerFormGroup.get('isActive')?.value;
+    if (isChecked == false) {
+      
+      this._toastr.error(
+        'Connector id must be different. Please enter other connector id.',
+      )
+      return
+    }
 
     let portCmdArray = (this.addChargerFormGroup.get(
       'portCommand',
@@ -293,10 +311,15 @@ export class AddChargerComponent implements OnInit {
         formData.installationDate,
         'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
+      deactivationDate: this.datePipe.transform(
+        formData.deactivationDate,
+        'yyyy-MM-ddT' + this.getModifiedTime(),
+      ),
       createdBy: this.UserId,
-      isActive: true,
+      isActive: formData.isActive,
       // isAutomatic: formData.isAutomatic,
       portCommand: formData.portCommand,
+      oemOrderNumber: formData.oemOrderNumber,
     }
 
     Swal.fire({
@@ -387,6 +410,10 @@ export class AddChargerComponent implements OnInit {
         formData.installationDate,
         'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
+      deactivationDate: this.datePipe.transform(
+        formData.deactivationDate,
+        'yyyy-MM-ddT' + this.getModifiedTime(),
+      ),
       hardwareSerialNumber: formData.hardwareSerialNumber,
       meterType: formData.meterType,
       // multiplePorts: formData.multiplePorts,
@@ -396,9 +423,10 @@ export class AddChargerComponent implements OnInit {
       // serialNumber: formData.serialNumber,
       padId: formData.padId,
       cableId: formData.cableId,
-      isActive: true,
+      isActive: formData.isActive,
       // isAutomatic: formData.isAutomatic,
       updatePortCommand: formData.portCommand,
+      oemOrderNumber: formData.oemOrderNumber,
     }
 
     Swal.fire({
@@ -550,6 +578,15 @@ export class AddChargerComponent implements OnInit {
         })
         this.addChargerFormGroup.patchValue({
           installationDate: this.chargerData.installationDate,
+        })
+        this.addChargerFormGroup.patchValue({
+          deactivationDate: this.chargerData.deactivationDate,
+        })
+        this.addChargerFormGroup.patchValue({
+          oemOrderNumber: this.chargerData.oemOrderNumber,
+        })
+        this.addChargerFormGroup.patchValue({
+          isActive: this.chargerData.isActive,
         })
 
         // if (this.chargerData.status) {
@@ -710,6 +747,9 @@ export class AddChargerComponent implements OnInit {
       this.connectorType = res.data
     })
   }
+  onIsActiveUnchecked(): void {
+  this.addChargerFormGroup.get('deactivationDate')?.setValue(null);
+}
 
   /**
    * Select Location
@@ -861,6 +901,7 @@ export class AddChargerComponent implements OnInit {
       (k > 96 && k < 123) ||
       k == 8 ||
       k == 32 ||
+      k == 45 ||
       (k >= 48 && k <= 57)
     )
   }
