@@ -49,11 +49,11 @@ export class LocationChargersComponent implements OnInit {
   }
 
   displayedColumns = [
+    'assetId',
     'chargeBoxId',
     'dispenserMake',
     'dispenserModel',
     'connectorType',
-    'protocolName',
     'chargerStatus',
     'noofPort',
     'action',

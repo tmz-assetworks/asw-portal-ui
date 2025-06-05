@@ -125,6 +125,15 @@
                         </div>
                         <div class="cust-list-group2 layout mat-data">
                           <table mat-table [dataSource]="dataSource">
+                            <ng-container matColumnDef="assetId">
+                              <th mat-header-cell *matHeaderCellDef>
+                                ASSET ID
+                              </th>
+                              >
+                              <td mat-cell *matCellDef="let element">
+                                {{ element.assetId }}
+                              </td>
+                            </ng-container>
                             <ng-container matColumnDef="chargeBoxId">
                               <th mat-header-cell *matHeaderCellDef>
                                 CHARGER ID
@@ -132,17 +141,7 @@
                               <td mat-cell *matCellDef="let element">
                                 {{ element.chargeBoxId }}
                               </td>
-                            </ng-container>
-
-                            <!-- <ng-container matColumnDef="dispenserName">
-                              <th mat-header-cell *matHeaderCellDef>
-                                CHARGER NAME
-                              </th>
-                              >
-                              <td mat-cell *matCellDef="let element">
-                                {{ element.dispenserName }}
-                              </td>
-                            </ng-container> -->
+                            </ng-container>                           
 
                             <ng-container matColumnDef="dispenserMake">
                               <th mat-header-cell *matHeaderCellDef>
@@ -169,16 +168,7 @@
                               <td mat-cell *matCellDef="let element">
                                 {{ element.connectorType }}
                               </td>
-                            </ng-container>
-
-                            <ng-container matColumnDef="protocolName">
-                              <th mat-header-cell *matHeaderCellDef>
-                                OCPP PROTOCOL
-                              </th>
-                              <td mat-cell *matCellDef="let element">
-                                {{ element.protocolName }}
-                              </td>
-                            </ng-container>
+                            </ng-container>                           
 
                             <ng-container matColumnDef="chargerStatus">
                               <th mat-header-cell *matHeaderCellDef>
