@@ -609,6 +609,27 @@ export class AdminService {
   public GetAllModemTypeData(): Observable<any> {
     return this._http.get<any>(`${this.ASSET_API_URL}Modem/GetAllModemTypeData`)
   }
+ 
+    public getListApis(
+    type: string,
+    id?: number,
+    stateId?: number,
+  ): Observable<any> {
+    if (type == 'state') {
+      return this._http.get<any>(
+        `${this.ASSET_API_URL}Country/getAllStateByCountryId?Id=${id}`,
+      )
+    } else if (type == 'city') {
+      return this._http.get<any>(
+        `${this.ASSET_API_URL}Country/getAllCityByStateId?Id=${stateId}`,
+      )
+    } else if (type == 'admin') {
+      return this._http.get<any>(`${this.USER_API_URL}User/GetUserById?id=${id}`)
+    } else if (type == 'org') {
+      return this._http.get<any>(`${this.USER_API_URL}User/CustomerDDL`)
+    }
+    return this._http.get<any>(`${this.ASSET_API_URL}Country/getallcountry`)
+  }
 
     public ModifyCustomer(params: any): Observable<any> {
     return this._http.put<any>(`${this.USER_API_URL}Customer/UpdateCustomer`, params)
@@ -617,5 +638,6 @@ export class AdminService {
    public TimeZoneList(): Observable<any> {
     return this._http.get<any>(`${this.ASSET_API_URL}TimeZone/GetAllTimeZones`)
   }
+
 
 }

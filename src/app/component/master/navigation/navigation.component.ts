@@ -159,6 +159,11 @@ export class NavigationComponent implements OnInit {
           icon: '../../../../assets/Admin-SideNav/account-cog.svg',
           isOpen: false, // Initially collapsed
           subMenu: [
+             {
+              routerLink: ['admin-users'],
+              text: 'Admin Users',
+              icon: '../../../../assets/Admin-SideNav/Operator-Users.svg',
+            },
             {
               routerLink: ['users'],
               text: 'Users',
