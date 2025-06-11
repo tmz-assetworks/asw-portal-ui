@@ -162,7 +162,7 @@ export class DashboardComponent implements OnInit {
         styles: [{ width:80, height: 80}],
       }
 
-      var markers = []
+      let markers = []
       for (var i = 0; i < this.mapstatusdata.length; i++) {
         const accident_title = this.mapstatusdata[i].status
         const chargeBoxId = this.mapstatusdata[i].chargeBoxid
@@ -209,21 +209,16 @@ export class DashboardComponent implements OnInit {
         })
 
         marker.addListener('click', () => {
-          // if (accident_title == 'Faulted') {
           this._storageService.setSessionData('chargerBoxId', chargeBoxId)
           this._storageService.setSessionData('chargerName', chargeBoxId);
           let userRole=this._storageService.getLocalData('role')?.toLowerCase();
           if(userRole){
             this._router.navigate([`${userRole}/charger/chargers-diagnostic`]);
           }
-          
-          // }
-          // infoWindow.setContent(contentString)
-          
         })
         markers.push(marker)
       }
-    const markerCluster = new MarkerClusterer(map, markers,opt)
+     new MarkerClusterer(map, markers,opt)
     }
 
     google.load('visualization', '1', { packages: ['corechart'] })
