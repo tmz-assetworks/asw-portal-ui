@@ -5,7 +5,6 @@
     </div>
     <form [formGroup]="addAdminFormGroup">
       <div class="barbar-block12 layout">
-        <h4 class="barbar-highlights1 layout"></h4>
         <div class="barbar-block13 layout">
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
@@ -335,24 +334,25 @@
       <div class="barbar-flex1 layout">
         <div class="barbar-flex1-item">
           <div class="barbar-block17 layout">
-            <div
+           <button
+              type="button"
               class="barbar-text-body2 layout"
-              [routerLink]="['../../admin-users']"
+              routerLink="../../admin-users"
+              aria-label="Cancel and go back to admin users"
             >
-              CANCEL
-            </div>
+              Cancel
+          </button>
           </div>
         </div>
         <div class="barbar-flex1-spacer"></div>
         <div class="barbar-flex1-item">
           <div class="barbar-block16 layout">
-            <div
-              *ngIf="saveBtnValue"
-              class="barbar-text-body1 layout"
-              (click)="addUpdateAdmin()"
-            >
-              SAVE
-            </div>
+          <button
+            *ngIf="saveBtnValue"
+            class="barbar-text-body1 layout"
+            (click)="addUpdateAdmin()">
+            SAVE
+          </button>
           </div>
         </div>
       </div>

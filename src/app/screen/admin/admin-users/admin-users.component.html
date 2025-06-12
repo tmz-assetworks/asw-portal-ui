@@ -156,22 +156,19 @@
     </div>
     <div class="cust-list-flex3-spacer"></div>
     <div class="cust-list-flex3-item1">
-      <div
-        class="cust-list-block23 layout"
-        (click)="performAction('create', '')"
-      >
-        <div class="cust-list-block23-item">
-          <div class="cust-list-box10 layout">
-            <img
-              src="../../../../assets/Super-Admin-icons/Add.svg"
-              alt=""
-              srcset=""
-            />
-          </div>
-        </div>
-        <div class="cust-list-block23-spacer"></div>
-        <div class="cust-list-text-body4 layout">ADD ADMIN USER</div>
-      </div>
+    <button
+      type="button"
+      class="cust-list-block23 layout no-border-btn"
+      (click)="performAction('create', '')"
+      aria-label="Add Admin User"
+    >
+        <img
+        src="../../../../assets/Super-Admin-icons/Add.svg"
+        alt="Add Admin User"
+        class="cust-list-box10 layout"
+      />
+      <span class="cust-list-text-body4 layout">ADD ADMIN USER</span>
+    </button>
     </div>
   </div>
   <div class="layout mat-data">
@@ -210,46 +207,43 @@
       <ng-container matColumnDef="Action">
         <th mat-header-cell *matHeaderCellDef>ACTION</th>
         <td mat-cell *matCellDef="let element">
-          <span
-            *ngIf="!element.isActive"
-            title="Active"
+          <button
+            [title]="element.isActive ? 'Inactive' : 'Active'"
             (click)="changeState(element.id, element.isActive)"
-          >
+            class="icon-button"
+            >
             <img
-              src="../../../../assets/Admin-SideNav/Vehicles-Icons/Active-tik.svg"
-              class="cursorPointer"
-              alt=""
+            [src]="element.isActive 
+                ? '../../../../assets/Active.svg' 
+                : '../../../../assets/Admin-SideNav/Vehicles-Icons/Active-tik.svg'"
+            class="cursorPointer"
+            alt=""
             />
-          </span>
-          <span
-            *ngIf="element.isActive"
-            title="Inactive"
-            (click)="changeState(element.id, element.isActive)"
-          >
-            <img
-              src="../../../../assets/Active.svg"
-              class="cursorPointer"
-              alt=""
-            />
-          </span>
-          <span style="margin: 7px;">
-            <img
+            </button>
+
+      <!-- Edit Button -->
+            <button 
+            style="margin: 7px;" 
+            title="Edit" 
+            class="icon-button"
+            (click)="performAction('edit', element)">
+              <img
               src="../../../../assets/Super-Admin-icons/Edit.svg"
               alt=""
               class="cursorPointer"
-              (click)="performAction('edit', element)"
-              title="Edit"
-            />
-          </span>
-          <span style="margin: 7px;">
-            <img
+              />
+          </button>
+          <!-- View Button -->
+          <button 
+            style="margin:7px;" 
+            title="View"
+            class="icon-button" 
+            (click)="performAction('view', element)">
+              <img
               src="../../../../assets/Super-Admin-icons/View.svg"
               alt=""
-              class="cursorPointer"
-              title="View"
-              (click)="performAction('view', element)"
-            />
-          </span>
+              class="cursorPointer"/>
+          </button>
         </td>
       </ng-container>
 

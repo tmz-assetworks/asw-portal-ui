@@ -478,7 +478,6 @@ $font_type_3: 500 14px/1.2 'Roboto', Helvetica, Arial, serif;
     @include flex-column;
     align-items: center;
     justify-content: center;
-    background-color: $color_type_0;
     border-radius: 5px 5px 5px 5px;
   }
   &block16.layout {
@@ -505,6 +504,9 @@ $font_type_3: 500 14px/1.2 'Roboto', Helvetica, Arial, serif;
     position: relative;
     height: min-content;
     padding: 18px 40px;
+    background-color:#0062a6;
+    border-style: none;
+    border-radius: 5px 5px 5px 5px;
   }
 }
 

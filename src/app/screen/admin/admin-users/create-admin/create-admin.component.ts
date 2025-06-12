@@ -44,7 +44,7 @@ submitted = false;
     private readonly _location: Location,
     private readonly  _storageService: StorageService
   ) {
-    this.role = localStorage.getItem('role') || '';
+    this.role = localStorage.getItem('role') ?? '';
     this.editId = 0;
     this.UserId = this._storageService.getLocalData('user_id');
     this.saveBtn =
@@ -110,7 +110,7 @@ submitted = false;
     /**
      * Get org user from local storage
      */
-    this.orgUserId = sessionStorage.getItem('orgUserId') || '';
+    this.orgUserId = sessionStorage.getItem('orgUserId') ?? '';
     this._adminService.getListApis('country').subscribe((res) => {
       this.countryList = res.data;
     });
@@ -181,7 +181,6 @@ submitted = false;
         focusConfirm: true,
         confirmButtonText: ' <span style="color:#0062A6">CANCEL<span>',
         confirmButtonColor: '#E6E8E9',
-
         cancelButtonColor: '#0062A6',
         cancelButtonText: ' CONFIRM',
         showCancelButton: true,
@@ -196,7 +195,6 @@ submitted = false;
                 this._location.back();
               } else {
                 this.toastr.error(res.statusMessage);
-                return;
               }
             },
             error: (error) => {
@@ -406,7 +404,7 @@ submitted = false;
    */
 
   phoneNumber(event: any) {
-    const charCode = event.which ? event.which : event.keyCode;
+    const charCode = event.which ?? event.keyCode;
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
       return;
     }
