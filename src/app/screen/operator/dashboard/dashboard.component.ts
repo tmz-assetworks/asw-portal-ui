@@ -218,7 +218,9 @@ export class DashboardComponent implements OnInit {
         })
         markers.push(marker)
       }
-     new MarkerClusterer(map, markers,opt)
+     
+    // Instantiate for immediate clustering effect on map  
+    new MarkerClusterer(map, markers,opt)
     }
 
     google.load('visualization', '1', { packages: ['corechart'] })
