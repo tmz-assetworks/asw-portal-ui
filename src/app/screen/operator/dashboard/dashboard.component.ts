@@ -17,7 +17,6 @@ declare const MarkerClusterer: any
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  myparams: any
   locations = '../../../../assets/Operator/Location-Icons.svg'
   chargers = '../../../../assets/Operator/Chargers.svg'
   charging_session = '../../../../assets/Operator/Charger-Seesion.svg'
@@ -162,8 +161,8 @@ export class DashboardComponent implements OnInit {
         styles: [{ width:80, height: 80}],
       }
 
+      let markers = []
       for (var i = 0; i < this.mapstatusdata.length; i++) {
-        
         const accident_title = this.mapstatusdata[i].status
         const chargeBoxId = this.mapstatusdata[i].chargeBoxid
         const assetId = this.mapstatusdata[i].assetId
@@ -176,41 +175,9 @@ export class DashboardComponent implements OnInit {
         let newLat = accident_LatLng.lat() + (Math.random() - 0.5) / 1500 // * (Math.random() * (max - min) + min);
         let newLng = accident_LatLng.lng() + (Math.random() - 0.5) / 1500 // * (Math.random() * (max - min) + min);
         let finalLatLng = new google.maps.LatLng(newLat, newLng)
-      
-        let color: string;
-        let customSymbol1: google.maps.Point | undefined;
-        const scale = 1.5;
 
-        switch (accident_title) {
-          case "Available":
-            color = '#90993F';
-            customSymbol1 = new google.maps.Point(15, 0);
-            break;
-          case "Offline":
-            color = '#ea002a';
-            break;
-          case "Reserved":
-            color = '#675553';
-            break;
-          case "BusySE":
-            color = '#E97300';
-            break;
-          default:
-            color = '#000000'; // fallback color if needed
-        }
-
-        const customSymbol: google.maps.Symbol = {
-          path: 'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z M12 11.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z',
-          fillColor: color,
-          fillOpacity: 0.7,
-          scale: scale,
-          strokeColor: '#000000',
-          strokeWeight: 1,
-          anchor: customSymbol1,
-        };
         let marker = new google.maps.Marker({
           position: finalLatLng,
-          icon: customSymbol,
           title: accident_title,
           map: map
 
@@ -241,39 +208,18 @@ export class DashboardComponent implements OnInit {
         })
 
         marker.addListener('click', () => {
-          // if (accident_title == 'Faulted') {
           this._storageService.setSessionData('chargerBoxId', chargeBoxId)
           this._storageService.setSessionData('chargerName', chargeBoxId);
           let userRole=this._storageService.getLocalData('role')?.toLowerCase();
           if(userRole){
             this._router.navigate([`${userRole}/charger/chargers-diagnostic`]);
           }
-          
-          // }
-          // infoWindow.setContent(contentString)
-          
         })
+        markers.push(marker)
       }
-
-    const legend = document.createElement('div');
-    legend.id = 'legend';
-    legend.style.backgroundColor = 'white';
-    legend.style.padding = '10px';
-    legend.style.fontFamily = 'Arial, sans-serif';
-    legend.style.fontSize = '14px';
-
-    // Loop through the legend data and create the legend entries
-    for (const status in opt.legend) {
-      const color = opt?.legend[status];
-      const div = document.createElement('div');
-      div.style.marginBottom ='8px'; // Add space between legend items
-      div.innerHTML = `<div style="display: flex; align-items: center;">
-                          <div style="width: 15px; height: 15px; background-color: ${color}; margin-right: 5px;"></div>
-                          ${status}
-                        </div>`;
-      legend.appendChild(div);
-    }
-    map.controls[google.maps.ControlPosition.RIGHT_CENTER].push(legend);
+     
+    // NOSONAR - MarkerClusterer is instantiated for clustering side effects
+     new MarkerClusterer(map, markers,opt) // NOSONAR
     }
 
     google.load('visualization', '1', { packages: ['corechart'] })
@@ -349,6 +295,7 @@ export class DashboardComponent implements OnInit {
       )
     }
   }
+
   /**
    *
    * @param locationIds
@@ -449,9 +396,10 @@ export class DashboardComponent implements OnInit {
     )
   }
 
+
   /**
    * CHARGER GRAPH DATA
-   */
+   */ 
 
   getChargerGraph(locationIds: any, duration: any, operatorId: any) {
     const body = {
