@@ -17,7 +17,6 @@ declare const MarkerClusterer: any
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  myparams: any
   locations = '../../../../assets/Operator/Location-Icons.svg'
   chargers = '../../../../assets/Operator/Chargers.svg'
   charging_session = '../../../../assets/Operator/Charger-Seesion.svg'
@@ -219,8 +218,8 @@ export class DashboardComponent implements OnInit {
         markers.push(marker)
       }
      
-    // Instantiate for immediate clustering effect on map  
-    new MarkerClusterer(map, markers,opt)
+    // NOSONAR - MarkerClusterer is instantiated for clustering side effects
+     new MarkerClusterer(map, markers,opt) // NOSONAR
     }
 
     google.load('visualization', '1', { packages: ['corechart'] })
