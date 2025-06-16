@@ -1,5 +1,5 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import {Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, OnInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { AdminService } from '../admin.service';
@@ -10,19 +10,18 @@ import { StorageService } from 'src/app/service/storage.service';
   templateUrl: './admin-users.component.html',
   styleUrls: ['./admin-users.component.scss']
 })
-export class AdminUsersComponent {
-  tableHasData: any;
-  totalCount: any;
-  pageSize: number = 10;
-  currentPage: number = 1;
-  totalPages: any;
+export class AdminUsersComponent implements OnInit, AfterViewInit {
+  tableHasData = false;
+  totalCount = 0;
+  pageSize = 10;
+  currentPage = 1;
+  totalPages = 0;
   pageSizeOptions = [10, 20, 100];
   statusData: any;
   adminName = '';
   userId: any;
-  showAdminList: boolean = true;
-  showCreateAdmin: boolean = false;
-  searchKey: any;
+  showAdminList = true;
+  showCreateAdmin = false;
   dataSource = new MatTableDataSource<any>();
   displayedColumns: string[] = [
     'CustomerName',
@@ -32,10 +31,12 @@ export class AdminUsersComponent {
     'Status',
     'Action',
   ];
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('input') inputValue: any;
+
   constructor(
-    public readonly adminService: AdminService,
+    private readonly adminService: AdminService,
     private readonly router: Router,
     private readonly route: ActivatedRoute,
     private readonly storageService: StorageService
@@ -52,45 +53,52 @@ export class AdminUsersComponent {
     this.paginator._intl.itemsPerPageLabel = 'Rows per page';
   }
 
-  /**
-   *
-   * @param event
-   * Page Event
-   */
+  private clearAdminSession() {
+    sessionStorage.removeItem('adminData');
+    sessionStorage.removeItem('saveBtn');
+  }
 
-  pageChange(event: any) {
+  private setAdminSession(data: any, saveBtn: boolean) {
+    sessionStorage.setItem('adminData', JSON.stringify(data));
+    sessionStorage.setItem('saveBtn', JSON.stringify(saveBtn));
+  }
+
+  private get searchParam(): string {
+    return this.adminName.trim() || '';
+  }
+
+  private updateCurrentPage(event: any) {
     if (event.pageSize !== this.pageSize) {
       this.currentPage = 1;
       this.pageSize = event.pageSize;
       this.paginator.pageIndex = 0;
     } else {
-      this.currentPage =
-        event.previousPageIndex < event.pageIndex
-          ? this.currentPage + 1
-          : this.currentPage - 1;
+      this.currentPage = event.previousPageIndex < event.pageIndex
+        ? this.currentPage + 1
+        : this.currentPage - 1;
     }
+  }
+
+  pageChange(event: any) {
+    this.updateCurrentPage(event);
     this.getAdminsList();
   }
 
-  /**
-   * Get Admin list
-   */
   getAdminsList() {
     const body = {
       pageNumber: this.currentPage,
-      searchParam: this.adminName !== '' ? this.adminName : '',
+      searchParam: this.searchParam,
       pageSize: this.pageSize,
       opratorid: this.userId,
       customerID: 0,
       roleid: [3],
     };
-    this.adminService.GetAllUsers(body).subscribe((res) => {
-      if (res.data !== undefined && res.data != null && res.data.length > 0) {
+    this.adminService.GetAllUsers(body).subscribe(res => {
+      if (res.data?.length) {
         this.statusData = res.statusData;
         this.totalCount = res.paginationResponse.totalCount;
         this.totalPages = res.paginationResponse.totalPages;
         this.pageSize = res.paginationResponse.pageSize;
-
         this.dataSource.data = res.data;
         this.tableHasData = false;
       } else {
@@ -100,58 +108,35 @@ export class AdminUsersComponent {
     });
   }
 
-  /**
-   *
-   * @param event
-   * Apply Filter for Admin list
-   */
   applyFilters(event: Event) {
-    const filterValue = this.inputValue.nativeElement.value.toLowerCase();
-    this.adminName = filterValue;
+    this.adminName = this.inputValue.nativeElement.value.toLowerCase();
     this.getAdminsList();
   }
 
-  /**
-   *
-   * @param type, data
-   * perform Action
-   */
   performActions(type: string, data?: any) {
-    sessionStorage.removeItem('adminData');
-    sessionStorage.removeItem('saveBtn');
+    this.clearAdminSession();
+
     let path = 'create-admin';
-    if (type == 'view') {
+    if (type === 'view' && data) {
       path = 'view-admin';
-      console.log(data);
-      sessionStorage.setItem('adminData', JSON.stringify(data));
-      sessionStorage.setItem('saveBtn', JSON.stringify(false));
-    } else if (type == 'edit') {
+      this.setAdminSession(data, false);
+    } else if (type === 'edit' && data) {
       path = 'edit-admin';
-      sessionStorage.setItem('adminData', JSON.stringify(data));
-      sessionStorage.setItem('saveBtn', JSON.stringify(true));
-    } else {
-      sessionStorage.removeItem('adminData');
-      sessionStorage.removeItem('saveBtn');
+      this.setAdminSession(data, true);
     }
 
     this.router.navigate([path], { relativeTo: this.route });
   }
 
-  /**
-   *
-   * @param id, state
-   * Change State
-   */
   changeStates(id: number, state: boolean) {
-    let isActive = !state;
-    const body = { id: id, isActive: isActive };
+    const body = { id, isActive: !state };
     this.adminService.ChangeState(body).subscribe({
       next: (res) => {
-        if (res.statusMessage !== undefined) {
+        if (res.statusMessage) {
           this.getAdminsList();
         }
       },
-      error: (error) => {},
+      error: () => { /* handle error if needed */ },
     });
   }
 }

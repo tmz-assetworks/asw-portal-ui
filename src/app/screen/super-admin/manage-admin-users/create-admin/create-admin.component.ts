@@ -1,7 +1,6 @@
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import {Component, OnInit} from '@angular/core';
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { SuperAdminService } from '../../super-admin.service';
 import { DatePipe, Location } from '@angular/common';
@@ -38,7 +37,6 @@ export class CreateAdminComponent implements OnInit {
   customerId:any
   constructor(
     private formBuilder: FormBuilder,
-    private _router: Router,
     private toastr: ToastrService,
     private _superadminService: SuperAdminService,
     private _location: Location,

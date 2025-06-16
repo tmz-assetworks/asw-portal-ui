@@ -1,7 +1,6 @@
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import {Component} from '@angular/core';
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AdminService } from '../../admin.service';
 import { DatePipe, Location } from '@angular/common';
@@ -85,23 +84,18 @@ export class CreateAdminComponent {
    * Form group
    */
 
-  addAdminFormGroup = this.formBuilder.group({
-    username: new FormControl('', [
-      Validators.required,
-      Validators.maxLength(20),
-    ]),
-    emailid: new FormControl('', [Validators.required, Validators.email]),
-    phoneNumber: new FormControl('', Validators.required),
-    organizationName: new FormControl(Validators.required),
-    addressLine1: new FormControl('', [
-      Validators.maxLength(255),
-    ]),
-    addressLine2: new FormControl('', [Validators.maxLength(255)]),
-    country: new FormControl(this.selectValue, Validators.required),
-    state: new FormControl(this.selectValue, Validators.required),
-    cityName: new FormControl(''),
-    zipcode: new FormControl(''),
-  });
+addAdminFormGroup = this.formBuilder.group({
+  username: ['', [Validators.required, Validators.maxLength(20)]],
+  emailid: ['', [Validators.required, Validators.email]],
+  phoneNumber: ['', Validators.required],
+  organizationName: ['', Validators.required],
+  addressLine1: ['', Validators.maxLength(255)],
+  addressLine2: ['', Validators.maxLength(255)],
+  country: [this.selectValue, Validators.required],
+  state: [this.selectValue, Validators.required],
+  cityName: [''],
+  zipcode: [''],
+});
 
   ngOnInit() {
     /**
@@ -133,131 +127,99 @@ export class CreateAdminComponent {
    * Add  or update admin user
    * @returns
    */
-  addUpdateAdmins() {
-    let formField = this.addAdminFormGroup.value;
-
-    this.isSubmitted = true;
-    if (
-      this.addAdminFormGroup.value.organizationName == '0' ||
-      this.addAdminFormGroup.value.city == '0'
-    ) {
-      this.toastr.error('Please fill mandatory fields.');
-      return;
-    }
-    if (this.addAdminFormGroup.invalid) {
-      this.toastr.error('Please fill mandatory fields.');
-      return;
-    }
-    if (this.editId == 0) {
-      let body = {
-        displayName: this.role,
-        objectid: '',
-        userPrincipalName: '',
-        mailNickname: '',
-        isActive: true,
-        emailId: formField.emailid,
-        name: formField.username,
-        phoneNumber: formField.phoneNumber,
-        addressLine1: formField.addressLine1,
-        addressLine2: formField.addressLine2,
-        countryID: parseInt(formField.country),
-        customerID: this.customerId,
-        stateID: parseInt(formField.state),
-        cityName: formField.cityName,
-        zipCode: formField.zipcode,
-        createdBy: this.UserId,
-        userRolesCommand: [
-          {
-            roleid: 3,
-          },
-        ],
-      };
-      Swal.fire({
-        title: '<strong>Are you sure you want to confirm?</strong>',
-        icon: 'success',
-        focusConfirm: true,
-        confirmButtonText: ' <span style="color:#0062A6">CANCEL<span>',
-        confirmButtonColor: '#E6E8E9',
-        cancelButtonColor: '#0062A6',
-        cancelButtonText: ' CONFIRM',
-        showCancelButton: true,
-      }).then((result) => {
-        if (result.isDismissed) {
-          //Do your stuffs...
-          this.adminService.CreateUser(body).subscribe({
-            next: (res) => {
-              if (res.statusCode === 200) {
-                sessionStorage.removeItem('orgUserId');
-                this.toastr.success(res.statusMessage);
-                this.location.back();
-              } else {
-                this.toastr.error(res.statusMessage);
-              }
-            },
-            error: (error) => {
-              if (error.status == 400) {
-                let errorMsg = error.error.errors;
-                this.toastr.error(errorMsg);
-              }
-            },
-          });
-        }
-      });
-    } else {
-      let body = {
-        id: this.editId,
-        emailId: formField.emailid,
-        name: formField.username,
-        phoneNumber: formField.phoneNumber,
-        addressLine1: formField.addressLine1,
-        addressLine2: formField.addressLine2,
-        countryID: parseInt(formField.country),
-        customerID: this.customerId,
-        stateID: parseInt(formField.state),
-        cityName: formField.cityName,
-        zipCode: formField.zipcode,
-        modifiedBy: this.UserId,
-        userRolesCommand: [
-          {
-            id: this.editId,
-            roleID: 3,
-          },
-        ],
-      };
-
-      Swal.fire({
-        title: '<strong>Are you sure you want to confirm?</strong>',
-        icon: 'success',
-        focusConfirm: true,
-        confirmButtonText: ' <span style="color:#0062A6">CANCEL<span>',
-        confirmButtonColor: '#E6E8E9',
-
-        cancelButtonColor: '#0062A6',
-        cancelButtonText: ' CONFIRM',
-        showCancelButton: true,
-      }).then((result) => {
-        if (result.isDismissed) {
-          this.adminService.UpdateUser(body).subscribe({
-            next: (res) => {
-              if (res.statusCode == 400) {
-                this.toastr.error(res.statusMessage);
-              } else {
-                this.toastr.success(res.statusMessage);
-                this.location.back();
-              }
-            },
-            error: (error) => {
-              if (error.status == 400) {
-                let errorMsg = error.error.errors;
-                this.toastr.error(errorMsg);
-              }
-            },
-          });
-        }
-      });
-    }
+addUpdateAdmins() {
+  if (
+    this.addAdminFormGroup.value.organizationName == '0' ||
+    this.addAdminFormGroup.value.city == '0'
+  ) {
+    this.toastr.error('Please fill mandatory fields.');
+    return;
+  }
+  if (this.addAdminFormGroup.invalid) {
+    this.toastr.error('Please fill mandatory fields.');
+    return;
   }
 
+  const formField = this.addAdminFormGroup.value;
+  const isCreate = this.editId === 0;
+  const body = this.buildRequestBody(formField, isCreate);
+
+  this.showConfirmationDialog(() => {
+    const apiCall = isCreate
+      ? this.adminService.CreateUser(body)
+      : this.adminService.UpdateUser(body);
+
+    apiCall.subscribe({
+      next: (res) => {
+        if (res.statusCode === 200 || res.statusCode === 201) {
+          sessionStorage.removeItem('orgUserId');
+          this.toastr.success(res.statusMessage);
+          this.location.back();
+        } else {
+          this.toastr.error(res.statusMessage);
+        }
+      },
+      error: (error) => {
+        if (error.status === 400) {
+          this.toastr.error(error.error.errors);
+        }
+      },
+    });
+  });
+}
+
+
+private buildRequestBody(formField: any, isCreate: boolean) {
+  const commonBody = {
+    emailId: formField.emailid,
+    name: formField.username,
+    phoneNumber: formField.phoneNumber,
+    addressLine1: formField.addressLine1,
+    addressLine2: formField.addressLine2,
+    countryID: parseInt(formField.country),
+    customerID: this.customerId,
+    stateID: parseInt(formField.state),
+    cityName: formField.cityName,
+    zipCode: formField.zipcode,
+    userRolesCommand: [{ roleid: 3 }],
+  };
+
+  if (isCreate) {
+    return {
+      ...commonBody,
+      displayName: this.role,
+      objectid: '',
+      userPrincipalName: '',
+      mailNickname: '',
+      isActive: true,
+      createdBy: this.UserId,
+    };
+  } else {
+    return {
+      ...commonBody,
+      id: this.editId,
+      modifiedBy: this.UserId,
+      userRolesCommand: [{ id: this.editId, roleID: 3 }],
+    };
+  }
+}
+
+private showConfirmationDialog(onConfirm: () => void) {
+  Swal.fire({
+    title: '<strong>Are you sure you want to confirm?</strong>',
+    icon: 'success',
+    focusConfirm: true,
+    confirmButtonText: ' <span style="color:#0062A6">CANCEL<span>',
+    confirmButtonColor: '#E6E8E9',
+    cancelButtonColor: '#0062A6',
+    cancelButtonText: ' CONFIRM',
+    showCancelButton: true,
+  }).then((result) => {
+    if (result.isDismissed) {
+      onConfirm();
+    }
+  });
+}
   /**
    * Country or state dropdown event
    * @param event
@@ -301,68 +263,30 @@ export class CreateAdminComponent {
    * Set form value
    * @param data
    */
-  setFormValue(data: any) {
-    const body = {};
-    data = JSON.parse(data);
-    this.editId = data.id;
-    this.adminService.getListApis('admin', data.id).subscribe((res) => {
-      this.adminRowData = res.data;
+setFormValue(data: any) {
+  data = JSON.parse(data);
+  this.editId = data.id;
+  this.adminService.getListApis('admin', data.id).subscribe((res) => {
+    this.adminRowData = res.data;
+    this.countryId = this.adminRowData.countryID;
+    this.stateId = this.adminRowData.stateID;
 
-      this.countryId = this.adminRowData.countryID;
-      this.stateId = this.adminRowData.stateID;
+    this.getSelect({ value: this.adminRowData.countryID }, 'state');
+    this.getSelect({ value: this.adminRowData.stateID }, 'city');
 
-      this.getSelect(
-        {
-          value: this.adminRowData.countryID,
-        },
-        'state'
-      );
-      this.getSelect(
-        {
-          value: this.adminRowData.stateID,
-        },
-        'city'
-      );
-
-      this.addAdminFormGroup.patchValue({
-        username: this.adminRowData.adminName,
-      });
-      this.addAdminFormGroup.patchValue({
-        emailid: this.adminRowData.emailId,
-      });
-      this.addAdminFormGroup.patchValue({
-        phoneNumber: this.adminRowData.phoneNumber,
-      });
-
-      this.addAdminFormGroup.patchValue({
-        addressLine1: this.adminRowData.addressLine1,
-      });
-      this.addAdminFormGroup.patchValue({
-        addressLine2: this.adminRowData.addressLine2,
-      });
-
-      this.addAdminFormGroup.patchValue({
-        country:
-          this.adminRowData.countryID !== 0
-            ? this.adminRowData.countryID.toString()
-            : this.selectValue,
-      });
-      this.addAdminFormGroup.patchValue({
-        state:
-          this.adminRowData.stateID !== 0
-            ? this.adminRowData.stateID
-            : this.selectValue,
-      });
-
-      this.addAdminFormGroup.patchValue({
-        cityName: this.adminRowData.cityName,
-      });
-
-      this.addAdminFormGroup.patchValue({
-        zipcode: this.adminRowData.zipcode,
-      });
+    this.addAdminFormGroup.patchValue({
+      username: this.adminRowData.adminName,
+      emailid: this.adminRowData.emailId,
+      phoneNumber: this.adminRowData.phoneNumber,
+      addressLine1: this.adminRowData.addressLine1,
+      addressLine2: this.adminRowData.addressLine2,
+      country: this.adminRowData.countryID !== 0 ? this.adminRowData.countryID.toString() : this.selectValue,
+      state: this.adminRowData.stateID !== 0 ? this.adminRowData.stateID : this.selectValue,
+      cityName: this.adminRowData.cityName,
+      zipcode: this.adminRowData.zipcode,
     });
-  }
+  });
+}
   /**
    * Omit special character
    * @param event
