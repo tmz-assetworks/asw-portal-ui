@@ -13,10 +13,8 @@ import { StorageService } from 'src/app/service/storage.service';
   styleUrls: ['./create-admin.component.scss']
 })
 export class CreateAdminComponent {
-submitted = false;
-  registrationForm: any;
-  disableSelect = new FormControl(false);
-  adminData: any;
+  isSubmitted = false;
+  _adminData: any;
   saveBtn: boolean = true;
   title: string = 'Add Admin User';
   saveBtnValue: any;
@@ -38,22 +36,21 @@ submitted = false;
   customerId:any
   constructor(
     private readonly formBuilder: FormBuilder,
-    private readonly _router: Router,
     private readonly toastr: ToastrService,
-    private readonly _adminService: AdminService,
-    private readonly _location: Location,
-    private readonly  _storageService: StorageService
+    private readonly adminService: AdminService,
+    private readonly location: Location,
+    private readonly  storageService: StorageService
   ) {
     this.role = localStorage.getItem('role') ?? '';
     this.editId = 0;
-    this.UserId = this._storageService.getLocalData('user_id');
+    this.UserId = this.storageService.getLocalData('user_id');
     this.saveBtn =
       sessionStorage.getItem('saveBtn') !== undefined &&
       sessionStorage.getItem('saveBtn') !== null &&
       sessionStorage.getItem('saveBtn') !== ''
         ? JSON.parse(JSON.stringify(sessionStorage.getItem('saveBtn')))
         : true;
-    this.adminData =
+    this._adminData =
       sessionStorage.getItem('adminData') !== undefined &&
       sessionStorage.getItem('adminData') !== null
         ? sessionStorage.getItem('adminData')
@@ -64,20 +61,20 @@ submitted = false;
 
     if (
       this.saveBtnValue &&
-      this.adminData !== undefined &&
-      this.adminData !== null &&
-      this.adminData !== ''
+      this._adminData !== undefined &&
+      this._adminData !== null &&
+      this._adminData !== ''
     ) {
       this.title = 'Edit Admin User';
-      this.setFormValue(this.adminData);
+      this.setFormValue(this._adminData);
     } else if (
       !this.saveBtnValue &&
-      this.adminData !== undefined &&
-      this.adminData !== null &&
-      this.adminData !== ''
+      this._adminData !== undefined &&
+      this._adminData !== null &&
+      this._adminData !== ''
     ) {
       this.title = 'View Admin User';
-      this.setFormValue(this.adminData);
+      this.setFormValue(this._adminData);
       this.addAdminFormGroup.disable();
     } else {
       this.title = 'Add Admin User';
@@ -111,13 +108,13 @@ submitted = false;
      * Get org user from local storage
      */
     this.orgUserId = sessionStorage.getItem('orgUserId') ?? '';
-    this._adminService.getListApis('country').subscribe((res) => {
+    this.adminService.getListApis('country').subscribe((res) => {
       this.countryList = res.data;
     });
     /**
      * Call API
      */
-    this._adminService.getListApis('org').subscribe((res) => {
+    this.adminService.getListApis('org').subscribe((res) => {
       this.customerList = res.data;
       this.customerName = res.data[0].customerName;
       this.customerId = res.data[0].id;
@@ -136,10 +133,10 @@ submitted = false;
    * Add  or update admin user
    * @returns
    */
-  addUpdateAdmin() {
+  addUpdateAdmins() {
     let formField = this.addAdminFormGroup.value;
 
-    this.submitted = true;
+    this.isSubmitted = true;
     if (
       this.addAdminFormGroup.value.organizationName == '0' ||
       this.addAdminFormGroup.value.city == '0'
@@ -187,12 +184,12 @@ submitted = false;
       }).then((result) => {
         if (result.isDismissed) {
           //Do your stuffs...
-          this._adminService.CreateUser(body).subscribe({
+          this.adminService.CreateUser(body).subscribe({
             next: (res) => {
               if (res.statusCode === 200) {
                 sessionStorage.removeItem('orgUserId');
                 this.toastr.success(res.statusMessage);
-                this._location.back();
+                this.location.back();
               } else {
                 this.toastr.error(res.statusMessage);
               }
@@ -240,13 +237,13 @@ submitted = false;
         showCancelButton: true,
       }).then((result) => {
         if (result.isDismissed) {
-          this._adminService.UpdateUser(body).subscribe({
+          this.adminService.UpdateUser(body).subscribe({
             next: (res) => {
               if (res.statusCode == 400) {
                 this.toastr.error(res.statusMessage);
               } else {
                 this.toastr.success(res.statusMessage);
-                this._location.back();
+                this.location.back();
               }
             },
             error: (error) => {
@@ -267,7 +264,7 @@ submitted = false;
    * @param type
    */
 
-  getSelected(event: any, type: string) {
+  getSelect(event: any, type: string) {
     if (type == 'state') {
       if (this.countryId !== parseInt(event.value)) {
         // NEW COUNTRY IS SELECTED
@@ -280,7 +277,7 @@ submitted = false;
       this.countryId = parseInt(event.value);
       // this.countryName = event.value.split('#')[1];
       // CALL STATE API
-      this._adminService
+      this.adminService
         .getListApis('state', this.countryId)
         .subscribe((res) => {
           this.stateList = res.data;
@@ -308,19 +305,19 @@ submitted = false;
     const body = {};
     data = JSON.parse(data);
     this.editId = data.id;
-    this._adminService.getListApis('admin', data.id).subscribe((res) => {
+    this.adminService.getListApis('admin', data.id).subscribe((res) => {
       this.adminRowData = res.data;
 
       this.countryId = this.adminRowData.countryID;
       this.stateId = this.adminRowData.stateID;
 
-      this.getSelected(
+      this.getSelect(
         {
           value: this.adminRowData.countryID,
         },
         'state'
       );
-      this.getSelected(
+      this.getSelect(
         {
           value: this.adminRowData.stateID,
         },
@@ -390,7 +387,7 @@ submitted = false;
    */
 
   numberOnly(event: any): boolean {
-    const charCode = event.which ? event.which : event.keyCode;
+     const charCode = event.which ?? event.keyCode;
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
       return false;
     }

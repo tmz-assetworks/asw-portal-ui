@@ -1,5 +1,5 @@
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';

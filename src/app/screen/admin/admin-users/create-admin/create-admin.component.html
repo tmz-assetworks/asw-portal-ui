@@ -18,7 +18,7 @@
                 [ngClass]="{
                   'is-invalid':
                     addAdminFormGroup.get('username')?.errors &&
-                    submitted == true
+                    isSubmitted == true
                 }"
               >
                 <input
@@ -42,7 +42,7 @@
               <span
                 *ngIf="
                   !addAdminFormGroup.get('username')?.valid &&
-                  (addAdminFormGroup.get('username')?.touched || submitted) &&
+                  (addAdminFormGroup.get('username')?.touched || isSubmitted) &&
                   addAdminFormGroup.get('username')?.value.length == 0
                 "
                 class="error-mess"
@@ -64,7 +64,7 @@
                 [ngClass]="{
                   'is-invalid':
                     addAdminFormGroup.get('emailid')?.errors &&
-                    submitted == true
+                    isSubmitted == true
                 }"
               >
                 <input
@@ -76,7 +76,7 @@
               <span
                 *ngIf="
                   !addAdminFormGroup.get('emailid')?.valid &&
-                  (addAdminFormGroup.get('emailid')?.touched || submitted) &&
+                  (addAdminFormGroup.get('emailid')?.touched || isSubmitted) &&
                   addAdminFormGroup.get('emailid')?.value.length == 0
                 "
                 class="error-mess"
@@ -108,7 +108,7 @@
                 [ngClass]="{
                   'is-invalid':
                     addAdminFormGroup.get('phoneNumber')?.errors &&
-                    submitted == true
+                    isSubmitted == true
                 }"
               >
                 <input
@@ -134,7 +134,7 @@
                 *ngIf="
                   !addAdminFormGroup.get('phoneNumber')?.valid &&
                   (addAdminFormGroup.get('phoneNumber')?.touched ||
-                    submitted) &&
+                    isSubmitted) &&
                   addAdminFormGroup.get('phoneNumber')?.value.length == 0
                 "
                 class="error-mess"
@@ -164,7 +164,7 @@
             <span
               *ngIf="
                 (addAdminFormGroup.get('organizationName')?.touched ||
-                  submitted) &&
+                  isSubmitted) &&
                 addAdminFormGroup.get('organizationName')?.value == '0'
               "
               class="error-mess"
@@ -187,7 +187,7 @@
               [ngClass]="{
                 'is-invalid':
                   addAdminFormGroup.get('addressLine1')?.errors &&
-                  submitted == true
+                  isSubmitted == true
               }"
               >
                 <input
@@ -248,7 +248,7 @@
               >
                 <mat-select
                   formControlName="country"
-                  (selectionChange)="getSelected($event, 'state')"
+                  (selectionChange)="getSelect($event, 'state')"
                 >
                   <mat-option value="{{ selectValue }}">Select</mat-option>
                   <mat-option *ngFor="let c of countryList" value="{{ c.id }}">
@@ -273,7 +273,7 @@
               >
                 <mat-select
                   formControlName="state"
-                  (selectionChange)="getSelected($event, 'city')"
+                  (selectionChange)="getSelect($event, 'city')"
                 >
                   <mat-option value="{{ selectValue }}">Select</mat-option>
                   <mat-option *ngFor="let c of stateList" value="{{ c.id }}">
@@ -350,7 +350,7 @@
           <button
             *ngIf="saveBtnValue"
             class="barbar-text-body1 layout"
-            (click)="addUpdateAdmin()">
+            (click)="addUpdateAdmins()">
             SAVE
           </button>
           </div>

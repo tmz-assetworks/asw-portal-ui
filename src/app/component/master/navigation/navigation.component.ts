@@ -162,7 +162,7 @@ export class NavigationComponent implements OnInit {
              {
               routerLink: ['admin-users'],
               text: 'Admin Users',
-              icon: '../../../../assets/Admin-SideNav/Operator-Users.svg',
+              icon: '../../../../assets/Admin-SideNav/Operator-Users.svg',//NOSONAR
             },
             {
               routerLink: ['users'],
