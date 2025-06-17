@@ -254,206 +254,7 @@
             >
               Model Must Be less than 40 Alphanumeric Character
             </span>
-          </div>
-          <!--<div class="barbar-block13-spacer"></div>
-          <div class="barbar-block13-item">
-            <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">
-                Pad
-                <!-- <span style="color: 'red';">*</span> 
-              </h5>
-              <mat-form-field class="barbar-box6 layout">
-                <mat-label>Select</mat-label>
-                <mat-select [value]="selectedPad" formControlName="padId">
-                  <mat-option
-                    *ngFor="let data of assetPad"
-                    [value]="data.id"
-                    (onSelectionChange)="selectPad($event, data)"
-                  >
-                    {{ data.padName }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <!-- <span
-              *ngIf="
-                !addChargerFormGroup.get('padId')?.valid &&
-                addChargerFormGroup.get('padId')?.touched &&
-                addChargerFormGroup.get('padId')?.value.length == 0
-              "
-              class="error-mess"
-            >
-              Pad Is Required
-            </span> 
-          </div>-->
-
-          <!--<div class="barbar-block13-spacer"></div>
-          <div class="barbar-block13-item mbottom">
-            <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">
-                Cable
-                <!-- <span style="color: 'red';">*</span> 
-              </h5>
-              <mat-form-field class="barbar-box6 layout">
-                <mat-label>Select</mat-label>
-                <mat-select [value]="selectedCable" formControlName="cableId">
-                  <mat-option
-                    *ngFor="let data of CableList"
-                    [value]="data.id"
-                    (onSelectionChange)="selectCable($event, data)"
-                  >
-                    {{ data.cableSerialNumber }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <!-- <span
-              *ngIf="
-                !addChargerFormGroup.get('cableId')?.valid &&
-                addChargerFormGroup.get('cableId')?.touched &&
-                addChargerFormGroup.get('cableId')?.value.length == 0
-              "
-              class="error-mess"
-            >
-              Cable Is Required
-            </span> 
-          </div>-->
-          <!--<div class="barbar-block13-spacer"></div>
-          <div class="barbar-block13-item">
-            <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">
-                Modem
-                <!-- <span style="color: 'red';">*</span> 
-              </h5>
-              <mat-form-field class="barbar-box6 layout">
-                <mat-label>Select</mat-label>
-                <mat-select [value]="selectedModem" formControlName="modemId">
-                  <mat-option
-                    *ngFor="let data of Modemlist"
-                    [value]="data.id"
-                    (onSelectionChange)="selectModem($event, data)"
-                  >
-                    {{ data.name }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <!-- <span
-              *ngIf="
-                !addChargerFormGroup.get('modemId')?.valid &&
-                addChargerFormGroup.get('modemId')?.touched &&
-                addChargerFormGroup.get('modemId')?.value.length == 0
-              "
-              class="error-mess"
-            >
-              Modem Is Required
-            </span> 
-          </div>-->
-          <!-- <div class="barbar-block13-spacer"></div>
-          <div class="barbar-block13-item">
-            <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">
-                Switch Gear
-                <!-- <span style="color: 'red';">*</span>
-              </h5>
-              <mat-form-field class="barbar-box6 layout">
-                <mat-label>Select</mat-label>
-                <mat-select
-                  [value]="selectedSwitch"
-                  formControlName="switchGearId"
-                >
-                  <mat-option
-                    *ngFor="let data of SwitchList"
-                    [value]="data.id"
-                    (onSelectionChange)="selectSwitch($event, data.id)"
-                  >
-                    {{ data.switchGearName }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <!-- <span
-              *ngIf="
-                !addChargerFormGroup.get('switchGearId')?.valid &&
-                addChargerFormGroup.get('switchGearId')?.touched &&
-                addChargerFormGroup.get('switchGearId')?.value.length == 0
-              "
-              class="error-mess"
-            >
-              Switch Gear Is Required
-            </span> 
-          </div> -->
-
-          <!-- <div class="barbar-block13-spacer"></div>
-          <div class="barbar-block13-item">
-            <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">
-                RFID Reader
-                <!-- <span style="color: 'red';">*</span> 
-              </h5>
-              <mat-form-field class="barbar-box6 layout">
-                <mat-label>Select</mat-label>
-                <mat-select
-                  [value]="selectedRfidReader"
-                  formControlName="rfidReaderId"
-                >
-                  <mat-option
-                    *ngFor="let data of getRfidReader"
-                    [value]="data.id"
-                    (onSelectionChange)="selectRfidReader($event, data)"
-                  >
-                    {{ data.cardReader }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <!-- <span
-              *ngIf="
-                !addChargerFormGroup.get('rfidReaderId')?.valid &&
-                addChargerFormGroup.get('rfidReaderId')?.touched &&
-                addChargerFormGroup.get('rfidReaderId')?.value.length == 0
-              "
-              class="error-mess"
-            >
-              RFID Reader Is Required
-            </span> 
-          </div>-->
-
-          <!--<div class="barbar-block13-spacer"></div>
-          <div class="barbar-block13-item mbottom">
-            <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">
-                Power Cabinet
-                <!-- <span style="color: 'red';">*</span> 
-              </h5>
-              <mat-form-field class="barbar-box6 layout">
-                <mat-label>Select</mat-label>
-                <mat-select
-                  [value]="selectedPowerCabinet"
-                  formControlName="powerCabinetId"
-                >
-                  <mat-option
-                    *ngFor="let data of getPowerCabinet"
-                    [value]="data.id"
-                    (onSelectionChange)="selectPowerCabinet($event, data)"
-                  >
-                    {{ data.serialNumber }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <!-- <span
-              *ngIf="
-                !addChargerFormGroup.get('powerCabinetId')?.valid &&
-                addChargerFormGroup.get('powerCabinetId')?.touched &&
-                addChargerFormGroup.get('powerCabinetId')?.value.length == 0
-              "
-              class="error-mess"
-            >
-              Power Cabinet Is Required
-            </span> 
-          </div>-->
-
+          </div> 
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
@@ -608,83 +409,58 @@
               </span>
             </div>
           </div>
-          <!--<div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
-                Reading Schedule
+                Latitude
               </h5>
               <div class="barbar-box6 layout">
                 <input
-                  formControlName="readingSchedule"
+                  formControlName="latitude"
                   type="text"
                   class="barbar-input-text"
                 />
               </div>
               <span
                 *ngIf="
-                  !addChargerFormGroup.get('readingSchedule')?.valid &&
-                  addChargerFormGroup.get('readingSchedule')?.touched &&
-                  addChargerFormGroup.get('readingSchedule')?.value.length > 20
+                  !addChargerFormGroup.get('latitude')?.valid &&
+                  addChargerFormGroup.get('latitude')?.touched &&
+                  addChargerFormGroup.get('latitude')?.value
+                    .length > 0
                 "
                 class="error-mess"
               >
-                Reading Schedule Must Be Between 0 To 20 Characters
+                Latitude must not be in special characters
               </span>
             </div>
-          </div>-->
-
-          <!--<div class="barbar-block13-spacer"></div>
-          <div class="barbar-block13-item mbottom">
-            <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">
-                Meter Type
-              </h5>
-              <div class="barbar-box6 layout">
-                <input
-                  formControlName="meterType"
-                  type="text"
-                  class="barbar-input-text"
-                />
-              </div>
-              <span
-                *ngIf="
-                  !addChargerFormGroup.get('meterType')?.valid &&
-                  addChargerFormGroup.get('meterType')?.touched &&
-                  addChargerFormGroup.get('meterType')?.value.length > 20
-                "
-                class="error-mess"
-              >
-                Meter Type Must be Between 0 To 20 Alphanumeric
-              </span>
-            </div>
-          </div>-->
-
-          <!--<div class="barbar-block13-spacer"></div>
+          </div>
+          <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
-                Ping Schedule
+                Longitude
               </h5>
               <div class="barbar-box6 layout">
                 <input
-                  formControlName="pingSchedule"
+                  formControlName="longitude"
                   type="text"
                   class="barbar-input-text"
                 />
               </div>
               <span
                 *ngIf="
-                  !addChargerFormGroup.get('pingSchedule')?.valid &&
-                  addChargerFormGroup.get('pingSchedule')?.touched &&
-                  addChargerFormGroup.get('pingSchedule')?.value.length > 20
+                  !addChargerFormGroup.get('longitude')?.valid &&
+                  addChargerFormGroup.get('longitude')?.touched &&
+                  addChargerFormGroup.get('longitude')?.value
+                    .length > 0
                 "
                 class="error-mess"
               >
-                Ping Schedule Must Be Between 0 To 20 Alphanumeric
+                Longitude must not be in special characters
               </span>
             </div>
-          </div>-->
+          </div>
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
