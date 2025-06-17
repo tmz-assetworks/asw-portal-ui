@@ -14,6 +14,7 @@ import { DashboardComponent } from '../operator/dashboard/dashboard.component'
 import { GraphDetailComponent } from '../operator/graph-detail/graph-detail.component';
 import { AddCustomersComponent } from './customers/add-customers/add-customers.component'
 
+
 const routes: Routes = [
   {
     path: '',
@@ -65,12 +66,23 @@ const routes: Routes = [
           import('../../screen/operator/charger/charger.module').then((m) => m.ChargerModule),
       },
       {
+        path: 'admin-users',
+        loadChildren: () =>
+          import(
+            '../admin/admin-users/admin-users.module'
+          ).then((m) => m.AdminUsersModule),
+      },
+
+      {
         path: 'users',
         loadChildren: () =>
           import(
             '../admin/manage-operator-users/manage-operator-users.module'
           ).then((m) => m.ManageOperatorUsersModule),
       },
+
+    
+
 
       {
         path: 'diagonstics',

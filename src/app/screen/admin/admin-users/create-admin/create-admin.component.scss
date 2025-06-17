@@ -1,0 +1,571 @@
+@import '../../../../../styles.scss';
+
+$color_type_0: rgb(0, 98, 166);
+$color_type_1: rgb(19, 27, 33);
+$color_type_2: rgb(230, 232, 233);
+$color_type_3: rgb(255, 255, 255);
+$color_type_4: rgb(92, 92, 92);
+
+$font_type_0: 700 20px/1.2 'Roboto', Helvetica, Arial, serif;
+$font_type_1: 500 18px/1.2 'Roboto', Helvetica, Arial, serif;
+$font_type_2: 15px/1.2 'Roboto', Helvetica, Arial, serif;
+$font_type_3: 500 14px/1.2 'Roboto', Helvetica, Arial, serif;
+
+.barbar- {
+  &block10 {
+    @include flex-column;
+  }
+  &block10.layout {
+    position: relative;
+    overflow: hidden;
+    height: min-content;
+    margin: 0px 6px 0px 0px;
+    @include lg {
+      margin: 0px 5px 0px 0px;
+    }
+  }
+  &flex {
+    @include flex-column;
+  }
+  &flex.layout {
+    position: relative;
+    height: min-content;
+    margin: 32px 21px;
+    @include lg {
+      margin: 28px 18px;
+    }
+    @include md {
+      margin: 24px 16px;
+    }
+    @include sm {
+      margin: 20px 13px;
+    }
+    @include xs {
+      margin: 18px 12px;
+    }
+    @include xxs {
+      margin: 16px 11px;
+    }
+    @include tn {
+      margin: 15px 10px;
+    }
+  }
+  &block11 {
+    @include flex-column;
+  }
+  &block11.layout {
+    position: relative;
+    height: min-content;
+    margin: 0px 3px 0px 1px;
+    @include lg {
+      margin: 0px 5px;
+    }
+  }
+  &subtitle {
+    font: $font_type_0;
+    color: $color_type_1;
+    letter-spacing: 0px;
+    @include lg {
+      font-size: 19px;
+      text-align: left;
+    }
+    @include md {
+      font-size: 18px;
+    }
+    @include sm {
+      font-size: 17px;
+    }
+    @include xxs {
+      font-size: 16px;
+    }
+  }
+  &subtitle.layout {
+    position: relative;
+    height: min-content;
+    margin: 0;
+  }
+  &block12 {
+    @include flex-column;
+  }
+  &block12.layout {
+    position: relative;
+    height: min-content;
+    @include lg {
+      margin: 31px 0px 0px;
+    }
+    @include md {
+      margin: 26px 0px 0px;
+    }
+    @include sm {
+      margin: 22px 0px 0px;
+    }
+    @include xs {
+      margin: 20px 0px 0px;
+    }
+    @include xxs {
+      margin: 17px 0px 0px;
+    }
+    @include tn {
+      margin: 16px 0px 0px;
+    }
+  }
+
+  &highlights1 {
+    font: $font_type_1;
+    color: $color_type_1;
+    letter-spacing: 0px;
+    @include lg {
+      font-size: 17px;
+      text-align: left;
+    }
+    @include md {
+      font-size: 16px;
+    }
+    @include sm {
+      font-size: 15px;
+    }
+    @include xxs {
+      font-size: 14px;
+    }
+  }
+  &highlights1.layout {
+    position: relative;
+    height: min-content;
+  }
+  &block13 {
+    display: flex;
+    flex-wrap: wrap;
+    @include xl {
+      flex-wrap: wrap;
+      row-gap: 16px;
+    }
+  }
+  &block13.layout {
+    position: relative;
+    width: 100%;
+    height: min-content;
+    margin: 22px 0px;
+    column-gap: 19px;
+    @include lg {
+      margin: 19px 0px 0px 11px;
+      column-gap: 16px;
+    }
+    @include md {
+      margin: 16px 0px 0px 10px;
+      column-gap: 14px;
+    }
+    @include sm {
+      margin: 14px 0px 0px 8px;
+      column-gap: 10px;
+    }
+    @include xs {
+      margin: 13px 0px 0px 7px;
+    }
+    @include xxs {
+      margin: 11px 0px 0px 7px;
+      column-gap: 7px;
+    }
+    @include tn {
+      margin: 10px 0px 0px 6px;
+    }
+  }
+  &input-text {
+    width: 90%;
+    height: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    border-width: 0;
+    border-width: none;
+    border: hidden;
+    outline: none;
+    background-color: #fff;
+  }
+  &block13-item {
+    @include flex-column;
+    position: relative;
+    flex: 1 1 380px;
+    min-width: 248px;
+    max-width: 248px;
+    @include xl {
+      flex: 0 0 calc(50% - 8px);
+      min-width: 358px;
+      max-width: 358px;
+    }
+    @include lg {
+      flex: 0 0 100%;
+      min-width: 248px;
+      max-width: 248px;
+    }
+    @include md {
+      min-width: 200px;
+      max-width: 200px;
+    }
+    @include xxxl {
+      flex: 0 0 calc(50% - 8px);
+      min-width: 358px;
+      max-width: 358px;
+    }
+  }
+  &block14 {
+    @include flex-column;
+  }
+  &block14.layout {
+    position: relative;
+    height: min-content;
+  }
+  &highlights {
+    font: $font_type_2;
+    color: $color_type_4;
+    letter-spacing: 0px;
+    @include lg {
+      font-size: 14px;
+      text-align: left;
+    }
+    @include md {
+      font-size: 13px;
+    }
+    @include xs {
+      font-size: 12px;
+    }
+  }
+  &highlights.layout {
+    position: relative;
+    height: min-content;
+    margin: 0;
+  }
+  &box6 {
+    background-color: $color_type_3;
+    border: 1px solid rgb(190, 190, 190);
+    border-radius: 5px 5px 5px 5px;
+  }
+  &box6.layout {
+    position: relative;
+    height: 48px;
+    margin: 10px 0px;
+    @include lg {
+      margin: 9px 0px;
+    }
+    @include md {
+      margin: 7px 0px;
+    }
+    @include sm {
+      margin: 6px 0px;
+    }
+    @include xxs {
+      margin: 5px 0px;
+    }
+  }
+  &block13-spacer {
+    display: none;
+    flex: 0 1 19px;
+    @include xl {
+      flex: 0 0 16px;
+    }
+    @include lg {
+      flex: 0 0 16px;
+    }
+  }
+  &block15 {
+    @include flex-column;
+  }
+  &block15.layout {
+    position: relative;
+    height: min-content;
+    margin: 0px 0px 10px;
+    @include lg {
+      margin: 0px 0px 9px;
+    }
+    @include md {
+      margin: 0px 0px 7px;
+    }
+    @include sm {
+      margin: 0px 0px 6px;
+    }
+    @include xxs {
+      margin: 0px 0px 5px;
+    }
+  }
+  &box6.layout1 {
+    position: relative;
+    height: 48px;
+    margin: 10px 0px 0px;
+    @include lg {
+      margin: 9px 0px 0px;
+    }
+    @include md {
+      margin: 7px 0px 0px;
+    }
+    @include sm {
+      margin: 6px 0px 0px;
+    }
+    @include xxs {
+      margin: 5px 0px 0px;
+    }
+  }
+  &block13-spacer1 {
+    flex: 0 1 19px;
+    @include xl {
+      display: none;
+    }
+  }
+  &box6.layout2 {
+    position: relative;
+    height: 48px;
+    margin: 10px 0px 0px;
+    @include lg {
+      margin: 9px 0px 0px;
+    }
+    @include md {
+      margin: 7px 0px 0px;
+    }
+    @include sm {
+      margin: 6px 0px 0px;
+    }
+    @include xxs {
+      margin: 5px 0px 0px;
+    }
+  }
+  &box6.layout3 {
+    position: relative;
+    height: 48px;
+    margin: 10px 0px 0px;
+    @include lg {
+      margin: 9px 0px 0px;
+    }
+    @include md {
+      margin: 7px 0px 0px;
+    }
+    @include sm {
+      margin: 6px 0px 0px;
+    }
+    @include xxs {
+      margin: 5px 0px 0px;
+    }
+  }
+  &block12.layout1 {
+    position: relative;
+    height: min-content;
+    margin: 51px 3px 0px 1px;
+    @include lg {
+      margin: 43px 5px 0px;
+    }
+    @include md {
+      margin: 35px 5px 0px;
+    }
+    @include sm {
+      margin: 28px 5px 0px;
+    }
+    @include xs {
+      margin: 25px 5px 0px;
+    }
+    @include xxs {
+      margin: 21px 5px 0px;
+    }
+    @include tn {
+      margin: 19px 5px 0px;
+    }
+  }
+  &box6.layout4 {
+    position: relative;
+    height: 48px;
+    margin: 10px 0px 0px;
+    @include lg {
+      margin: 9px 0px 0px;
+    }
+    @include md {
+      margin: 7px 0px 0px;
+    }
+    @include sm {
+      margin: 6px 0px 0px;
+    }
+    @include xxs {
+      margin: 5px 0px 0px;
+    }
+  }
+  &block13-spacer2 {
+    flex: 0 1 19px;
+    @include xl {
+      display: none;
+    }
+  }
+  &box6.layout5 {
+    position: relative;
+    height: 48px;
+    margin: 10px 0px 0px;
+    @include lg {
+      margin: 9px 0px 0px;
+    }
+    @include md {
+      margin: 7px 0px 0px;
+    }
+    @include sm {
+      margin: 6px 0px 0px;
+    }
+    @include xxs {
+      margin: 5px 0px 0px;
+    }
+  }
+  &box6.layout6 {
+    position: relative;
+    height: 48px;
+    margin: 10px 0px 0px;
+    @include lg {
+      margin: 9px 0px 0px;
+    }
+    @include md {
+      margin: 7px 0px 0px;
+    }
+    @include sm {
+      margin: 6px 0px 0px;
+    }
+    @include xxs {
+      margin: 5px 0px 0px;
+    }
+  }
+  &flex1 {
+    display: flex;
+  }
+  &flex1.layout {
+    position: relative;
+    height: min-content;
+    float: right;
+    margin-top: 30px;
+  }
+  &flex1-item {
+    @include flex-column;
+    position: relative;
+    flex: 0 1 184px;
+  }
+  &block17 {
+    @include flex-column;
+    background-color: $color_type_2;
+    border: 1px solid rgb(0, 98, 166);
+    border-radius: 5px 5px 5px 5px;
+    margin-right: 30px;
+  }
+  &block17.layout {
+    position: relative;
+    height: min-content;
+    align-items: center;
+    justify-content: center;
+    transition-duration: 0.3s;
+    transition-property: transform;
+    cursor: pointer;
+  }
+  &block17:hover {
+    transform: scale(1.05);
+  }
+  &text-body2 {
+    @include font-face($font_type_3, $color_type_0, 0px);
+    @include md {
+      font-size: 13px;
+      text-align: left;
+    }
+    @include xs {
+      font-size: 12px;
+    }
+  }
+  &text-body2.layout {
+    position: relative;
+    height: min-content;
+    padding: 18px 40px;
+
+  }
+  &flex1-spacer {
+    flex: 0 1 27px;
+  }
+  &block16 {
+    @include flex-column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px 5px 5px 5px;
+  }
+  &block16.layout {
+    position: relative;
+    height: min-content;
+    transition-duration: 0.3s;
+    transition-property: transform;
+    cursor: pointer;
+  }
+  &block16:hover {
+    transform: scale(1.05);
+  }
+  &text-body1 {
+    @include font-face($font_type_3, $color_type_3, 0px);
+    @include md {
+      font-size: 13px;
+      text-align: left;
+    }
+    @include xs {
+      font-size: 12px;
+    }
+  }
+  &text-body1.layout {
+    position: relative;
+    height: min-content;
+    padding: 18px 40px;
+    background-color:#0062a6;
+    border-style: none;
+    border-radius: 5px 5px 5px 5px;
+  }
+}
+
+.full-width {
+  width: 100%;
+}
+
+.top-padding {
+  padding-top: 3px;
+}
+
+.margin-left mat-radio-button:not(:first-child) {
+  margin-left: 10px;
+}
+
+.form-container {
+  margin: 100px;
+}
+
+
+.swal-button:focus {
+  box-shadow: none;
+  width: 25px;
+  align-self: auto;
+}
+
+.swal2-styled.swal2-confirm {
+  border: 0;
+  border-radius: 0.25em;
+  background: initial;
+  color: #fff;
+  font-size: 1em;
+}
+
+// Soni CSS
+@media screen and (max-width: 737px) {
+  div#mat-select-2-panel {
+    margin-top: 33px;
+}
+}
+
+.is-invalid {
+  border-color: red !important;
+  background-image: none !important;
+}
+
+.error-mess {
+  color: red;
+  padding-top: 5px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

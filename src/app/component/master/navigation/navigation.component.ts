@@ -2,7 +2,6 @@ import {
   HostListener,
   Component,
   ElementRef,
-  OnInit,
   ViewChild,
 } from '@angular/core'
 import { Router } from '@angular/router'
@@ -15,8 +14,16 @@ import { HeaderService } from '../header/header.service'
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss'],
 })
-export class NavigationComponent implements OnInit {
+export class NavigationComponent {
   @ViewChild('leftPanel', { read: ElementRef, static: false })
+  private readonly ROLE_OPERATOR = 'Operator';
+private readonly ROLE_SUPER_ADMIN = 'SuperAdmin';
+private readonly ROLE_ADMIN = 'Admin';
+
+// Base paths for icons to avoid repetition
+private readonly ICON_BASE_OPERATOR = '../../../../assets/Operator/';
+private readonly ICON_BASE_SUPER_ADMIN = '../../../../assets/Super-Admin-icons/';
+private readonly ICON_BASE_ADMIN = '../../../../assets/Admin-SideNav/';
   //@Input() makeDifferent;
   messages: boolean = false
   isExpanded: boolean = true
@@ -65,163 +72,99 @@ export class NavigationComponent implements OnInit {
     this.subscription.unsubscribe()
   }
 
-  ngOnInit(): void {}
+  loadMenu(): void {
+  const role = localStorage.getItem('role');
 
-  loadMenu() {
-    const role = localStorage.getItem('role')
-    if (role == 'Operator') {
-      this.menuItems = [
-        {
-          routerLink: ['dashboard'],
-          text: 'Dashboard',
-          icon: '../../../../assets/Operator/Dashboard.svg',
-        },
-        {
-          routerLink: ['location'],
-          text: 'Locations',
-          icon: '../../../../assets/Operator/Locations.svg',
-        },
-        {
-          routerLink: ['charger'],
-          text: 'Chargers',
-          icon: '../../../../assets/Operator/Charger.svg',
-        },
-        {
-          routerLink: ['diagonstics'],
-          text: 'Diagnostics',
-          icon: '../../../../assets/Operator/Diagnostics.svg',
-        },
-        {
-          routerLink: ['vehicles'],
-          text: 'Vehicles',
-          icon: '../../../../assets/Operator/Vehicles.svg',
-        },
-        {
-          routerLink: ['reports'],
-          text: 'Reports',
-          icon: '../../../../assets/Operator/Reports.svg',
-        },
-        {
-          routerLink: ['alerts'],
-          text: 'Alerts',
-          icon: '../../../../assets/Operator/Alerts.svg',
-        },
-        {
-          routerLink: ['help'],
-          text: 'Help',
-          icon: '../../../../assets/Operator/Helps.svg',
-        },
-      ]
-    } else if (role == 'SuperAdmin') {
-      this.menuItems = [
-        {
-          routerLink: ['customer'],
-          text: 'Organization Setup',
-          icon: '../../../../assets/Super-Admin-icons/nav.svg',
-        },
-        {
-          routerLink: ['admin'],
-          text: ' Admin Users',
-          icon: '../../../../assets/Super-Admin-icons/nav1.svg',
-        },
-        {
-          routerLink: ['help'],
-          text: 'Help',
-          icon: '../../../../assets/Super-Admin-icons/nav2.svg',
-        },
-      ]
-    } else if (role == 'Admin') {
+  switch (role) {
+    case this.ROLE_OPERATOR:
+      this.menuItems = this.getOperatorMenu();
+      break;
 
-      this.menuItems = [
-        // {
-        //   routerLink: ['profile'],
-        //   text: 'Profile',
-        //   icon: '../../../../assets/Admin-SideNav/Customer.svg',
-        // },
-        {
-          routerLink: ['dashboard'],
-          text: 'Dashboard',
-          icon: '../../../../assets/Operator/Dashboard.svg',
-        },
-        {
-          routerLink: ['location'],
-          text: 'Locations',
-          icon: '../../../../assets/Operator/Locations.svg',
-        },
-        {
-          routerLink: ['charger'],
-          text: 'Chargers',
-          icon: '../../../../assets/Operator/Charger.svg',
-        },
-        {
-          
-          text: 'Admin Setup',
-          icon: '../../../../assets/Admin-SideNav/account-cog.svg',
-          isOpen: false, // Initially collapsed
-          subMenu: [
-            {
-              routerLink: ['users'],
-              text: 'Users',
-              icon: '../../../../assets/Admin-SideNav/Operator-Users.svg',
-            },
-            {
-              routerLink: ['locations'],
-              text: 'Locations',
-              icon: '../../../../assets/Admin-SideNav/Location.svg',
-            },
-            {
-              routerLink: ['chargers'],
-              text: 'Chargers',
-              icon: '../../../../assets/Admin-SideNav/Charger.svg',
-            },
-            {
-              routerLink: ['assets'],
-              text: 'Assets',
-              icon: '../../../../assets/Admin-SideNav/Assets.svg',
-            },
-            {
-              routerLink: ['vehicles'],
-              text: 'Vehicles',
-              icon: '../../../../assets/Admin-SideNav/Vehicles.svg',
-            },
-          
-            {
-              routerLink: ['pricing'],
-              text: 'Pricing',
-              icon: '../../../../assets/Admin-SideNav/Pricing.svg',
-            },
-          ],
-        },
-        
-        {
-          routerLink: ['diagonstics'],
-          text: 'Diagnostics',
-          icon: '../../../../assets/Operator/Diagnostics.svg',
-        },  
-        {
-          routerLink: ['reports'],
-          text: 'Reports',
-          icon: '../../../../assets/Operator/Reports.svg',
-        },    
-        
-        
-        // {
-        //   routerLink: ['subscriptions-plans'],
-        //   text: 'Subscription Plans',
-        //   icon: '../../../../assets/icons/Subscription.svg',
-        // },
-        {
-          routerLink: ['help'],
-          text: 'Help',
-          icon: '../../../../assets/Admin-SideNav/Help.svg',
-        },
-      ]
-      
-      
-    } else {
-      this._router.navigate(['/login'])
-    }
+    case this.ROLE_SUPER_ADMIN:
+      this.menuItems = this.getSuperAdminMenu();
+      break;
+
+    case this.ROLE_ADMIN:
+      this.menuItems = this.getAdminMenu();
+      break;
+
+    default:
+      this._router.navigate(['/login']);
+      break;
   }
+}
+
+// Extracted methods for each role menu
+
+private getOperatorMenu() {
+  return [
+    { routerLink: ['dashboard'], text: 'Dashboard', icon: this.ICON_BASE_OPERATOR + 'Dashboard.svg' },
+    { routerLink: ['location'], text: 'Locations', icon: this.ICON_BASE_OPERATOR + 'Locations.svg' },
+    { routerLink: ['charger'], text: 'Chargers', icon: this.ICON_BASE_OPERATOR + 'Charger.svg' },
+    { routerLink: ['diagonstics'], text: 'Diagnostics', icon: this.ICON_BASE_OPERATOR + 'Diagnostics.svg' },
+    { routerLink: ['vehicles'], text: 'Vehicles', icon: this.ICON_BASE_OPERATOR + 'Vehicles.svg' },
+    { routerLink: ['reports'], text: 'Reports', icon: this.ICON_BASE_OPERATOR + 'Reports.svg' },
+    { routerLink: ['alerts'], text: 'Alerts', icon: this.ICON_BASE_OPERATOR + 'Alerts.svg' },
+    { routerLink: ['help'], text: 'Help', icon: this.ICON_BASE_OPERATOR + 'Helps.svg' },
+  ];
+}
+
+private getSuperAdminMenu() {
+  return [
+    { routerLink: ['customer'], text: 'Organization Setup', icon: this.ICON_BASE_SUPER_ADMIN + 'nav.svg' },
+    { routerLink: ['admin'], text: 'Admin Users', icon: this.ICON_BASE_SUPER_ADMIN + 'nav1.svg' },
+    { routerLink: ['help'], text: 'Help', icon: this.ICON_BASE_SUPER_ADMIN + 'nav2.svg' },
+  ];
+}
+
+private getAdminMenu() {
+  return [
+    {
+      routerLink: ['dashboard'],
+      text: 'Dashboard',
+      icon: this.ICON_BASE_OPERATOR + 'Dashboard.svg',
+    },
+    {
+      routerLink: ['location'],
+      text: 'Locations',
+      icon: this.ICON_BASE_OPERATOR + 'Locations.svg',
+    },
+    {
+      routerLink: ['charger'],
+      text: 'Chargers',
+      icon: this.ICON_BASE_OPERATOR + 'Charger.svg',
+    },
+    {
+      text: 'Admin Setup',
+      icon: this.ICON_BASE_ADMIN + 'account-cog.svg',
+      isOpen: false,
+      subMenu: [
+        { routerLink: ['admin-users'], text: 'Admin Users', icon: this.ICON_BASE_ADMIN + 'Operator-Users.svg' },
+        { routerLink: ['users'], text: 'Users', icon: this.ICON_BASE_ADMIN + 'Operator-Users.svg' },
+        { routerLink: ['locations'], text: 'Locations', icon: this.ICON_BASE_ADMIN + 'Location.svg' },
+        { routerLink: ['chargers'], text: 'Chargers', icon: this.ICON_BASE_ADMIN + 'Charger.svg' },
+        { routerLink: ['assets'], text: 'Assets', icon: this.ICON_BASE_ADMIN + 'Assets.svg' },
+        { routerLink: ['vehicles'], text: 'Vehicles', icon: this.ICON_BASE_ADMIN + 'Vehicles.svg' },
+        { routerLink: ['pricing'], text: 'Pricing', icon: this.ICON_BASE_ADMIN + 'Pricing.svg' },
+      ],
+    },
+    {
+      routerLink: ['diagonstics'],
+      text: 'Diagnostics',
+      icon: this.ICON_BASE_OPERATOR + 'Diagnostics.svg',
+    },
+    {
+      routerLink: ['reports'],
+      text: 'Reports',
+      icon: this.ICON_BASE_OPERATOR + 'Reports.svg',
+    },
+    {
+      routerLink: ['help'],
+      text: 'Help',
+      icon: this.ICON_BASE_ADMIN + 'Help.svg',
+    },
+  ];
+}
 
   toggleSubMenu(index: number): void {
     this.menuItems[index].isOpen = !this.menuItems[index].isOpen;
@@ -243,5 +186,5 @@ export class NavigationComponent implements OnInit {
       this._router.navigateByUrl('admin/dashboard')
     }
   }
-  ngAfterViewInit() {}
+
 }
