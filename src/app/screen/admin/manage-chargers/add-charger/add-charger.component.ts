@@ -196,6 +196,8 @@ export class AddChargerComponent implements OnInit {
     installationDate: new FormControl('', Validators.required),
     isActive: new FormControl(true, Validators.required),
     deactivationDate: new FormControl(''),
+    latitude: new FormControl('', [Validators.pattern('[0-9.+-]+')]),
+    longitude: new FormControl('', [Validators.pattern('[0-9.+-]+')]),
     // isAutomatic: new FormControl(false),
     portCommand: this._fb.array(
       [this.addPortsRows(0, 1, '', '', '', true, '', '', '', '', '')],
@@ -320,6 +322,8 @@ export class AddChargerComponent implements OnInit {
       // isAutomatic: formData.isAutomatic,
       portCommand: formData.portCommand,
       oemOrderNumber: formData.oemOrderNumber,
+      latitude: formData.latitude ? formData.latitude : null,
+      longitude: formData.longitude ? formData.longitude : null,
     }
 
     Swal.fire({
@@ -427,6 +431,8 @@ export class AddChargerComponent implements OnInit {
       // isAutomatic: formData.isAutomatic,
       updatePortCommand: formData.portCommand,
       oemOrderNumber: formData.oemOrderNumber,
+      latitude: formData.latitude ? formData.latitude : null,
+      longitude: formData.longitude ? formData.longitude : null,      
     }
 
     Swal.fire({
@@ -584,6 +590,12 @@ export class AddChargerComponent implements OnInit {
         })
         this.addChargerFormGroup.patchValue({
           oemOrderNumber: this.chargerData.oemOrderNumber,
+        })
+        this.addChargerFormGroup.patchValue({
+          latitude: this.chargerData.latitude,
+        })
+        this.addChargerFormGroup.patchValue({
+          longitude: this.chargerData.longitude,
         })
         this.addChargerFormGroup.patchValue({
           isActive: this.chargerData.isActive,
