@@ -2,6 +2,19 @@
   <div class="header-block1 layout">
     <div class="header-flex layout">
       <h1 class="header-subtitle-box layout">Organization</h1>
+       <div class="btnwrapper">
+        <button
+        type="button"
+        class="cust-list-block23 layout no-border-btn"
+        (click)="editCusotmer(customerData.id)"
+        aria-label="Edit">
+        <img
+        src="../../../../assets/Super-Admin-icons/Edit.svg"
+        alt="Edit"
+        class="cust-list-box10 layout white-icon"/>
+      <span class="cust-list-text-body4 layout">Edit</span>
+    </button>
+    </div>
       <div class="dashboard-block12 layout"></div>
       <div class="location-block15 layout">
         <div class="location-flex14 layout">
@@ -208,25 +221,6 @@
                   </div>
                 </div>
                  <div class="fill-block5-spacer"></div>
-
-                    <div class="fill-block5-item">
-                  <div class="fill-group layout">
-                    <div class="fill-block6 layout">
-                      <div class="fill-text-body1 layout">Action</div>     
-                        <button
-                          (click)="editCusotmer(customerData.id)"
-                          title="Edit"
-                          class="icon-button">
-                          <img
-                            src="../../../../assets/Super-Admin-icons/Edit.svg"
-                            alt="Edit Organization"
-                            class="cursorPointer"
-                          />
-                          </button>
-                    </div>
-                    <div class="fill-image layout"></div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
