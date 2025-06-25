@@ -35,7 +35,6 @@ export class AddPricingPlanComponent implements OnInit {
   selectedPriceTypeId: any
   selectedUnitId: any
   selectedCurrencyId: any
-  selectedConnectorId: any
   selectedCustomerId: any
   pricingList: any
   currencyList: any
@@ -45,13 +44,13 @@ export class AddPricingPlanComponent implements OnInit {
   locationList: any
   chargerList: any
   selectedLocationId: any
-  selectedChargerId: any
   locationIdResponse: any = []
   chargeboxidResponse: any = []
   customerData: any
   customerName: any
   customerId: any
-  connectorTypeList: any
+  selectedChargerTypeId: any
+  Pluglist: any
 
   constructor(
     private formBuilder: FormBuilder,
@@ -94,7 +93,7 @@ export class AddPricingPlanComponent implements OnInit {
     currencyCode: new FormControl('', Validators.required),
     validFrom: new FormControl('', Validators.required),
     validTo: new FormControl('', Validators.required),
-    connectorType: new FormControl('', Validators.required),
+    chargerTypeId: new FormControl('', Validators.required),
     priceTypeId: new FormControl('', Validators.required),
     unitName: new FormControl('', Validators.required),
     price: new FormControl('', [Validators.required, Validators.maxLength(10)]),   
@@ -115,7 +114,6 @@ export class AddPricingPlanComponent implements OnInit {
       Validators.maxLength(10),
     ]),
     locationId: new FormControl('', Validators.required),
-    chargerId: new FormControl(''),
 
     // chargeboxidResponse: new FormControl([], Validators.required),
     // pricePlanLocationsMapperCommand: [
@@ -141,10 +139,9 @@ export class AddPricingPlanComponent implements OnInit {
     this.GetAllPriceType()
     // this.GetAllUnit()
     this.GetAllCurrencyCode()
-    // this.GetAllLevel()
-    this.GetConnectorType()
     this.CustomerDDL()
     this.GetLocationName()
+    this.GetPlugType()
 
     if (this.pricePlanId) {
       this.getPricePlanbyid(this.pricePlanId)
@@ -209,6 +206,14 @@ export class AddPricingPlanComponent implements OnInit {
       this.locationList = res.data
     })
   }
+   GetPlugType() {
+    const pBody = {
+      userId: this.UserId,
+    }
+    this._AdminService.GetPlugType(pBody).subscribe((res: any) => {
+      this.Pluglist = res.data
+    })
+  }
 
   /**
    * Select customer list
@@ -257,18 +262,19 @@ export class AddPricingPlanComponent implements OnInit {
       this.selectedCurrencyId = id
     }
   }
-
-  /**
+/**
    * Select Level
+   * 
    * @param event
    * @param id
-   */
-  selectConnectorType(event: any, id: any) {
+   */  
+  selectChargerType(event: any, id: any) {
     if (event.isUserInput) {
-      this.selectedConnectorId = id
+      this.selectedChargerTypeId = id
     }
   }
 
+  
   /**
    * Add price plan
    * @returns
@@ -278,11 +284,10 @@ export class AddPricingPlanComponent implements OnInit {
   createPricePlan() {
     this.submitted = true
     if (this.pricingPlanFormGroup.invalid) {
-      this.toastr.error('Please fill mandatory fields.')
+      this.toastr.error('fields.')
       return
     }
     let formData = this.pricingPlanFormGroup.value
-
     this.locationIdResponse.forEach((elem: any) => {
       let index = this.chargeboxidResponse.findIndex(
         (x: any) => x.locationId === elem,
@@ -290,7 +295,6 @@ export class AddPricingPlanComponent implements OnInit {
       if (index === -1) {
         this.chargeboxidResponse.push({
           locationId: elem,
-          chargerId: 0,
         })
       }
     })
@@ -313,7 +317,7 @@ export class AddPricingPlanComponent implements OnInit {
             'yyyy-MM-ddT' + this.getModifiedDate(),
           )
         : '',
-      connectorId: parseInt(this.selectedConnectorId),
+      
       priceTypeId: parseInt(this.selectedPriceTypeId),
       unitId: parseInt(this.selectedUnitId),
       price: parseInt(formData.price),
@@ -330,6 +334,7 @@ export class AddPricingPlanComponent implements OnInit {
       processPayment: true,
       priceSlot: true,
       isActive: true,
+      chargerTypeId: parseInt(this.selectedChargerTypeId),
     }
     Swal.fire({
       title: '<strong>Are you sure you want to confirm?</strong>',
@@ -392,7 +397,6 @@ export class AddPricingPlanComponent implements OnInit {
       if (index === -1) {
         this.chargeboxidResponse.push({
           locationId: elem,
-          chargerId: 0,
         })
       }
     })
@@ -403,6 +407,7 @@ export class AddPricingPlanComponent implements OnInit {
       description: formData.description,
       userId: this.UserId,
       currencyId: this.selectedCurrencyId,
+      chargerTypeId: this.selectedChargerTypeId,
       validFrom: formData.validFrom
         ? this.datePipe.transform(
             formData.validFrom,
@@ -415,7 +420,6 @@ export class AddPricingPlanComponent implements OnInit {
             'yyyy-MM-ddT' + this.getModifiedDate(),
           )
         : '',
-      connectorId: this.selectedConnectorId,
       priceTypeId: this.selectedPriceTypeId,
       unitId: this.selectedUnitId,
       price: formData.price,
@@ -504,16 +508,17 @@ export class AddPricingPlanComponent implements OnInit {
             currencyId: pricingData.currencyName,
           })
         }
+        if (pricingData.chargerTypeId) {
+          this.selectedChargerTypeId = parseInt(pricingData.chargerTypeId)
+          this.pricingPlanFormGroup.patchValue({
+            chargerTypeId: pricingData.chargerTypeId,
+          })
+        }
         this.pricingPlanFormGroup.patchValue({
           validFrom: pricingData.validFrom,
         })
         this.pricingPlanFormGroup.patchValue({ validTo: pricingData.validTo })
-        if (pricingData.connectorId) {
-          this.selectedConnectorId = pricingData.connectorId
-          this.pricingPlanFormGroup.patchValue({
-            connectorType: pricingData.connectorType,
-          })
-        }
+        
         if (pricingData.priceTypeId) {
           this.selectedPriceTypeId = pricingData.priceTypeId
           this.GetAllUnit(this.selectedPriceTypeId)
@@ -581,12 +586,7 @@ export class AddPricingPlanComponent implements OnInit {
 
         this.chargeboxidResponse = pricingData.pricePlanLocationsMapperobj
 
-        let chargerArray: any[] = []
-        this.chargeboxidResponse.forEach((elem: any) => {
-          chargerArray.push(elem.chargerId)
-
-          this.selectedChargerId = chargerArray
-        })
+        
       }
     })
   }
@@ -600,12 +600,9 @@ export class AddPricingPlanComponent implements OnInit {
     if (event.isUserInput) {
       var index = this.locationIdResponse.indexOf(id)
       if (index === -1) {
-        // val not found, pushing onto array
         this.locationIdResponse.push(id)
-        this.getChargeboxIdByLocationsId(this.locationIdResponse)
       } else {
         this.locationIdResponse.splice(index, 1)
-        this.getChargeboxIdByLocationsId(this.locationIdResponse)
       }
     }
   }
@@ -630,31 +627,7 @@ export class AddPricingPlanComponent implements OnInit {
    * @param event
    * @param data
    */
-  onSelectCharger(event: any, data: any) {
-    if (event.isUserInput) {
-      if (this.chargeboxidResponse.length > 0) {
-        let index = this.chargeboxidResponse.findIndex(
-          (x: any) => x.chargerId === data.id,
-        )
-
-        if (index == -1) {
-          this.chargeboxidResponse.push({
-            locationId: parseInt(data.locationId),
-            chargerId: parseInt(data.id),
-          })
-        } else {
-          // console.log('charger pop')
-
-          this.chargeboxidResponse.splice(index, 1)
-        }
-      } else {
-        this.chargeboxidResponse.push({
-          locationId: parseInt(data.locationId),
-          chargerId: parseInt(data.id),
-        })
-      }
-    }
-  }
+  
 
   /**
    * date filter for valid to date
@@ -751,13 +724,5 @@ export class AddPricingPlanComponent implements OnInit {
     return time
   }
   // CONNECTOR TYPE
-
-  GetConnectorType() {
-    const pBody = {
-      userId: this.UserId,
-    }
-    this._AdminService.GetConnectorType(pBody).subscribe((res) => {
-      this.connectorTypeList = res.data
-    })
-  }
+  
 }

@@ -282,45 +282,45 @@
               Date To Is Required
             </span>
           </div>
+          
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
-                Connector Type
+                Charger Type
                 <span style="color: 'red';">*</span>
               </h5>
               <mat-form-field
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
-                    pricingPlanFormGroup.get('connectorType')?.errors &&
+                    pricingPlanFormGroup.get('chargerTypeId')?.errors &&
                     submitted == true
                 }"
               >
                 <mat-label>Select</mat-label>
                 <mat-select
-                  [value]="selectedConnectorId"
-                  formControlName="connectorType"
+                  formControlName="chargerTypeId"
                 >
                   <mat-option
-                    *ngFor="let data of connectorTypeList"
+                    *ngFor="let data of Pluglist"
                     [value]="data.id"
-                    (onSelectionChange)="selectConnectorType($event, data.id)"
+                    (onSelectionChange)="selectChargerType($event, data.id)"
                   >
-                    {{ data.connectorTypeName }}
+                    {{ data.plugTypeName }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
             <span
               *ngIf="
-                !pricingPlanFormGroup.get('connectorType')?.valid &&
-                pricingPlanFormGroup.get('connectorType')?.touched &&
-                pricingPlanFormGroup.get('connectorType')?.value.length == 0
+                !pricingPlanFormGroup.get('chargerTypeId')?.valid &&
+                pricingPlanFormGroup.get('chargerTypeId')?.touched &&
+                pricingPlanFormGroup.get('chargerTypeId')?.value.length == 0
               "
               class="error-mess"
             >
-              Connector Type Is Required
+              Charger Type Is Required
             </span>
           </div>
           <div class="barbar-block13-spacer"></div>
@@ -616,49 +616,6 @@
             </div>
           </div>
 
-          <div class="barbar-block13-spacer"></div>
-          <div class="barbar-block13-item">
-            <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">
-                Charge Box
-                <!-- <span style="color: 'red';">*</span> -->
-              </h5>
-              <mat-form-field
-                class="barbar-box6 layout"
-                [ngClass]="{
-                  'is-invalid':
-                    pricingPlanFormGroup.get('chargerId')?.errors &&
-                    submitted == true
-                }"
-              >
-                <mat-label>Select</mat-label>
-                <mat-select
-                  [value]="selectedChargerId"
-                  multiple
-                  formControlName="chargerId"
-                >
-                  <mat-option
-                    *ngFor="let data of chargerList"
-                    [value]="data.id"
-                    (onSelectionChange)="onSelectCharger($event, data)"
-                  >
-                    {{ data.chargeBoxId }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-
-            <!-- <span
-              *ngIf="
-                !pricingPlanFormGroup.get('chargerId')?.valid &&
-                pricingPlanFormGroup.get('chargerId')?.touched &&
-                pricingPlanFormGroup.get('chargerId')?.value.length == 0
-              "
-              class="error-mess"
-            >
-              Charger Is Required
-            </span> -->
-          </div>
 
         </div>
       </div>
