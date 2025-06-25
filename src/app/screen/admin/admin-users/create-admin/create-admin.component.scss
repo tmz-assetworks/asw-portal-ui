@@ -469,6 +469,7 @@ $font_type_3: 500 14px/1.2 'Roboto', Helvetica, Arial, serif;
     position: relative;
     height: min-content;
     padding: 18px 40px;
+    cursor: pointer;
 
   }
   &flex1-spacer {
@@ -507,6 +508,7 @@ $font_type_3: 500 14px/1.2 'Roboto', Helvetica, Arial, serif;
     background-color:#0062a6;
     border-style: none;
     border-radius: 5px 5px 5px 5px;
+    cursor: pointer;
   }
 }
 
