@@ -2139,6 +2139,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     flex: 0 0 auto;
     height: min-content;
     margin: 18px 29px 16px 0px;
+    font-size: 18px;
 }
 
 .cust-list-text-body4 {
@@ -2152,7 +2153,8 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     height: min-content;
     width: 106px;
     min-width: 106px;
-     justify-content: center;
+    justify-content: center;
+    cursor: pointer;
 }
 .no-border-btn {
     border-style: none;
@@ -2167,7 +2169,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
  flex-direction: row-reverse;
 }
 .white-icon{
-background-color:#fff;
+ color :#fff;
 }
 
 
