@@ -60,16 +60,13 @@
           </div>
 
           <div id="map" style="width: 100%; height: 50vh;"></div>
-          <!-- <img src="../../../../assets/images/map.png" alt="" width="100%" /> -->
         </div>
       </div>
       <div class="dashboard-block32 layout">
         <div class="dashboard-block33 layout">
           <div class="dashboard-block33-item">
             <div class="dashboard-block34 layout">
-              <!-- <div class="dashboard-text-body1 layout9">
-              </div> -->
-
+              
               <!-- <mat-form-field > -->
               <div class="dashboard-text-body1 layout9">
                 <mat-form-field class="dashboard-text-body1 layout9">
@@ -122,22 +119,16 @@
 
       <div class="dashboard-block42 layout">
         <div class="dashboard-block42-item">
-          <app-bar-chart
-            *ngIf="chargersChartData !== ''"
-            style="width: 100%; height: 100%;"
-            [chartType]="'bar'"
-            [chartTitle]="'Chargers'"
-            [chargersData]="chargersChartData"
-            (barDetailPage)="
-              openDetailPage(
-                1,
-                'Chargers',
-                'DASHBOARD',
-                selectedTime,
-                selecteLocationIds
-              )
-            "
-          ></app-bar-chart>
+          <!--graph starts-->
+           <app-line-chart
+              *ngIf="costData !== ''"
+              [reportTransactionMonthlyData]="costData || []"
+              [chartType]="'reportTransactionMonthly'"
+              
+               (lineDetailPage)="
+                openReportDetailPage(4, 'Cost by Month', 'REPORTS', 1)"
+            ></app-line-chart>
+           <!-- chart ends-->
         </div>
         <div class="dashboard-block42-item">
           <app-area-chart
@@ -178,7 +169,7 @@
         <div class="dashboard-block42-spacer"></div>
         <div class="dashboard-block42-item">
           <app-bar-chart
-            *ngIf="locationPerformingData !== ''"
+            *ngIf="locationPerformingData !== ''" 
             [chartType]="'dashboardlocationPerform'"
             [chartTitle]="'Charging by Location'"
             [toggle]="true"

@@ -55,7 +55,7 @@
   &subtitle.layout {
     position: relative;
     height: min-content;
-    margin: 0px 0px 10px;
+    margin: 40px 0 0;
 
     @include lg {
       margin: 0px 0px 9px;
@@ -98,7 +98,7 @@
   &block13.layout {
     position: relative;
     height: min-content;
-    margin: 28px 0px 0px 20px;
+     margin: 28px 20px;
 
     @include lg {
       margin: 25px 0px 0px 18px;
@@ -1473,8 +1473,6 @@
     @include sm {
       flex: 0 0 20%;
     }
-
-    // min-width: 117px;
     min-width: min-content;
   }
 
@@ -1498,7 +1496,6 @@
   &text-body1.layout9 {
     position: relative;
     height: min-content;
-    // width: 198px;
     min-width: min-content;
     padding: 10px;
     white-space: nowrap;
@@ -1516,8 +1513,6 @@
     @include sm {
       flex: 0 0 10%;
     }
-
-    // min-width: 59px;
     min-width: min-content;
   }
 
@@ -1532,15 +1527,10 @@
     transition-property: transform;
   }
 
-  &block35:hover {
-    // transform: scale(1.05);
-  }
-
   &block35.layout {
     position: relative;
     height: 50px;
     min-width: min-content;
-    // width: min-content;
   }
 
   &text-body2 {
@@ -1568,8 +1558,6 @@
     @include sm {
       flex: 0 0 9%;
     }
-
-    // min-width: 53px;
     min-width: min-content;
   }
 
@@ -1591,10 +1579,6 @@
 
   &block36.layout {
     position: relative;
-
-    // height: 50px;
-    @include xl {
-  }
   }
   &text-body3 {
     @include font-face($font_type5, rgb(0, 98, 166), 0px);
@@ -1620,8 +1604,6 @@
     @include sm {
       flex: 0 0 10%;
     }
-
-    // min-width: 59px;
     min-width: min-content;
   }
 
@@ -1643,7 +1625,6 @@
 
   &block37.layout {
     position: relative;
-    // height: 50px;
   }
 
   &text-body3.layout1 {
@@ -1661,8 +1642,6 @@
     @include sm {
       flex: 0 0 10%;
     }
-
-    // min-width: 59px;
     min-width: min-content;
   }
 
@@ -1684,13 +1663,11 @@
 
   &block38.layout {
     position: relative;
-    // height: 50px;
   }
 
   &text-body3.layout2 {
     position: relative;
     height: min-content;
-    // margin: 18px 34px 16px 38px;
     padding: 10px;
     white-space: nowrap;
   }
@@ -1717,11 +1694,6 @@
     @include flex-column;
     position: relative;
     flex: 1 1 48%;
-
-    @include lg {
-      // flex: 1 1 45%;
-      // max-width: 100%;
-    }
   }
 
   & &block391-spacer {
@@ -1798,18 +1770,12 @@
 
     @include lg {
       flex: 1 1 auto;
-      // max-width: auto;
       min-width: 100%;
     }
   }
 
   &block42-spacer {
     flex: 0 1 25px;
-
-    @include lg {
-      // display: none;
-    }
-
     @include xl {
       display: none;
     }
@@ -1927,16 +1893,10 @@
     position: relative;
     flex: 0 1 17px;
   }
-
-  &box11 {
-    // background-color: rgb(217, 217, 217);
-  }
-
   &box11.layout1 {
     position: relative;
     width: 30px;
     height: 25px;
-    // margin: 3px 0px;
   }
 
   &highlights1 {
@@ -1987,16 +1947,6 @@
   color: #8e1937;
 }
 
-.dashboard-subtitle.layout {
-  margin: 40px 0 0;
-}
-
-.dashboard-block13.layout {
-  position: relative;
-  height: min-content;
-  margin: 28px 20px;
-}
-
 .mat-select-trigger {
   width: 118% !important;
 }
@@ -2012,7 +1962,6 @@
 
 .mat-button-toggle-appearance-standard:hover {
   border: 1px solid #0062a6;
-  //background-color: #fff;
 }
 
 .dashboard-block35:hover {
@@ -2030,18 +1979,15 @@
   }
 
   .box-element-block2.layout {
-    margin: 10px auto;
-  }
-
-  .box-element-block2.layout {
     margin: 0 auto;
   }
 }
 
 @media (max-width: 568px) {
   .location-text-body.layout {
-    margin: 5px 5px 5px 5px;
-    font-size: 10px;
+    margin: 9px 12px !important;
+    font-size: 12px;
+    padding: 0px 0px;
   }
 
   .widget-block2.layout {
@@ -2060,18 +2006,8 @@
   .opt-dashboard .widget-block2.layout {
     flex-wrap: wrap !important;
   }
-
-  .location-text-body.layout {
-    font-size: 12px;
-    padding: 0px 0px;
-  }
-
   .location-block4.layout {
     display: flex;
-  }
-
-  .location-text-body.layout {
-    margin: 9px 12px !important;
   }
 
   .dashboard-block33 {
@@ -2080,10 +2016,6 @@
 }
 
 @media (max-width: 480px) {
-
-  // .operator-dashboard-main .header-block7 .header-block8-item{
-  //     max-width: 48%;
-  // }
   .opt-dashboard .dashboard-block13-item .dashboard-block14 {
     max-width: 375px;
   }
@@ -2103,22 +2035,9 @@
 }
 
 .dashboard-map-title {
-  // font-family: 'Roboto';
-  // font-size: 20px;
   font: 500 18px / 1.2 "Roboto", Helvetica, Arial, serif;
   color: #131b21;
   letter-spacing: 0px;
   line-height: 28px;
 }
 
-// .cdk-overlay-pane.my-dialog-container-class2 {
-//   position: relative !important;
-// }
-// .close.mat-button {
-//   position: absolute;
-//   top: 0;
-//   right: 0;
-//   padding: 5px;
-//   float: right;
-//   line-height: 14px;
-// }
