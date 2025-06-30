@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { FormControl } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
-import { AuthService } from 'src/app/service/auth/auth.service'
 import { StorageService } from 'src/app/service/storage.service'
 import { DashboardService } from './dashboard.service'
-import { data } from './locations'
 import { ToastrService } from 'ngx-toastr'
 import { MatDialog } from '@angular/material/dialog'
 import { LegendsDialogComponent } from 'src/app/component/dashboard/legends-dialog/legends-dialog.component'
@@ -21,6 +19,7 @@ export class DashboardComponent implements OnInit {
   chargers = '../../../../assets/Operator/Chargers.svg'
   charging_session = '../../../../assets/Operator/Charger-Seesion.svg'
   errors = '../../../../assets/Operator/Error.svg'
+  costData = ''
 
   locationPerformingData = ''
   energyUsedData = ''
@@ -46,25 +45,23 @@ export class DashboardComponent implements OnInit {
   toggleValue: number = 1
 
   constructor(
-    private _dashboardService: DashboardService,
-    private _storageService: StorageService,
-    private _router: Router,
-    private _route: ActivatedRoute,
-    private toastr: ToastrService,
-    public dialog: MatDialog,
+    private readonly _dashboardService: DashboardService,
+    private readonly _storageService: StorageService,
+    private readonly _router: Router,
+    private readonly _route: ActivatedRoute,
+    private readonly  toastr: ToastrService,
+    public readonly dialog: MatDialog,
   ) {
     this.UserId = this._storageService.getLocalData('user_id')
   }
 
   ngOnInit(): void {
+   
     let isDuration = this._storageService.getSessionData('duration')
-
     let isLocation = this._storageService.getSessionData('locationId')
-
     if (isLocation) {
       this._storageService.removeSessionData('locationId')
     }
-
     if (isDuration) {
       this._storageService.removeSessionData('duration')
       this._storageService.removeSessionData('graphHeading')
@@ -78,9 +75,7 @@ export class DashboardComponent implements OnInit {
     this.getSummaryStatus()
     ;(window as any).initMap = this.initMap as any
     this.initMapFunc = (window as any).initMap.bind(this)
-    // initMapFunc()
-    // this.setMarker(locations);
-    // this.handleEventListenerFromMarker();
+
 
     /**
      * Get All Locations
@@ -123,15 +118,23 @@ export class DashboardComponent implements OnInit {
       this.selectedTime,
       this.UserId,
     )
+
+     this.getReportTransaction(
+      this.UserId, 
+      this.selecteLocationIds, 
+      '1'
+    )
   }
+   
+
   /**
    * Initializes the map
    */
 
   initMap() {
     const initialize = () => {
-      var center = new google.maps.LatLng(36.2082629, -113.737393)
-      var map = new google.maps.Map(document.getElementById('map'), {
+    const center = new google.maps.LatLng(36.2082629, -113.737393)
+    const map = new google.maps.Map(document.getElementById('map'), {
         zoom: 5,
         center: center,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
@@ -162,15 +165,15 @@ export class DashboardComponent implements OnInit {
       }
 
       let markers = []
-      for (var i = 0; i < this.mapstatusdata.length; i++) {
-        const accident_title = this.mapstatusdata[i].status
-        const chargeBoxId = this.mapstatusdata[i].chargeBoxid
-        const assetId = this.mapstatusdata[i].assetId
-        const makeName = this.mapstatusdata[i].makeName
-        const modelName = this.mapstatusdata[i].modelName
+      for (const data of this.mapstatusdata) {
+        const accident_title = data.status
+        const chargeBoxId = data.chargeBoxid
+        const assetId = data.assetId
+        const makeName = data.makeName
+        const modelName = data.modelName
         const accident_LatLng = new google.maps.LatLng(
-          this.mapstatusdata[i].latitude,
-          this.mapstatusdata[i].longitude,
+          data.latitude,  
+          data.longitude,
         )
         let newLat = accident_LatLng.lat() + (Math.random() - 0.5) / 1500 // * (Math.random() * (max - min) + min);
         let newLng = accident_LatLng.lng() + (Math.random() - 0.5) / 1500 // * (Math.random() * (max - min) + min);
@@ -194,7 +197,7 @@ export class DashboardComponent implements OnInit {
           modelName +
           ''
 
-        var infoWindow = new google.maps.InfoWindow({
+        let infoWindow = new google.maps.InfoWindow({
           content: contentString,
         })
 
@@ -251,7 +254,7 @@ export class DashboardComponent implements OnInit {
       relativeTo: this._route,
       queryParams: { id: event },
     })
-    //this._router.navigate(['detail'],{relativeTo: this._route});
+  
   }
   /**
    * Get Alllocations
@@ -270,6 +273,12 @@ export class DashboardComponent implements OnInit {
   setTime(event: any) {
     if (event.value) {
       this.selectedTime = event.value
+
+    this.getReportTransaction(
+      this.UserId,
+      this.selecteLocationIds,
+      this.selectedTime
+    )
       this.getEnergyUsedByLocationId(
         this.selecteLocationIds,
         this.selectedTime,
@@ -313,7 +322,7 @@ export class DashboardComponent implements OnInit {
     orderBy: any,
   ) {
     const body = {
-      locationIds: locationIds ? locationIds : [],
+      locationIds: (locationIds?.length ? { locationId: locationIds } : []),
       duration: duration.toString(),
       opratorid: operatorId,
       orderby: orderBy,
@@ -347,7 +356,7 @@ export class DashboardComponent implements OnInit {
 
   getEnergyUsedByLocationId(locationIds: any, duration: any, operatorId: any) {
     const body = {
-      locationIds: locationIds ? locationIds : [],
+      locationIds: (locationIds?.length ? { locationId: locationIds } : []),
       duration: duration.toString(),
       opratorid: operatorId,
     }
@@ -366,6 +375,11 @@ export class DashboardComponent implements OnInit {
 
     this.selecteLocationIds = locationIds
 
+    this.getReportTransaction(
+      this.UserId,
+      this.selecteLocationIds,
+      this.selectedTime
+    )
     this.getEnergyUsedByLocationId(
       this.selecteLocationIds,
       this.selectedTime,
@@ -403,7 +417,7 @@ export class DashboardComponent implements OnInit {
 
   getChargerGraph(locationIds: any, duration: any, operatorId: any) {
     const body = {
-      locationIds: locationIds ? locationIds : [],
+      locationIds: (locationIds?.length ? { locationId: locationIds } : []),
       duration: duration.toString(),
       opratorid: operatorId,
     }
@@ -431,7 +445,7 @@ export class DashboardComponent implements OnInit {
     operatorId: any,
   ) {
     const body = {
-      locationIds: locationIds ? locationIds : [],
+      locationIds: (locationIds?.length ? { locationId: locationIds } : []),
       duration: duration.toString(),
       opratorid: operatorId,
     }
@@ -448,7 +462,7 @@ export class DashboardComponent implements OnInit {
 
   getMapLocations(locationIds: any, operatorId: any) {
     const body = {
-      locationIds: locationIds ? locationIds : [],
+      locationIds: (locationIds?.length ? { locationId: locationIds } : []), 
       chargeBoxId: '',
       opratorid: operatorId,
     }
@@ -471,4 +485,31 @@ export class DashboardComponent implements OnInit {
     })
     dialogRef.afterClosed().subscribe((result) => {})
   }
+
+    getReportTransaction(userId: any, locationIds: any, duration: any) {
+    const pBbody = {
+      operatorId: userId,
+      locationId: (locationIds?.length ? { locationId: locationIds } : []),
+      duration: duration,
+    };
+    
+    this._dashboardService.GetTransaction(pBbody).subscribe((res: any) => {
+      if (res.data) {
+        this.costData = res.data[0].monthlydata 
+      }
+    })
+  }
+  
+  
+   openReportDetailPage(
+    event: any,
+    graphHeading: string,
+    pageHeading: string,
+    duration: any,
+  ) {
+      sessionStorage.setItem('graphHeading', graphHeading)
+      sessionStorage.setItem('pageHeading', pageHeading)
+      sessionStorage.setItem('duration', duration)
+      this._router.navigateByUrl('admin/reports/report-transaction/report-detail?id=4')
+  }  
 }

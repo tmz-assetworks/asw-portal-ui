@@ -7,9 +7,11 @@ import { forkJoin, Observable } from 'rxjs'
 export class DashboardService {
   url: string
   chargerUrl: string
-  constructor(private _http: HttpClient) {
+  REPORT_API_URL:string
+  constructor(private readonly _http: HttpClient) {
     this.url = environment.PORTAL_API_URL + 'api/v1/OperatorDashboard/'
     this.chargerUrl = environment.PORTAL_API_URL + 'api/v1/Charger/'
+    this.REPORT_API_URL=environment.REPORT_API_URL
   }
 
   /**
@@ -91,6 +93,19 @@ export class DashboardService {
   getChargerChartData(params: any): Observable<any> {
     return this._http.post<any>(
       `${this.url}GetChargerStatusByLocationID`,
+      params,
+    )
+  }
+
+    /**
+   * GET TRANSACTION
+   * @param params
+   * @returns
+   */
+
+    GetTransaction(params: any): Observable<any> {
+    return this._http.post<any>(
+      `${this.REPORT_API_URL}Subscription/CostTransaction/`,
       params,
     )
   }
