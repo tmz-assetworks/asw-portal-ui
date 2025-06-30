@@ -77,7 +77,7 @@ export class LoginVerificationComponent implements OnInit {
           this.showLoader = false
           this.setTime()
           this.toastr.success('OTP Verified, Please Change Password')
-          this._router.navigate(['/confirmation-mail'])
+          this._router.navigate(['/changePassword'])
         },
         error: (err) => {
           this.showLoader = false
