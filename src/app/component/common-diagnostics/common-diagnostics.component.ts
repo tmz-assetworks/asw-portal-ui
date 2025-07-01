@@ -123,11 +123,11 @@ export class CommonDiagnosticsComponent implements OnInit {
   userTimeZone:any;
 
   chargerDeteailTab = [
-    {
-      text: "ANALYTICS",
-      link: "../chargers-analytics"
+    // {
+    //   text: "ANALYTICS",
+    //   link: "../chargers-analytics"
 
-    },
+    // },
     {
       text: "CHARGER INFORMATION",
       link: "../chargers-info"
