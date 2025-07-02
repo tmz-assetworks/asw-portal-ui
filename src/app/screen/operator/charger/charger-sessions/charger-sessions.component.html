@@ -8,13 +8,6 @@
       <div class="location-block2 layout">
         <div class="location-block2-item">
           <div class="location-block4 layout">
-            <!-- <div class="location-block4-item">
-              <div class="location-block5 layout">
-                <a [routerLink]="['../chargers-analytics']">
-                  <div class="location-text-body layout">ANALYTICS</div>
-                </a>
-              </div>
-            </div> -->
             <div class="location-block4-item">
               <div class="location-block5 layout">
                 <a [routerLink]="['../chargers-info']">
@@ -82,39 +75,30 @@
                   <div style="text-align: left; margin: 12px 0px 0px 17px;">
                     {{ selecteChargerIds }}
                   </div>
-                  <!-- <mat-form-field class="cust-list-block20 layout">
-                    <mat-label>Cars</mat-label>
-                    <select matNativeControl required>
-                      <option value="volvo">Charge Box ID</option>
-                      <option value="saab">Saab</option>
-                      <option value="mercedes">Mercedes</option>
-                      <option value="audi">Audi</option>
-                    </select>
-                  </mat-form-field> -->
+
                 </div>
               </div>
             </div>
             <div class="cust-list-flex3-spacer"></div>
             <div class="cust-list-flex3-item1">
-              <div
-                class="cust-list-block23 layout"
-                (click)="downloadFile()"
-                style="cursor: pointer;"
-              >
-                <div class="cust-list-block23-item">
-                  <div class="cust-list-box10 layout">
-                    <img
-                      src="../../../../../assets/download-report.png"
-                      alt=""
-                      srcset=""
-                    />
-                  </div>
-                </div>
-                <div class="cust-list-block23-spacer"></div>
-                <div class="cust-list-text-body4 layout">
-                  DOWNLOAD SESSIONS
-                </div>
-              </div>
+            <button
+            class="cust-list-block23 layout"
+            (click)="downloadFile()"
+            style="cursor: pointer; border: none; background-color:#0062a6; padding: 0;"
+            >
+           <div class="cust-list-block23-item">
+           <div class="cust-list-box10 layout">
+           <img
+            src="../../../../../assets/download-report.png"
+            alt="Download Report"
+            />
+    </div>
+  </div>
+  <div class="cust-list-block23-spacer"></div>
+  <div class="cust-list-text-body4 layout">
+    DOWNLOAD SESSIONS
+  </div>
+</button>
             </div>
           </div>
           <div class="cust-list-group2 layout mat-data" id="pdfTable" #pdfTable>
@@ -163,19 +147,6 @@
                   {{ element.endTime +"Z" | date: 'MM-dd-yyyy HH:mm':userTimeZone }}
                 </td>
               </ng-container>
-
-              <!-- Symbol Column -->
-              <!-- <ng-container matColumnDef="meterreading">
-                <th mat-header-cell *matHeaderCellDef>METER READING</th>
-                <td mat-cell *matCellDef="let element" style="cursor: pointer;">
-                  <img
-                    (click)="showMeterPopup(element.usage)"
-                    src="../../../../../assets/meter-reading.svg"
-                    matTooltip="{{ element.usage + ' kWh' }}"
-                  />
-                </td>
-              </ng-container>-->
-
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
             </table>
@@ -193,16 +164,6 @@
             [pageSize]="pageSize"
             [pageSizeOptions]="[10, 20, 100]"
           ></mat-paginator>
-          <!-- <mat-paginator
-              [pageSizeOptions]="[5, 10, 20]"
-              showFirstLastButtons
-              aria-label="Select page of periodic elements"
-            ></mat-paginator> -->
-          <!-- <mat-paginator
-                      [length]="100"
-                      [pageSizeOptions]="[10, 20, 100]"
-                      aria-label="Rows per page"
-                    ></mat-paginator> -->
         </div>
       </div>
     </div>
