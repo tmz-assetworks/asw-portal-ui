@@ -20,26 +20,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block12 {
     @include flex-column;
   }
-  // &block12.layout {
-  //   position: relative;
-  //   height: min-content;
-  //   margin: 0px 0px 0px 20px;
-  //   @include lg {
-  //     margin: 0px 0px 0px 18px;
-  //   }
-  //   @include md {
-  //     margin: 0px 0px 0px 15px;
-  //   }
-  //   @include sm {
-  //     margin: 0px 0px 0px 13px;
-  //   }
-  //   @include xs {
-  //     margin: 0px 0px 0px 11px;
-  //   }
-  //   @include xxs {
-  //     margin: 0px 0px 0px 10px;
-  //   }
-  // }
   &subtitle {
     @include font-face($font_type1, rgb(19, 27, 33), 0px);
     @include lg {
@@ -59,7 +39,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &subtitle.layout {
     position: relative;
     height: min-content;
-    margin: 0px 0px 10px;
+    margin: 40px 0 0;
     @include lg {
       margin: 0px 0px 9px;
     }
@@ -1261,7 +1241,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
   &block36.layout {
     position: relative;
-   // height: 50px;
   }
   &text-body3 {
     @include font-face($font_type5, rgb(0, 98, 166), 0px);
@@ -1298,7 +1277,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
   &block37.layout {
     position: relative;
-   // height: 50px;
   }
   &text-body3.layout1 {
     position: relative;
@@ -1328,7 +1306,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
   &block38.layout {
     position: relative;
-    //height: 50px;
   }
   &text-body3.layout2 {
     position: relative;
@@ -1372,60 +1349,12 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     flex-shrink: 0;
     margin: 20px 1px 0px 0px;
   }
-  // &block42 {
-  //   display: flex;
-  //   flex-wrap: wrap;
-  //   row-gap: 16px;
-  //   @include lg {
-  //     flex-wrap: wrap;
-  //     row-gap: 16px;
-  //   }
-  // }
-  // &block42.layout {
-  //   position: relative;
-  //   height: min-content;
-  //   margin: 21px 0px 0px;
-  //   @include lg {
-  //     margin: 18px 0px 0px;
-  //   }
-  //   @include md {
-  //     margin: 16px 0px 0px;
-  //   }
-  //   @include sm {
-  //     margin: 13px 0px 0px;
-  //   }
-  //   @include xs {
-  //     margin: 12px 0px 0px;
-  //   }
-  //   @include xxs {
-  //     margin: 11px 0px 0px;
-  //   }
-  //   @include tn {
-  //     margin: 10px 0px 0px;
-  //   }
-  // }
-  // &block42-item {
-  //   @include flex-column;
-  //   position: relative;
-  //   flex: 1 1 auto;
-  //   max-width: 50%;
-  //   @include lg {
-  //     flex: 0 0 100%;
-  //   }
-  // }
-  // &block42-spacer {
-  //   flex: 0 1 25px;
-  //   @include lg {
-  //     display: none;
-  //   }
-  // }
 
   &block42 {
     display: flex;
     flex-wrap: wrap;
     row-gap: 16px;
     @include lg {
-     // flex-wrap: wrap;
       row-gap: 16px;
     }
   }
@@ -1455,7 +1384,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block42-item {
     @include flex-column;
     position: relative;
-   // flex: 1 1 auto;
     min-width: 45%;
     @include xl {
       flex: 1 1 auto;
@@ -1464,28 +1392,13 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
 
     @include lg {
       flex: 1 1 auto;
-      // max-width: auto;
       min-width: 100%;
     }
   }
 
   &block42-spacer {
     flex: 0 1 25px;
-    @include lg {
-      // display: none;
-    }
   }
-
-  // &box13 {
-  //   background-color: rgb(255, 255, 255);
-  //   box-shadow: 0px 0px 20px 0px rgba(196, 196, 196, 0.24705882352941178);
-  //   border: 1px solid rgb(228, 228, 228);
-  //   border-radius: 10px 10px 10px 10px;
-  // }
-  // &box13.layout {
-  //   position: relative;
-  //   height: 445px;
-  // }
   &block13-spacer {
     flex: 0 1 22px;
     @include md;
@@ -1616,20 +1529,8 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
 .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
   color: #8e1937;
 }
-.dashboard-subtitle.layout {
-  margin: 40px 0 0;
-}
-.dashboard-block13.layout {
-  position: relative;
-  height: min-content;
-  margin: 28px 0px;
-}
 
 .location- {
-  &block {
-    @include flex-column;
-    // background-color: $color_type_6;
-  }
   &block.layout {
     position: relative;
     overflow: hidden;
@@ -1688,14 +1589,9 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     }
   }
   &subtitle-box.layout {
-    // position: relative;
-    // height: min-content;
-    // width: 7.97%;
-    // margin: 0px 91.79% 0px 0.23%;
     position: relative;
     height: min-content;
     margin: 0;
-    margin-bottom: 0px;
     font: 700 20px/1.2 'Roboto', Helvetica, Arial, serif;
     color: #131b21;
     letter-spacing: 0px;
@@ -1703,9 +1599,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
   &subtitle {
     overflow: visible;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin: 0px 18px;
+    margin: 0px 18px 0px 18px;
     @include font-face($font_type20, $color_type_2, 0px);
     white-space: pre-wrap;
     @include lg {
@@ -1787,7 +1681,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block5 {
     @include flex-column;
     background-color: $color_type_4;
-    //border-bottom: 1px solid rgb(255, 255, 255);
     transition-duration: 0.3s;
     transition-property: transform;
     a {
@@ -1795,7 +1688,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     }
   }
   &block5:hover {
-    //transform: translateY(-5);
     transform: translateY(-8px);
   }
   &block5.layout {
@@ -1838,7 +1730,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
   &block6 {
     @include flex-column;
-    // background-color: $color_type_6;
     border-bottom: 3px solid rgb(216, 107, 0);
     transition-duration: 0.3s;
     transition-property: transform;
@@ -1889,9 +1780,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
       margin: 5px;
     }
   }
-  // &box3 {
-  //   background-color: $color_type_3;
-  // }
   &box3.layout {
     position: relative;
     height: 25px;
@@ -2134,7 +2022,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     position: relative;
     height: min-content;
     min-width: 0px;
-    //width: fit-content;
     margin: 1px 0px 34px;
 
     @include lg {
@@ -2184,13 +2071,9 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     position: relative;
     height: min-content;
   }
-  // &box11 {
-  //   background-color: $color_type_3;
-  // }
   &box11.layout {
     position: relative;
     height: 45px;
-    // width: 28.1%;
     margin: 0px auto;
   }
   &block22 {
@@ -2279,8 +2162,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     width: 1px;
     min-width: 1px;
     margin: 11px 0px;
-    width: 1px;
-    // margin-left: 42px;
     margin: 15px 10px 34px 10px;
     background-color: rgb(141, 131, 131);
     @include lg {
@@ -2333,7 +2214,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &highlights2.layout {
     position: relative;
     height: min-content;
-    //width: 24.84%;
     margin: 0px 0% 0px 0%;
   }
   &block21-item2 {
@@ -3442,7 +3322,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     position: relative;
     height: min-content;
     margin: -4px 10px 11px 10px;
-    //margin: 0px 0px 0px 20px;
     @include lg {
       margin: 25px 0px 0px 18px;
     }
@@ -3498,8 +3377,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block2.layout {
     position: relative;
     height: min-content;
-    // width: 98.29%;
-    // margin: 0px auto 0px;
     width: 100%;
     box-sizing: border-box;
     @include lg {
@@ -3541,7 +3418,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
   &block5 {
     @include flex-column;
-    // background-color: $color_type_4;
     transition-duration: 0.3s;
     transition-property: transform;
     a {
@@ -3549,7 +3425,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     }
   }
   &block5:hover {
-    //transform: translateY(-5);
     transform: translateY(-8px);
   }
   &block5.layout {
@@ -3613,7 +3488,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
 .header- {
   &block {
     @include flex-column;
-    //background-color: $color_type_6;
   }
   &block.layout {
     position: relative;
@@ -3681,8 +3555,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
   &subtitle {
     overflow: visible;
-    margin-top: 0px;
-    margin-bottom: 0px;
     margin: 0px;
     @include font-face($font_type20, $color_type_2, 0px);
 
@@ -3716,7 +3588,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
 }
 .mat-button-toggle-appearance-standard:hover {
   border: 1px solid #0062a6;
-  //background-color: #fff;
 }
 .dashboard-block35:hover {
   border: 1px solid #0062a6;
@@ -3753,9 +3624,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   font-size: 12px;
   padding: 0px 0px;
 }
-// .location-block4.layout {
-//   display: flex;
-// }
+
 .location-text-body.layout {
   margin: 9px 12px !important;
 }
@@ -3776,10 +3645,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   .dashboard-block42.layout{
     justify-content: space-between;
 }
-// .charger_content .dashboard-block42-item {
-//   min-width: 49%;
-// }
-
 } 
 @media (max-width: 1366px){
   .charger_main .dashboard-block42-item .card-block40.layout{
@@ -3802,3 +3667,14 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
   
   }
+
+ .custom-block3 {
+  display: flex;
+  flex-direction: column;
+  background-color: #ebebeb;
+  border-left: 1px solid white;
+}
+
+.toggle-btn {
+  border: 1px solid #0062a6 !important;
+}
