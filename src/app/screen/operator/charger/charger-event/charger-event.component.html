@@ -7,13 +7,6 @@
           <div class="location-block4 layout">
             <div class="location-block4-item">
               <div class="location-block5 layout">
-                <a [routerLink]="['../chargers-analytics']">
-                  <div class="location-text-body layout">ANALYTICS</div>
-                </a>
-              </div>
-            </div>
-            <div class="location-block4-item">
-              <div class="location-block5 layout">
                 <a [routerLink]="['../chargers-info']">
                   <div class="location-text-body layout">
                     CHARGER INFORMATION
@@ -81,16 +74,6 @@
                       [(ngModel)]="searchParam"
                       (change)="selectOption($event)"
                     >
-                      <!--  <option value="volvo">
-                      All
-                    </option>
-                    <option value="saab">Reset</option>
-                    <option value="mercedes">
-                      Heartbeat
-                    </option>
-                    <option value="audi">
-                      Start Transaction
-                    </option> -->
                       <option *ngFor="let item of arrKeys">
                         {{ item.value }}
                       </option>
@@ -102,21 +85,20 @@
 
             <div class="cust-list-flex3-spacer"></div>
             <div class="cust-list-flex3-item1">
-              <div class="cust-list-block23 layout" (click)="downloadFile()">
-                <div class="cust-list-block23-item">
-                  <div class="cust-list-box10 layout">
-                    <img
-                      src="../../../../../assets/Operator/Download-icon.svg"
-                      alt=""
-                      srcset=""
-                    />
-                  </div>
-                </div>
-                <div class="cust-list-block23-spacer"></div>
-                <div class="cust-list-text-body4 layout">
-                  DOWNLOAD SESSION
-                </div>
-              </div>
+            <button class="cust-list-block23 layout" (click)="downloadFile()" style="cursor:pointer;border:none;" type="button">
+            <div class="cust-list-block23-item">
+            <div class="cust-list-box10 layout">
+            <img
+            src="../../../../../assets/Operator/Download-icon.svg"
+            alt="Download Icon"
+            />
+            </div>
+            </div>
+  <div class="cust-list-block23-spacer"></div>
+  <div class="cust-list-text-body4 layout">
+    DOWNLOAD SESSION
+  </div>
+</button>
             </div>
           </div>
         </div>
@@ -153,24 +135,29 @@
                 ACTION
               </th>
               <td mat-cell *matCellDef="let element; let i = index">
+               <button
+                type="button"
+                (click)="expandedElement = expandedElement === element ? null : element"
+                style="background: none; border: none; padding: 0; cursor: pointer;"
+                >
                 <img
-                  style="cursor: pointer;"
-                  alt=""
-                  src="../../../../assets/icons/view-icon.png"
-                  (click)="
-                    expandedElement =
-                      expandedElement === element ? null : element
-                  "
+                src="../../../../assets/icons/view-icon.png"
+                alt="View"
                 />
+                </button>
 
-                <img
-                  (click)="openMakePaymentDialog(element.id)"
-                  *ngIf="element.requestType == 'StopTransaction'"
-                  style="cursor: pointer;"
+               <button
+               *ngIf="element.requestType == 'StopTransaction'"
+                type="button"
+                (click)="openMakePaymentDialog(element.id)"
+                style="background: none; border: none; padding: 0; cursor: pointer;"
+                title="Make Payment"
+                >
+                  <img
                   src="../../../../../assets/chart-icon.svg"
-                  alt=""
-                  title="Make Payment"
-                />
+                  alt="Make Payment"
+                 />
+              </button> 
               </td>
             </ng-container>
             <ng-container matColumnDef="expandedDetail">

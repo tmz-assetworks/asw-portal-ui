@@ -40,7 +40,7 @@ export class ChargerInnerComponent implements OnInit {
     this._storageService.setSessionData('chargerName', data.chargerName)
     let userRole=this._storageService.getLocalData('role')?.toLowerCase();
     if(userRole){
-      this._router.navigate([`${userRole}/charger/chargers-analytics`])
+      this._router.navigate([`${userRole}/charger/chargers-info`])
     }
   }
 

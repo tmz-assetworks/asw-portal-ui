@@ -36,71 +36,36 @@ export class ChargerAnalyticsComponent implements OnInit {
   chargerName: string | null
   chargerboxid: any
 
+  navigationLinks = [
+  { path: '../chargers-info', label: 'CHARGER INFORMATION' },
+  { path: '../chargers-session', label: 'CHARGE SESSIONS' },
+  { path: '../chargers-diagnostic', label: 'DIAGNOSTIC' },
+  { path: '../chargers-event', label: 'EVENT LOGS' }
+  ];
+
+  timeOptions = [
+  { value: '1', label: 'Last 24 Hours', classSuffix: '-item1', classSuffixDiv: '35' },
+  { value: '7', label: 'One Week', classSuffix: '-item2', classSuffixDiv: '36' },
+  { value: '30', label: 'Current Month', classSuffix: '-item3', classSuffixDiv: '37' },
+  { value: '90', label: 'Last 3 Months', classSuffix: '-item4', classSuffixDiv: '38' },
+];
+
   constructor(
-    private _auth: AuthService,
-    private _dashboardService: DashboardService,
-    private _locationService: LocationService,
-    private _storageService: StorageService,
-    private _router: Router,
-    private _route: ActivatedRoute,
+    private readonly _auth: AuthService,
+    private readonly _dashboardService: DashboardService,
+    private readonly _locationService: LocationService,
+    private readonly _storageService: StorageService,
+    private readonly _router: Router,
+    private readonly _route: ActivatedRoute,
   ) {
     this.UserId = this._storageService.getLocalData('user_id')
     this.chargerboxid = this._storageService.getSessionData('chargerBoxId')
 
     this.chargerName = this._storageService.getSessionData('chargerName')
-
-    // this.selecteLocationIds = this._storageService.getSessionData('locationId')
-
-    //this.locationName = this._storageService.getSessionData('locationName')
   }
 
   option: EChartsOption = {
-    // legend: {
-    //   data: ['Total Revenue', 'Daily Revenue', 'Today Revenue'],
-    // },
-    // xAxis: {
-    //   type: 'category',
-    //   data: ['990.71', '412.14', '408.07'],
-    // },
-
-    // yAxis: {
-    //   type: 'value',
-    //   show: false,
-    // },
-    // series: [
-    //   {
-    //     data: [
-    //       {
-    //         name: 'Total Revenue',
-    //         value: 200,
-    //         itemStyle: {
-    //           color: '#90993F',
-    //         },
-    //       },
-    //       {
-    //         name: 'Daily Revenue',
-    //         value: 150,
-    //         itemStyle: {
-    //           color: '#E97300',
-    //         },
-    //       },
-    //       {
-    //         name: 'Today Revenue',
-    //         value: 100,
-    //         itemStyle: {
-    //           color: '#0062A6',
-    //         },
-    //       },
-    //     ],
-    //     type: 'bar',
-    //   },
-    // ],
-    // series: [
-    //   { name: 'Total Revenue', data: [990.71], type: 'bar' },
-    //   { name: 'Daily Revenue', data: [412.14], type: 'bar' },
-    //   { name: 'Today Revenue', data: [408.07], type: 'bar' },
-    // ],
-
+ 
     tooltip: {
       trigger: 'axis',
       axisPointer: {
@@ -142,7 +107,6 @@ export class ChargerAnalyticsComponent implements OnInit {
             color: 'transparent',
           },
         },
-        // data: [0, 900, 1245, 1530, 1376, 1376, 1511, 1689, 1856, 1495, 1292]
       },
       {
         name: 'Total Revenue',
@@ -282,7 +246,6 @@ export class ChargerAnalyticsComponent implements OnInit {
       this._storageService.removeSessionData('graphHeading')
       this._storageService.removeSessionData('pageHeading')
     }
-    // this.GetSummaryDataByLocationId(this.selecteLocationIds)
     this.getEnergyUsedByLocationId(
       this.selecteLocationIds,
       this.selectedTime,
@@ -310,14 +273,6 @@ export class ChargerAnalyticsComponent implements OnInit {
     )
   }
 
-  // GetSummaryDataByLocationId(locationId: any) {
-  //   this._locationService
-  //     .GetSummaryStatuByLocationId(locationId)
-  //     .subscribe((res) => {
-  //       //   this.summaryData = res.data
-  //     })
-  // }
-
   openDetailPage(
     event: any,
     graphHeading: string,
@@ -331,7 +286,6 @@ export class ChargerAnalyticsComponent implements OnInit {
       relativeTo: this._route,
       queryParams: { id: event },
     })
-    //this._router.navigate(['detail'],{relativeTo: this._route});
   }
   /**
    * Set time to show
@@ -471,4 +425,9 @@ export class ChargerAnalyticsComponent implements OnInit {
         this.locationAnalyticsMilesAddData = res.data
       })
   }
+
+  trackByPath(index: number, item: any): string {
+  return item.path;
+}
+
 }

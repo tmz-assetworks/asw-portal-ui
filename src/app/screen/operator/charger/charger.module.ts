@@ -33,10 +33,10 @@ const routes: Routes = [
         pathMatch: 'full',
       },
 
-      {
-        path: 'chargers-analytics',
-        component: ChargerAnalyticsComponent,
-      },
+      // {
+      //   path: 'chargers-analytics',
+      //   component: ChargerAnalyticsComponent,
+      // },
 
       {
         path: 'chargers-info',
