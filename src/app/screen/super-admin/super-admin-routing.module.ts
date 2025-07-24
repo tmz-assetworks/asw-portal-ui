@@ -32,6 +32,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'report',
+        loadChildren: () =>
+          import('../super-admin/report/reports.module').then(
+            (m) => m.ReportsModule,
+          ),
+      },
+      {
         path: 'help',
         component: HelpComponent,
         //   // loadChildren: () =>
