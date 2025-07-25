@@ -621,7 +621,8 @@ export class BarChartComponent implements OnInit {
      avialableChargerCount: string | number;
    }
     // Process the API data for the chart
-    const months = [...new Set(this.reportAvailableChargerCountDataSet.map((item: any) => item.month))].sort();
+const months = [...new Set(this.reportAvailableChargerCountDataSet.map((item: any) => item.month))]
+  .sort((a, b) => (a as string).localeCompare(b as string));
     const acData = months.map(month => {
   const item = this.reportAvailableChargerCountDataSet.find((d: ChargerCountReport) => d.month === month && d.chargerType === 'AC');
   return item ? parseFloat(item.avialableChargerCount as string) : 0;
@@ -724,7 +725,9 @@ export class BarChartComponent implements OnInit {
      totalCollection: string | number;
    }
     
-     const months = [...new Set(this.PaymentReportSet.map((item: any) => item.month))].sort();
+     const months = [...new Set(this.PaymentReportSet.map((item: any) => item.month))]
+  .sort((a, b) => (a as string).localeCompare(b as string));
+
     const acData = months.map(month => {
   const item = this.PaymentReportSet.find((d: ChargerCountReport) => d.month === month && d.chargerType === 'AC');
   return item ? parseFloat(item.totalCollection as string) : 0;

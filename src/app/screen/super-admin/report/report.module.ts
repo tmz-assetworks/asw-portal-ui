@@ -5,7 +5,6 @@ import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 import { SharedModule } from 'src/app/shared/shared.module'
 import { ReportsComponent } from './reports.component'
 import { ChargerCountReportComponent } from './charger-count-report/charger-count-report.component'
-import { ReportDetailComponent } from './report-details/report-details.component'
 
 
 
@@ -16,7 +15,6 @@ const routes: Routes = [
     children: [
       {
         path: '',
-      //   component: ReportSessionComponent,
         pathMatch: 'full',
       },
       {
@@ -24,11 +22,7 @@ const routes: Routes = [
         component: ChargerCountReportComponent,
         pathMatch: 'full',
       },
-//       {
-//   path: 'report/detail',
-//   component: ReportDetailComponent,
-//   pathMatch: 'full',
-// }
+
 
      
     ],
@@ -40,7 +34,6 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-   // ChargerCountReportComponent
    ReportsComponent
   ],
   imports: [

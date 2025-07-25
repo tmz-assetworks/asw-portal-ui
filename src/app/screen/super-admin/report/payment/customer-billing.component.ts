@@ -29,10 +29,10 @@ export class CustomerBillingComponent implements OnInit {
   reportTransactionYearlyData = ''
 
   constructor(
-    private _router: Router,
-    private _route: ActivatedRoute,
-    private reportService: ReportService,
-    private _storageService: StorageService,
+     private readonly _router: Router,
+     private readonly _route: ActivatedRoute,
+     private readonly reportService: ReportService,
+     private readonly _storageService: StorageService,
   ) {
     this.UserId = this._storageService.getLocalData('user_id')
   }

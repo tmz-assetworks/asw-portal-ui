@@ -1,15 +1,18 @@
-<!-- report-details.component.html -->
+
 <div class="header header-block layoutS">
   <div class="header-block1 layout">
     <div class="header-flex layout">
       <div class="top-header-title">
         <div class="header-title">
           <h3 class="header-subtitle txt_label" style="margin-top: 30px;">
-            <span
-              (click)="goback()"
-              class="cursorPointer"
-              style="position: relative; top: 10px; font-size: 20px;"
-            >
+             <span
+    (click)="goback()"
+    (keydown)="handleKeyDown($event)"
+    tabindex="0"
+    role="button"
+    class="cursorPointer"
+    style="position: relative; top: 10px; font-size: 20px;"
+  >
               <img src="../../../../assets/icons/backArrow.png" alt="" />
             </span>
            
@@ -17,42 +20,35 @@
             <b style="font-size: 13px; color: #0062a6;">{{ pageHeading }}</b>
           </h3>
           <div class="exp_button">
-            <div class="cust-list-flex3 layout">
-              <div class="cust-list-flex3-item1" (click)="downloadAsCSV()">
-                <div class="cust-list-block23 layout">
-                  <div class="cust-list-block23-item">
-                    <div class="cust-list-box10 layout">
-                      <img
-                        src="../../../../../assets/download-report.png"
-                        alt=""
-                        srcset=""
-                      />
-                    </div>
-                  </div>
-                  <div class="cust-list-block23-spacer"></div>
-                  <div class="cust-list-text-body4 layout">
-                    EXPORT
-                  </div>
-                </div>
-              </div>
-            </div>
+  <div class="cust-list-flex3 layout">
+    <div
+      class="cust-list-flex3-item1"
+      (click)="downloadAsCSV()"
+      (keydown)="handleExportKeydown($event)"
+      tabindex="0"
+      role="button"
+      aria-label="Export as CSV"
+    >
+      <div class="cust-list-block23 layout">
+        <div class="cust-list-block23-item">
+          <div class="cust-list-box10 layout">
+            <img
+              src="../../../../../assets/download-report.png"
+              alt="Download CSV"
+              srcset=""
+            />
           </div>
         </div>
+        <div class="cust-list-block23-spacer"></div>
+        <div class="cust-list-text-body4 layout">
+          EXPORT
+        </div>
       </div>
-  
-      <!-- <div class="report-toggle">
-        <button 
-          [class.active]="reportType === 'payment Report'"
-          (click)="toggleReportType('payment Report')">
-          payment Report Report
-        </button>
-        <button 
-          [class.active]="reportType === 'Available Charger Count'"
-          (click)="toggleReportType('Available Charger Count')">
-          Charger Count
-        </button>
-      </div> -->
-  
+    </div>
+  </div>
+</div>
+        </div>
+      </div>
       <div class="dashboard-block12 layout">
         <div class="dashboard-block13 layout">
           <div class="dashboard-block13-item">
@@ -61,7 +57,6 @@
                 <div class="dashboard-block48 layout">
                   <div class="dashboard-block48-item">
                     <div class="exp-btn">
-                      <!-- Summary Cards -->
                       <div class="summary-cards">
                         <div class="summary-card ac-card">
                           <h4>Total AC {{ reportType === 'payment Report' ? 'Collection' : 'Chargers' }}</h4>
@@ -91,14 +86,6 @@
                       
                        <!-- Filters -->
   <div class="report-filters">
-    <!-- <mat-form-field appearance="outline">
-      <mat-label>Charger Type</mat-label>
-      <mat-select [(ngModel)]="chargerTypeFilter" (selectionChange)="onChargerTypeChange()">
-        <mat-option *ngFor="let type of chargerTypeOptions" [value]="type">
-          {{ type }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field> -->
 
    <mat-form-field appearance="outline">
   <mat-label>Duration</mat-label>
@@ -109,8 +96,7 @@
   </mat-select>
 </mat-form-field>
   </div>
-                      <!-- Data Table -->
-                      <!-- Replace your current table with this -->
+                     
 <!-- Data Table with Scroll -->
 <div class="data-table-container" 
      style="max-height: 400px; overflow-y: auto;" 

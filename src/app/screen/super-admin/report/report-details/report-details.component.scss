@@ -99,7 +99,6 @@
   &block13.layout {
     position: relative;
     height: min-content;
-    /*  margin: 28px 0px 0px 20px; */
     margin: 0px 20px !important;
     @include lg {
       margin: 25px 0px 0px 18px;
@@ -1419,32 +1418,14 @@
       flex: 0 0 100%;
     }
   }
-  // &box14 {
-  //   background-color: rgb(255, 255, 255);
-  //   box-shadow: 0px 0px 20px 0px rgba(196, 196, 196, 0.24705882352941178);
-  //   border: 1px solid rgb(228, 228, 228);
-  //   border-radius: 10px 10px 10px 10px;
-  // }
-  // &box14.layout {
-  //   position: relative;
-  //   height: 445px;
-  // }
+  
   &block42-spacer {
     flex: 0 1 25px;
     @include lg {
       display: none;
     }
   }
-  // &box13 {
-  //   background-color: rgb(255, 255, 255);
-  //   box-shadow: 0px 0px 20px 0px rgba(196, 196, 196, 0.24705882352941178);
-  //   border: 1px solid rgb(228, 228, 228);
-  //   border-radius: 10px 10px 10px 10px;
-  // }
-  // &box13.layout {
-  //   position: relative;
-  //   height: 445px;
-  // }
+ 
   &block13-spacer {
     flex: 0 1 22px;
     @include md;
@@ -1463,10 +1444,7 @@
 
   &block48 {
     display: flex;
-    // background-color: rgb(255, 255, 255);
-    // box-shadow: 0px 0px 20px 0px rgba(196, 196, 196, 0.24705882352941178);
-    // border: 1px solid rgb(228, 228, 228);
-    // border-radius: 10px 10px 10px 10px;
+   
   }
   &block48.layout {
     position: relative;
@@ -1525,9 +1503,7 @@
     position: relative;
     flex: 0 1 17px;
   }
-  &box11 {
-    // background-color: rgb(217, 217, 217);
-  }
+  
   &box11.layout1 {
     position: relative;
     width: 17px;
@@ -1584,7 +1560,6 @@
   margin: 28px 20px;
 }
 
-// table css
 
 $color_type_0: rgb(0, 98, 166);
 $color_type_1: rgb(112, 120, 127);
@@ -2756,22 +2731,7 @@ $color_type_6: rgb(255, 255, 255);
     @include xs {
       margin: 5px auto 0px;
     }
-    // margin: 15px 0px 0px 2px;
-    //   @include lg {
-    //     margin: 13px 0px 0px 5px;
-    //   }
-    //   @include md {
-    //     margin: 11px 0px 0px 5px;
-    //   }
-    //   @include sm {
-    //     margin: 9px 0px 0px 5px;
-    //   }
-    //   @include xxs {
-    //     margin: 8px 0px 0px 5px;
-    //   }
-    //   @include tn {
-    //     margin: 7px 0px 0px 5px;
-    //   }
+   
   }
   &block2-item {
     @include flex-column;
@@ -2895,9 +2855,7 @@ $color_type_6: rgb(255, 255, 255);
       margin: 5px;
     }
   }
-  &box3 {
-    // background-color: $color_type_13;
-  }
+  
   &box3.layout {
     position: relative;
     height: 22px;
@@ -2995,10 +2953,7 @@ section {
   width: 29%;
 }
 
-cust-list-icon.layout {
-  left: -29px;
-  width: 29%;
-}
+
 
 .mat-row:nth-child(even) {
   background-color: #f5f5f5;
@@ -3049,9 +3004,7 @@ tr.mat-row:last-of-type {
   color: #323e48;
 }
 
-// table.mat-table {
-//   border-spacing: 0;
-// }
+
 
 .box-element-block2.layout[_ngcontent-mog-c58] {
   margin: 20px 0px 6px;
@@ -3122,8 +3075,6 @@ tr.mat-row:last-of-type {
   &group.layout2 {
     position: relative;
     height: min-content;
-    // width: 191px;
-    // min-width: 191px;
     margin: 15px 0px 5px 20px;
     @include xl1 {
       margin: 10px 0px 0px 18px;
@@ -3155,9 +3106,7 @@ tr.mat-row:last-of-type {
     @include lg {
       font-size: 14px;
     }
-    // @include md {
-    //   font-size: 12px;
-    // }
+   
     @include sm {
       font-size: 18px;
     }
@@ -3182,9 +3131,7 @@ tr.mat-row:last-of-type {
     position: relative;
     flex: 0 1 44px;
   }
-  &box16 {
-    // background-color: rgb(255, 255, 255);
-  }
+  
   &box16.layout {
     position: relative;
     height: 24px;
@@ -3224,10 +3171,7 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block2 {
     @include flex-column;
     flex-direction: row;
-    // flex-wrap: wrap;
     justify-content: flex-start;
-    // align-content: center;
-    // align-items: center;
   }
   &block2.layout {
     position: relative;
@@ -3261,9 +3205,7 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
     position: relative;
     height: 50px;
     width: 50px;
-    // margin: 0px 27px 0px 28px;
     @include xl1 {
-      // margin: 0px 18px 0px 20px;
       width: 40px;
       height: 40px;
     }
@@ -3332,7 +3274,6 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
     @include xl1 {
       margin: 8px 20px 6px;
     }
-    // border-bottom: 1px dotted #c2c5c8;
     &.zero_br {
       border-bottom: 0px dotted #c2c5c8;
     }
@@ -3439,7 +3380,7 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
     width: 254px;
   }
 }
-// expand table css
+
 
 table {
   width: 100%;
@@ -3506,159 +3447,7 @@ tr.mat-row.cdk-row.example-element-row.ng-tns-c233-1.ng-star-inserted:nth-child(
   color: #757575;
 }
 
-statuspanel- {
-  &block43 {
-    @include flex-column;
-  }
-  &block43_layout {
-    position: relative;
-    height: min-content;
-  }
-  &block46 {
-    @include flex-column;
-  }
-  &block46.layout {
-    position: relative;
-    height: min-content;
-    margin: 11px 0px;
-    @include lg {
-      margin: 18px 0px 25px;
-    }
-    @include md {
-      margin: 15px 0px 25px;
-    }
-    @include sm {
-      margin: 13px 0px 20px;
-    }
-    @include xs {
-      margin: 11px 0px 15px;
-    }
-    @include xxs {
-      margin: 10px 0px 17px;
-    }
-    @include tn {
-      margin: 10px 0px 5px;
-    }
-  }
-  &block47 {
-    @include flex-column;
-    background-color: rgb(255, 255, 255);
-    box-shadow: 0px 0px 20px 0px rgba(196, 196, 196, 0.24705882352941178);
-    border-radius: 10px 10px 10px 10px;
-  }
-  &block47.layout {
-    position: relative;
-    height: min-content;
-  }
 
-  &block45 {
-    display: flex;
-    align-items: center;
-    background-color: rgb(112, 120, 127);
-    border-radius: 10px 10px 0px 0px;
-  }
-  &block45.layout1 {
-    position: relative;
-    height: min-content;
-    @include xl1 {
-      height: 50px;
-    }
-  }
-  &group.layout2 {
-    position: relative;
-    height: min-content;
-    // width: 191px;
-    // min-width: 191px;
-    margin: 15px 0px 5px 20px;
-    @include xl1 {
-      margin: 10px 0px 0px 18px;
-    }
-
-    @include sm {
-      margin: 14px 0px 13px 13px;
-    }
-    @include xs {
-      margin: 13px 0px 12px 11px;
-    }
-    @include xxs {
-      margin: 12px 0px 11px 10px;
-    }
-    @include tn {
-      margin: 11px 0px 10px 10px;
-    }
-  }
-  &highlights2 {
-    @include font-face($font_type2, rgb(255, 255, 255), 0px);
-    text-align: left;
-
-    @include xxl {
-      font-size: 16px;
-    }
-    @include xl {
-      font-size: 14px;
-    }
-    @include lg {
-      font-size: 14px;
-    }
-    // @include md {
-    //   font-size: 12px;
-    // }
-    @include sm {
-      font-size: 18px;
-    }
-    @include xxs {
-      font-size: 18px;
-    }
-  }
-  &highlights2.layout {
-    position: relative;
-    height: min-content;
-    // margin: 5px 0px 5px 0px; // niharika added
-    @include sm {
-      margin: 5px 0px 5px 0px; // niharika added
-    }
-  }
-  &block45-spacer1 {
-    flex: 1 1 auto;
-  }
-  &block45-item {
-    @include flex-column;
-    position: relative;
-    flex: 0 1 211px;
-  }
-  &block45-item2 {
-    @include flex-column;
-    position: relative;
-    flex: 0 1 44px;
-  }
-  &box16 {
-    // background-color: rgb(255, 255, 255);
-  }
-  &box16.layout {
-    position: relative;
-    height: 24px;
-    width: 24px;
-    margin: 21px 20px 21px 0px;
-    @include lg {
-      margin: 18px 18px 18px 0px;
-    }
-    @include md {
-      margin: 16px 15px 16px 0px;
-    }
-    @include sm {
-      margin: 13px 13px 13px 0px;
-    }
-    @include xs {
-      margin: 12px 11px 12px 0px;
-    }
-    @include xxs {
-      margin: 11px 10px 11px 0px;
-    }
-    @include tn {
-      margin: 10px 10px 10px 0px;
-    }
-  }
-}
 .box-element-block2.layout[_ngcontent-mog-c58] {
   margin: 20px 0px 6px;
 }
@@ -3733,9 +3522,7 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
       height: 40px;
     }
   }
-  &box3 {
-    // background-color: rgb(217, 217, 217);
-  }
+
   &box3.layout {
     position: relative;
     height: 23px;
@@ -3807,10 +3594,7 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block2 {
     @include flex-column;
     flex-direction: row;
-    // flex-wrap: wrap;
     justify-content: flex-start;
-    // align-content: center;
-    // align-items: center;
   }
   &block2.layout {
     position: relative;
@@ -3844,9 +3628,7 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
     position: relative;
     height: 50px;
     width: 50px;
-    // margin: 0px 27px 0px 28px;
     @include xl1 {
-      // margin: 0px 18px 0px 20px;
       width: 40px;
       height: 40px;
     }
@@ -3872,8 +3654,7 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &text-body {
     @include font-face($font_type1, rgb(112, 120, 127), 0px);
   }
-  &text-body.layout {
-  }
+ 
   &block2-spacer {
     flex: 1 1 auto;
     max-width: 30%;
@@ -3888,9 +3669,7 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
   padding: 10px;
   box-sizing: border-box;
 }
-//   .box-element-block2.layout {
-//     margin: 20px auto;
-//   }
+
 .dotted_line hr {
   width: 1px;
   height: 100px;
@@ -3898,23 +3677,6 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
   border-left: 1px dotted #c2c5c8;
 }
 
-/* .txt_label
-    {
-      width:18px;
-      height:12px;
-      background-color: #0062A6;
-      padding:5px;
-      border-radius: 5px;
-      display: inline-block;
-      text-align: center;
-      margin-right: 10px;
-     } */
-
-/*  b{
-      display: block;
-      font-weight: 400;
-      margin-left: 50px;
-    } */
 
 .mat-elevation-z8 {
   box-shadow: 0px 0px 0px 0px rgb(0 0 0 / 20%), 0px 0px 0px 0px rgb(0 0 0 / 14%),
@@ -3941,12 +3703,8 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
     width: 100%;
 
     @include lg {
-      // width: 100vw;
-      // max-width: 100%;
       overflow: auto;
-      // margin-bottom: 10px;
       display: inline-table;
-      // border-collapse: collapse;
     }
   }
 }
@@ -4018,7 +3776,7 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
   width: 100%;
 }
 
-element.style {
+.element.style {
   position: relative;
   width: 100%;
   height: min-content;
@@ -4068,9 +3826,6 @@ element.style {
   display: flex;
 }
 .barbar-text-body1.layout {
-  // position: relative;
-  // height: min-content;
-  //padding: 18px 40px;
   position: relative;
   height: min-content;
   padding: 18px 40px;
@@ -4088,7 +3843,6 @@ button {
 }
 input {
   font: 500 14px/1.2 'Roboto', Helvetica, Arial, serif;
-  // color: #ffffff;
   letter-spacing: 0px;
   background: transparent;
 
@@ -4116,7 +3870,6 @@ button {
 }
 
 .form-select #mat-select-12 {
-  /* display: flex; */
   float: left;
   width: 50%;
 }
@@ -4142,11 +3895,7 @@ mat-select#mat-select-6 {
   float: left;
 }
 
-// .txt_label {
-//   display: block;
-//   font-weight: 400;
-//   margin-left: 50px;
-// }
+
 
 [hidden] {
   display: none !important;
@@ -4183,7 +3932,6 @@ h3.header-subtitle.txt_label {
   overflow-y: auto;
 }
 
-/* For better scrollbar appearance */
 .data-table-container::-webkit-scrollbar {
   width: 8px;
 }
@@ -4201,9 +3949,8 @@ h3.header-subtitle.txt_label {
   background: #555;
 }
 
-/* report-details.component.scss */
 .data-table-container {
-//   height: 500px;
+
   overflow-y: auto;
   position: relative;
   margin-top: 20px;
@@ -4217,7 +3964,6 @@ h3.header-subtitle.txt_label {
   .mat-header-cell {
    color: #f5f5f5;
     font-weight: bold;
-   //  background-color: #f5f5f5;
   }
 }
 
@@ -4352,7 +4098,7 @@ h3.header-subtitle.txt_label {
   }
 }
 
-/* Responsive adjustments */
+
 @media (max-width: 768px) {
   .exp-btn {
     padding: 15px;
@@ -4376,7 +4122,7 @@ h3.header-subtitle.txt_label {
   }
 }
 
-/* Animation for loading state */
+
 @keyframes pulse {
   0% { opacity: 0.6; }
   50% { opacity: 1; }

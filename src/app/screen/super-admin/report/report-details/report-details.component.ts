@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { StorageService } from 'src/app/service/storage.service';
 import { environment } from 'src/environments/environment';
-import { MatDialog } from '@angular/material/dialog';
+
 
 interface ReportData {
   chargerType: string;
@@ -71,15 +71,13 @@ export class ReportDetailComponent implements OnInit {
   };
 
   constructor(
-    private _location: Location,
-    private http: HttpClient,
-    private _storageService: StorageService,
-    private dialog: MatDialog
+       private readonly _location: Location,
+       private readonly http: HttpClient,
+       private readonly _storageService: StorageService
   ) {
     this.graphHeading = this._storageService.getSessionData('graphHeading');
     this.pageHeading = this._storageService.getSessionData('pageHeading');
     this.duration = this._storageService.getSessionData('duration');
-     // Initialize durationFilter from session storage if available
     const storedDuration = this._storageService.getSessionData('duration');
     if (storedDuration && [1, 3, 6, 12].includes(Number(storedDuration))) {
       this.durationFilter = Number(storedDuration);
@@ -158,12 +156,10 @@ export class ReportDetailComponent implements OnInit {
 
 
    onDurationChange(): void {
-    // Save the selected duration to session storage
     this._storageService.setSessionData('duration', this.durationFilter.toString());
     this.loadData();
   }
 
-  // Update the template binding for the duration filter to use durationOptions.label
   getDurationLabel(value: number): string {
     const option = this.durationOptions.find(opt => opt.value === value);
     return option ? option.label : '';
@@ -252,4 +248,19 @@ export class ReportDetailComponent implements OnInit {
     this.setupColumns();
     this.loadData();
   }
+
+
+  handleKeyDown(event: KeyboardEvent): void {
+  if (event.key === 'Enter' || event.key === ' ') {
+    event.preventDefault(); 
+    this.goback();
+  }
+}
+
+handleExportKeydown(event: KeyboardEvent): void {
+  if (event.key === 'Enter' || event.key === ' ') {
+    event.preventDefault(); 
+    this.downloadAsCSV();
+  }
+}
 }
