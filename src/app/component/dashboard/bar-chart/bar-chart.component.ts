@@ -21,6 +21,9 @@ export class BarChartComponent implements OnInit {
   reportSubscribeTypeDataSet: any
   reportSessionDataSet: any
   reportTransactionYearlyDataSet: any
+  reportAvailableChargerCountDataSet:any
+  PaymentReportSet:any
+  
 
   @Input() set locationStatusData(res: any) {
     if (res !== undefined) {
@@ -87,6 +90,28 @@ export class BarChartComponent implements OnInit {
   @Input() set reportTransactionYearlyData(res: any) {
     if (res !== undefined) {
       this.reportTransactionYearlyDataSet = res
+      /**
+       * Set Chart type
+       */
+      this.setChartOption(this.chartTypeData)
+    }
+  }
+
+  @Input() set reportAvailableChargerCountData(res: any) {
+    if (res !== undefined) {
+      this.reportAvailableChargerCountDataSet = res
+      
+      /**
+       * Set Chart type
+       */
+      this.setChartOption(this.chartTypeData)
+    }
+  }
+
+   @Input() set reportPaymentDetailsData(res: any) {
+    if (res !== undefined) {
+      this.PaymentReportSet = res
+      
       /**
        * Set Chart type
        */
@@ -584,7 +609,216 @@ export class BarChartComponent implements OnInit {
           this.reportSessionDataSet,
         ) as EChartsOption
       }
+    } else if (chartType == 'reportAvailableCharger') {
+      if (this.reportAvailableChargerCountDataSet !== undefined) {
+    if (this.reportAvailableChargerCountDataSet.length == 0) {
+      this.option = {};
+      return;
     }
+    interface ChargerCountReport {
+     month: string;
+     chargerType: 'AC' | 'DC';
+     avialableChargerCount: string | number;
+   }
+    // Process the API data for the chart
+const months = [...new Set(this.reportAvailableChargerCountDataSet.map((item: any) => item.month))]
+  .sort((a, b) => (a as string).localeCompare(b as string));
+    const acData = months.map(month => {
+  const item = this.reportAvailableChargerCountDataSet.find((d: ChargerCountReport) => d.month === month && d.chargerType === 'AC');
+  return item ? parseFloat(item.avialableChargerCount as string) : 0;
+});
+    
+    const dcData = months.map(month => {
+  const item = this.reportAvailableChargerCountDataSet.find((d: ChargerCountReport) => d.month === month && d.chargerType === 'DC');
+  return item ? parseFloat(item.avialableChargerCount as string) : 0;
+});
+
+    this.option = {
+      grid: {
+        left: '10%',
+        right: '4%',
+        bottom: '12%',
+        top: 50,
+        containLabel: true,
+      },
+      legend: {
+        right: '4%',
+        icon: 'square',
+      },
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow'
+        },
+        formatter: (params: any) => {
+          let result = `<div style="font-weight:bold">${params[0].axisValue}</div>`;
+          params.forEach((param: any) => {
+            result += `<div>
+              <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${param.color};margin-right:5px"></span>
+              ${param.seriesName}: Available-${param.value}
+            </div>`;
+          });
+          return result;
+        }
+      },
+      xAxis: {
+        type: 'category',
+        data: months as string[],
+        name: 'Month',
+        nameLocation: 'middle',
+        nameGap: 40,
+        axisTick: { show: false },
+        axisLabel: {
+          rotate: 30,
+        },
+      },
+      yAxis: {
+        type: 'value',
+        name: 'Available Charger',
+        nameLocation: 'middle',
+        nameGap: 50,
+        axisLabel: {
+          formatter: '{value}'
+        },
+      },
+      series: [
+        {
+          name: 'AC Chargers',
+          type: 'bar',
+          barWidth: '15%',
+          data: acData,
+          itemStyle: {
+            color: '#0062a6' // Blue color for AC
+          },
+          emphasis: {
+            itemStyle: {
+              color: '#004b8c'
+            }
+          }
+        },
+        {
+          name: 'DC Chargers',
+          type: 'bar',
+          barWidth: '15%',
+          data: dcData,
+          itemStyle: {
+            color: '#ff7f00' // Orange color for DC
+          },
+          emphasis: {
+            itemStyle: {
+              color: '#e67300'
+            }
+          }
+        }
+      ]
+    };
+  }
+    }else if (chartType == 'reportPaymentDetails') {
+  if (this.PaymentReportSet !== undefined) {
+    if (this.PaymentReportSet.length == 0) {
+      this.option = {};
+      return;
+    }
+    interface ChargerCountReport {
+     month: string;
+     chargerType: 'AC' | 'DC';
+     totalCollection: string | number;
+   }
+    
+     const months = [...new Set(this.PaymentReportSet.map((item: any) => item.month))]
+  .sort((a, b) => (a as string).localeCompare(b as string));
+
+    const acData = months.map(month => {
+  const item = this.PaymentReportSet.find((d: ChargerCountReport) => d.month === month && d.chargerType === 'AC');
+  return item ? parseFloat(item.totalCollection as string) : 0;
+});
+    
+    const dcData = months.map(month => {
+  const item = this.PaymentReportSet.find((d: ChargerCountReport) => d.month === month && d.chargerType === 'DC');
+  return item ? parseFloat(item.totalCollection as string) : 0;
+});
+
+    this.option = {
+      grid: {
+        left: '10%',
+        right: '4%',
+        bottom: '12%',
+        top: 50,
+        containLabel: true,
+      },
+      legend: {
+        right: '4%',
+        icon: 'square',
+      },
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow'
+        },
+        formatter: (params: any) => {
+          let result = `<div style="font-weight:bold">${params[0].axisValue}</div>`;
+          params.forEach((param: any) => {
+            result += `<div>
+              <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${param.color};margin-right:5px"></span>
+              ${param.seriesName}: ₹${param.value.toFixed(2)}
+            </div>`;
+          });
+          return result;
+        }
+      },
+      xAxis: {
+        type: 'category',
+        data: months as string[],
+        name: 'Month',
+        nameLocation: 'middle',
+        nameGap: 40,
+        axisTick: { show: false },
+        axisLabel: {
+          rotate: 30,
+        },
+      },
+      yAxis: {
+        type: 'value',
+        name: 'Amount (₹)',
+        nameLocation: 'middle',
+        nameGap: 60,
+        axisLabel: {
+          formatter: '₹{value}'
+        },
+      },
+      series: [
+        {
+          name: 'AC Chargers',
+          type: 'bar',
+          barWidth: '15%',
+          data: acData,
+          itemStyle: {
+            color: '#0062a6' // Blue color for AC
+          },
+          emphasis: {
+            itemStyle: {
+              color: '#004b8c'
+            }
+          }
+        },
+        {
+          name: 'DC Chargers',
+          type: 'bar',
+          barWidth: '15%',
+          data: dcData,
+          itemStyle: {
+            color: '#ff7f00' // Orange color for DC
+          },
+          emphasis: {
+            itemStyle: {
+              color: '#e67300'
+            }
+          }
+        }
+      ]
+    };
+  }
+}
   }
 
   ngOnInit(): void {

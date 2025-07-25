@@ -1,0 +1,117 @@
+<div class="header header-block layout reports-main">
+  <div class="header-block1 layout">
+    <div class="header-flex layout">
+      <h1 class="header-subtitle-box layout">Reports</h1>
+
+      <div class="dashboard-block12 layout"></div>
+      <div class="location-block2 layout">
+        <div class="location-block2-item">
+          <div class="location-block4 layout">
+            <div class="location-block4-item">
+              <div class="location-block6 layout">
+                <a [routerLink]="['report-charger']">
+                  <div class="location-text-body layout">Available Charger Count</div>
+                </a>
+              </div>
+            </div>
+            <div class="location-block4-item">
+              <div class="location-block5 layout">
+                <a [routerLink]="['billing']">
+                  <div class="location-text-body layout">Payment Report</div>
+                </a>
+              </div>
+            </div>
+           
+          </div>
+        </div>
+        <div class="location-block2-spacer"></div>
+        <div class="location-block2-item1">
+          <div
+            class="location-block3 layout"
+            style="
+              display: flex;
+              flex-direction: column;
+              background-color: #ebebeb;
+              border-left: 1px solid white;
+            "
+          >
+            <div class="location-box3 layout">
+              <img
+                src="../../../../assets/charger-session.svg"
+                alt=""
+                srcset=""
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="dashboard-block14 layout">
+        <div class="dashboard-block15 layout"></div>
+        <div class="dashboard-block32 layout">
+          <div class="dashboard-block33 layout">
+           
+
+            <mat-button-toggle-group
+              [formControl]="filterToggle"
+              (change)="setTime($event)"
+            >
+              <div class="dashboard-block33-item">
+               
+              </div>
+              
+              <div class="dashboard-block33-item3">
+                <div class="dashboard-block37 layout space-between">
+                  <mat-button-toggle 
+                  value="1"
+                    style="border: 1px solid #0062a6;"
+                  >
+                    Current Month
+                  </mat-button-toggle>
+                </div>
+              </div>
+              <div class="dashboard-block33-item4">
+                <div class="dashboard-block38 layout space-between">
+                  <mat-button-toggle value="3">
+                    Last 3 Months
+                  </mat-button-toggle>
+                </div>
+              </div>
+              <div class="dashboard-block33-item1">
+                <div class="dashboard-block35 layout space-between">
+                  <mat-button-toggle
+                    value="12"
+                    style="border: 1px solid #0062a6;"
+                  >
+                    Last 12 Months
+                  </mat-button-toggle>
+                  
+                </div>
+              </div>
+            </mat-button-toggle-group>
+          </div>
+        </div>
+        <div class="dashboard-block42 layout">
+          <div class="dashboard-block42-item full-width-card">
+            <app-bar-chart
+              *ngIf="reportAvailableChargerCountData !== ''"
+              [reportAvailableChargerCountData]="reportAvailableChargerCountData"
+              [chartType]="'reportAvailableCharger'"
+              [chartTitle]="'Available Charger Count'"
+              (barDetailPage)="
+                openDetailPage(
+                  2,
+                  'Available Charger Count',
+                  'REPORTS Available Charger Count',
+                  selectedDuration
+                )
+              "
+            ></app-bar-chart>
+          </div>
+          <div class="dashboard-block42-spacer"></div>
+          <div class="dashboard-block42-item">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
