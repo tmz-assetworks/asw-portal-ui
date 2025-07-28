@@ -12,8 +12,8 @@ import { ReportService } from '../report.service'
   styleUrls: ['./charger-count-report.component.scss'],
 })
 export class ChargerCountReportComponent implements OnInit {
-  filterToggle = new FormControl('1')
-  selectedDuration: number = 1
+  filterToggle = new FormControl('12')
+  selectedDuration: number = 12
   reportUpcomingSessionData = ''
   UserId: string | null
   reportSessionLengthData = ''

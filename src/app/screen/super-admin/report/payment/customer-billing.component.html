@@ -9,16 +9,16 @@
         <div class="location-block2-item">
           <div class="location-block4 layout">
             <div class="location-block4-item">
-              <div class="location-block5 layout">
-                 <a [routerLink]="['../']">
-                  <div class="location-text-body layout">Available Charger Count</div>
-                </a>
+             <div class="location-block6 layout">
+                <!-- <a [routerLink]="['billing']"> -->
+                  <div class="location-text-body layout">Cost Information</div>
+                <!-- </a> -->
               </div>
             </div>
             <div class="location-block4-item">
-              <div class="location-block6 layout">
-                <a [routerLink]="['billing']">
-                  <div class="location-text-body layout">Payment Report</div>
+               <div class="location-block5 layout">
+                 <a [routerLink]="['charger']">
+                  <div class="location-text-body layout">Charger Count Information</div>
                 </a>
               </div>
             </div>
@@ -60,27 +60,48 @@
               <div class="dashboard-block33-item3">
                 <div class="dashboard-block37 layout space-between">
                   <mat-button-toggle 
-                  value="1"
+                  value="12"
                     style="border: 1px solid #0062a6;"
                   >
-                    Current Month
+                    1 Year
                   </mat-button-toggle>
                 </div>
               </div>
               <div class="dashboard-block33-item4">
                 <div class="dashboard-block38 layout space-between">
-                  <mat-button-toggle value="3">
-                    Last 3 Months
+                  <mat-button-toggle value="24">
+                    2 Years
                   </mat-button-toggle>
                 </div>
               </div>
+              <div class="dashboard-block33-item4">
+                <div class="dashboard-block38 layout space-between">
+                  <mat-button-toggle value="36">
+                    3 Years
+                  </mat-button-toggle>
+                </div>
+              </div>
+              <!-- <div class="dashboard-block33-item1">
+                <div class="dashboard-block35 layout space-between">
+                  <mat-button-toggle
+                  (click)="openDateRangeDialog()" 
+                    style="border: 1px solid #0062a6;"
+                  >
+                    
+              <mat-icon>date_range</mat-icon>
+              Select Date Range
+            
+                  </mat-button-toggle>
+                  
+                </div>
+              </div> -->
               <div class="dashboard-block33-item1">
                 <div class="dashboard-block35 layout space-between">
                   <mat-button-toggle
-                    value="12"
+                    value="0"
                     style="border: 1px solid #0062a6;"
                   >
-                    Last 12 Months
+                    ALL
                   </mat-button-toggle>
                   
                 </div>

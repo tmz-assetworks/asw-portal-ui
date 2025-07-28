@@ -6,11 +6,18 @@ import { SharedModule } from 'src/app/shared/shared.module'
 
 import { ReportsComponent } from './reports.component'
 import { ChargerCountReportComponent } from './charger-count-report/charger-count-report.component'
-import { ReactiveFormsModule } from '@angular/forms'
+import { ReactiveFormsModule,FormsModule } from '@angular/forms'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 
 import { CustomerBillingComponent } from './payment/customer-billing.component'
 import { ReportDetailComponent } from './report-details/report-details.component'
+
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { DateRangeDialogComponent } from './report-details/date-range-dialog.component'
 
 
 
@@ -21,22 +28,22 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: ChargerCountReportComponent,
-        pathMatch: 'full',
-      },
-      {
-        path: 'billing',
         component: CustomerBillingComponent,
         pathMatch: 'full',
       },
       {
-        path: 'detail',
+        path: 'charger',
+        component: ChargerCountReportComponent,
+        pathMatch: 'full',
+      },
+      {
+        path: 'charger/detail',
         component: ReportDetailComponent,
         pathMatch: 'full',
       },
 
        {
-        path: 'billing/detail',
+        path: 'detail',
         component: ReportDetailComponent,
         pathMatch: 'full',
       },
@@ -49,8 +56,8 @@ const routes: Routes = [
     ReportsComponent,
     CustomerBillingComponent,
     ChargerCountReportComponent,
-    ReportDetailComponent
-
+    ReportDetailComponent,
+   DateRangeDialogComponent
   ],
   imports: [
    CommonModule, 
@@ -59,6 +66,13 @@ const routes: Routes = [
     SharedMaterialModule,       
     SharedModule,              
     RouterModule.forChild(routes),
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatIconModule,
+    FormsModule,
+    
   ],
 })
 export class ReportsModule {}
