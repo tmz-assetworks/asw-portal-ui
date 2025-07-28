@@ -22,7 +22,7 @@ interface ProcessedReportData {
   [key: string]: any;
 }
 
-type ReportDisplayType = 'payment Report' | 'Available Charger Count';
+type ReportDisplayType = 'billing Report' | 'Charger Count Information';
 type ApiEndpointKey = 'payment' | 'charger';
 
 @Component({
@@ -52,17 +52,17 @@ export class ReportDetailComponent implements OnInit {
   chargerTypeOptions = ['ALL', 'AC', 'DC'];
  durationOptions = [
     {label : 'All',value:0},
-    { label: 'Current month', value: 1 },
-    { label: 'Last 3 months', value: 3 },
-    { label: 'Last 6 months', value: 6 },
-    { label: 'Last 12 months', value: 12 }
+    { label: '1 Year', value: 12 },
+    { label: '2 Years', value: 24 },
+    { label: '3 Years', value: 36 },
+   //  { label: 'Last 12 months', value: 12 }
   ];
 
-  reportType: ReportDisplayType = 'payment Report';
+  reportType: ReportDisplayType = 'billing Report';
 
   private readonly reportTypeMap: Record<ReportDisplayType, ApiEndpointKey> = {
-    'payment Report': 'payment',
-    'Available Charger Count': 'charger'
+    'billing Report': 'payment',
+    'Charger Count Information': 'charger'
   };
 
   apiEndpoints = {
@@ -79,7 +79,7 @@ export class ReportDetailComponent implements OnInit {
     this.pageHeading = this._storageService.getSessionData('pageHeading');
     this.duration = this._storageService.getSessionData('duration');
     const storedDuration = this._storageService.getSessionData('duration');
-    if (storedDuration && [1, 3, 6, 12].includes(Number(storedDuration))) {
+    if (storedDuration && [0,12,24,36].includes(Number(storedDuration))) {
       this.durationFilter = Number(storedDuration);
     }
 
@@ -87,9 +87,9 @@ export class ReportDetailComponent implements OnInit {
 
   ngOnInit(): void {
     const storedReportType = this._storageService.getSessionData('graphHeading');
-    this.reportType = (storedReportType === 'payment Report' || storedReportType === 'Available Charger Count')
+    this.reportType = (storedReportType === 'billing Report' || storedReportType === 'Charger Count Information')
       ? storedReportType
-      : 'payment Report';
+      : 'billing Report';
 
     this.setupColumns();
     this.loadData();
@@ -101,7 +101,7 @@ export class ReportDetailComponent implements OnInit {
 
   setupColumns(): void {
     this.displayedColumns = ['month'];
-    if (this.reportType === 'payment Report') {
+    if (this.reportType === 'billing Report') {
       this.displayedColumns.push('acCollection', 'dcCollection');
     } else {
       this.displayedColumns.push('acCount', 'dcCount');
@@ -142,7 +142,7 @@ export class ReportDetailComponent implements OnInit {
         monthGroups[item.month] = { month: item.month };
       }
 
-      if (this.reportType === 'payment Report') {
+      if (this.reportType === 'billing Report') {
         monthGroups[item.month][item.chargerType.toLowerCase() + 'Collection'] = item.totalCollection;
       } else {
         monthGroups[item.month][item.chargerType.toLowerCase() + 'Count'] = item.avialableChargerCount;
@@ -187,7 +187,7 @@ export class ReportDetailComponent implements OnInit {
   getTotal(chargerType?: string): number {
     if (!this.apiData?.data) return 0;
 
-    if (this.reportType === 'payment Report') {
+    if (this.reportType === 'billing Report') {
       if (!chargerType) {
         return this.apiData.data.reduce((sum: number, item: any) => sum + (parseFloat(item.totalCollection) || 0), 0);
       }
@@ -209,32 +209,41 @@ export class ReportDetailComponent implements OnInit {
     sessionStorage.clear();
   }
 
-  downloadAsCSV(): void {
-    let csvContent = "data:text/csv;charset=utf-8,";
-    const headers = ['Month', 'AC ' + (this.reportType === 'payment Report' ? 'Amount' : 'Count'),
-      'DC ' + (this.reportType === 'payment Report' ? 'Amount' : 'Count')].join(',');
+downloadAsCSV(): void {
+  let csvContent = "data:text/csv;charset=utf-8,";
+  const headers = [
+    'Month',
+    'AC ' + (this.reportType === 'billing Report' ? 'Amount' : 'Count'),
+    'DC ' + (this.reportType === 'billing Report' ? 'Amount' : 'Count')
+  ].join(',');
 
-    const rows = this.processedData.map(item => {
-      return [
-        item.month,
-        this.reportType === 'payment Report' ? this.formatValue(item.acCollection) : item.acCount,
-        this.reportType === 'payment Report' ? this.formatValue(item.dcCollection) : item.dcCount
-      ].join(',');
-    }).join('\n');
+  const rows = this.processedData.map(item => {
+    return [
+      item.month,
+      this.reportType === 'billing Report' ? this.formatValue(item.acCollection) : item.acCount,
+      this.reportType === 'billing Report' ? this.formatValue(item.dcCollection) : item.dcCount
+    ].join(',');
+  }).join('\n');
 
-    csvContent += headers + '\n' + rows;
+  csvContent += headers + '\n' + rows;
 
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement('a');
-    link.setAttribute('href', encodedUri);
-    link.setAttribute('download', `${this.reportType.replace(' ', '_')}_report.csv`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  }
+  // 🔁 Generate the filename conditionally
+  let filename = this.reportType === 'billing Report'
+    ? 'cost_information_report.csv'
+    : `${this.reportType.replace(/ /g, '_').toLowerCase()}_report.csv`;
+
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement('a');
+  link.setAttribute('href', encodedUri);
+  link.setAttribute('download', filename);
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
 
   formatValue(value: any): string {
-    return this.reportType === 'payment Report' ? parseFloat(value).toFixed(2) : value;
+    return this.reportType === 'billing Report' ? parseFloat(value).toFixed(2) : value;
   }
 
   onChargerTypeChange(): void {

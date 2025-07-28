@@ -5,6 +5,8 @@ import { FormControl } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import { StorageService } from 'src/app/service/storage.service'
 import { ReportService } from '../report.service'
+import { DateRangeDialogComponent } from '../report-details/date-range-dialog.component'
+import { MatDialog } from '@angular/material/dialog';
 // import { ReportService } from '../reports.service'
 
 @Component({
@@ -13,14 +15,8 @@ import { ReportService } from '../report.service'
   styleUrls: ['./customer-billing.component.scss']
 })
 export class CustomerBillingComponent implements OnInit {
-  filterToggle = new FormControl('1')
-   selectedDuration: string = '1'
-  // basic = 'basic'
-  // basicStatus = 'basicStatus'
-  // bar = 'chargerBar'
-  // barChargers = 'reportTransactionYearly'
-  // lineChargers = 'reportTransaction'
-  // lineChargersTitle = 'reportTransaction'
+  filterToggle = new FormControl('12')
+   selectedDuration: string = '12'
   reportPaymentDetailsData = ''
 
   barChargersTitle = 'Transaction Amount'
@@ -33,6 +29,7 @@ export class CustomerBillingComponent implements OnInit {
      private readonly _route: ActivatedRoute,
      private readonly reportService: ReportService,
      private readonly _storageService: StorageService,
+      private readonly dialog: MatDialog
   ) {
     this.UserId = this._storageService.getLocalData('user_id')
   }
@@ -82,4 +79,19 @@ export class CustomerBillingComponent implements OnInit {
       }
     })
   }
+
+  openDateRangeDialog(): void {
+  const dialogRef = this.dialog.open(DateRangeDialogComponent, {
+    width: '400px'
+  });
+
+  dialogRef.afterClosed().subscribe((result:any) => {
+    if (result) {
+      console.log('Selected date range:', result);
+      this.selectedDuration=result?.months
+      this.getPaymentDetailsData(this.UserId, '', this.selectedDuration);
+      
+    }
+  });
+}
 }
