@@ -659,7 +659,7 @@ export class AddLocationComponent implements OnInit {
           this._location.back()
         },
         error: (error) => {
-          this.toastr.error('Fill all mandatory fields')
+           this.toastr.error(error.error.content)
         },
       })
     } else if (!this.isEdit) {
@@ -669,7 +669,7 @@ export class AddLocationComponent implements OnInit {
           this._location.back()
         },
         error: (error) => {
-          this.toastr.error('Fill all mandatory fields')
+          this.toastr.error(error.error.StatusMessage)
         },
       })
     }
