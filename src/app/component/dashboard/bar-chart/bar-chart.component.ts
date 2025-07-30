@@ -779,11 +779,11 @@ const months = [...new Set(this.reportAvailableChargerCountDataSet.map((item: an
       },
       yAxis: {
         type: 'value',
-        name: 'Amount (₹)',
+        name: 'Amount ($)',
         nameLocation: 'middle',
         nameGap: 60,
         axisLabel: {
-          formatter: '₹{value}'
+          formatter: '${value}'
         },
       },
       series: [

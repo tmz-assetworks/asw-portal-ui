@@ -8,10 +8,18 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ChangePasswordComponent } from './change-password/change-password.component'
 import { LoginVerificationComponent } from './login-verification/login-verification.component'
 import { ConfirmationMailComponent } from './confirmation-mail/confirmation-mail.component'
+import { SharedModule } from 'src/app/shared/shared.module'
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
-  imports: [RouterModule, ReactiveFormsModule, FormsModule, CommonModule],
-  exports: [],
+  imports: [RouterModule, ReactiveFormsModule, FormsModule, CommonModule, MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule],
+  exports: [SharedModule],
   declarations: [
     LoginComponent,
     ForgotPasswordComponent,

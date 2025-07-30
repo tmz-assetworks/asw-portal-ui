@@ -1,52 +1,94 @@
-// import { Component } from '@angular/core';
-// import { FormControl } from '@angular/forms';
-// import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { FormGroup, FormControl } from '@angular/forms';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
-// @Component({
-//   selector: 'app-date-range-dialog',
-//   template: `
-//     <h2 mat-dialog-title>Select Date Range</h2>
-//     <div mat-dialog-content>
-//       <mat-form-field appearance="fill">
-//         <mat-label>Start Date</mat-label>
-//         <input matInput [matDatepicker]="startPicker" [formControl]="startDate">
-//         <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
-//         <mat-datepicker #startPicker></mat-datepicker>
-//       </mat-form-field>
+@Component({
+  selector: 'app-date-range-dialog',
+  template: `
+    <h2 mat-dialog-title>Select Date Range</h2>
+    <div mat-dialog-content>
+      <form [formGroup]="rangeForm">
+        <mat-form-field appearance="fill">
+          <mat-label>Start date</mat-label>
+          <input matInput [matDatepicker]="startPicker" formControlName="start" (dateChange)="onStartDateChange($event)">
+          <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+          <mat-datepicker #startPicker></mat-datepicker>
+        </mat-form-field>
 
-//       <mat-form-field appearance="fill">
-//         <mat-label>End Date</mat-label>
-//         <input matInput [matDatepicker]="endPicker" [formControl]="endDate">
-//         <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
-//         <mat-datepicker #endPicker></mat-datepicker>
-//       </mat-form-field>
-//     </div>
-//     <div mat-dialog-actions>
-//       <button mat-button (click)="onCancel()">Cancel</button>
-//       <button mat-button color="primary" (click)="onApply()" [disabled]="!startDate.value || !endDate.value">Apply</button>
-//     </div>
-//   `,
-//   styles: [`
-//     mat-form-field {
-//       width: 100%;
-//       margin: 10px 0;
-//     }
-//   `]
-// })
-// export class DateRangeDialogComponent {
-//   startDate = new FormControl();
-//   endDate = new FormControl();
+        <mat-form-field appearance="fill">
+          <mat-label>End date</mat-label>
+          <input matInput [matDatepicker]="endPicker" formControlName="end" [max]="maxEndDate">
+          <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+          <mat-datepicker #endPicker></mat-datepicker>
+        </mat-form-field>
+      </form>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button (click)="onCancel()">Cancel</button>
+      <button mat-button color="primary" (click)="onSubmit()" [disabled]="!rangeForm.valid">Submit</button>
+    </div>
+  `,
+  styles: [`
+    mat-form-field {
+      width: 100%;
+      margin: 10px 0;
+    }
+  `]
+})
+export class DateRangeDialogComponent {
+  maxEndDate: Date;
+  rangeForm = new FormGroup({
+    start: new FormControl(null),
+    end: new FormControl(null)
+  });
 
-//   constructor(public dialogRef: MatDialogRef<DateRangeDialogComponent>) {}
+  constructor(
+    public dialogRef: MatDialogRef<DateRangeDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+    // Set maximum end date to today
+    this.maxEndDate = new Date();
+  }
 
-//   onCancel(): void {
-//     this.dialogRef.close();
-//   }
+  onStartDateChange(event: MatDatepickerInputEvent<Date>) {
+    // If start date is changed and is after the current end date, reset end date
+    if (event.value && this.rangeForm.value.end && event.value > this.rangeForm.value.end) {
+      this.rangeForm.patchValue({ end: null });
+    }
+  }
 
-//   onApply(): void {
-//     this.dialogRef.close({
-//       startDate: this.startDate.value,
-//       endDate: this.endDate.value
-//     });
-//   }
-// }
+  onCancel(): void {
+    this.dialogRef.close();
+  }
+
+  onSubmit(): void {
+    if (this.rangeForm.valid) {
+      const startDate = this.rangeForm.value.start;
+      const endDate = this.rangeForm.value.end;
+      
+      if (startDate && endDate) {
+        // Ensure end date is not in the future (additional validation)
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const validatedEndDate = endDate > today ? today : endDate;
+        
+        const months = this.calculateMonthsBetweenDates(startDate, validatedEndDate);
+        this.dialogRef.close({
+          startDate,
+          endDate: validatedEndDate,
+          months
+        });
+      }
+    }
+  }
+
+  private calculateMonthsBetweenDates(start: Date, end: Date): number {
+    const startYear = start.getFullYear();
+    const startMonth = start.getMonth();
+    const endYear = end.getFullYear();
+    const endMonth = end.getMonth();
+
+    return (endYear - startYear) * 12 + (endMonth - startMonth) + 1;
+  }
+}
