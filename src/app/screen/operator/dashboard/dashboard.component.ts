@@ -133,7 +133,27 @@ export class DashboardComponent implements OnInit {
 
   initMap() {
     const initialize = () => {
-    const center = new google.maps.LatLng(36.2082629, -113.737393)
+       // Default fallback center (if no data)
+    let centerLat = 36.2082629;
+    let centerLng = -113.737393;
+
+ if (this.mapstatusdata && this.mapstatusdata.length > 0) {
+  const target = this.mapstatusdata.find(
+    ((item:any) =>
+      item.locationName !== 'NewChargers' &&
+      item.latitude &&
+      item.longitude
+  ));
+
+  if (target) {
+    centerLat = Number(target.latitude);
+    centerLng = Number(target.longitude);
+  } else {
+    console.warn('No valid location found with coordinates other than "NewChargers"');
+  }
+}
+    
+    const center = new google.maps.LatLng(centerLat, centerLng);
     const map = new google.maps.Map(document.getElementById('map'), {
         zoom: 5,
         center: center,
