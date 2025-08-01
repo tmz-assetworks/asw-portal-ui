@@ -1849,3 +1849,38 @@ mat-dialog-container#mat-dialog-0 {
   }
   
   }
+
+  /* Align mat-icon suffix/prefix vertically in outline inputs */
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-suffix,
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-prefix {
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+/* Optional: ensure consistent height for mat-form-field input */
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+  padding-top: 1.25em; // Adjust as needed
+  padding-bottom: 1.25em;
+}
+
+/* Fix for label floating overlap in outline form fields */
+/* Move floating label slightly above */
+.mat-form-field-appearance-outline .mat-form-field-label {
+  
+  font-size: 0.875rem; /* Optional: adjust to match input font */
+}
+
+/* Increase top padding inside the form field control */
+.mat-form-field-appearance-outline .mat-form-field-infix {
+  padding-top: 1.6em; /* Creates room for label */
+}
+
+/* Adjust icon alignment */
+.mat-form-field-prefix,
+.mat-form-field-suffix {
+  position: relative;
+  top: 0.25em; /* Adjust as needed */
+}
