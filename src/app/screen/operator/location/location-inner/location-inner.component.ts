@@ -50,6 +50,7 @@ export class LocationInnerComponent implements OnInit {
   locationList: any
   toggleValue: number = 1
   displayedColumns = [
+    'locationId',
     'locationName',
     'address',
     'contactPersonName',
@@ -57,7 +58,6 @@ export class LocationInnerComponent implements OnInit {
     'locationStatus',
     'noOfPorts',
     'available',
-    'connected',
     'faulty',
     'action',
   ]
@@ -68,7 +68,7 @@ export class LocationInnerComponent implements OnInit {
   }
 
   viewLocation(data: any) {
-    this._storageService.setSessionData('locationId', data.locationId)
+    this._storageService.setSessionData('locationId', data.id)
     this._storageService.setSessionData('locationName', data.locationName)
     let userRole=this._storageService.getLocalData('role')?.toLowerCase();
     if(userRole){
