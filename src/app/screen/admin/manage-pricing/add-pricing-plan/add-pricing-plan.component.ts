@@ -350,32 +350,10 @@ export class AddPricingPlanComponent implements OnInit {
         this._AdminService.CreatePricePlan(pBody).subscribe(
           (res) => {
             if (res) {
-              //Do your stuffs...
-              this.toastr.success('Record saved successfully.')
-              this.pricingPlanFormGroup.reset()
-              // this.showLoader = false
-              this.submitted = false
-              this._router.navigate(['admin/pricing'])
+             this.handleSuccess()
             }
           },
-
-          (error: any) => {
-            if (error.status == 400) {
-              let errorMsg = 'Something went wrong';
-              if (error.error?.errors) {
-              const validationErrors = error.error.errors;
-              errorMsg = Object.values(validationErrors).flat().join('<br/>');
-              }            
-              else if (error.error.statusCode == 200) {
-                errorMsg = error.error.statusMessage
-                
-              } else {
-                errorMsg = error.error.errors
-              }
-              this.toastr.error(errorMsg)
-                this.showLoader = false
-            }
-          },
+          (error: any) => this.handleError(error),
         )
       }
     })
@@ -457,35 +435,38 @@ export class AddPricingPlanComponent implements OnInit {
         this._AdminService.UpdatePricePlan(body).subscribe(
           (res) => {
             if (res) {
-              //Do your stuffs...
-              this.toastr.success('Record saved successfully.')
-              this.pricingPlanFormGroup.reset()
-              // this.showLoader = false
-              this.submitted = false
-              this._router.navigate(['admin/pricing'])
+              this.handleSuccess()
             }
           },
-
-          (error: any) => {
-            if (error.status == 400) {
-              let errorMsg = 'Something went wrong';
-              if (error.error?.errors) {
-              const validationErrors = error.error.errors;
-              errorMsg = Object.values(validationErrors).flat().join('<br/>');
-              }     
-              else if (error.error.statusCode == 200) {
-                errorMsg = error.error.statusMessage
-              } else {
-                errorMsg = error.error.errors
-                
-              }
-              this.toastr.error(errorMsg)
-                this.showLoader = false
-            }
-          },
+          (error: any) => this.handleError(error),
         )
       }
     })
+  }
+  /**
+   * show success and error msg
+   */
+  private handleSuccess(): void {
+  this.toastr.success('Record saved successfully.')
+  this.pricingPlanFormGroup.reset()
+  this.submitted = false
+  this._router.navigate(['admin/pricing'])
+  }
+
+  private handleError(error: any): void {
+  if (error.status === 400) {
+    let errorMsg = 'Something went wrong';
+    if (error.error?.errors) {
+      const validationErrors = error.error.errors
+      errorMsg = Object.values(validationErrors).flat().join('<br/>')
+    } else if (error.error.statusCode === 200) {
+      errorMsg = error.error.statusMessage
+    } else {
+      errorMsg = error.error.errors
+    }
+    this.toastr.error(errorMsg)
+    this.showLoader = false
+    }
   }
 
   /**
