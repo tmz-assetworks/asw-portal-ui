@@ -87,9 +87,9 @@ export class AddPricingPlanComponent implements OnInit {
     customerN: new FormControl('', Validators.required),
     pricingPlanName: new FormControl('', [
       Validators.required,
-      Validators.maxLength(40),
+      Validators.maxLength(50),
     ]),
-    description: new FormControl('', Validators.maxLength(250)),
+    description: new FormControl('', Validators.maxLength(500)),
     currencyCode: new FormControl('', Validators.required),
     validFrom: new FormControl('', Validators.required),
     validTo: new FormControl('', Validators.required),
@@ -361,15 +361,19 @@ export class AddPricingPlanComponent implements OnInit {
 
           (error: any) => {
             if (error.status == 400) {
-              if (error.error.statusCode == 200) {
-                let errorMsg = error.error.statusMessage
-                this.toastr.error(errorMsg)
-                this.showLoader = false
+              let errorMsg = 'Something went wrong';
+              if (error.error?.errors) {
+              const validationErrors = error.error.errors;
+              errorMsg = Object.values(validationErrors).flat().join('<br/>');
+              }            
+              else if (error.error.statusCode == 200) {
+                errorMsg = error.error.statusMessage
+                
               } else {
-                let errorMsg = error.error.errors
-                this.toastr.error(errorMsg)
-                this.showLoader = false
+                errorMsg = error.error.errors
               }
+              this.toastr.error(errorMsg)
+                this.showLoader = false
             }
           },
         )
@@ -464,15 +468,19 @@ export class AddPricingPlanComponent implements OnInit {
 
           (error: any) => {
             if (error.status == 400) {
-              if (error.error.statusCode == 200) {
-                let errorMsg = error.error.statusMessage
-                this.toastr.error(errorMsg)
-                this.showLoader = false
+              let errorMsg = 'Something went wrong';
+              if (error.error?.errors) {
+              const validationErrors = error.error.errors;
+              errorMsg = Object.values(validationErrors).flat().join('<br/>');
+              }     
+              else if (error.error.statusCode == 200) {
+                errorMsg = error.error.statusMessage
               } else {
-                let errorMsg = error.error.errors
-                this.toastr.error(errorMsg)
-                this.showLoader = false
+                errorMsg = error.error.errors
+                
               }
+              this.toastr.error(errorMsg)
+                this.showLoader = false
             }
           },
         )
