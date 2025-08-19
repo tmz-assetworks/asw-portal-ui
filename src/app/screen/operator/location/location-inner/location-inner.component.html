@@ -4,16 +4,11 @@
 <div class="dashboard-block13 layout loctn-dashboard">
   <div class="dashboard-block13-item location-opt">
     <div class="dashboard-block14 layout">
-      <div class="dashboard-block15 layout">
-        <!-- <div *ngFor="let item of data; let i = index"> -->
+      <!--<div class="dashboard-block15 layout">
         <div class="dashboard-block15-item">
           <app-widget [widgetIcon]="locations" [data]="data[0]"></app-widget>
         </div>
         <div class="dashboard-block15-spacer"></div>
-        <!-- <div *ngif="i == 0" class="dashboard-block15-spacer"></div>
-                    <div *ngif="i == 1" class="dashboard-block15-spacer1"></div>
-                    <div *ngif="i == 2" class="dashboard-block15-spacer"></div> -->
-        <!-- </div> -->
         <div class="dashboard-block15-item">
           <app-widget [widgetIcon]="chargers" [data]="data[1]"></app-widget>
         </div>
@@ -28,50 +23,42 @@
         <div class="dashboard-block15-item">
           <app-widget [widgetIcon]="errors" [data]="data[3]"></app-widget>
         </div>
-      </div>
-      <div class="dashboard-block32 layout">
+      </div>-->
+      <!--<div class="dashboard-block32 layout">
         <div class="dashboard-block33 layout">
           <mat-button-toggle-group
             [formControl]="filterToggle"
             (change)="setTime($event)"
           >
             <div class="dashboard-block33-item">
-              <!-- <div class="dashboard-block34 layout">
-
-
-            </div> -->
             </div>
             <div class="dashboard-block33-item1">
               <div class="dashboard-block35 layout space-between">
                 <mat-button-toggle value="1" style="border: 1px solid #0062a6;">
                   Last 24 Hours
                 </mat-button-toggle>
-                <!-- <div class="dashboard-text-body2 layout">Last 24 Hours</div> -->
               </div>
             </div>
             <div class="dashboard-block33-item2">
               <div class="dashboard-block36 layout space-between">
-                <!-- <div class="dashboard-text-body3 layout">One Week</div> -->
                 <mat-button-toggle value="7">One Week</mat-button-toggle>
               </div>
             </div>
             <div class="dashboard-block33-item3">
               <div class="dashboard-block37 layout space-between">
-                <!-- <div class="dashboard-text-body3 layout1">Current Month</div> -->
                 <mat-button-toggle value="30">Current Month</mat-button-toggle>
               </div>
             </div>
             <div class="dashboard-block33-item4">
               <div class="dashboard-block38 layout space-between">
-                <!-- <div class="dashboard-text-body3 layout2">Last 3 Months</div> -->
                 <mat-button-toggle value="90">Last 3 Months</mat-button-toggle>
               </div>
             </div>
           </mat-button-toggle-group>
         </div>
-      </div>
+      </div>-->
 
-      <div class="dashboard-block42 layout">
+      <!--<div class="dashboard-block42 layout">
         <div class="dashboard-block42-item">
           <app-bar-chart
             *ngIf="locationStatusData !== ''"
@@ -83,7 +70,6 @@
             "
           ></app-bar-chart>
         </div>
-        <!-- <div class="dashboard-block42-spacer"></div> -->
         <div class="dashboard-block42-item">
           <app-bar-chart
             *ngIf="locationPerformingData !== ''"
@@ -94,14 +80,13 @@
             (toggleValueChanges)="changeToggleValue($event)"
           ></app-bar-chart>
         </div>
-      </div>
+      </div>-->
 
       <div class="">
         <div class="dashboard-block48 layout">
           <div class="dashboard-block48-item">
-            <!-- <div class="dashboard-block49 layout"> -->
             <div>
-              <div class="cust-list-flex3 layout">
+              <div class="cust-list-flex3 layout" style="margin:0px">
                 <div class="cust-list-flex3-item">
                   <div class="cust-list-group layout">
                     <div class="cust-list-block19 layout">
@@ -127,11 +112,6 @@
                 <div class="cust-list-flex3-spacer"></div>
                 <div class="cust-list-flex3-item1">
                   <div class="cust-list-block23 layout">
-                    <!-- <div class="cust-list-block23-item">
-                                <div class="cust-list-box10 layout"></div>
-                              </div> -->
-                    <!-- <div class="cust-list-block23-spacer"></div>
-                              <div class="cust-list-text-body4 layout">Add Button</div> -->
                   </div>
                 </div>
               </div>
@@ -144,7 +124,7 @@
                 >
                 <ng-container matColumnDef="locationId">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                      Locations ID
+                      Location ID
                     </th>
                     <td mat-cell *matCellDef="let element">
                       {{ element.locationId }}
