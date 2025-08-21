@@ -60,11 +60,11 @@
                 *ngIf="
                   !pricingPlanFormGroup.get('pricingPlanName')?.valid &&
                   pricingPlanFormGroup.get('pricingPlanName')?.touched &&
-                  pricingPlanFormGroup.get('pricingPlanName')?.value.length > 40
+                  pricingPlanFormGroup.get('pricingPlanName')?.value.length > 50
                 "
                 class="error-mess"
               >
-                Price Plan Name should not be greater than 40 Alphanumeric
+                Price Plan Name should not be greater than 50 Alphanumeric
                 Characters
               </span>
               <span
@@ -143,11 +143,11 @@
               <span
                 *ngIf="
                   pricingPlanFormGroup.get('description')?.touched &&
-                  pricingPlanFormGroup.get('description')?.value.length > 250
+                  pricingPlanFormGroup.get('description')?.value.length > 500
                 "
                 class="error-mess"
               >
-                Description should not be greater than 250 Alphanumeric
+                Description should not be greater than 500 Alphanumeric
                 characters.
               </span>
             </div>
