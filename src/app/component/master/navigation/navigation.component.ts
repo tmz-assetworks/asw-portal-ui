@@ -114,6 +114,7 @@ private getSuperAdminMenu() {
     { routerLink: ['customer'], text: 'Organization Setup', icon: this.ICON_BASE_SUPER_ADMIN + 'nav.svg' },
     { routerLink: ['admin'], text: 'Admin Users', icon: this.ICON_BASE_SUPER_ADMIN + 'nav1.svg' },
     { routerLink: ['report'], text: 'Billing Report', icon: this.ICON_BASE_SUPER_ADMIN + 'Reports.svg' },
+    {routerLink:['client-billing-config'],text:'Client Billing Config',icon:this.ICON_BASE_SUPER_ADMIN + 'Reports.svg'},
     { routerLink: ['help'], text: 'Help', icon: this.ICON_BASE_SUPER_ADMIN + 'nav2.svg' },
   ];
 }

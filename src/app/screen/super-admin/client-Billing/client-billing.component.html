@@ -1,0 +1,305 @@
+<div class="barbar-block10 layout">
+  <div class="barbar-flex layout">
+    <div class="barbar-block11 layout">
+      <h1 class="barbar-subtitle layout">{{ title }}</h1>
+    </div>
+    <form [formGroup]="addAdminFormGroup">
+      <div class="barbar-block12 layout">
+        <h4 class="barbar-highlights1 layout"></h4>
+        <div class="barbar-block13 layout">
+          
+
+          <div class="barbar-block13-spacer"></div>
+           <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Plan Name
+                <span style="color: 'red';">*</span>
+              </h5>
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAdminFormGroup.get('planName')?.errors &&
+                    submitted == true
+                }"
+              >
+                <input
+                  formControlName="planName"
+                  type="text"
+                  class="barbar-input-text"
+                  (keypress)="omit_special_char($event)"
+                />
+              </div>
+
+              <span
+                *ngIf="
+                  !addAdminFormGroup.get('planName')?.valid &&
+                  addAdminFormGroup.get('planName')?.touched &&
+                  addAdminFormGroup.get('planName')?.value.length > 40
+                "
+                class="error-mess"
+              >
+                Price Name should not be greater than 40 Alphanumeric
+                Characters
+              </span>
+              <span
+  *ngIf="
+    addAdminFormGroup.get('planName')?.hasError('required') &&
+    (addAdminFormGroup.get('planName')?.touched || submitted)
+  "
+       class="error-mess"
+    >
+  Plan Name Is Required
+           </span>
+            </div>
+          </div>
+                    <div class="barbar-block13-spacer"></div>
+           <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">Description</h5>
+              <div class="barbar-box6 layout">
+                <input
+                  formControlName="description"
+                  type="text"
+                  class="barbar-input-text"
+                />
+              </div>
+              <span
+                *ngIf="
+                  addAdminFormGroup.get('description')?.touched &&
+                  addAdminFormGroup.get('description')?.value.length > 255
+                "
+                class="error-mess"
+              >
+                Description must not be greater than 255 characters
+              </span>
+            </div>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                price
+                <span style="color: 'red';">*</span>
+              </h5>
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAdminFormGroup.get('price')?.errors &&
+                    submitted == true
+                }"
+              >
+                <input
+                  formControlName="price"
+                  type="text"
+                  maxlength="14"
+                 
+                  class="barbar-input-text"
+                />
+              </div>
+              <span
+                *ngIf="
+                  !addAdminFormGroup.get('price')?.valid &&
+                  addAdminFormGroup.get('price')?.touched &&
+                  addAdminFormGroup.get('price')?.value.length > 0
+                "
+                class="error-mess"
+              >
+                price Must Be 10 digits
+              </span>
+              <span
+                *ngIf="
+                  !addAdminFormGroup.get('price')?.valid &&
+                  (addAdminFormGroup.get('price')?.touched ||
+                    submitted) &&
+                  addAdminFormGroup.get('price')?.value.length == 0
+                "
+                class="error-mess"
+              >
+                price Is Required
+              </span>
+            </div>
+          </div>
+
+
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Charger Type
+                <span style="color: 'red';">*</span>
+              </h5>
+               <mat-form-field
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    addAdminFormGroup.get('chargerTypeId')?.errors &&
+                    submitted == true
+                }"
+              >
+                <mat-label>Select</mat-label>
+                <mat-select
+                  formControlName="chargerTypeId"
+                >
+                  <mat-option
+                    *ngFor="let data of PlugList"
+                    [value]="data.id"
+                    (onSelectionChange)="selectChargerType($event, data.id)"
+                  >
+                    {{ data.plugTypeName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <span
+  *ngIf="
+    addAdminFormGroup.get('chargerTypeId')?.hasError('required') &&
+    (addAdminFormGroup.get('chargerTypeId')?.touched || submitted)
+  "
+  class="error-mess"
+>
+  Charger Type Is Required
+</span>
+
+          </div>
+
+         <div class="dates-wrapper">
+  <!-- Start Date -->
+  <div>
+    <div class="barbar-block13-item">
+      <div class="barbar-block14 layout">
+        <h5 class="barbar-highlights layout">
+          Start Period <span style="color: red">*</span>
+        </h5>
+        <div class="barbar-date-container">
+          <!-- Month -->
+          <div class="barbar-field-group">
+            <mat-form-field class="barbar-box6-month" appearance="outline">
+              <mat-label>Month</mat-label>
+              <mat-select formControlName="startMonth">
+                <mat-option *ngFor="let month of months" [value]="month.value">
+                  {{ month.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <span *ngIf="addAdminFormGroup.get('startMonth')?.hasError('required') && (addAdminFormGroup.get('startMonth')?.touched || submitted)"
+              class="error-mess">
+              Month is required
+            </span>
+          </div>
+
+          <!-- Year -->
+          <div class="barbar-field-group">
+            <mat-form-field class="barbar-box6-year" appearance="outline">
+              <mat-label>Year</mat-label>
+              <mat-select formControlName="startYear">
+                <mat-option *ngFor="let year of startYears" [value]="year">{{ year }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <span *ngIf="addAdminFormGroup.get('startYear')?.hasError('required') && (addAdminFormGroup.get('startYear')?.touched || submitted)"
+              class="error-mess">
+              Year is required
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Date -->
+  
+  <div>
+    <div class="barbar-block13-item">
+      <div class="barbar-block14 layout">
+        <h5 class="barbar-highlights layout">
+          End Period <span style="color: red">*</span>
+        </h5>
+        <div class="barbar-date-container">
+          <!-- Month -->
+          <div class="barbar-field-group">
+            <mat-form-field class="barbar-box6-month" appearance="outline">
+              <mat-label>Month</mat-label>
+              <mat-select formControlName="endMonth">
+                <mat-option *ngFor="let month of months" [value]="month.value"
+                [disabled]="isEndMonthDisabled(month.value)"
+                >
+                  {{ month.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <span *ngIf="addAdminFormGroup.get('endMonth')?.hasError('required') && (addAdminFormGroup.get('endMonth')?.touched || submitted)"
+              class="error-mess">
+              Month is required
+            </span>
+          </div>
+
+          <!-- Year -->
+          <div class="barbar-field-group">
+            <mat-form-field class="barbar-box6-year" appearance="outline">
+              <mat-label>Year</mat-label>
+              <mat-select formControlName="endYear">
+                <mat-option *ngFor="let year of endYears" [value]="year">{{ year }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <span *ngIf="addAdminFormGroup.get('endYear')?.hasError('required') && (addAdminFormGroup.get('endYear')?.touched || submitted)"
+              class="error-mess">
+              Year is required
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ <div class="barbar-block13-spacer"></div>
+<div class="barbar-block13-item">
+  <div class="barbar-block14 layout">
+    <h5 class="barbar-highlights layout">Status</h5>
+
+   <mat-checkbox
+  class="custom-checkbox"
+  formControlName="isActive"
+  color="primary">
+  {{ addAdminFormGroup.get('isActive')?.value ? 'Active ' : 'Inactive' }}
+</mat-checkbox>
+
+  </div>
+</div>
+
+</div>
+
+
+
+        </div>
+      </div>
+
+    
+
+      <div class="barbar-flex1 layout">
+        <div class="barbar-flex1-item">
+          <div class="barbar-block17 layout">
+            <div
+              class="barbar-text-body2 layout"
+              [routerLink]="['../../client-billing-config']"
+            >
+              CANCEL
+            </div>
+          </div>
+        </div>
+        <div class="barbar-flex1-spacer"></div>
+        <div class="barbar-flex1-item">
+          <div class="barbar-block16 layout">
+            <div
+              *ngIf="saveBtnValue"
+              class="barbar-text-body1 layout"
+              (click)="createBilling()"
+            >
+              SAVE
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

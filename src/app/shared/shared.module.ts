@@ -33,6 +33,7 @@ import {
   NgxMatTimepickerModule,
   NgxMatNativeDateModule,
 } from '@angular-material-components/datetime-picker'
+import { MatCheckboxModule } from '@angular/material/checkbox';
 @NgModule({
   imports: [
     NavigationModule,
@@ -47,7 +48,8 @@ import {
     RouterModule,
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
-    NgxMatNativeDateModule
+    NgxMatNativeDateModule,
+    MatCheckboxModule
   ],
   exports: [
     FormsModule,
