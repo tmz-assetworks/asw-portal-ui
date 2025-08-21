@@ -1,26 +1,157 @@
+
+
+/* Custom Material Form Field Styling */
 @import '../../../styles';
+
+
+@import '~material-icons/iconfont/material-icons.css';
+
 * {
   font-family: 'Roboto';
 }
+
+/* Custom Material Form Field Styling */
+.custom-mat-field {
+  width: 100%;
+  margin-bottom: 15px; /* Adds space between fields */
+
+  .mat-form-field-wrapper {
+    padding-bottom: 0 !important; /* Remove default Material padding */
+    margin-bottom: -1.25em; /* Compensate for default error message space if no error to reduce gap */
+  }
+
+  .mat-form-field-outline {
+    background-color: white;
+    border-radius: 8px;
+    border: 2px solid rgb(175, 175, 175);
+    box-shadow: 0px 0px 20px 0px rgba(201, 201, 201, 0.247);
+    display: flex; /* Use flexbox for vertical alignment of content */
+    align-items: center; /* Vertically center the input and icon */
+    padding: 0 15px; /* Add horizontal padding for the outline content */
+  }
+
+  /* Email field specific top rounded corners */
+  &.email-field .mat-form-field-outline {
+    border-radius: 8px 8px 0 0;
+    border-bottom: 0; /* Remove bottom border for the email field */
+  }
+
+  /* Password field specific bottom rounded corners */
+  &.password-field .mat-form-field-outline {
+    border-radius: 0 0 8px 8px;
+    border-top: 0; /* Remove top border for the password field */
+  }
+
+  .mat-form-field-outline-start,
+  .mat-form-field-outline-gap,
+  .mat-form-field-outline-end {
+    border-width: 0 !important; /* Hide default Material outline borders */
+    min-width: 0 !important;
+  }
+
+  /* Focus state */
+  &.mat-form-field-appearance-outline.mat-focused {
+    .mat-form-field-outline-thick {
+      color: #8e1537;
+    }
+
+    .mat-form-field-label {
+      color: #8e1537;
+    }
+  }
+
+  /* Label styling */
+  .mat-form-field-label {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 20px;
+    font-weight: 300;
+    /* Adjust label positioning to fit within the custom outline */
+    transform: translateY(-50%) scale(0.75) !important; /* Initial position for non-floating label */
+    top: 50% !important; /* Center vertically initially */
+    left: 15px !important; /* Align with input padding */
+    width: auto !important; /* Allow label to shrink naturally */
+  }
+
+  /* When the label is floating (input is focused or has a value) */
+  .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label,
+  .mat-form-field-appearance-outline.mat-focused .mat-form-field-label {
+    transform: translateY(-80%) scale(0.75) !important; /* Move label up when floating */
+    top: 0 !important;
+    left: 15px !important;
+  }
+
+  /* Input text styling */
+  .mat-input-element {
+    color: #333;
+    font-size: 20px;
+    height: auto; /* Allow content to dictate height */
+    flex-grow: 1; /* Allow input to take up available space */
+    border: none; /* Remove default input border */
+    background: transparent; /* Ensure input background is transparent to show custom outline background */
+    outline: none; /* Remove outline on focus */
+  }
+
+  /* Error message styling */
+  .mat-error {
+    font-size: 12px;
+    color: #ea002a;
+    padding: 5px 0;
+    margin-top: 5px; /* Add a little space above the error message */
+  }
+
+  /* Icon styling */
+  .mat-icon {
+    color: rgba(0, 0, 0, 0.54);
+     top: -0.75em;
+    font-size: 24px;
+    height: 24px; /* Explicit height for consistent icon display */
+    width: 24px; /* Explicit width for consistent icon display */
+    line-height: 24px; /* Vertically center icon glyph */
+    margin-left: 8px; /* Space between input text and icon */
+    flex-shrink: 0; /* Prevent icon from shrinking on smaller screens */
+  }
+
+  /* Suffix button styling (for visibility toggle) */
+  .mat-icon-button {
+    width: 36px; /* Larger hit area for the button */
+    height: 36px;
+    line-height: 36px;
+    padding: 0; /* Remove default button padding */
+    margin-left: 0; /* Adjust as needed, usually no margin for suffix buttons */
+  }
+
+  /* NEW RULE ADDED */
+  /* This rule explicitly positions prefixes/suffixes within the outline appearance.
+     It might be necessary if default Material positioning conflicts with custom flexbox. */
+  .mat-form-field-appearance-outline .mat-form-field-prefix,
+  .mat-form-field-appearance-outline .mat-form-field-suffix {
+    top: -0.75em; /* Adjust this value as needed based on your overall field height and label position */
+  }
+}
+
+/* Rest of your existing styles */
 .bg_img_left {
   background-image: url(../../../assets//images/vehicle.png);
-  background-position: center; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: cover; /* Resize the background image to cover the entire container */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   min-height: 100%;
   width: 50%;
 }
+
 .error_msg {
   font-family: 'Roboto';
   color: #ea002a;
   font-size: 12px;
   padding: 10px 0;
 }
+
 .login-block6 {
   &.br_zero {
     border-bottom: 0;
   }
 }
+
 .link_txt {
   color: #0062a6;
   font-size: 20px;
@@ -60,6 +191,7 @@
     }
   }
 }
+
 /* Create a custom checkbox */
 .remember_checkmark {
   position: absolute;
@@ -71,6 +203,7 @@
   border: 1px solid #535353;
   border-radius: 3px 3px 3px 3px;
 }
+
 /* When the checkbox is checked, add a blue background */
 .remember input:checked ~ .remember_checkmark {
   background-color: #8e1537;
@@ -114,6 +247,7 @@
     }
   }
 }
+
 .login- {
   &block {
     @include flex-column;
@@ -136,9 +270,8 @@
     padding: 80px;
     background-image: url(../../../assets//images/login_bg.png);
     background-repeat: no-repeat;
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
-    background-size: cover; /* Resize the background image to cover the entire container */
+    background-position: center;
+    background-size: cover;
   }
 
   &block1 {
@@ -180,11 +313,6 @@
   }
   &block1-item {
     @include flex-column;
-    /*position: relative;
-    flex: 1 0.7 auto;*/
-    @include xs {
-      flex: 0.8 1 auto;
-    }
     max-width: 42.7%;
   }
   &box {
@@ -239,7 +367,6 @@
   }
   &block12 {
     @include flex-column;
-    /* background-color: rgb(217, 217, 217); */
   }
   &block12.layout {
     position: relative;
@@ -248,7 +375,6 @@
     margin: 7.7% 0 4.48% 0;
   }
   &box2 {
-    /* background-color: rgb(195, 85, 85);*/
   }
   &box2.layout {
     position: relative;
@@ -299,7 +425,6 @@
     font-size: 40px;
   }
   &box3 {
-    //background-color: rgb(195, 85, 85);
   }
   &box3.layout {
     position: relative;
@@ -342,7 +467,6 @@
     margin: 0;
   }
   &box4 {
-    //background-color: rgb(195, 85, 85);
   }
   &box4.layout {
     position: relative;
@@ -376,179 +500,56 @@
     flex: 0 0 auto;
     height: min-content;
   }
-  &block6 {
+  &block8 {
     display: flex;
-    background-color: rgb(255, 255, 255);
-    box-shadow: 0px 0px 20px 0px rgba(201, 201, 201, 0.24705882352941178);
-    border: 2px solid rgb(175, 175, 175);
-    border-radius: 8px 8px 0px 0px;
   }
-  &block6.layout {
+  &block8.layout {
     position: relative;
-    height: 89px;
-    width: 100%;
-    @include sm {
-      height: 65px;
-    }
-    @include xl {
-      height: 72px;
-    }
+    flex: 0 0 auto;
+    flex-wrap: wrap-reverse;
+    height: min-content;
+    align-content: space-between;
+    justify-content: flex-start;
+    margin: 10% 0 6.8% 0px;
   }
-  &block6-item {
-    @include flex-column;
-    position: relative;
-    flex: 0 0 9px;
+  &block9 {
+    display: flex;
   }
-  &box5 {
-    background-color: rgb(142, 21, 55);
-    border-radius: 7px 0px 0px 0px;
-  }
-  &box5.layout {
-    position: relative;
-    height: 100%;
-    margin: 0px 0px 0px 0px;
-  }
-  &block6-spacer {
-    flex: 0 1 35px;
-  }
-  &medium-title-box {
-    @include v-center-content;
-
-    @include lg {
-      align-items: center;
-      justify-content: flex-start;
-    }
-    @include md {
-      align-items: center;
-      justify-content: flex-start;
-    }
-    @include sm {
-      align-items: center;
-      justify-content: flex-start;
-    }
-    @include xs {
-      align-items: center;
-      justify-content: flex-start;
-    }
-    @include xxs {
-      align-items: center;
-      justify-content: flex-start;
-    }
-  }
-  &medium-title-box.layout {
+  &block9.layout {
     position: relative;
     flex: 1 1 auto;
-    min-height: 32px;
-    flex-shrink: 1;
-    width: auto;
-    // margin: 28px 0px 29px;
-    // @include sm {
-    //   margin: 18px 0px;
-    // }
-    // @include xs {
-    //   margin: 16px 0px 17px;
-    // }
-    // @include xxs {
-    //   margin: 14px 0px 15px;
-    // }
-    // @include tn {
-    //   margin: 13px 0px 14px;
-    // }
+    height: min-content;
+    min-width: min-content;
+    margin: 0px 0px 2px;
   }
-  &medium-title {
-    flex: 1 1 auto;
-    overflow: scroll;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin: 0px;
-    border: none;
-    background-color: transparent;
-    border-radius: 8px 0px 0px 8px;
-    // resize: none;
-    outline: none;
-    @include font-face($font_type7, rgb(112, 120, 127), 0px);
-    // white-space: pre-wrap;
-    text-align: left;
-    width: auto;
-    padding: 20px 30px;
-    @include lg {
-      font-size: 24px;
-      text-align: left;
-    }
-    @include md {
-      font-size: 21px;
-    }
-    @include sm {
-      font-size: 19px;
-    }
-    @include xs {
-      font-size: 18px;
-    }
-    @include xxs {
-      font-size: 17px;
-    }
+  &block9-spacer {
+    flex: 0 0 auto;
   }
-  &block6-spacer1 {
-    flex: 0.1 1 auto;
-  }
-  &block6-item1 {
+  &block9-item {
     @include flex-column;
     position: relative;
     flex: 0 0 auto;
-    min-width: 58px;
-    align-items: center;
     justify-content: center;
   }
-  &box6 {
-    background-color: rgb(217, 217, 217);
-  }
-  &box6.layout {
-    position: relative;
-    height: 16px;
-    width: 16px;
-  }
-  &block7 {
-    @include h-center-content;
+  &box9 {
     background-color: rgb(255, 255, 255);
-    box-shadow: 0px 0px 20px 0px rgba(201, 201, 201, 0.24705882352941178);
-    border: 2px solid rgb(175, 175, 175);
-    border-radius: 0px 0px 8px 8px;
+    border: 1px solid rgb(83, 83, 83);
+    border-radius: 3px 3px 3px 3px;
   }
-  &block7.layout {
+  &box9.layout {
     position: relative;
-    height: 89px;
-    width: 100%;
-    @include sm {
-      height: 65px;
-    }
-    @include xl {
-      height: 72px;
-    }
+    width: 25px;
+    height: 25px;
   }
-  &block7-item {
-    @include flex-column;
-    position: relative;
+  &block9-spacer1 {
     flex: 0 0 auto;
-    min-width: 9px;
+    min-width: 3px;
   }
-  &box7 {
-    background-color: rgb(142, 21, 55);
-    border-radius: 0px 0px 0px 7px;
-  }
-  &box7.layout {
-    position: relative;
-    height: 100%;
-    margin: 0px 0px 0px 0px;
-  }
-  &block7-spacer {
-    flex: 0 1 35px;
-  }
-  &medium-title1 {
-    @include v-center-content;
-    @include font-face($font_type7, rgb(112, 120, 127), 0px);
+  &medium-title11 {
+    @include font-face($font_type8, rgb(0, 0, 0), 0px);
+    text-align: left;
     @include lg {
       font-size: 24px;
-      text-align: left;
     }
     @include md {
       font-size: 21px;
@@ -563,47 +564,575 @@
       font-size: 17px;
     }
   }
-  &medium-title1.layout {
+  &medium-title11.layout {
     position: relative;
     flex: 1 1 auto;
-    min-height: 32px;
-    flex-shrink: 0;
-    margin: 28px 0px 29px;
+    height: min-content;
+    width: min-content;
+    margin: 3px 0 0 15px;
+    white-space: nowrap;
+    font-size: 20px;
+    @include lg {
+      margin: 5px 1px 0px 0px;
+    }
     @include md {
-      margin: 21px 0px 22px;
+      margin: 5px 1px 0px 0px;
+    }
+    @include sm {
+      margin: 5px 1px 0px 0px;
+    }
+    @include xs {
+      margin: 5px 1px 0px 0px;
+    }
+    @include xxs {
+      margin: 5px 1px 0px 0px;
+    }
+    @include tn {
+      margin: 5px 1px 0px 0px;
+    }
+  }
+  &medium-title2 {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    font: $font_type7;
+    color: rgb(98, 0, 197);
+    text-align: right;
+    letter-spacing: 0px;
+    @include lg {
+      font-size: 24px;
+    }
+    @include md {
+      font-size: 21px;
+    }
+    @include sm {
+      font-size: 19px;
+    }
+    @include xs {
+      font-size: 18px;
+    }
+    @include xxs {
+      font-size: 17px;
+    }
+  }
+  &medium-title2.layout {
+    position: relative;
+    flex: 1 1 auto;
+    height: min-content;
+    white-space: nowrap;
+    font-size: 20px;
+  }
+  &box10 {
+  }
+  &box10.layout {
+    position: relative;
+    flex: 0.9 1.5 auto;
+  }
+  &block10 {
+    background-color: rgb(142, 21, 55);
+    border-radius: 9px;
+    transition-duration: 0.3s;
+    transition-property: filter;
+    width: 100%;
+    border: 0;
+    cursor: pointer;
+  }
+  &block10:hover {
+    filter: drop-shadow(0 0 10px #00000020);
+  }
+  &block10.layout {
+    position: relative;
+    flex: 0 0 auto;
+    height: 10.6%;
+  }
+  &medium-title3 {
+    @include v-center-content;
+    justify-content: center;
+    font: $font_type9;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    letter-spacing: 0px;
+    @include lg {
+      font-size: 24px;
+      text-align: center;
+    }
+    @include md {
+      font-size: 21px;
+    }
+    @include sm {
+      font-size: 19px;
+    }
+    @include xs {
+      font-size: 18px;
+    }
+    @include xxs {
+      font-size: 17px;
+    }
+  }
+  &medium-title3.layout {
+    position: relative;
+    height: min-content;
+    margin: 13px 0px;
+    text-transform: uppercase;
+    font-size: 20px;
+    @include lg {
+      margin: 25px 0px;
+    }
+    @include md {
+      margin: 22px 0px;
     }
     @include sm {
       margin: 18px 0px;
     }
     @include xs {
-      margin: 16px 0px 17px;
+      margin: 17px 0px;
     }
     @include xxs {
-      margin: 14px 0px 15px;
+      margin: 15px 0px;
     }
     @include tn {
-      margin: 13px 0px 14px;
+      margin: 14px 0px;
     }
   }
-  &block7-spacer1 {
+  &block3-spacer1 {
+    flex: 0.46 4 auto;
+  }
+
+
+}
+
+@media (max-width: 767px) {
+  .login-block.layout {
+    padding: 0px;
+  }
+  .bg_img_left {
+    display: none;
+  }
+  .login-block8.layout {
+    margin: 20px 0 20px;
+  }
+  .login-box4.layout {
     flex: 0.2 1 auto;
   }
-  &block7-item1 {
-    @include flex-column;
-    position: relative;
-    flex: 0 0 auto;
-    min-width: 58px;
-    align-items: center;
-    justify-content: center;
-    .btn-cursor {
-      cursor: pointer;
+  .link_txt {
+    font-size: 15px;
+  }
+  .remember {
+    font-size: 15px;
+    padding-left: 35px;
+  }
+  .remember_checkmark {
+    width: 20px;
+    height: 20px;
+  }
+  .remember .remember_checkmark:after {
+    left: 6px;
+    top: 3px;
+  }
+
+  /* Mobile adjustments for Material fields */
+  .custom-mat-field {
+    .mat-form-field-label {
+      font-size: 16px;
+      left: 10px !important; /* Adjust for smaller padding on mobile */
+    }
+
+    .mat-input-element {
+      font-size: 16px;
+      padding: 10px 0; /* Reduce padding for smaller screens */
+    }
+
+    .mat-icon {
+       top: -0.75em; 
+      font-size: 20px;
+      height: 20px;
+      width: 20px;
+      line-height: 20px;
+    }
+
+    .mat-form-field-outline {
+      padding-left: 10px; /* Adjust padding for mobile */
+      padding-right: 10px;
+    }
+
+    .mat-icon-button {
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
     }
   }
-  &box8 {
+ 
+}
+/* Rest of your existing styles */
+.bg_img_left {
+  background-image: url(../../../assets//images/vehicle.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100%;
+  width: 50%;
+}
+
+.error_msg {
+  font-family: 'Roboto', sans-serif;
+  color: #ea002a;
+  font-size: 12px;
+  padding: 10px 0;
+}
+
+.login-block6 {
+  &.br_zero {
+    border-bottom: 0;
   }
-  &box8.layout {
+}
+
+.link_txt {
+  color: #0062a6;
+  font-size: 20px;
+  text-decoration: none;
+  font-weight: 300;
+}
+
+/* The container */
+.remember {
+  padding-top: 3px;
+  display: block;
+  position: relative;
+  padding-left: 45px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 20px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  .remember_checkmark {
+    &::after {
+      left: 9px;
+      top: 5px;
+      width: 5px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 3px 3px 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+  }
+}
+
+/* Create a custom checkbox */
+.remember_checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #fff;
+  border: 1px solid #535353;
+  border-radius: 3px 3px 3px 3px;
+}
+
+/* When the checkbox is checked, add a blue background */
+.remember input:checked ~ .remember_checkmark {
+  background-color: #8e1537;
+  border: 0px solid #8e1537;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.remember_checkmark:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.remember input:checked ~ .remember_checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.remember .remember_checkmark:after {
+}
+
+.f_bar {
+  input {
+    font-size: 20px;
+    &:focus-within {
+      border-bottom: 0;
+      border-left: 10px;
+      border-right: 0;
+      border-top: 0;
+      border-color: #8e1937;
+      border-style: solid;
+      border-radius: 7px 0px 0px 0px;
+    }
+    &.sed_in {
+      input {
+        &:focus {
+          border-radius: 0px 0px 7px 0px;
+        }
+      }
+    }
+  }
+}
+
+.login- {
+  &block {
+    @include flex-column;
+    background-color: rgb(248, 248, 248);
+    border: 1px solid rgb(200, 200, 200);
+    @include xl {
+      min-height: 620px;
+    }
+    @include sm {
+      min-height: 620px;
+    }
+    min-height: 700px;
+  }
+  &block.layout {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    padding: 80px;
+    background-image: url(../../../assets//images/login_bg.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+
+  &block1 {
+    @include h-center-content;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 30px 0px rgba(132, 132, 132, 0.24705882352941178);
+    max-height: 950px;
+    @include md {
+      min-height: 560px;
+    }
+    @include sm {
+      min-height: 560px;
+    }
+    min-height: 620px;
+  }
+  &block1.layout {
     position: relative;
-    flex: 0.1 1 auto;
+    flex-grow: 1;
+    width: 100%;
+    margin: 0 auto;
+    @include lg {
+      margin: 76px auto;
+    }
+    @include md {
+      margin: 40px auto;
+    }
+    @include sm {
+      margin: 36px auto;
+    }
+    @include xs {
+      margin: 29px auto;
+    }
+    @include xxs {
+      margin: 22px auto;
+    }
+    @include tn {
+      margin: 17px auto;
+    }
+  }
+  &block1-item {
+    @include flex-column;
+    max-width: 42.7%;
+  }
+  &box {
+    background-color: #00000073;
+    img {
+      max-width: 100%;
+    }
+  }
+  &box.layout {
+    position: relative;
+    flex-grow: 1;
+  }
+  &block1-item1 {
+    @include flex-column;
+    position: relative;
+    flex: 1.2 1 auto;
+    @include xs;
+  }
+  &block2 {
+    display: flex;
+  }
+  &block2.layout {
+    position: absolute;
+    overflow: auto hidden;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+  }
+  &block2-spacer {
+    flex: 1 1 5px;
+  }
+  &block2-item {
+    @include flex-column;
+    position: relative;
+    flex: 8 0 auto;
+    min-width: 250px;
+  }
+  &block3 {
+    @include flex-column;
+  }
+  &block3.layout {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+  }
+  &block3-spacer {
+    flex: 0.45 4 auto;
+    max-height: 2.6%;
+  }
+  &block12 {
+    @include flex-column;
+  }
+  &block12.layout {
+    position: relative;
+    flex: 0 0 auto;
+    width: 57.6%;
+    margin: 7.7% 0 4.48% 0;
+  }
+  &box2 {
+  }
+  &box2.layout {
+    position: relative;
+    flex: 0.7 0.8 auto;
+    width: 100%;
+    margin: 0px 0px;
+  }
+  &block4 {
+    @include flex-column;
+  }
+  &block4.layout {
+    position: relative;
+    flex: 0 0 auto;
+    height: min-content;
+    margin: 0;
+    @include lg {
+      margin: 0px 0px 0px 0px;
+    }
+  }
+  &hero-title {
+    @include v-center-content;
+    @include font-face($font_type6, rgb(19, 27, 33), 0px);
+
+    @include lg {
+      font-size: 44px;
+      text-align: left;
+    }
+    @include md {
+      font-size: 38px;
+    }
+    @include sm {
+      font-size: 33px;
+    }
+    @include xs {
+      font-size: 30px;
+    }
+    @include xxs {
+      font-size: 28px;
+    }
+    @include tn {
+      font-size: 26px;
+    }
+  }
+  &hero-title.layout {
+    position: relative;
+    height: min-content;
+    margin: 0px;
+    font-size: 40px;
+  }
+  &box3 {
+  }
+  &box3.layout {
+    position: relative;
+    flex: 0.767 1 auto;
+    width: 100%;
+    max-height: 7.8%;
+    margin: 1.5px 0px 0px;
+    @include lg {
+      margin: 5px 0px 0px;
+    }
+  }
+  &block11 {
+    @include flex-column;
+  }
+  &block11.layout {
+    position: relative;
+    overflow: hidden;
+    flex: 0 0 auto;
+    height: min-content;
+  }
+  &subtitle {
+    @include font-face($font_type10, rgb(112, 120, 127), 0px);
+    @include lg {
+      font-size: 19px;
+      text-align: left;
+    }
+    @include md {
+      font-size: 18px;
+    }
+    @include sm {
+      font-size: 17px;
+    }
+    @include xxs {
+      font-size: 16px;
+    }
+  }
+  &subtitle.layout {
+    position: relative;
+    height: min-content;
+    margin: 0;
+  }
+  &box4 {
+  }
+  &box4.layout {
+    position: relative;
+    flex: 0.7 1 auto;
+    width: 100%;
+    margin: 2px 0px 0px;
+    @include lg {
+      margin: 21px 0px 0px;
+    }
+    @include md {
+      margin: 18px 0px 0px;
+    }
+    @include sm {
+      margin: 15px 0px 0px;
+    }
+    @include xs {
+      margin: 14px 0px 0px;
+    }
+    @include xxs {
+      margin: 12px 0px 0px;
+    }
+    @include tn {
+      margin: 11px 0px 0px;
+    }
+  }
+  &block5 {
+    @include flex-column;
+  }
+  &block5.layout {
+    position: relative;
+    flex: 0 0 auto;
+    height: min-content;
   }
   &block8 {
     display: flex;
@@ -832,5 +1361,35 @@
     left: 6px;
     top: 3px;
   }
-}
 
+  /* Mobile adjustments for Material fields */
+  .custom-mat-field {
+    .mat-form-field-label {
+      font-size: 16px;
+      left: 10px !important; /* Adjust for smaller padding on mobile */
+    }
+
+    .mat-input-element {
+      font-size: 16px;
+      padding: 10px 0; /* Reduce padding for smaller screens */
+    }
+
+    .mat-icon {
+      font-size: 20px;
+      height: 20px;
+      width: 20px;
+      line-height: 20px;
+    }
+
+    .mat-form-field-outline {
+      padding-left: 10px; /* Adjust padding for mobile */
+      padding-right: 10px;
+    }
+
+    .mat-icon-button {
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+    }
+  }
+}
