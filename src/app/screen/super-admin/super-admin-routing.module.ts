@@ -39,6 +39,13 @@ const routes: Routes = [
           ),
       },
       {
+         path: 'client-billing-config',
+         loadChildren: () =>
+           import('./client-Billing/client-billing.module').then(
+             (m) => m.ClientBillingModule,
+           ),
+       },
+      {
         path: 'help',
         component: HelpComponent,
         //   // loadChildren: () =>
