@@ -26,10 +26,14 @@
     </div>
     <div class="cust-list-flex3-spacer"></div>
     <div class="cust-list-flex3-item1">
-      <div
-        class="cust-list-block23 layout"
-        (click)="performAction('create-client-billing', '')"
-      >
+     <div
+  class="cust-list-block23 layout"
+  (click)="performAction('create-client-billing', '')"
+  (keydown.enter)="performAction('create-client-billing', '')"
+  (keydown.space)="performAction('create-client-billing', $event); $event.preventDefault()"
+  tabindex="0"
+  role="button"
+>
         <div class="cust-list-block23-item">
           <div class="cust-list-box10 layout">
             <img
@@ -86,51 +90,63 @@
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="Action">
-        <th mat-header-cell *matHeaderCellDef>ACTION</th>
-        <td mat-cell *matCellDef="let element">
-          <span
-            *ngIf="!element.isActive"
-            title="Active"
-            (click)="changeState(element.id, element.isActive)"
-          >
-            <img
-              src="../../../../assets/Admin-SideNav/Vehicles-Icons/Active-tik.svg"
-              class="cursorPointer"
-              alt=""
-            />
-          </span>
-          <span
-            *ngIf="element.isActive"
-            title="Inactive"
-            (click)="changeState(element.id, element.isActive)"
-          >
-            <img
-              src="../../../../assets/Active.svg"
-              class="cursorPointer"
-              alt=""
-            />
-          </span>
-          <span style="margin: 7px;">
-            <img
-              src="../../../../assets/Super-Admin-icons/Edit.svg"
-              alt=""
-              class="cursorPointer"
-              (click)="performAction('edit', element)"
-              title="Edit"
-            />
-          </span>
-          <span style="margin: 7px;">
-            <img
-              src="../../../../assets/Super-Admin-icons/View.svg"
-              alt=""
-              class="cursorPointer"
-              title="View"
-              (click)="performAction('view', element)"
-            />
-          </span>
-        </td>
-      </ng-container>
+       <ng-container matColumnDef="Action">
+  <th mat-header-cell *matHeaderCellDef>ACTION</th>
+  <td mat-cell *matCellDef="let element">
+    <span
+      *ngIf="!element.isActive"
+      title="Active"
+      (click)="changeState(element.id, element.isActive)"
+      (keydown.enter)="changeState(element.id, element.isActive)"
+      tabindex="0"
+    >
+      <img
+        src="../../../../assets/Admin-SideNav/Vehicles-Icons/Active-tik.svg"
+        class="cursorPointer"
+        alt=""
+      />
+    </span>
+
+    <span
+      *ngIf="element.isActive"
+      title="Inactive"
+      (click)="changeState(element.id, element.isActive)"
+      (keydown.enter)="changeState(element.id, element.isActive)"
+      tabindex="0"
+    >
+      <img
+        src="../../../../assets/Active.svg"
+        class="cursorPointer"
+        alt=""
+      />
+    </span>
+
+    <span style="margin: 7px;" tabindex="0"
+      (click)="performAction('edit', element)"
+      (keydown.enter)="performAction('edit', element)"
+    >
+      <img
+        src="../../../../assets/Super-Admin-icons/Edit.svg"
+        alt=""
+        class="cursorPointer"
+        title="Edit"
+      />
+    </span>
+
+    <span style="margin: 7px;" tabindex="0"
+      (click)="performAction('view', element)"
+      (keydown.enter)="performAction('view', element)"
+    >
+      <img
+        src="../../../../assets/Super-Admin-icons/View.svg"
+        alt=""
+        class="cursorPointer"
+        title="View"
+      />
+    </span>
+  </td>
+</ng-container>
+
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>

@@ -1,14 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule, FormsModule, FormBuilder } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { of, throwError } from 'rxjs';
 import { ClientBillingComponent } from './client-billing.component';
 import { ClientBillingService } from '../client-Billing/client-billing.service';
 import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
-import Swal from 'sweetalert2';
 import { StorageService } from 'src/app/service/storage.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -129,7 +125,6 @@ describe('ClientBillingComponent', () => {
     // Trigger value change
     startMonthControl?.setValue(7); // July
     
-   //  expect(endMonthControl?.value).toBe('');
   });
 
   it('should disable end months correctly', () => {

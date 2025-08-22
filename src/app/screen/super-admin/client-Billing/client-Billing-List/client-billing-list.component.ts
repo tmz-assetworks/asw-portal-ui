@@ -6,6 +6,8 @@ import { ClientBillingService } from '../client-billing.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TableDataHelper, TableResponse } from 'src/app/shared/data-table/table-data.helper';
+
 
 @Component({
   selector: 'app-client-billing-list',
@@ -39,9 +41,11 @@ export class ClientBillingListComponent implements OnInit {
   @ViewChild('input') inputValue: any;
   clientBillings: ClientBilling[] = [];
 
-  constructor(private clientBillingService: ClientBillingService,
-   private _router: Router,
-   private _route: ActivatedRoute,
+  constructor(
+  private readonly clientBillingService: ClientBillingService,
+  private readonly _router: Router,
+  private readonly _route: ActivatedRoute,
+  private readonly tableDataHelper: TableDataHelper
   ) { }
 
   ngOnInit(): void {
@@ -57,18 +61,14 @@ export class ClientBillingListComponent implements OnInit {
       
     };
     this.clientBillingService.getAllClientBillings(body).subscribe(res => {
-       if (res.data !== undefined && res.data != null && res.data.length > 0) {
-        this.statusData = res.statusData;
-        this.totalCount = res.paginationResponse.totalCount;
-        this.totalPages = res.paginationResponse.totalPages;
-        this.pageSize = res.paginationResponse.pageSize;
+        const tableData: TableResponse<any> = this.tableDataHelper.formatResponse(res);
 
-        this.dataSource.data = res.data;
-        this.isTableHasData = false;
-      } else {
-        this.dataSource.data = [];
-        this.isTableHasData = true;
-      }
+      this.statusData = tableData.statusData;
+      this.totalCount = tableData.totalCount;
+      this.totalPages = tableData.totalPages;
+      this.pageSize = tableData.pageSize;
+      this.dataSource.data = tableData.data;
+      this.isTableHasData = tableData.isTableHasData;
     
     });
   }
@@ -88,8 +88,12 @@ export class ClientBillingListComponent implements OnInit {
    */
     applyFilter(event: Event) {
       const filterValue = this.inputValue.nativeElement.value.toLowerCase();
+     console.log(filterValue);
+     
      
     }
+
+
 
       /**
    *
@@ -125,14 +129,8 @@ export class ClientBillingListComponent implements OnInit {
   changeState(id: number, state: boolean) {
     let isActive = !state;
     const body = { id: id, isActive: isActive };
-   //  this._superAdminService.ChangeState(body).subscribe({
-   //    next: (res) => {
-   //      if (res.statusMessage !== undefined) {
-   //        this.getAdminList();
-   //      }
-   //    },
-   //    error: (error) => {},
-   //  });
+    console.log(body);
+   
   }
 
   /**

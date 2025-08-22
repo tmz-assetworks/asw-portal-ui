@@ -1,9 +1,7 @@
-// src/app/services/client-billing.service.ts
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ClientBilling } from '../client-Billing/client-billing.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

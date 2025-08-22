@@ -537,12 +537,11 @@ $font_type_3: 500 14px/1.2 'Roboto', Helvetica, Arial, serif;
   border: 0;
   border-radius: 0.25em;
   background: initial;
- // background-color: #7066e0;
   color: #fff;
   font-size: 1em;
 }
 
-// Soni CSS
+
 @media screen and (max-width: 737px) {
   div#mat-select-2-panel {
     margin-top: 33px;
@@ -617,11 +616,7 @@ input[type=number] {
 
 
 
-.barbar-date-container {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
+
 
 .barbar-field-group {
   flex: 1;

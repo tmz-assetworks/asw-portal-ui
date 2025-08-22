@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
 import { StorageService } from 'src/app/service/storage.service';
+import { FormModeHelperService, FormModeResult } from 'src/app/shared/data-table/form-mode.helper';
 
 @Component({
   selector: 'app-client-billing',
@@ -59,49 +60,16 @@ export class ClientBillingComponent implements OnInit {
   startYears: number[] = [];
   endYears: number[] = [];
 
-  constructor(private clientBillingService: ClientBillingService,
-   private formBuilder: FormBuilder,
-   private toastr: ToastrService,
-   private _location: Location,
-   private _storageService: StorageService
+  constructor(
+   private readonly clientBillingService: ClientBillingService,
+   private readonly formBuilder: FormBuilder,
+   private readonly toastr: ToastrService,
+   private readonly _location: Location,
+   private readonly _storageService: StorageService,
+   private readonly formModeHelper: FormModeHelperService,
    
   ) { 
-   this.UserId = this._storageService.getLocalData('user_id');
-     this.saveBtn =
-      sessionStorage.getItem('saveBtn') !== undefined &&
-      sessionStorage.getItem('saveBtn') !== null &&
-      sessionStorage.getItem('saveBtn') !== ''
-        ? JSON.parse(JSON.stringify(sessionStorage.getItem('saveBtn')))
-        : true;
-    this.adminData =
-      sessionStorage.getItem('adminData') !== undefined &&
-      sessionStorage.getItem('adminData') !== null
-        ? sessionStorage.getItem('adminData')
-        : '';
-
-    this.saveBtnValue = this.saveBtn;
-    this.saveBtnValue = JSON.parse(this.saveBtnValue);
-
-    if (
-      this.saveBtnValue &&
-      this.adminData !== undefined &&
-      this.adminData !== null &&
-      this.adminData !== ''
-    ) {
-      this.title = 'Edit Admin User';
-      this.setFormValue(this.adminData);
-    } else if (
-      !this.saveBtnValue &&
-      this.adminData !== undefined &&
-      this.adminData !== null &&
-      this.adminData !== ''
-    ) {
-      this.title = 'View Admin User';
-      this.setFormValue(this.adminData);
-      this.addAdminFormGroup.disable();
-    } else {
-      this.title = 'Add Client Billing';
-    }
+   
 
    const currentYear = new Date().getFullYear();
 
@@ -130,7 +98,44 @@ export class ClientBillingComponent implements OnInit {
   this.addAdminFormGroup.get('endYear')?.valueChanges.subscribe(() => {
     this.resetEndMonthIfNeeded();
   });
+  this.UserId = this._storageService.getLocalData('user_id');
+
+    const { mode, title, data, saveBtn }: FormModeResult<any> =
+      this.formModeHelper.getFormMode({
+        saveBtnKey: 'saveBtn',
+        dataKey: 'adminData',
+        defaultTitle: 'Add Client Billing',
+        parseData: (raw) => JSON.parse(raw),
+      });
+switch (mode) {
+  case 'create':
+    this.title = 'Add Client Billing';
+    break;
+  case 'edit':
+    this.title = 'Edit Client Billing';
+    break;
+  case 'view':
+    this.title = 'View Client Billing';
+    break;
+}
+   
+    this.saveBtnValue = saveBtn;
+    this.adminData = data;
+    
+
+    // Populate form if edit/view
+    if (mode === 'edit' || mode === 'view') {
+      this.setFormValue(data);
+    }
+
+    // Disable form in view mode
+    if (mode === 'view') {
+      this.addAdminFormGroup.disable();
+    }
   }
+
+ 
+  
 
   private resetEndMonthIfNeeded(): void {
   const startYear = this.addAdminFormGroup.get('startYear')?.value;
