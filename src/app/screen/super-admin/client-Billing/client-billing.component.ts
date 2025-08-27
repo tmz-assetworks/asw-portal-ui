@@ -86,6 +86,7 @@ export class ClientBillingComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.UserId = this._storageService.getLocalData('user_id');
     this.GetPlugType()
      // When startMonth changes
   this.addAdminFormGroup.get('startMonth')?.valueChanges.subscribe(() => {
@@ -98,8 +99,6 @@ export class ClientBillingComponent implements OnInit {
   this.addAdminFormGroup.get('endYear')?.valueChanges.subscribe(() => {
     this.resetEndMonthIfNeeded();
   });
-  this.UserId = this._storageService.getLocalData('user_id');
-
     const { mode, title, data, saveBtn }: FormModeResult<any> =
       this.formModeHelper.getFormMode({
         saveBtnKey: 'saveBtn',
