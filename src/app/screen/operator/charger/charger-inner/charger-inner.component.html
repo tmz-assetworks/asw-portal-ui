@@ -9,7 +9,7 @@
       <div class="dashboard-block13 layout charger-inner">
         <div class="dashboard-block13-item">
           <div class="dashboard-block14 layout">
-            <div class="dashboard-block15 layout">
+            <!--<div class="dashboard-block15 layout">
               <div class="dashboard-block15-item">
                 <app-widget
                   [widgetIcon]="chargers"
@@ -106,7 +106,7 @@
                   [chartTitle]="'Charging Sessions'"
                 ></app-area-chart>
               </div>
-            </div>
+            </div>-->
             <div class="">
               <div class="dashboard-block48 layout">
                 <div class="dashboard-block48-item">
@@ -184,7 +184,7 @@
                         <!-- Location Name Column -->
                         <ng-container matColumnDef="locationcontactname">
                           <th mat-header-cell *matHeaderCellDef>
-                            LOCATIONS NAME
+                            LOCATION
                           </th>
                           <td mat-cell *matCellDef="let element">
                             {{ element.locationContactName }}
@@ -202,20 +202,20 @@
                         </ng-container>
 
                         <!-- Location ID Column -->
-                        <ng-container matColumnDef="locationid">
+                        <ng-container matColumnDef="makeName">
                           <th mat-header-cell *matHeaderCellDef>
-                            LOCATIONS ID
+                            MAKE
                           </th>
                           <td mat-cell *matCellDef="let element">
-                            {{ element.locationId }}
+                            {{ element.makeName }}
                           </td>
                         </ng-container>
 
                         <!-- State Column -->
-                        <ng-container matColumnDef="state">
-                          <th mat-header-cell *matHeaderCellDef>STATE</th>
+                        <ng-container matColumnDef="modelName">
+                          <th mat-header-cell *matHeaderCellDef>MODEL</th>
                           <td mat-cell *matCellDef="let element">
-                            {{ element.state }}
+                            {{ element.modelName }}
                           </td>
                         </ng-container>
 
