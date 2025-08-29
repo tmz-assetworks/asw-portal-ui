@@ -27,9 +27,9 @@ export class DashboardComponent implements OnInit {
   summaryStatus = []
 
   locationIds = new FormControl([])
-  filterToggle = new FormControl('1')
+  filterToggle = new FormControl('90')
 
-  selectedTime: number = 1
+  selectedTime: number = 90
   selecteLocationIds = ''
   UserId: any
   chargersChartData = ''
@@ -122,7 +122,7 @@ export class DashboardComponent implements OnInit {
      this.getReportTransaction(
       this.UserId, 
       this.selecteLocationIds, 
-      '1'
+      this.selectedTime,
     )
   }
    
@@ -342,7 +342,7 @@ export class DashboardComponent implements OnInit {
     orderBy: any,
   ) {
     const body = {
-      locationIds: (locationIds?.length ? { locationId: locationIds } : []),
+      locationIds: (locationIds?.length ? locationIds : []),
       duration: duration.toString(),
       opratorid: operatorId,
       orderby: orderBy,
@@ -360,7 +360,7 @@ export class DashboardComponent implements OnInit {
     this.toggleValue = event
     this.getLocationPerforming(
       this.selecteLocationIds,
-      this.selectedTime,
+      this.selectedTime.toString(),
       this.UserId,
       this.toggleValue,
     )
@@ -376,7 +376,7 @@ export class DashboardComponent implements OnInit {
 
   getEnergyUsedByLocationId(locationIds: any, duration: any, operatorId: any) {
     const body = {
-      locationIds: (locationIds?.length ? { locationId: locationIds } : []),
+      locationIds: (locationIds?.length ? locationIds : []),
       duration: duration.toString(),
       opratorid: operatorId,
     }
@@ -393,7 +393,7 @@ export class DashboardComponent implements OnInit {
   onSelectLocation(event: any) {
     let locationIds = this.locationIds.value
 
-    this.selecteLocationIds = locationIds
+    this.selecteLocationIds = locationIds  
 
     this.getReportTransaction(
       this.UserId,
@@ -437,7 +437,7 @@ export class DashboardComponent implements OnInit {
 
   getChargerGraph(locationIds: any, duration: any, operatorId: any) {
     const body = {
-      locationIds: (locationIds?.length ? { locationId: locationIds } : []),
+      locationIds: (locationIds?.length ? locationIds : []),
       duration: duration.toString(),
       opratorid: operatorId,
     }
@@ -465,7 +465,7 @@ export class DashboardComponent implements OnInit {
     operatorId: any,
   ) {
     const body = {
-      locationIds: (locationIds?.length ? { locationId: locationIds } : []),
+      locationIds: (locationIds?.length ? locationIds : []),
       duration: duration.toString(),
       opratorid: operatorId,
     }
@@ -482,7 +482,7 @@ export class DashboardComponent implements OnInit {
 
   getMapLocations(locationIds: any, operatorId: any) {
     const body = {
-      locationIds: (locationIds?.length ? { locationId: locationIds } : []), 
+      locationIds: (locationIds?.length ? locationIds : []), 
       chargeBoxId: '',
       opratorid: operatorId,
     }
@@ -509,8 +509,8 @@ export class DashboardComponent implements OnInit {
     getReportTransaction(userId: any, locationIds: any, duration: any) {
     const pBbody = {
       operatorId: userId,
-      locationId: (locationIds?.length ? { locationId: locationIds } : []),
-      duration: duration,
+      locationId: (locationIds?.length ? locationIds : []),
+      duration: duration.toString(),
     };
     
     this._dashboardService.GetTransaction(pBbody).subscribe((res: any) => {
