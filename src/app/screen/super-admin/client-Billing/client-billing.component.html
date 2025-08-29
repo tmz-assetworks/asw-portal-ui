@@ -79,7 +79,7 @@
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
-                price (Annual Cost)
+                Price (Annual Cost)
                 <span style="color: 'red';">*</span>
               </h5>
               <div
@@ -93,7 +93,7 @@
                 <input
                   formControlName="price"
                   type="text"
-                  maxlength="14"
+                  maxlength="10"
                  
                   class="barbar-input-text"
                 />
@@ -102,11 +102,11 @@
                 *ngIf="
                   !addAdminFormGroup.get('price')?.valid &&
                   addAdminFormGroup.get('price')?.touched &&
-                  addAdminFormGroup.get('price')?.value.length > 0
+                  addAdminFormGroup.get('price')?.value.length > 10
                 "
                 class="error-mess"
               >
-                price Must Be 10 digits
+                Price should not be greater than 10 number
               </span>
               <span
                 *ngIf="
@@ -117,7 +117,7 @@
                 "
                 class="error-mess"
               >
-                price Is Required
+                Price Is Required
               </span>
             </div>
           </div>

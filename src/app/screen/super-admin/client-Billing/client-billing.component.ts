@@ -142,13 +142,7 @@ switch (mode) {
   const startMonth = this.addAdminFormGroup.get('startMonth')?.value;
   const endMonth = this.addAdminFormGroup.get('endMonth')?.value;
 
-  // If years are different, always reset endMonth
-  if (startYear && endYear && startYear !== endYear) {
-    if (endMonth) {
-      this.addAdminFormGroup.get('endMonth')?.reset('');
-    }
-  }
-
+  
   // If same year but endMonth < startMonth → reset
   if (startYear && endYear && startYear === endYear) {
     if (endMonth && endMonth < startMonth) {
