@@ -8,6 +8,7 @@ import { CommandDialogComponent } from './command-dialog/command-dialog.componen
 import { DiagnosticsService } from '../../diagnostics/diagnostics.service'
 import { interval } from 'rxjs'
 import { ToastrService } from 'ngx-toastr'
+import { ActivatedRoute, Router } from '@angular/router'
 
 @Component({
   selector: 'app-location-chargers',
@@ -36,6 +37,7 @@ export class LocationChargersComponent implements OnInit {
   isTableHasData: any
 
   constructor(
+    private _router: Router,
     public _locationService: LocationService,
     private _storageService: StorageService,
     public dialog: MatDialog,
@@ -56,6 +58,7 @@ export class LocationChargersComponent implements OnInit {
     'connectorType',
     'chargerStatus',
     'noofPort',
+    'diagnostic',
     'action',
   ]
   dataSource = new MatTableDataSource<any>()
@@ -147,6 +150,16 @@ export class LocationChargersComponent implements OnInit {
     })
     dialogRef.afterClosed().subscribe((result) => {})
   }
+
+  redirectToDiagnostic(command: any, chargeBoxId: string) {
+    this._storageService.setSessionData('chargerBoxId', chargeBoxId)
+          this._storageService.setSessionData('chargerName', chargeBoxId);
+          let userRole=this._storageService.getLocalData('role')?.toLowerCase();
+          if(userRole){
+            this._router.navigate([`${userRole}/charger/chargers-diagnostic`]);
+          }
+}
+
 
   remoteStopTransaction(chargerId: any) {
     const pBody = {}
