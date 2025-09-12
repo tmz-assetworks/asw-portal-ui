@@ -186,6 +186,27 @@
                                 {{ element.noofPort }}
                               </td>
                             </ng-container>
+                            <ng-container matColumnDef="diagnostic">
+                              <th mat-header-cell *matHeaderCellDef>DIAGNOSTIC</th>
+                              <td mat-cell *matCellDef="let element">
+                                
+                                <span
+                                  class="showHandCursor"
+                                  matTooltip="Diagnostic"
+                                  (click)="
+                                    redirectToDiagnostic(
+                                      'changeAvailability',
+                                      element.chargeBoxId
+                                    )
+                                  "
+                                >
+                                  <img
+                                    src="../../../../assets/icons/view-icon.png"
+                                    alt=""
+                                  />
+                                </span>                                
+                              </td>
+                            </ng-container>
                             <ng-container matColumnDef="action">
                               <th mat-header-cell *matHeaderCellDef>ACTION</th>
                               <td mat-cell *matCellDef="let element">
@@ -204,21 +225,7 @@
                                     alt=""
                                   />
                                 </span>
-                                <span
-                                  class="showHandCursor"
-                                  matTooltip="Change Availability"
-                                  (click)="
-                                    openCommandDialog(
-                                      'changeAvailability',
-                                      element.chargeBoxId
-                                    )
-                                  "
-                                >
-                                  <img
-                                    src="../../../../../assets/locationcharger-icon/Group (1).png"
-                                    alt=""
-                                  />
-                                </span>
+                                
                                 <span
                                   class="showHandCursor"
                                   matTooltip="Remote Start Transaction"
