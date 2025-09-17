@@ -156,7 +156,7 @@
                         <!-- Charge Box Id Column -->
                         <ng-container matColumnDef="chargerBoxId">
                           <th mat-header-cell *matHeaderCellDef>
-                            CHARGE BOX ID
+                            CHARGER ID
                           </th>
                           <td mat-cell *matCellDef="let element">
                             {{ element.chargerBoxId }}
@@ -166,7 +166,7 @@
                         <!-- Charger Type Column -->
                         <ng-container matColumnDef="chargertype">
                           <th mat-header-cell *matHeaderCellDef>
-                            CHARGER TYPE
+                            CONNECTOR TYPE
                           </th>
                           <td mat-cell *matCellDef="let element">
                             {{ element.chargerType }}
@@ -174,10 +174,10 @@
                         </ng-container>
 
                         <!-- Fault Since Column -->
-                        <ng-container matColumnDef="faultisince">
-                          <th mat-header-cell *matHeaderCellDef> LAST FAULT</th>
+                        <ng-container matColumnDef="chargerStatus">
+                          <th mat-header-cell *matHeaderCellDef>CHARGER STATUS</th>
                           <td mat-cell *matCellDef="let element">
-                            {{ element.faultSince }}
+                            {{ element.chargerStatus }}
                           </td>
                         </ng-container>
 
@@ -192,19 +192,19 @@
                         </ng-container>
 
                         <!-- Time Reported Column -->
-                        <ng-container matColumnDef="timereported">
+                        <ng-container matColumnDef="chargerPorts">
                           <th mat-header-cell *matHeaderCellDef>
-                            TIME REPORTED
+                            CHARGER PORTS
                           </th>
                           <td mat-cell *matCellDef="let element">
-                            {{ element.timeReported }}
+                            {{ element.noofPort }}
                           </td>
                         </ng-container>
 
                         <!-- Location ID Column -->
                         <ng-container matColumnDef="makeName">
                           <th mat-header-cell *matHeaderCellDef>
-                            MAKE
+                            CHARGER MAKE
                           </th>
                           <td mat-cell *matCellDef="let element">
                             {{ element.makeName }}
@@ -213,7 +213,7 @@
 
                         <!-- State Column -->
                         <ng-container matColumnDef="modelName">
-                          <th mat-header-cell *matHeaderCellDef>MODEL</th>
+                          <th mat-header-cell *matHeaderCellDef>CHARGER MODEL</th>
                           <td mat-cell *matCellDef="let element">
                             {{ element.modelName }}
                           </td>
