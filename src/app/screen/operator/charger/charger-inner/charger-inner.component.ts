@@ -254,4 +254,63 @@ export class ChargerInnerComponent implements OnInit {
 
     this.getDispensersDetail()
   }
+downloadAsCSV(): void {
+  const body = {
+      pageNumber: 1,
+      searchParam: '',
+      pageSize: 9999,
+      orderBy: '',
+      operatorid: this.UserId,
+  };
+
+  this._chargerService.GetDispensersDetail(body).subscribe((res: any) => {
+    if (!res.data || res.data.length === 0) {
+      return;
+    }
+
+    const headers = [
+      'ASSET ID',
+      'CHARGER ID',
+      'LOCATION',
+      'CHARGER MAKE',
+      'CHARGER MODEL',
+      'CONNECTOR TYPE',
+      'CHARGER STATUS',
+      'CHARGER PORTS',
+      'SIM ICCID',
+      'LOCATION CONTACT NUMBER'
+    ];
+
+    const escapeCsv = (value: any) => {
+      if (value == null) return '""';
+      let str = String(value).replace(/"/g, '""');
+      return `"${str}"`;
+    };
+
+    const rows = res?.data?.map((item: any) => [
+      escapeCsv(item.assetId),
+      escapeCsv(item.chargerBoxId),
+      escapeCsv(item.locationContactName),
+      escapeCsv(item.makeName),
+      escapeCsv(item.modelName),
+      escapeCsv(item.chargerType),
+      escapeCsv(item.chargerStatus),
+      escapeCsv(item.noofPort),
+      escapeCsv(item.simCardMSIDN),
+      escapeCsv(item.locationContactNumber)
+    ].join(',')).join('\n');
+
+    const csvContent =
+      'data:text/csv;charset=utf-8,' + headers.join(',') + '\n' + rows;
+
+    const link = document.createElement('a');
+    link.setAttribute('href', encodeURI(csvContent));
+    link.setAttribute('download', 'charger_detail_report.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  });
+}
+
+
 }
