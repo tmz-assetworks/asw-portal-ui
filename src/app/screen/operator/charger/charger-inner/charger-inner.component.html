@@ -136,7 +136,37 @@
                       </div>
                       <div class="cust-list-flex3-spacer"></div>
                       <div class="cust-list-flex3-item1">
-                        <div class="cust-list-block23 layout"></div>
+                        <div class="cust-list-block23 layout">
+
+                          <div class="exp_button">
+  <div class="cust-list-flex3 layout">
+    <div
+      class="cust-list-flex3-item1"
+      (click)="downloadAsCSV()"
+      (keydown)="handleKeyDown($event)"
+      tabindex="0"
+      role="button"
+      aria-label="Export as CSV"
+    >
+      <div class="cust-list-block23 layout">
+        <div class="cust-list-block23-item">
+          <div class="cust-list-box10 layout">
+            <img
+              src="../../../../../assets/download-report.png"
+              alt="Download CSV"
+              srcset=""
+            />
+          </div>
+        </div>
+        <div class="cust-list-block23-spacer"></div>
+        <div class="cust-list-text-body4 layout">
+          EXPORT
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
                       </div>
                     </div>
                     <div class="layout mat-data">
