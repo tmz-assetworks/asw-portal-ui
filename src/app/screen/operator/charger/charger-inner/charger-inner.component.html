@@ -143,6 +143,7 @@
     <div
       class="cust-list-flex3-item1"
       (click)="downloadAsCSV()"
+      (keydown)="handleKeyDown($event)"
       tabindex="0"
       role="button"
       aria-label="Export as CSV"

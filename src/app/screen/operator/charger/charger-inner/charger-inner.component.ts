@@ -8,6 +8,7 @@ import { AuthService } from 'src/app/service/auth/auth.service'
 import { StorageService } from 'src/app/service/storage.service'
 import { DashboardService } from '../../dashboard/dashboard.service'
 import { ChargerService } from '../charger.service'
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-charger-inner',
@@ -93,6 +94,7 @@ export class ChargerInnerComponent implements OnInit {
     private _chargerService: ChargerService,
     private _storageService: StorageService,
     private _route: ActivatedRoute,
+    private readonly _location: Location,
   ) {
     this.UserId = this._storageService.getLocalData('user_id')
   }
@@ -253,6 +255,16 @@ export class ChargerInnerComponent implements OnInit {
     }
 
     this.getDispensersDetail()
+  }
+  handleKeyDown(event: KeyboardEvent): void {
+  if (event.key === 'Enter' || event.key === ' ') {
+    event.preventDefault(); 
+    this.goback();
+  }
+}
+ goback(): void {
+    this._location.back();
+    sessionStorage.clear();
   }
 downloadAsCSV(): void {
   const body = {
