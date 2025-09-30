@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import { ToastrService } from 'ngx-toastr'
 import { LoginService } from '../login.service'
@@ -8,6 +8,7 @@ import { LoginService } from '../login.service'
   selector: 'app-login-verification',
   templateUrl: './login-verification.component.html',
   styleUrls: ['./login-verification.component.scss'],
+  imports:[ReactiveFormsModule]
 })
 export class LoginVerificationComponent implements OnInit {
   // https://qa-portal-ui.azurewebsites.net/verifyOTP?emailid=admintest@devopstekmindz.onmicrosoft.com

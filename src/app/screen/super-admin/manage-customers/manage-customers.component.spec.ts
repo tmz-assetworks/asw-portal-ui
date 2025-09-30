@@ -61,7 +61,7 @@ describe('ManageCustomersComponent', () => {
     fixture = TestBed.createComponent(ManageCustomersComponent)
     component = fixture.componentInstance
     fixture.autoDetectChanges()
-    storageService=TestBed.get(StorageService)
+    storageService=TestBed.inject(StorageService)
     de = fixture.debugElement
   })
 

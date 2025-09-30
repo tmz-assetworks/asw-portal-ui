@@ -1,9 +1,13 @@
+import { CommonModule } from '@angular/common'
 import { Component, Input, OnInit } from '@angular/core'
+import { StatusBoxElementComponent } from '../status-box-element/status-box-element.component'
 
 @Component({
   selector: 'app-status-box-points',
   templateUrl: './status-box-points.component.html',
   styleUrls: ['./status-box-points.component.scss'],
+  imports:[CommonModule,StatusBoxElementComponent]
+
 })
 export class StatusBoxPointsComponent implements OnInit {
   constructor() {}

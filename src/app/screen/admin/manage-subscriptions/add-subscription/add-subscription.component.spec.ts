@@ -48,9 +48,9 @@ describe('AddSubscriptionComponent', () => {
     fixture = TestBed.createComponent(AddSubscriptionComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
-    toastrService = TestBed.get(ToastrService);
-    _adminService = TestBed.get(AdminService);
-    datePipe = TestBed.get(DatePipe);
+    toastrService = TestBed.inject(ToastrService);
+    _adminService = TestBed.inject(AdminService);
+    datePipe = TestBed.inject(DatePipe);
     component.subscriptionPlanFormGroup.controls['validfrom'].setValue(new Date(2022, 0, 1));
   })
 

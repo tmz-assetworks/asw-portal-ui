@@ -13,7 +13,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Plan Name
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -35,7 +35,7 @@
                 *ngIf="
                   !addAdminFormGroup.get('planName')?.valid &&
                   addAdminFormGroup.get('planName')?.touched &&
-                  addAdminFormGroup.get('planName')?.value.length > 40
+                  (addAdminFormGroup.get('planName')?.value?.length ?? 0) > 40
                 "
                 class="error-mess"
               >
@@ -67,7 +67,7 @@
               <span
                 *ngIf="
                   addAdminFormGroup.get('description')?.touched &&
-                  addAdminFormGroup.get('description')?.value.length > 255
+                  (addAdminFormGroup.get('description')?.value?.length ?? 0) > 255
                 "
                 class="error-mess"
               >
@@ -80,7 +80,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Price (Annual Cost)
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -102,7 +102,7 @@
                 *ngIf="
                   !addAdminFormGroup.get('price')?.valid &&
                   addAdminFormGroup.get('price')?.touched &&
-                  addAdminFormGroup.get('price')?.value.length > 10
+                  (addAdminFormGroup.get('price')?.value?.length ?? 0) > 10
                 "
                 class="error-mess"
               >
@@ -113,7 +113,8 @@
                   !addAdminFormGroup.get('price')?.valid &&
                   (addAdminFormGroup.get('price')?.touched ||
                     submitted) &&
-                  addAdminFormGroup.get('price')?.value.length == 0
+                  (addAdminFormGroup.get('price')?.value?.length ?? 0) > 0  
+                  
                 "
                 class="error-mess"
               >
@@ -128,9 +129,10 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Charger Type
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
                <mat-form-field
+               appearance="outline"
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':

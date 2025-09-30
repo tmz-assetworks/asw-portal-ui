@@ -64,10 +64,8 @@
       <div>
         <div class="cust-list-flex1 layout">
           <div class="cust-list-flex3 layout">
-            <div class="cust-list-flex3-item">
-              <div class="cust-list-group layout">
-                <div class="cust-list-block19 layout">
-                  <mat-form-field class="barbar-box6 layout select-all-opt">
+           <div class="cust-list-block20 layout">
+                  <mat-form-field appearance="outline" class="barbar-box6 layout select-all-opt">
                     <select
                       matNativeControl
                       required
@@ -80,8 +78,6 @@
                     </select>
                   </mat-form-field>
                 </div>
-              </div>
-            </div>
 
             <div class="cust-list-flex3-spacer"></div>
             <div class="cust-list-flex3-item1">
@@ -110,8 +106,6 @@
             multiTemplateDataRows
             matSort
             class="mat-elevation-z8"
-            matTableExporter
-            #exporter="matTableExporter"
           >
             <ng-container matColumnDef="Type">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>

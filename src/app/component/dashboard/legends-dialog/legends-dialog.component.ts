@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core'
 import { MatTableDataSource } from '@angular/material/table'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 
 @Component({
   selector: 'app-legends-dialog',
   templateUrl: './legends-dialog.component.html',
   styleUrls: ['./legends-dialog.component.scss'],
+  imports:[SharedMaterialModule]
 })
 export class LegendsDialogComponent implements OnInit {
   status = [

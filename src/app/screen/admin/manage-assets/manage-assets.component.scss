@@ -1,4 +1,4 @@
-@import '../../../../styles.scss';
+@use '../../../../styles.scss' as *;
 
 $color_type_0: rgb(0, 98, 166);
 $color_type_1: rgb(112, 120, 127);
@@ -1058,7 +1058,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
 }
 
-.example-container .mat-form-field + .mat-form-field {
+.example-container .mat-mdc-form-field + .mat-mdc-form-field {
   margin-left: 20px;
 }
 table {
@@ -1111,17 +1111,17 @@ section {
   padding: 8px 24px 0;
 }
 
-.mat-form-field {
+.mat-mdc-form-field {
   font-size: 14px;
   width: 100%;
 }
 
-.mat-table {
+.mat-mdc-table {
   // overflow: auto;
   max-height: 500px;
 }
 
-.mat-header-row {
+.mat-mdc-header-row {
   background-color: #70787f;
 }
 
@@ -1129,13 +1129,15 @@ section {
   left: -33px;
   width: 29%;
 }
-.mat-header-cell {
+.mat-mdc-header-cell {
+   font-size: 12px;
+   font-weight: 500;
   color: #fff;
 }
-.mat-row:nth-child(even) {
+.mat-mdc-row:nth-child(even) {
   background-color: #f5f5f5;
 }
-.mat-paginator-outer-container {
+.mat-mdc-paginator-outer-container {
   background: #f5f5f5;
 }
 
@@ -1143,60 +1145,56 @@ cust-list-icon.layout {
   left: -29px;
   width: 29%;
 }
-.mat-header-cell {
+.mat-mdc-header-cell {
   color: #fff;
 }
-.mat-row:nth-child(even) {
+.mat-mdc-row:nth-child(even) {
   background-color: #f5f5f5;
 }
 
-.mat-table {
+.mat-mdc-table {
   background: white;
   border: 1px solid #8f8f8f;
 }
 
-th.mat-header-cell {
+th.mat-mdc-header-cell {
   border-right: 1px solid #e6e6e6;
   text-align: center;
 }
-.mat-cell,
-.mat-footer-cell {
+.mat-mdc-cell,
+.mat-mdc-footer-cell {
   border-right: 1px solid #e6e6e6;
 }
-.mat-cell {
+.mat-mdc-cell {
   text-align: center;
 }
-
-th.mat-header-cell:last-of-type,
-td.mat-cell:last-of-type,
-td.mat-footer-cell:last-of-type {
+th.mat-mdc-header-cell:last-of-type,
+td.mat-mdc-cell:last-of-type,
+td.mat-mdc-footer-cell:last-of-type {
   padding-right: 0px;
 }
-mat-row,
-mat-header-row,
-mat-footer-row,
-th.mat-header-cell,
-td.mat-cell,
-td.mat-footer-cell {
+mat-mdc-row,
+mat-mdc-header-row,
+mat-mdc-footer-row,
+th.mat-mdc-header-cell,
+td.mat-mdc-cell,
+td.mat-mdc-footer-cell {
   border-bottom: 1px solid #8f8f8f;
   text-align: center;
   padding: 0 20px;
 }
-tr.mat-row:last-of-type {
-  td.mat-cell {
+tr.mat-mdc-row:last-of-type {
+  td.mat-mdc-cell {
     border-bottom: 0px solid #8f8f8f;
   }
 }
-.mat-cell {
+.mat-mdc-cell {
   font-size: 13px;
   color: #323e48;
 }
-// .mat-paginator-page-size-select {
-//   margin: inherit;
-//   width: 56px;
-// }
 
-.mat-elevation-z8 {
+
+.mat-mdc-elevation-z8 {
   box-shadow: 0px 0px 0px 0px rgb(0 0 0 / 20%), 0px 0px 0px 0px rgb(0 0 0 / 14%),
     0px 0px 0px 0px rgb(0 0 0 / 12%);
 }
@@ -1216,7 +1214,7 @@ tr.mat-row:last-of-type {
     width: 90vw;
   }
 
-  .mat-elevation-z8 {
+  .mat-mdc-elevation-z8 {
     width: 100%;
 
     @include lg {
@@ -1230,12 +1228,10 @@ tr.mat-row:last-of-type {
     }
   }
 }
-.mat-paginator {
+.mat-mdc-paginator {
   margin: 0 20px;
 }
-// .cable-block .cust-list-block17.layout.text-spacer {
-//   border-right: 0 !important;
-// }
+
 @media screen and (max-width: 1920px) {
   .manage-asset-main .RFID-card {
     border-right: 0px !important;
@@ -1258,9 +1254,7 @@ tr.mat-row:last-of-type {
 .cust-list-block7-item1 {
   margin-left: 10px;
 }
-// .cust-list-block13.layout {
-//   margin-right: 7px !important;
-// }
+
 .cust-list-block4-item .cust-list-block9.layout {
   margin-left: 0px !important;
   width: max-content;
@@ -1270,14 +1264,11 @@ tr.mat-row:last-of-type {
 }
 }
 @media screen and (max-width: 960px) {
-  .mat-table {
+  .mat-mdc-table {
     border: 0;
     vertical-align: middle;
   }
 }
-// .manage-asset-main .cust-list-block13.layout{
-//   margin: 0 20px 0 20px;
-// }
 .manage-asset-main .cust-list-block15-item{
   flex: 0 1 175px;
 }
@@ -1289,12 +1280,7 @@ tr.mat-row:last-of-type {
 }
 
 @media screen and (max-width: 1366px) {
-  //   .cust-list-block4.layout {
-  //     flex-wrap: wrap;
-  // }
-  // .cust-list-block17.layout.text-spacer {
-  //   padding-top: 12px;
-  // }
+
   .cust-list-block3-item .cust-list-box7.layout img {
     width: 27px;
     height: 27px;
@@ -1352,21 +1338,9 @@ tr.mat-row:last-of-type {
     width: 32px;
     height: 32px;
   }
-  // .cust-list-block7-item1 {
-  //   width: 65px;
-  // }
-  // .cust-list-block14.layout {
-  //   width: 74px;
-  // }
   .manage-asset-main .cust-list-flex1-item .cust-list-block18 {
     margin: 0px 0px 0px 0px !important;
   }
-  // .cust-list-block17 .cust-list-block17-item1 {
-  //   margin-right: 30px !important;
-  // }
-  // .cust-list-block17.layout {
-  //   width: 150px;
-  // }
   .manage-asset-main .cust-list-block4 {
     margin: 19px 0px 18px 26px;
   }
@@ -1378,20 +1352,9 @@ tr.mat-row:last-of-type {
     margin: 0;
     justify-content: end;
   }
-  // .counter-card .cust-list-block7-item1,
-  // .cust-list-block14 {
-  //   margin-left: 20px !important;
-  // }
-  // .counter-card .cust-list-block14.layout {
-  //   margin-left: 20px !important;
-  //   // margin-right: 20px !important;
-  // }
   .counter-card .cust-list-block14.layout.pads-value {
     margin-right: 18px;
   }
-  // .counter-card .cust-list-block12-item1 {
-  //   min-width: 68px;
-  // }
   .cust-list-block3.layout {
     width: 1067px;
   }
@@ -1401,10 +1364,6 @@ tr.mat-row:last-of-type {
   .manage-asset-main .cust-list-block4 .cust-list-block17.layout {
     border-right: 1px dotted #70787f73;
   }
-  // .manage-asset-main .cust-list-hero-title{font-size: 45px;}
-  // .manage-asset-main .cust-list-block4 .cust-list-block7-item1 {
-  //   margin-left: 10px;
-  // }
   .cust-list-block17.layout.text-spacer {
     border-right: 1px dotted #70787f73;
   }
@@ -1454,12 +1413,6 @@ tr.mat-row:last-of-type {
     display: block !important;
   }
 }
-// .manage-asset-main .cust-list-block3 .cust-list-block13.layout {
-//   margin-left: 0px ;
-// }
-// .manage-asset-main .cust-list-block3-item .cust-list-block4{
-//   display: block !important;
-// }
 
 @media screen and (max-width: 768px){
   .cust-list-flex1 .mat-data{
@@ -1473,9 +1426,6 @@ tr.mat-row:last-of-type {
 }
 
 @media screen and (max-width: 767px){
-//   .manage-asset-main .cust-list-block13.layout{
-//     margin: 0;
-// }
 .cust-list-block17.layout.text-spacer{
   padding-left: 0;
 }

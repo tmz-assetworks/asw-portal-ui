@@ -112,25 +112,28 @@
         </div>
         <div class="dashboard-block42 layout">
           <div class="dashboard-block42-item">
+            @if (reportTransactionMonthlyData !== '') {
             <app-line-chart
-              *ngIf="reportTransactionMonthlyData !== ''"
               [reportTransactionMonthlyData]="reportTransactionMonthlyData"
               [chartType]="'reportTransactionMonthly'"
               (lineDetailPage)="
                 openReportDetailPage(4, 'Cost by Month', 'REPORTS', 1)
               "
             ></app-line-chart>
+            }
           </div>
           <div class="dashboard-block42-spacer"></div>
           <div class="dashboard-block42-item">
+            @if (reportTransactionYearlyData !== '') {
             <app-bar-chart
-              *ngIf="reportTransactionYearlyData !== ''"
+              [reportTransactionYearlyData]="reportTransactionYearlyData"
               [reportTransactionYearlyData]="reportTransactionYearlyData"
               [chartType]="'reportTransactionYearly'"
               (barDetailPage)="
                 openReportDetailPage(5, 'Cost by Year', 'REPORTS', 1)
               "
             ></app-bar-chart>
+            }
           </div>
         </div>
       </div>

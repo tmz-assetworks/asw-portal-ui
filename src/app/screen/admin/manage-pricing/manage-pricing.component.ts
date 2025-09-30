@@ -1,18 +1,20 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
 import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
-import { Router } from '@angular/router'
+import { Router, RouterModule } from '@angular/router'
 import { ToastrService } from 'ngx-toastr'
 import { StorageService } from 'src/app/service/storage.service'
 import { AdminService } from '../admin.service'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
+import { CommonModule } from '@angular/common'
 
 @Component({
   selector: 'app-manage-pricing',
   templateUrl: './manage-pricing.component.html',
   styleUrls: ['./manage-pricing.component.scss'],
+  imports:[CommonModule,SharedMaterialModule,RouterModule]
 })
 export class ManagePricingComponent implements OnInit {
-  pricingPlanList = []
 
   UserId: string | null
   totalCount: any
@@ -33,7 +35,7 @@ export class ManagePricingComponent implements OnInit {
     'Action',
   ]
 
-  dataSource = new MatTableDataSource<any>(this.pricingPlanList)
+  dataSource = new MatTableDataSource<any>([])
   isTableHasData: any
   statusData: any
   adminService: any

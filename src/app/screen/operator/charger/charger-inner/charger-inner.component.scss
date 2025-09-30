@@ -1,4 +1,4 @@
-@import '../../../../../styles.scss';
+@use '../../../../../styles.scss' as *;
 $color_type_0: rgb(0, 98, 166);
 $color_type_2: rgb(19, 27, 33);
 $color_type_3: rgb(217, 217, 217);
@@ -1173,11 +1173,11 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     @include flex-column;
     position: relative;
     flex: 0 1 15%;
+    min-width: min-content;
     @include sm {
       flex: 0 0 0%;
     }
-    // min-width: 117px;
-    min-width: min-content;
+    
   }
   &block34 {
     @include flex-column;
@@ -1210,11 +1210,11 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     @include flex-column;
     position: relative;
     flex: 0 1 10%;
+    min-width: min-content;
     @include sm {
       flex: 0 0 10%;
     }
-    // min-width: 59px;
-    min-width: min-content;
+    
   }
   &block35 {
     display: flex;
@@ -1253,11 +1253,11 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     @include flex-column;
     position: relative;
     flex: 0 1 8%;
+    min-width: min-content;
     @include sm {
       flex: 0 0 9%;
     }
-    // min-width: 53px;
-    min-width: min-content;
+   
   }
   &block36 {
     @include flex-column;
@@ -1296,11 +1296,11 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     @include flex-column;
     position: relative;
     flex: 0 1 8%;
+    min-width: min-content;
     @include sm {
       flex: 0 0 10%;
     }
-    // min-width: 59px;
-    min-width: min-content;
+    
   }
   &block37 {
     @include flex-column;
@@ -1330,11 +1330,11 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     @include flex-column;
     position: relative;
     flex: 0 1 8%;
+    min-width: min-content;
     @include sm {
       flex: 0 0 10%;
     }
-    // min-width: 59px;
-    min-width: min-content;
+    
   }
   &block38 {
     @include flex-column;
@@ -2873,12 +2873,12 @@ section {
   width: 100%;
 }
 
-.mat-table {
+.mat-mdc-table {
   overflow: auto;
   max-height: 500px;
 }
 
-.mat-header-row {
+.mat-mdc-header-row {
   background-color: #70787f;
 }
 
@@ -2886,13 +2886,15 @@ section {
   left: -33px;
   width: 29%;
 }
-.mat-header-cell {
+.mat-mdc-header-cell {
+   font-size: 12px;
+   font-weight: 500;
   color: #fff;
 }
-.mat-row:nth-child(even) {
+.mat-mdc-row:nth-child(even) {
   background-color: #f5f5f5;
 }
-.mat-paginator-outer-container {
+.mat-mdc-paginator-outer-container {
   background: #f5f5f5;
 }
 
@@ -2900,54 +2902,52 @@ cust-list-icon.layout {
   left: -29px;
   width: 29%;
 }
-.mat-header-cell {
-  color: #fff;
-}
-.mat-row:nth-child(even) {
+
+.mat-mdc-row:nth-child(even) {
   background-color: #f5f5f5;
 }
 
-.mat-table {
+.mat-mdc-table {
   background: white;
   border: 1px solid #8f8f8f;
 }
 
-th.mat-header-cell {
+th.mat-mdc-header-cell {
   border-right: 1px solid #e6e6e6;
   text-align: left;
 }
-.mat-cell,
-.mat-footer-cell {
+.mat-mdc-cell,
+.mat-mdc-footer-cell {
   border-right: 1px solid #e6e6e6;
 }
-.mat-cell {
+.mat-mdc-cell {
   text-align: center;
 }
 
-th.mat-header-cell:last-of-type,
-td.mat-cell:last-of-type,
-td.mat-footer-cell:last-of-type {
+th.mat-mdc-header-cell:last-of-type,
+td.mat-mdc-cell:last-of-type,
+td.mat-mdc-footer-cell:last-of-type {
   // padding-right: 0px;
   border-bottom: 1px solid #8f8f8f;
   text-align: center;
   padding: 0 30px;
 }
-mat-row,
-mat-header-row,
-mat-footer-row,
-th.mat-header-cell,
-td.mat-cell,
-td.mat-footer-cell {
+mat-mdc-row,
+mat-mdc-header-row,
+mat-mdc-footer-row,
+th.mat-mdc-header-cell,
+td.mat-mdc-cell,
+td.mat-mdc-footer-cell {
   border-bottom: 1px solid #8f8f8f;
   text-align: center;
   padding: 0 20px;
 }
-tr.mat-row:last-of-type {
-  td.mat-cell {
+tr.mat-mdc-row:last-of-type {
+  td.mat-mdc-cell {
     border-bottom: 0px solid #8f8f8f;
   }
 }
-.mat-cell {
+.mat-mdc-cell {
   font-size: 13px;
   color: #323e48;
 }
@@ -3046,7 +3046,10 @@ tr.mat-row:last-of-type {
   }
   &hero-title {
     @include font-face($font_type0, rgb(255, 255, 255), 0px);
-
+    margin-bottom: 0px;
+    margin-top: 2px;
+    align-self: right;
+    
     @include xxl {
       font-size: 36px;
       text-align: left;
@@ -3078,9 +3081,7 @@ tr.mat-row:last-of-type {
     @include tn {
       font-size: 15px;
     }
-    margin-bottom: 0px;
-    margin-top: 2px;
-    align-self: right;
+    
   }
   &hero-title.layout {
     position: relative;

@@ -32,7 +32,7 @@
                   <div class="widget-block1-item">
                     <div class="widget-block2 layout">
                       <div class="widget-text-body layout">
-                        {{ (statusList?.statusData)[0].key }}
+                        {{statusList?.statusData?.length > 0 ? (statusList?.statusData)[0]?.key : '' }}
                       </div>
                       <div class="widget-block2-spacer"></div>
                       <div class="widget-block2-item">
@@ -40,7 +40,7 @@
                           class="widget-box layout"
                           [ngStyle]="{
                             'background-color':
-                              (statusList?.statusData)[0].color
+                            statusList?.statusData?.length > 0 ? (statusList?.statusData)[0]?.color : ''
                           }"
                         ></div>
                       </div>
@@ -48,14 +48,14 @@
                   </div>
                   <div class="widget-block1-spacer"></div>
                   <div class="widget-text-body1 layout">
-                    {{ (statusList?.statusData)[0].value }}
+                    {{ statusList?.statusData?.length > 0 ? (statusList?.statusData)[0]?.value : '' }}
                   </div>
                 </div>
                 <div class="widget-block1 layout">
                   <div class="widget-block1-item">
                     <div class="widget-block2 layout">
                       <div class="widget-text-body layout">
-                        {{ (statusList?.statusData)[1].key }}
+                        {{ statusList?.statusData?.length > 0 ? (statusList?.statusData)[1]?.key : '' }}
                       </div>
                       <div class="widget-block2-spacer"></div>
                       <div class="widget-block2-item">
@@ -63,7 +63,7 @@
                           class="widget-box layout"
                           [ngStyle]="{
                             'background-color':
-                              (statusList?.statusData)[1].color
+                            statusList?.statusData?.length > 0 ? (statusList?.statusData)[1]?.color : ''
                           }"
                         ></div>
                       </div>
@@ -71,7 +71,7 @@
                   </div>
                   <div class="widget-block1-spacer"></div>
                   <div class="widget-text-body1 layout">
-                    {{ (statusList?.statusData)[1].value }}
+                    {{ statusList?.statusData?.length > 0 ? (statusList?.statusData)[1]?.value : '' }}
                   </div>
                 </div>
               </div>

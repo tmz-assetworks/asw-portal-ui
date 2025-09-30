@@ -10,7 +10,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Organization Name
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div class="barbar-box6 layout">
                 <input
@@ -28,7 +28,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Subscription Plan Name
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -50,8 +50,7 @@
                     ?.valid &&
                   subscriptionPlanFormGroup.get('subscriptionPlanName')
                     ?.touched &&
-                  subscriptionPlanFormGroup.get('subscriptionPlanName')?.value
-                    .length > 40
+                  (subscriptionPlanFormGroup.get('subscriptionPlanName')?.value?.length ?? 0) > 40
                 "
                 class="error-mess"
               >
@@ -64,8 +63,7 @@
                     ?.valid &&
                   subscriptionPlanFormGroup.get('subscriptionPlanName')
                     ?.touched &&
-                  subscriptionPlanFormGroup.get('subscriptionPlanName')?.value
-                    .length == 0
+                  subscriptionPlanFormGroup.get('subscriptionPlanName')?.value?.length == 0
                 "
                 class="error-mess"
               >
@@ -91,8 +89,7 @@
                 *ngIf="
                   subscriptionPlanFormGroup.get('subscriptionDetails')
                     ?.touched &&
-                  subscriptionPlanFormGroup.get('subscriptionDetails')?.value
-                    .length > 250
+                  (subscriptionPlanFormGroup.get('subscriptionDetails')?.value?.length ?? 0) > 250
                 "
                 class="error-mess"
               >
@@ -106,7 +103,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Currency Code
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <mat-form-field
                 class="barbar-box6 layout"
@@ -134,7 +131,7 @@
               *ngIf="
                 !subscriptionPlanFormGroup.get('currencyCode')?.valid &&
                 subscriptionPlanFormGroup.get('currencyCode')?.touched &&
-                subscriptionPlanFormGroup.get('currencyCode')?.value.length == 0
+                subscriptionPlanFormGroup.get('currencyCode')?.value?.length == 0
               "
               class="error-mess"
             >
@@ -146,7 +143,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Valid From
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <mat-form-field
                 class="barbar-box6 layout"
@@ -175,7 +172,7 @@
               *ngIf="
                 !subscriptionPlanFormGroup.get('validfrom')?.valid &&
                 subscriptionPlanFormGroup.get('validfrom')?.touched &&
-                subscriptionPlanFormGroup.get('validfrom')?.value.length == 0
+                subscriptionPlanFormGroup.get('validfrom')?.value?.length == 0
               "
               class="error-mess"
             >
@@ -187,7 +184,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Valid To
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <mat-form-field
                 class="barbar-box6 layout"
@@ -217,7 +214,7 @@
               *ngIf="
                 !subscriptionPlanFormGroup.get('validto')?.valid &&
                 subscriptionPlanFormGroup.get('validto')?.touched &&
-                subscriptionPlanFormGroup.get('validto')?.value.length == 0
+                subscriptionPlanFormGroup.get('validto')?.value?.length == 0
               "
               class="error-mess"
             >
@@ -230,7 +227,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Type
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <mat-form-field
                 class="barbar-box6 layout"
@@ -259,7 +256,7 @@
               *ngIf="
                 !subscriptionPlanFormGroup.get('priceType')?.valid &&
                 subscriptionPlanFormGroup.get('priceType')?.touched &&
-                subscriptionPlanFormGroup.get('priceType')?.value.length == 0
+                subscriptionPlanFormGroup.get('priceType')?.value?.length == 0
               "
               class="error-mess"
             >
@@ -271,7 +268,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Unit
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <mat-form-field
                 class="barbar-box6 layout"
@@ -297,7 +294,7 @@
               *ngIf="
                 !subscriptionPlanFormGroup.get('unit')?.valid &&
                 subscriptionPlanFormGroup.get('unit')?.touched &&
-                subscriptionPlanFormGroup.get('unit')?.value.length == 0
+                subscriptionPlanFormGroup.get('unit')?.value?.length == 0
               "
               class="error-mess"
             >
@@ -309,7 +306,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Price
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
                 <span *ngIf="isUnit">({{ showPriceUnitTitle }})</span>
               </h5>
               <div
@@ -331,7 +328,7 @@
                 *ngIf="
                   !subscriptionPlanFormGroup.get('price')?.valid &&
                   subscriptionPlanFormGroup.get('price')?.touched &&
-                  subscriptionPlanFormGroup.get('price')?.value.length > 10
+                  (subscriptionPlanFormGroup.get('price')?.value?.length ?? 0) > 10
                 "
                 class="error-mess"
               >
@@ -341,7 +338,7 @@
                 *ngIf="
                   !subscriptionPlanFormGroup.get('price')?.valid &&
                   subscriptionPlanFormGroup.get('price')?.touched &&
-                  subscriptionPlanFormGroup.get('price')?.value.length == 0
+                  subscriptionPlanFormGroup.get('price')?.value?.length == 0
                 "
                 class="error-mess"
               >

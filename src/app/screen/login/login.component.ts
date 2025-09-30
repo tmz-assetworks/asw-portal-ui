@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
-import { Router } from '@angular/router'
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
+import { Router, RouterModule } from '@angular/router'
 import { ToastrService } from 'ngx-toastr'
 import { LoginService } from './login.service'
 import Swal from 'sweetalert2'
@@ -8,10 +8,18 @@ import { StorageService } from 'src/app/service/storage.service'
 import { AuthService } from 'src/app/service/auth/auth.service'
 import { environment } from 'src/environments/environment'
 import { UserProfileService } from '../user-profile/user-profile.service'
+import { CommonModule } from '@angular/common'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
+  imports:[
+    CommonModule,
+    SharedMaterialModule,
+    ReactiveFormsModule,
+    RouterModule
+  ]
 })
 export class LoginComponent implements OnInit {
   myLoginForm: FormGroup

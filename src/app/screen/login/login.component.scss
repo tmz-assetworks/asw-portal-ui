@@ -1,10 +1,11 @@
 
 
 /* Custom Material Form Field Styling */
-@import '../../../styles';
+@use '../../../styles' as * ;
 
 
-@import '~material-icons/iconfont/material-icons.css';
+@import 'material-icons/iconfont/material-icons.css';
+
 
 * {
   font-family: 'Roboto';
@@ -100,7 +101,7 @@
   }
 
   /* Icon styling */
-  .mat-icon {
+  .mat-mdc-icon {
     color: rgba(0, 0, 0, 0.54);
      top: -0.75em;
     font-size: 24px;
@@ -118,6 +119,7 @@
     line-height: 36px;
     padding: 0; /* Remove default button padding */
     margin-left: 0; /* Adjust as needed, usually no margin for suffix buttons */
+    color:#0000008a;
   }
 
   /* NEW RULE ADDED */
@@ -253,13 +255,14 @@
     @include flex-column;
     background-color: rgb(248, 248, 248);
     border: 1px solid rgb(200, 200, 200);
+     min-height: 700px;
     @include xl {
       min-height: 620px;
     }
     @include sm {
       min-height: 620px;
     }
-    min-height: 700px;
+   
   }
   &block.layout {
     position: absolute;
@@ -279,13 +282,14 @@
     background-color: rgb(255, 255, 255);
     box-shadow: 0px 0px 30px 0px rgba(132, 132, 132, 0.24705882352941178);
     max-height: 950px;
+    min-height: 620px;
     @include md {
       min-height: 560px;
     }
     @include sm {
       min-height: 560px;
     }
-    min-height: 620px;
+    
   }
   &block1.layout {
     position: relative;
@@ -731,18 +735,18 @@
   }
 
   /* Mobile adjustments for Material fields */
-  .custom-mat-field {
-    .mat-form-field-label {
+  .custom-mat-mdc-field {
+    .mat-mdc-form-field-label {
       font-size: 16px;
       left: 10px !important; /* Adjust for smaller padding on mobile */
     }
 
-    .mat-input-element {
+    .mat-mdc-input-element {
       font-size: 16px;
       padding: 10px 0; /* Reduce padding for smaller screens */
     }
 
-    .mat-icon {
+    .mat-mdc-icon {
        top: -0.75em; 
       font-size: 20px;
       height: 20px;
@@ -750,12 +754,12 @@
       line-height: 20px;
     }
 
-    .mat-form-field-outline {
+    .mat-mdc-form-field-outline {
       padding-left: 10px; /* Adjust padding for mobile */
       padding-right: 10px;
     }
 
-    .mat-icon-button {
+    .mat-mdc-icon-button {
       width: 30px;
       height: 30px;
       line-height: 30px;
@@ -887,13 +891,14 @@
     @include flex-column;
     background-color: rgb(248, 248, 248);
     border: 1px solid rgb(200, 200, 200);
+    min-height: 700px;
     @include xl {
       min-height: 620px;
     }
     @include sm {
       min-height: 620px;
     }
-    min-height: 700px;
+    
   }
   &block.layout {
     position: absolute;
@@ -913,13 +918,14 @@
     background-color: rgb(255, 255, 255);
     box-shadow: 0px 0px 30px 0px rgba(132, 132, 132, 0.24705882352941178);
     max-height: 950px;
+    min-height: 620px;
     @include md {
       min-height: 560px;
     }
     @include sm {
       min-height: 560px;
     }
-    min-height: 620px;
+    
   }
   &block1.layout {
     position: relative;
@@ -1363,30 +1369,30 @@
   }
 
   /* Mobile adjustments for Material fields */
-  .custom-mat-field {
-    .mat-form-field-label {
+  .custom-mat-mdc-field {
+    .mat-mdc-form-field-label {
       font-size: 16px;
       left: 10px !important; /* Adjust for smaller padding on mobile */
     }
 
-    .mat-input-element {
+    .mat-mdc-input-element {
       font-size: 16px;
       padding: 10px 0; /* Reduce padding for smaller screens */
     }
 
-    .mat-icon {
+    .mat-mdc-icon {
       font-size: 20px;
       height: 20px;
       width: 20px;
       line-height: 20px;
     }
 
-    .mat-form-field-outline {
+    .mat-mdc-form-field-outline {
       padding-left: 10px; /* Adjust padding for mobile */
       padding-right: 10px;
     }
 
-    .mat-icon-button {
+    .mat-mdc-icon-button {
       width: 30px;
       height: 30px;
       line-height: 30px;

@@ -5,14 +5,15 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { SuperAdminService } from '../super-admin.service';
 import { StorageService } from 'src/app/service/storage.service';
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module';
 
 @Component({
   selector: 'app-manage-admin-users',
   templateUrl: './manage-admin-users.component.html',
   styleUrls: ['./manage-admin-users.component.scss'],
+  imports:[SharedMaterialModule]
 })
 export class ManageAdminUsersComponent implements OnInit {
-  adminList = [];
   isTableHasData: any;
   totalCount: any;
   pageSize: number = 10;

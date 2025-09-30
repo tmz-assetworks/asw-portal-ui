@@ -6,7 +6,9 @@ import { AlertsService } from '../../alerts/alerts.service'
 import { StorageService } from 'src/app/service/storage.service'
 import { LocationService } from '../../location/location.service'
 import { ChargerService } from '../charger.service'
-
+import { CommonModule } from '@angular/common'
+import { RouterModule } from '@angular/router'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 
 // import jsPDF from 'jspdf'
 import 'jspdf-autotable'
@@ -16,11 +18,19 @@ import { MatDialog } from '@angular/material/dialog'
 import { DatePipe } from '@angular/common'
 
 import * as fs from 'file-saver'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 @Component({
   selector: 'app-charger-event',
   templateUrl: './charger-event.component.html',
   styleUrls: ['./charger-event.component.scss'],
+  imports:[
+    CommonModule,
+    RouterModule,
+    SharedMaterialModule,
+    ReactiveFormsModule,
+    FormsModule
+  ],
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({ height: '0px', minHeight: '0' })),
@@ -105,7 +115,7 @@ export class ChargerEventComponent implements OnInit {
       searchParam: this.searchParam == 'All' ? '' : this.searchParam,
       pageSize: this.pageSize,
       orderBy: '',
-      locationIds: [],
+      locationIds: [] as number[],
       opratorid: '',
       chargerBoxIds: [this.selectedChargerIds],
     }
@@ -126,15 +136,12 @@ export class ChargerEventComponent implements OnInit {
   }
 
   /**
-   * Download file
+   * Download file using custom CSV generation
    */
-
-  //  exporter.exportTable('csv', { fileName: 'Charger-EventLog' })
-
   downloadFile() {
     let newObjArr: any = []
 
-    for (var i = 0; i < this.eventLogList.length; i++) {
+    for (var i = 0; i < this.eventLogList?.length; i++) {
       let newObj = {
         'REQUEST TYPE': this.eventLogList[i]['requestType'],
         DATE: this.datePipe.transform(

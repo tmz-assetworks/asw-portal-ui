@@ -1,7 +1,4 @@
-import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'
-import { RouterModule } from '@angular/router'
 import { NgxEchartsModule } from 'ngx-echarts'
 import { AreaChartComponent } from '../component/dashboard/area-chart/area-chart.component'
 import { BarChartComponent } from '../component/dashboard/bar-chart/bar-chart.component'
@@ -19,7 +16,6 @@ import { WidgetComponent } from '../component/dashboard/widget/widget.component'
 import { FooterComponent } from '../component/master/footer/footer.component'
 import { HeaderComponent } from '../component/master/header/header.component'
 import { NavigationModule } from '../component/master/navigation/navigation.module'
-import { SharedMaterialModule } from './shared-material.module'
 import { TabsBarComponent } from '../component/diagnostic/tabs-bar/tabs-bar.component'
 import { TabComponent } from '../component/diagnostic/tab/tab.component'
 import { DiagWidgetComponent } from '../component/diagnostic/diag-widget/diag-widget.component'
@@ -28,32 +24,13 @@ import { DiagWidgetBarComponent } from '../component/diagnostic/diag-widget-bar/
 import { MatTableComponent } from '../component/dashboard/mat-table/mat-table.component'
 import { ToolTipComponent } from '../component/diagnostic/tool-tip/tool-tip.component'
 import { ToolTipItemComponent } from '../component/diagnostic/tool-tip-item/tool-tip-item.component'
-import {
-  NgxMatDatetimePickerModule,
-  NgxMatTimepickerModule,
-  NgxMatNativeDateModule,
-} from '@angular-material-components/datetime-picker'
-import { MatCheckboxModule } from '@angular/material/checkbox';
+
 @NgModule({
   imports: [
     NavigationModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts'),
     }),
-    FormsModule,
-    ReactiveFormsModule,
-    CommonModule,
-    SharedMaterialModule,
-    CommonModule,
-    RouterModule,
-    NgxMatDatetimePickerModule,
-    NgxMatTimepickerModule,
-    NgxMatNativeDateModule,
-    MatCheckboxModule
-  ],
-  exports: [
-    FormsModule,
-    ReactiveFormsModule,
     WidgetComponent,
     GraphCardComponent,
     StatusBoxComponent,
@@ -68,7 +45,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     HeaderComponent,
     FooterComponent,
     StatusBoxEnergyComponent,
-    NavigationModule,
     StatusBoxGraphComponent,
     StatusBoxPointsComponent,
     TabsBarComponent,
@@ -79,30 +55,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     ToolTipComponent,
     ToolTipItemComponent,
   ],
+  exports: [],
   declarations: [
-    WidgetComponent,
-    GraphCardComponent,
-    StatusBoxComponent,
-    StatusPanelComponent,
-    BarChartComponent,
-    AreaChartComponent,
-    LineChartComponent,
-    MatTableComponent,
-    StackedAreaChartComponent,
-    StatusListElementComponent,
-    StatusBoxElementComponent,
-    HeaderComponent,
-    FooterComponent,
-    StatusBoxEnergyComponent,
-    StatusBoxGraphComponent,
-    StatusBoxPointsComponent,
-    TabsBarComponent,
-    TabComponent,
-    DiagWidgetComponent,
-    DiagTableComponent,
-    DiagWidgetBarComponent,
-    ToolTipComponent,
-    ToolTipItemComponent,
   ],
   providers: [],
 })

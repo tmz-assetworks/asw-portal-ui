@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core'
 
 import { EChartsOption } from 'echarts'
 import { DashboardService } from '../dashboard.service'
+import { NgxEchartsModule } from 'ngx-echarts'
 
 @Component({
   selector: 'app-dashboard-status-panel',
   templateUrl: './dashboard-status-panel.component.html',
   styleUrls: ['./dashboard-status-panel.component.scss'],
+  imports:[NgxEchartsModule]
 })
 export class DashboardStatusPanelComponent implements OnInit {
   infra: any

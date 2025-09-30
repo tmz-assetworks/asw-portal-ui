@@ -22,7 +22,7 @@ describe('CustomersComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
    // adminService=new AdminService();
-    adminService = TestBed.get(AdminService);
+    adminService = TestBed.inject(AdminService);
   });
 
   it('should call getCustomerInfo() method on init', () => {

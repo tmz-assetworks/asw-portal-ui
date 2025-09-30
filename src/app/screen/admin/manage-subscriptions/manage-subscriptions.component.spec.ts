@@ -29,8 +29,8 @@ describe('ManageSubscriptionsComponent', () => {
       ],
       declarations: [ManageSubscriptionsComponent],
     }).compileComponents()
-    service = TestBed.get(AdminService);
-    toastr = TestBed.get(ToastrService);
+    service = TestBed.inject(AdminService);
+    toastr = TestBed.inject(ToastrService);
     router=TestBed.inject(Router);
   })
 

@@ -1,12 +1,6 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
-import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 import { AdminUsersComponent } from './admin-users.component'
-import { SharedModule } from 'src/app/shared/shared.module'
-import { CommonModule } from '@angular/common'
-import {
-  MatFormFieldModule,
-} from '@angular/material/form-field';
 import { CreateAdminComponent } from './create-admin/create-admin.component'
 
 const routes: Routes = [
@@ -18,14 +12,10 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    SharedMaterialModule,
     RouterModule.forChild(routes),
-    SharedModule,
-    CommonModule,
-    MatFormFieldModule,
-  ],
-  exports: [AdminUsersComponent],
-  declarations: [AdminUsersComponent, CreateAdminComponent],
+    ],
+  exports: [],
+  declarations: [],
   providers: [],
 })
 export class AdminUsersModule { }

@@ -16,18 +16,39 @@ import {
   FormBuilder,
   FormControl,
   FormGroup,
+  ReactiveFormsModule,
   Validators,
 } from '@angular/forms'
 import { interval, map, Observable, startWith } from 'rxjs'
 import { TransactionDialogComponent } from 'src/app/component/dashboard/transaction-dialog/transaction-dialog.component'
-import { DatePipe } from '@angular/common'
-import { Router } from '@angular/router';
+import { CommonModule, DatePipe } from '@angular/common'
+import { Router, RouterModule } from '@angular/router';
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
+import { ToolTipItemComponent } from '../diagnostic/tool-tip-item/tool-tip-item.component'
+import { ToolTipComponent } from '../diagnostic/tool-tip/tool-tip.component'
+import { DiagWidgetComponent } from '../diagnostic/diag-widget/diag-widget.component'
+import { DiagWidgetBarComponent } from '../diagnostic/diag-widget-bar/diag-widget-bar.component'
+import { MatDatetimepickerModule, MatNativeDatetimeModule } from '@mat-datetimepicker/core';
+import { MatMomentDatetimeModule } from '@mat-datetimepicker/moment';
 declare let jsPDF: new () => any
 
 @Component({
   selector: 'app-common-diagnostics',
   templateUrl: './common-diagnostics.component.html',
   styleUrls: ['./common-diagnostics.component.scss'],
+  imports:[
+    CommonModule,
+    SharedMaterialModule,
+    ToolTipItemComponent,
+    ToolTipComponent,
+    DiagWidgetComponent,
+    RouterModule,
+    ReactiveFormsModule,
+    DiagWidgetBarComponent,
+    MatDatetimepickerModule,
+    MatMomentDatetimeModule,
+    MatNativeDatetimeModule
+  ],
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({ height: '0px', minHeight: '0' })),
@@ -40,7 +61,6 @@ declare let jsPDF: new () => any
   ],
 })
 export class CommonDiagnosticsComponent implements OnInit {
-  diagnosticList = []
   chargerName: string | null
   isFireWareItem = false
   isProvisioning = false
@@ -265,7 +285,7 @@ export class CommonDiagnosticsComponent implements OnInit {
     this._storageService.setSessionData('chargerName', data.chargerName)
   }
 
-  dataSource = new MatTableDataSource<any>(this.diagnosticList)
+  dataSource = new MatTableDataSource<any>([])
 
   displayedColumns = ['OperatorType', 'Datetime', 'action']
   expandedElement!: any | null
@@ -535,7 +555,7 @@ export class CommonDiagnosticsComponent implements OnInit {
       searchParam: '',
       pageSize: this.pageSize,
       orderBy: '',
-      locationIds: [],
+      locationIds: [] as number[],
       opratorid: this.UserId,
       chargerBoxIds: this.chargerId == '' ? [] : [this.chargerId.toString()],
     }
@@ -555,8 +575,8 @@ export class CommonDiagnosticsComponent implements OnInit {
         this.pageSize = res.paginationResponse.pageSize
         // this.transactionId
         // let a = '[3,\r\n"StartTransaction",\r\n{\n  "idTagInfo": {\n    "status": "Accepted",\r\n\n    "expiryDate": "2024-06-27T12:15:44.557",\r\n\n    "parentIdTag": {\n      "IdToken": "RFID_CB011"\n    }\n  },\r\n\n  "transactionId": 3104\n}]'
-        this.diagnosticList = res.data
-        this.dataSource.data = this.diagnosticList
+
+        this.dataSource.data = res.data
         if (
           res.data[0].responsePayload !== undefined &&
           res.data[0].responsePayload !== ''
@@ -1882,7 +1902,7 @@ export class CommonDiagnosticsComponent implements OnInit {
   control = new FormControl('');
   control1 = new FormControl('');
 
-  streets = []
+  streets:string[] = []
   streets1: string[] = []
 
   filteredStreets!: Observable<any[]>
@@ -1941,7 +1961,6 @@ export class CommonDiagnosticsComponent implements OnInit {
       } else {
         this.chargerId = chargerId.value
         this.selectConnectorIds = [0]
-        // this.diagnosticList = []
         this.dataSource.data = []
       }
 
@@ -2732,30 +2751,17 @@ export class CommonDiagnosticsComponent implements OnInit {
       return
     }
   }
-  dateFilterForEnd = (d: any | null) => {
-    let selectedDate: any = this.datePipe.transform(
-      d,
-      'yyyy-MM-ddT' + this.getModifiedTime(),
-    )
-
-    let fromDate = this.remoteStartForm.value.chargingProfile.validFrom
-    let validFromDate: any = this.datePipe.transform(
-      fromDate,
-      'yyyy-MM-ddT' + this.getModifiedTime(),
-    )
-    return selectedDate >= validFromDate
+  dateFilterForEnd = (d: Date | null): boolean => {
+    if (!d) return false;
+    const fromDate = this.remoteStartForm?.value?.chargingProfile?.validFrom;
+    if (!fromDate) return true;
+    return d >= new Date(fromDate);
   }
-  dateFilterForEndForSetCharging = (d: any | null) => {
-    let selectedDate: any = this.datePipe.transform(
-      d,
-      'yyyy-MM-ddT' + this.getModifiedTime(),
-    )
-    let fromDate = this.setChargingForm.value.csChargingProfiles.validFrom
-    let validFromDate: any = this.datePipe.transform(
-      fromDate,
-      'yyyy-MM-ddT' + this.getModifiedTime(),
-    )
-    return selectedDate >= validFromDate
+  dateFilterForEndForSetCharging = (d: Date | null): boolean => {
+    if (!d) return false;
+    const fromDate = this.setChargingForm?.value?.csChargingProfiles?.validFrom;
+    if (!fromDate) return true;
+    return d >= new Date(fromDate);
   }
   dateFilterForStartScheduleForSetCharging = (d: any | null) => {
     let selectedDate: any = this.datePipe.transform(

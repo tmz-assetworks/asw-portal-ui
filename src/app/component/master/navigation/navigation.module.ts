@@ -25,8 +25,6 @@ import { MatCheckboxModule} from '@angular/material/checkbox' */
 /** niharika ended */
 @NgModule({
   imports: [
-    CommonModule,
-    RouterModule,
     MatCardModule,
     MatListModule,
     MatIconModule,
@@ -35,10 +33,11 @@ import { MatCheckboxModule} from '@angular/material/checkbox' */
     MatSnackBarModule,
     MatSidenavModule,
     MatToolbarModule,
-    MatMenuModule
+    MatMenuModule,
+    NavigationComponent,
   ],
-  exports: [NavigationComponent],
-  declarations: [NavigationComponent],
+  exports: [],
+  declarations: [],
   providers: [],
 })
 export class NavigationModule {}

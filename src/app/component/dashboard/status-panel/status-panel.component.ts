@@ -1,9 +1,18 @@
 import { Component, OnInit } from '@angular/core'
-import { DashboardService } from 'src/app/screen/operator/dashboard/dashboard.service'
+import { StatusBoxComponent } from '../status-box/status-box.component'
+import { StatusBoxEnergyComponent } from '../status-box-energy/status-box-energy.component'
+import { StatusBoxGraphComponent } from '../status-box-graph/status-box-graph.component'
+import { StatusBoxPointsComponent } from '../status-box-points/status-box-points.component'
 @Component({
   selector: 'app-status-panel',
   templateUrl: './status-panel.component.html',
   styleUrls: ['./status-panel.component.scss'],
+  imports:[
+    StatusBoxComponent,
+    StatusBoxEnergyComponent,
+    StatusBoxGraphComponent,
+    StatusBoxPointsComponent
+  ]
 })
 export class StatusPanelComponent implements OnInit {
   statusBoxTitle1 = 'Charging Infrastructure'

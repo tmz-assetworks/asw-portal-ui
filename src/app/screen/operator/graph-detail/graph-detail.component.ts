@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
-import { DatePipe, Location } from '@angular/common'
+import { CommonModule, DatePipe, Location } from '@angular/common'
 import { ActivatedRoute, Router } from '@angular/router'
 import { DashboardService } from '../dashboard/dashboard.service'
 import { StorageService } from 'src/app/service/storage.service'
@@ -8,13 +8,15 @@ import { ToastrService } from 'ngx-toastr'
 import jsPDF from 'jspdf'
 import 'jspdf-autotable'
 import { MatPaginator } from '@angular/material/paginator'
-import { FormBuilder, FormControl } from '@angular/forms'
+import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms'
 import * as fs from 'file-saver'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 
 @Component({
   selector: 'app-graph-detail',
   templateUrl: './graph-detail.component.html',
   styleUrls: ['./graph-detail.component.scss'],
+  imports:[SharedMaterialModule,CommonModule,ReactiveFormsModule]
 })
 export class GraphDetailComponent implements OnInit {
   totalCount: any
@@ -40,8 +42,8 @@ export class GraphDetailComponent implements OnInit {
   locationId: any
   chargeBoxId: any
   url: any
-  chartList = []
-  chartListFilter = []
+  chartList:string[] = []
+  chartListFilter:string[] = []
   isCharger: any
   displayedColumns: string[] = []
   displayedColumnsLocation: string[] = []
@@ -404,10 +406,13 @@ export class GraphDetailComponent implements OnInit {
    * check start date validation
    */
   checkStartDate() {
-    if (this.searchFilter.value.fromDate > this.searchFilter.value.toDate) {
-      this.searchFilter.patchValue({ toDate: '' })
-    }
+  const fromDate = this.searchFilter.value.fromDate;
+  const toDate = this.searchFilter.value.toDate;
+
+  if (fromDate && toDate && fromDate > toDate) {
+    this.searchFilter.patchValue({ toDate: '' });
   }
+}
   /**
    * reset filter
    */
@@ -442,7 +447,7 @@ export class GraphDetailComponent implements OnInit {
     return d <= todayDate
   }
   dateFilterForEnd = (d: any | null) => {
-    let fromDate = this.searchFilter.value.fromDate
+    let fromDate:any = this.searchFilter.value.fromDate
     return d >= fromDate
   }
 
@@ -470,7 +475,7 @@ export class GraphDetailComponent implements OnInit {
       flag: this.flag,
       fromdate: this.searchFilter.value.fromDate,
       todate: this.searchFilter.value.toDate,
-      status: [],
+      status: [] as string[],
       isExport: true,
       chartType: this.graphId == 5 || this.graphId == 1 ? 'chargerinuse' : '',
     }
@@ -487,30 +492,30 @@ export class GraphDetailComponent implements OnInit {
       //   // this.dataSource.data = []
       //   // this.isTableHasData = true
       // }
-      let newObjArr: any = []
+      let newObjArr: any[] = []
       if (this.flag == 'chargerSession') {
         for (var i = 0; i < this.chartListFilter.length; i++) {
           let newObj = {
-            'CHARGER NAME': this.chartListFilter[i]['chargerName'],
-            'CHARGER TYPE': this.chartListFilter[i]['chargerType'],
-            ' LAST FAULT': this.chartListFilter[i]['faultSince'],
+            'CHARGER NAME': (this.chartListFilter[i] as any)['chargerName'],
+            'CHARGER TYPE': (this.chartListFilter[i] as any)['chargerType'],
+            ' LAST FAULT': (this.chartListFilter[i] as any)['faultSince'],
             'TIME REPORTED': this.datePipe.transform(
-              this.chartListFilter[i]['timeReported'],
+              (this.chartListFilter[i] as any)['timeReported'],
               'dd-MM-yyyy h:mm',
             ),
-            'LOCATION NAME': this.chartListFilter[i]['locationName'],
-            'CHARGING STATUS': this.chartListFilter[i]['chargingStatus'],
+            'LOCATION NAME': (this.chartListFilter[i] as any)['locationName'],
+            'CHARGING STATUS': (this.chartListFilter[i] as any)['chargingStatus'],
             'START TIME': this.datePipe.transform(
-              this.chartListFilter[i]['startTime'],
+              (this.chartListFilter[i] as any)['startTime'],
               'dd-MM-yyyy h:mm',
             ),
             'END TIME': this.datePipe.transform(
-              this.chartListFilter[i]['endTime'],
+              (this.chartListFilter[i] as any)['endTime'],
               'dd-MM-yyyy h:mm',
             ),
-            'START METER VALUE': this.chartListFilter[i]['startmetervalue'],
-            'END METER VALUE': this.chartListFilter[i]['endmetervalue'],
-            'REASON FOR STOP': this.chartListFilter[i]['reasoneForStop'],
+            'START METER VALUE': (this.chartListFilter[i] as any)['startmetervalue'],
+            'END METER VALUE': (this.chartListFilter[i] as any)['endmetervalue'],
+            'REASON FOR STOP': (this.chartListFilter[i] as any)['reasoneForStop'],
           }
 
           //PUSH INTO NEW ARRAY
@@ -522,16 +527,16 @@ export class GraphDetailComponent implements OnInit {
       } else {
         for (var i = 0; i < this.chartListFilter.length; i++) {
           let newObj = {
-            'CHARGER NAME': this.chartListFilter[i]['chargerName'],
-            UID: this.chartListFilter[i]['chargerType'],
-            'CHARGER TYPE': this.chartListFilter[i]['chargerType'],
-            'LAST FAULT': this.chartListFilter[i]['faultSince'],
-            'FAULT DESCRIPTION': this.chartListFilter[i]['faultDescription'],
+            'CHARGER NAME': (this.chartListFilter[i] as any)['chargerName'],
+            UID: (this.chartListFilter[i] as any)['chargerType'],
+            'CHARGER TYPE': (this.chartListFilter[i] as any)['chargerType'],
+            'LAST FAULT': (this.chartListFilter[i] as any)['faultSince'],
+            'FAULT DESCRIPTION': (this.chartListFilter[i] as any)['faultDescription'],
             'TIME REPORTED': this.datePipe.transform(
-              this.chartListFilter[i]['timeReported'],
+              (this.chartListFilter[i] as any)['timeReported'],
               'dd-MM-yyyy h:mm',
             ),
-            'LOCATION NAME': this.chartListFilter[i]['locationName'],
+            'LOCATION NAME': (this.chartListFilter[i] as any)['locationName'],
           }
           //PUSH INTO NEW ARRAY
           newObjArr.push(newObj)

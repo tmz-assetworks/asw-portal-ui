@@ -5,11 +5,18 @@ import { Router } from '@angular/router'
 import { ToastrService } from 'ngx-toastr'
 import { StorageService } from 'src/app/service/storage.service'
 import { AdminService } from '../admin.service'
-
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
+import { CommonModule } from '@angular/common'
+import { RouterModule } from '@angular/router'
 @Component({
   selector: 'app-manage-subscriptions',
   templateUrl: './manage-subscriptions.component.html',
   styleUrls: ['./manage-subscriptions.component.scss'],
+  imports:[
+    SharedMaterialModule,
+    CommonModule,
+    RouterModule
+  ]
 })
 export class ManageSubscriptionsComponent implements OnInit {
   UserId: string | null
@@ -23,7 +30,7 @@ export class ManageSubscriptionsComponent implements OnInit {
   isTableHasData: any
   statusData: any
 
-  SubscriptionPlan=[]
+  SubscriptionPlan:string[]=[]
 
   displayedColumns: string[] = [
     'CustomerName',

@@ -1,16 +1,18 @@
 import { AfterViewInit, Component, HostListener, OnInit, ViewChild } from '@angular/core'
-import { FormBuilder, FormControl, Validators } from '@angular/forms'
-import { Router } from '@angular/router'
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms'
+import { Router, RouterModule } from '@angular/router'
 import { ToastrService } from 'ngx-toastr'
 import Swal from 'sweetalert2'
 import { AdminService } from '../../admin.service'
-import { DatePipe, Location } from '@angular/common'
+import { CommonModule, DatePipe, Location } from '@angular/common'
 import { StorageService } from 'src/app/service/storage.service'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 
 @Component({
   selector: 'app-add-operator',
   templateUrl: './add-operator.component.html',
   styleUrls: ['./add-operator.component.scss'],
+  imports:[CommonModule,RouterModule,SharedMaterialModule,ReactiveFormsModule]
 })
 export class AddOperatorComponent implements OnInit {
 
@@ -180,10 +182,8 @@ export class AddOperatorComponent implements OnInit {
       formField.emailid == '' ||
       formField.username == '' ||
       // formField.dob == '' ||
-      formField.phonenumber == '' ||
-      parseInt(formField.city) == 0
+      formField.phonenumber == ''
     ) {
-      alert(formField.city)
       this.toastr.error('Fill all Mandatory Fields')
       return
     }
@@ -202,9 +202,9 @@ export class AddOperatorComponent implements OnInit {
         phoneNumber: formField.phonenumber,
         addressLine1: formField.addressLine1,
         addressLine2: formField.addressLine2,
-        countryID: parseInt(formField.country),
+        countryID: parseInt(formField.country ?? '0'),
         customerID: 1,
-        stateID: parseInt(formField.state),
+        stateID: parseInt(formField.state ?? '0'),
         // cityID: parseInt(formField.city),
         cityName: formField.cityName,
         zipCode: formField.zipcode,
@@ -227,6 +227,8 @@ export class AddOperatorComponent implements OnInit {
         cancelButtonColor: '#0062A6',
         cancelButtonText: ' CONFIRM',
         showCancelButton: true,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
       }).then((result) => {
         if (result.isDismissed) {
           this._adminService.CreateUser(body).subscribe(
@@ -267,9 +269,9 @@ export class AddOperatorComponent implements OnInit {
         phoneNumber: formField.phonenumber,
         addressLine1: formField.addressLine1,
         addressLine2: formField.addressLine2,
-        countryID: parseInt(formField.country),
+        countryID: parseInt(formField.country ?? "0"),
         customerID: 1,
-        stateID: parseInt(formField.state),
+        stateID: parseInt(formField.state ?? "0"),
         // cityID: parseInt(formField.city),
         cityName: formField.cityName,
         zipCode: formField.zipcode,
@@ -294,6 +296,8 @@ export class AddOperatorComponent implements OnInit {
         cancelButtonColor: '#0062A6',
         cancelButtonText: ' CONFIRM',
         showCancelButton: true,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
       }).then((result) => {
         if (result.isDismissed) {
           this._adminService.UpdateUser(body).subscribe(
@@ -341,7 +345,7 @@ export class AddOperatorComponent implements OnInit {
         this.cityId = 0
         // this.cityName = ''
         this.addOperatorProfile.patchValue({ state: this.selectValue })
-        this.addOperatorProfile.patchValue({ city: this.selectValue })
+        // this.addOperatorProfile.patchValue({ cityName: this.selectValue })
         this.stateList = []
         // this.cityList = []
       }

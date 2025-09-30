@@ -1,6 +1,6 @@
 <!-- loader -->
-<div class="loader" *ngIf="showLoader">
-  <div>
+@if(showLoader){
+  <div class="loader">
     <img
       src="../../../assets/images/myloader.gif"
       alt=""
@@ -9,7 +9,7 @@
       height="22%"
     />
   </div>
-</div>
+}
 <div class="login login-block layout">
   <div class="login-block1 layout">
     <div class="login-block1-item bg_img_left">

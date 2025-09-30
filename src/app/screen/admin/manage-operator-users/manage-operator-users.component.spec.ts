@@ -27,7 +27,7 @@ describe('ManageOperatorUsersComponent', () => {
     fixture = TestBed.createComponent(ManageOperatorUsersComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
-    adminService = TestBed.get(AdminService);
+    adminService = TestBed.inject(AdminService);
 //spyOn(adminService, 'GetAllUsers').and.returnValue(of(mockData));
 
   })

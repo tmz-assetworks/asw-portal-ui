@@ -1,9 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { StatusListElementComponent } from '../status-list-element/status-list-element.component'
 
 @Component({
   selector: 'app-status-box-energy',
   templateUrl: './status-box-energy.component.html',
   styleUrls: ['./status-box-energy.component.scss'],
+  imports:[CommonModule,StatusListElementComponent]
 })
 export class StatusBoxEnergyComponent implements OnInit {
   constructor() {}

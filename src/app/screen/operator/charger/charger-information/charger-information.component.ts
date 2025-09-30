@@ -1,11 +1,18 @@
 import { Component, OnInit } from '@angular/core'
 import { StorageService } from 'src/app/service/storage.service'
 import { ChargerService } from '../charger.service'
-
+import { CommonModule } from '@angular/common'
+import { RouterModule } from '@angular/router'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 @Component({
   selector: 'app-charger-information',
   templateUrl: './charger-information.component.html',
   styleUrls: ['./charger-information.component.scss'],
+  imports:[
+    CommonModule,
+    RouterModule,
+    SharedMaterialModule
+  ]
 })
 export class ChargerInformationComponent implements OnInit {
   UserId: string | null

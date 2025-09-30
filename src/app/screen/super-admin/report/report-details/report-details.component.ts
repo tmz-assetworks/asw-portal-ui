@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { StorageService } from 'src/app/service/storage.service';
 import { environment } from 'src/environments/environment';
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
 
 
 interface ReportData {
@@ -28,7 +31,15 @@ type ApiEndpointKey = 'payment' | 'charger';
 @Component({
   selector: 'app-report-details',
   templateUrl: './report-details.component.html',
-  styleUrls: ['./report-details.component.scss']
+  styleUrls: ['./report-details.component.scss'],
+  imports:[
+    CommonModule,
+    SharedMaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxMatTimepickerModule
+
+  ]
 })
 export class ReportDetailComponent implements OnInit {
   displayedColumns: string[] = [];

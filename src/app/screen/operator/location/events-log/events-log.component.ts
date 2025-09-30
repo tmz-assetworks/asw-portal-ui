@@ -9,13 +9,18 @@ import jsPDF from 'jspdf'
 import 'jspdf-autotable'
 import { MatDialog } from '@angular/material/dialog'
 import * as fs from 'file-saver'
-import { DatePipe } from '@angular/common'
+import { CommonModule, DatePipe } from '@angular/common'
 import { TransactionDialogComponent } from 'src/app/component/dashboard/transaction-dialog/transaction-dialog.component'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
+import { RouterModule } from '@angular/router'
+import { LocationStatusPanelComponent } from '../location-status-panel/location-status-panel.component'
+import { FormsModule } from '@angular/forms'
 
 @Component({
   selector: 'app-events-log',
   templateUrl: './events-log.component.html',
   styleUrls: ['./events-log.component.scss'],
+  imports:[LocationStatusPanelComponent,CommonModule,SharedMaterialModule,RouterModule,FormsModule],
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({ height: '0px', minHeight: '0' })),
@@ -97,7 +102,7 @@ export class EventsLogComponent implements OnInit {
       orderBy: '',
       locationIds: this.locationId ? [this.locationId] : [],
       opratorid: this.UserId,
-      chargerBoxIds: [],
+      chargerBoxIds: [] as number[],
     }
 
     this._locationService.GetEventLogByLocation(body).subscribe((res: any) => {

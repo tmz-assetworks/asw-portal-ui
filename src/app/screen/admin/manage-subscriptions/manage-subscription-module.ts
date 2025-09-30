@@ -15,14 +15,13 @@ const routes: Routes = [
 ]
 @NgModule({
   imports: [
-    SharedMaterialModule,
     RouterModule.forChild(routes),
-    SharedModule,
     CommonModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
+
+    ManageSubscriptionsComponent, 
+    AddSubscriptionComponent
   ],
-  declarations: [ManageSubscriptionsComponent, AddSubscriptionComponent],
+  declarations: [],
   providers: [],
 })
 export class ManageSubscriptionsModule {}

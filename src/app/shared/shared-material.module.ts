@@ -3,7 +3,7 @@ import { MatTableModule } from '@angular/material/table'
 import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatSelectModule } from '@angular/material/select'
 import { MatSidenavModule } from '@angular/material/sidenav'
-import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatFormFieldModule, MatLabel } from '@angular/material/form-field'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatRadioModule } from '@angular/material/radio'
 import { MatCardModule } from '@angular/material/card'
@@ -47,7 +47,8 @@ const MATERIAL_MODULES = [
   MatTooltipModule,
   MatExpansionModule,
   MatAutocompleteModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatSelectModule
 ]
 
 @NgModule({

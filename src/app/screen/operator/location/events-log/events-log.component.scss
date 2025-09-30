@@ -1,4 +1,4 @@
-@import '../../../../../styles';
+@use '../../../../../styles' as *;
 .dashboard- {
   &block12 {
     @include flex-column;
@@ -2444,7 +2444,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     position: relative;
     height: min-content;
     width: 100%;
-    margin: -12px 0.5% 7px 2.54%;
+    margin: -12px 0.5% 7px 0.54%;
     @include lg {
       margin: -10px 3.5% 6px 2.54%;
     }
@@ -4737,17 +4737,17 @@ section {
   padding: 8px 24px 0;
 }
 
-.mat-form-field {
+.mat-mdc-form-field {
   font-size: 14px;
   width: 100%;
 }
 
-.mat-table {
+.mat-mdc-table {
   overflow: auto;
   max-height: 500px;
 }
 
-.mat-header-row {
+.mat-mdc-header-row {
   background-color: #70787f;
 }
 .cust-list-icon.layout {
@@ -4759,54 +4759,56 @@ cust-list-icon.layout {
   left: -29px;
   width: 29%;
 }
-.mat-header-cell {
+.mat-mdc-header-cell {
+   font-size: 12px;
+   font-weight: 500;
   color: #fff;
 }
-.mat-row:nth-child(even) {
+.mat-mdc-row:nth-child(even) {
   background-color: #f5f5f5;
 }
 
-.mat-table {
+.mat-mdc-table {
   background: #f5f5f5;
   border: 1px solid #8f8f8f;
 }
 
-th.mat-header-cell {
+th.mat-mdc-header-cell {
   border-right: 1px solid #e6e6e6;
   text-align: center;
 }
-.mat-cell,
-.mat-footer-cell {
+.mat-mdc-cell,
+.mat-mdc-footer-cell {
   border-right: 1px solid #e6e6e6;
 }
-.mat-cell {
+.mat-mdc-cell {
   text-align: center;
 }
-th.mat-header-cell:first-of-type,
-td.mat-cell:first-of-type,
-td.mat-footer-cell:first-of-type {
+th.mat-mdc-header-cell:first-of-type,
+td.mat-mdc-cell:first-of-type,
+td.mat-mdc-footer-cell:first-of-type {
   padding-left: 0px;
 }
 
-th.mat-header-cell:last-of-type,
-td.mat-cell:last-of-type,
-td.mat-footer-cell:last-of-type {
+th.mat-mdc-header-cell:last-of-type,
+td.mat-mdc-cell:last-of-type,
+td.mat-mdc-footer-cell:last-of-type {
   padding-right: 0px;
 }
-mat-row,
-mat-header-row,
-mat-footer-row,
-th.mat-header-cell,
-td.mat-cell,
-td.mat-footer-cell {
+mat-mdc-row,
+mat-mdc-header-row,
+mat-mdc-footer-row,
+th.mat-mdc-header-cell,
+td.mat-mdc-cell,
+td.mat-mdc-footer-cell {
   border-bottom: 1px solid #8f8f8f;
 }
-tr.mat-row:last-of-type {
-  td.mat-cell {
+tr.mat-mdc-row:last-of-type {
+  td.mat-mdc-cell {
     border-bottom: 0px solid #8f8f8f;
   }
 }
-.mat-cell {
+.mat-mdc-cell {
   font-size: 13px;
   color: #323e48;
 }
@@ -5009,11 +5011,12 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block5.layout {
     position: relative;
     flex: 0 1 105px;
+    height: min-content;
+    margin: 0px 0px 1px;
     @include xl1 {
       flex: 0 1 90px;
     }
-    height: min-content;
-    margin: 0px 0px 1px;
+    
   }
   &box2 {
     border: 1px solid rgb(173, 173, 173);
@@ -5336,20 +5339,10 @@ tr.example-detail-row {
 .barbar-box6.layout {
   position: relative;
   height: 48px;
+  width: 380px;
   margin: 10px -6px;
 }
-// .mat-row:nth-child(4n-1),
-// .mat-row:nth-child(4n) {
-//   background-color: #eee;
-// }
-// .fontsize14 {
-//   font-size: 14px;
-// }
-// .mat-elevation-z8 {
-//   box-shadow: 0px 0px 0px 0px rgb(0 0 0 / 20%),
-//   0px 0px 0px 0px rgb(0 0 0 / 14%),
-//   0px 0px 0px 0px rgb(0 0 0 / 12%);
-// }
+
 
 //table line css
 

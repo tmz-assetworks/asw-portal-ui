@@ -4,17 +4,26 @@ import {
   FormBuilder,
   FormControl,
   FormGroup,
+  ReactiveFormsModule,
   Validators,
 } from '@angular/forms'
-import { ActivatedRoute, Router } from '@angular/router'
+import { ActivatedRoute, Router, RouterModule } from '@angular/router'
 import Swal from 'sweetalert2'
 import { ToastrService } from 'ngx-toastr'
 import { StorageService } from 'src/app/service/storage.service'
 import { AdminService } from '../../admin.service'
+import { CommonModule } from '@angular/common'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 @Component({
   selector: 'app-add-vehicle',
   templateUrl: './add-vehicle.component.html',
   styleUrls: ['./add-vehicle.component.scss'],
+  imports:[
+    CommonModule,
+    RouterModule,
+    SharedMaterialModule,
+    ReactiveFormsModule
+  ]
 })
 export class AddVehicleComponent implements OnInit {
   submitted = false
@@ -152,7 +161,7 @@ export class AddVehicleComponent implements OnInit {
       domicileLocation: formData.domicileLocation,
       vehicleMacAddress: formData.vehicleMacAddress,
       createdBy: this.UserId,
-      modelYear: formData.modelyear==""?null:+formData.modelyear,
+      modelYear: formData.modelyear ? (formData.modelyear === "" ? null : +formData.modelyear) : null,
       modelName: formData.modelName,
       makeName: formData.makeName,
       RfIdCardsAssigneds: formData.rfidCardAssigned,
@@ -169,6 +178,8 @@ export class AddVehicleComponent implements OnInit {
       cancelButtonColor: '#0062A6',
       cancelButtonText: ' CONFIRM',
       showCancelButton: true,
+      allowOutsideClick: false, // 🔒 Prevent close on outside click
+      allowEscapeKey: false     // 🔒 Prevent close with Esc
     }).then((result) => {
       if (result.isDismissed) {
         this._adminService.CreateVehicle(body).subscribe(
@@ -221,7 +232,7 @@ export class AddVehicleComponent implements OnInit {
       vehicleMacAddress: formData.vehicleMacAddress,
       isActive: true,
       modifiedBy: this.UserId,
-      modelYear: formData.modelyear==""?null:+formData.modelyear,
+      modelYear: formData.modelyear ? (formData.modelyear === "" ? null : +formData.modelyear) : null,
       modelName: formData.modelName,
       makeName: formData.makeName,
       rfIdCardsAssigneds: formData.rfidCardAssigned,
@@ -238,6 +249,8 @@ export class AddVehicleComponent implements OnInit {
       cancelButtonColor: '#0062A6',
       cancelButtonText: ' CONFIRM',
       showCancelButton: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false,     
     }).then((result) => {
       if (result.isDismissed) {
         this._adminService.UpdateVehicle(body).subscribe(
@@ -322,11 +335,13 @@ export class AddVehicleComponent implements OnInit {
       /**
        * RFID
        */
-      rfid.forEach((elem: any) => {
-        this.addRFIDCardAssigned(
-          this.addRFIDRows(elem.id, elem.name, elem.isActive),
-        )
-      })
+      if (rfid && Array.isArray(rfid)) {
+        rfid.forEach((elem: any) => {
+          this.addRFIDCardAssigned(
+            this.addRFIDRows(elem.id, elem.name, elem.isActive),
+          )
+        })
+      }
     })
   }
 

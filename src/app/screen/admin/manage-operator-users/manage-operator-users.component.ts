@@ -4,13 +4,16 @@ import { MatTableDataSource } from '@angular/material/table'
 import { StorageService } from 'src/app/service/storage.service'
 import { ActivatedRoute, Router } from '@angular/router'
 import { AdminService } from '../admin.service'
+import { CommonModule } from '@angular/common'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 @Component({
   selector: 'app-manage-operator-users',
   templateUrl: './manage-operator-users.component.html',
   styleUrls: ['./manage-operator-users.component.scss'],
+  imports:[CommonModule,SharedMaterialModule]
+  
 })
 export class ManageOperatorUsersComponent implements OnInit {
-  customerList = []
   displayedColumns: string[] = [
     'name',
     'email',
@@ -19,7 +22,7 @@ export class ManageOperatorUsersComponent implements OnInit {
     'action',
   ]
 
-  adminList = []
+  adminList:string[] = []
   isTableHasData: any
   totalCount: any
   pageSize: number = 10

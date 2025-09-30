@@ -17,7 +17,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Organization Name
-                <span style="color: 'red'">*</span>
+                <span style="color: #ff0000">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -39,7 +39,7 @@
                 *ngIf="
                   !addCustomerProfile.get('userName')?.valid &&
                   addCustomerProfile.get('userName')?.touched &&
-                  addCustomerProfile.get('userName')?.value.length > 50
+                  (addCustomerProfile.get('userName')?.value?.length?? 0) > 50
                 "
                 class="error-mess"
               >
@@ -50,7 +50,7 @@
                   (!addCustomerProfile.get('userName')?.valid &&
                     addCustomerProfile.get('userName')?.touched) ||
                   (submitted &&
-                    addCustomerProfile.get('userName')?.value.length == 0)
+                    addCustomerProfile.get('userName')?.value?.length == 0)
                 "
                 class="error-mess"
               >
@@ -81,7 +81,7 @@
                 *ngIf="
                   !addCustomerProfile.get('notes')?.valid &&
                   addCustomerProfile.get('notes')?.touched &&
-                  addCustomerProfile.get('notes')?.value.length > 255
+                  (addCustomerProfile.get('notes')?.value?.length ?? 0) > 255
                 "
                 class="error-mess"
               >
@@ -95,7 +95,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Point of Contact
-                <span style="color: 'red'">*</span>
+                <span style="color: #ff0000">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -117,7 +117,7 @@
                   (!addCustomerProfile.get('pointofcontact')?.valid &&
                     addCustomerProfile.get('pointofcontact')?.touched) ||
                   (submitted &&
-                    addCustomerProfile.get('pointofcontact')?.value.length == 0)
+                    addCustomerProfile.get('pointofcontact')?.value?.length == 0)
                 "
                 class="error-mess"
               >
@@ -127,7 +127,7 @@
                 *ngIf="
                   !addCustomerProfile.get('pointofcontact')?.valid &&
                   addCustomerProfile.get('pointofcontact')?.touched &&
-                  addCustomerProfile.get('pointofcontact')?.value.length > 0
+                  (addCustomerProfile.get('pointofcontact')?.value?.length ?? 0) > 0
                 "
                 class="error-mess"
               >
@@ -142,7 +142,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Email Id
-                <span style="color: 'red'">*</span>
+                <span style="color: #ff0000">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -163,7 +163,7 @@
                   (!addCustomerProfile.get('email')?.valid &&
                     addCustomerProfile.get('email')?.touched) ||
                   (submitted &&
-                    addCustomerProfile.get('email')?.value.length == 0)
+                    addCustomerProfile.get('email')?.value?.length == 0)
                 "
                 class="error-mess"
               >
@@ -173,7 +173,7 @@
                 *ngIf="
                   !addCustomerProfile.get('email')?.valid &&
                   addCustomerProfile.get('email')?.touched &&
-                  addCustomerProfile.get('email')?.value.length > 0
+                  (addCustomerProfile.get('email')?.value?.length ?? 0) > 0
                 "
                 class="error-mess"
               >
@@ -187,7 +187,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Phone Number
-                <span style="color: 'red'">*</span>
+                <span style="color: #ff0000">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -211,7 +211,7 @@
                 *ngIf="
                   !addCustomerProfile.get('phoneNumber')?.valid &&
                   addCustomerProfile.get('phoneNumber')?.touched &&
-                  addCustomerProfile.get('phoneNumber')?.value.length > 0
+                  (addCustomerProfile.get('phoneNumber')?.value?.length ?? 0) > 0
                 "
                 class="error-mess"
               >
@@ -222,7 +222,7 @@
                   (!addCustomerProfile.get('phoneNumber')?.valid &&
                     addCustomerProfile.get('phoneNumber')?.touched) ||
                   (submitted &&
-                    addCustomerProfile.get('phoneNumber')?.value.length == 0)
+                    addCustomerProfile.get('phoneNumber')?.value?.length == 0)
                 "
                 class="error-mess"
               >
@@ -235,9 +235,10 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Time Zone
-                <span style="color: 'red'">*</span>
+                <span style="color: #ff0000">*</span>
               </h5>
               <mat-form-field
+              appearance="outline"
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
@@ -265,7 +266,7 @@
                   (!addCustomerProfile.get('timeZone')?.valid &&
                     addCustomerProfile.get('timeZone')?.touched) ||
                   (submitted &&
-                    addCustomerProfile.get('timeZone')?.value.length == 0)
+                    addCustomerProfile.get('timeZone')?.value?.length == 0)
                 "
                 class="error-mess"
               >
@@ -284,7 +285,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Address Line1
-                <span style="color: 'red'">*</span>
+                <span style="color: #ff0000">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -305,7 +306,7 @@
                 *ngIf="
                   !addCustomerProfile.get('addressLine1')?.valid &&
                   addCustomerProfile.get('addressLine1')?.touched &&
-                  addCustomerProfile.get('addressLine1')?.value.length > 0
+                  (addCustomerProfile.get('addressLine1')?.value?.length ?? 0) > 0
                 "
                 class="error-mess"
               >
@@ -316,7 +317,7 @@
                   (!addCustomerProfile.get('addressLine1')?.valid &&
                     addCustomerProfile.get('addressLine1')?.touched) ||
                   (submitted &&
-                    addCustomerProfile.get('addressLine1')?.value.length == 0)
+                    addCustomerProfile.get('addressLine1')?.value?.length == 0)
                 "
                 class="error-mess"
               >
@@ -348,7 +349,7 @@
                 *ngIf="
                   !addCustomerProfile.get('addressLine2')?.valid &&
                   addCustomerProfile.get('addressLine2')?.touched &&
-                  addCustomerProfile.get('addressLine2')?.value.length > 0
+                  (addCustomerProfile.get('addressLine2')?.value?.length ?? 0) > 0
                 "
                 class="error-mess"
               >
@@ -362,9 +363,10 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Country
-                <span style="color: 'red'">*</span>
+                <span style="color: #ff0000">*</span>
               </h5>
               <mat-form-field
+              appearance="outline"
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
@@ -393,7 +395,7 @@
                   (!addCustomerProfile.get('country')?.valid &&
                     addCustomerProfile.get('country')?.touched) ||
                   (submitted &&
-                    addCustomerProfile.get('country')?.value.length == 0)
+                    addCustomerProfile.get('country')?.value?.length == 0)
                 "
                 class="error-mess"
               >
@@ -407,9 +409,10 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 State/Province
-                <span style="color: 'red'">*</span>
+                <span style="color: #ff0000">*</span>
               </h5>
               <mat-form-field
+              appearance="outline"
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
@@ -433,7 +436,7 @@
                   (!addCustomerProfile.get('state')?.valid &&
                     addCustomerProfile.get('state')?.touched) ||
                   (submitted &&
-                    addCustomerProfile.get('state')?.value.length == 0)
+                    addCustomerProfile.get('state')?.value?.length == 0)
                 "
                 class="error-mess"
               >
@@ -447,7 +450,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 City
-                <span style="color: 'red'">*</span>
+                <span style="color: #ff0000">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -470,7 +473,7 @@
                   (!addCustomerProfile.get('cityName')?.valid &&
                     addCustomerProfile.get('cityName')?.touched) ||
                   (submitted &&
-                    addCustomerProfile.get('cityName')?.value.length == 0)
+                    addCustomerProfile.get('cityName')?.value?.length == 0)
                 "
                 class="error-mess"
               >
@@ -484,7 +487,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Zip Code
-                <span style="color: 'red'">*</span>
+                <span style="color: #ff0000">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -507,7 +510,7 @@
                   (!addCustomerProfile.get('zipCode')?.valid &&
                     addCustomerProfile.get('zipCode')?.touched) ||
                   (submitted &&
-                    addCustomerProfile.get('zipCode')?.value.length == 0)
+                    addCustomerProfile.get('zipCode')?.value?.length == 0)
                 "
                 class="error-mess"
               >

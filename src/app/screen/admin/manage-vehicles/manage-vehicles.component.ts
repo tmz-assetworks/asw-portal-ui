@@ -1,22 +1,28 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
 import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
-import { Router } from '@angular/router'
+import { Router, RouterModule } from '@angular/router'
 import { ToastrService } from 'ngx-toastr'
 import { StorageService } from 'src/app/service/storage.service'
 import { AdminService } from '../admin.service'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
+import { CommonModule } from '@angular/common'
 
 @Component({
   selector: 'app-manage-vehicles',
   templateUrl: './manage-vehicles.component.html',
   styleUrls: ['./manage-vehicles.component.scss'],
+  imports:[
+    CommonModule,
+    SharedMaterialModule,
+    RouterModule
+  ]
 })
 export class ManageVehiclesComponent implements OnInit {
   /**
    * Declare variables
    */
-  vehicleList = []
-  allVehicleList = []
+  allVehicleList:string[] = []
   isTableHasData: any
   // totalCount: any
   // pageSize: number = 10

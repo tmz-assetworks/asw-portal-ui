@@ -64,12 +64,8 @@
       </div>
       <div class="dashboard-block32 layout">
         <div class="dashboard-block33 layout">
-          <div class="dashboard-block33-item">
-            <div class="dashboard-block34 layout">
-              
-              <!-- <mat-form-field > -->
-              <div class="dashboard-text-body1 layout9">
-                <mat-form-field class="dashboard-text-body1 layout9">
+          <!-- <div class="dashboard-text-body1 layout9"> -->
+                <mat-form-field appearance="outline" class="custom-select-field">
                   <mat-label>Select Location</mat-label>
                   <mat-select
                     multiple
@@ -84,9 +80,7 @@
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
-              </div>
-            </div>
-          </div>
+              <!-- </div> -->
           <mat-button-toggle-group
             [formControl]="filterToggle"
             (change)="setTime($event)"
@@ -131,8 +125,8 @@
            <!-- chart ends-->
         </div>
         <div class="dashboard-block42-item">
-          <app-area-chart
-            *ngIf="chargingSessionData !== ''"
+          @if (chargingSessionData !== ''){
+            <app-area-chart
             (areaDetailPage)="
               openDetailPage(
                 2,
@@ -146,6 +140,8 @@
             [chartType]="'dashboardChargingSession'"
             [chartTitle]="'Charging Sessions'"
           ></app-area-chart>
+          }
+         
         </div>
       </div>
       <div class="dashboard-block42 layout">

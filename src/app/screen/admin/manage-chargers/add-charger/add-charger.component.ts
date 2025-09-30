@@ -5,18 +5,27 @@ import {
   Validators,
   FormGroup,
   FormArray,
+  ReactiveFormsModule,
 } from '@angular/forms'
-import { ActivatedRoute, Router } from '@angular/router'
+import { ActivatedRoute, Router, RouterModule } from '@angular/router'
 import { ToastrService } from 'ngx-toastr'
 import { StorageService } from 'src/app/service/storage.service'
 import Swal from 'sweetalert2'
 import { AdminService } from '../../admin.service'
-import { DatePipe } from '@angular/common'
+import { CommonModule, DatePipe } from '@angular/common'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
+
 
 @Component({
   selector: 'app-add-charger',
   templateUrl: './add-charger.component.html',
   styleUrls: ['./add-charger.component.scss'],
+  imports:[
+    RouterModule,
+    ReactiveFormsModule,
+    CommonModule,
+    SharedMaterialModule
+  ]
 })
 export class AddChargerComponent implements OnInit {
   // DECLARE VARIABLES
@@ -144,7 +153,7 @@ export class AddChargerComponent implements OnInit {
       }
     }, 2000)
     setTimeout(() => {
-        this.addChargerFormGroup.get('isActive')?.valueChanges.subscribe((value: boolean) => {
+        this.addChargerFormGroup.get('isActive')?.valueChanges.subscribe((value: boolean | null) => {
         if (value) {
           this.onIsActiveUnchecked(); // Call your function when unchecked
         }
@@ -337,6 +346,8 @@ export class AddChargerComponent implements OnInit {
       cancelButtonColor: '#0062A6',
       cancelButtonText: ' CONFIRM',
       showCancelButton: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
     }).then((result) => {
       if (result.isDismissed) {
         this._adminService.CreateDispenser(pBody).subscribe(
@@ -398,7 +409,8 @@ export class AddChargerComponent implements OnInit {
       assetId: formData.assetId,
       chargeBoxId: formData.chargeBoxId,
       locationId: formData.locationId,
-      description: formData.description,
+
+      // description: formData.description,
       endPointUrl: formData.endPointUrl,
       firmwareVersion: formData.firmwareVersion,
       makeName: formData.makeMasterId,
@@ -446,6 +458,8 @@ export class AddChargerComponent implements OnInit {
       cancelButtonColor: '#0062A6',
       cancelButtonText: ' CONFIRM',
       showCancelButton: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
     }).then((result) => {
       if (result.isDismissed) {
         this._adminService.Updatedispenser(body).subscribe(
@@ -517,9 +531,10 @@ export class AddChargerComponent implements OnInit {
             locationId: this.chargerData.locationName,
           })
         }
-        this.addChargerFormGroup.patchValue({
-          description: this.chargerData.description,
-        })
+        
+        // this.addChargerFormGroup.patchValue({
+        //  description: this.chargerData.description,
+        // })
         this.addChargerFormGroup.patchValue({
           endPointUrl: this.chargerData.endPointUrl,
         })
@@ -565,19 +580,19 @@ export class AddChargerComponent implements OnInit {
           })
         }
 
-        if (this.chargerData.rfidReader) {
-          this.selectedRfidReader = this.chargerData.rfidReaderId
-          this.addChargerFormGroup.patchValue({
-            rfidReader: this.chargerData.rfidReader,
-          })
-        }
+        // if (this.chargerData.rfidReader) {
+        //   this.selectedRfidReader = this.chargerData.rfidReaderId
+        //   this.addChargerFormGroup.patchValue({
+        //     // rfidReader: this.chargerData.rfidReader,
+        //   })
+        // }
 
         if (this.chargerData.powerCabinetSerialNumber) {
           this.selectedPowerCabinet = this.chargerData.powerCabinetId
 
-          this.addChargerFormGroup.patchValue({
-            powerCabinet: this.chargerData.powerCabinetSerialNumber,
-          })
+          // this.addChargerFormGroup.patchValue({
+          //   powerCabinet: this.chargerData.powerCabinetSerialNumber,
+          // })
         }
         this.addChargerFormGroup.patchValue({
           protocolName: this.chargerData.protocolName,

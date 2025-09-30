@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 
 @NgModule({
   imports: [
+    HelpComponent,
     SharedMaterialModule,
     SuperAdminRoutingModule,
     SharedModule,
@@ -16,7 +17,6 @@ import { CommonModule } from '@angular/common';
   ],
   exports: [],
   declarations: [
-    HelpComponent
   ],
   providers: [],
 })

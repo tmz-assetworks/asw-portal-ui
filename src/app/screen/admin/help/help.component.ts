@@ -1,9 +1,15 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module';
 
 @Component({
   selector: 'app-help',
   templateUrl: './help.component.html',
-  styleUrls: ['./help.component.scss']
+  styleUrls: ['./help.component.scss'],
+  imports:[
+    CommonModule,
+    SharedMaterialModule
+  ]
 })
 export class HelpComponent implements OnInit {
   panelOpenState= false

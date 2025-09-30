@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs'
 import * as CryptoJS from 'crypto-js'
-import jwt_decode from 'jwt-decode'
+import { jwtDecode } from 'jwt-decode';
 import { environment } from 'src/environments/environment'
 @Injectable({
   providedIn: 'root',
@@ -86,27 +86,43 @@ export class LoginService {
    * @returns
    */
 
-  encryptPassword(field: string) {
-    var keySize = 256
-    var salt = CryptoJS.lib.WordArray.random(16)
-    // well known algorithm to generate key
-    var key = CryptoJS.PBKDF2(environment.ENCRYPT_KEY, salt, {
-      keySize: keySize / 32,
+  
+  encryptPassword(field: string): string {
+    const keySize = 256;
+  
+    // random salt (16 bytes)
+    const salt = CryptoJS.lib.WordArray.random(16);
+  
+    // derive key
+    const key = CryptoJS.PBKDF2(environment.ENCRYPT_KEY, salt, {
+      keySize: keySize / 32, // 256/32 = 8 words = 32 bytes
       iterations: 100,
-    })
-    // random IV
-    var iv = CryptoJS.lib.WordArray.random(128 / 8)
-    // specify everything explicitly
-    var encrypted = CryptoJS.AES.encrypt(field, key, {
-      iv: iv,
+      hasher: CryptoJS.algo.SHA1, // explicit for consistency
+    });
+  
+    // random IV (16 bytes)
+    const iv = CryptoJS.lib.WordArray.random(16);
+  
+    // encrypt
+    const encrypted = CryptoJS.AES.encrypt(field, key, {
+      iv,
       padding: CryptoJS.pad.Pkcs7,
       mode: CryptoJS.mode.CBC,
-    })
-    // combine everything together in base64 string
-    var result = CryptoJS.enc.Base64.stringify(
-      salt.concat(iv).concat(encrypted.ciphertext),
-    )
-    return result
+    });
+  
+    // ✅ FIX: assemble bytes manually to avoid invalid .concat() issues
+    const combinedWords = [
+      ...salt.words,
+      ...iv.words,
+      ...encrypted.ciphertext.words,
+    ];
+    const combinedSigBytes =
+      salt.sigBytes + iv.sigBytes + encrypted.ciphertext.sigBytes;
+  
+    const combined = CryptoJS.lib.WordArray.create(combinedWords, combinedSigBytes);
+  
+    // Base64 encode
+    return CryptoJS.enc.Base64.stringify(combined);
   }
 
   /**
@@ -117,7 +133,7 @@ export class LoginService {
 
   getDecodedAccessToken(token: string): any {
     try {
-      return jwt_decode(token)
+      return jwtDecode(token)
     } catch (Error) {
       return null
     }

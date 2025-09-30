@@ -1,18 +1,25 @@
-import { DatePipe } from '@angular/common'
+import { CommonModule, DatePipe } from '@angular/common'
 import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
-import { ActivatedRoute, Router } from '@angular/router'
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
+import { ActivatedRoute, Router, RouterModule } from '@angular/router'
 
 import { ToastrService } from 'ngx-toastr'
 import { StorageService } from 'src/app/service/storage.service'
 import Swal from 'sweetalert2'
 
 import { AdminService } from '../../admin.service'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 
 @Component({
   selector: 'app-add-assets',
   templateUrl: './add-assets.component.html',
   styleUrls: ['./add-assets.component.scss'],
+  imports:[
+    RouterModule,
+    SharedMaterialModule,
+    CommonModule,
+    ReactiveFormsModule
+    ]
 })
 export class AddAssetsComponent implements OnInit {
   //Declare variables
@@ -496,15 +503,15 @@ export class AddAssetsComponent implements OnInit {
     }
     let data = this.addAssetsForm
     const pBody = {
-      serialNumber: data.value.assetDetails.SerialNumber.trim(),
-      assetId: data.value.assetDetails.AssetID.trim(),
+      serialNumber: data.value.assetDetails?.SerialNumber?.trim(),
+      assetId: data.value.assetDetails?.AssetID?.trim(),
       createdBy: this.UserId,
       installationDate: this.datePipe.transform(
-        data.value.assetPadDetails.InstallationDate,
+        data.value.assetPadDetails?.InstallationDate,
         'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
-      isActive: data.value.assetDetails.IsActive,
-      padName: data.value.assetPadDetails.PadName,
+      isActive: data.value.assetDetails?.IsActive,
+      padName: data.value.assetPadDetails?.PadName,
       statusId: this.selectedStatus,
       locationId: this.selectedLocation,
     }
@@ -519,6 +526,8 @@ export class AddAssetsComponent implements OnInit {
       cancelButtonColor: '#0062A6',
       cancelButtonText: ' CONFIRM',
       showCancelButton: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
     }).then((result) => {
       if (result.isDismissed) {
         this._adminService.CreatePad(pBody).subscribe(
@@ -562,15 +571,15 @@ export class AddAssetsComponent implements OnInit {
     let data = this.addAssetsForm
     const pBody = {
       id: this.assetId,
-      serialNumber: data.value.assetDetails.SerialNumber.trim(),
-      assetId: data.value.assetDetails.AssetID.trim(),
+      serialNumber: data.value.assetDetails?.SerialNumber?.trim(),
+      assetId: data.value.assetDetails?.AssetID?.trim(),
       modifiedBy: this.UserId,
       installationDate: this.datePipe.transform(
-        data.value.assetPadDetails.InstallationDate,
+        data.value.assetPadDetails?.InstallationDate,
         'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
-      isActive: data.value.assetDetails.IsActive,
-      padName: data.value.assetPadDetails.PadName,
+      isActive: data.value.assetDetails?.IsActive,
+      padName: data.value.assetPadDetails?.PadName,
       statusId: this.selectedStatus,
       locationId: this.selectedLocation,
     }
@@ -585,6 +594,8 @@ export class AddAssetsComponent implements OnInit {
       cancelButtonColor: '#0062A6',
       cancelButtonText: ' CONFIRM',
       showCancelButton: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
     }).then((result) => {
       if (result.isDismissed) {
         this._adminService.UpdatePad(pBody).subscribe(
@@ -623,20 +634,20 @@ export class AddAssetsComponent implements OnInit {
   createCable() {
     let data = this.addAssetsForm
     const pBody = {
-      assetId: data.value.assetDetails.AssetID.trim(),
-      serialNumber: data.value.assetDetails.SerialNumber.trim(),
+      assetId: data.value.assetDetails?.AssetID?.trim(),
+      serialNumber: data.value.assetDetails?.SerialNumber?.trim(),
       makeMasterId: this.selectedMakeCable,
       modelId: this.selectedModelCable,
       locationId: this.selectedLocation,
       statusId: this.selectedStatus,
-      isActive: data.value.assetDetails.IsActive,
-      warrantyDuration: data.value.assetCableDetails.WarrantyDuration,
+      isActive: data.value.assetDetails?.IsActive,
+      warrantyDuration: data.value.assetCableDetails?.WarrantyDuration,
       warrantyExpiryDate: this.datePipe.transform(
-        data.value.assetCableDetails.WarrantyEnd,
+        data.value.assetCableDetails?.WarrantyEnd,
         'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       warrantyStartDate: this.datePipe.transform(
-        data.value.assetCableDetails.WarrantyStart,
+        data.value.assetCableDetails?.WarrantyStart,
         'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       createdBy: this.UserId,
@@ -653,6 +664,8 @@ export class AddAssetsComponent implements OnInit {
       cancelButtonColor: '#0062A6',
       cancelButtonText: ' CONFIRM',
       showCancelButton: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
     }).then((result) => {
       if (result.isDismissed) {
         this._adminService.CreateCable(pBody).subscribe(
@@ -696,20 +709,20 @@ export class AddAssetsComponent implements OnInit {
     let data = this.addAssetsForm
     const pBody = {
       id: this.assetId,
-      assetId: data.value.assetDetails.AssetID.trim(),
-      serialNumber: data.value.assetDetails.SerialNumber.trim(),
+      assetId: data.value.assetDetails?.AssetID?.trim(),
+      serialNumber: data.value.assetDetails?.SerialNumber?.trim(),
       makeMasterId: this.selectedMakeCable,
       modelId: this.selectedModelCable,
       locationId: this.selectedLocation,
       statusId: this.selectedStatus,
-      isActive: data.value.assetDetails.IsActive,
-      warrantyDuration: data.value.assetCableDetails.WarrantyDuration,
+      isActive: data.value.assetDetails?.IsActive,
+      warrantyDuration: data.value.assetCableDetails?.WarrantyDuration,
       warrantyExpiryDate: this.datePipe.transform(
-        data.value.assetCableDetails.WarrantyEnd,
+        data.value.assetCableDetails?.WarrantyEnd,
         'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       warrantyStartDate: this.datePipe.transform(
-        data.value.assetCableDetails.WarrantyStart,
+        data.value.assetCableDetails?.WarrantyStart,
         'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       modifiedBy: this.UserId,
@@ -726,6 +739,8 @@ export class AddAssetsComponent implements OnInit {
       cancelButtonColor: '#0062A6',
       cancelButtonText: ' CONFIRM',
       showCancelButton: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
     }).then((result) => {
       if (result.isDismissed) {
         this._adminService.UpdateCable(pBody).subscribe(
@@ -815,11 +830,11 @@ export class AddAssetsComponent implements OnInit {
 
   calDurationStart(event: any, type: string) {
     if (type == 'cable') {
-      let endDate = this.addAssetsForm.value.assetCableDetails.WarrantyEnd
+      let endDate = this.addAssetsForm.value.assetCableDetails?.WarrantyEnd
 
       let startDate = event.value
 
-      let edate = new Date(endDate)
+      let edate = new Date(endDate ?? new Date())
 
       if (endDate) {
         if (startDate > edate) {
@@ -841,17 +856,16 @@ export class AddAssetsComponent implements OnInit {
               (1000 * 60 * 60 * 24),
           )
           this.addAssetsForm['controls']['assetCableDetails'].patchValue({
-            WarrantyDuration: duration,
+            WarrantyDuration: String(duration),
           })
         }
       }
     } else if (type == 'power-cabinet') {
-      let endDate = this.addAssetsForm.value.assetPowerCabinetDetails
-        .WarrantyEnd
+      let endDate = this.addAssetsForm.value.assetPowerCabinetDetails?.WarrantyEnd
 
       let startDate = event.value
 
-      let edate = new Date(endDate)
+      let edate = new Date(endDate ?? new Date())
 
       if (endDate) {
         if (startDate > edate) {
@@ -878,17 +892,17 @@ export class AddAssetsComponent implements OnInit {
           )
           this.addAssetsForm['controls']['assetPowerCabinetDetails'].patchValue(
             {
-              WarrantyDuration: duration,
+              WarrantyDuration: String(duration),
             },
           )
         }
       }
     } else if (type == 'rfid') {
-      let endDate = this.addAssetsForm.value.assetRFIDReaderDetails.WarrantyEnd
+      let endDate = this.addAssetsForm.value.assetRFIDReaderDetails?.WarrantyEnd
 
       let startDate = event.value
 
-      let edate = new Date(endDate)
+      let edate = new Date(endDate ?? new Date())
 
       if (endDate) {
         if (startDate > edate) {
@@ -910,16 +924,16 @@ export class AddAssetsComponent implements OnInit {
               (1000 * 60 * 60 * 24),
           )
           this.addAssetsForm['controls']['assetRFIDReaderDetails'].patchValue({
-            WarrantyDuration: duration,
+            WarrantyDuration: String(duration),
           })
         }
       }
     } else if (type == 'modem') {
-      let endDate = this.addAssetsForm.value.assetModemDetails.WarrantyEnd
+      let endDate = this.addAssetsForm.value.assetModemDetails?.WarrantyEnd
 
       let startDate = event.value
 
-      let edate = new Date(endDate)
+      let edate = new Date(endDate ?? new Date())
 
       if (endDate) {
         if (startDate > edate) {
@@ -941,7 +955,7 @@ export class AddAssetsComponent implements OnInit {
               (1000 * 60 * 60 * 24),
           )
           this.addAssetsForm['controls']['assetModemDetails'].patchValue({
-            WarrantyDuration: duration,
+            WarrantyDuration: String(duration),
           })
         }
       }
@@ -957,11 +971,11 @@ export class AddAssetsComponent implements OnInit {
 
   calDuration(event: any, type: string) {
     if (type == 'cable') {
-      let startDate = this.addAssetsForm.value.assetCableDetails.WarrantyStart
+      let startDate = this.addAssetsForm.value.assetCableDetails?.WarrantyStart
 
       let endDate = event.value
 
-      let sdate = new Date(startDate)
+      let sdate:any = startDate ? new Date(startDate) : null;
 
       if (!startDate) {
         this._toastr.error('Please Choose Start Date first.')
@@ -971,6 +985,7 @@ export class AddAssetsComponent implements OnInit {
         })
         return
       }
+      
       if (sdate > endDate) {
         this._toastr.error('End date should be greater than start date.')
         this.addAssetsForm['controls']['assetCableDetails'].patchValue({
@@ -990,16 +1005,15 @@ export class AddAssetsComponent implements OnInit {
             (1000 * 60 * 60 * 24),
         )
         this.addAssetsForm['controls']['assetCableDetails'].patchValue({
-          WarrantyDuration: duration,
+          WarrantyDuration: String(duration),
         })
       }
     } else if (type == 'power-cabinet') {
-      let startDate = this.addAssetsForm.value.assetPowerCabinetDetails
-        .WarrantyStart
+      let startDate = this.addAssetsForm.value.assetPowerCabinetDetails?.WarrantyStart
 
       let endDate = event.value
 
-      let sdate = new Date(startDate)
+      let sdate = startDate ? new Date(startDate) : null;
 
       if (!sdate) {
         this._toastr.error('Please Choose Start Date first.')
@@ -1029,16 +1043,15 @@ export class AddAssetsComponent implements OnInit {
             (1000 * 60 * 60 * 24),
         )
         this.addAssetsForm['controls']['assetPowerCabinetDetails'].patchValue({
-          WarrantyDuration: duration,
+          WarrantyDuration: String(duration),
         })
       }
     } else if (type == 'rfid') {
-      let startDate = this.addAssetsForm.value.assetRFIDReaderDetails
-        .WarrantyStart
+      let startDate = this.addAssetsForm.value.assetRFIDReaderDetails?.WarrantyStart
 
       let endDate = event.value
 
-      let sdate = new Date(startDate)
+      let sdate = startDate ? new Date(startDate) : null;
 
       if (!sdate) {
         this._toastr.error('Please Choose Start Date first.')
@@ -1067,14 +1080,14 @@ export class AddAssetsComponent implements OnInit {
             (1000 * 60 * 60 * 24),
         )
         this.addAssetsForm['controls']['assetRFIDReaderDetails'].patchValue({
-          WarrantyDuration: duration,
+          WarrantyDuration: String(duration),
         })
       }
     } else if (type == 'modem') {
-      let startDate = this.addAssetsForm.value.assetModemDetails.WarrantyStart
+      let startDate = this.addAssetsForm.value.assetModemDetails?.WarrantyStart
 
       let endDate = event.value
-      let sdate = new Date(startDate)
+      let sdate = startDate ? new Date(startDate) : null;
 
       if (!sdate) {
         this._toastr.error('Please Choose Start Date first.')
@@ -1104,7 +1117,7 @@ export class AddAssetsComponent implements OnInit {
             (1000 * 60 * 60 * 24),
         )
         this.addAssetsForm['controls']['assetModemDetails'].patchValue({
-          WarrantyDuration: duration,
+          WarrantyDuration: String(duration),
         })
       }
     }
@@ -1118,9 +1131,8 @@ export class AddAssetsComponent implements OnInit {
    */
 
   dateFilter = (d: any | null) => {
-    // const date = new Date();
-    // date.setDate(date.getDate() - 30);
-    return d >= this.addAssetsForm.value.assetCableDetails.WarrantyStart
+    const warrantyStart = this.addAssetsForm.value.assetCableDetails?.WarrantyStart;
+  return warrantyStart ? d >= warrantyStart : false;
   }
   /**
    * Get all make
@@ -1191,33 +1203,33 @@ export class AddAssetsComponent implements OnInit {
     }
     let data = this.addAssetsForm
     const pBody = {
-      assetId: data.value.assetDetails.AssetID.trim(),
+      assetId: data.value.assetDetails?.AssetID?.trim(),
       breakerRating: parseInt(
-        data.value.assetPowerCabinetDetails.BreakerRating,
+        data.value.assetPowerCabinetDetails?.BreakerRating ?? '0',
       ),
       createdBy: this.UserId,
       dcPortQuantityRating: parseInt(
-        data.value.assetPowerCabinetDetails.DCPortQuantity,
+        data.value.assetPowerCabinetDetails?.DCPortQuantity ?? '0',
       ),
       installationDate: this.datePipe.transform(
-        data.value.assetPowerCabinetDetails.InstallationDate,
+        data.value.assetPowerCabinetDetails?.InstallationDate,
         'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       makeMasterId: this.selectedMakePowerCabinet,
       modelId: this.selectedModelPowerCabinet,
-      peakCurrent: parseInt(data.value.assetPowerCabinetDetails.PeakCurrent),
-      serialNumber: data.value.assetDetails.SerialNumber.trim(),
-      serviceVolts: parseInt(data.value.assetPowerCabinetDetails.ServiceVolts),
-      isActive: data.value.assetDetails.IsActive,
+      peakCurrent: parseInt(data.value.assetPowerCabinetDetails?.PeakCurrent ?? '0'),
+      serialNumber: data.value.assetDetails?.SerialNumber?.trim(),
+      serviceVolts: parseInt(data.value.assetPowerCabinetDetails?.ServiceVolts ?? '0'),
+      isActive: data.value.assetDetails?.IsActive,
       statusId: this.selectedStatus,
       locationId: this.selectedLocation,
-      warrantyDuration: data.value.assetPowerCabinetDetails.WarrantyDuration,
+      warrantyDuration: data.value.assetPowerCabinetDetails?.WarrantyDuration,
       warrantyExpiryDate: this.datePipe.transform(
-        data.value.assetPowerCabinetDetails.WarrantyEnd,
+        data.value.assetPowerCabinetDetails?.WarrantyEnd,
         'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       warrantyStartDate: this.datePipe.transform(
-        data.value.assetPowerCabinetDetails.WarrantyStart,
+        data.value.assetPowerCabinetDetails?.WarrantyStart,
         'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
     }
@@ -1233,6 +1245,8 @@ export class AddAssetsComponent implements OnInit {
       cancelButtonColor: '#0062A6',
       cancelButtonText: ' CONFIRM',
       showCancelButton: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
     }).then((result) => {
       if (result.isDismissed) {
         this._adminService.CreatePowerCabinet(pBody).subscribe(
@@ -1278,33 +1292,33 @@ export class AddAssetsComponent implements OnInit {
     let data = this.addAssetsForm
     const pBody = {
       id: this.assetId,
-      assetId: data.value.assetDetails.AssetID.trim(),
+      assetId: data.value.assetDetails?.AssetID?.trim(),
       breakerRating: parseInt(
-        data.value.assetPowerCabinetDetails.BreakerRating,
+        data.value.assetPowerCabinetDetails?.BreakerRating ?? '0',
       ),
       createdBy: this.UserId,
       dcPortQuantityRating: parseInt(
-        data.value.assetPowerCabinetDetails.DCPortQuantity,
+        data.value.assetPowerCabinetDetails?.DCPortQuantity ?? '0',
       ),
       installationDate: this.datePipe.transform(
-        data.value.assetPowerCabinetDetails.InstallationDate,
+        data.value.assetPowerCabinetDetails?.InstallationDate,
         'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       makeMasterId: this.selectedMakePowerCabinet,
       modelId: this.selectedModelPowerCabinet,
-      peakCurrent: parseInt(data.value.assetPowerCabinetDetails.PeakCurrent),
-      serialNumber: data.value.assetDetails.SerialNumber.trim(),
-      serviceVolts: parseInt(data.value.assetPowerCabinetDetails.ServiceVolts),
-      isActive: data.value.assetDetails.IsActive,
+      peakCurrent: parseInt(data.value.assetPowerCabinetDetails?.PeakCurrent ?? '0'),
+      serialNumber: data.value.assetDetails?.SerialNumber?.trim(),
+      serviceVolts: parseInt(data.value.assetPowerCabinetDetails?.ServiceVolts ?? '0'),
+      isActive: data.value.assetDetails?.IsActive,
       statusId: this.selectedStatus,
       locationId: this.selectedLocation,
-      warrantyDuration: data.value.assetPowerCabinetDetails.WarrantyDuration,
+      warrantyDuration: data.value.assetPowerCabinetDetails?.WarrantyDuration,
       warrantyExpiryDate: this.datePipe.transform(
-        data.value.assetPowerCabinetDetails.WarrantyEnd,
+        data.value.assetPowerCabinetDetails?.WarrantyEnd,
         'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       warrantyStartDate: this.datePipe.transform(
-        data.value.assetPowerCabinetDetails.WarrantyStart,
+        data.value.assetPowerCabinetDetails?.WarrantyStart,
         'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       modifiedBy: this.UserId,
@@ -1321,6 +1335,8 @@ export class AddAssetsComponent implements OnInit {
       cancelButtonColor: '#0062A6',
       cancelButtonText: ' CONFIRM',
       showCancelButton: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
     }).then((result) => {
       if (result.isDismissed) {
         this._adminService.UpdatePowerCabinet(pBody).subscribe(
@@ -1448,21 +1464,21 @@ export class AddAssetsComponent implements OnInit {
     }
     let data = this.addAssetsForm
     const pBody = {
-      assetId: data.value.assetDetails.AssetID.trim(),
+      assetId: data.value.assetDetails?.AssetID?.trim(),
       makeMasterId: this.selectedMakeRFID,
       modelId: this.selectedModelRFID,
-      serialNumber: data.value.assetDetails.SerialNumber.trim(),
-      isActive: data.value.assetDetails.IsActive,
+      serialNumber: data.value.assetDetails?.SerialNumber?.trim(),
+      isActive: data.value.assetDetails?.IsActive,
       statusId: this.selectedStatus,
       locationId: this.selectedLocation,
-      cardReader: data.value.assetRFIDReaderDetails.CardReader,
-      warrantyDuration: data.value.assetRFIDReaderDetails.WarrantyDuration,
+      cardReader: data.value.assetRFIDReaderDetails?.CardReader,
+      warrantyDuration: data.value.assetRFIDReaderDetails?.WarrantyDuration,
       warrantyExpiryDate: this.datePipe.transform(
-        data.value.assetRFIDReaderDetails.WarrantyEnd,
+        data.value.assetRFIDReaderDetails?.WarrantyEnd,
         'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       warrantyStartDate: this.datePipe.transform(
-        data.value.assetRFIDReaderDetails.WarrantyStart,
+        data.value.assetRFIDReaderDetails?.WarrantyStart,
         'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       createdBy: this.UserId,
@@ -1479,6 +1495,8 @@ export class AddAssetsComponent implements OnInit {
       cancelButtonColor: '#0062A6',
       cancelButtonText: ' CONFIRM',
       showCancelButton: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
     }).then((result) => {
       if (result.isDismissed) {
         this._adminService.AddRfIdReader(pBody).subscribe(
@@ -1524,21 +1542,21 @@ export class AddAssetsComponent implements OnInit {
     let data = this.addAssetsForm
     const pBody = {
       id: this.assetId,
-      assetId: data.value.assetDetails.AssetID.trim(),
+      assetId: data.value.assetDetails?.AssetID?.trim(),
       makeMasterId: this.selectedMakeRFID,
       modelId: this.selectedModelRFID,
-      serialNumber: data.value.assetDetails.SerialNumber.trim(),
-      isActive: data.value.assetDetails.IsActive,
+      serialNumber: data.value.assetDetails?.SerialNumber?.trim(),
+      isActive: data.value.assetDetails?.IsActive,
       statusId: this.selectedStatus,
       locationId: this.selectedLocation,
-      cardReader: data.value.assetRFIDReaderDetails.CardReader,
-      warrantyDuration: data.value.assetRFIDReaderDetails.WarrantyDuration,
+      cardReader: data.value.assetRFIDReaderDetails?.CardReader,
+      warrantyDuration: data.value.assetRFIDReaderDetails?.WarrantyDuration,
       warrantyExpiryDate: this.datePipe.transform(
-        data.value.assetRFIDReaderDetails.WarrantyEnd,
+        data.value.assetRFIDReaderDetails?.WarrantyEnd,
         'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       warrantyStartDate: this.datePipe.transform(
-        data.value.assetRFIDReaderDetails.WarrantyStart,
+        data.value.assetRFIDReaderDetails?.WarrantyStart,
         'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       modifiedBy: this.UserId,
@@ -1555,6 +1573,8 @@ export class AddAssetsComponent implements OnInit {
       cancelButtonColor: '#0062A6',
       cancelButtonText: ' CONFIRM',
       showCancelButton: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
     }).then((result) => {
       if (result.isDismissed) {
         this._adminService.UpdateRfIdReader(pBody).subscribe(
@@ -1710,29 +1730,29 @@ export class AddAssetsComponent implements OnInit {
     }
     let data = this.addAssetsForm
     const pBody = {
-      assetId: data.value.assetDetails.AssetID.trim(),
+      assetId: data?.value?.assetDetails?.AssetID?.trim() ,
       makeMasterId: this.selectedMakeModem,
       modelId: this.selectedModelModem,
-      serialNumber: data.value.assetDetails.SerialNumber.trim(),
-      isActive: data.value.assetDetails.IsActive,
+      serialNumber: data.value.assetDetails?.SerialNumber?.trim(),
+      isActive: data.value.assetDetails?.IsActive,
       statusId: this.selectedStatus,
       locationId: this.selectedLocation,
-      carrier: data.value.assetModemDetails.Carrier,
+      carrier: data.value.assetModemDetails?.Carrier,
       installationDate: this.datePipe.transform(
-        data.value.assetModemDetails.InstallationDate,
+        data.value.assetModemDetails?.InstallationDate,
         'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
-      simNumber: data.value.assetModemDetails.SimNumber,
+      simNumber: data.value.assetModemDetails?.SimNumber,
       modemTypeId: this.selectedModemType,
-      imeiNumber: data.value.assetModemDetails.ImeiNumber,
-      ipAddress: data.value.assetModemDetails.IpAddress,
-      warrantyDuration: data.value.assetModemDetails.WarrantyDuration,
+      imeiNumber: data.value.assetModemDetails?.ImeiNumber,
+      ipAddress: data.value.assetModemDetails?.IpAddress,
+      warrantyDuration: data.value.assetModemDetails?.WarrantyDuration,
       warrantyExpiryDate: this.datePipe.transform(
-        data.value.assetModemDetails.WarrantyEnd,
+        data.value.assetModemDetails?.WarrantyEnd,
         'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       warrantyStartDate: this.datePipe.transform(
-        data.value.assetModemDetails.WarrantyStart,
+        data.value.assetModemDetails?.WarrantyStart,
         'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       createdBy: this.UserId,
@@ -1749,6 +1769,8 @@ export class AddAssetsComponent implements OnInit {
       cancelButtonColor: '#0062A6',
       cancelButtonText: ' CONFIRM',
       showCancelButton: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
     }).then((result) => {
       if (result.isDismissed) {
         this._adminService.CreateModem(pBody).subscribe(
@@ -1855,29 +1877,29 @@ export class AddAssetsComponent implements OnInit {
     let data = this.addAssetsForm
     const pBody = {
       id: this.assetId,
-      assetId: data.value.assetDetails.AssetID.trim(),
+      assetId: data.value.assetDetails?.AssetID?.trim(),
       makeMasterId: this.selectedMakeModem,
       modelId: this.selectedModelModem,
-      serialNumber: data.value.assetDetails.SerialNumber.trim(),
-      isActive: data.value.assetDetails.IsActive,
+      serialNumber: data.value.assetDetails?.SerialNumber?.trim(),
+      isActive: data.value.assetDetails?.IsActive,
       statusId: this.selectedStatus,
       locationId: this.selectedLocation,
-      carrier: data.value.assetModemDetails.Carrier,
+      carrier: data.value.assetModemDetails?.Carrier,
       installationDate: this.datePipe.transform(
-        data.value.assetModemDetails.InstallationDate,
+        data.value.assetModemDetails?.InstallationDate,
         'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
-      simNumber: data.value.assetModemDetails.SimNumber,
+      simNumber: data.value.assetModemDetails?.SimNumber,
       modemTypeId: this.selectedModemType,
-      imeiNumber: data.value.assetModemDetails.ImeiNumber,
-      ipAddress: data.value.assetModemDetails.IpAddress,
-      warrantyDuration: data.value.assetModemDetails.WarrantyDuration,
+      imeiNumber: data.value.assetModemDetails?.ImeiNumber,
+      ipAddress: data.value.assetModemDetails?.IpAddress,
+      warrantyDuration: data.value.assetModemDetails?.WarrantyDuration,
       warrantyExpiryDate: this.datePipe.transform(
-        data.value.assetModemDetails.WarrantyEnd,
+        data.value.assetModemDetails?.WarrantyEnd,
         'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       warrantyStartDate: this.datePipe.transform(
-        data.value.assetModemDetails.WarrantyStart,
+        data.value.assetModemDetails?.WarrantyStart,
         'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       modifiedBy: this.UserId,
@@ -1894,6 +1916,8 @@ export class AddAssetsComponent implements OnInit {
       cancelButtonColor: '#0062A6',
       cancelButtonText: ' CONFIRM',
       showCancelButton: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
     }).then((result) => {
       if (result.isDismissed) {
         this._adminService.UpdateModem(pBody).subscribe(
@@ -1953,12 +1977,12 @@ export class AddAssetsComponent implements OnInit {
     }
     let data = this.addAssetsForm
     const pBody = {
-      assetId: data.value.assetDetails.AssetID.trim(),
-      serialNumber: data.value.assetDetails.SerialNumber.trim(),
-      isActive: data.value.assetDetails.IsActive,
+      assetId: data.value.assetDetails?.AssetID?.trim(),
+      serialNumber: data.value.assetDetails?.SerialNumber?.trim(),
+      isActive: data.value.assetDetails?.IsActive,
       statusId: this.selectedStatus,
       locationId: this.selectedLocation,
-      switchGearName: data.value.assetSwitchGearDetails.switchGearName,
+      switchGearName: data.value.assetSwitchGearDetails?.switchGearName,
       createdBy: this.UserId,
     }
 
@@ -1973,6 +1997,8 @@ export class AddAssetsComponent implements OnInit {
       cancelButtonColor: '#0062A6',
       cancelButtonText: ' CONFIRM',
       showCancelButton: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
     }).then((result) => {
       if (result.isDismissed) {
         this._adminService.CreateSwitchGear(pBody).subscribe(
@@ -2017,12 +2043,12 @@ export class AddAssetsComponent implements OnInit {
     let data = this.addAssetsForm
     const pBody = {
       id: this.assetId,
-      assetId: data.value.assetDetails.AssetID.trim(),
-      serialNumber: data.value.assetDetails.SerialNumber.trim(),
-      isActive: data.value.assetDetails.IsActive,
+      assetId: data.value.assetDetails?.AssetID?.trim(),
+      serialNumber: data.value.assetDetails?.SerialNumber?.trim(),
+      isActive: data.value.assetDetails?.IsActive,
       statusId: this.selectedStatus,
       locationId: this.selectedLocation,
-      switchGearName: data.value.assetSwitchGearDetails.switchGearName,
+      switchGearName: data.value.assetSwitchGearDetails?.switchGearName,
       modifiedBy: this.UserId,
     }
 
@@ -2037,6 +2063,8 @@ export class AddAssetsComponent implements OnInit {
       cancelButtonColor: '#0062A6',
       cancelButtonText: ' CONFIRM',
       showCancelButton: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
     }).then((result) => {
       if (result.isDismissed) {
         this._adminService.UpdateSwitchGear(pBody).subscribe(
@@ -2087,13 +2115,11 @@ export class AddAssetsComponent implements OnInit {
   }
   checkInstallationDate(event: any, type: string) {
     if (type == 'power-cabinet') {
-      let startDate = this.addAssetsForm.value.assetPowerCabinetDetails
-        .WarrantyStart
-      let sDate = new Date(startDate)
+      let startDate = this.addAssetsForm.value.assetPowerCabinetDetails?.WarrantyStart
+      let sDate = startDate ? new Date(startDate):null
 
-      let endDate = this.addAssetsForm.value.assetPowerCabinetDetails
-        .WarrantyEnd
-      let eDate = new Date(endDate)
+      let endDate = this.addAssetsForm.value.assetPowerCabinetDetails?.WarrantyEnd
+      let eDate = endDate ? new Date(endDate) : null
 
       if (!sDate || !eDate) {
         this._toastr.error(
@@ -2119,13 +2145,13 @@ export class AddAssetsComponent implements OnInit {
         }
       }
     } else if (type == 'modem') {
-      let startDate = this.addAssetsForm.value.assetModemDetails.WarrantyStart
+      let startDate = this.addAssetsForm.value.assetModemDetails?.WarrantyStart
 
-      let sDate = new Date(startDate)
+      let sDate =  startDate ? new Date(startDate) : null
 
-      let endDate = this.addAssetsForm.value.assetModemDetails.WarrantyEnd
+      let endDate = this.addAssetsForm.value.assetModemDetails?.WarrantyEnd
 
-      let eDate = new Date(endDate)
+      let eDate = endDate ? new Date(endDate):null
 
       if (!sDate || !eDate) {
         this._toastr.error(

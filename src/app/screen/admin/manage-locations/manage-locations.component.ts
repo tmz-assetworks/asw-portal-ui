@@ -1,19 +1,26 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
 import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
-import { Router } from '@angular/router'
+import { Router, RouterModule } from '@angular/router'
 import { StorageService } from 'src/app/service/storage.service'
 import { data } from '../../operator/dashboard/locations'
-
 import { AdminService } from '../admin.service'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
+import { ReactiveFormsModule } from '@angular/forms'
+import { CommonModule } from '@angular/common'
 @Component({
   selector: 'app-manage-locations',
   templateUrl: './manage-locations.component.html',
   styleUrls: ['./manage-locations.component.scss'],
+  imports:[
+    CommonModule,
+    RouterModule,
+    SharedMaterialModule,
+    ReactiveFormsModule
+  ]
 })
 export class ManageLocationsComponent implements OnInit {
   detais: any = data
-  customerList = []
   displayedColumns: string[] = [
     'locationId',
     'locationName',
@@ -26,7 +33,7 @@ export class ManageLocationsComponent implements OnInit {
   // dataSource = new MatTableDataSource();
 
   // dataSource = new MatTableDataSource<Element>(this.customerList)
-  adminList = []
+  adminList:string[] = []
   locationId: any
   isTableHasData: any
   // locationList: []

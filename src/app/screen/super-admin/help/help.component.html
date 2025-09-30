@@ -18,13 +18,12 @@
               >
                 <mat-expansion-panel-header style="height: 50px;">
                   <mat-panel-title>HOW TO ADD ORGANIZATION</mat-panel-title>
-
-                  <mat-icon *ngIf="!panelOpenState">add</mat-icon>
-                  <mat-icon *ngIf="panelOpenState">remove</mat-icon>
-                  <!-- <mat-panel-description>
-                    
-                    This is a summary of the content
-                  </mat-panel-description> -->
+                  @if(panelOpenState){
+                    <mat-icon>remove</mat-icon>
+                  } 
+                  @else{
+                    <mat-icon>add</mat-icon>
+                  }
                 </mat-expansion-panel-header>
                 <div class="location-flex14 layout">
                   <div class="location-block16 layout">

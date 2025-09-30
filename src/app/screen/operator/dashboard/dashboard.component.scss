@@ -1,4 +1,4 @@
-@import '../../../../styles';
+@use '../../../../styles' as *;
 
 .dashboard- {
   &block12 {
@@ -1469,11 +1469,11 @@
     @include flex-column;
     position: relative;
     flex: 0 1 15%;
-
+    min-width: min-content;
     @include sm {
       flex: 0 0 20%;
     }
-    min-width: min-content;
+   
   }
 
   &block34 {
@@ -1509,11 +1509,11 @@
     @include flex-column;
     position: relative;
     flex: 0 1 10%;
-
+    min-width: min-content;
     @include sm {
       flex: 0 0 10%;
     }
-    min-width: min-content;
+    
   }
 
   &block35 {
@@ -1554,11 +1554,11 @@
     @include flex-column;
     position: relative;
     flex: 0 1 9%;
-
+    min-width: min-content;
     @include sm {
       flex: 0 0 9%;
     }
-    min-width: min-content;
+    
   }
 
   &block36 {
@@ -1600,11 +1600,11 @@
     @include flex-column;
     position: relative;
     flex: 0 1 10%;
-
+    min-width: min-content;
     @include sm {
       flex: 0 0 10%;
     }
-    min-width: min-content;
+    
   }
 
   &block37 {
@@ -1638,11 +1638,11 @@
     @include flex-column;
     position: relative;
     flex: 0 1 10%;
-
+    min-width: min-content;
     @include sm {
       flex: 0 0 10%;
     }
-    min-width: min-content;
+    
   }
 
   &block38 {
@@ -2040,4 +2040,26 @@
   letter-spacing: 0px;
   line-height: 28px;
 }
+.custom-select-field {
+  background-color: #fff; 
+  border-radius: 6px;    
+  margin: 4px 2px;
+  height: 52px;
+            
+
+  .mat-mdc-form-field-flex {
+    padding: 0 !important; 
+  }
+
+  .mat-mdc-form-field-infix {
+    padding: 8px 0 !important; 
+  }
+
+  .mat-mdc-select {
+    background-color: #fff; 
+  }
+}
+
+
+
 

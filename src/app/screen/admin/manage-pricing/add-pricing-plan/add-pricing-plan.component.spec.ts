@@ -48,16 +48,16 @@ describe('AddPricingPlanComponent', () => {
       declarations: [AddPricingPlanComponent],
       providers: [DatePipe],
     }).compileComponents();
-    service = TestBed.get(AdminService);
-    httpMock = TestBed.get(HttpTestingController);
+    service = TestBed.inject(AdminService);
+    httpMock = TestBed.inject(HttpTestingController);
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AddPricingPlanComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    datePipe = TestBed.get(DatePipe);
-    toastrService = TestBed.get(ToastrService);
+    datePipe = TestBed.inject(DatePipe);
+    toastrService = TestBed.inject(ToastrService);
   });
 
   it('should create', () => {

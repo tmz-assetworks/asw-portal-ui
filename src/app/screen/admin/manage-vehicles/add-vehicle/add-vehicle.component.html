@@ -10,7 +10,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Equipment ID/ Unit Number
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div class="barbar-box6 layout" [ngClass]="{
                 'is-invalid':
@@ -22,13 +22,13 @@
               <span *ngIf="
                   !vehicleFormGroup.get('unitNumber')?.valid &&
                   vehicleFormGroup.get('unitNumber')?.touched &&
-                  vehicleFormGroup.get('unitNumber')?.value.length > 0
+                  (vehicleFormGroup.get('unitNumber')?.value?.length ?? 0) > 40
                 " class="error-mess">
                 Equipment ID/ Unit Number must be in between 1 to 20 characters
               </span>
               <span *ngIf="
                   (vehicleFormGroup.get('unitNumber')?.touched || submitted) &&
-                  vehicleFormGroup.get('unitNumber')?.value.length == 0
+                  vehicleFormGroup.get('unitNumber')?.value?.length == 0
                 " class="error-mess">
                 Equipment ID/ Unit Number Is Required
               </span>
@@ -40,7 +40,7 @@
               <h5 class="barbar-highlights layout">
                 Model Year
               </h5>
-              <mat-form-field class="barbar-box6 layout" [ngClass]="{
+              <mat-form-field appearance="outline" class="barbar-box6 layout" [ngClass]="{
                   'is-invalid':
                     vehicleFormGroup.get('modelyear')?.errors &&
                     submitted == true
@@ -53,14 +53,6 @@
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-              <!-- <span *ngIf="!vehicleFormGroup.get('modelyear')?.valid && vehicleFormGroup.get('modelyear')?.touched && addVehicleForm.get('modelyear')?.value.length > 20" class="error-mess">VIN Must Be Between 1 To 20 Characters And Number Only</span> -->
-              <!-- <span *ngIf="
-                  !vehicleFormGroup.get('modelyear')?.valid &&
-                  (vehicleFormGroup.get('modelyear')?.touched || submitted) &&
-                  vehicleFormGroup.get('modelyear')?.value.length == 0
-                " class="error-mess">
-                Model Year Is Required
-              </span>-->
             </div>
           </div>
 
@@ -83,7 +75,7 @@
               
               <span *ngIf="
                   vehicleFormGroup.get('makeName')?.touched &&
-                  vehicleFormGroup.get('makeName')?.value.length > 40
+                  (vehicleFormGroup.get('makeName')?.value?.length ?? 0) > 40
                 " class="error-mess">
                 Make Must Be less than 40 Alphanumeric Character
               </span>
@@ -109,7 +101,7 @@
               
               <span *ngIf="
                   vehicleFormGroup.get('modelName')?.touched &&
-                  vehicleFormGroup.get('modelName')?.value.length > 40
+                  (vehicleFormGroup.get('modelName')?.value?.length ?? 0) > 40
                 " class="error-mess">
                 Model Must Be less than 40 Alphanumeric Character
               </span>
@@ -142,7 +134,7 @@
               <span *ngIf="
                   !vehicleFormGroup.get('vin')?.valid &&
                   vehicleFormGroup.get('vin')?.touched &&
-                  vehicleFormGroup.get('vin')?.value.length > 0
+                  (vehicleFormGroup.get('vin')?.value?.length ?? 0) > 0
                 " class="error-mess">
                 VIN must be less than 20 characters and Alphanumeric
               </span>
@@ -188,7 +180,7 @@
               <div class="barbar-block14 layout">
                 <h5 class="barbar-highlights layout subtitle">
                   Add Another RFID Card
-                  <span style="color: 'red';">*</span>
+                  <span style="color: #ff0000;">*</span>
                 </h5>
                 <div [ngClass]="viewMode ? 'disable' : ''" formArrayName="rfidCardAssigned"
                   *ngFor="let rfid of getRfidCardFormControls(); let i = index">

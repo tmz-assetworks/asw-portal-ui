@@ -10,7 +10,7 @@ import { TokenInterceptorService } from './service/interceptor/token-interceptor
 import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -19,6 +19,7 @@ import { ToastrModule } from 'ngx-toastr';
     ToastrModule.forRoot({ timeOut: 5000, positionClass: 'toast-top-right' }),
     HttpClientModule,
     LoginModule,
+    AppComponent
   ],
 
   providers: [

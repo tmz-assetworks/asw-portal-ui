@@ -4,14 +4,17 @@ import { MatTableDataSource } from '@angular/material/table'
 import { EChartsOption } from 'echarts'
 import { AuthService } from 'src/app/service/auth/auth.service'
 import { LocationService } from './../location.service'
+import { NgxEchartsDirective } from 'ngx-echarts'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 
 @Component({
   selector: 'app-location-staus',
   templateUrl: './location-staus.component.html',
   styleUrls: ['./location-staus.component.scss'],
+  imports:[NgxEchartsDirective,SharedMaterialModule]
 })
 export class LocationStausComponent implements OnInit {
-  locationChargerList = []
+  locationChargerList:string[] = []
 
   constructor(
     public _locationService: LocationService,

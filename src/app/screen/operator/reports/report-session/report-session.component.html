@@ -143,8 +143,8 @@
         </div>
         <div class="dashboard-block42 layout">
           <div class="dashboard-block42-item">
+            @if (reportSessionData !== ''){
             <app-bar-chart
-              *ngIf="reportSessionData !== ''"
               [reportSessionData]="reportSessionData"
               [chartType]="'reportSession'"
               [chartTitle]="'Session Data'"
@@ -157,11 +157,12 @@
                 )
               "
             ></app-bar-chart>
+            }
           </div>
           <div class="dashboard-block42-spacer"></div>
           <div class="dashboard-block42-item">
+            @if (reportSessionLengthData !== ''){
             <app-area-chart
-              *ngIf="reportSessionLengthData !== ''"
               [reportSessionLengthData]="reportSessionLengthData"
               [chartType]="'reportSessionLength'"
               [chartTitle]="'Session Length'"
@@ -174,12 +175,13 @@
                 )
               "
             ></app-area-chart>
+            }
           </div>
         </div>
         <div class="dashboard-block42 layout">
           <div class="dashboard-block42-item">
+            @if (reportUpcomingSessionData !== ''){
             <app-line-chart
-              *ngIf="reportUpcomingSessionData !== ''"
               [reportUpcomingSessionData]="reportUpcomingSessionData"
               [chartType]="'reportUpcomingSession'"
               [chartTitle]="'Upcoming Session - 24 Hours'"
@@ -192,6 +194,7 @@
                 )
               "
             ></app-line-chart>
+            }
           </div>
           <div class="dashboard-block42-spacer"></div>
           <div class="dashboard-block42-item"></div>

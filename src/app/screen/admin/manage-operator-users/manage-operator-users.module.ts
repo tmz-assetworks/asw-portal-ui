@@ -1,15 +1,7 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
-import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 import { ManageOperatorUsersComponent } from './manage-operator-users.component'
 import { AddOperatorComponent } from './add-operator/add-operator.component'
-import { SharedModule } from 'src/app/shared/shared.module'
-import { CommonModule } from '@angular/common'
-import {
-  MatFormFieldControl,
-  MatFormFieldModule,
-} from '@angular/material/form-field'
-
 import { AddVehicleComponent } from '../manage-vehicles/add-vehicle/add-vehicle.component'
 
 const routes: Routes = [
@@ -22,14 +14,10 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    SharedMaterialModule,
     RouterModule.forChild(routes),
-    SharedModule,
-    CommonModule,
-    MatFormFieldModule,
   ],
-  exports: [ManageOperatorUsersComponent],
-  declarations: [ManageOperatorUsersComponent, AddOperatorComponent],
+  exports: [],
+  declarations: [],
   providers: [],
 })
 export class ManageOperatorUsersModule {}

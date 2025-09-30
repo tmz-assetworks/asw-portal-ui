@@ -1,10 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { EChartsOption, graphic } from 'echarts'
+import { NgxEchartsModule } from 'ngx-echarts'
 
 @Component({
   selector: 'app-area-chart',
   templateUrl: './area-chart.component.html',
   styleUrls: ['./area-chart.component.scss'],
+  imports:[NgxEchartsModule
+    ]
 })
 export class AreaChartComponent implements OnInit {
   chargingSessionDataSet: any

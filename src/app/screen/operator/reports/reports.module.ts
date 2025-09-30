@@ -1,11 +1,6 @@
-import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
-import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
-import { SharedModule } from 'src/app/shared/shared.module'
-
 import { ReportsComponent } from './reports.component'
-
 import { ReportSubscriptionComponent } from './report-subscription/report-subscription.component'
 import { ReportTransactionComponent } from './report-transaction/report-transaction.component'
 import { ReportEnergyComponent } from './report-energy/report-energy.component'
@@ -47,10 +42,6 @@ const routes: Routes = [
       },
     ],
   },
-  // { path: 'report-transaction/detail', component: GraphDetailComponent },
-  // { path: 'report-transaction/detail/:id', component: GraphDetailComponent },
-  // { path: 'report-subscription/detail', component: GraphDetailComponent },
-  // { path: 'report-subscription/detail/:id', component: GraphDetailComponent },
   { path: 'detail', component: GraphDetailComponent },
   { path: 'detail/:id', component: GraphDetailComponent },
   {
@@ -74,18 +65,9 @@ const routes: Routes = [
 ]
 @NgModule({
   declarations: [
-    ReportsComponent,
-    ReportSessionComponent,
-    ReportSubscriptionComponent,
-    ReportTransactionComponent,
-    ReportEnergyComponent,
-    ReportDetailComponent,
   ],
   imports: [
-    CommonModule,
     RouterModule.forChild(routes),
-    SharedModule,
-    SharedMaterialModule,
   ],
 })
 export class ReportsModule {}

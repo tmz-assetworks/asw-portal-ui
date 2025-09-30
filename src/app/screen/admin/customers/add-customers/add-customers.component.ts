@@ -1,15 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, Validators, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
 import { AdminService } from '../../admin.service';
 import { StorageService } from 'src/app/service/storage.service';
+import { CommonModule } from '@angular/common';
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module';
 
 @Component({
   selector: 'app-add-customers',
   templateUrl: './add-customers.component.html',
-  styleUrls: ['./add-customers.component.scss']
+  styleUrls: ['./add-customers.component.scss'],
+  imports:[
+    CommonModule,
+    SharedMaterialModule,
+    ReactiveFormsModule
+  ]
 })
 export class AddCustomersComponent {
 
@@ -108,9 +115,10 @@ export class AddCustomersComponent {
       this.addCustomerProfile.patchValue({
         pointofcontact: this.data.pointofcontact,
       })
-      this.addCustomerProfile.patchValue({
-        ponitOfContact: this.data.ponitOfContact,
-      })
+
+      // this.addCustomerProfile.patchValue({
+      //   ponitOfContact: this.data.ponitOfContact,
+      // })
       this.addCustomerProfile.patchValue({ email: this.data.email })
       this.addCustomerProfile.patchValue({
         phoneNumber: this.data.phoneNumber,
@@ -192,6 +200,8 @@ export class AddCustomersComponent {
     confirmButtonColor: '#E6E8E9',
     cancelButtonColor: '#0062A6',
     focusConfirm: false,
+    allowOutsideClick: false, // 🔒 Prevent close on outside click
+    allowEscapeKey: false     // 🔒 Prevent close with Esc
   }).then((result) => {
     if (result.isConfirmed) {
       this.updateCustomer(body);

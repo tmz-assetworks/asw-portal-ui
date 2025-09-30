@@ -1,14 +1,21 @@
 import { Component, OnInit } from '@angular/core'
-import { Router } from '@angular/router'
+import { Router, RouterModule } from '@angular/router'
 import { LoginService } from 'src/app/screen/login/login.service'
 import { HeaderService } from './header.service'
 import { StorageService } from 'src/app/service/storage.service'
 import { UserProfileService } from 'src/app/screen/user-profile/user-profile.service'
+import { CommonModule } from '@angular/common'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
+  imports:[
+    CommonModule,
+    RouterModule,
+    SharedMaterialModule
+  ]
 })
 export class HeaderComponent implements OnInit {
   // DECLARE VARIABLES

@@ -3,17 +3,20 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientBilling } from '../client-Billing/client-billing.model';
 import { ClientBillingService } from '../client-Billing/client-billing.service';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { StorageService } from 'src/app/service/storage.service';
 import { FormModeHelperService, FormModeResult } from 'src/app/shared/data-table/form-mode.helper';
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-client-billing',
   templateUrl: './client-billing.component.html',
-  styleUrls: ['./client-billing.component.scss']
+  styleUrls: ['./client-billing.component.scss'],
+  imports:[SharedMaterialModule,CommonModule,ReactiveFormsModule,RouterModule]
 })
 export class ClientBillingComponent implements OnInit {
    submitted = false;
@@ -139,7 +142,7 @@ switch (mode) {
   private resetEndMonthIfNeeded(): void {
   const startYear = this.addAdminFormGroup.get('startYear')?.value;
   const endYear = this.addAdminFormGroup.get('endYear')?.value;
-  const startMonth = this.addAdminFormGroup.get('startMonth')?.value;
+  const startMonth:any = this.addAdminFormGroup.get('startMonth')?.value;
   const endMonth = this.addAdminFormGroup.get('endMonth')?.value;
 
   
@@ -163,12 +166,12 @@ switch (mode) {
 
   // If same year, disable end months before start month
   if (startYear && endYear && startYear === endYear) {
-    return monthValue < startMonth;
+    return startMonth ? monthValue < parseInt(startMonth, 10) : false;
   }
 
   // If end year not yet chosen → still disable months before start month
-  if (!endYear) {
-    return monthValue < startMonth;
+  if (startYear && endYear && startYear === endYear) {
+    return startMonth ? monthValue < parseInt(startMonth, 10) : false;
   }
 
   // If end year is in the future → no restriction
@@ -183,13 +186,6 @@ switch (mode) {
    let formField = this.addAdminFormGroup.value;
     this.submitted = true;
 
-     if (
-      this.addAdminFormGroup.value.organizationName == '0' ||
-      this.addAdminFormGroup.value.city == '0'
-    ) {
-      this.toastr.error('Please fill mandatory fields.');
-      return;
-    }
     if (this.addAdminFormGroup.invalid) {
       this.toastr.error('Please fill mandatory fields.');
       return;
@@ -200,7 +196,7 @@ switch (mode) {
   customerId: 1,
   planName: formField.planName,
   price: formField.price,
-  chargerTypeId: parseInt(formField.chargerTypeId),
+  chargerTypeId: parseInt(formField.chargerTypeId ?? '0'),
   startYear: formField.startYear,
   endYear: formField.endYear,
   startMonth: formField.startMonth,
@@ -249,7 +245,7 @@ switch (mode) {
        customerId: 1,
        planName: formField.planName,
        price: formField.price,
-       chargerTypeId: parseInt(formField.chargerTypeId),
+       chargerTypeId: parseInt(formField.chargerTypeId ?? '0'),
        startYear: formField.startYear,
        endYear: formField.endYear,
       startMonth: formField.startMonth,
@@ -368,7 +364,7 @@ toggleStatus() {
   selectChargerType(event: any, id: number): void {
   if (event.isUserInput) {
     this.addAdminFormGroup.patchValue({
-      chargerTypeId: id
+      chargerTypeId: id.toString()
     });
    
   }

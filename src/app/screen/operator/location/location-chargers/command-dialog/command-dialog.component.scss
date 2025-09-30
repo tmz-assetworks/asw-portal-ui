@@ -1,4 +1,4 @@
-@import '../../../../../../styles';
+@use '../../../../../../styles' as *;
 $color_type_0: rgb(0, 98, 166);
 $color_type_1: rgb(112, 120, 127);
 $color_type_2: rgb(19, 27, 33);
@@ -62,6 +62,7 @@ span.option {
   font-size: 16px;
   font-weight: 500;
   cursor: pointer;
+  padding: 10px;
 }
 
 span.option2 {
@@ -103,13 +104,13 @@ button {
 // input.barbar-input-text {
 //   margin-bottom: 17px;
 // }
-form-field modal-actions {
+.form-field.modal-actions {
   display: block;
-  overflow: auto;
-  overflow-y: scroll;
+//   overflow: auto;
+//   overflow-y: scroll;
   // max-height: 900px;
   max-height: 790px;
-  padding: 0px 10px;
+  padding: 0px 30px;
 }
 // .mg-space .mat-form-field-infix{
 //   padding: 0 !important;
@@ -172,7 +173,7 @@ form-field modal-actions {
   top: 100%;
 }
 
-.set-charger1 {
+div.set-charger1 {
   display: block;
   overflow: auto;
   // overflow-y: scroll;
@@ -199,7 +200,7 @@ button.charging-profile-btn {
   margin-bottom: 25px;
 }
 
-.form-fields .close-icon-type {
+.form-fields.close-icon-type {
   margin-top: 0px;
   margin-right: 8px;
 }
@@ -266,25 +267,16 @@ button {
   float: right;
   margin-top: 0px;
   cursor: pointer;
-  padding-bottom: 12px;
   left: 10px;
   bottom: 20px;
   font-size: 16px;
+  padding: 10px;
 }
 
 .mandatoryField {
   color: red;
 }
 
-// .form-fields span.mandatoryField {
-
-//   font-size: 14px;
-
-//   color: #8f8f8f;
-
-//   font-weight: 500;
-
-// }
 .disableButton {
   opacity: 0.5;
 }
@@ -293,13 +285,13 @@ button {
   padding-left: 0 !important;
 }
 
-// input[type="datetime-local"]::-webkit-inner-spin-button,
+.form-fields{
+ display: block;
+  max-height: 790px;
+  padding: 0px 30px;
+  margin-top: 10px;
+}
 
-// input[type="datetime-local"]::-webkit-calendar-picker-indicator {
-
-//     opacity: 0;
-
-// }
 .date-field input {
   margin-top: -10px !important;
   margin-bottom: 0px !important;
@@ -363,10 +355,22 @@ button {
   max-width: 460px !important;
 }
 
-.mat-dialog-container {
+.mat-mdc-dialog-container {
   width: 80% !important;
+     
 }
-
+.mat-mdc-dialog-component-host{
+ display: block;
+    padding: 24px;
+    border-radius: 4px;
+    box-sizing: border-box;
+    overflow: auto;
+    outline: 0;
+    width: 100%;
+    height: 100%;
+    min-height: inherit;
+    max-height: inherit;
+}
 // @media (max-width: 1920px){
 //   cdk-overlay-pane.cdk-overlay-container .cdk-global-overlay-wrapper {
 //   /* pointer-events: none; */

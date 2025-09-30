@@ -3,18 +3,20 @@ import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
 import { ActivatedRoute } from '@angular/router'
 import { StorageService } from 'src/app/service/storage.service'
-import { DatePipe, Location } from '@angular/common'
+import { CommonModule, DatePipe, Location } from '@angular/common'
 import { ReportService } from '../reports.service'
 import jsPDF from 'jspdf'
 
 import * as fs from 'file-saver'
-import { FormBuilder, FormControl, Validators } from '@angular/forms'
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms'
 import { ToastrService } from 'ngx-toastr'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 
 @Component({
   selector: 'app-report-detail',
   templateUrl: './report-detail.component.html',
   styleUrls: ['./report-detail.component.scss'],
+  imports:[SharedMaterialModule,CommonModule,ReactiveFormsModule]
 })
 export class ReportDetailComponent implements OnInit {
   graphHeading: any
@@ -458,7 +460,7 @@ export class ReportDetailComponent implements OnInit {
     return d <= todayDate
   }
   dateFilterForEnd = (d: any | null) => {
-    let fromDate = this.searchFilter.value.fromDate
+    let fromDate:any = this.searchFilter.value.fromDate
     return d >= fromDate
   }
 

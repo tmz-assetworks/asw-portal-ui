@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core'
 import { StorageService } from 'src/app/service/storage.service'
 import { VehicleService } from '../vehicle.service'
+import { CommonModule } from '@angular/common'
 
 @Component({
   selector: 'app-vehicle-assets-details',
   templateUrl: './vehicle-assets-details.component.html',
   styleUrls: ['./vehicle-assets-details.component.scss'],
+  imports:[CommonModule]
 })
 export class VehicleAssetsDetailsComponent implements OnInit {
   // DECLARE VARIABLES

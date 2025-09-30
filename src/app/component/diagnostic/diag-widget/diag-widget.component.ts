@@ -1,9 +1,11 @@
+import { CommonModule } from '@angular/common'
 import { Component, Input, OnInit } from '@angular/core'
 
 @Component({
   selector: 'app-diag-widget',
   templateUrl: './diag-widget.component.html',
   styleUrls: ['./diag-widget.component.scss'],
+  imports:[CommonModule]
 })
 export class DiagWidgetComponent implements OnInit {
   showToolTipData: any

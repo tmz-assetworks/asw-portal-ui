@@ -1,4 +1,4 @@
-@import '../../../../../styles.scss';
+@use '../../../../../styles.scss' as *;
 
 .statuspanel- {
   &block43 {
@@ -325,11 +325,12 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block5.layout {
     position: relative;
     flex: 0 1 105px;
+    height: min-content;
+    margin: 0px 0px 1px;
     @include xl1 {
       flex: 0 1 90px;
     }
-    height: min-content;
-    margin: 0px 0px 1px;
+    
   }
   &box2 {
     border: 1px solid rgb(173, 173, 173);

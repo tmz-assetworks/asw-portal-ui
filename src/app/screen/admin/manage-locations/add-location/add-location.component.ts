@@ -6,7 +6,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms'
-import { ActivatedRoute, Router } from '@angular/router'
+import { RouterModule } from '@angular/router'
 import { ToastrService } from 'ngx-toastr'
 import { StorageService } from 'src/app/service/storage.service'
 import Swal from 'sweetalert2'
@@ -14,11 +14,15 @@ import { AdminService } from '../../admin.service'
 import {} from 'googlemaps'
 import { Location } from '@angular/common'
 import { map, Observable, startWith } from 'rxjs'
-
+import { CommonModule } from '@angular/common'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
+import { ReactiveFormsModule } from '@angular/forms'
+import { ElementRef } from '@angular/core'
 @Component({
   selector: 'app-add-location',
   templateUrl: './add-location.component.html',
   styleUrls: ['./add-location.component.scss'],
+  imports:[CommonModule,RouterModule,SharedMaterialModule,ReactiveFormsModule],
 })
 export class AddLocationComponent implements OnInit {
   submitted = false
@@ -122,6 +126,9 @@ export class AddLocationComponent implements OnInit {
 
   filteredStartTime: any
   filteredEndTime: any
+  @ViewChild('addressInput') addressInput!: ElementRef<HTMLInputElement>;
+
+  
 
   // ADD LOCATION FORM GROUP
 
@@ -339,7 +346,22 @@ export class AddLocationComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.getReverseGeocodingData(36.2082629, -113.737393, 5)
+    const options: google.maps.places.AutocompleteOptions = {
+      fields: ['formatted_address', 'geometry'],
+      componentRestrictions: { country: 'in' } // optional
+    };
+
+    const autocomplete = new google.maps.places.Autocomplete(
+      this.addressInput.nativeElement,
+      options
+    );
+
+    autocomplete.addListener('place_changed', () => {
+      const place = autocomplete.getPlace();
+      this.handleAddressChange(place);
+    });
+
+    this.getReverseGeocodingData('36.2082629', '-113.737393', 5)
   }
   /**
    * SET FORM VALUE
@@ -562,7 +584,7 @@ export class AddLocationComponent implements OnInit {
 
   addChargerDetails() {
     let formField = this.addLocationFormGroup.value
-    let ind = this.addLocationFormGroup.value.locationScheduleCommand.findIndex(
+    let ind = this.addLocationFormGroup.value?.locationScheduleCommand?.findIndex(
       (x: any) =>
         (x.startTime == '' && !x.isOpenAlldays) ||
         (x.endTime == '' && !x.isOpenAlldays),
@@ -571,12 +593,12 @@ export class AddLocationComponent implements OnInit {
     // SHOW MESS FOR REQUIRED FIELDS
     if (
       formField.LocationId == '' ||
-      formField.contactPersonNumber.length == 0 ||
+      formField.contactPersonNumber?.length == 0 ||
       formField.LocationName == '' ||
-      formField.contactPersonNumber.length == 0 ||
+      formField.contactPersonNumber?.length == 0 ||
       formField.addressLine1 == '' ||
-      formField.locationStatus == 0 ||
-      formField.departmentId == 0 ||
+      formField.locationStatus == "0" ||
+      formField.departmentId == "0" ||
       this.countryId == 0 ||
       this.stateId == 0 ||
       formField.zipcode == ''
@@ -612,7 +634,7 @@ export class AddLocationComponent implements OnInit {
       stateId: this.stateId,
       stateName: this.stateName,
       pinCode: formField.zipcode,
-      locationStatusId: parseInt(formField.locationStatus),
+      locationStatusId: parseInt(formField.locationStatus ?? '0'),
       // departmentId: parseInt(formField.departmentId),
       departmentName: formField.departmentId,
       totalCapacity: formField.totalcapacity,
@@ -646,7 +668,7 @@ export class AddLocationComponent implements OnInit {
         stateId: this.stateId,
         stateName: this.stateName !== 'select' ? this.stateName : '',
         pinCode: formField.zipcode,
-        locationStatusId: parseInt(formField.locationStatus),
+        locationStatusId: parseInt(formField.locationStatus ?? '0'),
         // departmentId: parseInt(formField.departmentId),
         departmentName: formField.departmentId,
         totalCapacity: formField.totalcapacity,
@@ -692,6 +714,8 @@ export class AddLocationComponent implements OnInit {
       cancelButtonColor: '#0062A6',
       cancelButtonText: ' CONFIRM',
       showCancelButton: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
     }).then((result) => {
       if (result.isDismissed) {
         // this.toastr.success("Record has been registered on success.")
@@ -780,68 +804,101 @@ export class AddLocationComponent implements OnInit {
   userAddress: string = ''
   userLatitude: string = ''
   userLongitude: string = ''
-  handleAddressChange(address: any) {
-    this.userAddress = address.formatted_address
-    this.userLatitude = address.geometry.location.lat()
-    this.userLongitude = address.geometry.location.lng()
+
+  handleAddressChange(address: google.maps.places.PlaceResult): void {
+    if (!address.geometry || !address.geometry.location) {
+      console.warn('No geometry for this place');
+      return;
+    }
+
+    this.userAddress  = address.formatted_address ?? '';
+    this.userLatitude = address.geometry.location.lat().toString();
+    this.userLongitude = address.geometry.location.lng().toString();
+
     // SET VALUE IN FIELDS
-    this.addLocationFormGroup.patchValue({ Latitude: this.userLatitude })
-    this.addLocationFormGroup.patchValue({ Longitude: this.userLongitude })
-    this.getReverseGeocodingData(this.userLatitude, this.userLongitude, 5)
+    this.addLocationFormGroup.patchValue({
+      Latitude:  this.userLatitude,
+      Longitude: this.userLongitude
+    });
+
+    this.getReverseGeocodingData(this.userLatitude, this.userLongitude, 5);
+  }
+  onLocationSelected(location: any) {
+    console.log('Coordinates selected:', location);
   }
 
   showLocation() {
-    let lat = this.addLocationFormGroup.value.Latitude
-    let long = this.addLocationFormGroup.value.Longitude
+    let lat:any = this.addLocationFormGroup.value.Latitude
+    let long:any = this.addLocationFormGroup.value.Longitude
     if (lat !== '' && long !== '') {
-      this.getReverseGeocodingData(lat, long, 15)
+      this.getReverseGeocodingData(lat.toString(), long.toString(), 15)
     }
   }
 
   handleEvent(lat: any, lng: any) {
-    this.userLatitude = lat
-    this.userLongitude = lng
+  
+    this.userLatitude = lat.toString()
+    this.userLongitude = lng.toString()
     // SET VALUE IN FIELDS
     this.addLocationFormGroup.patchValue({ Latitude: this.userLatitude })
     this.addLocationFormGroup.patchValue({ Longitude: this.userLongitude })
-    this.getReverseGeocodingData(this.userLatitude, this.userLongitude, 5)
   }
 
-  getReverseGeocodingData(lat: any, lng: any, zoomNum: number) {
-    var latlng = new google.maps.LatLng(lat, lng)
-    let map1: any
-    // This is making the Geocode request
-    var geocoder = new google.maps.Geocoder()
+
+  // Reverse Geocoding
+
+  getReverseGeocodingData(lat: string, lng: string, zoomNum: number) {
+    const latlng = new google.maps.LatLng(parseFloat(lat), parseFloat(lng));
+    const geocoder = new google.maps.Geocoder();
+
     geocoder.geocode({ location: latlng }, (results, status) => {
-      if (status !== google.maps.GeocoderStatus.OK) {
-        alert(status)
+      if (status !== google.maps.GeocoderStatus.OK || !results[0]) {
+        console.error('Geocoding failed:', status);
+        return;
       }
-      // This is checking to see if the Geoeode Status is OK before proceeding
-      if (status == google.maps.GeocoderStatus.OK) {
-        const mapProperties = {
-          center: new google.maps.LatLng(lat, lng),
+
+      // Update address field
+      this.userAddress = results[0].formatted_address;
+
+      // Update form fields
+      this.addLocationFormGroup.patchValue({
+        Latitude: lat,
+        Longitude: lng,
+      });
+
+      // Reset/Update map
+      if (!this.map) {
+        this.map = new google.maps.Map(this.mapElement.nativeElement, {
+          center: latlng,
           zoom: zoomNum,
           mapTypeId: google.maps.MapTypeId.ROADMAP,
-        }
-        map1 = new google.maps.Map(this.mapElement.nativeElement, mapProperties)
-        var marker = new google.maps.Marker({
-          position: latlng,
-          map: map1,
-          draggable: true,
-        })
-
-        map1.addListener('dragend', () => {
-          let newlat = map1.getCenter().lat()
-          let newlng = map1.getCenter().lng()
-          this.handleEvent(newlat, newlng)
-        })
-        marker.addListener('dragend', () => {
-          let newlat = map1.getCenter().lat()
-          let newlng = map1.getCenter().lng()
-          this.handleEvent(newlat, newlng)
-        })
+        });
+      } else {
+        this.map.setCenter(latlng);
+        this.map.setZoom(zoomNum);
       }
-    })
+
+      // Add marker
+      const marker = new google.maps.Marker({
+        position: latlng,
+        map: this.map,
+        draggable: true,
+      });
+
+      // Listen for marker drag
+      marker.addListener('dragend', () => {
+        const newlat = marker.getPosition()?.lat() || 0;
+        const newlng = marker.getPosition()?.lng() || 0;
+        this.handleEvent(newlat, newlng);
+      });
+
+      // Listen for map drag (center moved)
+      this.map.addListener('dragend', () => {
+        const newlat = this.map.getCenter()?.lat() || 0;
+        const newlng = this.map.getCenter()?.lng() || 0;
+        this.handleEvent(newlat, newlng);
+      });
+    });
   }
 
   /**

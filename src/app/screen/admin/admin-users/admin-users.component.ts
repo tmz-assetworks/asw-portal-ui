@@ -4,11 +4,17 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { AdminService } from '../admin.service';
 import { StorageService } from 'src/app/service/storage.service';
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-admin-users',
   templateUrl: './admin-users.component.html',
-  styleUrls: ['./admin-users.component.scss']
+  styleUrls: ['./admin-users.component.scss'],
+  imports:[
+    CommonModule,
+    SharedMaterialModule
+  ]
 })
 export class AdminUsersComponent implements OnInit, AfterViewInit {
   tableHasData = false;

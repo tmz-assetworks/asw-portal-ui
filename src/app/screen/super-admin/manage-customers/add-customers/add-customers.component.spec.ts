@@ -48,8 +48,8 @@ describe('AddCustomersComponent', () => {
       providers: [SuperAdminService,StorageService],
     }).compileComponents();
     router = jasmine.createSpyObj('router', ['navigate']);
-    _toastr = TestBed.get(ToastrService);
-    formBuilder = TestBed.get(FormBuilder);
+    _toastr = TestBed.inject(ToastrService);
+    formBuilder = TestBed.inject(FormBuilder);
     //spyOn(_router, 'navigate').and.returnValue(Promise.resolve(true));
   });
 
@@ -58,8 +58,8 @@ describe('AddCustomersComponent', () => {
     fixture = TestBed.createComponent(AddCustomersComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    storageService=TestBed.get(StorageService)
-    service = TestBed.get(SuperAdminService);
+    storageService=TestBed.inject(StorageService)
+    service = TestBed.inject(SuperAdminService);
 
   });
 
@@ -402,7 +402,7 @@ it('should be patch value form data', () => {
    it('should set GetCustomerbyID Data patching  correctly', fakeAsync(() => {
     fixture = TestBed.createComponent(AddCustomersComponent);
     component = fixture.componentInstance;
-    service = TestBed.get(SuperAdminService);
+    service = TestBed.inject(SuperAdminService);
     const customerData = {
       userName: 'John Smith',
       description: 'Test customer',

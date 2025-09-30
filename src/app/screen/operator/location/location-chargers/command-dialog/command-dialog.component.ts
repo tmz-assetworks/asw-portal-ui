@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
   FormArray,
+  ReactiveFormsModule,
 } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { ToastrService } from 'ngx-toastr'
@@ -17,18 +18,24 @@ import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 import { AlertsService } from '../../../alerts/alerts.service'
 import { ChargerService } from '../../../charger/charger.service'
 import { SharedModule } from 'src/app/shared/shared.module'
-import {
-  NgxMatDatetimePickerModule,
-  NgxMatTimepickerModule,
-  NgxMatNativeDateModule,
-} from '@angular-material-components/datetime-picker'
-
 import { TransactionDialogComponent } from 'src/app/component/dashboard/transaction-dialog/transaction-dialog.component'
-import { DatePipe } from '@angular/common'
+import { CommonModule, DatePipe } from '@angular/common'
+import { MatDatetimepickerModule, MatNativeDatetimeModule } from '@mat-datetimepicker/core';
+import { MatMomentDatetimeModule } from '@mat-datetimepicker/moment';
+
 @Component({
   selector: 'app-command-dialog',
   templateUrl: './command-dialog.component.html',
   styleUrls: ['./command-dialog.component.scss'],
+  imports:[
+    CommonModule,  
+    SharedMaterialModule,
+    ReactiveFormsModule,
+    MatDatetimepickerModule,
+    MatNativeDatetimeModule,
+    MatMomentDatetimeModule,
+  ]
+
 })
 export class CommandDialogComponent implements OnInit {
   commandType: any

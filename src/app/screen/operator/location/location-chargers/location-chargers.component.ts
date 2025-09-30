@@ -8,12 +8,15 @@ import { CommandDialogComponent } from './command-dialog/command-dialog.componen
 import { DiagnosticsService } from '../../diagnostics/diagnostics.service'
 import { interval } from 'rxjs'
 import { ToastrService } from 'ngx-toastr'
-import { ActivatedRoute, Router } from '@angular/router'
+import { ActivatedRoute, Router, RouterModule } from '@angular/router'
+import { LocationStatusPanelComponent } from '../location-status-panel/location-status-panel.component'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 
 @Component({
   selector: 'app-location-chargers',
   templateUrl: './location-chargers.component.html',
   styleUrls: ['./location-chargers.component.scss'],
+  imports:[LocationStatusPanelComponent,SharedMaterialModule,RouterModule]
 })
 export class LocationChargersComponent implements OnInit {
   UserId: any

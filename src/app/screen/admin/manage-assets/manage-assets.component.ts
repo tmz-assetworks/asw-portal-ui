@@ -1,19 +1,27 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
 import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
-import { Router } from '@angular/router'
+import { Router, RouterModule } from '@angular/router'
 import { ToastrService } from 'ngx-toastr'
 import { StorageService } from 'src/app/service/storage.service'
 import { AdminService } from '../admin.service'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
+import { CommonModule } from '@angular/common'
+import { MatFormFieldModule } from '@angular/material/form-field'
 
 @Component({
   selector: 'app-manage-assets',
   templateUrl: './manage-assets.component.html',
   styleUrls: ['./manage-assets.component.scss'],
+  imports:[
+    RouterModule,
+    CommonModule,  
+    SharedMaterialModule,
+    MatFormFieldModule
+  ]
 })
 export class ManageAssetsComponent implements OnInit {
-  vehicleList = []
-
+ 
   totalCount: any
   pageSize: number = 10
   currentPage: number = 1
@@ -31,7 +39,7 @@ export class ManageAssetsComponent implements OnInit {
     'Action',
   ]
 
-  dataSource = new MatTableDataSource<any>(this.vehicleList)
+  dataSource = new MatTableDataSource<any>([])
   statusData: any
   UserId: string | null
 

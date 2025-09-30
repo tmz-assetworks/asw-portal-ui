@@ -1,12 +1,17 @@
+import { CommonModule } from '@angular/common'
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { ThemePalette } from '@angular/material/core'
 import { Router } from '@angular/router'
 import { EChartsOption, number } from 'echarts'
+import { NgxEchartsModule } from 'ngx-echarts'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 
 @Component({
   selector: 'app-bar-chart',
   templateUrl: './bar-chart.component.html',
   styleUrls: ['./bar-chart.component.scss'],
+  imports:[SharedMaterialModule,NgxEchartsModule
+  ]
 })
 export class BarChartComponent implements OnInit {
   performingDataSet: any
@@ -866,7 +871,8 @@ const months = [...new Set(this.reportAvailableChargerCountDataSet.map((item: an
       blankData[8] = data[j]
       return blankData
     }
-    return
+    // Return nothing so returned blankData
+    return blankData
   }
 
   /**

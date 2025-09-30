@@ -1,13 +1,17 @@
 import { Component, OnInit } from '@angular/core'
 import { FormControl } from '@angular/forms'
-import { ActivatedRoute, Router } from '@angular/router'
+import { ActivatedRoute, Router, RouterModule } from '@angular/router'
 import { StorageService } from 'src/app/service/storage.service'
 import { ReportService } from '../reports.service'
+import { NgxEchartsModule } from 'ngx-echarts'
+import { LineChartComponent } from 'src/app/component/dashboard/line-chart/line-chart.component'
+import { BarChartComponent } from 'src/app/component/dashboard/bar-chart/bar-chart.component'
 
 @Component({
   selector: 'app-report-transaction',
   templateUrl: './report-transaction.component.html',
   styleUrls: ['./report-transaction.component.scss'],
+  imports:[NgxEchartsModule,RouterModule,LineChartComponent,BarChartComponent]
 })
 export class ReportTransactionComponent implements OnInit {
   filterToggle = new FormControl('1')

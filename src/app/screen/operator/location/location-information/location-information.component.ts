@@ -2,12 +2,18 @@ import { Component, OnInit } from '@angular/core'
 import { AuthService } from 'src/app/service/auth/auth.service'
 import { StorageService } from 'src/app/service/storage.service'
 import { LocationService } from '../location.service'
+import { LocationStatusPanelComponent } from '../location-status-panel/location-status-panel.component'
+import { CommonModule } from '@angular/common'
+import { NgxEchartsDirective } from 'ngx-echarts'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
+import { RouterModule } from '@angular/router'
 declare const google: any
 
 @Component({
   selector: 'app-location-information',
   templateUrl: './location-information.component.html',
   styleUrls: ['./location-information.component.scss'],
+  imports:[LocationStatusPanelComponent,CommonModule,RouterModule,SharedMaterialModule]
 })
 export class LocationInformationComponent implements OnInit {
   panelOpenState= false

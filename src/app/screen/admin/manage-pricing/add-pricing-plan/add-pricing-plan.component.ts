@@ -1,17 +1,24 @@
 import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormControl, Validators } from '@angular/forms'
-import { ActivatedRoute, Router } from '@angular/router'
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms'
+import { ActivatedRoute, Router, RouterModule } from '@angular/router'
 import Swal from 'sweetalert2'
 import { ToastrService } from 'ngx-toastr'
 import { StorageService } from 'src/app/service/storage.service'
 import { AdminService } from '../../admin.service'
 import { elementAt } from 'rxjs'
-import { DatePipe } from '@angular/common'
+import { CommonModule, DatePipe } from '@angular/common'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 
 @Component({
   selector: 'app-add-pricing-plan',
   templateUrl: './add-pricing-plan.component.html',
   styleUrls: ['./add-pricing-plan.component.scss'],
+  imports:[
+    RouterModule,
+    CommonModule,
+    SharedMaterialModule,
+    ReactiveFormsModule
+  ]
 })
 export class AddPricingPlanComponent implements OnInit {
   /**
@@ -320,8 +327,8 @@ export class AddPricingPlanComponent implements OnInit {
       
       priceTypeId: parseInt(this.selectedPriceTypeId),
       unitId: parseInt(this.selectedUnitId),
-      price: parseInt(formData.price),
-      parkingFee: parseInt(formData.parkingFee),
+      price: formData.price ? parseInt(formData.price) : 0,
+      parkingFee: formData.parkingFee ? parseInt(formData.parkingFee) : 0,
       // gracePeriod: parseInt(formData.gracePeriod),
       gracePeriod: formData.gracePeriod ? +formData.gracePeriod : 0,
       //transactionFees: parseInt(formData.transactionFees),
@@ -345,6 +352,8 @@ export class AddPricingPlanComponent implements OnInit {
       cancelButtonColor: '#0062A6',
       cancelButtonText: ' CONFIRM',
       showCancelButton: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
     }).then((result) => {
       if (result.isDismissed) {
         this._AdminService.CreatePricePlan(pBody).subscribe(
@@ -430,6 +439,8 @@ export class AddPricingPlanComponent implements OnInit {
       cancelButtonColor: '#0062A6',
       cancelButtonText: ' CONFIRM',
       showCancelButton: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
     }).then((result) => {
       if (result.isDismissed) {
         this._AdminService.UpdatePricePlan(body).subscribe(
@@ -494,7 +505,7 @@ export class AddPricingPlanComponent implements OnInit {
         if (pricingData.currencyCode) {
           this.selectedCurrencyId = parseInt(pricingData.currencyCode)
           this.pricingPlanFormGroup.patchValue({
-            currencyId: pricingData.currencyName,
+            currencyCode: pricingData.currencyName,
           })
         }
         if (pricingData.chargerTypeId) {
@@ -517,7 +528,7 @@ export class AddPricingPlanComponent implements OnInit {
         }
         if (pricingData.unitId) {
           this.selectedUnitId = pricingData.unitId
-          this.pricingPlanFormGroup.patchValue({ unitId: pricingData.unitId })
+          this.pricingPlanFormGroup.patchValue({ unitName: pricingData.unitId })
         }
         this.pricingPlanFormGroup.patchValue({ price: pricingData.price })
         this.pricingPlanFormGroup.patchValue({
@@ -559,16 +570,7 @@ export class AddPricingPlanComponent implements OnInit {
           this.getChargeboxIdByLocationsId(this.selectedLocationId)
           this.locationIdResponse = pricingData.locationIdResponse
         }
-        if (pricingData.processPayment) {
-          this.pricingPlanFormGroup.patchValue({
-            processPayment: pricingData.processPayment,
-          })
-        }
-        if (pricingData.priceSlot) {
-          this.pricingPlanFormGroup.patchValue({
-            priceSlot: pricingData.priceSlot,
-          })
-        }
+       
         // if(pricingData.isActive){
         //   this.addPricingForm.patchValue({isActive: pricingData.isActive})
         // }
@@ -667,7 +669,7 @@ export class AddPricingPlanComponent implements OnInit {
   dateFilterForEnd = (d: any | null) => {
     let validTo = this.pricingPlanFormGroup.value.validFrom
 
-    let checkDate = new Date(validTo)
+    let checkDate = validTo ? new Date(validTo) : new Date()
     return d > checkDate
   }
 

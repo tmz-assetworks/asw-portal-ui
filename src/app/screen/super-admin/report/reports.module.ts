@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
-import { RouterModule, Routes } from '@angular/router'
+import { RouterModule, RouterOutlet, Routes } from '@angular/router'
 import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 import { SharedModule } from 'src/app/shared/shared.module'
 
@@ -53,14 +53,10 @@ const routes: Routes = [
 ]
 @NgModule({
   declarations: [
-    ReportsComponent,
-    CustomerBillingComponent,
-    ChargerCountReportComponent,
-    ReportDetailComponent,
-   DateRangeDialogComponent
   ],
   imports: [
-   CommonModule, 
+    CommonModule, 
+    RouterOutlet,
     ReactiveFormsModule,        
     MatButtonToggleModule,    
     SharedMaterialModule,       
@@ -72,6 +68,11 @@ const routes: Routes = [
     MatButtonModule,
     MatIconModule,
     FormsModule,
+    ReportsComponent,
+    CustomerBillingComponent,
+    ChargerCountReportComponent,
+    ReportDetailComponent,
+    DateRangeDialogComponent
     
   ],
 })

@@ -60,7 +60,7 @@
                       >
                         <div class="cust-list-box7 layout">
                           <img
-                            src="../../../../assets//Super-Admin-icons/Activelogo.svg"
+                            src="../../../../assets/Super-Admin-icons/Activelogo.svg"
                             alt=""
                           />
                         </div>
@@ -210,8 +210,8 @@
       <ng-container matColumnDef="Action">
         <th mat-header-cell *matHeaderCellDef>ACTION</th>
         <td mat-cell *matCellDef="let element">
-          <span
-            *ngIf="!element.isActive"
+          @if(!element.isActive){
+            <span
             title="Active"
             (click)="changeState(element.id, element.isActive)"
           >
@@ -221,8 +221,9 @@
               alt=""
             />
           </span>
-          <span
-            *ngIf="element.isActive"
+          }
+          @else{
+            <span
             title="Inactive"
             (click)="changeState(element.id, element.isActive)"
           >
@@ -232,6 +233,9 @@
               alt=""
             />
           </span>
+
+          }
+        
           <span style="margin: 7px;">
             <img
               src="../../../../assets/Super-Admin-icons/Edit.svg"
@@ -256,16 +260,9 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
-    <!-- <table>
-      <tr *ngIf="!dataSource.data.length">
-        <td style="text-align: center;" [attr.colspan]="displayedColumns.length">
-          No Records Found!
-        </td>
-      </tr>
-    </table> -->
-    <ng-container *ngIf="isTableHasData">
+    @if(isTableHasData){
       <p class="text-center">No record found</p>
-    </ng-container>
+    }
   </div>
 </div>
 

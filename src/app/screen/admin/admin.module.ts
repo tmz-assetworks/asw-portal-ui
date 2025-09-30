@@ -1,25 +1,19 @@
-import { NgModule } from '@angular/core'
-import { CustomersComponent } from './customers/customers.component'
-import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
-import { RouterModule, Routes } from '@angular/router'
-import { MasterComponent } from '../master/master.component'
-import { SharedModule } from 'src/app/shared/shared.module'
-import { RoleAuthGuard } from 'src/app/gurads/role.auth.guard'
-import { ManageLocationModule } from './manage-locations/manage-locations.module'
-import { ManageAsstesModule } from './manage-assets/manage-assets.module'
-import { ManageSubscriptionsModule } from './manage-subscriptions/manage-subscription-module'
-import { HelpComponent } from './help/help.component'
-import { CommonModule } from '@angular/common'
-import { DashboardComponent } from '../operator/dashboard/dashboard.component'
+import { NgModule } from '@angular/core';
+import { CustomersComponent } from './customers/customers.component';
+import { RouterModule, Routes } from '@angular/router';
+import { MasterComponent } from '../master/master.component';
+import { roleAuthGuard } from 'src/app/gurads/role.auth.guard';
+import { HelpComponent } from './help/help.component';
+import { DashboardComponent } from '../operator/dashboard/dashboard.component';
 import { GraphDetailComponent } from '../operator/graph-detail/graph-detail.component';
-import { AddCustomersComponent } from './customers/add-customers/add-customers.component'
+import { AddCustomersComponent } from './customers/add-customers/add-customers.component';
 
 
 const routes: Routes = [
   {
     path: '',
     component: MasterComponent,
-    canActivate: [RoleAuthGuard],
+    canActivate: [roleAuthGuard],
     children: [
       {
         path: '',
@@ -32,22 +26,26 @@ const routes: Routes = [
         pathMatch: 'full',
       },
       { path: 'dashboard/detail', component: GraphDetailComponent},
-      { path: 'dashboard/detail/:id', component: GraphDetailComponent},    
-        {
+      { path: 'dashboard/detail/:id', component: GraphDetailComponent},
+      {
         path: 'customer',
-        loadChildren: () =>
-          import('../operator/location/location.module').then((m) => m.LocationModule),
-        children:[
-           {
+        // In angular 15 , children and loadChildren cannot be used together.
+        children: [
+          {
+            path: '',
+            component: AddCustomersComponent,
+            pathMatch: 'full',
+          },
+          {
             path: 'edit-customer',
             component: AddCustomersComponent,
-          pathMatch: 'full',
-           },
+            pathMatch: 'full',
+          },
           {
             path: 'customer',
             component: AddCustomersComponent,
             pathMatch: 'full',
-           },
+          }
         ]
       },
       {
@@ -88,11 +86,8 @@ const routes: Routes = [
         path: 'diagonstics',
         loadChildren: () =>
           import('../../screen/operator/diagnostics/diagnostics.module').then(
-            (m)=>m.DiagnosticsModule
+            (m) => m.DiagnosticsModule
           ),
-          // import('./diagnostics/diagnostics.module').then(
-          //   (m) => m.DiagnosticsModule,
-          // ),
       },
 
       {
@@ -162,16 +157,9 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    ManageLocationModule,
-    ManageSubscriptionsModule,
-    SharedMaterialModule,
-    ManageAsstesModule,
     RouterModule.forChild(routes),
-    SharedModule,
-    CommonModule,
   ],
-  exports: [AddCustomersComponent],
-  declarations: [CustomersComponent, HelpComponent, AddCustomersComponent],
-  providers: [],
+  exports: [],
+  declarations: [],
 })
 export class AdminModule {}

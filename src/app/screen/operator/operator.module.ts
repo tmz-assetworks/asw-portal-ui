@@ -1,12 +1,7 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
-import { AuthGuard } from 'src/app/gurads/auth.guard'
-import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
-import { SharedModule } from 'src/app/shared/shared.module'
-import { NgxEchartsModule } from 'ngx-echarts'
-import { MainMasterModule } from '../master/master.module'
-import { MasterComponent } from '../master/master.component'
 import { RoleAuthGuard } from 'src/app/gurads/role.auth.guard'
+import { MasterComponent } from '../master/master.component'
 import { GraphDetailComponent } from './graph-detail/graph-detail.component'
 import { CommonModule } from '@angular/common'
 import { TransactionDialogComponent } from 'src/app/component/dashboard/transaction-dialog/transaction-dialog.component'
@@ -82,18 +77,9 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    SharedMaterialModule,
-    SharedModule,
     RouterModule.forChild(routes),
-    NgxEchartsModule.forRoot({
-      echarts: () => import('echarts'),
-    }),
   ],
   exports: [],
-  declarations: [
-    GraphDetailComponent,
-    TransactionDialogComponent,
-    LegendsDialogComponent,
-  ],
+  declarations: [],
 })
 export class OperatorModule {}
