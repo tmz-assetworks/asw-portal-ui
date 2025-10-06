@@ -584,6 +584,7 @@ export class AddLocationComponent implements OnInit {
 
   addChargerDetails() {
     let formField = this.addLocationFormGroup.value
+    
     let ind = this.addLocationFormGroup.value?.locationScheduleCommand?.findIndex(
       (x: any) =>
         (x.startTime == '' && !x.isOpenAlldays) ||
@@ -634,7 +635,7 @@ export class AddLocationComponent implements OnInit {
       stateId: this.stateId,
       stateName: this.stateName,
       pinCode: formField.zipcode,
-      locationStatusId: parseInt(formField.locationStatus ?? '0'),
+      locationStatusId: formField.locationStatus ?? '0',
       // departmentId: parseInt(formField.departmentId),
       departmentName: formField.departmentId,
       totalCapacity: formField.totalcapacity,
@@ -668,7 +669,7 @@ export class AddLocationComponent implements OnInit {
         stateId: this.stateId,
         stateName: this.stateName !== 'select' ? this.stateName : '',
         pinCode: formField.zipcode,
-        locationStatusId: parseInt(formField.locationStatus ?? '0'),
+        locationStatusId: formField.locationStatus ?? '0',
         // departmentId: parseInt(formField.departmentId),
         departmentName: formField.departmentId,
         totalCapacity: formField.totalcapacity,
@@ -727,7 +728,8 @@ export class AddLocationComponent implements OnInit {
 
   getSelected(event: any, type: string) {
     if (type == 'state') {
-      if (this.countryId !== parseInt(event.value.split('#')[0])) {
+      
+      if (this.countryId !== event.value.split('#')[0]) {
         // NEW COUNTRY IS SELECTED
         this.stateId = 0
         this.stateName = ''
@@ -760,12 +762,12 @@ export class AddLocationComponent implements OnInit {
           }
         })
     } else if (type == 'city') {
-      if (this.stateId !== parseInt(event.value.split('#')[0])) {
+      if (this.stateId !== event.value.split('#')[0]) {
         // NEW STATE IS SELECTED
         // this.cityId = 0
         this.cityName = ''
       }
-      this.stateId = parseInt(event.value.split('#')[0])
+      this.stateId = event.value.split('#')[0]
       this.stateName = event.value.split('#')[1]
       // CALL STATE API
       // this._adminService
@@ -806,7 +808,8 @@ export class AddLocationComponent implements OnInit {
   userLongitude: string = ''
 
   handleAddressChange(address: google.maps.places.PlaceResult): void {
-    if (!address.geometry || !address.geometry.location) {
+    
+    if (!address.geometry?.location) {
       console.warn('No geometry for this place');
       return;
     }
@@ -848,7 +851,8 @@ export class AddLocationComponent implements OnInit {
   // Reverse Geocoding
 
   getReverseGeocodingData(lat: string, lng: string, zoomNum: number) {
-    const latlng = new google.maps.LatLng(parseFloat(lat), parseFloat(lng));
+    
+    const latlng = new google.maps.LatLng(Number.parseFloat(lat), Number.parseFloat(lng));
     const geocoder = new google.maps.Geocoder();
 
     geocoder.geocode({ location: latlng }, (results, status) => {

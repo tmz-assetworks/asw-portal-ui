@@ -38,8 +38,8 @@ export class ChangePasswordComponent implements OnInit {
 
     let currentDate = new Date()
     let currentTime = currentDate.getTime()
-    let futureDate = localStorage.getItem('timeInterval') || ''
-    if (futureDate !== '' && parseInt(futureDate) < currentTime) {
+    let futureDate = localStorage.getItem('timeInterval') || '';
+    if (futureDate !== '' && Number.parseInt(futureDate) < currentTime) {
       this.toastr.error('Link Has Expired Please Contact Your Administrator')
       return
     }

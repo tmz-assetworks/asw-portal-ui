@@ -37,7 +37,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
 
 .mt-space.chargerType {
   width: 100%;
-  // margin-bottom: 15px;
 }
 .wd_sub_1 {
   @include sm {
@@ -3327,6 +3326,8 @@ tr.example-element-row:not(.example-expanded-row):active {
 
 .mat-mdc-table {
   overflow: auto;
+  background: white;
+  border: 1px solid #8f8f8f;
   max-height: 500px;
 }
 
@@ -3352,17 +3353,6 @@ cust-list-icon.layout {
   left: -29px;
   width: 29%;
 }
-.mat-mdc-header-cell {
-  color: #fff;
-}
-.mat-mdc-row:nth-child(even) {
-  background-color: #ffff;
-}
-
-.mat-mdc-table {
-  background: white;
-  border: 1px solid #8f8f8f;
-}
 
 th.mat-mdc-header-cell {
   border-right: 1px solid #e6e6e6;
@@ -3371,10 +3361,9 @@ th.mat-mdc-header-cell {
 .mat-mdc-cell,
 .mat-mdc-footer-cell {
   border-right: 1px solid #e6e6e6;
-}
-.mat-mdc-cell {
   text-align: center;
 }
+
 
 th.mat-mdc-header-cell:last-of-type,
 td.mat-mdc-cell:last-of-type,

@@ -324,9 +324,7 @@ downloadAsCSV(): void {
     link.setAttribute('download', 'charger_detail_report.csv');
     document.body.appendChild(link);
     link.click();
-    document.body.removeChild(link);
+    link.remove();
   });
-}
-
-
+ }
 }

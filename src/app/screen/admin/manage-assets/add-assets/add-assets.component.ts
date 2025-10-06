@@ -1293,22 +1293,22 @@ export class AddAssetsComponent implements OnInit {
     const pBody = {
       id: this.assetId,
       assetId: data.value.assetDetails?.AssetID?.trim(),
-      breakerRating: parseInt(
-        data.value.assetPowerCabinetDetails?.BreakerRating ?? '0',
-      ),
+      breakerRating: 
+        data.value.assetPowerCabinetDetails?.BreakerRating ?? '0'
+      ,
       createdBy: this.UserId,
-      dcPortQuantityRating: parseInt(
-        data.value.assetPowerCabinetDetails?.DCPortQuantity ?? '0',
-      ),
+      dcPortQuantityRating: 
+        data.value.assetPowerCabinetDetails?.DCPortQuantity ?? '0'
+      ,
       installationDate: this.datePipe.transform(
         data.value.assetPowerCabinetDetails?.InstallationDate,
         'yyyy-MM-ddT' + this.getModifiedTime(),
       ),
       makeMasterId: this.selectedMakePowerCabinet,
       modelId: this.selectedModelPowerCabinet,
-      peakCurrent: parseInt(data.value.assetPowerCabinetDetails?.PeakCurrent ?? '0'),
+      peakCurrent: data.value.assetPowerCabinetDetails?.PeakCurrent ?? '0',
       serialNumber: data.value.assetDetails?.SerialNumber?.trim(),
-      serviceVolts: parseInt(data.value.assetPowerCabinetDetails?.ServiceVolts ?? '0'),
+      serviceVolts: data.value.assetPowerCabinetDetails?.ServiceVolts ?? '0',
       isActive: data.value.assetDetails?.IsActive,
       statusId: this.selectedStatus,
       locationId: this.selectedLocation,

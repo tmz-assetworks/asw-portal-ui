@@ -495,7 +495,6 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Parking Fee Grace Period (Per Minute)
-                <!-- <span style="color: #ff0000;">*</span> -->
               </h5>
               <div class="barbar-box6 layout">
                 <input
@@ -522,7 +521,6 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Per Transaction Markup Fee
-                <!-- <span style="color: #ff0000;">*</span> -->
               </h5>
               <div class="barbar-box6 layout">
                 <input
@@ -532,16 +530,6 @@
                   (keypress)="numbersDecimalOnly($event)"
                 />
               </div>
-              <!-- <span
-                *ngIf="
-                  !pricingPlanFormGroup.get('transactionFees')?.valid &&
-                  pricingPlanFormGroup.get('transactionFees')?.touched &&
-                  pricingPlanFormGroup.get('transactionFees')?.value.length == 0
-                "
-                class="error-mess"
-              >
-                Transaction Fee Is Required
-              </span> -->
               <span
                 *ngIf="
                   !pricingPlanFormGroup.get('transactionFees')?.valid &&
@@ -560,7 +548,6 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Per KWH Markup Fee
-                <!-- <span style="color: #ff0000;">*</span> -->
               </h5>
               <div class="barbar-box6 layout">
                 <input

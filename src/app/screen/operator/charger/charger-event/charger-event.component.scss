@@ -3211,6 +3211,8 @@ section {
 .mat-mdc-table {
   overflow: auto;
   max-height: 500px;
+  background: white;
+  border: 1px solid #8f8f8f;
 }
 
 .mat-mdc-header-row {
@@ -3224,7 +3226,7 @@ section {
 .mat-mdc-header-cell {
    font-size: 12px;
    font-weight: 500;
-  color: #fff;
+   color: #fff;
 }
 
 
@@ -3247,26 +3249,19 @@ cust-list-icon.layout {
   left: -29px;
   width: 29%;
 }
-.mat-mdc-header-cell {
-  color: #fff;
-}
-
-
-.mat-mdc-table {
-  background: white;
-  border: 1px solid #8f8f8f;
-}
 
 th.mat-mdc-header-cell {
   border-right: 1px solid #e6e6e6;
   text-align: left;
 }
-.mat-mdc-cell,
+
 .mat-mdc-footer-cell {
   border-right: 1px solid #e6e6e6;
 }
 .mat-mdc-cell {
   text-align: center;
+  border-right: 1px solid #e6e6e6;
+
 }
 
 th.mat-mdc-header-cell:last-of-type,

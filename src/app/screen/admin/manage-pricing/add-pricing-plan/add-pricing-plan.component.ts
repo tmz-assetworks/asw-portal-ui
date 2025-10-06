@@ -289,12 +289,13 @@ export class AddPricingPlanComponent implements OnInit {
   gracePeriod = 0
 
   createPricePlan() {
+    
     this.submitted = true
     if (this.pricingPlanFormGroup.invalid) {
       this.toastr.error('fields.')
       return
     }
-    let formData = this.pricingPlanFormGroup.value
+    let formData = this.pricingPlanFormGroup.value;
     this.locationIdResponse.forEach((elem: any) => {
       let index = this.chargeboxidResponse.findIndex(
         (x: any) => x.locationId === elem,
@@ -325,10 +326,10 @@ export class AddPricingPlanComponent implements OnInit {
           )
         : '',
       
-      priceTypeId: parseInt(this.selectedPriceTypeId),
-      unitId: parseInt(this.selectedUnitId),
-      price: formData.price ? parseInt(formData.price) : 0,
-      parkingFee: formData.parkingFee ? parseInt(formData.parkingFee) : 0,
+      priceTypeId: this.selectedPriceTypeId,
+      unitId: this.selectedUnitId,
+      price: formData.price ? formData.price : 0,
+      parkingFee: formData.parkingFee ? formData.parkingFee : 0,
       // gracePeriod: parseInt(formData.gracePeriod),
       gracePeriod: formData.gracePeriod ? +formData.gracePeriod : 0,
       //transactionFees: parseInt(formData.transactionFees),
@@ -341,7 +342,7 @@ export class AddPricingPlanComponent implements OnInit {
       processPayment: true,
       priceSlot: true,
       isActive: true,
-      chargerTypeId: parseInt(this.selectedChargerTypeId),
+      chargerTypeId: this.selectedChargerTypeId,
     }
     Swal.fire({
       title: '<strong>Are you sure you want to confirm?</strong>',
@@ -503,13 +504,13 @@ export class AddPricingPlanComponent implements OnInit {
         })
 
         if (pricingData.currencyCode) {
-          this.selectedCurrencyId = parseInt(pricingData.currencyCode)
+          this.selectedCurrencyId = pricingData.currencyCode;
           this.pricingPlanFormGroup.patchValue({
             currencyCode: pricingData.currencyName,
           })
         }
         if (pricingData.chargerTypeId) {
-          this.selectedChargerTypeId = parseInt(pricingData.chargerTypeId)
+          this.selectedChargerTypeId = pricingData.chargerTypeId;
           this.pricingPlanFormGroup.patchValue({
             chargerTypeId: pricingData.chargerTypeId,
           })

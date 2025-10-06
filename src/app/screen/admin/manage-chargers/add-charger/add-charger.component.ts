@@ -121,9 +121,7 @@ export class AddChargerComponent implements OnInit {
     this.GetCableDropDown(this.UserId, this.chargerboxId)
     this.GetConnectorType()
     this.GetModemDDL(this.UserId, this.chargerboxId)
-    // this.GetAllModelData(this.UserId, this.chargerboxId)
     this.GetAllLocation()
-    // this.GetAllMakeMaster()
     this.GetAllPadData(this.UserId, this.chargerboxId)
 
     this.GetAllRFIdReaderData(this.UserId, this.chargerboxId)
@@ -144,7 +142,7 @@ export class AddChargerComponent implements OnInit {
         let addChargerLocation = JSON.parse(value)
 
         if (addChargerLocation) {
-          this.selectedLocation = parseInt(addChargerLocation.id)
+          this.selectedLocation = addChargerLocation.id;
 
           this.addChargerFormGroup.patchValue({
             locationId: addChargerLocation.locationName,
@@ -580,19 +578,10 @@ export class AddChargerComponent implements OnInit {
           })
         }
 
-        // if (this.chargerData.rfidReader) {
-        //   this.selectedRfidReader = this.chargerData.rfidReaderId
-        //   this.addChargerFormGroup.patchValue({
-        //     // rfidReader: this.chargerData.rfidReader,
-        //   })
-        // }
 
         if (this.chargerData.powerCabinetSerialNumber) {
           this.selectedPowerCabinet = this.chargerData.powerCabinetId
 
-          // this.addChargerFormGroup.patchValue({
-          //   powerCabinet: this.chargerData.powerCabinetSerialNumber,
-          // })
         }
         this.addChargerFormGroup.patchValue({
           protocolName: this.chargerData.protocolName,

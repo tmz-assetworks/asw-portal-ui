@@ -141,7 +141,7 @@ export class ChargerEventComponent implements OnInit {
   downloadFile() {
     let newObjArr: any = []
 
-    for (var i = 0; i < this.eventLogList?.length; i++) {
+    for (let i = 0; i < this.eventLogList?.length; i++) {
       let newObj = {
         'REQUEST TYPE': this.eventLogList[i]['requestType'],
         DATE: this.datePipe.transform(
@@ -168,7 +168,7 @@ export class ChargerEventComponent implements OnInit {
     csv.unshift(header.join(','))
     let csvArray = csv.join('\r\n')
 
-    var blob = new Blob([csvArray], { type: 'text/csv' })
+    const blob = new Blob([csvArray], { type: 'text/csv' })
     fs.saveAs(
       blob,
       new Date().toDateString() + 'Charger-EventLog_AssetWorks.csv',

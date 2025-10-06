@@ -106,7 +106,7 @@ export class CommandDialogComponent implements OnInit {
       return
     }
     const pBody = {
-      connectorId: parseInt(connectorID), // CH01 CH077
+      connectorId: connectorID, // CH01 CH077
       type: chargerType,
     }
 

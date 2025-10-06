@@ -153,6 +153,7 @@ export class AddVehicleComponent implements OnInit {
       return
     }
     let formData = this.vehicleFormGroup.value
+
     const body = {
       vin: formData.vin,
       licencePlate: formData.licencePlate,
@@ -161,7 +162,7 @@ export class AddVehicleComponent implements OnInit {
       domicileLocation: formData.domicileLocation,
       vehicleMacAddress: formData.vehicleMacAddress,
       createdBy: this.UserId,
-      modelYear: formData.modelyear ? (formData.modelyear === "" ? null : +formData.modelyear) : null,
+      modelYear: formData.modelyear ? formData.modelyear : null,
       modelName: formData.modelName,
       makeName: formData.makeName,
       RfIdCardsAssigneds: formData.rfidCardAssigned,
@@ -232,7 +233,7 @@ export class AddVehicleComponent implements OnInit {
       vehicleMacAddress: formData.vehicleMacAddress,
       isActive: true,
       modifiedBy: this.UserId,
-      modelYear: formData.modelyear ? (formData.modelyear === "" ? null : +formData.modelyear) : null,
+      modelYear: formData.modelyear ? formData.modelyear : null,
       modelName: formData.modelName,
       makeName: formData.makeName,
       rfIdCardsAssigneds: formData.rfidCardAssigned,

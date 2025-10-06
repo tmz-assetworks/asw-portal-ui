@@ -2985,6 +2985,8 @@ section {
 .mat-mdc-table {
   overflow: auto;
   max-height: 500px;
+  background: white;
+  border: 1px solid #8f8f8f;
 }
 
 .mat-mdc-header-row {
@@ -3002,28 +3004,22 @@ cust-list-icon.layout {
 .mat-mdc-header-cell {
    font-size: 12px;
    font-weight: 500;
-  color: #fff;
-}
-.mat-mdc-row:nth-child(even) {
-  background-color: #f5f5f5;
-}
-
-.mat-mdc-table {
-  background: white;
-  border: 1px solid #8f8f8f;
+   color: #fff;
 }
 
 th.mat-mdc-header-cell {
   border-right: 1px solid #e6e6e6;
   text-align: center;
 }
-.mat-mdc-cell,
+
 .mat-mdc-footer-cell {
   border-right: 1px solid #e6e6e6;
 }
 .mat-mdc-cell {
   text-align: center;
+  border-right: 1px solid #e6e6e6;
 }
+
 th.mat-mdc-header-cell:first-of-type,
 td.mat-mdc-cell:first-of-type,
 td.mat-mdc-footer-cell:first-of-type {

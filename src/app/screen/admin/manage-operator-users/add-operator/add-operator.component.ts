@@ -178,6 +178,7 @@ export class AddOperatorComponent implements OnInit {
 
     // let pass = sessionStorage.getItem('enpass')
     let formField = this.addOperatorProfile.value
+    
     if (
       formField.emailid == '' ||
       formField.username == '' ||
@@ -202,9 +203,9 @@ export class AddOperatorComponent implements OnInit {
         phoneNumber: formField.phonenumber,
         addressLine1: formField.addressLine1,
         addressLine2: formField.addressLine2,
-        countryID: parseInt(formField.country ?? '0'),
+        countryID: formField.country ?? '0',
         customerID: 1,
-        stateID: parseInt(formField.state ?? '0'),
+        stateID: formField.state ?? '0',
         // cityID: parseInt(formField.city),
         cityName: formField.cityName,
         zipCode: formField.zipcode,
@@ -269,9 +270,9 @@ export class AddOperatorComponent implements OnInit {
         phoneNumber: formField.phonenumber,
         addressLine1: formField.addressLine1,
         addressLine2: formField.addressLine2,
-        countryID: parseInt(formField.country ?? "0"),
+        countryID: formField.country ?? "0",
         customerID: 1,
-        stateID: parseInt(formField.state ?? "0"),
+        stateID: formField.state ?? "0",
         // cityID: parseInt(formField.city),
         cityName: formField.cityName,
         zipCode: formField.zipcode,
@@ -338,19 +339,14 @@ export class AddOperatorComponent implements OnInit {
 
   getSelected(event: any, type: string) {
     if (type == 'state') {
-      if (this.countryId !== parseInt(event.value)) {
+      if (this.countryId !== event.value) {
         // NEW COUNTRY IS SELECTED
         this.stateId = 0
-        // this.stateName = ''
         this.cityId = 0
-        // this.cityName = ''
         this.addOperatorProfile.patchValue({ state: this.selectValue })
-        // this.addOperatorProfile.patchValue({ cityName: this.selectValue })
         this.stateList = []
-        // this.cityList = []
       }
-      this.countryId = parseInt(event.value)
-      // this.countryName = event.value.split('#')[1];
+      this.countryId = (event.value)
       // CALL STATE API
       this._adminService
         .getListApi('state', this.countryId)
@@ -360,7 +356,6 @@ export class AddOperatorComponent implements OnInit {
             // FOR NEW LOCATION
             this.addOperatorProfile.patchValue({ state: this.selectValue })
             this.stateId = 0
-            // this.stateName = ''
           } else if (this.countryId > 0 && this.stateId > 0) {
             // FOR EDIT COUNTRY AND STATE BOTH ARE SELECTED
             this.addOperatorProfile.patchValue({
@@ -374,44 +369,6 @@ export class AddOperatorComponent implements OnInit {
           }
         })
     }
-    //  else if (type == 'city') {
-    //   if (this.stateId !== parseInt(event.value)) {
-    //     // NEW STATE IS SELECTED
-    //     this.cityId = 0
-    //     //  this.cityName = ''
-    //   }
-    //   this.stateId = parseInt(event.value)
-    //   // this.stateName = event.value.split('#')[1];
-    //   // CALL STATE API
-    //   this._adminService
-    //     .getListApi('city', 0, this.stateId)
-    //     .subscribe((res) => {
-    //       this.cityList = res.data
-    //       if (this.stateId == 0) {
-    //         // FOR NEW LOCATION
-    //         this.addOperatorProfile.patchValue({ city: this.selectValue })
-    //         this.cityId = 0
-    //         //  this.cityName = ''
-    //       } else if (this.stateId > 0 && this.cityId > 0) {
-    //         // FOR EDIT STATE AND CITY BOTH ARE SELECTED
-    //         this.addOperatorProfile.patchValue({
-    //           state: this.stateId.toString(),
-    //         })
-    //         this.addOperatorProfile.patchValue({ city: this.cityId.toString() })
-    //       } else if (this.stateId > 0 && this.cityId == 0) {
-    //         // WHEN CHANGING STATE
-    //         this.addOperatorProfile.patchValue({ city: this.selectValue })
-    //         this.addOperatorProfile.patchValue({
-    //           state: this.stateId.toString(),
-    //         })
-    //       }
-
-    //     })
-    // } else {
-    //   // FOR CITY ID AND NAME
-    //   this.cityId = parseInt(event.value)
-    //   // this.cityName = event.value.split('#')[1];
-    // }
   }
 
   /**

@@ -577,15 +577,15 @@ export class CommonDiagnosticsComponent implements OnInit {
         // let a = '[3,\r\n"StartTransaction",\r\n{\n  "idTagInfo": {\n    "status": "Accepted",\r\n\n    "expiryDate": "2024-06-27T12:15:44.557",\r\n\n    "parentIdTag": {\n      "IdToken": "RFID_CB011"\n    }\n  },\r\n\n  "transactionId": 3104\n}]'
 
         this.dataSource.data = res.data
-        if (
-          res.data[0].responsePayload !== undefined &&
-          res.data[0].responsePayload !== ''
-        ) {
-          let a = res.data[0].responsePayload
-          this.transactionId = parseInt(
-            a.split('transactionId')[1]?.split(':')[1]?.split('\n')[0]?.trim(),
-          )
-        }
+        // if (
+        //   res.data[0].responsePayload !== undefined &&
+        //   res.data[0].responsePayload !== ''
+        // ) {
+        //   let a = res.data[0].responsePayload
+        //   this.transactionId = parseInt(
+        //     a.split('transactionId')[1]?.split(':')[1]?.split('\n')[0]?.trim(),
+        //   )
+        // }
       } else {
         this.isTableHasData = false
         this.dataSource.data = []
@@ -661,7 +661,7 @@ export class CommonDiagnosticsComponent implements OnInit {
       return
     }
     const pBody = {
-      connectorId: parseInt(connectorID), // CH01 CH077
+      connectorId: connectorID,
       type: chargerType,
     }
 
@@ -1054,7 +1054,7 @@ export class CommonDiagnosticsComponent implements OnInit {
     }
 
     const body = {
-      listVersion: parseInt(listVersion),
+      listVersion: listVersion,
       localAuthorizationList: {
         idTag: listField !== undefined ? listField.idTag : '',
         idTagInfo: {
@@ -2069,13 +2069,13 @@ export class CommonDiagnosticsComponent implements OnInit {
     if (!this.digitValidate.test(digitValidate)) {
       this.toastr.error('Please Enter Numbers Only')
     }
-    if (parseInt(digitValidate) == 0) {
+    if (digitValidate == "0") {
       this.toastr.error('Please Enter Number Greater Than 0')
       return
     }
     // return
     const pBody = {
-      reservationId: parseInt(digitValidate),
+      reservationId: digitValidate,
     }
 
     this._diagnosticsService
@@ -2135,7 +2135,7 @@ export class CommonDiagnosticsComponent implements OnInit {
     if (!this.digitValidate.test(digitValidate)) {
       this.toastr.error('Please Enter Numbers Only')
     }
-    if (parseInt(digitValidate) == 0) {
+    if (digitValidate == "0") {
       this.toastr.error('Please Enter Number Greater Than 0')
       return
     }
@@ -2360,10 +2360,10 @@ export class CommonDiagnosticsComponent implements OnInit {
 
     const pBody = {
       location: this.enterLocationValue,
-      retries: retryKeyValue.length == 0 ? 0 : parseInt(retryKeyValue),
+      retries: retryKeyValue.length == 0 ? 0 : retryKeyValue,
       retrieveDate: this.expiryDate,
       retryInterval:
-        this.inputReserveTag.length == 0 ? 0 : parseInt(this.inputReserveTag),
+        this.inputReserveTag.length == 0 ? 0 : this.inputReserveTag,
     }
     this._diagnosticsService.updateFirmware(this.chargerId, pBody).subscribe({
       next: (res) => {
@@ -2417,11 +2417,11 @@ export class CommonDiagnosticsComponent implements OnInit {
 
     const pBody = {
       location: this.enterLocationValue,
-      retries: retryKeyValue.length == 0 ? 0 : parseInt(retryKeyValue),
+      retries: retryKeyValue.length == 0 ? 0 : retryKeyValue,
       startTime: this.startDate,
       stopTime: this.endDate,
       retryInterval:
-        this.inputReserveTag.length == 0 ? 0 : parseInt(this.inputReserveTag),
+        this.inputReserveTag.length == 0 ? 0 : this.inputReserveTag,
     }
 
     this._diagnosticsService.getDiagnostics(this.chargerId, pBody).subscribe({

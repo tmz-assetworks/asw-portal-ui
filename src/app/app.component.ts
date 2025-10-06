@@ -19,8 +19,8 @@ export class AppComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
   
   constructor(
-    private loaderService: LoaderService,
-    private appRef: ApplicationRef
+    private readonly loaderService: LoaderService,
+    private readonly appRef: ApplicationRef
   ) {}
   
   ngOnInit(): void {

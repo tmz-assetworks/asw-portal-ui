@@ -132,14 +132,6 @@ export class UserProfileComponent implements OnInit {
     )
   }
 
-  set isDisabled(value: boolean) {
-    this.isDisabled = value
-    if (value) {
-      this.userProfileFormGroup.controls['adminName'].disable()
-    } else {
-      this.userProfileFormGroup.controls['adminName'].enable()
-    }
-  }
   // GO BACK
   revertBack() {
     if (this.role == 'Operator') {

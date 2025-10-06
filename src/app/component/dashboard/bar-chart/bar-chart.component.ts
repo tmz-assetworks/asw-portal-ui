@@ -630,12 +630,13 @@ const months = [...new Set(this.reportAvailableChargerCountDataSet.map((item: an
   .sort((a, b) => (a as string).localeCompare(b as string));
     const acData = months.map(month => {
   const item = this.reportAvailableChargerCountDataSet.find((d: ChargerCountReport) => d.month === month && d.chargerType === 'AC');
-  return item ? parseFloat(item.avialableChargerCount as string) : 0;
+  
+  return item ? (item.avialableChargerCount as string) : 0;
 });
     
     const dcData = months.map(month => {
   const item = this.reportAvailableChargerCountDataSet.find((d: ChargerCountReport) => d.month === month && d.chargerType === 'DC');
-  return item ? parseFloat(item.avialableChargerCount as string) : 0;
+  return item ? (item.avialableChargerCount as string) : 0;
 });
 
     this.option = {
@@ -735,12 +736,12 @@ const months = [...new Set(this.reportAvailableChargerCountDataSet.map((item: an
 
     const acData = months.map(month => {
   const item = this.PaymentReportSet.find((d: ChargerCountReport) => d.month === month && d.chargerType === 'AC');
-  return item ? parseFloat(item.totalCollection as string) : 0;
+  return item ? (item.totalCollection as string) : 0;
 });
     
     const dcData = months.map(month => {
   const item = this.PaymentReportSet.find((d: ChargerCountReport) => d.month === month && d.chargerType === 'DC');
-  return item ? parseFloat(item.totalCollection as string) : 0;
+  return item ? (item.totalCollection as string) : 0;
 });
 
     this.option = {

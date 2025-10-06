@@ -112,7 +112,6 @@
                     submitted == true
                 }"
               >
-                <!-- <mat-label>Select</mat-label> -->
                 <mat-select
                   class="selectLocationData"
                   [value]="selectedLocation"
@@ -121,7 +120,6 @@
                   <mat-option
                     *ngFor="let data of getLocation"
                     [value]="data.id"
-                    formControlName="locationId"
                     (onSelectionChange)="selectLocation($event, data.id)"
                   >
                     {{ data.locationName }}
@@ -646,7 +644,6 @@
                     port.get('connectorType')?.errors && submitted == true
                 }"
               >
-                <!-- <mat-label>Select</mat-label> -->
                 <mat-select formControlName="connectorType">
                   <mat-option
                     *ngFor="let data of connectorType"
@@ -725,7 +722,6 @@
                     port.get('plugTypeId')?.errors && submitted == true
                 }"
               >
-                <!-- <mat-label>Select</mat-label> -->
                 <mat-select formControlName="plugTypeId">
                   <mat-option *ngFor="let data of Pluglist" [value]="data.id">
                     {{ data.plugTypeName }}

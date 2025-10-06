@@ -178,15 +178,16 @@ addUpdateAdmins() {
 
 
 private buildRequestBody(formField: any, isCreate: boolean) {
+  
   const commonBody = {
     emailId: formField.emailid,
     name: formField.username,
     phoneNumber: formField.phoneNumber,
     addressLine1: formField.addressLine1,
     addressLine2: formField.addressLine2,
-    countryID: parseInt(formField.country),
+    countryID: formField.country,
     customerID: this.customerId,
-    stateID: parseInt(formField.state),
+    stateID: formField.state,
     cityName: formField.cityName,
     zipCode: formField.zipcode,
     userRolesCommand: [{ roleid: 3 }],
@@ -237,16 +238,16 @@ private showConfirmationDialog(onConfirm: () => void) {
    */
 
   getSelect(event: any, type: string) {
+        
     if (type == 'state') {
-      if (this.countryId !== parseInt(event.value)) {
+      if (this.countryId !== event.value) {
         // NEW COUNTRY IS SELECTED
         this.stateId = 0;
 
         this.addAdminFormGroup.patchValue({ state: this.selectValue });
-        // this.addAdminFormGroup.patchValue({ city: this.selectValue });
         this.stateList = [];
       }
-      this.countryId = parseInt(event.value);
+      this.countryId = event.value;
       // this.countryName = event.value.split('#')[1];
       // CALL STATE API
       this.adminService
