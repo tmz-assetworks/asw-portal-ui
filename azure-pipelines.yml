@@ -61,9 +61,9 @@ stages:
 
       # use node tool to install the specified version of node\
       - task: NodeTool@0
-        displayName: 'Use Node.js $(nodeVersion)'
+        displayName: 'Use Node.js ${{ parameters.nodeVersion }}'
         inputs:
-          versionSpec: '$(nodeVersion)'
+          versionSpec: '${{ parameters.nodeVersion }}'
 
       # build the project
       - task: PowerShell@2
