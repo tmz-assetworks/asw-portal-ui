@@ -485,7 +485,7 @@
         var count = markers.length
         var dv = count
         while (dv !== 0) {
-          dv = parseInt(dv / 10, 10)
+          dv = Number.parseInt(dv / 10, 10)
           index++
         }
 
@@ -1232,8 +1232,8 @@
        */
       ClusterIcon.prototype.getPosFromLatLng_ = function (latlng) {
         var pos = this.getProjection().fromLatLngToDivPixel(latlng)
-        pos.x -= parseInt(this.width_ / 2, 10)
-        pos.y -= parseInt(this.height_ / 2, 10)
+        pos.x -= Number.parseInt(this.width_ / 2, 10)
+        pos.y -= Number.parseInt(this.height_ / 2, 10)
         return pos
       }
 

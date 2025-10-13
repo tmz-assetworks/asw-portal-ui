@@ -739,7 +739,7 @@ export class AddLocationComponent implements OnInit {
         // this.addLocationFormGroup.patchValue({ City: this.selectValue })
         this.stateList = []
       }
-      this.countryId = parseInt(event.value.split('#')[0])
+      this.countryId = Number.parseInt(event.value.split('#')[0])
       this.countryName = event.value.split('#')[1]
       // CALL STATE API
       this._adminService

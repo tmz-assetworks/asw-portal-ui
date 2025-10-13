@@ -3064,9 +3064,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     position: relative;
     flex: 0 1 36px;
   }
-  &box10 {
-    // background-color: $color_type_8;
-  }
   &box10.layout {
     position: relative;
     height: 18px;
@@ -3223,6 +3220,7 @@ section {
   left: -33px;
   width: 29%;
 }
+
 .mat-mdc-header-cell {
    font-size: 12px;
    font-weight: 500;
@@ -3259,6 +3257,8 @@ th.mat-mdc-header-cell {
   border-right: 1px solid #e6e6e6;
 }
 .mat-mdc-cell {
+  font-size: 13px;
+  color: #323e48;
   text-align: center;
   border-right: 1px solid #e6e6e6;
 
@@ -3284,10 +3284,6 @@ tr.mat-mdc-row:last-of-type {
   td.mat-cell {
     border-bottom: 0px solid #8f8f8f;
   }
-}
-.mat-mdc-cell {
-  font-size: 13px;
-  color: #323e48;
 }
 
 table {

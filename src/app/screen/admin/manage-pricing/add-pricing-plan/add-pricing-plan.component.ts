@@ -187,14 +187,7 @@ export class AddPricingPlanComponent implements OnInit {
       this.currencyList = res.data
     })
   }
-  // /**
-  //  * Get all level
-  //  */
-  // GetAllLevel() {
-  //   this._AdminService.GetAllLevel().subscribe((res: any) => {
-  //     this.levelList = res.data
-  //   })
-  // }
+
 
   /**
    * Get customer DDL
@@ -312,7 +305,7 @@ export class AddPricingPlanComponent implements OnInit {
       customerId: this.customerId,
       pricingPlanName: formData.pricingPlanName,
       description: formData.description,
-      currencyId: parseInt(this.selectedCurrencyId),
+      currencyId: Number.parseInt(this.selectedCurrencyId),
       validFrom: formData.validFrom
         ? this.datePipe.transform(
             formData.validFrom,
@@ -330,13 +323,9 @@ export class AddPricingPlanComponent implements OnInit {
       unitId: this.selectedUnitId,
       price: formData.price ? formData.price : 0,
       parkingFee: formData.parkingFee ? formData.parkingFee : 0,
-      // gracePeriod: parseInt(formData.gracePeriod),
       gracePeriod: formData.gracePeriod ? +formData.gracePeriod : 0,
-      //transactionFees: parseInt(formData.transactionFees),
       transactionFees: formData.transactionFees ? +formData.transactionFees : 0,
-      //salaryTax: parseInt(formData.salaryTax),
       tax: 0,
-      // salesTax: parseInt(formData.salesTax),
       salesTax: formData.salesTax ? +formData.salesTax : 0,
       pricePlanLocationsMapperCommand: this.chargeboxidResponse,
       processPayment: true,
@@ -417,15 +406,9 @@ export class AddPricingPlanComponent implements OnInit {
       price: formData.price,
       parkingFee: formData.parkingFee,
       gracePeriod: formData.gracePeriod ? +formData.gracePeriod : 0,
-      //transactionFees: parseInt(formData.transactionFees),
       transactionFees: formData.transactionFees ? +formData.transactionFees : 0,
       tax:  0,
-      // salesTax: parseInt(formData.salesTax),
       salesTax: formData.salesTax ? +formData.salesTax : 0,
-      // gracePeriod: formData.gracePeriod,
-      // transactionFees: formData.transactionFees,
-      // salaryTax: formData.salaryTax,
-      // salesTax: formData.salesTax,
       processPayment: true,
       priceSlot: true,
       isActive: true,
@@ -488,10 +471,8 @@ export class AddPricingPlanComponent implements OnInit {
   getPricePlanbyid(id: number) {
     this._AdminService.getPricePlanbyid(id).subscribe((res: any) => {
       if (res.data) {
-        let pricingData = res.data
-        // this.pricingPlanFormGroup.patchValue({ customerName: pricingData.customerId });
+        let pricingData = res.data;
         if (pricingData.customerId) {
-          // this.customerId = parseInt(pricingData.customerId)
           this.pricingPlanFormGroup.patchValue({
             customerN: pricingData.customerName,
           })
@@ -504,7 +485,7 @@ export class AddPricingPlanComponent implements OnInit {
         })
 
         if (pricingData.currencyCode) {
-          this.selectedCurrencyId = pricingData.currencyCode;
+          this.selectedCurrencyId = Number.parseInt(pricingData.currencyCode);
           this.pricingPlanFormGroup.patchValue({
             currencyCode: pricingData.currencyName,
           })
@@ -571,11 +552,7 @@ export class AddPricingPlanComponent implements OnInit {
           this.getChargeboxIdByLocationsId(this.selectedLocationId)
           this.locationIdResponse = pricingData.locationIdResponse
         }
-       
-        // if(pricingData.isActive){
-        //   this.addPricingForm.patchValue({isActive: pricingData.isActive})
-        // }
-
+      
         this.chargeboxidResponse = pricingData.pricePlanLocationsMapperobj
 
         

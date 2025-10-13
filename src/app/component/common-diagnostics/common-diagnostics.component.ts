@@ -1098,10 +1098,6 @@ export class CommonDiagnosticsComponent implements OnInit {
     if(event.isUserInput){
       if (type === 'getConfig') {
         this.keyTypeGetConfig = value;
-        // Handle getConfig logic
-        // if (this.keyTypeGetConfig == "") {
-        //   this.toastr.error('Please Select Key');
-        // }
       } else if (type === 'changeConfig') {
         this.keyTypeChangeConfig = value;
         // Handle changeConfig logic
@@ -1220,16 +1216,8 @@ export class CommonDiagnosticsComponent implements OnInit {
             // this.selectConnectorIds.push(res.data.connectorIds.split(','))
           }
         }
-
-        // if (res.data !== undefined) {
-        //   if (res.data.connectorIds !== '') {
-
-        //     this.selectConnectorIds.push(res.data.connectorIds.split(','))
-        //   }
-        // }
       },
       error: (err) => {
-        // this.toastr.error('No conmector Id Found')
       },
     })
   }
@@ -1265,119 +1253,6 @@ export class CommonDiagnosticsComponent implements OnInit {
     })
   }
 
-  // setCallFunction(cmsRequestPayload: any) {
-  //   const source = interval(3000)
-
-  //   this.toastr.success(JSON.stringify(cmsRequestPayload))
-  //   const subscribe = source.subscribe((val) => {
-  //     if (val <= 2) {
-  //       this._diagnosticsService
-  //         .CmsReply(cmsRequestPayload)
-  //         .subscribe((res) => {
-  //           if (res == 404) {
-  //           } else if (res) {
-  //             let msg = res
-  //             subscribe.unsubscribe()
-  //             this.showLoader = false
-  //             this.toastr.success(JSON.stringify(msg))
-  //             this.GetOcppEventLog()
-  //           } else {
-  //             subscribe.unsubscribe()
-  //             this.showLoader = false
-  //             let msg = res
-  //             this.toastr.error(msg)
-  //           }
-  //         })
-  //     } else {
-  //       this.showLoader = false
-  //       subscribe.unsubscribe()
-  //       this.toastr.error('No response from charger.')
-  //     }
-  //   })
-  // }
-
-  // setCallFunction(res: any, cmdType?: string) {
-  //   this.commandType = ''
-  //   this.count = 1
-  //   let cmsRequestPayload = res
-  //   this.toastr.success(JSON.stringify(res))
-
-  //   this.showLoader = true
-  //   this.intervalId = setInterval(() => {
-  //     if (this.count < 4 && this.commandType == '') {
-  //       this._diagnosticsService.CmsReply(cmsRequestPayload).subscribe({
-  //         next: (res) => {
-  //           this.showLoader = false
-  //           if (res == 404) {
-  //             this.toastr.error('Error Connecting...')
-  //             this.count = this.count + 1
-  //           }
-  //           if (
-  //             cmdType == 'remoteStart' ||
-  //             cmdType == 'clear' ||
-  //             cmdType == 'reset' ||
-  //             cmdType == 'changeconfig' ||
-  //             cmdType == 'change' ||
-  //             cmdType == 'composite' ||
-  //             cmdType == 'stop' ||
-  //             cmdType == 'unlock' ||
-  //             cmdType == 'isReserveNow' ||
-  //             cmdType == 'triggerMessage' ||
-  //             cmdType == 'cancel' ||
-  //             cmdType == 'sendlocal' ||
-  //             cmdType == 'datatransfer' ||
-  //             cmdType == 'getClearCharging' ||
-  //             cmdType == 'setCharging'
-  //           ) {
-  //             if (res !== undefined && res.status !== undefined) {
-  //               this.showLoader = false
-  //               this.toastr.success(res.status)
-  //               this.count = 4
-  //               this.GetOcppEventLog()
-  //             } else if (res !== undefined && res.meterStart !== undefined) {
-  //               this.showLoader = false
-  //               this.toastr.success(JSON.stringify(res))
-  //               this.count = this.count + 1
-  //               this.GetOcppEventLog()
-  //             }
-  //           } else if (cmdType == 'getConfig') {
-  //             // unknownKey
-  //             if (res !== undefined && res.unknownKey !== undefined) {
-  //               this.count = 4
-  //             }
-  //             this.GetOcppEventLog()
-  //           } else if (cmdType == 'localList') {
-  //             // unknownKey
-  //             if (res !== undefined && res.listVersion !== undefined) {
-  //               this.count = 4
-  //             }
-  //             this.GetOcppEventLog()
-  //           } else if (cmdType == 'update') {
-  //             if (res == '{}') {
-  //               this.count = 4
-  //             }
-  //           } else if (cmdType == 'getdiagnostics') {
-  //             if (
-  //               res !== undefined &&
-  //               res.fileName !== '' &&
-  //               res.fileName !== undefined
-  //             ) {
-  //               this.count = 4
-  //             }
-  //           }
-  //         },
-  //         error: (error: any) => {
-  //           this.showLoader = false
-  //           this.handleError(error)
-  //         },
-  //       })
-  //     }
-  //     if (this.count > 3) {
-  //       clearInterval(this.intervalId)
-  //       this.showLoader = false
-  //     }
-  //   }, 3000)
-  // }
 
   /****************************************** Sub Tool Tip background Color function****************************************************** */
   isGetConfig = false
@@ -2299,19 +2174,6 @@ export class CommonDiagnosticsComponent implements OnInit {
         },
       })
   }
-  // numberOnly(event: any): boolean {
-  //   const charCode = event.which ? event.which : event.keyCode
-  //   if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-  //     return false
-  //   }
-  //   return true
-  // }
-  // numbersDecimalOnly(event: any) {
-  //   let charCode = event.which ? event.which : event.keyCode
-  //   if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
-  //     return false
-  //   return true
-  // }
 
   /**
    * updateFirmware

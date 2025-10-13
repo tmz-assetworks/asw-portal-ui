@@ -1124,7 +1124,7 @@ section {
   width: 29%;
 }
 .mat-mdc-header-cell {
-   font-size: 12px;
+  font-size: 14px;
    font-weight: 500;
   color: #fff;
 }
@@ -1138,10 +1138,6 @@ section {
 cust-list-icon.layout {
   left: -29px;
   width: 29%;
-}
-.mat-mdc-header-cell {
-  color: #fff;
-  font-size: 14px !important;
 }
 
 .mat-mdc-table {
@@ -1159,6 +1155,8 @@ th.mat-mdc-header-cell {
   border-right: 1px solid #e6e6e6;
 }
 .mat-mdc-cell {
+  font-size: 13px;
+  color: #323e48;
   text-align: center;
   border-right: 1px solid #e6e6e6;
 }
@@ -1183,14 +1181,6 @@ tr.mat-mdc-row:last-of-type {
     border-bottom: 0px solid #8f8f8f;
   }
 }
-.mat-mdc-cell {
-  font-size: 13px;
-  color: #323e48;
-}
-// .mat-paginator-page-size-select {
-//   margin: inherit;
-//   width: 56px;
-// }
 
 .mat-mdc-elevation-z8 {
   box-shadow: 0px 0px 0px 0px rgb(0 0 0 / 20%), 

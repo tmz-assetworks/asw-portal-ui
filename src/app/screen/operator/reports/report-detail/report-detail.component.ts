@@ -154,37 +154,7 @@ export class ReportDetailComponent implements OnInit {
               newObjArr.push(newObj)
             }
 
-            this.convertToCSV(newObjArr)
-
-            // }
-
-            // var prepare: any = []
-
-            // setTimeout(() => {
-            //   res.data.forEach((e: any) => {
-            //     var tempObj = []
-            //     tempObj.push(e.customerName)
-            //     tempObj.push(e.pricingPlanName)
-            //     tempObj.push(e.price)
-            //     tempObj.push(e.createdOn)
-
-            //     tempObj.push(
-            //       this.datePipe.transform(e.timeReported, 'dd-MM-yyyy h:mm'),
-            //     )
-
-            //     prepare.push(tempObj)
-            //   })
-            //   let doc: any = new jsPDF()
-            //   doc.autoTable({
-            //     head: [
-            //       ['Customer Name', 'Pricing Plan Name', 'Price', 'Created On'],
-            //     ],
-            //     columnStyles: {},
-            //     body: prepare,
-            //   })
-
-            //   doc.save('download' + '.pdf')
-            // }, 5000)
+            this.convertToCSV(newObjArr);
           }
         })
     } else {

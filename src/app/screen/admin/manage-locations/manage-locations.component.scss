@@ -1186,9 +1186,12 @@ th.mat-mdc-header-cell {
 .mat-mdc-footer-cell {
   border-right: 1px solid #e6e6e6;
 }
+
 .mat-mdc-cell {
   text-align: center;
   border-right: 1px solid #e6e6e6;
+  font-size: 13px;
+  color: #323e48;
 }
 
 th.mat-mdc-header-cell:last-of-type,
@@ -1206,19 +1209,13 @@ td.mat-mdc-footer-cell {
   text-align: center;
   padding: 0 20px;
 }
+
 tr.mat-mdc-row:last-of-type {
   td.mat-mdc-cell {
     border-bottom: 0px solid #8f8f8f;
   }
 }
-.mat-mdc-cell {
-  font-size: 13px;
-  color: #323e48;
-}
-// .mat-paginator-page-size-select {
-//   margin: inherit;
-//   width: 56px;
-// }
+
 .lasticon{
     background-color: #0062a6 !important;
 }

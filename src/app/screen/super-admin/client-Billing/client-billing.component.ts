@@ -166,12 +166,12 @@ switch (mode) {
 
   // If same year, disable end months before start month
   if (startYear && endYear && startYear === endYear) {
-    return startMonth ? monthValue < parseInt(startMonth, 10) : false;
+    return startMonth ? monthValue < Number.parseInt(startMonth, 10) : false;
   }
 
   // If end year not yet chosen → still disable months before start month
   if (startYear && endYear && startYear === endYear) {
-    return startMonth ? monthValue < parseInt(startMonth, 10) : false;
+    return startMonth ? monthValue < Number.parseInt(startMonth, 10) : false;
   }
 
   // If end year is in the future → no restriction
@@ -196,7 +196,7 @@ switch (mode) {
   customerId: 1,
   planName: formField.planName,
   price: formField.price,
-  chargerTypeId: parseInt(formField.chargerTypeId ?? '0'),
+  chargerTypeId: Number.parseInt(formField.chargerTypeId ?? '0'),
   startYear: formField.startYear,
   endYear: formField.endYear,
   startMonth: formField.startMonth,
@@ -245,7 +245,7 @@ switch (mode) {
        customerId: 1,
        planName: formField.planName,
        price: formField.price,
-       chargerTypeId: parseInt(formField.chargerTypeId ?? '0'),
+       chargerTypeId: Number.parseInt(formField.chargerTypeId ?? '0'),
        startYear: formField.startYear,
        endYear: formField.endYear,
       startMonth: formField.startMonth,

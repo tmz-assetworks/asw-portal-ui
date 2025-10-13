@@ -3015,9 +3015,12 @@ th.mat-mdc-header-cell {
 .mat-mdc-footer-cell {
   border-right: 1px solid #e6e6e6;
 }
+
 .mat-mdc-cell {
   text-align: center;
   border-right: 1px solid #e6e6e6;
+  font-size: 13px;
+  color: #323e48;
 }
 
 th.mat-mdc-header-cell:first-of-type,
@@ -3044,14 +3047,6 @@ tr.mat-mdc-row:last-of-type {
     border-bottom: 0px solid #8f8f8f;
   }
 }
-.mat-mdc-cell {
-  font-size: 13px;
-  color: #323e48;
-}
-
-// table.mat-table {
-//   border-spacing: 0;
-// }
 
 .box-element-block2.layout[_ngcontent-mog-c58] {
   margin: 20px 0px 6px;

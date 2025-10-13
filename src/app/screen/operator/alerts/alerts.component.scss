@@ -565,7 +565,6 @@ $font_type_5: 700 25px/1.2 'Roboto', Helvetica, Arial, serif;
     height: min-content;
     width: 77px;
     min-width: 77px;
-    // margin: 0 20px 0 30px;
   }
   &block12-spacer {
     flex: 0 1 3px;
@@ -823,22 +822,13 @@ $font_type_5: 700 25px/1.2 'Roboto', Helvetica, Arial, serif;
   &box9 {
     background-color: $color_type_0;
     border-radius: 0px 4px 4px 0px;
-    // transition-duration: 0.3s;
-    // transition-property: transform;
   }
-  // &box9:hover {
-  //   transform: scale(1.1);
-  // }
+  
   &box9.layout {
     position: relative;
     height: 47px;
     width: 54px;
     min-width: 54px;
-    /*
-    @include lg {
-      margin: 5px 0px 5px 5px;
-    }
-    */
   }
   &icon {
     width: 100%;
@@ -855,31 +845,6 @@ $font_type_5: 700 25px/1.2 'Roboto', Helvetica, Arial, serif;
     right: 0px;
     width: 4.31%;
     margin: 0px 4.82% 0px 90.86%;
-    /*
-    @include lg {
-      top: 15px;
-      bottom: 14px;
-    }
-    @include md {
-      top: 13px;
-      bottom: 12px;
-    }
-    @include sm {
-      top: 11px;
-      bottom: 10px;
-    }
-    @include xs {
-      top: 10px;
-      bottom: 9px;
-    }
-    @include xxs {
-      top: 9px;
-      bottom: 8px;
-    }
-    @include tn {
-      top: 8px;
-    }
-    */
   }
   &block20 {
     @include flex-column;
@@ -965,9 +930,6 @@ $font_type_5: 700 25px/1.2 'Roboto', Helvetica, Arial, serif;
     @include flex-column;
     position: relative;
     flex: 0 1 36px;
-  }
-  &box10 {
-    // background-color: $color_type_8;
   }
   &box10.layout {
     position: relative;
@@ -1151,6 +1113,8 @@ th.mat-mdc-header-cell {
 .mat-mdc-cell {
   text-align: center;
   border-right: 1px solid #e6e6e6;
+  font-size: 13px;
+  color: #323e48;
 }
 
 th.mat-mdc-header-cell:last-of-type,
@@ -1158,6 +1122,7 @@ td.mat-mdc-cell:last-of-type,
 td.mat-mdc-footer-cell:last-of-type {
   padding-right: 0px;
 }
+
 mat-mdc-row,
 mat-mdc-header-row,
 mat-mdc-footer-row,
@@ -1166,31 +1131,17 @@ td.mat-mdc-cell,
 td.mat-mdc-footer-cell {
   border-bottom: 1px solid #8f8f8f;
   text-align: center;
-  //padding: 0 12px;
 
   @include xl {
     padding: 0 0px 0 5px;
   }
 }
+
 tr.mat-mdc-row:last-of-type {
   td.mat-mdc-cell {
     border-bottom: 0px solid #8f8f8f;
   }
 }
-.mat-mdc-cell {
-  font-size: 13px;
-  color: #323e48;
-}
-// .mat-paginator-page-size-select {
-//   margin: inherit;
-//   width: 56px;
-// }
-
-// expand table css
-
-// table {
-//     width: 100%;
-//   }
 
 tr.example-detail-row {
   height: 0;
