@@ -62,13 +62,13 @@ private readonly ICON_BASE_ADMIN = '../../../../assets/Admin-SideNav/';
 
   @HostListener('document:click', ['$event'])
   clickout(event: any) {
-    if (event.target.id != 900923) {
+    if (event.target.id == 900923) {
+      this.messages = !this.messages
+    } else {
       if (!this.wasInside && window.innerWidth < 992) {
         this.messages = true
       }
       this.wasInside = false
-    } else {
-      this.messages = !this.messages
     }
   }
 

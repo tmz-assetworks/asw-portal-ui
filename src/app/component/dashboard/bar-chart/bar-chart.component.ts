@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common'
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { ThemePalette } from '@angular/material/core'
 import { Router } from '@angular/router'
@@ -181,7 +180,7 @@ export class BarChartComponent implements OnInit {
         let ind = arr.findIndex((x: any) => x.chargeStatus == legendData[i])
         if (ind >= 0) {
           legendColorData.push(
-            arr[ind].color !== undefined ? arr[ind].color : '#90993F',
+            arr[ind]?.color ?? '#90993F',
           )
         }
       }
@@ -493,9 +492,8 @@ export class BarChartComponent implements OnInit {
 
         for (let i = 0; i < this.statusData.length; i++) {
           let color =
-            this.statusData[i].color !== undefined
-              ? this.statusData[i].color
-              : '#90993F'
+            this.statusData[i]?.color
+              ?? '#90993F'
           legendColorData.push(color)
         }
         // CREATE OBJECT FOR DIFF ELEMENT
@@ -1208,7 +1206,7 @@ const months = [...new Set(this.reportAvailableChargerCountDataSet.map((item: an
       let ind = dataSet.findIndex((x: any) => x.chargingStatus == legendData[i])
       if (ind >= 0) {
         legendColorData.push(
-          dataSet[ind].color !== undefined ? dataSet[ind].color : '#90993F',
+           dataSet[ind]?.color ?? '#90993F',
         )
       }
     }

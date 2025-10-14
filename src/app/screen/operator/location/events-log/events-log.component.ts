@@ -126,16 +126,17 @@ export class EventsLogComponent implements OnInit {
    */
 
   pageChange(event: any) {
-    if (event.pageSize !== this.pageSize) {
-      this.currentPage = 1
-      this.pageSize = event.pageSize
-      this.paginator.pageIndex = 0
-    } else {
+    if (event.pageSize == this.pageSize) {
       this.currentPage =
         event.previousPageIndex < event.pageIndex
           ? this.currentPage + 1
           : this.currentPage - 1
+    }else{
+      this.currentPage = 1
+      this.pageSize = event.pageSize
+      this.paginator.pageIndex = 0
     }
+
     this.GetEventLogByLocation()
   }
 
@@ -184,13 +185,14 @@ export class EventsLogComponent implements OnInit {
     var prepare: any = []
     this.eventLogList = this.dataSource.data
     this.eventLogList.forEach((e: any) => {
-      var tempObj = []
-      tempObj.push(e.requestType)
-      tempObj.push(e.modifiedAt)
-      tempObj.push(e.deviceId)
-      tempObj.push(e.requestPayload)
-      tempObj.push(e.responsePayload)
-      prepare.push(tempObj)
+      var tempObj = [
+        e.requestType,
+        e.modifiedAt,
+        e.deviceId,
+        e.requestPayload,
+        e.responsePayload,
+      ];
+      prepare.push(tempObj);
     })
     let doc: any = new jsPDF()
     doc.autoTable({

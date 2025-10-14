@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core'
+import { Component, OnInit, ViewChild,ElementRef } from '@angular/core'
 import {
   FormArray,
   FormBuilder,
   FormControl,
   FormGroup,
+  ReactiveFormsModule,
   Validators,
 } from '@angular/forms'
 import { RouterModule } from '@angular/router'
@@ -12,12 +13,10 @@ import { StorageService } from 'src/app/service/storage.service'
 import Swal from 'sweetalert2'
 import { AdminService } from '../../admin.service'
 import {} from 'googlemaps'
-import { Location } from '@angular/common'
+import { Location,CommonModule } from '@angular/common'
 import { map, Observable, startWith } from 'rxjs'
-import { CommonModule } from '@angular/common'
 import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
-import { ReactiveFormsModule } from '@angular/forms'
-import { ElementRef } from '@angular/core'
+
 @Component({
   selector: 'app-add-location',
   templateUrl: './add-location.component.html',
@@ -251,55 +250,6 @@ export class AddLocationComponent implements OnInit {
     
     
 
-    // const days: any = [
-    //   {
-    //     id: 0,
-    //     day: 'Monday',
-    //   },
-    //   { id: 1, day: 'Tuesday' },
-    //   { id: 2, day: 'Wednesday' },
-    //   { id: 3, day: 'Thursday' },
-    //   { id: 4, day: 'Friday' },
-    //   { id: 5, day: 'Saturday' },
-    //   { id: 6, day: 'Sunday' },
-    // ]
-
-    // days.forEach((element: any) => {
-    //   // this.manageNameControlStart(element.id)
-    //   // this.manageNameControlEnd(element.id)
-    // })
-
-    // const day: any = [
-    //   {
-    //     day: 'Monday',
-    //   },
-    //   {
-    //     day: 'Tuesday',
-    //   },
-    //   {
-    //     day: 'Wednesday',
-    //   },
-    //   {
-    //     day: 'Thursday',
-    //   },
-    //   {
-    //     day: 'Friday',
-    //   },
-    //   {
-    //     day: 'Saturday',
-    //   },
-    //   {
-    //     day: 'Sunday',
-    //   },
-    // ];
-
-    // day.forEach((day: any) => {
-    //   var arrayControl = this.addLocationFormGroup.get('locationScheduleCommand') as FormArray;
-    //   this.filteredTimeList[day.id] = arrayControl.at(day.id).get('startTime').valueChanges.pipe(
-    //     startWith(''),
-    //     map((value) => (value && value.length >= 0 ? this._filter(value) : [])),
-    //   )
-    // });
   }
   manageNameControlStart(index: any) {
     this.filteredStartTime[index] = (this.addLocationFormGroup.get(
@@ -456,19 +406,17 @@ export class AddLocationComponent implements OnInit {
       })
       this.addLocationFormGroup.patchValue({
         Country:
-          this.locationRowData.locationAddress.countryId !== 0
-            ? this.locationRowData.locationAddress.countryId +
+          this.locationRowData.locationAddress.countryId == 0
+            ? this.selectValue:this.locationRowData.locationAddress.countryId +
               '#' +
               this.locationRowData.locationAddress.countryName
-            : this.selectValue,
       })
       this.addLocationFormGroup.patchValue({
         State:
-          this.locationRowData.locationAddress.stateId !== 0
-            ? this.locationRowData.locationAddress.stateId +
+          this.locationRowData.locationAddress.stateId == 0
+            ? this.selectValue:this.locationRowData.locationAddress.stateId +
               '#' +
-              this.locationRowData.locationAddress.stateName
-            : this.selectValue,
+              this.locationRowData.locationAddress.stateName,
       })
       this.addLocationFormGroup.patchValue({
         cityName: this.locationRowData.locationAddress.cityName,
@@ -494,29 +442,7 @@ export class AddLocationComponent implements OnInit {
         { id: 5, day: 'Saturday' },
         { id: 6, day: 'Sunday' },
       ]
-      // const day: any = [
-      //   {
-      //     day: 'Monday',
-      //   },
-      //   {
-      //     day: 'Tuesday',
-      //   },
-      //   {
-      //     day: 'Wednesday',
-      //   },
-      //   {
-      //     day: 'Thursday',
-      //   },
-      //   {
-      //     day: 'Friday',
-      //   },
-      //   {
-      //     day: 'Saturday',
-      //   },
-      //   {
-      //     day: 'Sunday',
-      //   },
-      // ];
+     
       ;(this.locationSchedule.length ? this.locationSchedule : day).forEach(
         (day: any) => {
           ;(this.addLocationFormGroup.get(
@@ -532,28 +458,7 @@ export class AddLocationComponent implements OnInit {
           )
         },
       )
-      // const days: any = [
-      //   {
-      //     id: 0,
-      //     day: 'Monday',
-      //   },
-      //   { id: 1, day: 'Tuesday' },
-      //   { id: 2, day: 'Wednesday' },
-      //   { id: 3, day: 'Thursday' },
-      //   { id: 4, day: 'Friday' },
-      //   { id: 5, day: 'Saturday' },
-      //   { id: 6, day: 'Sunday' },
-      // ];
-
-      // day.every((day: any) => {
-      //   const isOpenAllDays =
-      //     (this.addLocationFormGroup.get('locationScheduleCommand') as FormArray)
-      //       .controls[day.id].value.isOpenAlldays === true;
-
-      //   if (isOpenAllDays) {
-      //     this.isOpenAllWeek = true;
-      //   }
-      // });
+     
       let count = 0
       day.forEach((day: any) => {
         const isOpenAllDays =
@@ -624,8 +529,8 @@ export class AddLocationComponent implements OnInit {
       utilityService: formField.utilityservice,
       description: formField.Description,
       locationName: formField.LocationName,
-      longitude: formField.Longitude !== '' ? formField.Longitude : 0,
-      latitude: formField.Latitude !== '' ? formField.Latitude : 0,
+      longitude: formField.Longitude == '' ? 0:formField.Longitude,
+      latitude: formField.Latitude == '' ? 0:formField.Latitude,
       addressLine1: formField.addressLine1,
       addressLine2: formField.addressLine2,
       // cityId: this.cityId,
@@ -657,20 +562,19 @@ export class AddLocationComponent implements OnInit {
         utilityService: formField.utilityservice,
         description: formField.Description,
         locationName: formField.LocationName,
-        longitude: formField.Longitude !== '' ? formField.Longitude : 0,
-        latitude: formField.Latitude !== '' ? formField.Latitude : 0,
+        longitude: formField.Longitude == '' ? 0: formField.Longitude,
+        latitude: formField.Latitude == '' ? 0:formField.Latitude,
         addressLine1: formField.addressLine1,
         addressLine2: formField.addressLine2,
         // cityId: this.cityId,
         // cityName: this.cityName !== 'select' ? this.cityName : '',
         cityName: formField.cityName,
-        countryName: this.countryName !== 'select' ? this.countryName : '',
+        countryName: this.countryName == 'select' ? '' : this.countryName,
         countryId: this.countryId,
         stateId: this.stateId,
-        stateName: this.stateName !== 'select' ? this.stateName : '',
+        stateName: this.stateName == 'select' ? '':this.stateName,
         pinCode: formField.zipcode,
-        locationStatusId: formField.locationStatus ?? '0',
-        // departmentId: parseInt(formField.departmentId),
+        locationStatusId: formField?.locationStatus ?? '0',
         departmentName: formField.departmentId,
         totalCapacity: formField.totalcapacity,
         locationScheduleCommand: formField.locationScheduleCommand,
@@ -871,15 +775,15 @@ export class AddLocationComponent implements OnInit {
       });
 
       // Reset/Update map
-      if (!this.map) {
+      if (this.map) {
+        this.map.setCenter(latlng);
+        this.map.setZoom(zoomNum);
+      } else {
         this.map = new google.maps.Map(this.mapElement.nativeElement, {
           center: latlng,
           zoom: zoomNum,
           mapTypeId: google.maps.MapTypeId.ROADMAP,
         });
-      } else {
-        this.map.setCenter(latlng);
-        this.map.setZoom(zoomNum);
       }
 
       // Add marker

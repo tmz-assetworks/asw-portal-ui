@@ -1,21 +1,18 @@
 import { animate, state, style, transition, trigger } from '@angular/animations'
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
+import { Component, OnInit, ViewChild } from '@angular/core'
 import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
 import { AlertsService } from '../../alerts/alerts.service'
 import { StorageService } from 'src/app/service/storage.service'
 import { LocationService } from '../../location/location.service'
 import { ChargerService } from '../charger.service'
-import { CommonModule } from '@angular/common'
+import { CommonModule, DatePipe } from '@angular/common'
 import { RouterModule } from '@angular/router'
 import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
-
-// import jsPDF from 'jspdf'
 import 'jspdf-autotable'
-// import { number } from 'echarts'
 import { TransactionDialogComponent } from 'src/app/component/dashboard/transaction-dialog/transaction-dialog.component'
 import { MatDialog } from '@angular/material/dialog'
-import { DatePipe } from '@angular/common'
+
 
 import * as fs from 'file-saver'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
@@ -84,9 +81,6 @@ export class ChargerEventComponent implements OnInit {
   }
 
   @ViewChild(MatPaginator) paginator!: MatPaginator
-
-  // @ViewChild('pdfTable', { static: false })
-  // pdfTable!: ElementRef
 
   datePipe = new DatePipe('en-US')
 
@@ -209,15 +203,15 @@ export class ChargerEventComponent implements OnInit {
    */
 
   pageChange(event: any) {
-    if (event.pageSize !== this.pageSize) {
-      this.currentPage = 1
-      this.pageSize = event.pageSize
-      this.paginator.pageIndex = 0
-    } else {
+    if (event.pageSize == this.pageSize) {
       this.currentPage =
         event.previousPageIndex < event.pageIndex
           ? this.currentPage + 1
           : this.currentPage - 1
+    } else {
+      this.currentPage = 1
+      this.pageSize = event.pageSize
+      this.paginator.pageIndex = 0
     }
 
     this.GetEventLogByLocation()

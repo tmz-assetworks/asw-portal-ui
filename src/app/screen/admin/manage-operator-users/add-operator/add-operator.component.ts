@@ -418,15 +418,12 @@ export class AddOperatorComponent implements OnInit {
 
       this.addOperatorProfile.patchValue({
         country:
-          this.adminRowData.countryID !== 0
-            ? this.adminRowData.countryID.toString()
-            : this.selectValue,
+          this.adminRowData.countryID == 0 ?this.selectValue: this.adminRowData.countryID.toString(),
       })
       this.addOperatorProfile.patchValue({
         state:
-          this.adminRowData.stateID !== 0
-            ? this.adminRowData.stateID
-            : this.selectValue,
+          this.adminRowData.stateID == 0
+            ? this.selectValue:this.adminRowData.stateID,
       })
 
       this.addOperatorProfile.patchValue({
@@ -435,10 +432,6 @@ export class AddOperatorComponent implements OnInit {
       this.addOperatorProfile.patchValue({
         zipcode: this.adminRowData.zipcode,
       })
-      // this.addOperatorProfile.patchValue({
-      //   dob: this.adminRowData.dob,
-      // })
-
       this.addOperatorProfile.patchValue({
         locationIds: this.adminRowData.locationsId,
       })

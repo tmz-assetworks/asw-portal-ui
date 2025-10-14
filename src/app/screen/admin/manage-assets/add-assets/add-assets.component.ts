@@ -1547,7 +1547,7 @@ export class AddAssetsComponent implements OnInit {
 
     if (startDate > new Date(endDate)) {
       this._toastr.error('Please start date should be less than end date.')
-      this.clearWarrantyFields(assetType)
+      this.clearWarrantyEndAndDurationFields(assetType)
     } else {
       const duration = this.calculateDuration(startDate, endDate)
       if (duration) {
@@ -1576,20 +1576,7 @@ export class AddAssetsComponent implements OnInit {
       }
     }
   }
-
-  /**
-   * Helper method to clear warranty fields based on asset type
-   */
-  clearWarrantyFields(assetType: string) {
-    const formControl = this.getWarrantyFormControl(assetType)
-    if (formControl) {
-      formControl.patchValue({
-        WarrantyEnd: '',
-        WarrantyDuration: '',
-      })
-    }
-  }
-
+  
   /**
    * Helper method to clear only warranty end field
    */

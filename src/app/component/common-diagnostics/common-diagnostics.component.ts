@@ -573,19 +573,7 @@ export class CommonDiagnosticsComponent implements OnInit {
         this.totalCount = res.paginationResponse.totalCount
         this.totalPages = res.paginationResponse.totalPages
         this.pageSize = res.paginationResponse.pageSize
-        // this.transactionId
-        // let a = '[3,\r\n"StartTransaction",\r\n{\n  "idTagInfo": {\n    "status": "Accepted",\r\n\n    "expiryDate": "2024-06-27T12:15:44.557",\r\n\n    "parentIdTag": {\n      "IdToken": "RFID_CB011"\n    }\n  },\r\n\n  "transactionId": 3104\n}]'
-
         this.dataSource.data = res.data
-        // if (
-        //   res.data[0].responsePayload !== undefined &&
-        //   res.data[0].responsePayload !== ''
-        // ) {
-        //   let a = res.data[0].responsePayload
-        //   this.transactionId = parseInt(
-        //     a.split('transactionId')[1]?.split(':')[1]?.split('\n')[0]?.trim(),
-        //   )
-        // }
       } else {
         this.isTableHasData = false
         this.dataSource.data = []
@@ -1056,11 +1044,11 @@ export class CommonDiagnosticsComponent implements OnInit {
     const body = {
       listVersion: listVersion,
       localAuthorizationList: {
-        idTag: listField !== undefined ? listField.idTag : '',
+        idTag: listField?.idTag ?? '',
         idTagInfo: {
-          expiryDate: formField !== undefined ? formField.localListDate : '', // expiryDate
-          parentIdTag: formField !== undefined ? formField.rfid : '',
-          status: formField !== undefined ? formField.status : '',
+          expiryDate: formField?.localListDate ?? '', // expiryDate
+          parentIdTag: formField?.rfid?? '',
+          status: formField?.status?? '',
         },
       },
       updateType: this.getListVersionForm.value.updateType,
@@ -1439,8 +1427,7 @@ export class CommonDiagnosticsComponent implements OnInit {
   isReserveNowShow() {
     const array = new Uint32Array(1);
     window.crypto.getRandomValues(array);
-    this.randomSixDigit = 100000 + (array[0] % 900000)
-    // this.randomSixDigit = Math.floor(100000 + Math.random() * 900000)
+    this.randomSixDigit = 100000 + (array[0] % 900000);
     this.isGetLocalListVersion = false
     this.isSendLocalListVersion = false
     this.isRemoteStopTransaction = false
@@ -1875,15 +1862,15 @@ export class CommonDiagnosticsComponent implements OnInit {
    */
 
   pageChange(event: any) {
-    if (event.pageSize !== this.pageSize) {
-      this.currentPage = 1
-      this.pageSize = event.pageSize
-      this.paginator.pageIndex = 0
-    } else {
-      this.currentPage =
+    if (event.pageSize == this.pageSize) {
+     this.currentPage =
         event.previousPageIndex < event.pageIndex
           ? this.currentPage + 1
           : this.currentPage - 1
+    }else {
+     this.currentPage = 1
+      this.pageSize = event.pageSize
+      this.paginator.pageIndex = 0
     }
 
     this.GetOcppEventLog()

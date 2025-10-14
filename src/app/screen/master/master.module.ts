@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core'
-import { RouterModule, RouterOutlet, Routes } from '@angular/router'
-import { AuthGuard } from 'src/app/gurads/auth.guard'
+import { RouterModule, Routes } from '@angular/router'
 import { SharedModule } from 'src/app/shared/shared.module'
 import { MasterComponent } from './master.component'
 

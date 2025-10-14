@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core'
-import { FormBuilder, FormControl, Validators } from '@angular/forms'
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms'
 import { ActivatedRoute, Router, RouterModule } from '@angular/router'
 import Swal from 'sweetalert2'
 import { ToastrService } from 'ngx-toastr'
@@ -8,7 +8,6 @@ import { AdminService } from '../../admin.service'
 import { of } from 'rxjs'
 import { CommonModule, DatePipe } from '@angular/common'
 import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
-import { ReactiveFormsModule } from '@angular/forms'
 
 @Component({
   selector: 'app-add-subscription',

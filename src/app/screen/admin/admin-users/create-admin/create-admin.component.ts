@@ -291,8 +291,8 @@ setFormValue(data: any) {
       phoneNumber: this.adminRowData.phoneNumber,
       addressLine1: this.adminRowData.addressLine1,
       addressLine2: this.adminRowData.addressLine2,
-      country: this.adminRowData.countryID !== 0 ? this.adminRowData.countryID.toString() : this.selectValue,
-      state: this.adminRowData.stateID !== 0 ? this.adminRowData.stateID : this.selectValue,
+      country: this.adminRowData.countryID == 0 ? this.selectValue: this.adminRowData.countryID.toString() ,
+      state: this.adminRowData.stateID == 0 ? this.selectValue:this.adminRowData.stateID,
       cityName: this.adminRowData.cityName,
       zipcode: this.adminRowData.zipcode,
     });

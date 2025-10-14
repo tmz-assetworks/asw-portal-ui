@@ -1,10 +1,6 @@
 import { CommonModule } from '@angular/common'
 import { NgModule } from '@angular/core'
-import { ReactiveFormsModule } from '@angular/forms'
-import { MatFormFieldModule } from '@angular/material/form-field'
 import { RouterModule, Routes } from '@angular/router'
-import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
-import { SharedModule } from 'src/app/shared/shared.module'
 import { AddSubscriptionComponent } from './add-subscription/add-subscription.component'
 import { ManageSubscriptionsComponent } from './manage-subscriptions.component'
 const routes: Routes = [

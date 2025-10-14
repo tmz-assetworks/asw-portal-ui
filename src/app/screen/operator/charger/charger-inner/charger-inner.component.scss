@@ -2918,6 +2918,8 @@ th.mat-mdc-header-cell {
 .mat-mdc-cell {
   text-align: center;
   border-right: 1px solid #e6e6e6;
+  font-size: 13px;
+  color: #323e48;
 }
 
 th.mat-mdc-header-cell:last-of-type,
@@ -2943,33 +2945,6 @@ tr.mat-mdc-row:last-of-type {
     border-bottom: 0px solid #8f8f8f;
   }
 }
-.mat-mdc-cell {
-  font-size: 13px;
-  color: #323e48;
-}
-// .mat-form-field-appearance-legacy {
-//   .mat-form-field-wrapper {
-//     padding-bottom: 0.8em;
-//   }
-// }
-// .mat-primary .mat-pseudo-checkbox-checked,
-// .mat-primary .mat-pseudo-checkbox-indeterminate {
-//   background: #8e1937;
-// }
-// .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
-//   color: #8e1937;
-// }
-// .dashboard-subtitle.layout {
-//   margin: 40px 0 0;
-// }
-// .dashboard-block13.layout {
-//   position: relative;
-//   height: min-content;
-//   margin: 28px 20px;
-// }
-// .mat-select-trigger {
-//   width: 118% !important;
-// }
 
 .widgets- {
   &block28 {
