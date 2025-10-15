@@ -1,10 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core'
 import { EChartsOption } from 'echarts'
+import { NgxEchartsModule } from 'ngx-echarts'
 
 @Component({
   selector: 'app-status-box-graph',
   templateUrl: './status-box-graph.component.html',
   styleUrls: ['./status-box-graph.component.scss'],
+  imports:[NgxEchartsModule]
 })
 export class StatusBoxGraphComponent implements OnInit {
   constructor() {}

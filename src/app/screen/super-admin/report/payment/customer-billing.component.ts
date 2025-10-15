@@ -1,18 +1,22 @@
 
 
 import { Component, OnInit } from '@angular/core'
-import { FormControl } from '@angular/forms'
-import { ActivatedRoute, Router } from '@angular/router'
+import { FormControl, ReactiveFormsModule } from '@angular/forms'
+import { ActivatedRoute, Router, RouterModule } from '@angular/router'
 import { StorageService } from 'src/app/service/storage.service'
 import { ReportService } from '../report.service'
 import { DateRangeDialogComponent } from '../report-details/date-range-dialog.component'
 import { MatDialog } from '@angular/material/dialog';
+import { CommonModule } from '@angular/common'
+import { BarChartComponent } from 'src/app/component/dashboard/bar-chart/bar-chart.component'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 // import { ReportService } from '../reports.service'
 
 @Component({
   selector: 'app-customer-billing',
   templateUrl: './customer-billing.component.html',
-  styleUrls: ['./customer-billing.component.scss']
+  styleUrls: ['./customer-billing.component.scss'],
+  imports:[CommonModule,ReactiveFormsModule,BarChartComponent,RouterModule,SharedMaterialModule]
 })
 export class CustomerBillingComponent implements OnInit {
   filterToggle = new FormControl('12')

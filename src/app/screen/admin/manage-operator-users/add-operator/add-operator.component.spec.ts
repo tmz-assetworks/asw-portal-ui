@@ -37,8 +37,8 @@ describe('AddOperatorComponent', () => {
     component = fixture.componentInstance
     operatorData = 'test data';
     fixture.detectChanges()
-    adminService = TestBed.get(AdminService);
-    formBuilder = TestBed.get(FormBuilder);
+    adminService = TestBed.inject(AdminService);
+    formBuilder = TestBed.inject(FormBuilder);
 
   })
 

@@ -1,24 +1,27 @@
-import { Component, OnInit, ViewChild } from '@angular/core'
+import { Component, OnInit, ViewChild,ElementRef } from '@angular/core'
 import {
   FormArray,
   FormBuilder,
   FormControl,
   FormGroup,
+  ReactiveFormsModule,
   Validators,
 } from '@angular/forms'
-import { ActivatedRoute, Router } from '@angular/router'
+import { RouterModule } from '@angular/router'
 import { ToastrService } from 'ngx-toastr'
 import { StorageService } from 'src/app/service/storage.service'
 import Swal from 'sweetalert2'
 import { AdminService } from '../../admin.service'
 import {} from 'googlemaps'
-import { Location } from '@angular/common'
+import { Location,CommonModule } from '@angular/common'
 import { map, Observable, startWith } from 'rxjs'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 
 @Component({
   selector: 'app-add-location',
   templateUrl: './add-location.component.html',
   styleUrls: ['./add-location.component.scss'],
+  imports:[CommonModule,RouterModule,SharedMaterialModule,ReactiveFormsModule],
 })
 export class AddLocationComponent implements OnInit {
   submitted = false
@@ -122,6 +125,9 @@ export class AddLocationComponent implements OnInit {
 
   filteredStartTime: any
   filteredEndTime: any
+  @ViewChild('addressInput') addressInput!: ElementRef<HTMLInputElement>;
+
+  
 
   // ADD LOCATION FORM GROUP
 
@@ -244,55 +250,6 @@ export class AddLocationComponent implements OnInit {
     
     
 
-    // const days: any = [
-    //   {
-    //     id: 0,
-    //     day: 'Monday',
-    //   },
-    //   { id: 1, day: 'Tuesday' },
-    //   { id: 2, day: 'Wednesday' },
-    //   { id: 3, day: 'Thursday' },
-    //   { id: 4, day: 'Friday' },
-    //   { id: 5, day: 'Saturday' },
-    //   { id: 6, day: 'Sunday' },
-    // ]
-
-    // days.forEach((element: any) => {
-    //   // this.manageNameControlStart(element.id)
-    //   // this.manageNameControlEnd(element.id)
-    // })
-
-    // const day: any = [
-    //   {
-    //     day: 'Monday',
-    //   },
-    //   {
-    //     day: 'Tuesday',
-    //   },
-    //   {
-    //     day: 'Wednesday',
-    //   },
-    //   {
-    //     day: 'Thursday',
-    //   },
-    //   {
-    //     day: 'Friday',
-    //   },
-    //   {
-    //     day: 'Saturday',
-    //   },
-    //   {
-    //     day: 'Sunday',
-    //   },
-    // ];
-
-    // day.forEach((day: any) => {
-    //   var arrayControl = this.addLocationFormGroup.get('locationScheduleCommand') as FormArray;
-    //   this.filteredTimeList[day.id] = arrayControl.at(day.id).get('startTime').valueChanges.pipe(
-    //     startWith(''),
-    //     map((value) => (value && value.length >= 0 ? this._filter(value) : [])),
-    //   )
-    // });
   }
   manageNameControlStart(index: any) {
     this.filteredStartTime[index] = (this.addLocationFormGroup.get(
@@ -339,7 +296,22 @@ export class AddLocationComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    this.getReverseGeocodingData(36.2082629, -113.737393, 5)
+    const options: google.maps.places.AutocompleteOptions = {
+      fields: ['formatted_address', 'geometry'],
+      componentRestrictions: { country: 'in' } // optional
+    };
+
+    const autocomplete = new google.maps.places.Autocomplete(
+      this.addressInput.nativeElement,
+      options
+    );
+
+    autocomplete.addListener('place_changed', () => {
+      const place = autocomplete.getPlace();
+      this.handleAddressChange(place);
+    });
+
+    this.getReverseGeocodingData('36.2082629', '-113.737393', 5)
   }
   /**
    * SET FORM VALUE
@@ -434,19 +406,17 @@ export class AddLocationComponent implements OnInit {
       })
       this.addLocationFormGroup.patchValue({
         Country:
-          this.locationRowData.locationAddress.countryId !== 0
-            ? this.locationRowData.locationAddress.countryId +
+          this.locationRowData.locationAddress.countryId == 0
+            ? this.selectValue:this.locationRowData.locationAddress.countryId +
               '#' +
               this.locationRowData.locationAddress.countryName
-            : this.selectValue,
       })
       this.addLocationFormGroup.patchValue({
         State:
-          this.locationRowData.locationAddress.stateId !== 0
-            ? this.locationRowData.locationAddress.stateId +
+          this.locationRowData.locationAddress.stateId == 0
+            ? this.selectValue:this.locationRowData.locationAddress.stateId +
               '#' +
-              this.locationRowData.locationAddress.stateName
-            : this.selectValue,
+              this.locationRowData.locationAddress.stateName,
       })
       this.addLocationFormGroup.patchValue({
         cityName: this.locationRowData.locationAddress.cityName,
@@ -472,29 +442,7 @@ export class AddLocationComponent implements OnInit {
         { id: 5, day: 'Saturday' },
         { id: 6, day: 'Sunday' },
       ]
-      // const day: any = [
-      //   {
-      //     day: 'Monday',
-      //   },
-      //   {
-      //     day: 'Tuesday',
-      //   },
-      //   {
-      //     day: 'Wednesday',
-      //   },
-      //   {
-      //     day: 'Thursday',
-      //   },
-      //   {
-      //     day: 'Friday',
-      //   },
-      //   {
-      //     day: 'Saturday',
-      //   },
-      //   {
-      //     day: 'Sunday',
-      //   },
-      // ];
+     
       ;(this.locationSchedule.length ? this.locationSchedule : day).forEach(
         (day: any) => {
           ;(this.addLocationFormGroup.get(
@@ -510,28 +458,7 @@ export class AddLocationComponent implements OnInit {
           )
         },
       )
-      // const days: any = [
-      //   {
-      //     id: 0,
-      //     day: 'Monday',
-      //   },
-      //   { id: 1, day: 'Tuesday' },
-      //   { id: 2, day: 'Wednesday' },
-      //   { id: 3, day: 'Thursday' },
-      //   { id: 4, day: 'Friday' },
-      //   { id: 5, day: 'Saturday' },
-      //   { id: 6, day: 'Sunday' },
-      // ];
-
-      // day.every((day: any) => {
-      //   const isOpenAllDays =
-      //     (this.addLocationFormGroup.get('locationScheduleCommand') as FormArray)
-      //       .controls[day.id].value.isOpenAlldays === true;
-
-      //   if (isOpenAllDays) {
-      //     this.isOpenAllWeek = true;
-      //   }
-      // });
+     
       let count = 0
       day.forEach((day: any) => {
         const isOpenAllDays =
@@ -562,7 +489,8 @@ export class AddLocationComponent implements OnInit {
 
   addChargerDetails() {
     let formField = this.addLocationFormGroup.value
-    let ind = this.addLocationFormGroup.value.locationScheduleCommand.findIndex(
+    
+    let ind = this.addLocationFormGroup.value?.locationScheduleCommand?.findIndex(
       (x: any) =>
         (x.startTime == '' && !x.isOpenAlldays) ||
         (x.endTime == '' && !x.isOpenAlldays),
@@ -571,12 +499,12 @@ export class AddLocationComponent implements OnInit {
     // SHOW MESS FOR REQUIRED FIELDS
     if (
       formField.LocationId == '' ||
-      formField.contactPersonNumber.length == 0 ||
+      formField.contactPersonNumber?.length == 0 ||
       formField.LocationName == '' ||
-      formField.contactPersonNumber.length == 0 ||
+      formField.contactPersonNumber?.length == 0 ||
       formField.addressLine1 == '' ||
-      formField.locationStatus == 0 ||
-      formField.departmentId == 0 ||
+      formField.locationStatus == "0" ||
+      formField.departmentId == "0" ||
       this.countryId == 0 ||
       this.stateId == 0 ||
       formField.zipcode == ''
@@ -601,8 +529,8 @@ export class AddLocationComponent implements OnInit {
       utilityService: formField.utilityservice,
       description: formField.Description,
       locationName: formField.LocationName,
-      longitude: formField.Longitude !== '' ? formField.Longitude : 0,
-      latitude: formField.Latitude !== '' ? formField.Latitude : 0,
+      longitude: formField.Longitude == '' ? 0:formField.Longitude,
+      latitude: formField.Latitude == '' ? 0:formField.Latitude,
       addressLine1: formField.addressLine1,
       addressLine2: formField.addressLine2,
       // cityId: this.cityId,
@@ -612,7 +540,7 @@ export class AddLocationComponent implements OnInit {
       stateId: this.stateId,
       stateName: this.stateName,
       pinCode: formField.zipcode,
-      locationStatusId: parseInt(formField.locationStatus),
+      locationStatusId: formField.locationStatus ?? '0',
       // departmentId: parseInt(formField.departmentId),
       departmentName: formField.departmentId,
       totalCapacity: formField.totalcapacity,
@@ -634,20 +562,19 @@ export class AddLocationComponent implements OnInit {
         utilityService: formField.utilityservice,
         description: formField.Description,
         locationName: formField.LocationName,
-        longitude: formField.Longitude !== '' ? formField.Longitude : 0,
-        latitude: formField.Latitude !== '' ? formField.Latitude : 0,
+        longitude: formField.Longitude == '' ? 0: formField.Longitude,
+        latitude: formField.Latitude == '' ? 0:formField.Latitude,
         addressLine1: formField.addressLine1,
         addressLine2: formField.addressLine2,
         // cityId: this.cityId,
         // cityName: this.cityName !== 'select' ? this.cityName : '',
         cityName: formField.cityName,
-        countryName: this.countryName !== 'select' ? this.countryName : '',
+        countryName: this.countryName == 'select' ? '' : this.countryName,
         countryId: this.countryId,
         stateId: this.stateId,
-        stateName: this.stateName !== 'select' ? this.stateName : '',
+        stateName: this.stateName == 'select' ? '':this.stateName,
         pinCode: formField.zipcode,
-        locationStatusId: parseInt(formField.locationStatus),
-        // departmentId: parseInt(formField.departmentId),
+        locationStatusId: formField?.locationStatus ?? '0',
         departmentName: formField.departmentId,
         totalCapacity: formField.totalcapacity,
         locationScheduleCommand: formField.locationScheduleCommand,
@@ -692,6 +619,8 @@ export class AddLocationComponent implements OnInit {
       cancelButtonColor: '#0062A6',
       cancelButtonText: ' CONFIRM',
       showCancelButton: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
     }).then((result) => {
       if (result.isDismissed) {
         // this.toastr.success("Record has been registered on success.")
@@ -703,7 +632,8 @@ export class AddLocationComponent implements OnInit {
 
   getSelected(event: any, type: string) {
     if (type == 'state') {
-      if (this.countryId !== parseInt(event.value.split('#')[0])) {
+      
+      if (this.countryId !== event.value.split('#')[0]) {
         // NEW COUNTRY IS SELECTED
         this.stateId = 0
         this.stateName = ''
@@ -713,7 +643,7 @@ export class AddLocationComponent implements OnInit {
         // this.addLocationFormGroup.patchValue({ City: this.selectValue })
         this.stateList = []
       }
-      this.countryId = parseInt(event.value.split('#')[0])
+      this.countryId = Number.parseInt(event.value.split('#')[0])
       this.countryName = event.value.split('#')[1]
       // CALL STATE API
       this._adminService
@@ -736,12 +666,12 @@ export class AddLocationComponent implements OnInit {
           }
         })
     } else if (type == 'city') {
-      if (this.stateId !== parseInt(event.value.split('#')[0])) {
+      if (this.stateId !== event.value.split('#')[0]) {
         // NEW STATE IS SELECTED
         // this.cityId = 0
         this.cityName = ''
       }
-      this.stateId = parseInt(event.value.split('#')[0])
+      this.stateId = event.value.split('#')[0]
       this.stateName = event.value.split('#')[1]
       // CALL STATE API
       // this._adminService
@@ -780,68 +710,103 @@ export class AddLocationComponent implements OnInit {
   userAddress: string = ''
   userLatitude: string = ''
   userLongitude: string = ''
-  handleAddressChange(address: any) {
-    this.userAddress = address.formatted_address
-    this.userLatitude = address.geometry.location.lat()
-    this.userLongitude = address.geometry.location.lng()
+
+  handleAddressChange(address: google.maps.places.PlaceResult): void {
+    
+    if (!address.geometry?.location) {
+      console.warn('No geometry for this place');
+      return;
+    }
+
+    this.userAddress  = address.formatted_address ?? '';
+    this.userLatitude = address.geometry.location.lat().toString();
+    this.userLongitude = address.geometry.location.lng().toString();
+
     // SET VALUE IN FIELDS
-    this.addLocationFormGroup.patchValue({ Latitude: this.userLatitude })
-    this.addLocationFormGroup.patchValue({ Longitude: this.userLongitude })
-    this.getReverseGeocodingData(this.userLatitude, this.userLongitude, 5)
+    this.addLocationFormGroup.patchValue({
+      Latitude:  this.userLatitude,
+      Longitude: this.userLongitude
+    });
+
+    this.getReverseGeocodingData(this.userLatitude, this.userLongitude, 5);
+  }
+  onLocationSelected(location: any) {
+    console.log('Coordinates selected:', location);
   }
 
   showLocation() {
-    let lat = this.addLocationFormGroup.value.Latitude
-    let long = this.addLocationFormGroup.value.Longitude
+    let lat:any = this.addLocationFormGroup.value.Latitude
+    let long:any = this.addLocationFormGroup.value.Longitude
     if (lat !== '' && long !== '') {
-      this.getReverseGeocodingData(lat, long, 15)
+      this.getReverseGeocodingData(lat.toString(), long.toString(), 15)
     }
   }
 
   handleEvent(lat: any, lng: any) {
-    this.userLatitude = lat
-    this.userLongitude = lng
+  
+    this.userLatitude = lat.toString()
+    this.userLongitude = lng.toString()
     // SET VALUE IN FIELDS
     this.addLocationFormGroup.patchValue({ Latitude: this.userLatitude })
     this.addLocationFormGroup.patchValue({ Longitude: this.userLongitude })
-    this.getReverseGeocodingData(this.userLatitude, this.userLongitude, 5)
   }
 
-  getReverseGeocodingData(lat: any, lng: any, zoomNum: number) {
-    var latlng = new google.maps.LatLng(lat, lng)
-    let map1: any
-    // This is making the Geocode request
-    var geocoder = new google.maps.Geocoder()
+
+  // Reverse Geocoding
+
+  getReverseGeocodingData(lat: string, lng: string, zoomNum: number) {
+    
+    const latlng = new google.maps.LatLng(Number.parseFloat(lat), Number.parseFloat(lng));
+    const geocoder = new google.maps.Geocoder();
+
     geocoder.geocode({ location: latlng }, (results, status) => {
-      if (status !== google.maps.GeocoderStatus.OK) {
-        alert(status)
+      if (status !== google.maps.GeocoderStatus.OK || !results[0]) {
+        console.error('Geocoding failed:', status);
+        return;
       }
-      // This is checking to see if the Geoeode Status is OK before proceeding
-      if (status == google.maps.GeocoderStatus.OK) {
-        const mapProperties = {
-          center: new google.maps.LatLng(lat, lng),
+
+      // Update address field
+      this.userAddress = results[0].formatted_address;
+
+      // Update form fields
+      this.addLocationFormGroup.patchValue({
+        Latitude: lat,
+        Longitude: lng,
+      });
+
+      // Reset/Update map
+      if (this.map) {
+        this.map.setCenter(latlng);
+        this.map.setZoom(zoomNum);
+      } else {
+        this.map = new google.maps.Map(this.mapElement.nativeElement, {
+          center: latlng,
           zoom: zoomNum,
           mapTypeId: google.maps.MapTypeId.ROADMAP,
-        }
-        map1 = new google.maps.Map(this.mapElement.nativeElement, mapProperties)
-        var marker = new google.maps.Marker({
-          position: latlng,
-          map: map1,
-          draggable: true,
-        })
-
-        map1.addListener('dragend', () => {
-          let newlat = map1.getCenter().lat()
-          let newlng = map1.getCenter().lng()
-          this.handleEvent(newlat, newlng)
-        })
-        marker.addListener('dragend', () => {
-          let newlat = map1.getCenter().lat()
-          let newlng = map1.getCenter().lng()
-          this.handleEvent(newlat, newlng)
-        })
+        });
       }
-    })
+
+      // Add marker
+      const marker = new google.maps.Marker({
+        position: latlng,
+        map: this.map,
+        draggable: true,
+      });
+
+      // Listen for marker drag
+      marker.addListener('dragend', () => {
+        const newlat = marker.getPosition()?.lat() || 0;
+        const newlng = marker.getPosition()?.lng() || 0;
+        this.handleEvent(newlat, newlng);
+      });
+
+      // Listen for map drag (center moved)
+      this.map.addListener('dragend', () => {
+        const newlat = this.map.getCenter()?.lat() || 0;
+        const newlng = this.map.getCenter()?.lng() || 0;
+        this.handleEvent(newlat, newlng);
+      });
+    });
   }
 
   /**
@@ -955,16 +920,15 @@ export class AddLocationComponent implements OnInit {
         { id: 6, day: 'Sunday' },
       ]
       let count = 0
-      day.forEach((day: any) => {
-        const isOpenAllDays =
-          (this.addLocationFormGroup.get(
-            'locationScheduleCommand',
-          ) as FormArray).controls[day.id].value.isOpenAlldays === true
-
-        if (isOpenAllDays == true) {
-          count++
+      for (let i = 0; i < day.length; i++) {
+        const currentDay = day[i];
+        const formArray = this.addLocationFormGroup.get('locationScheduleCommand') as FormArray;
+        const isOpenAllDays = formArray.controls[currentDay.id].value.isOpenAlldays === true;
+        
+        if (isOpenAllDays) {
+          count++;
         }
-      })
+      }
       if (count == 7) {
         this.isOpenAllWeek = true
       }

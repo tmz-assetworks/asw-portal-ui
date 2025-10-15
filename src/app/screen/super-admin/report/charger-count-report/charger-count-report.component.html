@@ -98,8 +98,8 @@
         </div>
         <div class="dashboard-block42 layout">
           <div class="dashboard-block42-item full-width-card">
+            @if(reportAvailableChargerCountData !== '') {
             <app-bar-chart
-              *ngIf="reportAvailableChargerCountData !== ''"
               [reportAvailableChargerCountData]="reportAvailableChargerCountData"
               [chartType]="'reportAvailableCharger'"
               [chartTitle]="'Available Charger Count'"
@@ -112,6 +112,7 @@
                 )
               "
             ></app-bar-chart>
+            }
           </div>
           <div class="dashboard-block42-spacer"></div>
           <div class="dashboard-block42-item">

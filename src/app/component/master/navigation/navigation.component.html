@@ -18,143 +18,165 @@
     <div class="nav-block3 layout">
       <div class="nav-block3-item">
         <div class="nav-box layout" (click)="home()">
-          <ng-container *ngIf="!messages">
+          @if (!messages) {
             <img src="../../../../assets/nav-logo.svg" alt="" />
-          </ng-container>
-          <ng-container *ngIf="messages">
+          }
+          @if (messages) {
             <img
               src="../../../../assets/logo-collapse.svg"
               style="width: 30px;"
               alt=""
             />
-          </ng-container>
+          }
         </div>
       </div>
     </div>
-    <ng-container *ngFor="let item of menuItems; let i = index">
+
+    @for (item of menuItems; track $index) {
       <div>
         <!-- Common structure for both regular and subMenu items -->
         <div
-          (click)="item.subMenu ? toggleSubMenu(i) : null"
-          (keydown.enter)="item.subMenu ? toggleSubMenu(i) : null"
+          (click)="item.subMenu ? toggleSubMenu($index) : null"
+          (keydown.enter)="item.subMenu ? toggleSubMenu($index) : null"
           class="menu-item"
         >
-          <a
-            *ngIf="!item.subMenu"
-            [routerLink]="item.routerLink"
-            [ngClass]="messages ? 'navbtn-block4 layout-colapse' : 'navbtn-block4 layout'"
-          >
-            <div
-              class="navbtn-block5 layout pointer"
-              routerLinkActive="link-active"
-              id="menulink"
-            >
-              <div class="navbtn-block5-item">
-                <div class="navbtn-box1 layout">
-                  <img [src]="item.icon" alt="" />
-                </div>
-              </div>
-              <div class="navbtn-block5-spacer"></div>
-              <div
-                [ngClass]="
-                  messages ? 'navbtn-block5-item1-colapse' : 'navbtn-block5-item1'
-                "
-              >
-                <div
-                  [ngClass]="
-                    messages
-                      ? 'navbtn-text-body-collapse'
-                      : 'navbtn-text-body layout'
-                  "
-                >
-                  {{ item.text }}
-                </div>
-              </div>
-            </div>
-          </a>
-    
-          <div
-            *ngIf="item.subMenu"
-            [ngClass]="messages ? 'navbtn-block4 layout-colapse' : 'navbtn-block4 layout'"
-          >
-            <div
-              class="navbtn-block5 layout pointer"
-              routerLinkActive="link-active"
-              id="submenulink"
-            >
-              <div class="navbtn-block5-item">
-                <div class="navbtn-box1 layout">
-                  <img [src]="item.icon" alt="" />
-                </div>
-              </div>
-              <div class="navbtn-block5-spacer"></div>
-              <div
-                [ngClass]="
-                  messages ? 'navbtn-block5-item1-colapse' : 'navbtn-block5-item1'
-                "
-              >
-                <div
-                  [ngClass]="
-                    messages
-                      ? 'navbtn-text-body-collapse'
-                      : 'navbtn-text-body layout'
-                  "
-                >
-                  {{ item.text }}
-                  <ng-container *ngIf="item.isOpen ; else isClose">
-                    <img class="arrow-icon" src="assets/icons/down-arrow.svg" alt="" />
-                  </ng-container>
-                  <ng-template #isClose>
-                    <img class="arrow-icon" src="assets/icons/right-arrow.svg" alt="" />
-                  </ng-template>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-    
-        <!-- Submenu section -->
-        <div *ngIf="item.isOpen" class="submenu" id="submenu">
-          <ng-container *ngFor="let subItem of item.subMenu">
+          @if (!item.subMenu) {
             <a
-            [routerLink]="subItem.routerLink"
-            [ngClass]="messages ? 'navbtn-block4 layout-colapse' : 'navbtn-block4 layout'"
-          >
-            <div
-              class="navbtn-block5 layout pointer"
-              routerLinkActive="link-active"
-              id="menulink"
+              [routerLink]="item.routerLink"
+              [ngClass]="
+                messages ? 'navbtn-block4 layout-colapse' : 'navbtn-block4 layout'
+              "
             >
-              <div class="navbtn-block5-item">
-                <div class="navbtn-box1 layout space-left">
-                  <img [src]="subItem.icon" alt="" />
+              <div
+                class="navbtn-block5 layout pointer"
+                routerLinkActive="link-active"
+                id="menulink"
+              >
+                <div class="navbtn-block5-item">
+                  <div class="navbtn-box1 layout">
+                    <img [src]="item.icon" alt="" />
+                  </div>
+                </div>
+                <div class="navbtn-block5-spacer"></div>
+                <div
+                  [ngClass]="
+                    messages ? 'navbtn-block5-item1-colapse' : 'navbtn-block5-item1'
+                  "
+                >
+                  <div
+                    [ngClass]="
+                      messages
+                        ? 'navbtn-text-body-collapse'
+                        : 'navbtn-text-body layout'
+                    "
+                  >
+                    {{ item.text }}
+                  </div>
                 </div>
               </div>
-              <div class="navbtn-block5-spacer"></div>
+            </a>
+          }
+
+          @if (item.subMenu) {
+            <div
+              [ngClass]="
+                messages
+                  ? 'navbtn-block4 layout-colapse'
+                  : 'navbtn-block4 layout'
+              "
+            >
               <div
-                [ngClass]="
-                  messages ? 'navbtn-block5-item1-colapse' : 'navbtn-block5-item1'
-                "
+                class="navbtn-block5 layout pointer"
+                routerLinkActive="link-active"
+                id="submenulink"
               >
+                <div class="navbtn-block5-item">
+                  <div class="navbtn-box1 layout">
+                    <img [src]="item.icon" alt="" />
+                  </div>
+                </div>
+                <div class="navbtn-block5-spacer"></div>
                 <div
                   [ngClass]="
                     messages
-                      ? 'navbtn-text-body-collapse'
-                      : 'navbtn-text-body layout'
+                      ? 'navbtn-block5-item1-colapse'
+                      : 'navbtn-block5-item1'
                   "
                 >
-                  {{ subItem.text }}
+                  <div
+                    [ngClass]="
+                      messages
+                        ? 'navbtn-text-body-collapse'
+                        : 'navbtn-text-body layout'
+                    "
+                  >
+                    {{ item.text }}
+                    @if (item.isOpen) {
+                      <img
+                        class="arrow-icon"
+                        src="assets/icons/down-arrow.svg"
+                        alt=""
+                      />
+                    } @else {
+                      <img
+                        class="arrow-icon"
+                        src="assets/icons/right-arrow.svg"
+                        alt=""
+                      />
+                    }
+                  </div>
                 </div>
               </div>
             </div>
-          </a>
-          </ng-container>
+          }
         </div>
+
+        <!-- Submenu section -->
+        @if (item.isOpen) {
+          <div class="submenu" id="submenu">
+            @for (subItem of item.subMenu; track $index) {
+              <a
+                [routerLink]="subItem.routerLink"
+                [ngClass]="
+                  messages
+                    ? 'navbtn-block4 layout-colapse'
+                    : 'navbtn-block4 layout'
+                "
+              >
+                <div
+                  class="navbtn-block5 layout pointer"
+                  routerLinkActive="link-active"
+                  id="menulink"
+                >
+                  <div class="navbtn-block5-item">
+                    <div class="navbtn-box1 layout space-left">
+                      <img [src]="subItem.icon" alt="" />
+                    </div>
+                  </div>
+                  <div class="navbtn-block5-spacer"></div>
+                  <div
+                    [ngClass]="
+                      messages
+                        ? 'navbtn-block5-item1-colapse'
+                        : 'navbtn-block5-item1'
+                    "
+                  >
+                    <div
+                      [ngClass]="
+                        messages
+                          ? 'navbtn-text-body-collapse'
+                          : 'navbtn-text-body layout'
+                      "
+                    >
+                      {{ subItem.text }}
+                    </div>
+                  </div>
+                </div>
+              </a>
+            }
+          </div>
+        }
       </div>
-    </ng-container>
-    
-    
-    
-    
+    }
   </div>
 </div>

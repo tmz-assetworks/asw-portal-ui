@@ -1,15 +1,18 @@
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import {Component, OnInit} from '@angular/core';
 import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
 import { SuperAdminService } from '../../super-admin.service';
-import { DatePipe, Location } from '@angular/common';
+import { CommonModule, DatePipe, Location } from '@angular/common';
 import { StorageService } from 'src/app/service/storage.service';
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-create-admin',
   templateUrl: './create-admin.component.html',
   styleUrls: ['./create-admin.component.scss'],
+  imports:[SharedMaterialModule,ReactiveFormsModule,CommonModule,RouterModule]
 })
 export class CreateAdminComponent implements OnInit {
   submitted = false;
@@ -138,13 +141,6 @@ export class CreateAdminComponent implements OnInit {
     let formField = this.addAdminFormGroup.value;
 
     this.submitted = true;
-    if (
-      this.addAdminFormGroup.value.organizationName == '0' ||
-      this.addAdminFormGroup.value.city == '0'
-    ) {
-      this.toastr.error('Please fill mandatory fields.');
-      return;
-    }
     if (this.addAdminFormGroup.invalid) {
       this.toastr.error('Please fill mandatory fields.');
       return;
@@ -161,9 +157,9 @@ export class CreateAdminComponent implements OnInit {
         phoneNumber: formField.phoneNumber,
         addressLine1: formField.addressLine1,
         addressLine2: formField.addressLine2,
-        countryID: parseInt(formField.country),
+        countryID: Number.parseInt(formField.country ?? '0'),
         customerID: this.customerId,
-        stateID: parseInt(formField.state),
+        stateID: Number.parseInt(formField.state ?? '0'),
         cityName: formField.cityName,
         zipCode: formField.zipcode,
         createdBy: this.UserId,
@@ -188,6 +184,8 @@ export class CreateAdminComponent implements OnInit {
         cancelButtonColor: '#0062A6',
         cancelButtonText: ' CONFIRM',
         showCancelButton: true,
+        allowOutsideClick: false, // 🔒 Prevent close on outside click
+        allowEscapeKey: false     // 🔒 Prevent close with Esc
       }).then((result) => {
         if (result.isDismissed) {
           //Do your stuffs...
@@ -221,9 +219,9 @@ export class CreateAdminComponent implements OnInit {
         phoneNumber: formField.phoneNumber,
         addressLine1: formField.addressLine1,
         addressLine2: formField.addressLine2,
-        countryID: parseInt(formField.country),
+        countryID: Number.parseInt(formField?.country ?? '0'),
         customerID: this.customerId,
-        stateID: parseInt(formField.state),
+        stateID: Number.parseInt(formField?.state ?? '0'),
         cityName: formField.cityName,
         zipCode: formField.zipcode,
         modifiedBy: this.UserId,
@@ -233,12 +231,6 @@ export class CreateAdminComponent implements OnInit {
             roleID: 3,
           },
         ],
-        // operatorUserMapperCommand: [
-        //   {
-        //     id: this.editId,
-        //     locationId: 0,
-        //   },
-        // ],
       };
 
       Swal.fire({
@@ -251,6 +243,8 @@ export class CreateAdminComponent implements OnInit {
         cancelButtonColor: '#0062A6',
         cancelButtonText: ' CONFIRM',
         showCancelButton: true,
+        allowOutsideClick: false, // 🔒 Prevent close on outside click
+        allowEscapeKey: false     // 🔒 Prevent close with Esc
       }).then((result) => {
         if (result.isDismissed) {
           // this.toastr.success("Record has been registered on success.")
@@ -285,16 +279,14 @@ export class CreateAdminComponent implements OnInit {
 
   getSelected(event: any, type: string) {
     if (type == 'state') {
-      if (this.countryId !== parseInt(event.value)) {
+      if (this.countryId !== Number.parseInt(event.value)) {
         // NEW COUNTRY IS SELECTED
         this.stateId = 0;
 
         this.addAdminFormGroup.patchValue({ state: this.selectValue });
-        this.addAdminFormGroup.patchValue({ city: this.selectValue });
         this.stateList = [];
       }
-      this.countryId = parseInt(event.value);
-      // this.countryName = event.value.split('#')[1];
+      this.countryId = Number.parseInt(event.value);
       // CALL STATE API
       this._superadminService
         .getListApi('state', this.countryId)

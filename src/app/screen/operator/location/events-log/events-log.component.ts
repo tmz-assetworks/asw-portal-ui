@@ -9,13 +9,18 @@ import jsPDF from 'jspdf'
 import 'jspdf-autotable'
 import { MatDialog } from '@angular/material/dialog'
 import * as fs from 'file-saver'
-import { DatePipe } from '@angular/common'
+import { CommonModule, DatePipe } from '@angular/common'
 import { TransactionDialogComponent } from 'src/app/component/dashboard/transaction-dialog/transaction-dialog.component'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
+import { RouterModule } from '@angular/router'
+import { LocationStatusPanelComponent } from '../location-status-panel/location-status-panel.component'
+import { FormsModule } from '@angular/forms'
 
 @Component({
   selector: 'app-events-log',
   templateUrl: './events-log.component.html',
   styleUrls: ['./events-log.component.scss'],
+  imports:[LocationStatusPanelComponent,CommonModule,SharedMaterialModule,RouterModule,FormsModule],
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({ height: '0px', minHeight: '0' })),
@@ -97,7 +102,7 @@ export class EventsLogComponent implements OnInit {
       orderBy: '',
       locationIds: this.locationId ? [this.locationId] : [],
       opratorid: this.UserId,
-      chargerBoxIds: [],
+      chargerBoxIds: [] as number[],
     }
 
     this._locationService.GetEventLogByLocation(body).subscribe((res: any) => {
@@ -121,16 +126,17 @@ export class EventsLogComponent implements OnInit {
    */
 
   pageChange(event: any) {
-    if (event.pageSize !== this.pageSize) {
-      this.currentPage = 1
-      this.pageSize = event.pageSize
-      this.paginator.pageIndex = 0
-    } else {
+    if (event.pageSize == this.pageSize) {
       this.currentPage =
         event.previousPageIndex < event.pageIndex
           ? this.currentPage + 1
           : this.currentPage - 1
+    }else{
+      this.currentPage = 1
+      this.pageSize = event.pageSize
+      this.paginator.pageIndex = 0
     }
+
     this.GetEventLogByLocation()
   }
 
@@ -176,16 +182,17 @@ export class EventsLogComponent implements OnInit {
   }
 
   public downloadAsPDF() {
-    var prepare: any = []
+    let prepare: any = []
     this.eventLogList = this.dataSource.data
     this.eventLogList.forEach((e: any) => {
-      var tempObj = []
-      tempObj.push(e.requestType)
-      tempObj.push(e.modifiedAt)
-      tempObj.push(e.deviceId)
-      tempObj.push(e.requestPayload)
-      tempObj.push(e.responsePayload)
-      prepare.push(tempObj)
+      let tempObj = [
+        e.requestType,
+        e.modifiedAt,
+        e.deviceId,
+        e.requestPayload,
+        e.responsePayload,
+      ];
+      prepare.push(tempObj);
     })
     let doc: any = new jsPDF()
     doc.autoTable({

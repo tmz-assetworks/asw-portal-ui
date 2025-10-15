@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core'
-import { FormControl } from '@angular/forms'
-import { Router } from '@angular/router'
-import { AuthService } from 'src/app/service/auth/auth.service'
+import { FormControl, ReactiveFormsModule } from '@angular/forms'
+import { Router, RouterModule } from '@angular/router'
 import { ActivatedRoute } from '@angular/router'
 import { StorageService } from 'src/app/service/storage.service'
 import { ReportService } from '../reports.service'
+import { LineChartComponent } from 'src/app/component/dashboard/line-chart/line-chart.component'
+import { AreaChartComponent } from 'src/app/component/dashboard/area-chart/area-chart.component'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 
 @Component({
   selector: 'app-report-energy',
   templateUrl: './report-energy.component.html',
   styleUrls: ['./report-energy.component.scss'],
+  imports:[LineChartComponent,AreaChartComponent,ReactiveFormsModule,SharedMaterialModule,RouterModule]
 })
 export class ReportEnergyComponent implements OnInit {
   reportEnergyUsedData = ''
@@ -72,7 +75,7 @@ export class ReportEnergyComponent implements OnInit {
 
   getEnergyUsed(operatorId: string, duration: any) {
     const pBody = {
-      locationIds: [],
+      locationIds: [] as number[],
       chargerBoxId: '',
       duration: duration,
       operatorId: operatorId,
@@ -94,7 +97,7 @@ export class ReportEnergyComponent implements OnInit {
     const body = {
       duration: duration,
       operatorId: operatorId,
-      locationIds: [],
+      locationIds: [] as number[],
     }
 
     this._reportService.GetMTCoSavedEnergy(body).subscribe((res) => {
@@ -110,7 +113,7 @@ export class ReportEnergyComponent implements OnInit {
    */
   GetMilesAddedByLocation(operatorId: string, duration: any) {
     const pBody = {
-      locationIds: [],
+      locationIds: [] as number[],
       duration: duration,
       chargerBoxId: '',
       opratorid: operatorId,
@@ -129,7 +132,7 @@ export class ReportEnergyComponent implements OnInit {
    */
   Getgasolinegallon(operatorId: string, duration: any) {
     const pBody = {
-      locationIds: [],
+      locationIds:[] as number[],
       chargerBoxId: '',
       duration: duration,
       operatorId: operatorId,

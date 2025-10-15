@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { EChartsOption, graphic } from 'echarts'
+import { NgxEchartsModule } from 'ngx-echarts'
 
 import { DashboardService } from 'src/app/screen/operator/dashboard/dashboard.service'
 
@@ -7,6 +8,8 @@ import { DashboardService } from 'src/app/screen/operator/dashboard/dashboard.se
   selector: 'app-stacked-area-chart',
   templateUrl: './stacked-area-chart.component.html',
   styleUrls: ['./stacked-area-chart.component.scss'],
+  imports:[NgxEchartsModule
+    ]
 })
 export class StackedAreaChartComponent implements OnInit {
   chartTypeData: any

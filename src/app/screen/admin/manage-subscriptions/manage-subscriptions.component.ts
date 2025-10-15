@@ -1,15 +1,21 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
 import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
-import { Router } from '@angular/router'
+import { Router, RouterModule } from '@angular/router'
 import { ToastrService } from 'ngx-toastr'
 import { StorageService } from 'src/app/service/storage.service'
 import { AdminService } from '../admin.service'
-
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
+import { CommonModule } from '@angular/common'
 @Component({
   selector: 'app-manage-subscriptions',
   templateUrl: './manage-subscriptions.component.html',
   styleUrls: ['./manage-subscriptions.component.scss'],
+  imports:[
+    SharedMaterialModule,
+    CommonModule,
+    RouterModule
+  ]
 })
 export class ManageSubscriptionsComponent implements OnInit {
   UserId: string | null
@@ -23,7 +29,7 @@ export class ManageSubscriptionsComponent implements OnInit {
   isTableHasData: any
   statusData: any
 
-  SubscriptionPlan=[]
+  SubscriptionPlan:string[]=[]
 
   displayedColumns: string[] = [
     'CustomerName',
@@ -125,15 +131,15 @@ export class ManageSubscriptionsComponent implements OnInit {
    */
 
   pageChange(event: any) {
-    if (event.pageSize !== this.pageSize) {
-      this.currentPage = 1;
-      this.pageSize = event.pageSize;
-      this.paginator.pageIndex = 0;
-    } else {
+    if (event.pageSize == this.pageSize) {
       this.currentPage =
         event.previousPageIndex < event.pageIndex
           ? this.currentPage + 1
           : this.currentPage - 1;
+    } else {
+      this.currentPage = 1;
+      this.pageSize = event.pageSize;
+      this.paginator.pageIndex = 0;
     }
 
     this.GetSubscriptionPlanList()

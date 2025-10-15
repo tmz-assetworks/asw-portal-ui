@@ -8,12 +8,15 @@ import { CommandDialogComponent } from './command-dialog/command-dialog.componen
 import { DiagnosticsService } from '../../diagnostics/diagnostics.service'
 import { interval } from 'rxjs'
 import { ToastrService } from 'ngx-toastr'
-import { ActivatedRoute, Router } from '@angular/router'
+import { ActivatedRoute, Router, RouterModule } from '@angular/router'
+import { LocationStatusPanelComponent } from '../location-status-panel/location-status-panel.component'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 
 @Component({
   selector: 'app-location-chargers',
   templateUrl: './location-chargers.component.html',
   styleUrls: ['./location-chargers.component.scss'],
+  imports:[LocationStatusPanelComponent,SharedMaterialModule,RouterModule]
 })
 export class LocationChargersComponent implements OnInit {
   UserId: any
@@ -90,7 +93,6 @@ export class LocationChargersComponent implements OnInit {
     this._locationService
       .GetDispenserByLocation(pBody)
       .subscribe((res: any) => {
-        //this.dataSource.data = data.data;
         if (res.data !== undefined && res.data != null && res.data.length > 0) {
           this.totalCount = res.paginationResponse.totalCount
           this.totalPages = res.paginationResponse.totalPages
@@ -108,15 +110,15 @@ export class LocationChargersComponent implements OnInit {
   }
 
   pageChange(event: any) {
-    if (event.pageSize !== this.pageSize) {
-      this.currentPage = 1
-      this.pageSize = event.pageSize
-      this.paginatorCharger.pageIndex = 0
-    } else {
+    if (event.pageSize == this.pageSize) {
       this.currentPage =
         event.previousPageIndex < event.pageIndex
           ? this.currentPage + 1
           : this.currentPage - 1
+    } else {
+      this.currentPage = 1
+      this.pageSize = event.pageSize
+      this.paginatorCharger.pageIndex = 0
     }
 
     this.GetDispenserByLocation(this.selectedLocationId)

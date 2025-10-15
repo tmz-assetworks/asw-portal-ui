@@ -1,4 +1,4 @@
-@import "../../../../styles";
+@use "../../../../styles" as *;
 
 $font_type0: 700 20px/1.2 "Roboto", Helvetica, Arial, serif;
 $font_type1: 13px/1.2 "Roboto", Helvetica, Arial, serif;
@@ -18,10 +18,11 @@ $font_type1: 13px/1.2 "Roboto", Helvetica, Arial, serif;
     position: relative;
     height: min-content;
     margin: 15px 20px 13px;
+    border-bottom: 1px dotted #c2c5c8;
     @include xl1 {
       margin: 8px 20px 6px;
     }
-    border-bottom: 1px dotted #c2c5c8;
+    
     &.zero_br {
       border-bottom: 0px dotted #c2c5c8;
     }

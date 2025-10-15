@@ -2,16 +2,19 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { SuperAdminService } from '../super-admin.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { StorageService } from 'src/app/service/storage.service';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module';
 
 @Component({
   selector: 'app-manage-customers',
   templateUrl: './manage-customers.component.html',
   styleUrls: ['./manage-customers.component.scss'],
+  imports:[CommonModule,RouterModule,ReactiveFormsModule,SharedMaterialModule]
 })
 export class ManageCustomersComponent implements OnInit {
-  customerList = [];
   showCustomersList: boolean = true;
   showAddCustomer: boolean = false;
   isTableHasData: any;
@@ -22,7 +25,7 @@ export class ManageCustomersComponent implements OnInit {
   pageSizeOptions = [10, 20, 100];
   searchParam = '';
   OrganisationName = '';
-  allCustomerlist= [];
+  allCustomerlist:string[]= [];
   statusData: any;
   statusDataValue: any;
 

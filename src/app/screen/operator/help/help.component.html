@@ -20,10 +20,11 @@
                   <mat-panel-title>
                     HOW TO VIEW LOCATIONS INFORMATION
                   </mat-panel-title>
-                  <!-- <mat-panel-description> -->
-                  <mat-icon *ngIf="!panelOpenState">add</mat-icon>
-                  <mat-icon *ngIf="panelOpenState">remove</mat-icon>
-                  <!-- </mat-panel-description> -->
+                  @if (panelOpenState) {
+                    <mat-icon>remove</mat-icon>
+                  }@else{
+                    <mat-icon>add</mat-icon>
+                  }
                 </mat-expansion-panel-header>
                 <div class="location-flex14 layout">
                   <div class="location-block16 layout">
@@ -129,8 +130,11 @@
                   <mat-panel-title>
                     HOW TO REMOTE CONTROL A CHARGER FOR CHARGER
                   </mat-panel-title>
-                  <mat-icon *ngIf="!panelOpenState1">add</mat-icon>
-                  <mat-icon *ngIf="panelOpenState1">remove</mat-icon>
+                  @if (panelOpenState1) {
+                    <mat-icon>remove</mat-icon>
+                  } @else {
+                    <mat-icon>add</mat-icon>
+                  }
                   <!-- <mat-panel-description>
                     This is a summary of the content
                   </mat-panel-description> -->
@@ -252,8 +256,11 @@
                   <mat-panel-title>
                     HOW TO REMOTE CONTROL A CHARGER FOR DIAGNOSTICS
                   </mat-panel-title>
-                  <mat-icon *ngIf="!panelOpenState7">add</mat-icon>
-                  <mat-icon *ngIf="panelOpenState7">remove</mat-icon>
+                  @if (panelOpenState7) {
+                    <mat-icon>remove</mat-icon>
+                  } @else {
+                    <mat-icon>add</mat-icon>
+                  }
                   <!-- <mat-panel-description>
                     This is a summary of the content
                   </mat-panel-description> -->
@@ -375,8 +382,11 @@
                   <mat-panel-title>
                     HOW TO REMOTE CONTROL A CHARGER FOR DASHBOARD
                   </mat-panel-title>
-                  <mat-icon *ngIf="!panelOpenState8">add</mat-icon>
-                  <mat-icon *ngIf="panelOpenState8">remove</mat-icon>
+                  @if (panelOpenState8) {
+                    <mat-icon>remove</mat-icon>
+                  } @else {
+                    <mat-icon>add</mat-icon>
+                  }
                   <!-- <mat-panel-description>
                     This is a summary of the content
                   </mat-panel-description> -->
@@ -498,8 +508,11 @@
                   <mat-panel-title>
                     HOW TO REMOTE CONTROL A CHARGER FOR LOCATION
                   </mat-panel-title>
-                  <mat-icon *ngIf="!panelOpenState9">add</mat-icon>
-                  <mat-icon *ngIf="panelOpenState9">remove</mat-icon>
+                  @if (panelOpenState9) {
+                    <mat-icon>remove</mat-icon>
+                  } @else {
+                    <mat-icon>add</mat-icon>
+                  }
                   <!-- <mat-panel-description>
                     This is a summary of the content
                   </mat-panel-description> -->
@@ -621,8 +634,11 @@
                   <mat-panel-title>
                     HOW TO VIEW CHARGER LOGS
                   </mat-panel-title>
-                  <mat-icon *ngIf="!panelOpenState2">add</mat-icon>
-                  <mat-icon *ngIf="panelOpenState2">remove</mat-icon>
+                  @if (panelOpenState2) {
+                    <mat-icon>remove</mat-icon>
+                  } @else {
+                    <mat-icon>add</mat-icon>
+                  }
                   <!-- <mat-panel-description>
                     This is a summary of the content
                   </mat-panel-description> -->
@@ -743,11 +759,12 @@
                   <mat-panel-title>
                     HOW TO EXPORT REPORT DATA
                   </mat-panel-title>
-                  <mat-icon *ngIf="!panelOpenState3">add</mat-icon>
-                  <mat-icon *ngIf="panelOpenState3">remove</mat-icon>
-                  <!-- <mat-panel-description>
-                    This is a summary of the content
-                  </mat-panel-description> -->
+                  @if (panelOpenState3) {
+                    <mat-icon>remove</mat-icon>
+                  } 
+                  @else{
+                    <mat-icon>add</mat-icon>
+                  }               
                 </mat-expansion-panel-header>
                 <div class="location-flex14 layout">
                   <div class="location-block16 layout">
@@ -853,8 +870,11 @@
                   <mat-panel-title>
                     HOW TO VIEW NOTIFICATIONS
                   </mat-panel-title>
-                  <mat-icon *ngIf="!panelOpenState4">add</mat-icon>
-                  <mat-icon *ngIf="panelOpenState4">remove</mat-icon>
+                  @if (panelOpenState4) {
+                    <mat-icon>remove</mat-icon>
+                  } @else {
+                    <mat-icon>add</mat-icon>
+                  }
                   <!-- <mat-panel-description>
                     This is a summary of the content
                   </mat-panel-description> -->
@@ -963,8 +983,11 @@
                   <mat-panel-title>
                     HOW TO CHARGER MESSAGE, PROVISION AND UPDATE FIRMWARE
                   </mat-panel-title>
-                  <mat-icon *ngIf="!panelOpenState5">add</mat-icon>
-                  <mat-icon *ngIf="panelOpenState5">remove</mat-icon>
+                  @if(panelOpenState5){
+                    <mat-icon>remove</mat-icon>
+                  }@else{
+                    <mat-icon>add</mat-icon>
+                  }
                   <!-- <mat-panel-description>
                     This is a summary of the content
                   </mat-panel-description> -->
@@ -1137,8 +1160,11 @@
                   <mat-panel-title>
                     GLOSSARY OF TERMS
                   </mat-panel-title>
-                  <mat-icon *ngIf="!panelOpenState6">add</mat-icon>
-                  <mat-icon *ngIf="panelOpenState6">remove</mat-icon>
+                  @if (panelOpenState6) {
+                    <mat-icon>remove</mat-icon>
+                  } @else {
+                    <mat-icon>add</mat-icon>
+                  }
                   <!-- <mat-panel-description>
                     This is a summary of the content
                   </mat-panel-description> -->

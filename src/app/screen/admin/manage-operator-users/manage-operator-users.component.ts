@@ -4,13 +4,16 @@ import { MatTableDataSource } from '@angular/material/table'
 import { StorageService } from 'src/app/service/storage.service'
 import { ActivatedRoute, Router } from '@angular/router'
 import { AdminService } from '../admin.service'
+import { CommonModule } from '@angular/common'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 @Component({
   selector: 'app-manage-operator-users',
   templateUrl: './manage-operator-users.component.html',
   styleUrls: ['./manage-operator-users.component.scss'],
+  imports:[CommonModule,SharedMaterialModule]
+  
 })
 export class ManageOperatorUsersComponent implements OnInit {
-  customerList = []
   displayedColumns: string[] = [
     'name',
     'email',
@@ -19,7 +22,7 @@ export class ManageOperatorUsersComponent implements OnInit {
     'action',
   ]
 
-  adminList = []
+  adminList:string[] = []
   isTableHasData: any
   totalCount: any
   pageSize: number = 10
@@ -66,15 +69,15 @@ export class ManageOperatorUsersComponent implements OnInit {
    */
 
   pageChange(event: any) {
-    if (event.pageSize !== this.pageSize) {
-      this.currentPage = 1
-      this.pageSize = event.pageSize
-      this.paginator.pageIndex = 0
-    } else {
+    if (event.pageSize == this.pageSize) {
       this.currentPage =
         event.previousPageIndex < event.pageIndex
           ? this.currentPage + 1
           : this.currentPage - 1
+    } else {
+      this.currentPage = 1
+      this.pageSize = event.pageSize
+      this.paginator.pageIndex = 0
     }
     this.getUserList()
   }
@@ -82,7 +85,7 @@ export class ManageOperatorUsersComponent implements OnInit {
   getUserList() {
     const body = {
       pageNumber: this.currentPage,
-      searchParam: this.adminName !== '' ? this.adminName : '',
+      searchParam: this.adminName == '' ? '':this.adminName,
       pageSize: this.pageSize,
       opratorid: this.userId,
       customerID: 0,

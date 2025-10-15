@@ -332,6 +332,7 @@
             title="Active"
             (click)="IsActiveAsset(element.id, element.type, true)"
           />
+          
           <img
             *ngIf="element.isActive"
             src="../../../../assets/Active.svg"
@@ -339,12 +340,14 @@
             title="Inactive"
             (click)="IsActiveAsset(element.id, element.type, false)"
           />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <img
             src="../../../../assets/Admin-SideNav/Assets-Icons/View.svg"
             alt="View"
             title="View"
             (click)="viewAssets(element.id, element.type)"
           />
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <img
             src="../../../../assets/Admin-SideNav/Assets-Icons/Edit.svg"
             alt="Edit"

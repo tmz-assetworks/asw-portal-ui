@@ -2,12 +2,13 @@ import { Component, OnInit, ViewChild } from '@angular/core'
 import { FormControl } from '@angular/forms'
 import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
-import { Router } from '@angular/router'
+import { Router, RouterModule } from '@angular/router'
 
 @Component({
   selector: 'app-location',
   templateUrl: './location.component.html',
   styleUrls: ['./location.component.scss'],
+  imports:[RouterModule]
 })
 export class LocationComponent implements OnInit {
   showLocationNav: boolean = false

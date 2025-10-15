@@ -1,15 +1,23 @@
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import {Component} from '@angular/core';
 import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
 import { AdminService } from '../../admin.service';
-import { DatePipe, Location } from '@angular/common';
+import { CommonModule, DatePipe, Location } from '@angular/common';
 import { StorageService } from 'src/app/service/storage.service';
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-create-admin',
   templateUrl: './create-admin.component.html',
-  styleUrls: ['./create-admin.component.scss']
+  styleUrls: ['./create-admin.component.scss'],
+  imports:[
+   CommonModule,
+    SharedMaterialModule,
+    ReactiveFormsModule,
+    RouterModule
+  ]
 })
 export class CreateAdminComponent {
   isSubmitted = false;
@@ -85,7 +93,7 @@ export class CreateAdminComponent {
    */
 
 addAdminFormGroup = this.formBuilder.group({
-  username: ['', [Validators.required, Validators.maxLength(20)]],
+  username: ['', [Validators.required, Validators.maxLength(20),Validators.minLength(5)]],
   emailid: ['', [Validators.required, Validators.email]],
   phoneNumber: ['', Validators.required],
   organizationName: ['', Validators.required],
@@ -129,8 +137,8 @@ addAdminFormGroup = this.formBuilder.group({
    */
 addUpdateAdmins() {
   if (
-    this.addAdminFormGroup.value.organizationName == '0' ||
-    this.addAdminFormGroup.value.city == '0'
+    this.addAdminFormGroup.value.organizationName == '0'
+    // this.addAdminFormGroup.value.city == '0'
   ) {
     this.toastr.error('Please fill mandatory fields.');
     return;
@@ -170,15 +178,16 @@ addUpdateAdmins() {
 
 
 private buildRequestBody(formField: any, isCreate: boolean) {
+  
   const commonBody = {
     emailId: formField.emailid,
     name: formField.username,
     phoneNumber: formField.phoneNumber,
     addressLine1: formField.addressLine1,
     addressLine2: formField.addressLine2,
-    countryID: parseInt(formField.country),
+    countryID: formField.country,
     customerID: this.customerId,
-    stateID: parseInt(formField.state),
+    stateID: formField.state,
     cityName: formField.cityName,
     zipCode: formField.zipcode,
     userRolesCommand: [{ roleid: 3 }],
@@ -214,6 +223,8 @@ private showConfirmationDialog(onConfirm: () => void) {
     cancelButtonColor: '#0062A6',
     cancelButtonText: ' CONFIRM',
     showCancelButton: true,
+    allowOutsideClick: false,
+    allowEscapeKey: false,
   }).then((result) => {
     if (result.isDismissed) {
       onConfirm();
@@ -227,16 +238,16 @@ private showConfirmationDialog(onConfirm: () => void) {
    */
 
   getSelect(event: any, type: string) {
+        
     if (type == 'state') {
-      if (this.countryId !== parseInt(event.value)) {
+      if (this.countryId !== event.value) {
         // NEW COUNTRY IS SELECTED
         this.stateId = 0;
 
         this.addAdminFormGroup.patchValue({ state: this.selectValue });
-        this.addAdminFormGroup.patchValue({ city: this.selectValue });
         this.stateList = [];
       }
-      this.countryId = parseInt(event.value);
+      this.countryId = event.value;
       // this.countryName = event.value.split('#')[1];
       // CALL STATE API
       this.adminService
@@ -280,8 +291,8 @@ setFormValue(data: any) {
       phoneNumber: this.adminRowData.phoneNumber,
       addressLine1: this.adminRowData.addressLine1,
       addressLine2: this.adminRowData.addressLine2,
-      country: this.adminRowData.countryID !== 0 ? this.adminRowData.countryID.toString() : this.selectValue,
-      state: this.adminRowData.stateID !== 0 ? this.adminRowData.stateID : this.selectValue,
+      country: this.adminRowData.countryID == 0 ? this.selectValue: this.adminRowData.countryID.toString() ,
+      state: this.adminRowData.stateID == 0 ? this.selectValue:this.adminRowData.stateID,
       cityName: this.adminRowData.cityName,
       zipcode: this.adminRowData.zipcode,
     });

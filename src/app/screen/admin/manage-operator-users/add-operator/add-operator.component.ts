@@ -1,16 +1,18 @@
 import { AfterViewInit, Component, HostListener, OnInit, ViewChild } from '@angular/core'
-import { FormBuilder, FormControl, Validators } from '@angular/forms'
-import { Router } from '@angular/router'
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms'
+import { Router, RouterModule } from '@angular/router'
 import { ToastrService } from 'ngx-toastr'
 import Swal from 'sweetalert2'
 import { AdminService } from '../../admin.service'
-import { DatePipe, Location } from '@angular/common'
+import { CommonModule, DatePipe, Location } from '@angular/common'
 import { StorageService } from 'src/app/service/storage.service'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 
 @Component({
   selector: 'app-add-operator',
   templateUrl: './add-operator.component.html',
   styleUrls: ['./add-operator.component.scss'],
+  imports:[CommonModule,RouterModule,SharedMaterialModule,ReactiveFormsModule]
 })
 export class AddOperatorComponent implements OnInit {
 
@@ -176,14 +178,13 @@ export class AddOperatorComponent implements OnInit {
 
     // let pass = sessionStorage.getItem('enpass')
     let formField = this.addOperatorProfile.value
+    
     if (
       formField.emailid == '' ||
       formField.username == '' ||
       // formField.dob == '' ||
-      formField.phonenumber == '' ||
-      parseInt(formField.city) == 0
+      formField.phonenumber == ''
     ) {
-      alert(formField.city)
       this.toastr.error('Fill all Mandatory Fields')
       return
     }
@@ -202,9 +203,9 @@ export class AddOperatorComponent implements OnInit {
         phoneNumber: formField.phonenumber,
         addressLine1: formField.addressLine1,
         addressLine2: formField.addressLine2,
-        countryID: parseInt(formField.country),
+        countryID: formField.country ?? '0',
         customerID: 1,
-        stateID: parseInt(formField.state),
+        stateID: formField.state ?? '0',
         // cityID: parseInt(formField.city),
         cityName: formField.cityName,
         zipCode: formField.zipcode,
@@ -227,6 +228,8 @@ export class AddOperatorComponent implements OnInit {
         cancelButtonColor: '#0062A6',
         cancelButtonText: ' CONFIRM',
         showCancelButton: true,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
       }).then((result) => {
         if (result.isDismissed) {
           this._adminService.CreateUser(body).subscribe(
@@ -267,9 +270,9 @@ export class AddOperatorComponent implements OnInit {
         phoneNumber: formField.phonenumber,
         addressLine1: formField.addressLine1,
         addressLine2: formField.addressLine2,
-        countryID: parseInt(formField.country),
+        countryID: formField.country ?? "0",
         customerID: 1,
-        stateID: parseInt(formField.state),
+        stateID: formField.state ?? "0",
         // cityID: parseInt(formField.city),
         cityName: formField.cityName,
         zipCode: formField.zipcode,
@@ -294,6 +297,8 @@ export class AddOperatorComponent implements OnInit {
         cancelButtonColor: '#0062A6',
         cancelButtonText: ' CONFIRM',
         showCancelButton: true,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
       }).then((result) => {
         if (result.isDismissed) {
           this._adminService.UpdateUser(body).subscribe(
@@ -334,19 +339,14 @@ export class AddOperatorComponent implements OnInit {
 
   getSelected(event: any, type: string) {
     if (type == 'state') {
-      if (this.countryId !== parseInt(event.value)) {
+      if (this.countryId !== event.value) {
         // NEW COUNTRY IS SELECTED
         this.stateId = 0
-        // this.stateName = ''
         this.cityId = 0
-        // this.cityName = ''
         this.addOperatorProfile.patchValue({ state: this.selectValue })
-        this.addOperatorProfile.patchValue({ city: this.selectValue })
         this.stateList = []
-        // this.cityList = []
       }
-      this.countryId = parseInt(event.value)
-      // this.countryName = event.value.split('#')[1];
+      this.countryId = (event.value)
       // CALL STATE API
       this._adminService
         .getListApi('state', this.countryId)
@@ -356,7 +356,6 @@ export class AddOperatorComponent implements OnInit {
             // FOR NEW LOCATION
             this.addOperatorProfile.patchValue({ state: this.selectValue })
             this.stateId = 0
-            // this.stateName = ''
           } else if (this.countryId > 0 && this.stateId > 0) {
             // FOR EDIT COUNTRY AND STATE BOTH ARE SELECTED
             this.addOperatorProfile.patchValue({
@@ -370,44 +369,6 @@ export class AddOperatorComponent implements OnInit {
           }
         })
     }
-    //  else if (type == 'city') {
-    //   if (this.stateId !== parseInt(event.value)) {
-    //     // NEW STATE IS SELECTED
-    //     this.cityId = 0
-    //     //  this.cityName = ''
-    //   }
-    //   this.stateId = parseInt(event.value)
-    //   // this.stateName = event.value.split('#')[1];
-    //   // CALL STATE API
-    //   this._adminService
-    //     .getListApi('city', 0, this.stateId)
-    //     .subscribe((res) => {
-    //       this.cityList = res.data
-    //       if (this.stateId == 0) {
-    //         // FOR NEW LOCATION
-    //         this.addOperatorProfile.patchValue({ city: this.selectValue })
-    //         this.cityId = 0
-    //         //  this.cityName = ''
-    //       } else if (this.stateId > 0 && this.cityId > 0) {
-    //         // FOR EDIT STATE AND CITY BOTH ARE SELECTED
-    //         this.addOperatorProfile.patchValue({
-    //           state: this.stateId.toString(),
-    //         })
-    //         this.addOperatorProfile.patchValue({ city: this.cityId.toString() })
-    //       } else if (this.stateId > 0 && this.cityId == 0) {
-    //         // WHEN CHANGING STATE
-    //         this.addOperatorProfile.patchValue({ city: this.selectValue })
-    //         this.addOperatorProfile.patchValue({
-    //           state: this.stateId.toString(),
-    //         })
-    //       }
-
-    //     })
-    // } else {
-    //   // FOR CITY ID AND NAME
-    //   this.cityId = parseInt(event.value)
-    //   // this.cityName = event.value.split('#')[1];
-    // }
   }
 
   /**
@@ -457,15 +418,12 @@ export class AddOperatorComponent implements OnInit {
 
       this.addOperatorProfile.patchValue({
         country:
-          this.adminRowData.countryID !== 0
-            ? this.adminRowData.countryID.toString()
-            : this.selectValue,
+          this.adminRowData.countryID == 0 ?this.selectValue: this.adminRowData.countryID.toString(),
       })
       this.addOperatorProfile.patchValue({
         state:
-          this.adminRowData.stateID !== 0
-            ? this.adminRowData.stateID
-            : this.selectValue,
+          this.adminRowData.stateID == 0
+            ? this.selectValue:this.adminRowData.stateID,
       })
 
       this.addOperatorProfile.patchValue({
@@ -474,10 +432,6 @@ export class AddOperatorComponent implements OnInit {
       this.addOperatorProfile.patchValue({
         zipcode: this.adminRowData.zipcode,
       })
-      // this.addOperatorProfile.patchValue({
-      //   dob: this.adminRowData.dob,
-      // })
-
       this.addOperatorProfile.patchValue({
         locationIds: this.adminRowData.locationsId,
       })

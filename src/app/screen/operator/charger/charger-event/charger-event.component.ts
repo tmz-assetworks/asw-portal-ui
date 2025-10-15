@@ -1,26 +1,33 @@
 import { animate, state, style, transition, trigger } from '@angular/animations'
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
+import { Component, OnInit, ViewChild } from '@angular/core'
 import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
 import { AlertsService } from '../../alerts/alerts.service'
 import { StorageService } from 'src/app/service/storage.service'
 import { LocationService } from '../../location/location.service'
 import { ChargerService } from '../charger.service'
-
-
-// import jsPDF from 'jspdf'
+import { CommonModule, DatePipe } from '@angular/common'
+import { RouterModule } from '@angular/router'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 import 'jspdf-autotable'
-// import { number } from 'echarts'
 import { TransactionDialogComponent } from 'src/app/component/dashboard/transaction-dialog/transaction-dialog.component'
 import { MatDialog } from '@angular/material/dialog'
-import { DatePipe } from '@angular/common'
+
 
 import * as fs from 'file-saver'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 @Component({
   selector: 'app-charger-event',
   templateUrl: './charger-event.component.html',
   styleUrls: ['./charger-event.component.scss'],
+  imports:[
+    CommonModule,
+    RouterModule,
+    SharedMaterialModule,
+    ReactiveFormsModule,
+    FormsModule
+  ],
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({ height: '0px', minHeight: '0' })),
@@ -75,9 +82,6 @@ export class ChargerEventComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator
 
-  // @ViewChild('pdfTable', { static: false })
-  // pdfTable!: ElementRef
-
   datePipe = new DatePipe('en-US')
 
   ngAfterViewInit() {
@@ -105,7 +109,7 @@ export class ChargerEventComponent implements OnInit {
       searchParam: this.searchParam == 'All' ? '' : this.searchParam,
       pageSize: this.pageSize,
       orderBy: '',
-      locationIds: [],
+      locationIds: [] as number[],
       opratorid: '',
       chargerBoxIds: [this.selectedChargerIds],
     }
@@ -126,15 +130,12 @@ export class ChargerEventComponent implements OnInit {
   }
 
   /**
-   * Download file
+   * Download file using custom CSV generation
    */
-
-  //  exporter.exportTable('csv', { fileName: 'Charger-EventLog' })
-
   downloadFile() {
     let newObjArr: any = []
 
-    for (var i = 0; i < this.eventLogList.length; i++) {
+    for (let i = 0; i < this.eventLogList?.length; i++) {
       let newObj = {
         'REQUEST TYPE': this.eventLogList[i]['requestType'],
         DATE: this.datePipe.transform(
@@ -161,7 +162,7 @@ export class ChargerEventComponent implements OnInit {
     csv.unshift(header.join(','))
     let csvArray = csv.join('\r\n')
 
-    var blob = new Blob([csvArray], { type: 'text/csv' })
+    const blob = new Blob([csvArray], { type: 'text/csv' })
     fs.saveAs(
       blob,
       new Date().toDateString() + 'Charger-EventLog_AssetWorks.csv',
@@ -202,15 +203,15 @@ export class ChargerEventComponent implements OnInit {
    */
 
   pageChange(event: any) {
-    if (event.pageSize !== this.pageSize) {
-      this.currentPage = 1
-      this.pageSize = event.pageSize
-      this.paginator.pageIndex = 0
-    } else {
+    if (event.pageSize == this.pageSize) {
       this.currentPage =
         event.previousPageIndex < event.pageIndex
           ? this.currentPage + 1
           : this.currentPage - 1
+    } else {
+      this.currentPage = 1
+      this.pageSize = event.pageSize
+      this.paginator.pageIndex = 0
     }
 
     this.GetEventLogByLocation()

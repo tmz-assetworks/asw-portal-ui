@@ -1,15 +1,20 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
-import { FormControl } from '@angular/forms'
-import { ActivatedRoute, Router } from '@angular/router'
+import { FormControl, ReactiveFormsModule } from '@angular/forms'
+import { ActivatedRoute, Router, RouterModule } from '@angular/router'
 
 import { AuthService } from 'src/app/service/auth/auth.service'
 import { StorageService } from 'src/app/service/storage.service'
 import { ReportService } from '../reports.service'
+import { LineChartComponent } from 'src/app/component/dashboard/line-chart/line-chart.component'
+import { BarChartComponent } from 'src/app/component/dashboard/bar-chart/bar-chart.component'
+import { AreaChartComponent } from 'src/app/component/dashboard/area-chart/area-chart.component'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 
 @Component({
   selector: 'app-report-session',
   templateUrl: './report-session.component.html',
   styleUrls: ['./report-session.component.scss'],
+  imports:[AreaChartComponent,BarChartComponent,LineChartComponent,RouterModule,ReactiveFormsModule,SharedMaterialModule]
 })
 export class ReportSessionComponent implements OnInit {
   filterToggle = new FormControl('1')
@@ -64,7 +69,7 @@ export class ReportSessionComponent implements OnInit {
    */
   GetUpComingSession(operatorId: any, locationId: any, duration: any) {
     const pBody = {
-      locationIds: [],
+      locationIds: [] as number[],
       operatorId: operatorId,
       // duration: duration,
     }
@@ -85,7 +90,7 @@ export class ReportSessionComponent implements OnInit {
    */
   GetChargingSessionlength(operatorId: any, locationId: any, duration: any) {
     const pBody = {
-      locationIds: [],
+      locationIds: [] as number[],
       chargerBoxId: '',
       duration: duration,
       operatorId: operatorId,
@@ -107,7 +112,7 @@ export class ReportSessionComponent implements OnInit {
 
   GetChargingSessionData(operatorId: any, locationId: any, duration: any) {
     const pBody = {
-      locationIds: [],
+      locationIds: [] as number[],
       chargerBoxId: '',
       duration: duration,
       operatorId: operatorId,

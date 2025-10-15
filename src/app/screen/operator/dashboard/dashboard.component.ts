@@ -1,11 +1,18 @@
 import { Component, OnInit } from '@angular/core'
-import { FormControl } from '@angular/forms'
+import { FormControl, ReactiveFormsModule } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import { StorageService } from 'src/app/service/storage.service'
 import { DashboardService } from './dashboard.service'
 import { ToastrService } from 'ngx-toastr'
 import { MatDialog } from '@angular/material/dialog'
 import { LegendsDialogComponent } from 'src/app/component/dashboard/legends-dialog/legends-dialog.component'
+import { AreaChartComponent } from 'src/app/component/dashboard/area-chart/area-chart.component'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
+import { CommonModule } from '@angular/common'
+import { LineChartComponent } from 'src/app/component/dashboard/line-chart/line-chart.component'
+import { WidgetComponent } from 'src/app/component/dashboard/widget/widget.component'
+import { BarChartComponent } from 'src/app/component/dashboard/bar-chart/bar-chart.component'
+import { DashboardStatusPanelComponent } from './dashboard-status-panel/dashboard-status-panel.component'
 declare const google: any
 declare const MarkerClusterer: any
 
@@ -13,6 +20,16 @@ declare const MarkerClusterer: any
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
+  imports:[
+    CommonModule,
+    AreaChartComponent,
+    BarChartComponent,
+    LineChartComponent,
+    SharedMaterialModule,
+    ReactiveFormsModule,
+    WidgetComponent,
+    DashboardStatusPanelComponent
+  ]
 })
 export class DashboardComponent implements OnInit {
   locations = '../../../../assets/Operator/Location-Icons.svg'
@@ -24,13 +41,13 @@ export class DashboardComponent implements OnInit {
   locationPerformingData = ''
   energyUsedData = ''
   locationList: any
-  summaryStatus = []
+  summaryStatus:string[] = []
 
   locationIds = new FormControl([])
   filterToggle = new FormControl('90')
 
   selectedTime: number = 90
-  selecteLocationIds = ''
+  selecteLocationIds:any = ''
   UserId: any
   chargersChartData = ''
 
@@ -72,9 +89,9 @@ export class DashboardComponent implements OnInit {
     this.locationIds.valueChanges.subscribe((res) => {
       this.onSelectLocation(res)
     })
-    this.getSummaryStatus()
-    ;(window as any).initMap = this.initMap as any
-    this.initMapFunc = (window as any).initMap.bind(this)
+    this.getSummaryStatus();
+    (globalThis as any).initMap = this.initMap as any
+    this.initMapFunc = (globalThis as any).initMap.bind(this)
 
 
     /**

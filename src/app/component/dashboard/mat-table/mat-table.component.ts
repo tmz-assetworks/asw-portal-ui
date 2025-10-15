@@ -3,13 +3,15 @@ import { MatTableDataSource } from '@angular/material/table'
 import { MatPaginator } from '@angular/material/paginator'
 import { DashboardService } from 'src/app/screen/operator/dashboard/dashboard.service'
 import { StorageService } from 'src/app/service/storage.service'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 @Component({
   selector: 'app-mat-table',
   templateUrl: './mat-table.component.html',
   styleUrls: ['./mat-table.component.scss'],
+  imports:[SharedMaterialModule]
 })
 export class MatTableComponent implements OnInit {
-  detailpagedata = []
+  detailpagedata:string[] = []
   pageNumber = 1
   searchparam = ''
   pageSize = 10
@@ -87,7 +89,7 @@ export class MatTableComponent implements OnInit {
       duration: duration.toString(),
       orderBy: '',
       opratorid: this.UserId,
-      locationIds: [],
+      locationIds: [] as number[],
       flag: flag,
       locationstatus: locationstatus,
     }

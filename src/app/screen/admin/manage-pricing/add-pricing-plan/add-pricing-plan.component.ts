@@ -1,17 +1,24 @@
 import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormControl, Validators } from '@angular/forms'
-import { ActivatedRoute, Router } from '@angular/router'
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms'
+import { ActivatedRoute, Router, RouterModule } from '@angular/router'
 import Swal from 'sweetalert2'
 import { ToastrService } from 'ngx-toastr'
 import { StorageService } from 'src/app/service/storage.service'
 import { AdminService } from '../../admin.service'
 import { elementAt } from 'rxjs'
-import { DatePipe } from '@angular/common'
+import { CommonModule, DatePipe } from '@angular/common'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 
 @Component({
   selector: 'app-add-pricing-plan',
   templateUrl: './add-pricing-plan.component.html',
   styleUrls: ['./add-pricing-plan.component.scss'],
+  imports:[
+    RouterModule,
+    CommonModule,
+    SharedMaterialModule,
+    ReactiveFormsModule
+  ]
 })
 export class AddPricingPlanComponent implements OnInit {
   /**
@@ -180,14 +187,7 @@ export class AddPricingPlanComponent implements OnInit {
       this.currencyList = res.data
     })
   }
-  // /**
-  //  * Get all level
-  //  */
-  // GetAllLevel() {
-  //   this._AdminService.GetAllLevel().subscribe((res: any) => {
-  //     this.levelList = res.data
-  //   })
-  // }
+
 
   /**
    * Get customer DDL
@@ -282,12 +282,13 @@ export class AddPricingPlanComponent implements OnInit {
   gracePeriod = 0
 
   createPricePlan() {
+    
     this.submitted = true
     if (this.pricingPlanFormGroup.invalid) {
       this.toastr.error('fields.')
       return
     }
-    let formData = this.pricingPlanFormGroup.value
+    let formData = this.pricingPlanFormGroup.value;
     this.locationIdResponse.forEach((elem: any) => {
       let index = this.chargeboxidResponse.findIndex(
         (x: any) => x.locationId === elem,
@@ -304,7 +305,7 @@ export class AddPricingPlanComponent implements OnInit {
       customerId: this.customerId,
       pricingPlanName: formData.pricingPlanName,
       description: formData.description,
-      currencyId: parseInt(this.selectedCurrencyId),
+      currencyId: Number.parseInt(this.selectedCurrencyId),
       validFrom: formData.validFrom
         ? this.datePipe.transform(
             formData.validFrom,
@@ -318,23 +319,19 @@ export class AddPricingPlanComponent implements OnInit {
           )
         : '',
       
-      priceTypeId: parseInt(this.selectedPriceTypeId),
-      unitId: parseInt(this.selectedUnitId),
-      price: parseInt(formData.price),
-      parkingFee: parseInt(formData.parkingFee),
-      // gracePeriod: parseInt(formData.gracePeriod),
+      priceTypeId: this.selectedPriceTypeId,
+      unitId: this.selectedUnitId,
+      price: formData.price ? formData.price : 0,
+      parkingFee: formData.parkingFee ? formData.parkingFee : 0,
       gracePeriod: formData.gracePeriod ? +formData.gracePeriod : 0,
-      //transactionFees: parseInt(formData.transactionFees),
       transactionFees: formData.transactionFees ? +formData.transactionFees : 0,
-      //salaryTax: parseInt(formData.salaryTax),
       tax: 0,
-      // salesTax: parseInt(formData.salesTax),
       salesTax: formData.salesTax ? +formData.salesTax : 0,
       pricePlanLocationsMapperCommand: this.chargeboxidResponse,
       processPayment: true,
       priceSlot: true,
       isActive: true,
-      chargerTypeId: parseInt(this.selectedChargerTypeId),
+      chargerTypeId: this.selectedChargerTypeId,
     }
     Swal.fire({
       title: '<strong>Are you sure you want to confirm?</strong>',
@@ -345,6 +342,8 @@ export class AddPricingPlanComponent implements OnInit {
       cancelButtonColor: '#0062A6',
       cancelButtonText: ' CONFIRM',
       showCancelButton: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
     }).then((result) => {
       if (result.isDismissed) {
         this._AdminService.CreatePricePlan(pBody).subscribe(
@@ -407,15 +406,9 @@ export class AddPricingPlanComponent implements OnInit {
       price: formData.price,
       parkingFee: formData.parkingFee,
       gracePeriod: formData.gracePeriod ? +formData.gracePeriod : 0,
-      //transactionFees: parseInt(formData.transactionFees),
       transactionFees: formData.transactionFees ? +formData.transactionFees : 0,
       tax:  0,
-      // salesTax: parseInt(formData.salesTax),
       salesTax: formData.salesTax ? +formData.salesTax : 0,
-      // gracePeriod: formData.gracePeriod,
-      // transactionFees: formData.transactionFees,
-      // salaryTax: formData.salaryTax,
-      // salesTax: formData.salesTax,
       processPayment: true,
       priceSlot: true,
       isActive: true,
@@ -430,6 +423,8 @@ export class AddPricingPlanComponent implements OnInit {
       cancelButtonColor: '#0062A6',
       cancelButtonText: ' CONFIRM',
       showCancelButton: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
     }).then((result) => {
       if (result.isDismissed) {
         this._AdminService.UpdatePricePlan(body).subscribe(
@@ -476,10 +471,8 @@ export class AddPricingPlanComponent implements OnInit {
   getPricePlanbyid(id: number) {
     this._AdminService.getPricePlanbyid(id).subscribe((res: any) => {
       if (res.data) {
-        let pricingData = res.data
-        // this.pricingPlanFormGroup.patchValue({ customerName: pricingData.customerId });
+        let pricingData = res.data;
         if (pricingData.customerId) {
-          // this.customerId = parseInt(pricingData.customerId)
           this.pricingPlanFormGroup.patchValue({
             customerN: pricingData.customerName,
           })
@@ -492,13 +485,13 @@ export class AddPricingPlanComponent implements OnInit {
         })
 
         if (pricingData.currencyCode) {
-          this.selectedCurrencyId = parseInt(pricingData.currencyCode)
+          this.selectedCurrencyId = Number.parseInt(pricingData.currencyCode);
           this.pricingPlanFormGroup.patchValue({
-            currencyId: pricingData.currencyName,
+            currencyCode: pricingData.currencyName,
           })
         }
         if (pricingData.chargerTypeId) {
-          this.selectedChargerTypeId = parseInt(pricingData.chargerTypeId)
+          this.selectedChargerTypeId = pricingData.chargerTypeId;
           this.pricingPlanFormGroup.patchValue({
             chargerTypeId: pricingData.chargerTypeId,
           })
@@ -517,7 +510,7 @@ export class AddPricingPlanComponent implements OnInit {
         }
         if (pricingData.unitId) {
           this.selectedUnitId = pricingData.unitId
-          this.pricingPlanFormGroup.patchValue({ unitId: pricingData.unitId })
+          this.pricingPlanFormGroup.patchValue({ unitName: pricingData.unitId })
         }
         this.pricingPlanFormGroup.patchValue({ price: pricingData.price })
         this.pricingPlanFormGroup.patchValue({
@@ -559,20 +552,7 @@ export class AddPricingPlanComponent implements OnInit {
           this.getChargeboxIdByLocationsId(this.selectedLocationId)
           this.locationIdResponse = pricingData.locationIdResponse
         }
-        if (pricingData.processPayment) {
-          this.pricingPlanFormGroup.patchValue({
-            processPayment: pricingData.processPayment,
-          })
-        }
-        if (pricingData.priceSlot) {
-          this.pricingPlanFormGroup.patchValue({
-            priceSlot: pricingData.priceSlot,
-          })
-        }
-        // if(pricingData.isActive){
-        //   this.addPricingForm.patchValue({isActive: pricingData.isActive})
-        // }
-
+      
         this.chargeboxidResponse = pricingData.pricePlanLocationsMapperobj
 
         
@@ -667,7 +647,7 @@ export class AddPricingPlanComponent implements OnInit {
   dateFilterForEnd = (d: any | null) => {
     let validTo = this.pricingPlanFormGroup.value.validFrom
 
-    let checkDate = new Date(validTo)
+    let checkDate = validTo ? new Date(validTo) : new Date()
     return d > checkDate
   }
 

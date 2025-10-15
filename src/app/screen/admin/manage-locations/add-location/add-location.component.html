@@ -12,7 +12,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Location ID
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div class="barbar-box6 layout">
                 <input
@@ -21,20 +21,10 @@
                   class="barbar-input-text"
                 />
               </div>
-              <!-- <span
-                *ngIf="
-                  !addLocationFormGroup.get('LocationId')?.valid &&
-                  addLocationFormGroup.get('LocationId')?.touched &&
-                  addLocationFormGroup.get('LocationId')?.value.length > 0
-                "
-                class="error-mess"
-              >
-                Location ID must be in alphanumeric characters
-              </span> -->
               <span
                 *ngIf="
                   addLocationFormGroup.get('LocationId')?.touched &&
-                  addLocationFormGroup.get('LocationId')?.value.length > 6
+                  (addLocationFormGroup.get('LocationId')?.value?.length ?? 0) > 6
                 "
                 class="error-mess"
               >
@@ -44,7 +34,7 @@
                 *ngIf="
                   !addLocationFormGroup.get('LocationId')?.valid &&
                   addLocationFormGroup.get('LocationId')?.touched &&
-                  addLocationFormGroup.get('LocationId')?.value.length == 0
+                  addLocationFormGroup.get('LocationId')?.value?.length == 0
                 "
                 class="error-mess"
               >
@@ -58,7 +48,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Location Name
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div class="barbar-box6 layout">
                 <input
@@ -71,7 +61,7 @@
                 *ngIf="
                   !addLocationFormGroup.get('LocationName')?.valid &&
                   addLocationFormGroup.get('LocationName')?.touched &&
-                  addLocationFormGroup.get('LocationName')?.value.length > 0
+                  (addLocationFormGroup.get('LocationName')?.value?.length ?? 0) > 0
                 "
                 class="error-mess"
               >
@@ -80,7 +70,7 @@
               <span
                 *ngIf="
                   addLocationFormGroup.get('LocationName')?.touched &&
-                  addLocationFormGroup.get('LocationName')?.value.length > 40
+                  (addLocationFormGroup.get('LocationName')?.value?.length ?? 0) > 40
                 "
                 class="error-mess"
               >
@@ -90,7 +80,7 @@
                 *ngIf="
                   !addLocationFormGroup.get('LocationName')?.valid &&
                   addLocationFormGroup.get('LocationName')?.touched &&
-                  addLocationFormGroup.get('LocationName')?.value.length == 0
+                  addLocationFormGroup.get('LocationName')?.value?.length == 0
                 "
                 class="error-mess"
               >
@@ -104,10 +94,10 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Location Status
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
 
-              <mat-form-field class="barbar-box6 layout">
+              <mat-form-field appearance="outline" class="barbar-box6 layout">
                 <!-- <mat-label >Select</mat-label> -->
                 <mat-select formControlName="locationStatus">
                   <mat-option value="0" [disabled]="true">Select</mat-option>
@@ -136,7 +126,7 @@
               <span
                 *ngIf="
                   addLocationFormGroup.get('Description')?.touched &&
-                  addLocationFormGroup.get('Description')?.value.length > 255
+                  (addLocationFormGroup.get('Description')?.value?.length ?? 0) > 255
                 "
                 class="error-mess"
               >
@@ -150,7 +140,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Contact Person Name
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div class="barbar-box6 layout">
                 <input
@@ -164,7 +154,7 @@
                 *ngIf="
                   addLocationFormGroup.get('contactPersonName')?.valid &&
                   addLocationFormGroup.get('contactPersonName')?.touched &&
-                  addLocationFormGroup.get('contactPersonName')?.value.length ==
+                  addLocationFormGroup.get('contactPersonName')?.value?.length ==
                     0
                 "
                 class="error-mess"
@@ -175,22 +165,13 @@
                 *ngIf="
                   !addLocationFormGroup.get('contactPersonName')?.valid &&
                   addLocationFormGroup.get('contactPersonName')?.touched &&
-                  addLocationFormGroup.get('contactPersonName')?.value.length >
+                  (addLocationFormGroup.get('contactPersonName')?.value?.length ?? 0) >
                     25
                 "
                 class="error-mess"
               >
                 Contact Person Name must be less than 25 characters(Alphabets).
-              </span>
-              <!-- <span
-                *ngIf="
-                  !addLocationFormGroup.get('contactPersonName')?.valid &&
-                  addLocationFormGroup.get('contactPersonName')?.touched
-                "
-                class="error-mess"
-              >
-                Contact Person Name must be in alphabets
-              </span> -->
+              </span>         
             </div>
           </div>
 
@@ -199,7 +180,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Email
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div class="barbar-box6 layout">
                 <input
@@ -212,7 +193,7 @@
                 *ngIf="
                   addLocationFormGroup.get('email')?.valid &&
                   addLocationFormGroup.get('email')?.touched &&
-                  addLocationFormGroup.get('email')?.value.length == 0
+                  addLocationFormGroup.get('email')?.value?.length == 0
                 "
                 class="error-mess"
               >
@@ -235,7 +216,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Contact Person Number
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div class="barbar-box6 layout">
                 <input
@@ -252,32 +233,12 @@
                   !addLocationFormGroup.get('contactPersonNumber')?.valid &&
                   addLocationFormGroup.get('contactPersonNumber')?.touched &&
                   addLocationFormGroup.get('contactPersonNumber')?.value
-                    .length == 0
+                    ?.length == 0
                 "
                 class="error-mess"
               >
                 Contact Person Number is required
               </span>
-              <!-- <span
-                *ngIf="
-                  !addLocationFormGroup.get('contactPersonNumber')?.valid &&
-                  addLocationFormGroup.get('contactPersonNumber')?.touched &&
-                  addLocationFormGroup.get('contactPersonNumber')?.value.length > 15
-                "
-                class="error-mess"
-              >
-                Contact Person Number must be between 10 to 15 digits
-              </span> -->
-              <!-- <span
-                *ngIf="
-                  !addLocationFormGroup.get('contactPersonNumber')?.valid &&
-                  addLocationFormGroup.get('contactPersonNumber')?.touched &&
-                  addLocationFormGroup.get('contactPersonNumber')?.value.length > 0
-                "
-                class="error-mess"
-              >
-                Contact Person Number must be numeric
-              </span> -->
             </div>
           </div>
           <!-- Department-->
@@ -286,7 +247,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Department
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div class="barbar-box6 layout">
                 <input
@@ -295,34 +256,8 @@
                   class="barbar-input-text"
                 />
               </div>
-              <!-- <mat-form-field class="barbar-box6 layout">
-                
-                <mat-select formControlName="departmentId">
-                  <mat-option value="0" [disabled]="true">Select</mat-option>
-                  <mat-option
-                    *ngFor="let c of departmentList"
-                    value="{{ c.id }}"
-                  >
-                    {{ c.departmentName }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field> -->
             </div>
           </div>
-
-          <!-- <div class="barbar-block13-spacer"></div>
-          <div class="barbar-block13-item">
-            <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">No. of Chargers</h5>
-              <div class="barbar-box6 layout">
-                <input
-                  formControlName="phoneNumber"
-                  type="text"
-                  class="barbar-input-text"
-                />
-              </div>
-            </div>
-          </div> -->
         </div>
       </div>
 
@@ -343,7 +278,7 @@
                 *ngIf="
                   !addLocationFormGroup.get('Latitude')?.valid &&
                   addLocationFormGroup.get('Latitude')?.touched &&
-                  addLocationFormGroup.get('Latitude')?.value.length > 0
+                  (addLocationFormGroup.get('Latitude')?.value?.length ?? 0) > 0
                 "
                 class="error-mess"
               >
@@ -368,7 +303,7 @@
                 *ngIf="
                   !addLocationFormGroup.get('Longitude')?.valid &&
                   addLocationFormGroup.get('Longitude')?.touched &&
-                  addLocationFormGroup.get('Longitude')?.value.length > 0
+                  (addLocationFormGroup.get('Longitude')?.value?.length ?? 0) > 0
                 "
                 class="error-mess"
               >
@@ -381,7 +316,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Address Line 1
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div class="barbar-box6 layout">
                 <input
@@ -394,7 +329,7 @@
                 *ngIf="
                   !addLocationFormGroup.get('addressLine1')?.valid &&
                   addLocationFormGroup.get('addressLine1')?.touched &&
-                  addLocationFormGroup.get('addressLine1')?.value.length == 0
+                  addLocationFormGroup.get('addressLine1')?.value?.length == 0
                 "
                 class="error-mess"
               >
@@ -404,7 +339,7 @@
                 *ngIf="
                   !addLocationFormGroup.get('addressLine1')?.valid &&
                   addLocationFormGroup.get('addressLine1')?.touched &&
-                  addLocationFormGroup.get('addressLine1')?.value.length > 255
+                  (addLocationFormGroup.get('addressLine1')?.value?.length ?? 0) > 255
                 "
                 class="error-mess"
               >
@@ -427,7 +362,7 @@
                 *ngIf="
                   !addLocationFormGroup.get('addressLine2')?.valid &&
                   addLocationFormGroup.get('addressLine2')?.touched &&
-                  addLocationFormGroup.get('addressLine2')?.value.length > 255
+                  (addLocationFormGroup.get('addressLine2')?.value?.length ?? 0) > 255
                 "
                 class="error-mess"
               >
@@ -440,9 +375,9 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Country
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
-              <mat-form-field class="barbar-box6 layout">
+              <mat-form-field appearance="outline" class="barbar-box6 layout">
                 <!-- <mat-label >Select</mat-label> -->
                 <mat-select
                   formControlName="Country"
@@ -466,10 +401,10 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 State/Province
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
 
-              <mat-form-field class="barbar-box6 layout">
+              <mat-form-field appearance="outline" class="barbar-box6 layout">
                 <!-- <mat-label >Select</mat-label> [value]="selectValue" -->
                 <mat-select
                   formControlName="State"
@@ -492,7 +427,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 City
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
 
               <div
@@ -510,27 +445,6 @@
                   (keypress)="omit_special_char($event)"
                 />
               </div>
-              <!-- <input
-                  formControlName="cityName"
-                  type="text"
-                  class="barbar-input-text"
-                  (keypress)="omit_special_char($event)"
-                /> -->
-              <!-- <mat-form-field class="barbar-box6 layout">
-                <mat-label >Select</mat-label>
-                <mat-select
-                  formControlName="City"
-                  (selectionChange)="getSelected($event, '')"
-                >
-                  <mat-option value="{{ selectValue }}">Select</mat-option>
-                  <mat-option
-                    *ngFor="let c of cityList"
-                    value="{{ c.id }}#{{ c.cityName }}"
-                  >
-                    {{ c.cityName }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field> -->
             </div>
           </div>
 
@@ -539,7 +453,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Zip Code
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div class="barbar-box6 layout">
                 <input
@@ -553,28 +467,17 @@
                 *ngIf="
                   addLocationFormGroup.get('zipcode')?.valid &&
                   addLocationFormGroup.get('zipcode')?.touched &&
-                  addLocationFormGroup.get('zipcode')?.value.length == 0
+                  addLocationFormGroup.get('zipcode')?.value?.length == 0
                 "
                 class="error-mess"
               >
                 Zipcode is required
               </span>
-              <!-- <span
-                *ngIf="
-                  !addLocationFormGroup.get('zipcode')?.valid &&
-                  addLocationFormGroup.get('zipcode')?.touched &&
-                  addLocationFormGroup.get('zipcode')?.value.length > 0 &&
-                  addLocationFormGroup.get('zipcode')?.value.length < 6
-                "
-                class="error-mess"
-              >
-                Zipcode must be in Number
-              </span> -->
               <span
                 *ngIf="
                   !addLocationFormGroup.get('zipcode')?.valid &&
                   addLocationFormGroup.get('zipcode')?.touched &&
-                  addLocationFormGroup.get('zipcode')?.value.length > 6
+                  (addLocationFormGroup.get('zipcode')?.value?.length ?? 0) > 6
                 "
                 class="error-mess"
               >
@@ -626,7 +529,7 @@
                 *ngIf="
                   !addLocationFormGroup.get('utilityservice')?.valid &&
                   addLocationFormGroup.get('utilityservice')?.touched &&
-                  addLocationFormGroup.get('utilityservice')?.value.length > 200
+                  (addLocationFormGroup.get('utilityservice')?.value?.length ?? 0) > 200
                 "
                 class="error-mess"
               >
@@ -650,14 +553,12 @@
             </div>
             <div class="cust-list-block20 layout">
               <input
-                ngx-google-places-autocomplete
-                (onAddressChange)="handleAddressChange($event)"
-                class="cust-list-text-body21 layout"
-                [ngClass]="viewMode == true ? 'isDisable' : ''"
-                (keyup)="($event)"
-                placeholder=""
-                #input
-              />
+              #addressInput
+              matInput
+              class="cust-list-text-body21 layout"
+              [ngClass]="viewMode ? 'isDisable' : ''"
+              placeholder="Enter location"
+            />
             </div>
           </div>
         </div>
@@ -700,7 +601,7 @@
               <div class="barbar-block14 layout">
                 <h5 class="barbar-highlights layout">
                   {{ item.value.day }}
-                  <span style="color: 'red';">*</span>
+                  <span style="color: #ff0000;">*</span>
                 </h5>
                 <span class="set24">
                   <h5 class="barbar-highlights layout">Open 24 Hours</h5>
@@ -714,7 +615,7 @@
                   ></mat-checkbox>
                 </span>
 
-                <mat-form-field class="barbar-box6 layout width50">
+                <mat-form-field appearance="outline">
                   <input
                     type="text"
                     placeholder="Select"
@@ -736,7 +637,7 @@
 
                 to
 
-                <mat-form-field class="barbar-box6 layout width50">
+                <mat-form-field appearance="outline" >
                   <input
                     type="text"
                     placeholder="Select"

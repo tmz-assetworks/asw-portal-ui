@@ -174,8 +174,8 @@ Location A </pre
 
                 <div class="dashboard-block42 layout">
                   <div class="dashboard-block42-item">
+                  @if (chargersChartData !== ''){
                     <app-bar-chart
-                      *ngIf="chargersChartData !== ''"
                       [chartType]="'bar'"
                       [chartTitle]="'Chargers'"
                       [chargersData]="chargersChartData"
@@ -183,11 +183,12 @@ Location A </pre
                         openDetailPage(5, 'Chargers', 'ANALYTICS', selectedTime)
                       "
                     ></app-bar-chart>
+                  }
                   </div>
 
                   <div class="dashboard-block42-item">
-                    <app-area-chart
-                      *ngIf="chargingSessionData !== ''"
+                    @if (chargingSessionData !== ''){
+                      <app-area-chart
                       (areaDetailPage)="
                         openDetailPage(
                           6,
@@ -200,12 +201,14 @@ Location A </pre
                       [chartType]="'chargingSession'"
                       [chartTitle]="'Charging Session'"
                     ></app-area-chart>
+                    }
+                    
                   </div>
                 </div>
                 <div class="dashboard-block42 layout">
                   <div class="dashboard-block42-item">
-                    <app-line-chart
-                      *ngIf="energyAnalyticsUsedData !== ''"
+                    @if (energyAnalyticsUsedData !== ''){
+                      <app-line-chart
                       [energyUsedData]="energyAnalyticsUsedData"
                       [chartType]="'energyAnalyticsUsed'"
                       [chartTitle]="'Energy Demand Over Time'"
@@ -218,13 +221,12 @@ Location A </pre
                         )
                       "
                     ></app-line-chart>
+                    }
                   </div>
                   <div class="dashboard-block42-spacer"></div>
                   <div class="dashboard-block42-item">
-                    <!-- <app-graph-card></app-graph-card>  
--->
+                    @if (locationAnalyticsMilesAddData !== ''){
                     <app-stacked-area-chart
-                      *ngIf="locationAnalyticsMilesAddData !== ''"
                       [locationAnalyticsMilesAddData]="
                         locationAnalyticsMilesAddData
                       "
@@ -239,6 +241,7 @@ Location A </pre
                         )
                       "
                     ></app-stacked-area-chart>
+                    }
                   </div>
                 </div>
               </div>

@@ -1,14 +1,31 @@
 import { Component, OnInit } from '@angular/core'
-import { FormControl } from '@angular/forms'
-
+import { FormControl, ReactiveFormsModule } from '@angular/forms'
 import { LocationService } from '../location.service'
 import { DashboardService } from '../../dashboard/dashboard.service'
 import { StorageService } from 'src/app/service/storage.service'
-import { ActivatedRoute, Router } from '@angular/router'
+import { ActivatedRoute, Router, RouterModule } from '@angular/router'
+import { StackedAreaChartComponent } from 'src/app/component/dashboard/stacked-area-chart/stacked-area-chart.component'
+import { LineChartComponent } from 'src/app/component/dashboard/line-chart/line-chart.component'
+import { AreaChartComponent } from 'src/app/component/dashboard/area-chart/area-chart.component'
+import { BarChartComponent } from 'src/app/component/dashboard/bar-chart/bar-chart.component'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
+import { LocationStatusPanelComponent } from '../location-status-panel/location-status-panel.component'
+import { WidgetComponent } from 'src/app/component/dashboard/widget/widget.component'
 @Component({
   selector: 'app-analytics',
   templateUrl: './analytics.component.html',
   styleUrls: ['./analytics.component.scss'],
+  imports:[
+    WidgetComponent,
+    StackedAreaChartComponent,
+    LineChartComponent,
+    AreaChartComponent,
+    BarChartComponent,
+    SharedMaterialModule,
+    LocationStatusPanelComponent,
+    ReactiveFormsModule,
+    RouterModule
+  ]
 })
 export class AnalyticsComponent implements OnInit {
   isAnalytics = true

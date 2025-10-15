@@ -1,17 +1,23 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
 import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
-import { Router } from '@angular/router'
+import { Router, RouterModule } from '@angular/router'
 import { StorageService } from 'src/app/service/storage.service'
 import { ManageChargerService } from './manage-charger-service'
 import { AdminService } from '../admin.service'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
+import { CommonModule } from '@angular/common'
 @Component({
   selector: 'app-manage-chargers',
   templateUrl: './manage-chargers.component.html',
   styleUrls: ['./manage-chargers.component.scss'],
+  imports:[
+    SharedMaterialModule,
+    RouterModule,
+    CommonModule
+  ]
 })
 export class ManageChargersComponent implements OnInit {
-  vehicleList = []
 
   totalCount: any
   pageSize: number = 10
@@ -35,7 +41,7 @@ export class ManageChargersComponent implements OnInit {
     'Action',
   ]
 
-  dataSource = new MatTableDataSource<any>(this.vehicleList)
+  dataSource = new MatTableDataSource<any>([])
 
   portType: any
 
@@ -124,15 +130,15 @@ export class ManageChargersComponent implements OnInit {
    */
 
   pageChange(event: any) {
-    if (event.pageSize !== this.pageSize) {
-      this.currentPage = 1
-      this.pageSize = event.pageSize
-      this.paginator.pageIndex = 0
-    } else {
+    if (event.pageSize == this.pageSize) {
       this.currentPage =
         event.previousPageIndex < event.pageIndex
           ? this.currentPage + 1
           : this.currentPage - 1
+    } else {
+      this.currentPage = 1
+      this.pageSize = event.pageSize
+      this.paginator.pageIndex = 0      
     }
 
     this.GetDispensersWithPagination()

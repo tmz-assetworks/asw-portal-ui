@@ -4,16 +4,18 @@ import { Component, OnInit } from '@angular/core'
 import { EChartsOption } from 'echarts'
 import { StorageService } from 'src/app/service/storage.service'
 import { LocationService } from '../location.service'
+import { NgxEchartsDirective } from 'ngx-echarts'
 
 @Component({
   selector: 'app-location-status-panel',
   templateUrl: './location-status-panel.component.html',
   styleUrls: ['./location-status-panel.component.scss'],
+  imports:[NgxEchartsDirective,]
 })
 export class LocationStatusPanelComponent implements OnInit {
   chartOption: EChartsOption = {}
   infra: any
-  dataSet = []
+  dataSet:string[] = []
   energyUsed: any
   energyPoints: any
   infrakey: any
@@ -151,7 +153,7 @@ export class LocationStatusPanelComponent implements OnInit {
           itemStyle: {
             color: '#90993F',
           },
-          data: [parseInt(values[0].replaceAll(',', '')), '-', '-'],
+          data: [Number.parseInt(values[0].replaceAll(',', '')), '-', '-'],
         },
         {
           name: 'Daily Cost',
@@ -160,7 +162,7 @@ export class LocationStatusPanelComponent implements OnInit {
           itemStyle: {
             color: '#E97300',
           },
-          data: ['-', parseInt(values[1].replaceAll(',', '')), '-'],
+          data: ['-', Number.parseInt(values[1].replaceAll(',', '')), '-'],
         },
         {
           name: "Today's Cost",
@@ -169,7 +171,7 @@ export class LocationStatusPanelComponent implements OnInit {
           itemStyle: {
             color: '#0062A6',
           },
-          data: ['-', '-', parseInt(values[2].replaceAll(',', ''))],
+          data: ['-', '-', Number.parseInt(values[2].replaceAll(',', ''))],
         },
       ],
     }

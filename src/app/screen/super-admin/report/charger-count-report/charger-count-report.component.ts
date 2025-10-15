@@ -1,15 +1,16 @@
-import { Component, OnInit, ViewChild } from '@angular/core'
-import { FormControl } from '@angular/forms'
-import { ActivatedRoute, Router } from '@angular/router'
-
-import { AuthService } from 'src/app/service/auth/auth.service'
+import { Component, OnInit } from '@angular/core'
+import { FormControl, ReactiveFormsModule } from '@angular/forms'
+import { ActivatedRoute, Router, RouterModule } from '@angular/router'
 import { StorageService } from 'src/app/service/storage.service'
 import { ReportService } from '../report.service'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
+import { BarChartComponent } from 'src/app/component/dashboard/bar-chart/bar-chart.component'
 
 @Component({
   selector: 'app-charger-count-report',
   templateUrl: './charger-count-report.component.html',
   styleUrls: ['./charger-count-report.component.scss'],
+  imports:[SharedMaterialModule,RouterModule,BarChartComponent,ReactiveFormsModule]
 })
 export class ChargerCountReportComponent implements OnInit {
   filterToggle = new FormControl('12')

@@ -1,18 +1,25 @@
-import { DatePipe } from '@angular/common'
+import { CommonModule, DatePipe } from '@angular/common'
 import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
-import { ActivatedRoute, Router } from '@angular/router'
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
+import { ActivatedRoute, Router, RouterModule } from '@angular/router'
 
 import { ToastrService } from 'ngx-toastr'
 import { StorageService } from 'src/app/service/storage.service'
 import Swal from 'sweetalert2'
 
 import { AdminService } from '../../admin.service'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 
 @Component({
   selector: 'app-add-assets',
   templateUrl: './add-assets.component.html',
   styleUrls: ['./add-assets.component.scss'],
+  imports:[
+    RouterModule,
+    SharedMaterialModule,
+    CommonModule,
+    ReactiveFormsModule
+    ]
 })
 export class AddAssetsComponent implements OnInit {
   //Declare variables
@@ -371,8 +378,7 @@ export class AddAssetsComponent implements OnInit {
 
   addAssets() {
     this.submitted = true
-    if (this.addAssetsForm.get('assetDetails')?.invalid) {
-      this._toastr.error('Please fill mandatory fields.')
+    if (!this.validateFormGroup('assetDetails', this.addAssetsForm.get('assetDetails'))) {
       return
     }
 
@@ -395,8 +401,7 @@ export class AddAssetsComponent implements OnInit {
    */
   updateAssets() {
     this.submitted = true
-    if (this.addAssetsForm.get('assetDetails')?.invalid) {
-      this._toastr.error('Please fill mandatory fields.')
+    if (!this.validateFormGroup('assetDetails', this.addAssetsForm.get('assetDetails'))) {
       return
     }
     if (this.typeId == 1) {
@@ -421,30 +426,9 @@ export class AddAssetsComponent implements OnInit {
   getCableDetailsById(id: any) {
     this._adminService.GetCableById(id).subscribe((res) => {
       if (res.data) {
-        this.setAssetsDetails(res.data)
-
-        if (res.data.makeMasterId) {
-          this.selectedMakeCable = res.data.makeMasterId
-          this.addAssetsForm['controls']['assetCableDetails'].patchValue({
-            Make: res.data.makeMasterName,
-          })
-        }
-        if (res.data.modelName) {
-          this.selectedModelCable = res.data.modelId
-          this.addAssetsForm['controls']['assetCableDetails'].patchValue({
-            Model: res.data.modelName,
-          })
-        }
-
-        this.addAssetsForm['controls']['assetCableDetails'].patchValue({
-          WarrantyStart: res.data.warrantyStartDate,
-        })
-        this.addAssetsForm['controls']['assetCableDetails'].patchValue({
-          WarrantyEnd: res.data.warrantyExpiryDate,
-        })
-        this.addAssetsForm['controls']['assetCableDetails'].patchValue({
-          WarrantyDuration: res.data.warrantyDuration,
-        })
+        this.patchAssetDetails(res.data)
+        this.patchMakeAndModel('assetCableDetails', res.data, 'makeMaster', 'model')
+        this.patchWarrantyDetails('assetCableDetails', res.data)
       }
     })
   }
@@ -490,60 +474,21 @@ export class AddAssetsComponent implements OnInit {
    * CREATE PAD
    */
   createPad() {
-    if (this.addAssetsForm.get('assetPadDetails')?.invalid) {
-      this._toastr.error('Please fill mandatory fields.')
+    if (!this.validateFormGroup('assetPadDetails', this.addAssetsForm.get('assetPadDetails'))) {
       return
     }
-    let data = this.addAssetsForm
-    const pBody = {
-      serialNumber: data.value.assetDetails.SerialNumber.trim(),
-      assetId: data.value.assetDetails.AssetID.trim(),
-      createdBy: this.UserId,
-      installationDate: this.datePipe.transform(
-        data.value.assetPadDetails.InstallationDate,
-        'yyyy-MM-ddT' + this.getModifiedTime(),
-      ),
-      isActive: data.value.assetDetails.IsActive,
-      padName: data.value.assetPadDetails.PadName,
-      statusId: this.selectedStatus,
-      locationId: this.selectedLocation,
-    }
-    Swal.fire({
-      title: '<strong>Are you sure you want to confirm?</strong>',
-      icon: 'success',
+    const padRequestBody = this.buildPadRequestBody(this.addAssetsForm, false)
 
-      focusConfirm: true,
-      confirmButtonText: ' <span style="color:#0062A6">CANCEL<span>',
-      confirmButtonColor: '#E6E8E9',
-
-      cancelButtonColor: '#0062A6',
-      cancelButtonText: ' CONFIRM',
-      showCancelButton: true,
-    }).then((result) => {
+    this.showConfirmationDialog().then((result) => {
       if (result.isDismissed) {
-        this._adminService.CreatePad(pBody).subscribe(
+        this._adminService.CreatePad(padRequestBody).subscribe(
           (res) => {
             if (res) {
-              //Do your stuffs...
-              this._toastr.success('Record saved successfully.')
-              this.addAssetsForm.reset()
-              this.showLoader = false
-              this.submitted = false
-              this._router.navigate(['admin/assets'])
+              this.handleSuccess('Record saved successfully.')
             }
           },
           (error: any) => {
-            if (error.status == 400) {
-              if (error.error.statusCode == 200) {
-                let errorMsg = error.error.statusMessage
-                this._toastr.error(errorMsg)
-                this.showLoader = false
-              } else {
-                let errorMsg = error.error.errors
-                this._toastr.error(errorMsg)
-                this.showLoader = false
-              }
-            }
+            this.handleError(error)
           },
         )
       }
@@ -555,61 +500,21 @@ export class AddAssetsComponent implements OnInit {
    */
 
   updatePad() {
-    if (this.addAssetsForm.get('assetPadDetails')?.invalid) {
-      this._toastr.error('Please fill mandatory fields.')
+    if (!this.validateFormGroup('assetPadDetails', this.addAssetsForm.get('assetPadDetails'))) {
       return
     }
-    let data = this.addAssetsForm
-    const pBody = {
-      id: this.assetId,
-      serialNumber: data.value.assetDetails.SerialNumber.trim(),
-      assetId: data.value.assetDetails.AssetID.trim(),
-      modifiedBy: this.UserId,
-      installationDate: this.datePipe.transform(
-        data.value.assetPadDetails.InstallationDate,
-        'yyyy-MM-ddT' + this.getModifiedTime(),
-      ),
-      isActive: data.value.assetDetails.IsActive,
-      padName: data.value.assetPadDetails.PadName,
-      statusId: this.selectedStatus,
-      locationId: this.selectedLocation,
-    }
-    Swal.fire({
-      title: '<strong>Are you sure you want to confirm?</strong>',
-      icon: 'success',
+    const padRequestBody = this.buildPadRequestBody(this.addAssetsForm, true)
 
-      focusConfirm: true,
-      confirmButtonText: ' <span style="color:#0062A6">CANCEL<span>',
-      confirmButtonColor: '#E6E8E9',
-
-      cancelButtonColor: '#0062A6',
-      cancelButtonText: ' CONFIRM',
-      showCancelButton: true,
-    }).then((result) => {
+    this.showConfirmationDialog().then((result) => {
       if (result.isDismissed) {
-        this._adminService.UpdatePad(pBody).subscribe(
+        this._adminService.UpdatePad(padRequestBody).subscribe(
           (res) => {
             if (res) {
-              //Do your stuffs...
-              this._toastr.success('Record updated successfully.')
-              this.addAssetsForm.reset()
-              this.showLoader = false
-              this.submitted = false
-              this._router.navigate(['admin/assets'])
+              this.handleSuccess('Record updated successfully.')
             }
           },
           (error: any) => {
-            if (error.status == 400) {
-              if (error.error.statusCode == 200) {
-                let errorMsg = error.error.statusMessage
-                this._toastr.error(errorMsg)
-                this.showLoader = false
-              } else {
-                let errorMsg = error.error.errors
-                this._toastr.error(errorMsg)
-                this.showLoader = false
-              }
-            }
+            this.handleError(error)
           },
         )
       }
@@ -621,63 +526,18 @@ export class AddAssetsComponent implements OnInit {
    */
 
   createCable() {
-    let data = this.addAssetsForm
-    const pBody = {
-      assetId: data.value.assetDetails.AssetID.trim(),
-      serialNumber: data.value.assetDetails.SerialNumber.trim(),
-      makeMasterId: this.selectedMakeCable,
-      modelId: this.selectedModelCable,
-      locationId: this.selectedLocation,
-      statusId: this.selectedStatus,
-      isActive: data.value.assetDetails.IsActive,
-      warrantyDuration: data.value.assetCableDetails.WarrantyDuration,
-      warrantyExpiryDate: this.datePipe.transform(
-        data.value.assetCableDetails.WarrantyEnd,
-        'yyyy-MM-ddT' + this.getModifiedTime(),
-      ),
-      warrantyStartDate: this.datePipe.transform(
-        data.value.assetCableDetails.WarrantyStart,
-        'yyyy-MM-ddT' + this.getModifiedTime(),
-      ),
-      createdBy: this.UserId,
-    }
+    const cableRequestBody = this.buildCableRequestBody(this.addAssetsForm, false)
 
-    Swal.fire({
-      title: '<strong>Are you sure you want to confirm?</strong>',
-      icon: 'success',
-
-      focusConfirm: true,
-      confirmButtonText: ' <span style="color:#0062A6">CANCEL<span>',
-      confirmButtonColor: '#E6E8E9',
-
-      cancelButtonColor: '#0062A6',
-      cancelButtonText: ' CONFIRM',
-      showCancelButton: true,
-    }).then((result) => {
+    this.showConfirmationDialog().then((result) => {
       if (result.isDismissed) {
-        this._adminService.CreateCable(pBody).subscribe(
+        this._adminService.CreateCable(cableRequestBody).subscribe(
           (res) => {
             if (res.statusCode == 200) {
-              //Do your stuffs...
-              this._toastr.success('Record saved successfully.')
-              this.addAssetsForm.reset()
-              this.showLoader = false
-              this.submitted = false
-              this._router.navigate(['admin/assets'])
+              this.handleSuccess('Record saved successfully.')
             }
           },
           (error: any) => {
-            if (error.status == 400) {
-              if (error.error.statusCode == 200) {
-                let errorMsg = error.error.statusMessage
-                this._toastr.error(errorMsg)
-                this.showLoader = false
-              } else {
-                let errorMsg = error.error.errors
-                this._toastr.error(errorMsg)
-                this.showLoader = false
-              }
-            }
+            this.handleError(error)
           },
         )
       }
@@ -689,68 +549,21 @@ export class AddAssetsComponent implements OnInit {
    */
 
   updateCable() {
-    if (this.addAssetsForm.get('assetCableDetails')?.invalid) {
-      this._toastr.error('Please fill mandatory fields.')
+    if (!this.validateFormGroup('assetCableDetails', this.addAssetsForm.get('assetCableDetails'))) {
       return
     }
-    let data = this.addAssetsForm
-    const pBody = {
-      id: this.assetId,
-      assetId: data.value.assetDetails.AssetID.trim(),
-      serialNumber: data.value.assetDetails.SerialNumber.trim(),
-      makeMasterId: this.selectedMakeCable,
-      modelId: this.selectedModelCable,
-      locationId: this.selectedLocation,
-      statusId: this.selectedStatus,
-      isActive: data.value.assetDetails.IsActive,
-      warrantyDuration: data.value.assetCableDetails.WarrantyDuration,
-      warrantyExpiryDate: this.datePipe.transform(
-        data.value.assetCableDetails.WarrantyEnd,
-        'yyyy-MM-ddT' + this.getModifiedTime(),
-      ),
-      warrantyStartDate: this.datePipe.transform(
-        data.value.assetCableDetails.WarrantyStart,
-        'yyyy-MM-ddT' + this.getModifiedTime(),
-      ),
-      modifiedBy: this.UserId,
-    }
+    const cableRequestBody = this.buildCableRequestBody(this.addAssetsForm, true)
 
-    Swal.fire({
-      title: '<strong>Are you sure you want to confirm?</strong>',
-      icon: 'success',
-
-      focusConfirm: true,
-      confirmButtonText: ' <span style="color:#0062A6">CANCEL<span>',
-      confirmButtonColor: '#E6E8E9',
-
-      cancelButtonColor: '#0062A6',
-      cancelButtonText: ' CONFIRM',
-      showCancelButton: true,
-    }).then((result) => {
+    this.showConfirmationDialog().then((result) => {
       if (result.isDismissed) {
-        this._adminService.UpdateCable(pBody).subscribe(
+        this._adminService.UpdateCable(cableRequestBody).subscribe(
           (res) => {
             if (res) {
-              //Do your stuffs...
-              this._toastr.success('Record updated successfully.')
-              this.addAssetsForm.reset()
-              this.showLoader = false
-              this.submitted = false
-              this._router.navigate(['admin/assets'])
+              this.handleSuccess('Record updated successfully.')
             }
           },
           (error: any) => {
-            if (error.status == 400) {
-              if (error.error.statusCode == 200) {
-                let errorMsg = error.error.statusMessage
-                this._toastr.error(errorMsg)
-                this.showLoader = false
-              } else {
-                let errorMsg = error.error.errors
-                this._toastr.error(errorMsg)
-                this.showLoader = false
-              }
-            }
+            this.handleError(error)
           },
         )
       }
@@ -765,11 +578,9 @@ export class AddAssetsComponent implements OnInit {
   getPadDetailsbyID(id: number) {
     this._adminService.GetPadById(id).subscribe((res) => {
       if (res.data) {
-        this.setAssetsDetails(res.data)
-        this.addAssetsForm['controls']['assetPadDetails'].patchValue({
+        this.patchAssetDetails(res.data)
+        ;(this.addAssetsForm['controls']['assetPadDetails'] as any).patchValue({
           InstallationDate: res.data.installationDate,
-        })
-        this.addAssetsForm['controls']['assetPadDetails'].patchValue({
           PadName: res.data.padName,
         })
       }
@@ -781,32 +592,7 @@ export class AddAssetsComponent implements OnInit {
    * Set asset details
    */
   setAssetsDetails(data: any) {
-    // this.addAssetsForm['controls']['assetDetails'].patchValue({
-    //   AssetCategory: data.type,
-    // })
-    this.addAssetsForm['controls']['assetDetails'].patchValue({
-      SerialNumber: data.serialNumber,
-    })
-    this.addAssetsForm['controls']['assetDetails'].patchValue({
-      AssetID: data.assetId,
-    })
-
-    if (data.locationName) {
-      this.selectedLocation = data.locationId
-      this.addAssetsForm['controls']['assetDetails'].patchValue({
-        Location: data.locationName,
-      })
-    }
-    if (data.statusName) {
-      this.selectedStatus = data.statusId
-      this.addAssetsForm['controls']['assetDetails'].patchValue({
-        Status: data.statusName,
-      })
-    }
-
-    this.addAssetsForm['controls']['assetDetails'].patchValue({
-      IsActive: data.isActive,
-    })
+    this.patchAssetDetails(data)
   }
 
   /**
@@ -815,136 +601,21 @@ export class AddAssetsComponent implements OnInit {
 
   calDurationStart(event: any, type: string) {
     if (type == 'cable') {
-      let endDate = this.addAssetsForm.value.assetCableDetails.WarrantyEnd
-
-      let startDate = event.value
-
-      let edate = new Date(endDate)
-
-      if (endDate) {
-        if (startDate > edate) {
-          this._toastr.error('Please start date should be less than end date.')
-          this.addAssetsForm['controls']['assetCableDetails'].patchValue({
-            WarrantyEnd: '',
-          })
-          this.addAssetsForm['controls']['assetCableDetails'].patchValue({
-            WarrantyDuration: '',
-          })
-        } else {
-          let duration = Math.floor(
-            (Date.UTC(edate.getFullYear(), edate.getMonth(), edate.getDate()) -
-              Date.UTC(
-                startDate.getFullYear(),
-                startDate.getMonth(),
-                startDate.getDate(),
-              )) /
-              (1000 * 60 * 60 * 24),
-          )
-          this.addAssetsForm['controls']['assetCableDetails'].patchValue({
-            WarrantyDuration: duration,
-          })
-        }
-      }
+      const endDate = this.addAssetsForm.value.assetCableDetails?.WarrantyEnd
+      const startDate = event.value
+      this.handleWarrantyStartDateChange('cable', startDate, endDate)
     } else if (type == 'power-cabinet') {
-      let endDate = this.addAssetsForm.value.assetPowerCabinetDetails
-        .WarrantyEnd
-
-      let startDate = event.value
-
-      let edate = new Date(endDate)
-
-      if (endDate) {
-        if (startDate > edate) {
-          this._toastr.error('Please start date should be less than end date.')
-          this.addAssetsForm['controls']['assetPowerCabinetDetails'].patchValue(
-            {
-              WarrantyEnd: '',
-            },
-          )
-          this.addAssetsForm['controls']['assetPowerCabinetDetails'].patchValue(
-            {
-              WarrantyDuration: '',
-            },
-          )
-        } else {
-          let duration = Math.floor(
-            (Date.UTC(edate.getFullYear(), edate.getMonth(), edate.getDate()) -
-              Date.UTC(
-                startDate.getFullYear(),
-                startDate.getMonth(),
-                startDate.getDate(),
-              )) /
-              (1000 * 60 * 60 * 24),
-          )
-          this.addAssetsForm['controls']['assetPowerCabinetDetails'].patchValue(
-            {
-              WarrantyDuration: duration,
-            },
-          )
-        }
-      }
+      const endDate = this.addAssetsForm.value.assetPowerCabinetDetails?.WarrantyEnd
+      const startDate = event.value
+      this.handleWarrantyStartDateChange('power-cabinet', startDate, endDate)
     } else if (type == 'rfid') {
-      let endDate = this.addAssetsForm.value.assetRFIDReaderDetails.WarrantyEnd
-
-      let startDate = event.value
-
-      let edate = new Date(endDate)
-
-      if (endDate) {
-        if (startDate > edate) {
-          this._toastr.error('Please start date should be less than end date.')
-          this.addAssetsForm['controls']['assetRFIDReaderDetails'].patchValue({
-            WarrantyEnd: '',
-          })
-          this.addAssetsForm['controls']['assetRFIDReaderDetails'].patchValue({
-            WarrantyDuration: '',
-          })
-        } else {
-          let duration = Math.floor(
-            (Date.UTC(edate.getFullYear(), edate.getMonth(), edate.getDate()) -
-              Date.UTC(
-                startDate.getFullYear(),
-                startDate.getMonth(),
-                startDate.getDate(),
-              )) /
-              (1000 * 60 * 60 * 24),
-          )
-          this.addAssetsForm['controls']['assetRFIDReaderDetails'].patchValue({
-            WarrantyDuration: duration,
-          })
-        }
-      }
+      const endDate = this.addAssetsForm.value.assetRFIDReaderDetails?.WarrantyEnd
+      const startDate = event.value
+      this.handleWarrantyStartDateChange('rfid', startDate, endDate)
     } else if (type == 'modem') {
-      let endDate = this.addAssetsForm.value.assetModemDetails.WarrantyEnd
-
-      let startDate = event.value
-
-      let edate = new Date(endDate)
-
-      if (endDate) {
-        if (startDate > edate) {
-          this._toastr.error('Please start date should be less than end date.')
-          this.addAssetsForm['controls']['assetModemDetails'].patchValue({
-            WarrantyEnd: '',
-          })
-          this.addAssetsForm['controls']['assetModemDetails'].patchValue({
-            WarrantyDuration: '',
-          })
-        } else {
-          let duration = Math.floor(
-            (Date.UTC(edate.getFullYear(), edate.getMonth(), edate.getDate()) -
-              Date.UTC(
-                startDate.getFullYear(),
-                startDate.getMonth(),
-                startDate.getDate(),
-              )) /
-              (1000 * 60 * 60 * 24),
-          )
-          this.addAssetsForm['controls']['assetModemDetails'].patchValue({
-            WarrantyDuration: duration,
-          })
-        }
-      }
+      const endDate = this.addAssetsForm.value.assetModemDetails?.WarrantyEnd
+      const startDate = event.value
+      this.handleWarrantyStartDateChange('modem', startDate, endDate)
     }
   }
 
@@ -957,156 +628,21 @@ export class AddAssetsComponent implements OnInit {
 
   calDuration(event: any, type: string) {
     if (type == 'cable') {
-      let startDate = this.addAssetsForm.value.assetCableDetails.WarrantyStart
-
-      let endDate = event.value
-
-      let sdate = new Date(startDate)
-
-      if (!startDate) {
-        this._toastr.error('Please Choose Start Date first.')
-
-        this.addAssetsForm['controls']['assetCableDetails'].patchValue({
-          WarrantyEnd: '',
-        })
-        return
-      }
-      if (sdate > endDate) {
-        this._toastr.error('End date should be greater than start date.')
-        this.addAssetsForm['controls']['assetCableDetails'].patchValue({
-          WarrantyEnd: '',
-        })
-        this.addAssetsForm['controls']['assetCableDetails'].patchValue({
-          WarrantyDuration: '',
-        })
-      } else {
-        let duration = Math.floor(
-          (Date.UTC(
-            endDate.getFullYear(),
-            endDate.getMonth(),
-            endDate.getDate(),
-          ) -
-            Date.UTC(sdate.getFullYear(), sdate.getMonth(), sdate.getDate())) /
-            (1000 * 60 * 60 * 24),
-        )
-        this.addAssetsForm['controls']['assetCableDetails'].patchValue({
-          WarrantyDuration: duration,
-        })
-      }
+      const startDate = this.addAssetsForm.value.assetCableDetails?.WarrantyStart
+      const endDate = event.value
+      this.handleWarrantyEndDateChange('cable', startDate, endDate)
     } else if (type == 'power-cabinet') {
-      let startDate = this.addAssetsForm.value.assetPowerCabinetDetails
-        .WarrantyStart
-
-      let endDate = event.value
-
-      let sdate = new Date(startDate)
-
-      if (!sdate) {
-        this._toastr.error('Please Choose Start Date first.')
-
-        this.addAssetsForm['controls']['assetPowerCabinetDetails'].patchValue({
-          WarrantyEnd: '',
-        })
-        return
-      }
-
-      if (sdate > endDate) {
-        this._toastr.error('Please end date should be greater than start date.')
-        this.addAssetsForm['controls']['assetPowerCabinetDetails'].patchValue({
-          WarrantyEnd: '',
-        })
-        this.addAssetsForm['controls']['assetPowerCabinetDetails'].patchValue({
-          WarrantyDuration: '',
-        })
-      } else {
-        let duration = Math.floor(
-          (Date.UTC(
-            endDate.getFullYear(),
-            endDate.getMonth(),
-            endDate.getDate(),
-          ) -
-            Date.UTC(sdate.getFullYear(), sdate.getMonth(), sdate.getDate())) /
-            (1000 * 60 * 60 * 24),
-        )
-        this.addAssetsForm['controls']['assetPowerCabinetDetails'].patchValue({
-          WarrantyDuration: duration,
-        })
-      }
+      const startDate = this.addAssetsForm.value.assetPowerCabinetDetails?.WarrantyStart
+      const endDate = event.value
+      this.handleWarrantyEndDateChange('power-cabinet', startDate, endDate)
     } else if (type == 'rfid') {
-      let startDate = this.addAssetsForm.value.assetRFIDReaderDetails
-        .WarrantyStart
-
-      let endDate = event.value
-
-      let sdate = new Date(startDate)
-
-      if (!sdate) {
-        this._toastr.error('Please Choose Start Date first.')
-
-        this.addAssetsForm['controls']['assetRFIDReaderDetails'].patchValue({
-          WarrantyEnd: '',
-        })
-        return
-      }
-      if (sdate > endDate) {
-        this._toastr.error('End date should be greater than start date.')
-        this.addAssetsForm['controls']['assetRFIDReaderDetails'].patchValue({
-          WarrantyEnd: '',
-        })
-        this.addAssetsForm['controls']['assetRFIDReaderDetails'].patchValue({
-          WarrantyDuration: '',
-        })
-      } else {
-        let duration = Math.floor(
-          (Date.UTC(
-            endDate.getFullYear(),
-            endDate.getMonth(),
-            endDate.getDate(),
-          ) -
-            Date.UTC(sdate.getFullYear(), sdate.getMonth(), sdate.getDate())) /
-            (1000 * 60 * 60 * 24),
-        )
-        this.addAssetsForm['controls']['assetRFIDReaderDetails'].patchValue({
-          WarrantyDuration: duration,
-        })
-      }
+      const startDate = this.addAssetsForm.value.assetRFIDReaderDetails?.WarrantyStart
+      const endDate = event.value
+      this.handleWarrantyEndDateChange('rfid', startDate, endDate)
     } else if (type == 'modem') {
-      let startDate = this.addAssetsForm.value.assetModemDetails.WarrantyStart
-
-      let endDate = event.value
-      let sdate = new Date(startDate)
-
-      if (!sdate) {
-        this._toastr.error('Please Choose Start Date first.')
-
-        this.addAssetsForm['controls']['assetModemDetails'].patchValue({
-          WarrantyEnd: '',
-        })
-        return
-      }
-
-      if (sdate > endDate) {
-        this._toastr.error('End date should be greater than start date.')
-        this.addAssetsForm['controls']['assetModemDetails'].patchValue({
-          WarrantyEnd: '',
-        })
-        this.addAssetsForm['controls']['assetModemDetails'].patchValue({
-          WarrantyDuration: '',
-        })
-      } else {
-        let duration = Math.floor(
-          (Date.UTC(
-            endDate.getFullYear(),
-            endDate.getMonth(),
-            endDate.getDate(),
-          ) -
-            Date.UTC(sdate.getFullYear(), sdate.getMonth(), sdate.getDate())) /
-            (1000 * 60 * 60 * 24),
-        )
-        this.addAssetsForm['controls']['assetModemDetails'].patchValue({
-          WarrantyDuration: duration,
-        })
-      }
+      const startDate = this.addAssetsForm.value.assetModemDetails?.WarrantyStart
+      const endDate = event.value
+      this.handleWarrantyEndDateChange('modem', startDate, endDate)
     }
   }
 
@@ -1118,9 +654,8 @@ export class AddAssetsComponent implements OnInit {
    */
 
   dateFilter = (d: any | null) => {
-    // const date = new Date();
-    // date.setDate(date.getDate() - 30);
-    return d >= this.addAssetsForm.value.assetCableDetails.WarrantyStart
+    const warrantyStart = this.addAssetsForm.value.assetCableDetails?.WarrantyStart;
+  return warrantyStart ? d >= warrantyStart : false;
   }
   /**
    * Get all make
@@ -1160,10 +695,7 @@ export class AddAssetsComponent implements OnInit {
    * @param id
    */
   selectMakeCable(event: any, id: number) {
-    if (!event.isUserInput) {
-      return
-    }
-    this.selectedMakeCable = id
+    this.selectMakeOrModel(event, id, 'selectedMakeCable')
   }
 
   /**
@@ -1172,10 +704,7 @@ export class AddAssetsComponent implements OnInit {
    */
 
   selectModelCable(event: any, id: number) {
-    if (!event.isUserInput) {
-      return
-    }
-    this.selectedModelCable = id
+    this.selectMakeOrModel(event, id, 'selectedModelCable')
   }
 
   /**
@@ -1185,79 +714,21 @@ export class AddAssetsComponent implements OnInit {
    */
 
   createPowerCabinet() {
-    if (this.addAssetsForm.get('assetPowerCabinetDetails')?.invalid) {
-      this._toastr.error('Please fill mandatory fields.')
+    if (!this.validateFormGroup('assetPowerCabinetDetails', this.addAssetsForm.get('assetPowerCabinetDetails'))) {
       return
     }
-    let data = this.addAssetsForm
-    const pBody = {
-      assetId: data.value.assetDetails.AssetID.trim(),
-      breakerRating: parseInt(
-        data.value.assetPowerCabinetDetails.BreakerRating,
-      ),
-      createdBy: this.UserId,
-      dcPortQuantityRating: parseInt(
-        data.value.assetPowerCabinetDetails.DCPortQuantity,
-      ),
-      installationDate: this.datePipe.transform(
-        data.value.assetPowerCabinetDetails.InstallationDate,
-        'yyyy-MM-ddT' + this.getModifiedTime(),
-      ),
-      makeMasterId: this.selectedMakePowerCabinet,
-      modelId: this.selectedModelPowerCabinet,
-      peakCurrent: parseInt(data.value.assetPowerCabinetDetails.PeakCurrent),
-      serialNumber: data.value.assetDetails.SerialNumber.trim(),
-      serviceVolts: parseInt(data.value.assetPowerCabinetDetails.ServiceVolts),
-      isActive: data.value.assetDetails.IsActive,
-      statusId: this.selectedStatus,
-      locationId: this.selectedLocation,
-      warrantyDuration: data.value.assetPowerCabinetDetails.WarrantyDuration,
-      warrantyExpiryDate: this.datePipe.transform(
-        data.value.assetPowerCabinetDetails.WarrantyEnd,
-        'yyyy-MM-ddT' + this.getModifiedTime(),
-      ),
-      warrantyStartDate: this.datePipe.transform(
-        data.value.assetPowerCabinetDetails.WarrantyStart,
-        'yyyy-MM-ddT' + this.getModifiedTime(),
-      ),
-    }
+    const powerCabinetRequestBody = this.buildPowerCabinetRequestBody(this.addAssetsForm, false)
 
-    Swal.fire({
-      title: '<strong>Are you sure you want to confirm?</strong>',
-      icon: 'success',
-
-      focusConfirm: true,
-      confirmButtonText: ' <span style="color:#0062A6">CANCEL<span>',
-      confirmButtonColor: '#E6E8E9',
-
-      cancelButtonColor: '#0062A6',
-      cancelButtonText: ' CONFIRM',
-      showCancelButton: true,
-    }).then((result) => {
+    this.showConfirmationDialog().then((result) => {
       if (result.isDismissed) {
-        this._adminService.CreatePowerCabinet(pBody).subscribe(
+        this._adminService.CreatePowerCabinet(powerCabinetRequestBody).subscribe(
           (res) => {
             if (res) {
-              //Do your stuffs...
-              this._toastr.success('Record saved successfully.')
-              this.addAssetsForm.reset()
-              this.showLoader = false
-              this.submitted = false
-              this._router.navigate(['admin/assets'])
+              this.handleSuccess('Record saved successfully.')
             }
           },
           (error: any) => {
-            if (error.status == 400) {
-              if (error.error.statusCode == 200) {
-                let errorMsg = error.error.statusMessage
-                this._toastr.error(errorMsg)
-                this.showLoader = false
-              } else {
-                let errorMsg = error.error.errors
-                this._toastr.error(errorMsg)
-                this.showLoader = false
-              }
-            }
+            this.handleError(error)
           },
         )
       }
@@ -1271,81 +742,21 @@ export class AddAssetsComponent implements OnInit {
    */
 
   updatePowerCabinet() {
-    if (this.addAssetsForm.get('assetPowerCabinetDetails')?.invalid) {
-      this._toastr.error('Please fill mandatory fields.')
+    if (!this.validateFormGroup('assetPowerCabinetDetails', this.addAssetsForm.get('assetPowerCabinetDetails'))) {
       return
     }
-    let data = this.addAssetsForm
-    const pBody = {
-      id: this.assetId,
-      assetId: data.value.assetDetails.AssetID.trim(),
-      breakerRating: parseInt(
-        data.value.assetPowerCabinetDetails.BreakerRating,
-      ),
-      createdBy: this.UserId,
-      dcPortQuantityRating: parseInt(
-        data.value.assetPowerCabinetDetails.DCPortQuantity,
-      ),
-      installationDate: this.datePipe.transform(
-        data.value.assetPowerCabinetDetails.InstallationDate,
-        'yyyy-MM-ddT' + this.getModifiedTime(),
-      ),
-      makeMasterId: this.selectedMakePowerCabinet,
-      modelId: this.selectedModelPowerCabinet,
-      peakCurrent: parseInt(data.value.assetPowerCabinetDetails.PeakCurrent),
-      serialNumber: data.value.assetDetails.SerialNumber.trim(),
-      serviceVolts: parseInt(data.value.assetPowerCabinetDetails.ServiceVolts),
-      isActive: data.value.assetDetails.IsActive,
-      statusId: this.selectedStatus,
-      locationId: this.selectedLocation,
-      warrantyDuration: data.value.assetPowerCabinetDetails.WarrantyDuration,
-      warrantyExpiryDate: this.datePipe.transform(
-        data.value.assetPowerCabinetDetails.WarrantyEnd,
-        'yyyy-MM-ddT' + this.getModifiedTime(),
-      ),
-      warrantyStartDate: this.datePipe.transform(
-        data.value.assetPowerCabinetDetails.WarrantyStart,
-        'yyyy-MM-ddT' + this.getModifiedTime(),
-      ),
-      modifiedBy: this.UserId,
-    }
+    const powerCabinetRequestBody = this.buildPowerCabinetRequestBody(this.addAssetsForm, true)
 
-    Swal.fire({
-      title: '<strong>Are you sure you want to confirm?</strong>',
-      icon: 'success',
-
-      focusConfirm: true,
-      confirmButtonText: ' <span style="color:#0062A6">CANCEL<span>',
-      confirmButtonColor: '#E6E8E9',
-
-      cancelButtonColor: '#0062A6',
-      cancelButtonText: ' CONFIRM',
-      showCancelButton: true,
-    }).then((result) => {
+    this.showConfirmationDialog().then((result) => {
       if (result.isDismissed) {
-        this._adminService.UpdatePowerCabinet(pBody).subscribe(
+        this._adminService.UpdatePowerCabinet(powerCabinetRequestBody).subscribe(
           (res) => {
             if (res) {
-              //Do your stuffs...
-              this._toastr.success('Record updated successfully.')
-              this.addAssetsForm.reset()
-              this.showLoader = false
-              this.submitted = false
-              this._router.navigate(['admin/assets'])
+              this.handleSuccess('Record updated successfully.')
             }
           },
           (error: any) => {
-            if (error.status == 400) {
-              if (error.error.statusCode == 200) {
-                let errorMsg = error.error.statusMessage
-                this._toastr.error(errorMsg)
-                this.showLoader = false
-              } else {
-                let errorMsg = error.error.errors
-                this._toastr.error(errorMsg)
-                this.showLoader = false
-              }
-            }
+            this.handleError(error)
           },
         )
       }
@@ -1360,49 +771,16 @@ export class AddAssetsComponent implements OnInit {
   getPowerCabinetById(id: number) {
     this._adminService.GetPowerCabinetById(id).subscribe((res) => {
       if (res.data) {
-        this.setAssetsDetails(res.data)
-        this.addAssetsForm['controls']['assetPowerCabinetDetails'].patchValue({
+        this.patchAssetDetails(res.data)
+        ;(this.addAssetsForm['controls']['assetPowerCabinetDetails'] as any).patchValue({
           BreakerRating: res.data.breakerRating,
-        })
-        this.addAssetsForm['controls']['assetPowerCabinetDetails'].patchValue({
           DCPortQuantity: res.data.dcPortQuantityRating,
-        })
-
-        this.addAssetsForm['controls']['assetPowerCabinetDetails'].patchValue({
           InstallationDate: res.data.installationDate,
-        })
-        this.addAssetsForm['controls']['assetPowerCabinetDetails'].patchValue({
           PeakCurrent: res.data.peakCurrent,
-        })
-        this.addAssetsForm['controls']['assetPowerCabinetDetails'].patchValue({
           ServiceVolts: res.data.serviceVolts,
         })
-        this.addAssetsForm['controls']['assetPowerCabinetDetails'].patchValue({
-          WarrantyStart: res.data.warrantyStartDate,
-        })
-        this.addAssetsForm['controls']['assetPowerCabinetDetails'].patchValue({
-          WarrantyEnd: res.data.warrantyExpiryDate,
-        })
-        this.addAssetsForm['controls']['assetPowerCabinetDetails'].patchValue({
-          WarrantyDuration: res.data.warrantyDuration,
-        })
-
-        if (res.data.modelName) {
-          this.selectedModelPowerCabinet = res.data.modelId
-          this.addAssetsForm['controls']['assetPowerCabinetDetails'].patchValue(
-            {
-              Model: res.data.modelName,
-            },
-          )
-        }
-        if (res.data.makeMasterName) {
-          this.selectedMakePowerCabinet = res.data.makeMasterId
-          this.addAssetsForm['controls']['assetPowerCabinetDetails'].patchValue(
-            {
-              Make: res.data.makeMasterName,
-            },
-          )
-        }
+        this.patchWarrantyDetails('assetPowerCabinetDetails', res.data)
+        this.patchMakeAndModel('assetPowerCabinetDetails', res.data, 'makeMaster', 'model')
       }
     })
   }
@@ -1413,10 +791,7 @@ export class AddAssetsComponent implements OnInit {
    * Select power cabinet make
    */
   selectMakePowerCabinet(event: any, id: any) {
-    if (!event.isUserInput) {
-      return
-    }
-    this.selectedMakePowerCabinet = id
+    this.selectMakeOrModel(event, id, 'selectedMakePowerCabinet')
   }
 
   /**
@@ -1429,10 +804,7 @@ export class AddAssetsComponent implements OnInit {
    */
 
   selectModelPowerCabinet(event: any, id: any) {
-    if (!event.isUserInput) {
-      return
-    }
-    this.selectedModelPowerCabinet = id
+    this.selectMakeOrModel(event, id, 'selectedModelPowerCabinet')
   }
 
   /**
@@ -1442,68 +814,21 @@ export class AddAssetsComponent implements OnInit {
    */
 
   createRfIdReader() {
-    if (this.addAssetsForm.get('assetRFIDReaderDetails')?.invalid) {
-      this._toastr.error('Please fill mandatory fields.')
+    if (!this.validateFormGroup('assetRFIDReaderDetails', this.addAssetsForm.get('assetRFIDReaderDetails'))) {
       return
     }
-    let data = this.addAssetsForm
-    const pBody = {
-      assetId: data.value.assetDetails.AssetID.trim(),
-      makeMasterId: this.selectedMakeRFID,
-      modelId: this.selectedModelRFID,
-      serialNumber: data.value.assetDetails.SerialNumber.trim(),
-      isActive: data.value.assetDetails.IsActive,
-      statusId: this.selectedStatus,
-      locationId: this.selectedLocation,
-      cardReader: data.value.assetRFIDReaderDetails.CardReader,
-      warrantyDuration: data.value.assetRFIDReaderDetails.WarrantyDuration,
-      warrantyExpiryDate: this.datePipe.transform(
-        data.value.assetRFIDReaderDetails.WarrantyEnd,
-        'yyyy-MM-ddT' + this.getModifiedTime(),
-      ),
-      warrantyStartDate: this.datePipe.transform(
-        data.value.assetRFIDReaderDetails.WarrantyStart,
-        'yyyy-MM-ddT' + this.getModifiedTime(),
-      ),
-      createdBy: this.UserId,
-    }
+    const rfidReaderRequestBody = this.buildRfidReaderRequestBody(this.addAssetsForm, false)
 
-    Swal.fire({
-      title: '<strong>Are you sure you want to confirm?</strong>',
-      icon: 'success',
-
-      focusConfirm: true,
-      confirmButtonText: ' <span style="color:#0062A6">CANCEL<span>',
-      confirmButtonColor: '#E6E8E9',
-
-      cancelButtonColor: '#0062A6',
-      cancelButtonText: ' CONFIRM',
-      showCancelButton: true,
-    }).then((result) => {
+    this.showConfirmationDialog().then((result) => {
       if (result.isDismissed) {
-        this._adminService.AddRfIdReader(pBody).subscribe(
+        this._adminService.AddRfIdReader(rfidReaderRequestBody).subscribe(
           (res) => {
             if (res) {
-              //Do your stuffs...
-              this._toastr.success('Record saved successfully.')
-              this.addAssetsForm.reset()
-              this.showLoader = false
-              this.submitted = false
-              this._router.navigate(['admin/assets'])
+              this.handleSuccess('Record saved successfully.')
             }
           },
           (error: any) => {
-            if (error.status == 400) {
-              if (error.error.statusCode == 200) {
-                let errorMsg = error.error.statusMessage
-                this._toastr.error(errorMsg)
-                this.showLoader = false
-              } else {
-                let errorMsg = error.error.errors
-                this._toastr.error(errorMsg)
-                this.showLoader = false
-              }
-            }
+            this.handleError(error)
           },
         )
       }
@@ -1517,69 +842,21 @@ export class AddAssetsComponent implements OnInit {
    */
 
   updateRFIDReader() {
-    if (this.addAssetsForm.get('assetRFIDReaderDetails')?.invalid) {
-      this._toastr.error('Please fill mandatory fields.')
+    if (!this.validateFormGroup('assetRFIDReaderDetails', this.addAssetsForm.get('assetRFIDReaderDetails'))) {
       return
     }
-    let data = this.addAssetsForm
-    const pBody = {
-      id: this.assetId,
-      assetId: data.value.assetDetails.AssetID.trim(),
-      makeMasterId: this.selectedMakeRFID,
-      modelId: this.selectedModelRFID,
-      serialNumber: data.value.assetDetails.SerialNumber.trim(),
-      isActive: data.value.assetDetails.IsActive,
-      statusId: this.selectedStatus,
-      locationId: this.selectedLocation,
-      cardReader: data.value.assetRFIDReaderDetails.CardReader,
-      warrantyDuration: data.value.assetRFIDReaderDetails.WarrantyDuration,
-      warrantyExpiryDate: this.datePipe.transform(
-        data.value.assetRFIDReaderDetails.WarrantyEnd,
-        'yyyy-MM-ddT' + this.getModifiedTime(),
-      ),
-      warrantyStartDate: this.datePipe.transform(
-        data.value.assetRFIDReaderDetails.WarrantyStart,
-        'yyyy-MM-ddT' + this.getModifiedTime(),
-      ),
-      modifiedBy: this.UserId,
-    }
+    const rfidReaderRequestBody = this.buildRfidReaderRequestBody(this.addAssetsForm, true)
 
-    Swal.fire({
-      title: '<strong>Are you sure you want to confirm?</strong>',
-      icon: 'success',
-
-      focusConfirm: true,
-      confirmButtonText: ' <span style="color:#0062A6">CANCEL<span>',
-      confirmButtonColor: '#E6E8E9',
-
-      cancelButtonColor: '#0062A6',
-      cancelButtonText: ' CONFIRM',
-      showCancelButton: true,
-    }).then((result) => {
+    this.showConfirmationDialog().then((result) => {
       if (result.isDismissed) {
-        this._adminService.UpdateRfIdReader(pBody).subscribe(
+        this._adminService.UpdateRfIdReader(rfidReaderRequestBody).subscribe(
           (res) => {
             if (res) {
-              //Do your stuffs...
-              this._toastr.success('Record updated successfully.')
-              this.addAssetsForm.reset()
-              this.showLoader = false
-              this.submitted = false
-              this._router.navigate(['admin/assets'])
+              this.handleSuccess('Record updated successfully.')
             }
           },
           (error: any) => {
-            if (error.status == 400) {
-              if (error.error.statusCode == 200) {
-                let errorMsg = error.error.statusMessage
-                this._toastr.error(errorMsg)
-                this.showLoader = false
-              } else {
-                let errorMsg = error.error.errors
-                this._toastr.error(errorMsg)
-                this.showLoader = false
-              }
-            }
+            this.handleError(error)
           },
         )
       }
@@ -1594,32 +871,12 @@ export class AddAssetsComponent implements OnInit {
   getRfidReaderById(id: number) {
     this._adminService.GetRfIdReaderById(id).subscribe((res) => {
       if (res.data) {
-        this.setAssetsDetails(res.data)
-        this.addAssetsForm['controls']['assetRFIDReaderDetails'].patchValue({
+        this.patchAssetDetails(res.data)
+        ;(this.addAssetsForm['controls']['assetRFIDReaderDetails'] as any).patchValue({
           CardReader: res.data.cardReader,
         })
-        this.addAssetsForm['controls']['assetRFIDReaderDetails'].patchValue({
-          WarrantyStart: res.data.warrantyStartDate,
-        })
-        this.addAssetsForm['controls']['assetRFIDReaderDetails'].patchValue({
-          WarrantyEnd: res.data.warrantyExpiryDate,
-        })
-        this.addAssetsForm['controls']['assetRFIDReaderDetails'].patchValue({
-          WarrantyDuration: res.data.warrantyDuration,
-        })
-
-        if (res.data.modelName) {
-          this.selectedModelRFID = res.data.modelId
-          this.addAssetsForm['controls']['assetRFIDReaderDetails'].patchValue({
-            Model: res.data.modelName,
-          })
-        }
-        if (res.data.makeMasterName) {
-          this.selectedMakeRFID = res.data.makeMasterId
-          this.addAssetsForm['controls']['assetRFIDReaderDetails'].patchValue({
-            Make: res.data.makeMasterName,
-          })
-        }
+        this.patchWarrantyDetails('assetRFIDReaderDetails', res.data)
+        this.patchMakeAndModel('assetRFIDReaderDetails', res.data, 'makeMaster', 'model')
       }
     })
   }
@@ -1629,10 +886,7 @@ export class AddAssetsComponent implements OnInit {
    * @param id
    */
   selectMakeRFID(event: any, id: number) {
-    if (!event.isUserInput) {
-      return
-    }
-    this.selectedMakeRFID = id
+    this.selectMakeOrModel(event, id, 'selectedMakeRFID')
   }
 
   /**
@@ -1641,10 +895,7 @@ export class AddAssetsComponent implements OnInit {
    */
 
   selectModelRFID(event: any, id: number) {
-    if (!event.isUserInput) {
-      return
-    }
-    this.selectedModelRFID = id
+    this.selectMakeOrModel(event, id, 'selectedModelRFID')
   }
 
   /**
@@ -1667,10 +918,7 @@ export class AddAssetsComponent implements OnInit {
    * @param id
    */
   selectMakeModem(event: any, id: number) {
-    if (!event.isUserInput) {
-      return
-    }
-    this.selectedMakeModem = id
+    this.selectMakeOrModel(event, id, 'selectedMakeModem')
   }
 
   /**
@@ -1679,10 +927,7 @@ export class AddAssetsComponent implements OnInit {
    */
 
   selectModelModem(event: any, id: number) {
-    if (!event.isUserInput) {
-      return
-    }
-    this.selectedModelModem = id
+    this.selectMakeOrModel(event, id, 'selectedModelModem')
   }
 
   /**
@@ -1691,10 +936,7 @@ export class AddAssetsComponent implements OnInit {
    */
 
   selectModemType(event: any, id: number) {
-    if (!event.isUserInput) {
-      return
-    }
-    this.selectedModemType = id
+    this.selectMakeOrModel(event, id, 'selectedModemType')
   }
 
   /**
@@ -1704,76 +946,21 @@ export class AddAssetsComponent implements OnInit {
    */
 
   createModem() {
-    if (this.addAssetsForm.get('assetModemDetails')?.invalid) {
-      this._toastr.error('Please fill mandatory fields.')
+    if (!this.validateFormGroup('assetModemDetails', this.addAssetsForm.get('assetModemDetails'))) {
       return
     }
-    let data = this.addAssetsForm
-    const pBody = {
-      assetId: data.value.assetDetails.AssetID.trim(),
-      makeMasterId: this.selectedMakeModem,
-      modelId: this.selectedModelModem,
-      serialNumber: data.value.assetDetails.SerialNumber.trim(),
-      isActive: data.value.assetDetails.IsActive,
-      statusId: this.selectedStatus,
-      locationId: this.selectedLocation,
-      carrier: data.value.assetModemDetails.Carrier,
-      installationDate: this.datePipe.transform(
-        data.value.assetModemDetails.InstallationDate,
-        'yyyy-MM-ddT' + this.getModifiedTime(),
-      ),
-      simNumber: data.value.assetModemDetails.SimNumber,
-      modemTypeId: this.selectedModemType,
-      imeiNumber: data.value.assetModemDetails.ImeiNumber,
-      ipAddress: data.value.assetModemDetails.IpAddress,
-      warrantyDuration: data.value.assetModemDetails.WarrantyDuration,
-      warrantyExpiryDate: this.datePipe.transform(
-        data.value.assetModemDetails.WarrantyEnd,
-        'yyyy-MM-ddT' + this.getModifiedTime(),
-      ),
-      warrantyStartDate: this.datePipe.transform(
-        data.value.assetModemDetails.WarrantyStart,
-        'yyyy-MM-ddT' + this.getModifiedTime(),
-      ),
-      createdBy: this.UserId,
-    }
+    const modemRequestBody = this.buildModemRequestBody(this.addAssetsForm, false)
 
-    Swal.fire({
-      title: '<strong>Are you sure you want to confirm?</strong>',
-      icon: 'success',
-
-      focusConfirm: true,
-      confirmButtonText: ' <span style="color:#0062A6">CANCEL<span>',
-      confirmButtonColor: '#E6E8E9',
-
-      cancelButtonColor: '#0062A6',
-      cancelButtonText: ' CONFIRM',
-      showCancelButton: true,
-    }).then((result) => {
+    this.showConfirmationDialog().then((result) => {
       if (result.isDismissed) {
-        this._adminService.CreateModem(pBody).subscribe(
+        this._adminService.CreateModem(modemRequestBody).subscribe(
           (res) => {
             if (res) {
-              //Do your stuffs...
-              this._toastr.success('Record saved successfully.')
-              this.addAssetsForm.reset()
-              this.showLoader = false
-              this.submitted = false
-              this._router.navigate(['admin/assets'])
+              this.handleSuccess('Record saved successfully.')
             }
           },
           (error: any) => {
-            if (error.status == 400) {
-              if (error.error.statusCode == 200) {
-                let errorMsg = error.error.statusMessage
-                this._toastr.error(errorMsg)
-                this.showLoader = false
-              } else {
-                let errorMsg = error.error.errors
-                this._toastr.error(errorMsg)
-                this.showLoader = false
-              }
-            }
+            this.handleError(error)
           },
         )
       }
@@ -1789,54 +976,24 @@ export class AddAssetsComponent implements OnInit {
   getModemDetailsById(id: number) {
     this._adminService.GetModembyid(id).subscribe((res) => {
       if (res.data) {
-        this.setAssetsDetails(res.data)
-        this.addAssetsForm['controls']['assetModemDetails'].patchValue({
+        this.patchAssetDetails(res.data)
+        ;(this.addAssetsForm['controls']['assetModemDetails'] as any).patchValue({
           Carrier: res.data.carrier,
-        })
-        this.addAssetsForm['controls']['assetModemDetails'].patchValue({
           ImeiNumber: res.data.imeiNumber,
-        })
-
-        this.addAssetsForm['controls']['assetModemDetails'].patchValue({
           InstallationDate: res.data.installationDate,
-        })
-        this.addAssetsForm['controls']['assetModemDetails'].patchValue({
           IpAddress: res.data.ipAddress,
-        })
-
-        this.addAssetsForm['controls']['assetModemDetails'].patchValue({
           SimNumber: res.data.simNumber,
         })
-
-        this.addAssetsForm['controls']['assetModemDetails'].patchValue({
-          WarrantyStart: res.data.warrantyStartDate,
-        })
-        this.addAssetsForm['controls']['assetModemDetails'].patchValue({
-          WarrantyEnd: res.data.warrantyExpiryDate,
-        })
-        this.addAssetsForm['controls']['assetModemDetails'].patchValue({
-          WarrantyDuration: res.data.warrantyDuration,
-        })
+        this.patchWarrantyDetails('assetModemDetails', res.data)
 
         if (res.data.modemTypeName) {
           this.selectedModemType = res.data.modemTypeId
-          this.addAssetsForm['controls']['assetModemDetails'].patchValue({
+          ;(this.addAssetsForm['controls']['assetModemDetails'] as any).patchValue({
             ModemType: res.data.modemTypeId,
           })
         }
 
-        if (res.data.modelName) {
-          this.selectedModelModem = res.data.modelId
-          this.addAssetsForm['controls']['assetModemDetails'].patchValue({
-            Model: res.data.modelName,
-          })
-        }
-        if (res.data.makeMasterName) {
-          this.selectedMakeModem = res.data.makeMasterId
-          this.addAssetsForm['controls']['assetModemDetails'].patchValue({
-            Make: res.data.makeMasterName,
-          })
-        }
+        this.patchMakeAndModel('assetModemDetails', res.data, 'makeMaster', 'model')
       }
     })
   }
@@ -1848,77 +1005,21 @@ export class AddAssetsComponent implements OnInit {
    */
 
   updateModem() {
-    if (this.addAssetsForm.get('assetModemDetails')?.invalid) {
-      this._toastr.error('Please fill mandatory fields.')
+    if (!this.validateFormGroup('assetModemDetails', this.addAssetsForm.get('assetModemDetails'))) {
       return
     }
-    let data = this.addAssetsForm
-    const pBody = {
-      id: this.assetId,
-      assetId: data.value.assetDetails.AssetID.trim(),
-      makeMasterId: this.selectedMakeModem,
-      modelId: this.selectedModelModem,
-      serialNumber: data.value.assetDetails.SerialNumber.trim(),
-      isActive: data.value.assetDetails.IsActive,
-      statusId: this.selectedStatus,
-      locationId: this.selectedLocation,
-      carrier: data.value.assetModemDetails.Carrier,
-      installationDate: this.datePipe.transform(
-        data.value.assetModemDetails.InstallationDate,
-        'yyyy-MM-ddT' + this.getModifiedTime(),
-      ),
-      simNumber: data.value.assetModemDetails.SimNumber,
-      modemTypeId: this.selectedModemType,
-      imeiNumber: data.value.assetModemDetails.ImeiNumber,
-      ipAddress: data.value.assetModemDetails.IpAddress,
-      warrantyDuration: data.value.assetModemDetails.WarrantyDuration,
-      warrantyExpiryDate: this.datePipe.transform(
-        data.value.assetModemDetails.WarrantyEnd,
-        'yyyy-MM-ddT' + this.getModifiedTime(),
-      ),
-      warrantyStartDate: this.datePipe.transform(
-        data.value.assetModemDetails.WarrantyStart,
-        'yyyy-MM-ddT' + this.getModifiedTime(),
-      ),
-      modifiedBy: this.UserId,
-    }
+    const modemRequestBody = this.buildModemRequestBody(this.addAssetsForm, true)
 
-    Swal.fire({
-      title: '<strong>Are you sure you want to confirm?</strong>',
-      icon: 'success',
-
-      focusConfirm: true,
-      confirmButtonText: ' <span style="color:#0062A6">CANCEL<span>',
-      confirmButtonColor: '#E6E8E9',
-
-      cancelButtonColor: '#0062A6',
-      cancelButtonText: ' CONFIRM',
-      showCancelButton: true,
-    }).then((result) => {
+    this.showConfirmationDialog().then((result) => {
       if (result.isDismissed) {
-        this._adminService.UpdateModem(pBody).subscribe(
+        this._adminService.UpdateModem(modemRequestBody).subscribe(
           (res) => {
             if (res) {
-              //Do your stuffs...
-              this._toastr.success('Record updated successfully.')
-              this.addAssetsForm.reset()
-              this.showLoader = false
-              this.submitted = false
-              this._router.navigate(['admin/assets'])
+              this.handleSuccess('Record updated successfully.')
             }
           },
           (error: any) => {
-            if (error.status == 400) {
-              if (error.error.statusCode == 200) {
-                let errorMsg = error.error.statusMessage
-                this._toastr.error(errorMsg)
-                this.showLoader = false
-              } else {
-                let errorMsg = error.error.errors
-                this._toastr.error(errorMsg)
-                this.showLoader = false
-              }
-            }
+            this.handleError(error)
           },
         )
       }
@@ -1932,8 +1033,8 @@ export class AddAssetsComponent implements OnInit {
   getSwitchGearDetailsById(id: number) {
     this._adminService.GetSwitchGearById(id).subscribe((res) => {
       if (res.data) {
-        this.setAssetsDetails(res.data)
-        this.addAssetsForm['controls']['assetSwitchGearDetails'].patchValue({
+        this.patchAssetDetails(res.data)
+        ;(this.addAssetsForm['controls']['assetSwitchGearDetails'] as any).patchValue({
           switchGearName: res.data.switchGearName,
         })
       }
@@ -1947,57 +1048,21 @@ export class AddAssetsComponent implements OnInit {
    */
 
   createSwitchGear() {
-    if (this.addAssetsForm.get('assetSwitchGearDetails')?.invalid) {
-      this._toastr.error('Please fill mandatory fields.')
+    if (!this.validateFormGroup('assetSwitchGearDetails', this.addAssetsForm.get('assetSwitchGearDetails'))) {
       return
     }
-    let data = this.addAssetsForm
-    const pBody = {
-      assetId: data.value.assetDetails.AssetID.trim(),
-      serialNumber: data.value.assetDetails.SerialNumber.trim(),
-      isActive: data.value.assetDetails.IsActive,
-      statusId: this.selectedStatus,
-      locationId: this.selectedLocation,
-      switchGearName: data.value.assetSwitchGearDetails.switchGearName,
-      createdBy: this.UserId,
-    }
+    const switchGearRequestBody = this.buildSwitchGearRequestBody(this.addAssetsForm, false)
 
-    Swal.fire({
-      title: '<strong>Are you sure you want to confirm?</strong>',
-      icon: 'success',
-
-      focusConfirm: true,
-      confirmButtonText: ' <span style="color:#0062A6">CANCEL<span>',
-      confirmButtonColor: '#E6E8E9',
-
-      cancelButtonColor: '#0062A6',
-      cancelButtonText: ' CONFIRM',
-      showCancelButton: true,
-    }).then((result) => {
+    this.showConfirmationDialog().then((result) => {
       if (result.isDismissed) {
-        this._adminService.CreateSwitchGear(pBody).subscribe(
+        this._adminService.CreateSwitchGear(switchGearRequestBody).subscribe(
           (res) => {
             if (res) {
-              //Do your stuffs...
-              this._toastr.success('Record saved successfully.')
-              this.addAssetsForm.reset()
-              this.showLoader = false
-              this.submitted = false
-              this._router.navigate(['admin/assets'])
+              this.handleSuccess('Record saved successfully.')
             }
           },
           (error: any) => {
-            if (error.status == 400) {
-              if (error.error.statusCode == 200) {
-                let errorMsg = error.error.statusMessage
-                this._toastr.error(errorMsg)
-                this.showLoader = false
-              } else {
-                let errorMsg = error.error.errors
-                this._toastr.error(errorMsg)
-                this.showLoader = false
-              }
-            }
+            this.handleError(error)
           },
         )
       }
@@ -2010,58 +1075,21 @@ export class AddAssetsComponent implements OnInit {
    */
 
   updateSwitchGear() {
-    if (this.addAssetsForm.get('assetSwitchGearDetails')?.invalid) {
-      this._toastr.error('Please fill mandatory fields.')
+    if (!this.validateFormGroup('assetSwitchGearDetails', this.addAssetsForm.get('assetSwitchGearDetails'))) {
       return
     }
-    let data = this.addAssetsForm
-    const pBody = {
-      id: this.assetId,
-      assetId: data.value.assetDetails.AssetID.trim(),
-      serialNumber: data.value.assetDetails.SerialNumber.trim(),
-      isActive: data.value.assetDetails.IsActive,
-      statusId: this.selectedStatus,
-      locationId: this.selectedLocation,
-      switchGearName: data.value.assetSwitchGearDetails.switchGearName,
-      modifiedBy: this.UserId,
-    }
+    const switchGearRequestBody = this.buildSwitchGearRequestBody(this.addAssetsForm, true)
 
-    Swal.fire({
-      title: '<strong>Are you sure you want to confirm?</strong>',
-      icon: 'success',
-
-      focusConfirm: true,
-      confirmButtonText: ' <span style="color:#0062A6">CANCEL<span>',
-      confirmButtonColor: '#E6E8E9',
-
-      cancelButtonColor: '#0062A6',
-      cancelButtonText: ' CONFIRM',
-      showCancelButton: true,
-    }).then((result) => {
+    this.showConfirmationDialog().then((result) => {
       if (result.isDismissed) {
-        this._adminService.UpdateSwitchGear(pBody).subscribe(
+        this._adminService.UpdateSwitchGear(switchGearRequestBody).subscribe(
           (res) => {
             if (res) {
-              //Do your stuffs...
-              this._toastr.success('Record updated successfully.')
-              this.addAssetsForm.reset()
-              this.showLoader = false
-              this.submitted = false
-              this._router.navigate(['admin/assets'])
+              this.handleSuccess('Record updated successfully.')
             }
           },
           (error: any) => {
-            if (error.status == 400) {
-              if (error.error.statusCode == 200) {
-                let errorMsg = error.error.statusMessage
-                this._toastr.error(errorMsg)
-                this.showLoader = false
-              } else {
-                let errorMsg = error.error.errors
-                this._toastr.error(errorMsg)
-                this.showLoader = false
-              }
-            }
+            this.handleError(error)
           },
         )
       }
@@ -2087,13 +1115,11 @@ export class AddAssetsComponent implements OnInit {
   }
   checkInstallationDate(event: any, type: string) {
     if (type == 'power-cabinet') {
-      let startDate = this.addAssetsForm.value.assetPowerCabinetDetails
-        .WarrantyStart
-      let sDate = new Date(startDate)
+      let startDate = this.addAssetsForm.value.assetPowerCabinetDetails?.WarrantyStart
+      let sDate = startDate ? new Date(startDate):null
 
-      let endDate = this.addAssetsForm.value.assetPowerCabinetDetails
-        .WarrantyEnd
-      let eDate = new Date(endDate)
+      let endDate = this.addAssetsForm.value.assetPowerCabinetDetails?.WarrantyEnd
+      let eDate = endDate ? new Date(endDate) : null
 
       if (!sDate || !eDate) {
         this._toastr.error(
@@ -2119,13 +1145,13 @@ export class AddAssetsComponent implements OnInit {
         }
       }
     } else if (type == 'modem') {
-      let startDate = this.addAssetsForm.value.assetModemDetails.WarrantyStart
+      let startDate = this.addAssetsForm.value.assetModemDetails?.WarrantyStart
 
-      let sDate = new Date(startDate)
+      let sDate =  startDate ? new Date(startDate) : null
 
-      let endDate = this.addAssetsForm.value.assetModemDetails.WarrantyEnd
+      let endDate = this.addAssetsForm.value.assetModemDetails?.WarrantyEnd
 
-      let eDate = new Date(endDate)
+      let eDate = endDate ? new Date(endDate):null
 
       if (!sDate || !eDate) {
         this._toastr.error(
@@ -2159,5 +1185,450 @@ export class AddAssetsComponent implements OnInit {
     let date = new Date()
     let time = this.datePipe.transform(date, 'HH:mm:ss')
     return time
+  }
+
+  /**
+   * Common form validation method
+   * @param formGroupName - Name of the form group to validate
+   * @param formControl - The form group to validate
+   * @returns boolean - true if valid, false if invalid
+   */
+  validateFormGroup(formGroupName: string, formControl: any): boolean {
+    if (formControl?.invalid) {
+      this._toastr.error('Please fill mandatory fields.')
+      return false
+    }
+    return true
+  }
+
+  /**
+   * Common success handler for all operations
+   */
+  handleSuccess(message: string) {
+    this._toastr.success(message)
+    this.addAssetsForm.reset()
+    this.showLoader = false
+    this.submitted = false
+    this._router.navigate(['admin/assets'])
+  }
+
+  /**
+   * Common error handler for all operations
+   */
+  handleError(error: any) {
+    if (error.status == 400) {
+      if (error.error.statusCode == 200) {
+        let errorMsg = error.error.statusMessage
+        this._toastr.error(errorMsg)
+        this.showLoader = false
+      } else {
+        let errorMsg = error.error.errors
+        this._toastr.error(errorMsg)
+        this.showLoader = false
+      }
+    }
+  }
+
+  /**
+   * Common confirmation dialog configuration
+   */
+  showConfirmationDialog(): Promise<any> {
+    return Swal.fire({
+      title: '<strong>Are you sure you want to confirm?</strong>',
+      icon: 'success',
+      focusConfirm: true,
+      confirmButtonText: ' <span style="color:#0062A6">CANCEL<span>',
+      confirmButtonColor: '#E6E8E9',
+      cancelButtonColor: '#0062A6',
+      cancelButtonText: ' CONFIRM',
+      showCancelButton: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+    })
+  }
+
+  /**
+   * Common date transformation helper
+   */
+  transformDate(date: any): string {
+    return this.datePipe.transform(date, 'yyyy-MM-ddT' + this.getModifiedTime()) || ''
+  }
+
+  /**
+   * Generic duration calculation method
+   */
+  calculateDuration(startDate: any, endDate: any): string {
+    if (!startDate || !endDate) {
+      return ''
+    }
+
+    const start = new Date(startDate)
+    const end = new Date(endDate)
+
+    if (start > end) {
+      return ''
+    }
+
+    const duration = Math.floor(
+      (Date.UTC(end.getFullYear(), end.getMonth(), end.getDate()) -
+        Date.UTC(start.getFullYear(), start.getMonth(), start.getDate())) /
+        (1000 * 60 * 60 * 24)
+    )
+
+    return String(duration)
+  }
+
+  /**
+   * Generic form patcher for asset details
+   */
+  patchAssetDetails(data: any) {
+    this.addAssetsForm['controls']['assetDetails'].patchValue({
+      SerialNumber: data.serialNumber,
+      AssetID: data.assetId,
+    })
+
+    if (data.locationName) {
+      this.selectedLocation = data.locationId
+      this.addAssetsForm['controls']['assetDetails'].patchValue({
+        Location: data.locationName,
+      })
+    }
+
+    if (data.statusName) {
+      this.selectedStatus = data.statusId
+      this.addAssetsForm['controls']['assetDetails'].patchValue({
+        Status: data.statusName,
+      })
+    }
+
+    this.addAssetsForm['controls']['assetDetails'].patchValue({
+      IsActive: data.isActive,
+    })
+  }
+
+  /**
+   * Generic method to patch warranty details
+   */
+  patchWarrantyDetails(formGroupName: keyof typeof this.addAssetsForm.controls, data: any) {
+    (this.addAssetsForm['controls'][formGroupName] as any).patchValue({
+      WarrantyStart: data.warrantyStartDate,
+      WarrantyEnd: data.warrantyExpiryDate,
+      WarrantyDuration: data.warrantyDuration,
+    })
+  }
+
+  /**
+   * Generic method to patch make and model
+   */
+  patchMakeAndModel(formGroupName: keyof typeof this.addAssetsForm.controls, data: any, makeField: string, modelField: string) {
+    if (data[`${makeField}Name`]) {
+      const makeProperty = `selectedMake${makeField}` as keyof this
+      ;(this as any)[makeProperty] = data[`${makeField}Id`]
+      ;(this.addAssetsForm['controls'][formGroupName] as any).patchValue({
+        Make: data[`${makeField}Name`],
+      })
+    }
+
+    if (data[`${modelField}Name`]) {
+      const modelProperty = `selectedModel${modelField}` as keyof this
+      ;(this as any)[modelProperty] = data[`${modelField}Id`]
+      ;(this.addAssetsForm['controls'][formGroupName] as any).patchValue({
+        Model: data[`${modelField}Name`],
+      })
+    }
+  }
+
+  /**
+   * Generic selection method for make/model
+   */
+  selectMakeOrModel(event: any, id: number, propertyName: keyof this): void {
+    if (!event.isUserInput) {
+      return
+    }
+    ;(this as any)[propertyName] = id
+  }
+
+  /**
+   * Generic method to build modem request body
+   */
+  buildModemRequestBody(data: any, isUpdate: boolean = false) {
+    const baseBody = {
+      assetId: data?.value?.assetDetails?.AssetID?.trim(),
+      makeMasterId: this.selectedMakeModem,
+      modelId: this.selectedModelModem,
+      serialNumber: data.value.assetDetails?.SerialNumber?.trim(),
+      isActive: data.value.assetDetails?.IsActive,
+      statusId: this.selectedStatus,
+      locationId: this.selectedLocation,
+      carrier: data.value.assetModemDetails?.Carrier,
+      installationDate: this.transformDate(data.value.assetModemDetails?.InstallationDate),
+      simNumber: data.value.assetModemDetails?.SimNumber,
+      modemTypeId: this.selectedModemType,
+      imeiNumber: data.value.assetModemDetails?.ImeiNumber,
+      ipAddress: data.value.assetModemDetails?.IpAddress,
+      warrantyDuration: data.value.assetModemDetails?.WarrantyDuration,
+      warrantyExpiryDate: this.transformDate(data.value.assetModemDetails?.WarrantyEnd),
+      warrantyStartDate: this.transformDate(data.value.assetModemDetails?.WarrantyStart),
+    }
+
+    if (isUpdate) {
+      return {
+        id: this.assetId,
+        ...baseBody,
+        modifiedBy: this.UserId,
+      }
+    } else {
+      return {
+        ...baseBody,
+        createdBy: this.UserId,
+      }
+    }
+  }
+
+  /**
+   * Generic method to build cable request body
+   */
+  buildCableRequestBody(data: any, isUpdate: boolean = false) {
+    const baseBody = {
+      assetId: data.value.assetDetails?.AssetID?.trim(),
+      serialNumber: data.value.assetDetails?.SerialNumber?.trim(),
+      makeMasterId: this.selectedMakeCable,
+      modelId: this.selectedModelCable,
+      locationId: this.selectedLocation,
+      statusId: this.selectedStatus,
+      isActive: data.value.assetDetails?.IsActive,
+      warrantyDuration: data.value.assetCableDetails?.WarrantyDuration,
+      warrantyExpiryDate: this.transformDate(data.value.assetCableDetails?.WarrantyEnd),
+      warrantyStartDate: this.transformDate(data.value.assetCableDetails?.WarrantyStart),
+    }
+
+    if (isUpdate) {
+      return {
+        id: this.assetId,
+        ...baseBody,
+        modifiedBy: this.UserId,
+      }
+    } else {
+      return {
+        ...baseBody,
+        createdBy: this.UserId,
+      }
+    }
+  }
+
+  /**
+   * Generic method to build pad request body
+   */
+  buildPadRequestBody(data: any, isUpdate: boolean = false) {
+    const baseBody = {
+      serialNumber: data.value.assetDetails?.SerialNumber?.trim(),
+      assetId: data.value.assetDetails?.AssetID?.trim(),
+      installationDate: this.transformDate(data.value.assetPadDetails?.InstallationDate),
+      isActive: data.value.assetDetails?.IsActive,
+      padName: data.value.assetPadDetails?.PadName,
+      statusId: this.selectedStatus,
+      locationId: this.selectedLocation,
+    }
+
+    if (isUpdate) {
+      return {
+        id: this.assetId,
+        ...baseBody,
+        modifiedBy: this.UserId,
+      }
+    } else {
+      return {
+        ...baseBody,
+        createdBy: this.UserId,
+      }
+    }
+  }
+
+  /**
+   * Generic method to build power cabinet request body
+   */
+  buildPowerCabinetRequestBody(data: any, isUpdate: boolean = false) {
+    const baseBody = {
+      assetId: data.value.assetDetails?.AssetID?.trim(),
+      breakerRating: Number.parseInt(data.value.assetPowerCabinetDetails?.BreakerRating ?? '0'),
+      dcPortQuantityRating: Number.parseInt(data.value.assetPowerCabinetDetails?.DCPortQuantity ?? '0'),
+      installationDate: this.transformDate(data.value.assetPowerCabinetDetails?.InstallationDate),
+      makeMasterId: this.selectedMakePowerCabinet,
+      modelId: this.selectedModelPowerCabinet,
+      peakCurrent: Number.parseInt(data.value.assetPowerCabinetDetails?.PeakCurrent ?? '0'),
+      serialNumber: data.value.assetDetails?.SerialNumber?.trim(),
+      serviceVolts: Number.parseInt(data.value.assetPowerCabinetDetails?.ServiceVolts ?? '0'),
+      isActive: data.value.assetDetails?.IsActive,
+      statusId: this.selectedStatus,
+      locationId: this.selectedLocation,
+      warrantyDuration: data.value.assetPowerCabinetDetails?.WarrantyDuration,
+      warrantyExpiryDate: this.transformDate(data.value.assetPowerCabinetDetails?.WarrantyEnd),
+      warrantyStartDate: this.transformDate(data.value.assetPowerCabinetDetails?.WarrantyStart),
+    }
+
+    if (isUpdate) {
+      return {
+        id: this.assetId,
+        ...baseBody,
+        modifiedBy: this.UserId,
+      }
+    } else {
+      return {
+        ...baseBody,
+        createdBy: this.UserId,
+      }
+    }
+  }
+
+  /**
+   * Generic method to build RFID reader request body
+   */
+  buildRfidReaderRequestBody(data: any, isUpdate: boolean = false) {
+    const baseBody = {
+      assetId: data.value.assetDetails?.AssetID?.trim(),
+      makeMasterId: this.selectedMakeRFID,
+      modelId: this.selectedModelRFID,
+      serialNumber: data.value.assetDetails?.SerialNumber?.trim(),
+      isActive: data.value.assetDetails?.IsActive,
+      statusId: this.selectedStatus,
+      locationId: this.selectedLocation,
+      cardReader: data.value.assetRFIDReaderDetails?.CardReader,
+      warrantyDuration: data.value.assetRFIDReaderDetails?.WarrantyDuration,
+      warrantyExpiryDate: this.transformDate(data.value.assetRFIDReaderDetails?.WarrantyEnd),
+      warrantyStartDate: this.transformDate(data.value.assetRFIDReaderDetails?.WarrantyStart),
+    }
+
+    if (isUpdate) {
+      return {
+        id: this.assetId,
+        ...baseBody,
+        modifiedBy: this.UserId,
+      }
+    } else {
+      return {
+        ...baseBody,
+        createdBy: this.UserId,
+      }
+    }
+  }
+
+  /**
+   * Generic method to build switch gear request body
+   */
+  buildSwitchGearRequestBody(data: any, isUpdate: boolean = false) {
+    const baseBody = {
+      assetId: data.value.assetDetails?.AssetID?.trim(),
+      serialNumber: data.value.assetDetails?.SerialNumber?.trim(),
+      isActive: data.value.assetDetails?.IsActive,
+      statusId: this.selectedStatus,
+      locationId: this.selectedLocation,
+      switchGearName: data.value.assetSwitchGearDetails?.switchGearName,
+    }
+
+    if (isUpdate) {
+      return {
+        id: this.assetId,
+        ...baseBody,
+        modifiedBy: this.UserId,
+      }
+    } else {
+      return {
+        ...baseBody,
+        createdBy: this.UserId,
+      }
+    }
+  }
+
+  /**
+   * Generic method to handle warranty start date change for any asset type
+   */
+  handleWarrantyStartDateChange(assetType: string, startDate: any, endDate: any) {
+    if (!endDate) return
+
+    if (startDate > new Date(endDate)) {
+      this._toastr.error('Please start date should be less than end date.')
+      this.clearWarrantyEndAndDurationFields(assetType)
+    } else {
+      const duration = this.calculateDuration(startDate, endDate)
+      if (duration) {
+        this.setWarrantyDuration(assetType, duration)
+      }
+    }
+  }
+
+  /**
+   * Generic method to handle warranty end date change for any asset type
+   */
+  handleWarrantyEndDateChange(assetType: string, startDate: any, endDate: any) {
+    if (!startDate) {
+      this._toastr.error('Please Choose Start Date first.')
+      this.clearWarrantyEndField(assetType)
+      return
+    }
+
+    if (new Date(startDate) > endDate) {
+      this._toastr.error('End date should be greater than start date.')
+      this.clearWarrantyEndAndDurationFields(assetType)
+    } else {
+      const duration = this.calculateDuration(startDate, endDate)
+      if (duration) {
+        this.setWarrantyDuration(assetType, duration)
+      }
+    }
+  }
+  
+  /**
+   * Helper method to clear only warranty end field
+   */
+  clearWarrantyEndField(assetType: string) {
+    const formControl = this.getWarrantyFormControl(assetType)
+    if (formControl) {
+      formControl.patchValue({
+        WarrantyEnd: '',
+      })
+    }
+  }
+
+  /**
+   * Helper method to clear warranty end and duration fields
+   */
+  clearWarrantyEndAndDurationFields(assetType: string) {
+    const formControl = this.getWarrantyFormControl(assetType)
+    if (formControl) {
+      formControl.patchValue({
+        WarrantyEnd: '',
+        WarrantyDuration: '',
+      })
+    }
+  }
+
+  /**
+   * Helper method to set warranty duration
+   */
+  setWarrantyDuration(assetType: string, duration: string) {
+    const formControl = this.getWarrantyFormControl(assetType)
+    if (formControl) {
+      formControl.patchValue({
+        WarrantyDuration: duration,
+      })
+    }
+  }
+
+  /**
+   * Helper method to get the correct form control based on asset type
+   */
+  getWarrantyFormControl(assetType: string): any {
+    switch (assetType) {
+      case 'cable':
+        return this.addAssetsForm['controls']['assetCableDetails']
+      case 'power-cabinet':
+        return this.addAssetsForm['controls']['assetPowerCabinetDetails']
+      case 'rfid':
+        return this.addAssetsForm['controls']['assetRFIDReaderDetails']
+      case 'modem':
+        return this.addAssetsForm['controls']['assetModemDetails']
+      default:
+        return null
+    }
   }
 }

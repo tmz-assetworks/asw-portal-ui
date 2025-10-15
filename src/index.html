@@ -19,7 +19,7 @@
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCX40o4SSWDp_a0DDw1u0OjdY-gLKjO18o&libraries=places&language=en"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCX40o4SSWDp_a0DDw1u0OjdY-gLKjO18o&libraries=places&language=en" async defer ></script>
 
 
     <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCX40o4SSWDp_a0DDw1u0OjdY-gLKjO18o"></script> -->
@@ -485,7 +485,7 @@
         var count = markers.length
         var dv = count
         while (dv !== 0) {
-          dv = parseInt(dv / 10, 10)
+          dv = Number.parseInt(dv / 10, 10)
           index++
         }
 
@@ -1232,8 +1232,8 @@
        */
       ClusterIcon.prototype.getPosFromLatLng_ = function (latlng) {
         var pos = this.getProjection().fromLatLngToDivPixel(latlng)
-        pos.x -= parseInt(this.width_ / 2, 10)
-        pos.y -= parseInt(this.height_ / 2, 10)
+        pos.x -= Number.parseInt(this.width_ / 2, 10)
+        pos.y -= Number.parseInt(this.height_ / 2, 10)
         return pos
       }
 
@@ -1331,13 +1331,13 @@
       ClusterIcon.prototype.onRemove = function () {
         if (this.div_ && this.div_.parentNode) {
           this.hide()
-          this.div_.parentNode.removeChild(this.div_)
+          this.div_.remove();
           this.div_ = null
         }
 
         if (this.chart_div_ && this.chart_div_.parentNode) {
           this.hide()
-          this.chart_div_.parentNode.removeChild(this.chart_div_)
+          this.chart_div_.remove();
           this.chart_div_ = null
         }
       }

@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core'
 import { FormControl } from '@angular/forms'
-import { ActivatedRoute, Router } from '@angular/router'
+import { ActivatedRoute, Router, RouterModule } from '@angular/router'
 import { StorageService } from 'src/app/service/storage.service'
 import { ReportService } from '../reports.service'
+import { BarChartComponent } from 'src/app/component/dashboard/bar-chart/bar-chart.component'
+import { LineChartComponent } from 'src/app/component/dashboard/line-chart/line-chart.component'
 
 @Component({
   selector: 'app-report-subscription',
   templateUrl: './report-subscription.component.html',
   styleUrls: ['./report-subscription.component.scss'],
+  imports:[BarChartComponent,LineChartComponent,RouterModule]
 })
 export class ReportSubscriptionComponent implements OnInit {
   filterToggle = new FormControl('1')

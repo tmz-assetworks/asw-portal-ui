@@ -16,18 +16,39 @@ import {
   FormBuilder,
   FormControl,
   FormGroup,
+  ReactiveFormsModule,
   Validators,
 } from '@angular/forms'
 import { interval, map, Observable, startWith } from 'rxjs'
 import { TransactionDialogComponent } from 'src/app/component/dashboard/transaction-dialog/transaction-dialog.component'
-import { DatePipe } from '@angular/common'
-import { Router } from '@angular/router';
+import { CommonModule, DatePipe } from '@angular/common'
+import { Router, RouterModule } from '@angular/router';
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
+import { ToolTipItemComponent } from '../diagnostic/tool-tip-item/tool-tip-item.component'
+import { ToolTipComponent } from '../diagnostic/tool-tip/tool-tip.component'
+import { DiagWidgetComponent } from '../diagnostic/diag-widget/diag-widget.component'
+import { DiagWidgetBarComponent } from '../diagnostic/diag-widget-bar/diag-widget-bar.component'
+import { MatDatetimepickerModule, MatNativeDatetimeModule } from '@mat-datetimepicker/core';
+import { MatMomentDatetimeModule } from '@mat-datetimepicker/moment';
 declare let jsPDF: new () => any
 
 @Component({
   selector: 'app-common-diagnostics',
   templateUrl: './common-diagnostics.component.html',
   styleUrls: ['./common-diagnostics.component.scss'],
+  imports:[
+    CommonModule,
+    SharedMaterialModule,
+    ToolTipItemComponent,
+    ToolTipComponent,
+    DiagWidgetComponent,
+    RouterModule,
+    ReactiveFormsModule,
+    DiagWidgetBarComponent,
+    MatDatetimepickerModule,
+    MatMomentDatetimeModule,
+    MatNativeDatetimeModule
+  ],
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({ height: '0px', minHeight: '0' })),
@@ -40,7 +61,6 @@ declare let jsPDF: new () => any
   ],
 })
 export class CommonDiagnosticsComponent implements OnInit {
-  diagnosticList = []
   chargerName: string | null
   isFireWareItem = false
   isProvisioning = false
@@ -265,7 +285,7 @@ export class CommonDiagnosticsComponent implements OnInit {
     this._storageService.setSessionData('chargerName', data.chargerName)
   }
 
-  dataSource = new MatTableDataSource<any>(this.diagnosticList)
+  dataSource = new MatTableDataSource<any>([])
 
   displayedColumns = ['OperatorType', 'Datetime', 'action']
   expandedElement!: any | null
@@ -535,7 +555,7 @@ export class CommonDiagnosticsComponent implements OnInit {
       searchParam: '',
       pageSize: this.pageSize,
       orderBy: '',
-      locationIds: [],
+      locationIds: [] as number[],
       opratorid: this.UserId,
       chargerBoxIds: this.chargerId == '' ? [] : [this.chargerId.toString()],
     }
@@ -553,19 +573,7 @@ export class CommonDiagnosticsComponent implements OnInit {
         this.totalCount = res.paginationResponse.totalCount
         this.totalPages = res.paginationResponse.totalPages
         this.pageSize = res.paginationResponse.pageSize
-        // this.transactionId
-        // let a = '[3,\r\n"StartTransaction",\r\n{\n  "idTagInfo": {\n    "status": "Accepted",\r\n\n    "expiryDate": "2024-06-27T12:15:44.557",\r\n\n    "parentIdTag": {\n      "IdToken": "RFID_CB011"\n    }\n  },\r\n\n  "transactionId": 3104\n}]'
-        this.diagnosticList = res.data
-        this.dataSource.data = this.diagnosticList
-        if (
-          res.data[0].responsePayload !== undefined &&
-          res.data[0].responsePayload !== ''
-        ) {
-          let a = res.data[0].responsePayload
-          this.transactionId = parseInt(
-            a.split('transactionId')[1]?.split(':')[1]?.split('\n')[0]?.trim(),
-          )
-        }
+        this.dataSource.data = res.data
       } else {
         this.isTableHasData = false
         this.dataSource.data = []
@@ -641,7 +649,7 @@ export class CommonDiagnosticsComponent implements OnInit {
       return
     }
     const pBody = {
-      connectorId: parseInt(connectorID), // CH01 CH077
+      connectorId: connectorID,
       type: chargerType,
     }
 
@@ -1034,13 +1042,13 @@ export class CommonDiagnosticsComponent implements OnInit {
     }
 
     const body = {
-      listVersion: parseInt(listVersion),
+      listVersion: listVersion,
       localAuthorizationList: {
-        idTag: listField !== undefined ? listField.idTag : '',
+        idTag: listField?.idTag ?? '',
         idTagInfo: {
-          expiryDate: formField !== undefined ? formField.localListDate : '', // expiryDate
-          parentIdTag: formField !== undefined ? formField.rfid : '',
-          status: formField !== undefined ? formField.status : '',
+          expiryDate: formField?.localListDate ?? '', // expiryDate
+          parentIdTag: formField?.rfid?? '',
+          status: formField?.status?? '',
         },
       },
       updateType: this.getListVersionForm.value.updateType,
@@ -1078,10 +1086,6 @@ export class CommonDiagnosticsComponent implements OnInit {
     if(event.isUserInput){
       if (type === 'getConfig') {
         this.keyTypeGetConfig = value;
-        // Handle getConfig logic
-        // if (this.keyTypeGetConfig == "") {
-        //   this.toastr.error('Please Select Key');
-        // }
       } else if (type === 'changeConfig') {
         this.keyTypeChangeConfig = value;
         // Handle changeConfig logic
@@ -1200,16 +1204,8 @@ export class CommonDiagnosticsComponent implements OnInit {
             // this.selectConnectorIds.push(res.data.connectorIds.split(','))
           }
         }
-
-        // if (res.data !== undefined) {
-        //   if (res.data.connectorIds !== '') {
-
-        //     this.selectConnectorIds.push(res.data.connectorIds.split(','))
-        //   }
-        // }
       },
       error: (err) => {
-        // this.toastr.error('No conmector Id Found')
       },
     })
   }
@@ -1245,119 +1241,6 @@ export class CommonDiagnosticsComponent implements OnInit {
     })
   }
 
-  // setCallFunction(cmsRequestPayload: any) {
-  //   const source = interval(3000)
-
-  //   this.toastr.success(JSON.stringify(cmsRequestPayload))
-  //   const subscribe = source.subscribe((val) => {
-  //     if (val <= 2) {
-  //       this._diagnosticsService
-  //         .CmsReply(cmsRequestPayload)
-  //         .subscribe((res) => {
-  //           if (res == 404) {
-  //           } else if (res) {
-  //             let msg = res
-  //             subscribe.unsubscribe()
-  //             this.showLoader = false
-  //             this.toastr.success(JSON.stringify(msg))
-  //             this.GetOcppEventLog()
-  //           } else {
-  //             subscribe.unsubscribe()
-  //             this.showLoader = false
-  //             let msg = res
-  //             this.toastr.error(msg)
-  //           }
-  //         })
-  //     } else {
-  //       this.showLoader = false
-  //       subscribe.unsubscribe()
-  //       this.toastr.error('No response from charger.')
-  //     }
-  //   })
-  // }
-
-  // setCallFunction(res: any, cmdType?: string) {
-  //   this.commandType = ''
-  //   this.count = 1
-  //   let cmsRequestPayload = res
-  //   this.toastr.success(JSON.stringify(res))
-
-  //   this.showLoader = true
-  //   this.intervalId = setInterval(() => {
-  //     if (this.count < 4 && this.commandType == '') {
-  //       this._diagnosticsService.CmsReply(cmsRequestPayload).subscribe({
-  //         next: (res) => {
-  //           this.showLoader = false
-  //           if (res == 404) {
-  //             this.toastr.error('Error Connecting...')
-  //             this.count = this.count + 1
-  //           }
-  //           if (
-  //             cmdType == 'remoteStart' ||
-  //             cmdType == 'clear' ||
-  //             cmdType == 'reset' ||
-  //             cmdType == 'changeconfig' ||
-  //             cmdType == 'change' ||
-  //             cmdType == 'composite' ||
-  //             cmdType == 'stop' ||
-  //             cmdType == 'unlock' ||
-  //             cmdType == 'isReserveNow' ||
-  //             cmdType == 'triggerMessage' ||
-  //             cmdType == 'cancel' ||
-  //             cmdType == 'sendlocal' ||
-  //             cmdType == 'datatransfer' ||
-  //             cmdType == 'getClearCharging' ||
-  //             cmdType == 'setCharging'
-  //           ) {
-  //             if (res !== undefined && res.status !== undefined) {
-  //               this.showLoader = false
-  //               this.toastr.success(res.status)
-  //               this.count = 4
-  //               this.GetOcppEventLog()
-  //             } else if (res !== undefined && res.meterStart !== undefined) {
-  //               this.showLoader = false
-  //               this.toastr.success(JSON.stringify(res))
-  //               this.count = this.count + 1
-  //               this.GetOcppEventLog()
-  //             }
-  //           } else if (cmdType == 'getConfig') {
-  //             // unknownKey
-  //             if (res !== undefined && res.unknownKey !== undefined) {
-  //               this.count = 4
-  //             }
-  //             this.GetOcppEventLog()
-  //           } else if (cmdType == 'localList') {
-  //             // unknownKey
-  //             if (res !== undefined && res.listVersion !== undefined) {
-  //               this.count = 4
-  //             }
-  //             this.GetOcppEventLog()
-  //           } else if (cmdType == 'update') {
-  //             if (res == '{}') {
-  //               this.count = 4
-  //             }
-  //           } else if (cmdType == 'getdiagnostics') {
-  //             if (
-  //               res !== undefined &&
-  //               res.fileName !== '' &&
-  //               res.fileName !== undefined
-  //             ) {
-  //               this.count = 4
-  //             }
-  //           }
-  //         },
-  //         error: (error: any) => {
-  //           this.showLoader = false
-  //           this.handleError(error)
-  //         },
-  //       })
-  //     }
-  //     if (this.count > 3) {
-  //       clearInterval(this.intervalId)
-  //       this.showLoader = false
-  //     }
-  //   }, 3000)
-  // }
 
   /****************************************** Sub Tool Tip background Color function****************************************************** */
   isGetConfig = false
@@ -1543,9 +1426,8 @@ export class CommonDiagnosticsComponent implements OnInit {
 
   isReserveNowShow() {
     const array = new Uint32Array(1);
-    window.crypto.getRandomValues(array);
-    this.randomSixDigit = 100000 + (array[0] % 900000)
-    // this.randomSixDigit = Math.floor(100000 + Math.random() * 900000)
+    globalThis.crypto.getRandomValues(array);
+    this.randomSixDigit = 100000 + (array[0] % 900000);
     this.isGetLocalListVersion = false
     this.isSendLocalListVersion = false
     this.isRemoteStopTransaction = false
@@ -1882,7 +1764,7 @@ export class CommonDiagnosticsComponent implements OnInit {
   control = new FormControl('');
   control1 = new FormControl('');
 
-  streets = []
+  streets:string[] = []
   streets1: string[] = []
 
   filteredStreets!: Observable<any[]>
@@ -1941,7 +1823,6 @@ export class CommonDiagnosticsComponent implements OnInit {
       } else {
         this.chargerId = chargerId.value
         this.selectConnectorIds = [0]
-        // this.diagnosticList = []
         this.dataSource.data = []
       }
 
@@ -1981,15 +1862,15 @@ export class CommonDiagnosticsComponent implements OnInit {
    */
 
   pageChange(event: any) {
-    if (event.pageSize !== this.pageSize) {
-      this.currentPage = 1
-      this.pageSize = event.pageSize
-      this.paginator.pageIndex = 0
-    } else {
-      this.currentPage =
+    if (event.pageSize == this.pageSize) {
+     this.currentPage =
         event.previousPageIndex < event.pageIndex
           ? this.currentPage + 1
           : this.currentPage - 1
+    }else {
+     this.currentPage = 1
+      this.pageSize = event.pageSize
+      this.paginator.pageIndex = 0
     }
 
     this.GetOcppEventLog()
@@ -2050,13 +1931,13 @@ export class CommonDiagnosticsComponent implements OnInit {
     if (!this.digitValidate.test(digitValidate)) {
       this.toastr.error('Please Enter Numbers Only')
     }
-    if (parseInt(digitValidate) == 0) {
+    if (digitValidate == "0") {
       this.toastr.error('Please Enter Number Greater Than 0')
       return
     }
     // return
     const pBody = {
-      reservationId: parseInt(digitValidate),
+      reservationId: digitValidate,
     }
 
     this._diagnosticsService
@@ -2116,7 +1997,7 @@ export class CommonDiagnosticsComponent implements OnInit {
     if (!this.digitValidate.test(digitValidate)) {
       this.toastr.error('Please Enter Numbers Only')
     }
-    if (parseInt(digitValidate) == 0) {
+    if (digitValidate == "0") {
       this.toastr.error('Please Enter Number Greater Than 0')
       return
     }
@@ -2280,19 +2161,6 @@ export class CommonDiagnosticsComponent implements OnInit {
         },
       })
   }
-  // numberOnly(event: any): boolean {
-  //   const charCode = event.which ? event.which : event.keyCode
-  //   if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-  //     return false
-  //   }
-  //   return true
-  // }
-  // numbersDecimalOnly(event: any) {
-  //   let charCode = event.which ? event.which : event.keyCode
-  //   if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
-  //     return false
-  //   return true
-  // }
 
   /**
    * updateFirmware
@@ -2341,10 +2209,10 @@ export class CommonDiagnosticsComponent implements OnInit {
 
     const pBody = {
       location: this.enterLocationValue,
-      retries: retryKeyValue.length == 0 ? 0 : parseInt(retryKeyValue),
+      retries: retryKeyValue.length == 0 ? 0 : retryKeyValue,
       retrieveDate: this.expiryDate,
       retryInterval:
-        this.inputReserveTag.length == 0 ? 0 : parseInt(this.inputReserveTag),
+        this.inputReserveTag.length == 0 ? 0 : this.inputReserveTag,
     }
     this._diagnosticsService.updateFirmware(this.chargerId, pBody).subscribe({
       next: (res) => {
@@ -2398,11 +2266,11 @@ export class CommonDiagnosticsComponent implements OnInit {
 
     const pBody = {
       location: this.enterLocationValue,
-      retries: retryKeyValue.length == 0 ? 0 : parseInt(retryKeyValue),
+      retries: retryKeyValue.length == 0 ? 0 : retryKeyValue,
       startTime: this.startDate,
       stopTime: this.endDate,
       retryInterval:
-        this.inputReserveTag.length == 0 ? 0 : parseInt(this.inputReserveTag),
+        this.inputReserveTag.length == 0 ? 0 : this.inputReserveTag,
     }
 
     this._diagnosticsService.getDiagnostics(this.chargerId, pBody).subscribe({
@@ -2732,30 +2600,17 @@ export class CommonDiagnosticsComponent implements OnInit {
       return
     }
   }
-  dateFilterForEnd = (d: any | null) => {
-    let selectedDate: any = this.datePipe.transform(
-      d,
-      'yyyy-MM-ddT' + this.getModifiedTime(),
-    )
-
-    let fromDate = this.remoteStartForm.value.chargingProfile.validFrom
-    let validFromDate: any = this.datePipe.transform(
-      fromDate,
-      'yyyy-MM-ddT' + this.getModifiedTime(),
-    )
-    return selectedDate >= validFromDate
+  dateFilterForEnd = (d: Date | null): boolean => {
+    if (!d) return false;
+    const fromDate = this.remoteStartForm?.value?.chargingProfile?.validFrom;
+    if (!fromDate) return true;
+    return d >= new Date(fromDate);
   }
-  dateFilterForEndForSetCharging = (d: any | null) => {
-    let selectedDate: any = this.datePipe.transform(
-      d,
-      'yyyy-MM-ddT' + this.getModifiedTime(),
-    )
-    let fromDate = this.setChargingForm.value.csChargingProfiles.validFrom
-    let validFromDate: any = this.datePipe.transform(
-      fromDate,
-      'yyyy-MM-ddT' + this.getModifiedTime(),
-    )
-    return selectedDate >= validFromDate
+  dateFilterForEndForSetCharging = (d: Date | null): boolean => {
+    if (!d) return false;
+    const fromDate = this.setChargingForm?.value?.csChargingProfiles?.validFrom;
+    if (!fromDate) return true;
+    return d >= new Date(fromDate);
   }
   dateFilterForStartScheduleForSetCharging = (d: any | null) => {
     let selectedDate: any = this.datePipe.transform(

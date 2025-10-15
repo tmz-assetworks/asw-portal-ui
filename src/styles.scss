@@ -1,33 +1,33 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @use "@angular/material" as mat;
+// Timepicker styles will be added directly in component styles
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
-@include mat.core();
+@include mat.elevation-classes();
+@include mat.app-background();
 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$assetWorks-primary: mat.define-palette(mat.$indigo-palette);
-$assetWorks-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$assetWorks-primary: mat.m2-define-palette(mat.$m2-indigo-palette);
+$assetWorks-accent:  mat.m2-define-palette(mat.$m2-pink-palette, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
-$assetWorks-warn: mat.define-palette(mat.$red-palette);
+$assetWorks-warn:   mat.m2-define-palette(mat.$m2-red-palette);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$assetWorks-theme: mat.define-light-theme(
-  (
-    color: (
-      primary: $assetWorks-primary,
-      accent: $assetWorks-accent,
-      warn: $assetWorks-warn,
-    ),
-  )
-);
+$assetWorks-theme: mat.m2-define-light-theme((
+  color: (
+    primary: $assetWorks-primary,
+    accent: $assetWorks-accent,
+    warn: $assetWorks-warn,
+  ),
+));
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
@@ -234,10 +234,10 @@ input::-ms-reveal,
 input::-ms-clear {
   display: none;
 }
-.mat-paginator-page-size-select {
+.mat-mdc-paginator-page-size-select {
   margin: -6px 0px 0 0px !important;
 }
-.mat-paginator-container {
+.mat-mdc-paginator-container {
   background-color: #f5f5f5;
 }
 
@@ -1883,4 +1883,20 @@ mat-dialog-container#mat-dialog-0 {
 .mat-form-field-suffix {
   position: relative;
   top: 0.25em; /* Adjust as needed */
+}
+
+/* CSS PANEL */
+.mat-button-toggle-checked.mat-button-toggle-appearance-standard {
+  color: #fff !important;
+  background-color: rgb(0, 98, 166);;
+}
+
+.mat-button-toggle-checked .mat-button-toggle-button {
+  /* This targets the button element itself and removes the left padding. */
+  padding-left: 1px !important; /* Adjust to match the default padding of unchecked buttons */
+
+  /* This targets and hides the checkbox wrapper inside the button. */
+  .mat-button-toggle-checkbox-wrapper {
+    display: none !important;
+  }
 }

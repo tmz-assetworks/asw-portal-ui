@@ -36,7 +36,7 @@ describe('ManagePricingComponent', () => {
       ],
       declarations: [ManagePricingComponent],
     }).compileComponents();
-    toastr = TestBed.get(ToastrService);
+    toastr = TestBed.inject(ToastrService);
     router = TestBed.inject(Router);
   });
 
@@ -44,7 +44,7 @@ describe('ManagePricingComponent', () => {
     fixture = TestBed.createComponent(ManagePricingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    adminService = TestBed.get(AdminService);
+    adminService = TestBed.inject(AdminService);
   });
 
   it('should create', () => {

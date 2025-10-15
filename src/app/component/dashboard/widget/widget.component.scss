@@ -1,4 +1,4 @@
-@import "../../../../styles";
+@use "../../../../styles" as *;
 
 .widgets- {
   &block28 {
@@ -71,7 +71,9 @@
   }
   &hero-title {
     @include font-face($font_type0, rgb(255, 255, 255), 0px);
-
+    margin-bottom: 0px;
+    margin-top: 2px;
+    align-self: right;
     @include xxl {
       font-size: 36px;
       text-align: left;
@@ -103,9 +105,7 @@
     @include tn {
       font-size: 15px;
     }
-    margin-bottom: 0px;
-    margin-top: 2px;
-    align-self: right;
+    
   }
   &hero-title.layout {
     position: relative;

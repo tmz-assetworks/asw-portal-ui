@@ -1,10 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { EChartsOption } from 'echarts'
+import { NgxEchartsModule } from 'ngx-echarts'
 
 @Component({
   selector: 'app-line-chart',
   templateUrl: './line-chart.component.html',
   styleUrls: ['./line-chart.component.scss'],
+  imports:[NgxEchartsModule]
 })
 export class LineChartComponent implements OnInit {
   energyUsedDataSet: any
@@ -98,7 +100,7 @@ export class LineChartComponent implements OnInit {
 
   icon = '../../../../assets/chart-icon.svg'
 
-  dataSet = []
+  dataSet:string[] = []
   option: EChartsOption = {}
 
   ngOnInit(): void {

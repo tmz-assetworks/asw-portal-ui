@@ -1,17 +1,24 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core'
-import { FormBuilder, FormControl, Validators } from '@angular/forms'
-import { ActivatedRoute, Router } from '@angular/router'
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms'
+import { ActivatedRoute, Router, RouterModule } from '@angular/router'
 import Swal from 'sweetalert2'
 import { ToastrService } from 'ngx-toastr'
 import { StorageService } from 'src/app/service/storage.service'
 import { AdminService } from '../../admin.service'
 import { of } from 'rxjs'
-import { DatePipe } from '@angular/common'
+import { CommonModule, DatePipe } from '@angular/common'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 
 @Component({
   selector: 'app-add-subscription',
   templateUrl: './add-subscription.component.html',
   styleUrls: ['./add-subscription.component.scss'],
+  imports:[
+    CommonModule,
+    RouterModule,
+    SharedMaterialModule,
+    ReactiveFormsModule
+  ]
 })
 export class AddSubscriptionComponent implements OnInit {
   datePipe = new DatePipe('en-US')
@@ -131,7 +138,7 @@ export class AddSubscriptionComponent implements OnInit {
       if (this.subscriptionData.currencyId) {
         this.selectedCurrency = this.subscriptionData.currencyId
         this.subscriptionPlanFormGroup.patchValue({
-          currencyId: this.subscriptionData.currencyCode,
+          // currencyId: this.subscriptionData.currencyCode,
         })
       }
       if (this.subscriptionData.priceTypeId) {
@@ -144,7 +151,7 @@ export class AddSubscriptionComponent implements OnInit {
       if (this.subscriptionData.subscriptionsGroupId) {
         this.selectedSubscriptionGroup = this.subscriptionData.subscriptionsGroupId
         this.subscriptionPlanFormGroup.patchValue({
-          subscriptionsGroupId: this.subscriptionData.subGroup,
+          // subscriptionsGroupId: this.subscriptionData.subGroup,
         })
       }
       if (this.subscriptionData.isActive == false) {
@@ -156,7 +163,7 @@ export class AddSubscriptionComponent implements OnInit {
       if (this.subscriptionData.unitId) {
         this.selectedUnit = this.subscriptionData.unitId
         this.subscriptionPlanFormGroup.patchValue({
-          unitId: this.subscriptionData.unitName,
+          // unitId: this.subscriptionData.unitName,
         })
       }
     })
@@ -252,6 +259,8 @@ export class AddSubscriptionComponent implements OnInit {
       cancelButtonColor: '#0062A6',
       cancelButtonText: ' CONFIRM',
       showCancelButton: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false     
     }).then((result) => {
       if (result.isDismissed) {
         this._adminService.CreateSubscriptionPlan(body).subscribe(
@@ -324,6 +333,8 @@ export class AddSubscriptionComponent implements OnInit {
       cancelButtonColor: '#0062A6',
       cancelButtonText: ' CONFIRM',
       showCancelButton: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
     }).then((result) => {
       if (result.isDismissed) {
         this._adminService.UpdateSubscriptionPlan(body).subscribe(
@@ -370,7 +381,7 @@ export class AddSubscriptionComponent implements OnInit {
 
   dateFilter = (d: any | null) => {
     let validFrom = this.subscriptionPlanFormGroup.value.validfrom
-    return d > validFrom
+    return validFrom && d > validFrom
   }
   /**
    * Check valid from date
@@ -387,13 +398,15 @@ export class AddSubscriptionComponent implements OnInit {
   //   }
   // }
   checkStartDate() {
-    if (
-      this.subscriptionPlanFormGroup.value.validfrom >
-      this.subscriptionPlanFormGroup.value.validto
-    ) {
-      this.subscriptionPlanFormGroup.patchValue({
-        validto: '',
-      })
+    const validFrom = this.subscriptionPlanFormGroup.value.validfrom;
+    const validTo = this.subscriptionPlanFormGroup.value.validto;
+    
+    if (!validFrom || !validTo) {
+      return;
+    }
+    
+    if (validFrom > validTo) {
+      this.subscriptionPlanFormGroup.patchValue({ validto: '' })
       return
     }
   }
@@ -406,6 +419,10 @@ export class AddSubscriptionComponent implements OnInit {
     }
   }
   dateFilterForStart = (d: any | null) => {
+    if (!d) {
+      return false;
+    }
+    
     let selectedDate: any = this.datePipe.transform(
       d,
       'yyyy-MM-ddT' + this.getModifiedTime(),
@@ -419,12 +436,20 @@ export class AddSubscriptionComponent implements OnInit {
     return selectedDate >= todayDate
   }
   dateFilterForEnd = (d: any | null) => {
+    if (!d) {
+      return false;
+    }
+    
     let selectedDate: any = this.datePipe.transform(
       d,
       'yyyy-MM-ddT' + this.getModifiedTime(),
     )
 
     let fromDate = this.subscriptionPlanFormGroup.value.validfrom
+    if (!fromDate) {
+      return false;
+    }
+    
     let validFromDate: any = this.datePipe.transform(
       fromDate,
       'yyyy-MM-ddT' + this.getModifiedTime(),

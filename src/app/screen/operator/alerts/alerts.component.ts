@@ -6,11 +6,16 @@ import { AlertsService } from './alerts.service'
 import { StorageService } from 'src/app/service/storage.service'
 import { UserProfileService } from '../../user-profile/user-profile.service'
 import { ActivatedRoute, Router } from '@angular/router'
-
+import { CommonModule } from '@angular/common'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 @Component({
   selector: 'app-alerts',
   templateUrl: './alerts.component.html',
   styleUrls: ['./alerts.component.scss'],
+  imports:[
+    CommonModule,
+    SharedMaterialModule
+  ],
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({ height: '0px', minHeight: '0' })),
@@ -30,7 +35,7 @@ export class AlertsComponent implements OnInit {
   currentPage: number = 1
   totalPages: any
   pageSizeOptions = [10, 20, 100]
-  alertList = []
+  alertList:string[] = []
   isTableHasData = false
   expandedElement: any
   searchParam = ''
@@ -101,10 +106,10 @@ export class AlertsComponent implements OnInit {
       searchParam: this.searchParam,
       pageSize: this.pageSize,
       orderBy: '',
-      locationIds: [],
+      locationIds: [] as number[],
       operatorId: '',
 
-      chargerBoxIds: [],
+      chargerBoxIds: [] as number[],
       opratorid: this.UserId,
       isRead: this.isRead
     }
@@ -141,15 +146,15 @@ export class AlertsComponent implements OnInit {
    */
 
   pageChange(event: any) {
-    if (event.pageSize !== this.pageSize) {
-      this.currentPage = 1
-      this.pageSize = event.pageSize
-      this.paginator.pageIndex = 0
-    } else {
+    if (event.pageSize == this.pageSize) {
       this.currentPage =
         event.previousPageIndex < event.pageIndex
           ? this.currentPage + 1
           : this.currentPage - 1
+    } else {
+      this.currentPage = 1
+      this.pageSize = event.pageSize
+      this.paginator.pageIndex = 0
     }
 
     this.GetOperatorAlerts()

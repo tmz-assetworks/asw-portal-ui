@@ -4,22 +4,37 @@
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
-    "forceConsistentCasingInFileNames": true,
+
+    // ✅ Angular 20 enforced defaults
+    "target": "ES2022",
+    "useDefineForClassFields": false,
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+
+    // ✅ Strictness
     "strict": true,
+    "strictNullChecks": false, // set to true if you want full strict mode
+    "esModuleInterop": true,
+    "importHelpers": true,
+
+    // ✅ Consistency & safety
+    "forceConsistentCasingInFileNames": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+
+    // ✅ Decorators
+    "experimentalDecorators": true,
+
+    // ✅ Debugging
     "sourceMap": true,
     "declaration": false,
-    "downlevelIteration": true,
-    "experimentalDecorators": true,
-    "moduleResolution": "node",
-    "importHelpers": true,
-    "target": "es2017",
-    "module": "es2020",
+
+    // ✅ Libraries
     "lib": [
-      "es2020",
+      "es2022",
       "dom"
     ]
   },

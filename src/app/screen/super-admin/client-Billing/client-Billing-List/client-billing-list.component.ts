@@ -7,15 +7,16 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TableDataHelper, TableResponse } from 'src/app/shared/data-table/table-data.helper';
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module';
 
 
 @Component({
   selector: 'app-client-billing-list',
   templateUrl: './client-billing-list.component.html',
-  styleUrls: ['./client-billing-list.component.scss']
+  styleUrls: ['./client-billing-list.component.scss'],
+  imports:[SharedMaterialModule]
 })
 export class ClientBillingListComponent implements OnInit {
-  adminList = [];
   isTableHasData: any;
   totalCount: any;
   pageSize: number = 10;
@@ -140,15 +141,15 @@ export class ClientBillingListComponent implements OnInit {
    */
 
   pageChange(event: any) {
-    if (event.pageSize !== this.pageSize) {
-      this.currentPage = 1;
-      this.pageSize = event.pageSize;
-      this.paginator.pageIndex = 0;
-    } else {
+    if (event.pageSize == this.pageSize) {      
       this.currentPage =
         event.previousPageIndex < event.pageIndex
           ? this.currentPage + 1
           : this.currentPage - 1;
+    } else {
+      this.currentPage = 1;
+      this.pageSize = event.pageSize;
+      this.paginator.pageIndex = 0;
     }
     this.loadClientBillings();
   }

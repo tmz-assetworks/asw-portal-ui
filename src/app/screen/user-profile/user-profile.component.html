@@ -84,7 +84,7 @@
               <div class="barbar-block14 layout">
                 <h5 class="barbar-highlights layout">
                   Phone Number
-                  <span style="color: 'red';">*</span>
+                  <span style="color: #ff0000;">*</span>
                 </h5>
                 <div
                   class="barbar-box6 layout"
@@ -117,7 +117,7 @@
                   *ngIf="
                     !userProfileFormGroup.get('phoneNumber')?.valid &&
                     userProfileFormGroup.get('phoneNumber')?.touched &&
-                    userProfileFormGroup.get('phoneNumber')?.value.length == 0
+                    userProfileFormGroup.get('phoneNumber')?.value?.length == 0
                   "
                   class="error-mess"
                 >
@@ -130,7 +130,7 @@
               <div class="barbar-block14 layout">
                 <h5 class="barbar-highlights layout">
                   Address Line 1
-                  <span style="color: 'red';">*</span>
+                  <span style="color: #ff0000;">*</span>
                 </h5>
 
                 <div
@@ -151,7 +151,8 @@
                   *ngIf="
                     !userProfileFormGroup.get('addressLine1')?.valid &&
                     userProfileFormGroup.get('addressLine1')?.touched &&
-                    userProfileFormGroup.get('addressLine1')?.value.length > 255
+                    userProfileFormGroup.get('addressLine1')?.value &&
+                    (userProfileFormGroup.get('addressLine1')?.value?.length ?? 0)> 255
                   "
                   class="error-mess"
                 >
@@ -161,7 +162,7 @@
                   *ngIf="
                     !userProfileFormGroup.get('addressLine1')?.valid &&
                     userProfileFormGroup.get('addressLine1')?.touched &&
-                    userProfileFormGroup.get('addressLine1')?.value.length == 0
+                    userProfileFormGroup.get('addressLine1')?.value?.length == 0
                   "
                   class="error-mess"
                 >
@@ -189,9 +190,10 @@
               <div class="barbar-block14 layout">
                 <h5 class="barbar-highlights layout">
                   Country
-                  <span style="color: 'red';">*</span>
+                  <span style="color: #ff0000;">*</span>
                 </h5>
                 <mat-form-field
+                appearance="outline"
                   class="barbar-box6 layout"
                   [ngClass]="{
                     'is-invalid':
@@ -218,7 +220,7 @@
                   *ngIf="
                     !userProfileFormGroup.get('country')?.valid &&
                     userProfileFormGroup.get('country')?.touched &&
-                    userProfileFormGroup.get('country')?.value.length == 0
+                    userProfileFormGroup.get('country')?.value?.length == 0
                   "
                   class="error-mess"
                 >
@@ -233,9 +235,9 @@
               <div class="barbar-block14 layout">
                 <h5 class="barbar-highlights layout">
                   State/Province
-                  <span style="color: 'red';">*</span>
+                  <span style="color: #ff0000;">*</span>
                 </h5>
-                <mat-form-field
+                <mat-form-field appearance="outline"
                   class="barbar-box6 layout"
                   [ngClass]="{
                     'is-invalid':
@@ -258,7 +260,7 @@
                   *ngIf="
                     !userProfileFormGroup.get('state')?.valid &&
                     userProfileFormGroup.get('state')?.touched &&
-                    userProfileFormGroup.get('state')?.value.length == 0
+                    userProfileFormGroup.get('state')?.value?.length == 0
                   "
                   class="error-mess"
                 >
@@ -272,7 +274,7 @@
               <div class="barbar-block14 layout">
                 <h5 class="barbar-highlights layout">
                   City
-                  <span style="color: 'red';">*</span>
+                  <span style="color: #ff0000;">*</span>
                 </h5>
                 <div
                   class="barbar-box6 layout"
@@ -293,7 +295,7 @@
                   *ngIf="
                     !userProfileFormGroup.get('cityName')?.valid &&
                     userProfileFormGroup.get('cityName')?.touched &&
-                    userProfileFormGroup.get('cityName')?.value.length == 0
+                    userProfileFormGroup.get('cityName')?.value?.length == 0
                   "
                   class="error-mess"
                 >
@@ -306,7 +308,7 @@
               <div class="barbar-block14 layout">
                 <h5 class="barbar-highlights layout">
                   Zip Code
-                  <span style="color: 'red';">*</span>
+                  <span style="color: #ff0000;">*</span>
                 </h5>
                 <div
                   class="barbar-box6 layout"
@@ -327,7 +329,7 @@
                   *ngIf="
                     !userProfileFormGroup.get('zipcode')?.valid &&
                     userProfileFormGroup.get('zipcode')?.touched &&
-                    userProfileFormGroup.get('zipcode')?.value.length == 0
+                    userProfileFormGroup.get('zipcode')?.value?.length == 0
                   "
                   class="error-mess"
                 >

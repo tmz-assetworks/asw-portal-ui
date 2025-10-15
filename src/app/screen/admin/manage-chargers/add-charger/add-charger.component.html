@@ -13,7 +13,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Asset ID
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
 
               <div
@@ -34,7 +34,7 @@
                 *ngIf="
                   !addChargerFormGroup.get('assetId')?.valid &&
                   addChargerFormGroup.get('assetId')?.touched &&
-                  addChargerFormGroup.get('assetId')?.value.length > 0
+                  (addChargerFormGroup.get('assetId')?.value?.length ?? 0) > 0
                 "
                 class="error-mess"
               >
@@ -44,7 +44,7 @@
                 *ngIf="
                   !addChargerFormGroup.get('assetId')?.valid &&
                   addChargerFormGroup.get('assetId')?.touched &&
-                  addChargerFormGroup.get('assetId')?.value.length == 0
+                  addChargerFormGroup.get('assetId')?.value?.length == 0
                 "
                 class="error-mess"
               >
@@ -57,7 +57,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Charger Box ID
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -77,7 +77,7 @@
                 *ngIf="
                   !addChargerFormGroup.get('chargeBoxId')?.valid &&
                   addChargerFormGroup.get('chargeBoxId')?.touched &&
-                  addChargerFormGroup.get('chargeBoxId')?.value.length > 0
+                  (addChargerFormGroup.get('chargeBoxId')?.value?.length ?? 0) > 0
                 "
                 class="error-mess"
               >
@@ -87,7 +87,7 @@
                 *ngIf="
                   !addChargerFormGroup.get('chargeBoxId')?.valid &&
                   addChargerFormGroup.get('chargeBoxId')?.touched &&
-                  addChargerFormGroup.get('chargeBoxId')?.value.length == 0
+                  addChargerFormGroup.get('chargeBoxId')?.value?.length == 0
                 "
                 class="error-mess"
               >
@@ -101,9 +101,10 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Location
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <mat-form-field
+              appearance="outline" 
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
@@ -111,7 +112,6 @@
                     submitted == true
                 }"
               >
-                <mat-label>Select</mat-label>
                 <mat-select
                   class="selectLocationData"
                   [value]="selectedLocation"
@@ -131,7 +131,7 @@
               *ngIf="
                 !addChargerFormGroup.get('locationId')?.valid &&
                 addChargerFormGroup.get('locationId')?.touched &&
-                addChargerFormGroup.get('locationId')?.value.length == 0
+                addChargerFormGroup.get('locationId')?.value?.length == 0
               "
               class="error-mess"
             >
@@ -172,7 +172,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Make
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
 
               <div
@@ -195,7 +195,7 @@
               *ngIf="
                 !addChargerFormGroup.get('makeMasterId')?.valid &&
                 addChargerFormGroup.get('makeMasterId')?.touched &&
-                addChargerFormGroup.get('makeMasterId')?.value.length == 0
+                addChargerFormGroup.get('makeMasterId')?.value?.length == 0
               "
               class="error-mess"
             >
@@ -204,7 +204,7 @@
             <span
               *ngIf="
                 addChargerFormGroup.get('makeMasterId')?.touched &&
-                addChargerFormGroup.get('makeMasterId')?.value.length > 40
+                (addChargerFormGroup.get('makeMasterId')?.value?.length ?? 0) > 40
               "
               class="error-mess"
             >
@@ -216,7 +216,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Model
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -238,7 +238,7 @@
               *ngIf="
                 !addChargerFormGroup.get('modelId')?.valid &&
                 addChargerFormGroup.get('modelId')?.touched &&
-                addChargerFormGroup.get('modelId')?.value.length == 0
+                addChargerFormGroup.get('modelId')?.value?.length == 0
               "
               class="error-mess"
             >
@@ -248,7 +248,7 @@
             <span
               *ngIf="
                 addChargerFormGroup.get('modelId')?.touched &&
-                addChargerFormGroup.get('modelId')?.value.length > 40
+                (addChargerFormGroup.get('modelId')?.value?.length ?? 0) > 40
               "
               class="error-mess"
             >
@@ -260,7 +260,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Protocol
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -278,53 +278,12 @@
               </div>
             </div>
           </div>
-
-          <!-- <div class="barbar-block13-spacer"></div>
-          <div class="barbar-block13-item">
-            <div class="barbar-block14 layout">
-              <h5 class="barbar-highlights layout">
-                Status
-                <span style="color: 'red';">*</span>
-              </h5>
-              <mat-form-field
-                class="barbar-box6 layout"
-                [ngClass]="{
-                  'is-invalid':
-                    addChargerFormGroup.get('dispenserStatusId')?.errors &&
-                    submitted == true
-                }"
-              >
-                <mat-select
-                  [value]="selectedStatus"
-                  formControlName="dispenserStatusId"
-                >
-                  <mat-option
-                    *ngFor="let data of getDispenserStatu"
-                    [value]="data.id"
-                    (onSelectionChange)="selectStatus($event, data.id)"
-                  >
-                    {{ data.status }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <span
-              *ngIf="
-                !addChargerFormGroup.get('dispenserStatusId')?.valid &&
-                addChargerFormGroup.get('dispenserStatusId')?.touched &&
-                addChargerFormGroup.get('dispenserStatusId')?.value.length == 0
-              "
-              class="error-mess"
-            >
-              Status Is Required
-            </span>
-          </div> -->
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Hardware Serial Number
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -344,8 +303,7 @@
                 *ngIf="
                   !addChargerFormGroup.get('hardwareSerialNumber')?.valid &&
                   addChargerFormGroup.get('hardwareSerialNumber')?.touched &&
-                  addChargerFormGroup.get('hardwareSerialNumber')?.value
-                    .length > 100
+                  (addChargerFormGroup.get('hardwareSerialNumber')?.value?.length ?? 0) > 100
                 "
                 class="error-mess"
               >
@@ -355,8 +313,7 @@
                 *ngIf="
                   !addChargerFormGroup.get('hardwareSerialNumber')?.valid &&
                   addChargerFormGroup.get('hardwareSerialNumber')?.touched &&
-                  addChargerFormGroup.get('hardwareSerialNumber')?.value
-                    .length == 0
+                  addChargerFormGroup.get('hardwareSerialNumber')?.value?.length == 0
                 "
                 class="error-mess"
               >
@@ -369,7 +326,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 OEM Order Number
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -389,8 +346,7 @@
                 *ngIf="
                   !addChargerFormGroup.get('oemOrderNumber')?.valid &&
                   addChargerFormGroup.get('oemOrderNumber')?.touched &&
-                  addChargerFormGroup.get('oemOrderNumber')?.value
-                    .length > 100
+                  (addChargerFormGroup.get('oemOrderNumber')?.value?.length ?? 0) > 100
                 "
                 class="error-mess"
               >
@@ -400,8 +356,7 @@
                 *ngIf="
                   !addChargerFormGroup.get('oemOrderNumber')?.valid &&
                   addChargerFormGroup.get('oemOrderNumber')?.touched &&
-                  addChargerFormGroup.get('oemOrderNumber')?.value
-                    .length == 0
+                  addChargerFormGroup.get('oemOrderNumber')?.value?.length == 0
                 "
                 class="error-mess"
               >
@@ -426,8 +381,7 @@
                 *ngIf="
                   !addChargerFormGroup.get('latitude')?.valid &&
                   addChargerFormGroup.get('latitude')?.touched &&
-                  addChargerFormGroup.get('latitude')?.value
-                    .length > 0
+                  (addChargerFormGroup.get('latitude')?.value?.length ?? 0) > 0
                 "
                 class="error-mess"
               >
@@ -452,8 +406,7 @@
                 *ngIf="
                   !addChargerFormGroup.get('longitude')?.valid &&
                   addChargerFormGroup.get('longitude')?.touched &&
-                  addChargerFormGroup.get('longitude')?.value
-                    .length > 0
+                  (addChargerFormGroup.get('longitude')?.value?.length ?? 0) > 0
                 "
                 class="error-mess"
               >
@@ -466,9 +419,10 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Installation Date
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <mat-form-field
+              appearance="outline" 
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
@@ -508,9 +462,9 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Charger Status
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
-<mat-form-field class="barbar-box6 layout">
+<mat-form-field appearance="outline"  class="barbar-box6 layout">
   <mat-select formControlName="isActive">
     <mat-option [value]="true">Active</mat-option>
     <mat-option [value]="false">Deactivated</mat-option>
@@ -524,9 +478,10 @@
             <div class="barbar-block14 layout" >
               <h5 class="barbar-highlights layout">
                 Deactivation Date
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <mat-form-field
+              appearance="outline"
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
@@ -600,7 +555,7 @@
               <div class="barbar-block14 layout">
                 <h5 class="barbar-highlights layout subtitle">
                   Ports
-                  <span style="color: 'red';">*</span>
+                  <span style="color: #ff0000;">*</span>
                 </h5>
 
                 <!-- <button
@@ -634,7 +589,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Connector Id
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
 
               <div
@@ -679,16 +634,16 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Connector Type
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <mat-form-field
+              appearance="outline" 
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
                     port.get('connectorType')?.errors && submitted == true
                 }"
               >
-                <mat-label>Select</mat-label>
                 <mat-select formControlName="connectorType">
                   <mat-option
                     *ngFor="let data of connectorType"
@@ -715,7 +670,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Port Name
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -757,16 +712,16 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Charger Type
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <mat-form-field
+              appearance="outline" 
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
                     port.get('plugTypeId')?.errors && submitted == true
                 }"
               >
-                <mat-label>Select</mat-label>
                 <mat-select formControlName="plugTypeId">
                   <mat-option *ngFor="let data of Pluglist" [value]="data.id">
                     {{ data.plugTypeName }}
@@ -791,7 +746,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Power(kW)
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -835,7 +790,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Min Power (kW)
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -879,7 +834,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Max Power (kW)
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -923,7 +878,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Power Increment (Example: ”.1”)
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -983,7 +938,7 @@
               <div class="barbar-block14 layout">
                 <!-- <h5 class="barbar-highlights layout subtitle">
                   Ports
-                  <span style="color: 'red';">*</span>
+                  <span style="color: #ff0000;">*</span>
                 </h5> -->
 
                 <button

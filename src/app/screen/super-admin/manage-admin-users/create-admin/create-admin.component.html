@@ -11,7 +11,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Username
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
                 (<span>No space or special characters</span>)
               </h5>
               <div
@@ -34,7 +34,7 @@
                 *ngIf="
                   !addAdminFormGroup.get('username')?.valid &&
                   addAdminFormGroup.get('username')?.touched &&
-                  addAdminFormGroup.get('username')?.value.length > 20
+                  (addAdminFormGroup.get('username')?.value?.length ?? 0) > 20
                 "
                 class="error-mess"
               >
@@ -44,7 +44,7 @@
                 *ngIf="
                   !addAdminFormGroup.get('username')?.valid &&
                   (addAdminFormGroup.get('username')?.touched || submitted) &&
-                  addAdminFormGroup.get('username')?.value.length == 0
+                  addAdminFormGroup.get('username')?.value?.length == 0
                 "
                 class="error-mess"
               >
@@ -58,7 +58,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Email ID
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -78,7 +78,7 @@
                 *ngIf="
                   !addAdminFormGroup.get('emailid')?.valid &&
                   (addAdminFormGroup.get('emailid')?.touched || submitted) &&
-                  addAdminFormGroup.get('emailid')?.value.length == 0
+                  addAdminFormGroup.get('emailid')?.value?.length == 0
                 "
                 class="error-mess"
               >
@@ -88,7 +88,7 @@
                 *ngIf="
                   !addAdminFormGroup.get('emailid')?.valid &&
                   addAdminFormGroup.get('emailid')?.touched &&
-                  addAdminFormGroup.get('emailid')?.value.length > 0
+                  (addAdminFormGroup.get('emailid')?.value?.length ?? 0) > 0
                 "
                 class="error-mess"
               >
@@ -102,7 +102,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Phone Number
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -125,7 +125,7 @@
                 *ngIf="
                   !addAdminFormGroup.get('phoneNumber')?.valid &&
                   addAdminFormGroup.get('phoneNumber')?.touched &&
-                  addAdminFormGroup.get('phoneNumber')?.value.length > 0
+                  (addAdminFormGroup.get('phoneNumber')?.value?.length ?? 0) > 0
                 "
                 class="error-mess"
               >
@@ -136,7 +136,7 @@
                   !addAdminFormGroup.get('phoneNumber')?.valid &&
                   (addAdminFormGroup.get('phoneNumber')?.touched ||
                     submitted) &&
-                  addAdminFormGroup.get('phoneNumber')?.value.length == 0
+                  addAdminFormGroup.get('phoneNumber')?.value?.length == 0
                 "
                 class="error-mess"
               >
@@ -150,7 +150,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Organization Name
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div class="barbar-box6 layout">
                 <input
@@ -162,16 +162,6 @@
                 />
               </div>
             </div>
-            <span
-              *ngIf="
-                (addAdminFormGroup.get('organizationName')?.touched ||
-                  submitted) &&
-                addAdminFormGroup.get('organizationName')?.value == '0'
-              "
-              class="error-mess"
-            >
-              organization Name Is Required
-            </span>
           </div>
         </div>
       </div>
@@ -201,7 +191,7 @@
                 *ngIf="
                   !addAdminFormGroup.get('addressLine1')?.valid &&
                   addAdminFormGroup.get('addressLine1')?.touched &&
-                  addAdminFormGroup.get('addressLine1')?.value.length > 255
+                  (addAdminFormGroup.get('addressLine1')?.value?.length  ?? 0) > 255
                 "
                 class="error-mess"
               >
@@ -226,8 +216,8 @@
                 *ngIf="
                   !addAdminFormGroup.get('addressLine2')?.valid &&
                   addAdminFormGroup.get('addressLine2')?.touched &&
-                  addAdminFormGroup.get('addressLine2')?.value.length > 255 &&
-                  addAdminFormGroup.get('addressLine2')?.value.length != 0
+                  (addAdminFormGroup.get('addressLine2')?.value?.length ?? 0) > 255 &&
+                  addAdminFormGroup.get('addressLine2')?.value?.length != 0
                 "
                 class="error-mess"
               >
@@ -244,6 +234,7 @@
                
               </h5>
               <mat-form-field
+              appearance="outline"
                 class="barbar-box6 layout"
                 
               >
@@ -269,6 +260,7 @@
               </h5>
 
               <mat-form-field
+              appearance="outline"
                 class="barbar-box6 layout"
                 
               >

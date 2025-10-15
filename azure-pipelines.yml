@@ -11,6 +11,15 @@ trigger:
 
 pool: 'CMS Project' 
 
+parameters:
+  - name: nodeVersion
+    type: string
+    default: '22.x'
+    values:
+      - '18.x'
+      - '20.x'
+      - '22.x'
+
 variables:
   runDateTag: $[format('{0:yyyyMMddHHmmss}', pipeline.startTime)]
   sonarOrg: "assetworks-fleet"
@@ -50,12 +59,19 @@ stages:
     displayName: 'Publish Angular Project Artifacts'
     steps:
 
+      # use node tool to install the specified version of node\
+      - task: NodeTool@0
+        displayName: 'Use Node.js ${{ parameters.nodeVersion }}'
+        inputs:
+          versionSpec: '${{ parameters.nodeVersion }}'
+
       # build the project
       - task: PowerShell@2
         displayName: 'Build Project'
         inputs:
           targetType: 'inline'
           script: |
+            rm -rf node_modules package-lock.json
             npm i
             ng build
 

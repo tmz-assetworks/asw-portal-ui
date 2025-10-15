@@ -4,15 +4,20 @@ import {
   ElementRef,
   ViewChild,
 } from '@angular/core'
-import { Router } from '@angular/router'
+import { Router, RouterModule } from '@angular/router'
 import { Subscription } from 'rxjs'
 import { StorageService } from 'src/app/service/storage.service'
 import { HeaderService } from '../header/header.service'
+import { CommonModule } from '@angular/common'
 
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss'],
+  imports:[
+    CommonModule,
+    RouterModule,
+  ]
 })
 export class NavigationComponent {
   @ViewChild('leftPanel', { read: ElementRef, static: false })
@@ -57,13 +62,13 @@ private readonly ICON_BASE_ADMIN = '../../../../assets/Admin-SideNav/';
 
   @HostListener('document:click', ['$event'])
   clickout(event: any) {
-    if (event.target.id != 900923) {
+    if (event.target.id == 900923) {
+      this.messages = !this.messages
+    } else {
       if (!this.wasInside && window.innerWidth < 992) {
         this.messages = true
       }
       this.wasInside = false
-    } else {
-      this.messages = !this.messages
     }
   }
 

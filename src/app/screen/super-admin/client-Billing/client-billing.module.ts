@@ -20,8 +20,10 @@ const routes: Routes = [
     SharedMaterialModule,
     SharedModule,
     RouterModule.forChild(routes),
+    ClientBillingListComponent, 
+    ClientBillingComponent
   ],
-  declarations: [ClientBillingListComponent, ClientBillingComponent],
+  declarations: [],
   providers: [],
 })
 export class ClientBillingModule {}

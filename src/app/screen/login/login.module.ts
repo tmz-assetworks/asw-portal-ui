@@ -18,14 +18,15 @@ import { MatButtonModule } from '@angular/material/button';
   imports: [RouterModule, ReactiveFormsModule, FormsModule, CommonModule, MatFormFieldModule,
     MatInputModule,
     MatIconModule,
-    MatButtonModule],
-  exports: [SharedModule],
-  declarations: [
+    MatButtonModule,
     LoginComponent,
     ForgotPasswordComponent,
     ChangePasswordComponent,
     LoginVerificationComponent,
-    ConfirmationMailComponent,
+    ConfirmationMailComponent],
+  exports: [SharedModule],
+  declarations: [
+   
   ],
   providers: [CookieService],
 })

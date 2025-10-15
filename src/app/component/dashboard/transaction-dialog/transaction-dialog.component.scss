@@ -1,4 +1,4 @@
-@import '../../../../styles';
+@use '../../../../styles' as *;
 .form-fields select {
   height: 40px !important;
   margin-top: 10px;

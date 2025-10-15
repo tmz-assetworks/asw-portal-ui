@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from 'src/app/service/storage.service';
 
@@ -5,6 +6,7 @@ import { StorageService } from 'src/app/service/storage.service';
   selector: 'app-tool-tip',
   templateUrl: './tool-tip.component.html',
   styleUrls: ['./tool-tip.component.scss'],
+  imports:[CommonModule]
 })
 export class ToolTipComponent implements OnInit {
   setCharging: boolean = true;

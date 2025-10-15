@@ -1,7 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { CommonModule } from '@angular/common';
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module';
 
 @Component({
   selector: 'app-date-range-dialog',
@@ -29,6 +31,7 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
       <button mat-button color="primary" (click)="onSubmit()" [disabled]="!rangeForm.valid">Submit</button>
     </div>
   `,
+  imports:[CommonModule,SharedMaterialModule,ReactiveFormsModule],
   styles: [`
     mat-form-field {
       width: 100%;
@@ -51,12 +54,14 @@ export class DateRangeDialogComponent {
     this.maxEndDate = new Date();
   }
 
-  onStartDateChange(event: MatDatepickerInputEvent<Date>) {
-    // If start date is changed and is after the current end date, reset end date
-    if (event.value && this.rangeForm.value.end && event.value > this.rangeForm.value.end) {
-      this.rangeForm.patchValue({ end: null });
-    }
+ onStartDateChange(event: MatDatepickerInputEvent<Date>) {
+  const start: any = event.value ?? null;
+  const end: any = this.rangeForm.value.end;
+
+  if (start && end && start > end) {
+    this.rangeForm.patchValue({ end: null });
   }
+}
 
   onCancel(): void {
     this.dialogRef.close();
@@ -64,8 +69,8 @@ export class DateRangeDialogComponent {
 
   onSubmit(): void {
     if (this.rangeForm.valid) {
-      const startDate = this.rangeForm.value.start;
-      const endDate = this.rangeForm.value.end;
+      const startDate:any = this.rangeForm.value.start;
+      const endDate:any = this.rangeForm.value.end;
       
       if (startDate && endDate) {
         // Ensure end date is not in the future (additional validation)

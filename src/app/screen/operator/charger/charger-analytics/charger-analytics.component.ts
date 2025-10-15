@@ -1,16 +1,32 @@
 import { Component, OnInit } from '@angular/core'
-import { FormControl } from '@angular/forms'
-import { ActivatedRoute, Router } from '@angular/router'
+import { FormControl, ReactiveFormsModule } from '@angular/forms'
+import { ActivatedRoute, Router, RouterModule } from '@angular/router'
 import { EChartsOption } from 'echarts'
 import { AuthService } from 'src/app/service/auth/auth.service'
 import { StorageService } from 'src/app/service/storage.service'
 import { DashboardService } from '../../dashboard/dashboard.service'
 import { LocationService } from '../../location/location.service'
+import { StackedAreaChartComponent } from 'src/app/component/dashboard/stacked-area-chart/stacked-area-chart.component'
+import { LineChartComponent } from 'src/app/component/dashboard/line-chart/line-chart.component'
+import { AreaChartComponent } from 'src/app/component/dashboard/area-chart/area-chart.component'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
+import { BarChartComponent } from 'src/app/component/dashboard/bar-chart/bar-chart.component'
+import { CommonModule } from '@angular/common'
 
 @Component({
   selector: 'app-charger-analytics',
   templateUrl: './charger-analytics.component.html',
   styleUrls: ['./charger-analytics.component.scss'],
+  imports:[
+    CommonModule,
+    RouterModule,
+    StackedAreaChartComponent,
+    LineChartComponent,
+    AreaChartComponent,
+    BarChartComponent,
+    SharedMaterialModule,
+    ReactiveFormsModule,
+  ]
 })
 export class ChargerAnalyticsComponent implements OnInit {
   isAnalytics = true
@@ -147,7 +163,7 @@ export class ChargerAnalyticsComponent implements OnInit {
   chargerAnalytics = 'chargerAnalytics'
   stackedArea = 'stackedArea'
   chargerAnalyticsTitle = 'Energy Used'
-  chargerEnergyUsedData = []
+  chargerEnergyUsedData:string[] = []
 
   basicTitle = 'Locations Performing '
 

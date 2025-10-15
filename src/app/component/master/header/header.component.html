@@ -67,6 +67,8 @@
               <mat-icon>settings</mat-icon>
               <span>Profile Settings</span>
             </button>
+             <!-- Apply checks to show only for admin -->
+            @if(role == 'Admin') {
               <button
                 mat-menu-item
                 class="cursorPointer"
@@ -74,6 +76,7 @@
                 <mat-icon>domain</mat-icon>
                 <span>Organization Profile</span>
               </button>
+            }
             <button mat-menu-item class="cursorPointer" (click)="logout()">
               <mat-icon>logout</mat-icon>
               <span>Logout</span>

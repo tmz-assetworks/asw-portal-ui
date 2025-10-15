@@ -11,10 +11,11 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Asset Category
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
 
               <mat-form-field
+              appearance="outline" 
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
@@ -41,8 +42,7 @@
                 *ngIf="
                   addAssetsForm.get('assetDetails.AssetCategory')?.errors &&
                   addAssetsForm.get('assetDetails.AssetCategory')?.touched &&
-                  addAssetsForm.get('assetDetails.AssetCategory')?.value
-                    .length == 0
+                  addAssetsForm.get('assetDetails.AssetCategory')?.value?.length == 0
                 "
               >
                 Asset Category is Required
@@ -54,7 +54,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Serial Number
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <!-- <div class="barbar-box6 layout"> -->
               <input
@@ -73,8 +73,7 @@
                 *ngIf="
                   !addAssetsForm.get('assetDetails.SerialNumber')?.valid &&
                   addAssetsForm.get('assetDetails.SerialNumber')?.touched &&
-                  addAssetsForm.get('assetDetails.SerialNumber')?.value.length >
-                    20
+                  (addAssetsForm.get('assetDetails.SerialNumber')?.value?.length ?? 0) > 20
                 "
               >
                 Serial Number must be between 0 to 20 Alphanumeric
@@ -84,8 +83,7 @@
                 *ngIf="
                   !addAssetsForm.get('assetDetails.SerialNumber')?.valid &&
                   addAssetsForm.get('assetDetails.SerialNumber')?.touched &&
-                  addAssetsForm.get('assetDetails.SerialNumber')?.value
-                    .length == 0
+                  addAssetsForm.get('assetDetails.SerialNumber')?.value?.length == 0
                 "
               >
                 Serial Number is Required
@@ -98,7 +96,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Asset ID
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
 
               <input
@@ -118,7 +116,7 @@
                 *ngIf="
                   addAssetsForm.get('assetDetails.AssetID')?.errors &&
                   addAssetsForm.get('assetDetails.AssetID')?.touched &&
-                  addAssetsForm.get('assetDetails.AssetID')?.value.length > 50
+                  (addAssetsForm.get('assetDetails.AssetID')?.value?.length ?? 0) > 50
                 "
               >
                 Asset ID must be between 0 to 50 Alphanumeric
@@ -128,7 +126,7 @@
                 *ngIf="
                   addAssetsForm.get('assetDetails.AssetID')?.errors &&
                   addAssetsForm.get('assetDetails.AssetID')?.touched &&
-                  addAssetsForm.get('assetDetails.AssetID')?.value.length == 0
+                  addAssetsForm.get('assetDetails.AssetID')?.value?.length == 0
                 "
               >
                 Asset ID Field is Required
@@ -141,10 +139,11 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Location
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
 
               <mat-form-field
+              appearance="outline" 
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
@@ -171,7 +170,7 @@
                 *ngIf="
                   addAssetsForm.get('assetDetails.Location')?.errors &&
                   addAssetsForm.get('assetDetails.Location')?.touched &&
-                  addAssetsForm.get('assetDetails.Location')?.value.length == 0
+                  addAssetsForm.get('assetDetails.Location')?.value?.length == 0
                 "
               >
                 Location Name is Required
@@ -184,11 +183,12 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Status
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <!-- <div class="barbar-box6 layout"> -->
 
               <mat-form-field
+              appearance="outline" 
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
@@ -212,7 +212,7 @@
                 *ngIf="
                   addAssetsForm.get('assetDetails.Status')?.errors &&
                   addAssetsForm.get('assetDetails.Status')?.touched &&
-                  addAssetsForm.get('assetDetails.Status')?.value.length == 0
+                  addAssetsForm.get('assetDetails.Status')?.value?.length == 0
                 "
               >
                 Status is Required
@@ -246,9 +246,10 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Make
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <mat-form-field
+              appearance="outline" 
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
@@ -273,7 +274,7 @@
               *ngIf="
                 addAssetsForm.get('assetCableDetails.Make')?.errors &&
                 addAssetsForm.get('assetCableDetails.Make')?.touched &&
-                addAssetsForm.get('assetCableDetails.Make')?.value.length == 0
+                addAssetsForm.get('assetCableDetails.Make')?.value?.length == 0
               "
             >
               Make is Required
@@ -284,9 +285,10 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Model
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <mat-form-field
+              appearance="outline" 
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
@@ -314,7 +316,7 @@
               *ngIf="
                 addAssetsForm.get('assetCableDetails.Model')?.errors &&
                 addAssetsForm.get('assetCableDetails.Model')?.touched &&
-                addAssetsForm.get('assetCableDetails.Model')?.value.length == 0
+                addAssetsForm.get('assetCableDetails.Model')?.value?.length == 0
               "
             >
               Model is Required
@@ -326,10 +328,11 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Warranty Start
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
 
               <mat-form-field
+              appearance="outline"
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
@@ -360,9 +363,10 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Warranty End
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <mat-form-field
+              appearance="outline"
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
@@ -392,7 +396,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Warranty Duration (In Days)
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -426,7 +430,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Carrier
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -451,8 +455,7 @@
               *ngIf="
                 addAssetsForm.get('assetModemDetails.Carrier')?.errors &&
                 addAssetsForm.get('assetModemDetails.Carrier')?.touched &&
-                addAssetsForm.get('assetModemDetails.Carrier')?.value.length >
-                  50
+                (addAssetsForm.get('assetModemDetails.Carrier')?.value?.length ?? 0) > 50
               "
             >
               Carrier must be between 0 to 50 Alphanumeric
@@ -462,8 +465,7 @@
               *ngIf="
                 addAssetsForm.get('assetModemDetails.Carrier')?.errors &&
                 addAssetsForm.get('assetModemDetails.Carrier')?.touched &&
-                addAssetsForm.get('assetModemDetails.Carrier')?.value.length ==
-                  0
+                addAssetsForm.get('assetModemDetails.Carrier')?.value?.length == 0
               "
             >
               Carrier is Required
@@ -475,7 +477,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Imei Number
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -496,8 +498,7 @@
                 *ngIf="
                   addAssetsForm.get('assetModemDetails.ImeiNumber')?.invalid &&
                   addAssetsForm.get('assetModemDetails.ImeiNumber')?.touched &&
-                  addAssetsForm.get('assetModemDetails.ImeiNumber')?.value
-                    .length > 50
+                  (addAssetsForm.get('assetModemDetails.ImeiNumber')?.value?.length ?? 0) > 50
                 "
               >
                 Imei Number must be between 0 to 50 Alphanumeric
@@ -507,8 +508,7 @@
                 *ngIf="
                   addAssetsForm.get('assetModemDetails.ImeiNumber')?.invalid &&
                   addAssetsForm.get('assetModemDetails.ImeiNumber')?.touched &&
-                  addAssetsForm.get('assetModemDetails.ImeiNumber')?.value
-                    .length == 0
+                  addAssetsForm.get('assetModemDetails.ImeiNumber')?.value?.length == 0
                 "
               >
                 Imei Number is Required
@@ -521,7 +521,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 IP Address
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -544,8 +544,7 @@
                 *ngIf="
                   addAssetsForm.get('assetModemDetails.IpAddress')?.errors &&
                   addAssetsForm.get('assetModemDetails.IpAddress')?.touched &&
-                  addAssetsForm.get('assetModemDetails.IpAddress')?.value
-                    .length > 15
+                  (addAssetsForm.get('assetModemDetails.IpAddress')?.value?.length ?? 0) > 15
                 "
               >
                 Ip Address must be between 0 to 15 Alphanumeric
@@ -555,8 +554,7 @@
                 *ngIf="
                   addAssetsForm.get('assetModemDetails.IpAddress')?.errors &&
                   addAssetsForm.get('assetModemDetails.IpAddress')?.touched &&
-                  addAssetsForm.get('assetModemDetails.IpAddress')?.value
-                    .length == 0
+                  addAssetsForm.get('assetModemDetails.IpAddress')?.value?.length == 0
                 "
               >
                 Ip Address is Required
@@ -568,10 +566,11 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Make
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
 
               <mat-form-field
+              appearance="outline" 
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
@@ -596,7 +595,7 @@
               *ngIf="
                 addAssetsForm.get('assetModemDetails.Make')?.errors &&
                 addAssetsForm.get('assetModemDetails.Make')?.touched &&
-                addAssetsForm.get('assetModemDetails.Make')?.value.length == 0
+                addAssetsForm.get('assetModemDetails.Make')?.value?.length == 0
               "
             >
               Make is Required
@@ -607,9 +606,10 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Model
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <mat-form-field
+              appearance="outline" 
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
@@ -638,7 +638,7 @@
               *ngIf="
                 addAssetsForm.get('assetModemDetails.Model')?.errors &&
                 addAssetsForm.get('assetModemDetails.Model')?.touched &&
-                addAssetsForm.get('assetModemDetails.Model')?.value.length == 0
+                addAssetsForm.get('assetModemDetails.Model')?.value?.length == 0
               "
             >
               Model is Required
@@ -649,7 +649,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Sim Number
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -671,8 +671,7 @@
                 *ngIf="
                   addAssetsForm.get('assetModemDetails.SimNumber')?.errors &&
                   addAssetsForm.get('assetModemDetails.SimNumber')?.touched &&
-                  addAssetsForm.get('assetModemDetails.SimNumber')?.value
-                    .length > 15
+                  (addAssetsForm.get('assetModemDetails.SimNumber')?.value?.length ?? 0) > 15
                 "
               >
                 Sim Number must be between 0 to 15 Alphanumeric
@@ -682,8 +681,7 @@
                 *ngIf="
                   addAssetsForm.get('assetModemDetails.SimNumber')?.errors &&
                   addAssetsForm.get('assetModemDetails.SimNumber')?.touched &&
-                  addAssetsForm.get('assetModemDetails.SimNumber')?.value
-                    .length == 0
+                  addAssetsForm.get('assetModemDetails.SimNumber')?.value?.length == 0
                 "
               >
                 Sim Number is Required
@@ -695,10 +693,11 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Modem Type
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
 
               <mat-form-field
+              appearance="outline" 
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
@@ -726,8 +725,7 @@
               *ngIf="
                 addAssetsForm.get('assetModemDetails.ModemType')?.errors &&
                 addAssetsForm.get('assetModemDetails.ModemType')?.touched &&
-                addAssetsForm.get('assetModemDetails.ModemType')?.value
-                  .length == 0
+                addAssetsForm.get('assetModemDetails.ModemType')?.value?.length == 0
               "
             >
               Modem Type is Required
@@ -739,10 +737,11 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Warranty Start
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
 
               <mat-form-field
+              appearance="outline"
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
@@ -773,10 +772,11 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Warranty End
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
 
               <mat-form-field
+              appearance="outline"
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
@@ -806,7 +806,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Warranty Duration (In Days)
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -832,10 +832,11 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Installation Date
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
 
               <mat-form-field
+              appearance="outline" 
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
@@ -874,9 +875,10 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Installation Date
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <mat-form-field
+              appearance="outline" 
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
@@ -905,7 +907,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Pad Name
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -927,8 +929,7 @@
                 *ngIf="
                   addAssetsForm.get('assetPadDetails.PadName')?.invalid &&
                   addAssetsForm.get('assetPadDetails.PadName')?.touched &&
-                  addAssetsForm.get('assetPadDetails.PadName')?.value.length ==
-                    0
+                  addAssetsForm.get('assetPadDetails.PadName')?.value?.length ==0
                 "
               >
                 Pad Name is Required
@@ -938,8 +939,7 @@
                 *ngIf="
                   addAssetsForm.get('assetPadDetails.PadName')?.invalid &&
                   addAssetsForm.get('assetPadDetails.PadName')?.touched &&
-                  addAssetsForm.get('assetPadDetails.PadName')?.value.length >
-                    20
+                  (addAssetsForm.get('assetPadDetails.PadName')?.value?.length ?? 0)>20
                 "
               >
                 Pad Name must be between 0 to 20 Alphanumeric
@@ -960,7 +960,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Breaker Rating
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -985,7 +985,7 @@
                   addAssetsForm.get('assetPowerCabinetDetails.BreakerRating')
                     ?.touched &&
                   addAssetsForm.get('assetPowerCabinetDetails.BreakerRating')
-                    ?.value.length == 0
+                    ?.value?.length == 0
                 "
               >
                 Breaker Rating is Required
@@ -997,8 +997,8 @@
                     ?.errors &&
                   addAssetsForm.get('assetPowerCabinetDetails.BreakerRating')
                     ?.touched &&
-                  addAssetsForm.get('assetPowerCabinetDetails.BreakerRating')
-                    ?.value.length > 5
+                  (addAssetsForm.get('assetPowerCabinetDetails.BreakerRating')
+                    ?.value?.length ?? 0) > 5
                 "
               >
                 Breaker Rating must be between 0 to 5 Numeric
@@ -1010,7 +1010,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 DC Port Quantity Rating
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -1037,7 +1037,7 @@
                   addAssetsForm.get('assetPowerCabinetDetails.DCPortQuantity')
                     ?.touched &&
                   addAssetsForm.get('assetPowerCabinetDetails.DCPortQuantity')
-                    ?.value.length == 0
+                    ?.value?.length == 0
                 "
               >
                 DC Port Quantity Rating is Required
@@ -1049,8 +1049,8 @@
                     ?.errors &&
                   addAssetsForm.get('assetPowerCabinetDetails.DCPortQuantity')
                     ?.touched &&
-                  addAssetsForm.get('assetPowerCabinetDetails.DCPortQuantity')
-                    ?.value.length > 5
+                  (addAssetsForm.get('assetPowerCabinetDetails.DCPortQuantity')
+                    ?.value?.length ?? 0) > 5
                 "
               >
                 DC Port Quantity Rating must be between 0 and 5 Numeric
@@ -1063,10 +1063,11 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Make
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
 
               <mat-form-field
+              appearance="outline"
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
@@ -1096,8 +1097,7 @@
               *ngIf="
                 addAssetsForm.get('assetPowerCabinetDetails.Make')?.errors &&
                 addAssetsForm.get('assetPowerCabinetDetails.Make')?.touched &&
-                addAssetsForm.get('assetPowerCabinetDetails.Make')?.value
-                  .length == 0
+                addAssetsForm.get('assetPowerCabinetDetails.Make')?.value?.length == 0
               "
             >
               Make is Required
@@ -1108,9 +1108,10 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Model
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <mat-form-field
+              appearance="outline"
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
@@ -1140,8 +1141,7 @@
               *ngIf="
                 addAssetsForm.get('assetPowerCabinetDetails.Model')?.errors &&
                 addAssetsForm.get('assetPowerCabinetDetails.Model')?.touched &&
-                addAssetsForm.get('assetPowerCabinetDetails.Model')?.value
-                  .length == 0
+                addAssetsForm.get('assetPowerCabinetDetails.Model')?.value?.length == 0
               "
             >
               Model is Required
@@ -1153,7 +1153,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Peak Current
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -1179,7 +1179,7 @@
                   addAssetsForm.get('assetPowerCabinetDetails.PeakCurrent')
                     ?.touched &&
                   addAssetsForm.get('assetPowerCabinetDetails.PeakCurrent')
-                    ?.value.length == 0
+                    ?.value?.length == 0
                 "
               >
                 Peak Current is Required
@@ -1191,8 +1191,8 @@
                     ?.errors &&
                   addAssetsForm.get('assetPowerCabinetDetails.PeakCurrent')
                     ?.touched &&
-                  addAssetsForm.get('assetPowerCabinetDetails.PeakCurrent')
-                    ?.value.length > 5
+                  (addAssetsForm.get('assetPowerCabinetDetails.PeakCurrent')
+                    ?.value ?? '').length > 5
                 "
               >
                 Peak Current must be between 0 and 5 Numeric
@@ -1205,7 +1205,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Service Volts
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -1232,7 +1232,7 @@
                   addAssetsForm.get('assetPowerCabinetDetails.ServiceVolts')
                     ?.touched &&
                   addAssetsForm.get('assetPowerCabinetDetails.ServiceVolts')
-                    ?.value.length == 0
+                    ?.value?.length == 0
                 "
               >
                 Service Volts is Required
@@ -1244,8 +1244,8 @@
                     ?.errors &&
                   addAssetsForm.get('assetPowerCabinetDetails.ServiceVolts')
                     ?.touched &&
-                  addAssetsForm.get('assetPowerCabinetDetails.ServiceVolts')
-                    ?.value.length > 5
+                  (addAssetsForm.get('assetPowerCabinetDetails.ServiceVolts')
+                    ?.value?.length ?? 0) > 5
                 "
               >
                 Service Volts must be between 0 to 5 Numeric
@@ -1258,10 +1258,11 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Warranty Start
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
 
               <mat-form-field
+              appearance="outline"
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
@@ -1292,10 +1293,11 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Warranty End
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
 
               <mat-form-field
+              appearance="outline"
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
@@ -1325,7 +1327,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Warranty Duration (In Days)
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -1352,9 +1354,10 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Installation Date
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <mat-form-field
+              appearance="outline"
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
@@ -1393,7 +1396,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Card Reader
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -1418,8 +1421,7 @@
                     ?.errors &&
                   addAssetsForm.get('assetRFIDReaderDetails.CardReader')
                     ?.touched &&
-                  addAssetsForm.get('assetRFIDReaderDetails.CardReader')?.value
-                    .length == 0
+                  addAssetsForm.get('assetRFIDReaderDetails.CardReader')?.value?.length == 0
                 "
               >
                 Card Reader is Required
@@ -1431,8 +1433,7 @@
                     ?.errors &&
                   addAssetsForm.get('assetRFIDReaderDetails.CardReader')
                     ?.touched &&
-                  addAssetsForm.get('assetRFIDReaderDetails.CardReader')?.value
-                    .length > 20
+                  (addAssetsForm.get('assetRFIDReaderDetails.CardReader')?.value?.length ?? 0) > 20
                 "
               >
                 Card Reader must be between 0 to 20 Alphanumeric
@@ -1444,9 +1445,10 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Make
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <mat-form-field
+              appearance="outline"
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
@@ -1471,8 +1473,7 @@
               *ngIf="
                 addAssetsForm.get('assetRFIDReaderDetails.Make')?.errors &&
                 addAssetsForm.get('assetRFIDReaderDetails.Make')?.touched &&
-                addAssetsForm.get('assetRFIDReaderDetails.Make')?.value
-                  .length == 0
+                addAssetsForm.get('assetRFIDReaderDetails.Make')?.value?.length == 0
               "
             >
               Make is Required
@@ -1483,9 +1484,10 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Model
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <mat-form-field
+              appearance="outline" 
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
@@ -1510,8 +1512,7 @@
               *ngIf="
                 addAssetsForm.get('assetRFIDReaderDetails.Model')?.errors &&
                 addAssetsForm.get('assetRFIDReaderDetails.Model')?.touched &&
-                addAssetsForm.get('assetRFIDReaderDetails.Model')?.value
-                  .length == 0
+                addAssetsForm.get('assetRFIDReaderDetails.Model')?.value?.length == 0
               "
             >
               Model is Required
@@ -1523,10 +1524,11 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Warranty Start
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
 
               <mat-form-field
+              appearance="outline"
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
@@ -1557,10 +1559,11 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Warranty End
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
 
               <mat-form-field
+              appearance="outline"
                 class="barbar-box6 layout"
                 [ngClass]="{
                   'is-invalid':
@@ -1590,7 +1593,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Warranty Duration (In Days)
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -1625,7 +1628,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Switch Gear Name
-                <span style="color: 'red';">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <div
                 class="barbar-box6 layout"
@@ -1650,7 +1653,7 @@
                   addAssetsForm.get('assetSwitchGearDetails.switchGearName')
                     ?.touched &&
                   addAssetsForm.get('assetSwitchGearDetails.switchGearName')
-                    ?.value.length == 0
+                    ?.value?.length == 0
                 "
               >
                 Switch Gear Name is Required
@@ -1662,8 +1665,8 @@
                     ?.invalid &&
                   addAssetsForm.get('assetSwitchGearDetails.switchGearName')
                     ?.touched &&
-                  addAssetsForm.get('assetSwitchGearDetails.switchGearName')
-                    ?.value.length > 20
+                  (addAssetsForm.get('assetSwitchGearDetails.switchGearName')
+                    ?.value?.length ?? 0) > 20
                 "
               >
                 Switch Gear Name must be between 0 to 20 Alphanumeric

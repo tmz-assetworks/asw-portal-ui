@@ -1,4 +1,4 @@
-@import '../../../styles';
+@use '../../../styles.scss' as *;
 
 $color_type_0: rgb(0, 98, 166);
 $color_type_1: rgb(19, 27, 33);
@@ -669,16 +669,28 @@ $font_type_3: 500 14px/1.2 'Roboto', Helvetica, Arial, serif;
   }
 }
 .is-invalid {
-  border-color: red !important;
+  border-color: #ff0000 !important;
   background-image: none !important;
 }
 
 .error-mess {
-  color: red;
+  color: #ff0000;
   padding-top: 5px;
 }
 
 
 .example-section {
   margin: 12px 0;
+}
+::ng-deep .barbar-box6 .mat-mdc-text-field-wrapper {
+  height: 40px !important;
+  min-height: 57px !important;
+  display: flex;
+  align-items: center;
+}
+
+::ng-deep .mat-mdc-form-field .mdc-notched-outline {
+  height: 85% !important;
+  top: 42%;
+  transform: translateY(-50%);  // keeps outline centered vertically
 }

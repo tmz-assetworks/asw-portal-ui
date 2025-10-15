@@ -94,32 +94,22 @@
   <th mat-header-cell *matHeaderCellDef>ACTION</th>
   <td mat-cell *matCellDef="let element">
     <span
-      *ngIf="!element.isActive"
-      title="Active"
+      title="{{ element.isActive ? 'Inactive' : 'Active' }}"
       (click)="changeState(element.id, element.isActive)"
       (keydown.enter)="changeState(element.id, element.isActive)"
       tabindex="0"
     >
       <img
-        src="../../../../assets/Admin-SideNav/Vehicles-Icons/Active-tik.svg"
+        [src]="
+          element.isActive
+            ? '../../../../assets/Active.svg'
+            : '../../../../assets/Admin-SideNav/Vehicles-Icons/Active-tik.svg'
+        "
         class="cursorPointer"
         alt=""
       />
     </span>
-
-    <span
-      *ngIf="element.isActive"
-      title="Inactive"
-      (click)="changeState(element.id, element.isActive)"
-      (keydown.enter)="changeState(element.id, element.isActive)"
-      tabindex="0"
-    >
-      <img
-        src="../../../../assets/Active.svg"
-        class="cursorPointer"
-        alt=""
-      />
-    </span>
+      
 
     <span style="margin: 7px;" tabindex="0"
       (click)="performAction('edit', element)"
@@ -152,9 +142,9 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
     
-    <ng-container *ngIf="!dataSource.data.length">
+    @if(!dataSource.data.length){
       <p class="text-center">No Records Found!</p>
-    </ng-container>
+    }
   </div>
 </div>
 

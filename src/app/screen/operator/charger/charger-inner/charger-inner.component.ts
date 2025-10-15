@@ -2,18 +2,22 @@ import { Component, OnInit, ViewChild } from '@angular/core'
 import { FormControl } from '@angular/forms'
 import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
-import { ActivatedRoute, Router } from '@angular/router'
-import { EChartsOption } from 'echarts'
-import { AuthService } from 'src/app/service/auth/auth.service'
+import { ActivatedRoute, Router, RouterModule } from '@angular/router'
 import { StorageService } from 'src/app/service/storage.service'
 import { DashboardService } from '../../dashboard/dashboard.service'
 import { ChargerService } from '../charger.service'
-import { Location } from '@angular/common'
+import { CommonModule, Location } from '@angular/common'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 
 @Component({
   selector: 'app-charger-inner',
   templateUrl: './charger-inner.component.html',
   styleUrls: ['./charger-inner.component.scss'],
+  imports:[
+    CommonModule,
+    RouterModule,
+    SharedMaterialModule
+  ]
 })
 export class ChargerInnerComponent implements OnInit {
   filterToggle = new FormControl('1')
@@ -34,7 +38,7 @@ export class ChargerInnerComponent implements OnInit {
   searchParam = ''
 
   @ViewChild(MatPaginator) paginator!: MatPaginator
-  data = []
+  data:string[] = []
 
   viewCharger(data: any) {
     this._storageService.setSessionData('chargerBoxId', data.chargerBoxId)
@@ -243,15 +247,15 @@ export class ChargerInnerComponent implements OnInit {
    */
 
   pageChange(event: any) {
-    if (event.pageSize !== this.pageSize) {
-      this.currentPage = 1
-      this.pageSize = event.pageSize
-      this.paginator.pageIndex = 0
-    } else {
+    if (event.pageSize == this.pageSize) {
       this.currentPage =
         event.previousPageIndex < event.pageIndex
           ? this.currentPage + 1
           : this.currentPage - 1
+    } else {
+      this.currentPage = 1
+      this.pageSize = event.pageSize
+      this.paginator.pageIndex = 0
     }
 
     this.getDispensersDetail()
@@ -320,9 +324,7 @@ downloadAsCSV(): void {
     link.setAttribute('download', 'charger_detail_report.csv');
     document.body.appendChild(link);
     link.click();
-    document.body.removeChild(link);
+    link.remove();
   });
-}
-
-
+ }
 }

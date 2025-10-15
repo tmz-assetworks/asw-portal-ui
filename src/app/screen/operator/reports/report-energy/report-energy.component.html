@@ -118,8 +118,8 @@
               [chartType]="reportBarSession"
               [chartTitle]="reportBarSessionTitle"
             ></app-bar-chart> -->
+            @if (reportEnergyUsedData !== '') {
             <app-line-chart
-              *ngIf="reportEnergyUsedData !== ''"
               [reportEnergyUsedData]="reportEnergyUsedData"
               [chartType]="'reportEnergyUsed'"
               [chartTitle]="'Energy  Demand Over Time'"
@@ -132,11 +132,12 @@
                 )
               "
             ></app-line-chart>
+            }
           </div>
           <div class="dashboard-block42-spacer"></div>
           <div class="dashboard-block42-item">
+            @if (reportEnergyMilesAddedData !== '') {
             <app-line-chart
-              *ngIf="reportEnergyMilesAddedData !== ''"
               [reportEnergyMilesAddedData]="reportEnergyMilesAddedData"
               [chartType]="'reportEnergyMilesAdded'"
               [chartTitle]="'Miles Added'"
@@ -149,12 +150,14 @@
                 )
               "
             ></app-line-chart>
+            }
           </div>
         </div>
         <div class="dashboard-block42 layout">
           <div class="dashboard-block42-item">
+            @if (reportEnegyMTCo2SavedData !== '') {
             <app-area-chart
-              *ngIf="reportEnegyMTCo2SavedData !== ''"
+              [reportEnegyMTCo2SavedData]="reportEnegyMTCo2SavedData"
               [reportEnegyMTCo2SavedData]="reportEnegyMTCo2SavedData"
               [chartType]="'reportEnegyMTCo2Saved'"
               [chartTitle]="'MT Of CO2 Saved'"
@@ -167,11 +170,13 @@
                 )
               "
             ></app-area-chart>
+            }
           </div>
           <div class="dashboard-block42-spacer"></div>
           <div class="dashboard-block42-item">
+            @if (reportEnergyGasolineGallonData !== '') {
             <app-line-chart
-              *ngIf="reportEnergyGasolineGallonData !== ''"
+              [reportEnergyGasolineGallonData]="reportEnergyGasolineGallonData"
               [reportEnergyGasolineGallonData]="reportEnergyGasolineGallonData"
               [chartType]="'reportEnergyGasolineGallon'"
               [chartTitle]="'Gasoline Gallon Equivalents'"
@@ -184,6 +189,7 @@
                 )
               "
             ></app-line-chart>
+            }
           </div>
         </div>
       </div>

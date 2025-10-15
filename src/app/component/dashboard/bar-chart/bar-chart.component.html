@@ -5,7 +5,8 @@
     </div>
     <div class="card-block41-spacer"></div>
     <div class="card-block41-item">
-      <ng-container *ngIf="isToggle">
+      @if (isToggle){
+      <ng-container>
         <mat-slide-toggle
           class="card-box11 layout"
           [color]="color"
@@ -14,16 +15,15 @@
           (change)="setToggleValue($event)"
         ></mat-slide-toggle>
       </ng-container>
-      <ng-container *ngIf="!isToggle">
-        <div class="card-box11 layout">
-          <img src="{{ icon }}" alt="" (click)="graphDetailPage(barChartId)" />
-        </div>
-      </ng-container>
-
-      <!-- <div class="card-box11 layout"><img src="{{ icon }}" alt="" /></div> -->
+     
+      } @else {
+        <ng-container>
+          <div class="card-box11 layout">
+            <img src="{{ icon }}" alt="" (click)="graphDetailPage(barChartId)" />
+          </div>
+        </ng-container>
+      } 
     </div>
   </div>
-  <!-- <div class="card-box12 layout"> -->
   <div class="card-box12 layout" echarts [options]="option"></div>
-  <!-- </div> -->
 </div>

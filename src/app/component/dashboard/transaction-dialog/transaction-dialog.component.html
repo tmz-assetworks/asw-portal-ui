@@ -50,11 +50,6 @@
       <div class="invoice-details2 invoice-details">
         <h4>Description</h4>
         <div class="discription1">
-          <!-- <div class="field-value">
-            <p class="info-label">End Meter Value</p>
-            <p class="info">{{ transactionData?.endMeterValue }}</p>
-          </div> -->
-
           <div class="field-value">
             <p class="info-label">Energy Used</p>
             <p class="info">{{ transactionData?.consumedEnergy }}</p>
@@ -72,19 +67,14 @@
           </div>
           <div class="field-value">
             <p class="info-label">Unit Name</p>
-            <p *ngIf="transactionData?.unitName !== ''" class="info">
-              {{ transactionData?.unitName }}
+            <p class="info">
+              {{ transactionData?.unitName?transactionData?.unitName:'NA' }}
             </p>
-            <p *ngIf="transactionData?.unitName == ''" class="info">NA</p>
           </div>
           <div class="field-value">
             <p class="info-label">Grace Period (Minutes)</p>
             <p class="info">{{ transactionData?.gracePeriod }}</p>
           </div>
-          <!-- <div class="field-value">
-            <p class="info-label">Parking Fee (Per minutes)</p>
-            <p class="info">{{ transactionData?.parkingFee }}</p>
-          </div> -->
           <div class="field-value">
             <p class="info-label">Tax ({{ transactionData?.currencyName }})</p>
             <p class="info">${{ transactionData?.tax }}</p>
@@ -96,10 +86,14 @@
         <div class="discription1">
           <div class="field-value">
             <p class="info-label">Price Type</p>
-            <p *ngIf="!noPriceType" class="info">
-              {{ transactionData?.priceType }}
-            </p>
-            <p *ngIf="noPriceType" class="info">NA</p>
+            @if (!noPriceType){
+              <p class="info">
+                {{ transactionData?.priceType }}
+              </p>
+            }
+            @else{
+              <p class="info">NA</p>
+            }
           </div>
           <div class="field-value">
             <p class="info-label">

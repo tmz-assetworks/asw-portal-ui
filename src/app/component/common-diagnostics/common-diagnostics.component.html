@@ -254,7 +254,7 @@
           <app-tool-tip class="wd_sub_1 tool_alignSC tool-tip-4">
             <div class="title modal-title">
               Smart Charging
-              <span class="close-icon auth-close close2" (click)="closePopup()" (keydown.enter)="closePopup">
+              <span class="close-icon auth-close close2" (click)="closePopup()" (keydown.enter)="closePopup()">
                 X
               </span>
             </div>
@@ -504,37 +504,44 @@
                                 <span class="mandatoryField">
                                   Select Valid From
                                 </span>
-                                <mat-form-field class="mt-space">
-                                  <input matInput [ngxMatDatetimePicker]="pickerFrom" [ngxMatDatetimePickerFilter]="
-                                        dateFilterForStartForSetCharging
-                                      " formControlName="validFrom" style="color: black;" readonly (dateChange)="
-                                        checkStartDateForSetCharging()
-                                      " id="pickerFrom" />
+                                <mat-form-field class="mt-space chargerType">
+                                 <input 
+                                    matInput 
+                                    [matDatetimepicker]="pickerFrom" 
+                                    formControlName="validFrom"
+                                    [matDatepickerFilter]="dateFilterForStartForSetCharging"
+                                    readonly
+                                    (dateChange)="checkStartDateForSetCharging()"
+                                    style="color: black;"
+                                    id="pickerFrom"
+                                 />
 
-                                  <mat-datepicker-toggle matSuffix [for]="$any(pickerFrom)"></mat-datepicker-toggle>
-                                  <ngx-mat-datetime-picker #pickerFrom [showSpinners]="true" [showSeconds]="true"
-                                    [touchUi]="false" [enableMeridian]="true"></ngx-mat-datetime-picker>
-                                  <!-- <mat-datepicker
-                                        #pickerFrom
-                                      ></mat-datepicker> -->
-                                </mat-form-field>
-
+                                 <mat-datetimepicker-toggle matSuffix [for]="pickerFrom" class="grey-icon"></mat-datetimepicker-toggle>
+                                 
+                                 <mat-datetimepicker 
+                                    #pickerFrom 
+                                    type="datetime" 
+                                    [touchUi]="false"
+                                 >
+                                 </mat-datetimepicker>
+                                 </mat-form-field>
                                 <span class="mandatoryField">
                                   Select Valid To
                                 </span>
-                                <mat-form-field class="mt-space">
-                                  <input matInput [ngxMatDatetimePicker]="pickerTo" [ngxMatDatetimePickerFilter]="
-                                        dateFilterForEndForSetCharging
-                                      " style="color: black;" formControlName="validTo" readonly (dateChange)="
-                                        checkValidFromForSetCharging()
-                                      " id="validTo"/>
-                                  <mat-datepicker-toggle matSuffix [for]="$any(pickerTo)"></mat-datepicker-toggle>
-                                  <ngx-mat-datetime-picker #pickerTo [showSpinners]="true" [showSeconds]="true"
-                                    [touchUi]="false" [enableMeridian]="true"></ngx-mat-datetime-picker>
-                                  <!-- <mat-datepicker
-                                        #pickerTo
-                                      ></mat-datepicker> -->
-                                </mat-form-field>
+                                <mat-form-field class="mt-space chargerType" >
+                                  <input matInput [matDatetimepicker]="pickerTo" [matDatepickerFilter]="
+                                  dateFilterForEndForSetCharging
+                                " style="color: black;" formControlName="validTo" readonly (dateChange)="
+                                  checkValidFromForSetCharging()
+                                " id="validTo"/>
+                            <mat-datetimepicker-toggle matSuffix [for]="$any(pickerTo)" class="grey-icon"></mat-datetimepicker-toggle>
+                          
+                              <mat-datetimepicker 
+                              #pickerTo 
+                              type="datetime" 
+                              [touchUi]="false"
+                           >
+                           </mat-datetimepicker>                          </mat-form-field>
                               </div>
                               <button class="charging-profile-btn" style="color: #ffffff;" *ngIf="firstFields"
                                 (click)="enableFields('secondFields')">
@@ -547,13 +554,14 @@
                                 <span class="mandatoryField" id="duration">
                                   Select Start Schedule
                                 </span>
-                                <mat-form-field class="mt-space">
-                                  <input matInput [ngxMatDatetimePicker]="picker3" [ngxMatDatetimePickerFilter]="
+                                <mat-form-field class="mt-space chargerType">
+                                  <input matInput [matDatetimepicker]="picker3" [matDatepickerFilter]="
                                         dateFilterForStartScheduleForSetCharging
                                       " style="color: black;" [readonly]="true" formControlName="startSchedule" />
-                                  <mat-datepicker-toggle matSuffix [for]="$any(picker3)"></mat-datepicker-toggle>
-                                  <ngx-mat-datetime-picker #picker3 [showSpinners]="true" [showSeconds]="true"
-                                    [touchUi]="false" [enableMeridian]="true"></ngx-mat-datetime-picker>
+                                  <mat-datetimepicker-toggle matSuffix [for]="$any(picker3)" class="grey-icon"></mat-datetimepicker-toggle>
+                                  <mat-datetimepicker #picker3                               type="datetime" 
+                                  type="datetime" 
+                                  [touchUi]="false"></mat-datetimepicker>
                                 </mat-form-field>
                                 <span class="required">
                                   Select Charging Rate Unit
@@ -666,14 +674,13 @@
                 <!--   <input *ngIf="commandType == 'isReserveNow'" type="datetime-local" class="barbar-box6 layout date1"
                     (change)="selectDate($event)" min="{{currentDate}}" id="date1" /> -->
 
-                <mat-form-field *ngIf="commandType == 'isReserveNow'">
-                  <input matInput [ngxMatDatetimePicker]="picker1" [min]="minDate" (dateChange)="changeDateTime($event)"
-                    style="color: black;" [readonly]="true" />
-                  <mat-datepicker-toggle matSuffix [for]="$any(picker1)"></mat-datepicker-toggle>
-                  <ngx-mat-datetime-picker #picker1 [showSpinners]="true" [showSeconds]="true" [touchUi]="false"
-                    [enableMeridian]="true"></ngx-mat-datetime-picker>
-                </mat-form-field>
-
+                    <mat-form-field *ngIf="commandType == 'isReserveNow'" class="chargerType">
+                      <input matInput [matDatetimepicker]="picker1" [min]="minDate" (dateChange)="changeDateTime($event)"
+                        style="color: black;" [readonly]="true" />
+                      <mat-datetimepicker-toggle matSuffix [for]="$any(picker1)" class="grey-icon"></mat-datetimepicker-toggle>
+                      <mat-datetimepicker #picker1 type="datetime" 
+                        [touchUi]="false"></mat-datetimepicker>
+                    </mat-form-field>
                 <span *ngIf="commandType == 'isReserveNow'" class="mandatoryField">
                   Enter RFID
                   <span class="required-field">*</span>
@@ -741,13 +748,13 @@
 
                 <!-- <input *ngIf="commandType == 'updatefirmware'" type="datetime-local" class="barbar-box6 layout date1"
                     (change)="selectDate($event)" min="{{currentDate}}" id="date1" /> -->
-                <mat-form-field *ngIf="commandType == 'updatefirmware'" class="mt-space">
-                  <input matInput [ngxMatDatetimePicker]="picker1" [min]="minDate" (dateChange)="changeDateTime($event)"
-                    style="color: black;" [readonly]="true" />
-                  <mat-datepicker-toggle matSuffix [for]="$any(picker1)"></mat-datepicker-toggle>
-                  <ngx-mat-datetime-picker #picker1 [showSpinners]="true" [showSeconds]="true" [touchUi]="false"
-                    [enableMeridian]="true"></ngx-mat-datetime-picker>
-                </mat-form-field>
+                    <mat-form-field *ngIf="commandType == 'updatefirmware'" class="mt-space chargerType">
+                      <input matInput [matDatetimepicker]="picker1" [min]="minDate" (dateChange)="changeDateTime($event)"
+                        style="color: black;" [readonly]="true" />
+                      <mat-datetimepicker-toggle matSuffix [for]="$any(picker1)" class="grey-icon"></mat-datetimepicker-toggle>
+                      <mat-datetimepicker #picker1 type="datetime" [touchUi]="false"
+                      ></mat-datetimepicker>
+                    </mat-form-field>
                 <span *ngIf="commandType == 'updatefirmware'" class="mandatoryField">
                   Enter Retry Interval
                 </span>
@@ -781,13 +788,13 @@
 
                 <!-- <input *ngIf="commandType == 'getdiagnostics'" type="datetime-local" class="barbar-box6 layout date1"
                     (change)="selectDate($event,'start')" id="date1" /> -->
-                <mat-form-field *ngIf="commandType == 'getdiagnostics'" class="mt-space">
-                  <input matInput [ngxMatDatetimePicker]="picker1" (dateChange)="changeDateTime($event, 'start')"
-                    style="color: black;" [readonly]="true" />
-                  <mat-datepicker-toggle matSuffix [for]="$any(picker1)"></mat-datepicker-toggle>
-                  <ngx-mat-datetime-picker #picker1 [showSpinners]="true" [showSeconds]="true" [touchUi]="false"
-                    [enableMeridian]="true"></ngx-mat-datetime-picker>
-                </mat-form-field>
+                    <mat-form-field *ngIf="commandType == 'getdiagnostics'" class="mt-space chargerType">
+                      <input matInput [matDatetimepicker]="picker1" (dateChange)="changeDateTime($event, 'start')"
+                        style="color: black;" [readonly]="true" />
+                      <mat-datetimepicker-toggle matSuffix [for]="$any(picker1)"  class="grey-icon"></mat-datetimepicker-toggle>
+                      <mat-datetimepicker #picker1 type="datetime" [touchUi]="false"
+                        ></mat-datetimepicker>
+                    </mat-form-field>
                 <span *ngIf="commandType == 'getdiagnostics'" class="validity" title="close"></span>
                 <span *ngIf="commandType == 'getdiagnostics'" class="mandatoryField">
                   Select Stop Date
@@ -795,13 +802,13 @@
 
                 <!--  <input *ngIf="commandType == 'getdiagnostics'" type="datetime-local" class="barbar-box6 layout date1"
                     (change)="selectDate($event,'end')" id="date1" /> -->
-                <mat-form-field *ngIf="commandType == 'getdiagnostics'" class="mt-space">
-                  <input matInput [ngxMatDatetimePicker]="picker2" (dateChange)="changeDateTime($event, 'end')"
-                    style="color: black;" [readonly]="true" />
-                  <mat-datepicker-toggle matSuffix [for]="$any(picker2)"></mat-datepicker-toggle>
-                  <ngx-mat-datetime-picker #picker2 [showSpinners]="true" [showSeconds]="true" [touchUi]="false"
-                    [enableMeridian]="true"></ngx-mat-datetime-picker>
-                </mat-form-field>
+                    <mat-form-field *ngIf="commandType == 'getdiagnostics'" class="mt-space chargerType">
+                      <input matInput [matDatetimepicker]="picker2" (dateChange)="changeDateTime($event, 'end')"
+                        style="color: black;" [readonly]="true" />
+                      <mat-datetimepicker-toggle matSuffix [for]="$any(picker2)" class="grey-icon"></mat-datetimepicker-toggle>
+                      <mat-datetimepicker #picker2 type="datetime" [touchUi]="false"
+                        ></mat-datetimepicker>
+                    </mat-form-field>
                 <span *ngIf="commandType == 'getdiagnostics'" class="validity" title="close"></span>
                 <!-- Get Diagnostics End-->
                 <!-- Data Transfer Popup Start-->
@@ -959,41 +966,6 @@
                     " class="btnTypeCharger" type="button" (click)="getConfiguration(commandType)">
                   Submit
                 </button>
-                <!-- <span *ngIf="commandType == 'start'" class="required">
-                    Select Connector ID
-                  </span>
-                  <select
-                    *ngIf="commandType == 'start'"
-                    class="chargerTypeStart"
-                    name="chargerType"
-                    (change)="selectConnectorID($event)"
-                  >
-                    <option value="">Connector ID</option>
-                    <option *ngFor="let item of selectConnectorIds">
-                      {{ item }}
-                    </option>
-                  </select>
-                  <br />
-                  <br />
-                  <span *ngIf="commandType == 'start'" class="mandatoryField">
-                    Enter RFID
-                    <span class="required-field">*</span>
-                  </span>
-                  <input
-                    *ngIf="commandType == 'start'"
-                    class="cust-list-text-body21 layout idTagInput"
-                    #inputTag
-                    class="connector_id"
-                  />
-  
-                  <button
-                    *ngIf="commandType == 'start'"
-                    class="btnTypeCharger"
-                    type="button"
-                    (click)="remoteStartTransaction()"
-                  >
-                    Submit
-                  </button> -->
 
                 <!--- REMOTE START TRANACTION -->
 
@@ -1083,33 +1055,29 @@
                                 <span class="mandatoryField">
                                   Select Valid From
                                 </span>
-                                <mat-form-field class="mt-space">
-                                  <input matInput [ngxMatDatetimePicker]="pickerFrom" [ngxMatDatetimePickerFilter]="
+                                <mat-form-field class="mt-space chargerType">
+                                  <input matInput [matDatetimepicker]="pickerFrom" [matDatepickerFilter]="
                                         dateFilterForStart
                                       " formControlName="validFrom" style="color: black;" readonly
                                     (dateChange)="checkStartDate()" />
 
-                                  <mat-datepicker-toggle matSuffix [for]="$any(pickerFrom)"></mat-datepicker-toggle>
-                                  <ngx-mat-datetime-picker #pickerFrom [showSpinners]="true" [showSeconds]="true"
-                                    [touchUi]="false" [enableMeridian]="true"></ngx-mat-datetime-picker>
-                                  <!-- <mat-datepicker
-                                    #pickerFrom
-                                  ></mat-datepicker> -->
+                                  <mat-datetimepicker-toggle matSuffix [for]="$any(pickerFrom)" class="grey-icon"></mat-datetimepicker-toggle>
+                                  <mat-datetimepicker #pickerFrom type="datetime" [touchUi]="false"
+                                    ></mat-datetimepicker>
                                 </mat-form-field>
+
                                 <span class="mandatoryField">
                                   Select Valid To
                                 </span>
-                                <mat-form-field class="mt-space">
-                                  <input matInput [ngxMatDatetimePicker]="pickerTo" [ngxMatDatetimePickerFilter]="
+                                <mat-form-field class="mt-space chargerType">
+                                  <input matInput [matDatetimepicker]="pickerTo" [matDatepickerFilter]="
                                         dateFilterForEnd
                                       " style="color: black;" formControlName="validTo" readonly
                                     (dateChange)="checkValidFrom()" />
-                                  <mat-datepicker-toggle matSuffix [for]="$any(pickerTo)"></mat-datepicker-toggle>
-                                  <ngx-mat-datetime-picker #pickerTo [showSpinners]="true" [showSeconds]="true"
-                                    [touchUi]="false" [enableMeridian]="true"></ngx-mat-datetime-picker>
-                                  <!-- <mat-datepicker
-                                    #pickerTo
-                                  ></mat-datepicker> -->
+                                  <mat-datetimepicker-toggle matSuffix [for]="$any(pickerTo)" class="grey-icon"></mat-datetimepicker-toggle>
+                                  <mat-datetimepicker #pickerTo type="datetime" [touchUi]="false"
+                                    ></mat-datetimepicker>
+                                
                                 </mat-form-field>
                               </div>
                               <button style="color: #ffffff;" *ngIf="firstFieldsRemoteStart" (click)="
@@ -1124,13 +1092,13 @@
                                 <span class="mandatoryField">
                                   Select Start Schedule
                                 </span>
-                                <mat-form-field class="mt-space">
-                                  <input matInput [ngxMatDatetimePicker]="picker3" [ngxMatDatetimePickerFilter]="
+                                <mat-form-field class="mt-space chargerType">
+                                  <input matInput [matDatetimepicker]="picker3" [matDatepickerFilter]="
                                         dateFilterForStartSchedule
                                       " style="color: black;" [readonly]="true" formControlName="startSchedule" />
-                                  <mat-datepicker-toggle matSuffix [for]="$any(picker3)"></mat-datepicker-toggle>
-                                  <ngx-mat-datetime-picker #picker3 [showSpinners]="true" [showSeconds]="true"
-                                    [touchUi]="false" [enableMeridian]="true"></ngx-mat-datetime-picker>
+                                  <mat-datetimepicker-toggle matSuffix [for]="$any(picker3)" class="grey-icon"></mat-datetimepicker-toggle>
+                                  <mat-datetimepicker #picker3 type="datetime" [touchUi]="false"
+                                    ></mat-datetimepicker>
                                 </mat-form-field>
                                 <span class="required">
                                   Select Charging Rate Unit
@@ -1174,17 +1142,6 @@
                                       {{ item }}
                                     </option>
                                   </select>
-                                  <!-- <span class="required">
-                                      Enter Number Phases
-                                    </span>
-                                    <input
-                                    (keydown)="restrictZero($event)"
-                                      type="text"
-                                      formControlName="numberPhases"
-                                      placeholder=""
-                                      (keypress)="numberOnly($event)"
-                                      class="barbar-input-text"
-                                    /> -->
                                 </div>
                                 <span class="required">
                                   Enter Min Charging Rate
@@ -1210,212 +1167,6 @@
           </ng-container>
         </app-diag-widget-bar>
       </div>
-      <!-- <div class="form-fields">
-          <div
-            *ngIf="commandType !== ''"
-            class="cdk-overlay-backdrop cdk-overlay-dark-backdrop cdk-overlay-backdrop-showing"
-          ></div>
-          <app-diag-widget-bar>
-            <ng-container
-              *ngIf="
-                commandType == 'change' ||
-                commandType == 'reset' ||
-                commandType == 'start' ||
-                commandType == 'getconfig' ||
-                commandType == 'changeconfig' ||
-                commandType == 'getComposite' || commandType == 'unlock'
-              "
-            >
-              <app-tool-tip
-                class="wd_sub_1 select-opt-modal tool_alignP setMarginTool"
-              >
-                <div class="title">
-                  <span class="close-icon-type" (click)="closePopupType()">
-                    X
-                  </span>
-                  <span *ngIf="commandType == 'change'" class="mandatoryField">
-                    Select Type
-                    <span class="required-field">*</span>
-                  </span>
-                  <select
-                    *ngIf="commandType == 'change'"
-                    name="chargerType"
-                    class="chargerType"
-                    (change)="selectOption($event)"
-                  >
-                    <option value="">Type</option>
-                    <option value="Inoperative">Inoperative</option>
-                    <option value="Operative">Operative</option>
-                  </select>
-                  <br />
-                  <br />
-  
-                  <span
-                    *ngIf="
-                      commandType == 'change' || commandType == 'getComposite' || commandType == 'unlock'
-                    "
-                    class="required"
-                  >
-                    Select Connector ID
-                    <span class="required-field">*</span>
-                  </span>
-                  <select
-                    *ngIf="
-                      commandType == 'change' || commandType == 'getComposite' || commandType == 'unlock'
-                    "
-                    class="chargerType"
-                    name="chargerType"
-                    (change)="selectConnectorID($event)"
-                  >
-                    <option value="">Connector ID</option>
-                    <option *ngFor="let item of selectConnectorIds">
-                      {{ item }}
-                    </option>
-                  </select>
-                 
-                  <span
-                    *ngIf="commandType == 'getComposite'"
-                    class="required inpt-field"
-                  >
-                    Enter Duration
-                    <span class="required-field">*</span>
-                  </span>
-  
-                  <input
-                    *ngIf="commandType == 'getComposite'"
-                    class="cust-list-text-body21 layout idTagInput"
-                    placeholder="Duration"
-                    #inputDuration
-                    class="connector_id"
-                  />
-                  <br />
-                  <br />
-                  <span *ngIf="commandType == 'getComposite'" class="required">
-                    Select Charging Rate Unit
-                    <span class="required-field"></span>
-                  </span>
-                  <select
-                    *ngIf="commandType == 'getComposite'"
-                    class="chargerType"
-                    name="ChargingRateUnit"
-                    (change)="selectChargingRateUnit($event)"
-                  >
-                    <option>Charging Rate Unit</option>
-  
-                    <option value="W">W</option>
-                    <option value="A">A</option>
-                  </select>
-                  <span *ngIf="commandType == 'reset'" class="required">
-                    Select Type
-                    <span class="required-field">*</span>
-                  </span>
-                  <select
-                    *ngIf="commandType == 'reset'"
-                    class="chargerType"
-                    name="chargerType"
-                    (change)="selectOption($event)"
-                  >
-                    <option value="">Type</option>
-                    <option value="Hard">Hard</option>
-                    <option value="Soft">Soft</option>
-                  </select>
-                  <span
-                    *ngIf="commandType == 'getconfig'"
-                    class="required inpt-field"
-                  >
-                    Enter Key
-                  </span>
-                  <input
-                    *ngIf="commandType == 'getconfig'"
-                    class="cust-list-text-body21 layout idTagInput"
-                    #inputKey
-                    placeholder="Key"
-                    class="connector_id"
-                  />
-                  <span
-                    *ngIf="commandType == 'changeconfig'"
-                    class="required inpt-field"
-                  >
-                    Enter Key
-                    <span class="required-field">*</span>
-                  </span>
-                  <input
-                    *ngIf="commandType == 'changeconfig'"
-                    class="cust-list-text-body21 layout idTagInput"
-                    placeholder="Key"
-                    #inputKey
-                    class="connector_id"
-                  />
-                  <span
-                    *ngIf="commandType == 'changeconfig'"
-                    class="required inpt-field"
-                  >
-                    <br />
-                    Enter Value
-                    <span class="required-field">*</span>
-                  </span>
-                  <input
-                    *ngIf="commandType == 'changeconfig'"
-                    class="cust-list-text-body21 layout idTagInput"
-                    #inputValue
-                    placeholder="Value"
-                    class="connector_id"
-                  />
-                  <br />
-                  <button
-                    *ngIf="
-                      commandType == 'getconfig' ||
-                      commandType == 'changeconfig' ||
-                      commandType == 'getComposite' ||
-                      commandType == 'change' ||
-                      commandType == 'reset' || commandType == 'unlock'
-                    "
-                    class="btnTypeCharger"
-                    type="button"
-                    (click)="getConfiguration(commandType)"
-                  >
-                    Submit
-                  </button>
-                  <span *ngIf="commandType == 'start'" class="required">
-                    Select Connector ID
-                  </span>
-                  <select
-                    *ngIf="commandType == 'start'"
-                    class="chargerTypeStart"
-                    name="chargerType"
-                    (change)="selectConnectorID($event)"
-                  >
-                    <option value="">Connector ID</option>
-                    <option *ngFor="let item of selectConnectorIds">
-                      {{ item }}
-                    </option>
-                  </select>
-                  <br />
-                  <br />
-                  <span *ngIf="commandType == 'start'" class="mandatoryField">
-                    Enter RFID
-                    <span class="required-field">*</span>
-                  </span>
-                  <input
-                    *ngIf="commandType == 'start'"
-                    class="cust-list-text-body21 layout idTagInput"
-                    #inputTag
-                    class="connector_id"
-                  />
-                  <br />
-                  <button
-                    *ngIf="commandType == 'start'"
-                    class="btnTypeCharger"
-                    type="button"
-                    (click)="remoteStartTransaction()"
-                  >
-                    Submit
-                  </button>
-                </div>
-              </app-tool-tip>
-            </ng-container>
-          </app-diag-widget-bar>
-        </div> -->
     </div>
 
     <div class="cust-list-group2 layout">
@@ -1432,7 +1183,7 @@
         <ng-container matColumnDef="Datetime">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>DATE/ TIME</th>
           <td mat-cell *matCellDef="let element; let i = index">
-            {{ element.modifiedAt +"Z" | date: 'MM-dd-yyyy HH:mm': userTimeZone}}
+            {{ element.modifiedAt ? (element.modifiedAt + 'Z' | date:'MM-dd-yyyy HH:mm':userTimeZone) : '-' }}
           </td>
         </ng-container>
 
@@ -1443,7 +1194,7 @@
                   expandedElement = expandedElement === element ? null : element
                 " (keydown.enter)="expandedElement = expandedElement === element ? null : element" />
 
-            <img style="cursor: pointer; margin: 3px;" alt="" src="../../../../assets/icons/download.png"
+            <img style="cursor: pointer; padding: 2px 1px 0px 12px;" alt="" src="../../../../assets/icons/download.png"
               (click)="downloadAsPDF()" (keydown.enter)="downloadAsPDF()" />
             <img (click)="openMakePaymentDialog(element.id)" *ngIf="element.requestType == 'StopTransaction'"
               style="cursor: pointer;" src="../../../../../assets/chart-icon.svg" alt="" title="Make Payment"

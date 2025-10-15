@@ -1,4 +1,4 @@
-@import '../../../../styles.scss';
+@use '../../../../styles.scss' as *;
 * {
   font-family: 'Roboto';
 }
@@ -119,13 +119,14 @@
     @include flex-column;
     background-color: rgb(248, 248, 248);
     border: 1px solid rgb(200, 200, 200);
+    min-height: 700px;
     @include xl {
       min-height: 620px;
     }
     @include sm {
       min-height: 620px;
     }
-    min-height: 700px;
+    
   }
   &block.layout {
     position: absolute;
@@ -146,13 +147,14 @@
     background-color: rgb(255, 255, 255);
     box-shadow: 0px 0px 30px 0px rgba(132, 132, 132, 0.24705882352941178);
     max-height: 950px;
+    min-height: 620px;
     @include md {
       min-height: 560px;
     }
     @include sm {
       min-height: 560px;
     }
-    min-height: 620px;
+   
   }
   &block1.layout {
     position: relative;
@@ -180,12 +182,11 @@
   }
   &block1-item {
     @include flex-column;
-    /*position: relative;
-    flex: 1 0.7 auto;*/
+    max-width: 42.7%;
     @include xs {
       flex: 0.8 1 auto;
     }
-    max-width: 42.7%;
+    
   }
   &box {
     /*  background-color: #00000073; */

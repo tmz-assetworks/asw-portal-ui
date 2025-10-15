@@ -1,17 +1,20 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core'
-import { FormBuilder, FormControl, Validators } from '@angular/forms'
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms'
 import { DomSanitizer } from '@angular/platform-browser'
-import { ActivatedRoute, Router } from '@angular/router'
+import { ActivatedRoute, Router, RouterModule } from '@angular/router'
 import { ToastrService } from 'ngx-toastr'
 import { StorageService } from 'src/app/service/storage.service'
 import Swal from 'sweetalert2'
 // import { data } from '../operator/dashboard/locations'
 import { UserProfileService } from './user-profile.service'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
+import { CommonModule } from '@angular/common'
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss'],
+  imports:[CommonModule,ReactiveFormsModule,RouterModule,SharedMaterialModule]
 })
 export class UserProfileComponent implements OnInit {
   // DECLARE VARIABLES
@@ -98,13 +101,15 @@ export class UserProfileComponent implements OnInit {
     Swal.fire({
       title: '<strong>Are you sure you want to confirm?</strong>',
       icon: 'success',
-      showCloseButton: true,
+      showCloseButton: false,
       focusConfirm: true,
       confirmButtonText: '<span style="color:#0062A6">CANCEL</span>',
       confirmButtonColor: '#E6E8E9',
       cancelButtonColor: '#0062A6',
       cancelButtonText: ' CONFIRM',
       showCancelButton: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
     }).then(
       (result) => {
         if (result.isDismissed) {
@@ -127,14 +132,6 @@ export class UserProfileComponent implements OnInit {
     )
   }
 
-  set isDisabled(value: boolean) {
-    this.isDisabled = value
-    if (value) {
-      this.userProfileFormGroup.controls['adminName'].disable()
-    } else {
-      this.userProfileFormGroup.controls['name'].enable()
-    }
-  }
   // GO BACK
   revertBack() {
     if (this.role == 'Operator') {
@@ -156,7 +153,7 @@ export class UserProfileComponent implements OnInit {
           adminName: this.userData.adminName,
         })
         this.userProfileFormGroup.patchValue({ emailId: this.userData.emailId })
-        this.userProfileFormGroup.patchValue({ dob: this.userData.dob })
+        // this.userProfileFormGroup.patchValue({ dob: this.userData.dob })
         this.userProfileFormGroup.patchValue({
           phoneNumber: this.userData.phoneNumber,
         })
@@ -271,6 +268,8 @@ export class UserProfileComponent implements OnInit {
       showCancelButton: true,
       confirmButtonText: 'Yes',
       cancelButtonText: 'Cancel',
+      allowOutsideClick: false,
+      allowEscapeKey: false,
     }).then((result) => {
       if (result.value) {
         this._UserProfileService

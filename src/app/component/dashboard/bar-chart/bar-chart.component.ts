@@ -2,11 +2,15 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { ThemePalette } from '@angular/material/core'
 import { Router } from '@angular/router'
 import { EChartsOption, number } from 'echarts'
+import { NgxEchartsModule } from 'ngx-echarts'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 
 @Component({
   selector: 'app-bar-chart',
   templateUrl: './bar-chart.component.html',
   styleUrls: ['./bar-chart.component.scss'],
+  imports:[SharedMaterialModule,NgxEchartsModule
+  ]
 })
 export class BarChartComponent implements OnInit {
   performingDataSet: any
@@ -176,7 +180,7 @@ export class BarChartComponent implements OnInit {
         let ind = arr.findIndex((x: any) => x.chargeStatus == legendData[i])
         if (ind >= 0) {
           legendColorData.push(
-            arr[ind].color !== undefined ? arr[ind].color : '#90993F',
+            arr[ind]?.color ?? '#90993F',
           )
         }
       }
@@ -488,9 +492,8 @@ export class BarChartComponent implements OnInit {
 
         for (let i = 0; i < this.statusData.length; i++) {
           let color =
-            this.statusData[i].color !== undefined
-              ? this.statusData[i].color
-              : '#90993F'
+            this.statusData[i]?.color
+              ?? '#90993F'
           legendColorData.push(color)
         }
         // CREATE OBJECT FOR DIFF ELEMENT
@@ -625,12 +628,13 @@ const months = [...new Set(this.reportAvailableChargerCountDataSet.map((item: an
   .sort((a, b) => (a as string).localeCompare(b as string));
     const acData = months.map(month => {
   const item = this.reportAvailableChargerCountDataSet.find((d: ChargerCountReport) => d.month === month && d.chargerType === 'AC');
-  return item ? parseFloat(item.avialableChargerCount as string) : 0;
+  
+  return item ? (item.avialableChargerCount as string) : 0;
 });
     
     const dcData = months.map(month => {
   const item = this.reportAvailableChargerCountDataSet.find((d: ChargerCountReport) => d.month === month && d.chargerType === 'DC');
-  return item ? parseFloat(item.avialableChargerCount as string) : 0;
+  return item ? (item.avialableChargerCount as string) : 0;
 });
 
     this.option = {
@@ -730,12 +734,12 @@ const months = [...new Set(this.reportAvailableChargerCountDataSet.map((item: an
 
     const acData = months.map(month => {
   const item = this.PaymentReportSet.find((d: ChargerCountReport) => d.month === month && d.chargerType === 'AC');
-  return item ? parseFloat(item.totalCollection as string) : 0;
+  return item ? (item.totalCollection as string) : 0;
 });
     
     const dcData = months.map(month => {
   const item = this.PaymentReportSet.find((d: ChargerCountReport) => d.month === month && d.chargerType === 'DC');
-  return item ? parseFloat(item.totalCollection as string) : 0;
+  return item ? (item.totalCollection as string) : 0;
 });
 
     this.option = {
@@ -866,7 +870,8 @@ const months = [...new Set(this.reportAvailableChargerCountDataSet.map((item: an
       blankData[8] = data[j]
       return blankData
     }
-    return
+    // Return nothing so returned blankData
+    return blankData
   }
 
   /**
@@ -1201,7 +1206,7 @@ const months = [...new Set(this.reportAvailableChargerCountDataSet.map((item: an
       let ind = dataSet.findIndex((x: any) => x.chargingStatus == legendData[i])
       if (ind >= 0) {
         legendColorData.push(
-          dataSet[ind].color !== undefined ? dataSet[ind].color : '#90993F',
+           dataSet[ind]?.color ?? '#90993F',
         )
       }
     }

@@ -6,11 +6,16 @@ import Swal from 'sweetalert2'
 import { ToastrService } from 'ngx-toastr'
 import { SuperAdminService } from '../../super-admin.service'
 import { StorageService } from 'src/app/service/storage.service'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
+import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common'
+import { AuthService } from 'src/app/service/auth/auth.service'
 
 @Component({
   selector: 'app-add-customers',
   templateUrl: './add-customers.component.html',
   styleUrls: ['./add-customers.component.scss'],
+  imports:[SharedMaterialModule,ReactiveFormsModule,CommonModule]
 })
 export class AddCustomersComponent implements OnInit {
   showAddCustomer: boolean | undefined
@@ -47,6 +52,7 @@ export class AddCustomersComponent implements OnInit {
     private _superAdminService: SuperAdminService,
     private _storageService: StorageService,
     private _activatedRoute: ActivatedRoute,
+    private _authService: AuthService,
   ) {
     this.UserId = this._storageService.getLocalData('user_id')
     this.customersId = this._activatedRoute.snapshot.queryParams['id']
@@ -67,6 +73,7 @@ export class AddCustomersComponent implements OnInit {
       this.isUpdateBtn = false
     }
   }
+
   /**
    * Form group
    */
@@ -117,6 +124,7 @@ export class AddCustomersComponent implements OnInit {
    */
 
   GetCustomerbyID(id: number) {
+
     this._superAdminService.GetCustomerbyID(id).subscribe((res: any) => {
       this.customerData = res.data[0]
 
@@ -128,9 +136,6 @@ export class AddCustomersComponent implements OnInit {
       })
       this.addCustomerProfile.patchValue({
         pointofcontact: this.customerData.pointofcontact,
-      })
-      this.addCustomerProfile.patchValue({
-        ponitOfContact: this.customerData.ponitOfContact,
       })
       this.addCustomerProfile.patchValue({ email: this.customerData.email })
       this.addCustomerProfile.patchValue({
@@ -217,6 +222,8 @@ export class AddCustomersComponent implements OnInit {
       cancelButtonColor: '#0062A6',
       cancelButtonText: ' CONFIRM',
       showCancelButton: true,
+      allowOutsideClick: false, // 🔒 Prevent close on outside click
+      allowEscapeKey: false     // 🔒 Prevent close with Esc
     }).then((result) => {
       if (result.isDismissed) {
         this._superAdminService.CreateCustomer(body).subscribe(
@@ -279,6 +286,8 @@ export class AddCustomersComponent implements OnInit {
       cancelButtonColor: '#0062A6',
       cancelButtonText: ' CONFIRM',
       showCancelButton: true,
+      allowOutsideClick: false, // 🔒 Prevent close on outside click
+      allowEscapeKey: false     // 🔒 Prevent close with Esc
     }).then((result) => {
       if (result.isDismissed) {
         this._superAdminService.UpdateCustomer(body).subscribe(
@@ -289,7 +298,12 @@ export class AddCustomersComponent implements OnInit {
               this.addCustomerProfile.reset()
               this.showLoader = false
               this.submitted = false
-              this._router.navigate(['superadmin/customer'])
+
+             // Call authservice to get user role
+
+              let userRole = this._authService.getRole();    
+              // Redirect as per user role   
+              this._router.navigate(userRole == 'SuperAdmin'?['superadmin/customer']:['admin/profile'])
             }
           },
           (error: any) => {
@@ -415,8 +429,10 @@ export class AddCustomersComponent implements OnInit {
  * Cancel function
  */
   cancel(){
+    // Call authservice to get user role
+    let userRole = this._authService.getRole();
 
-
-    this._router.navigate(['superadmin/customer'])
-  }
+  // Redirect as per user role 
+    this._router.navigate(userRole == 'SuperAdmin'?['superadmin/customer']:['admin/profile'])
+ }
 }

@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
-import { Router } from '@angular/router'
+import { Router, RouterModule } from '@angular/router'
 import { AuthService } from 'src/app/service/auth/auth.service'
 import { StorageService } from 'src/app/service/storage.service'
 import { ChargerService } from '../charger.service'
@@ -10,7 +10,8 @@ import { ChargerService } from '../charger.service'
 import { MatDialog } from '@angular/material/dialog'
 import { MeterDialogComponent } from './meter-dialog/meter-dialog.component'
 import * as fs from 'file-saver'
-import { DatePipe } from '@angular/common'
+import { CommonModule, DatePipe } from '@angular/common'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 
 export interface PeriodicElement {
   sessionid: number
@@ -24,6 +25,11 @@ export interface PeriodicElement {
   selector: 'app-charger-sessions',
   templateUrl: './charger-sessions.component.html',
   styleUrls: ['./charger-sessions.component.scss'],
+  imports:[
+    CommonModule,
+    RouterModule,
+    SharedMaterialModule
+  ]
 })
 export class ChargerSessionsComponent implements OnInit {
   currentPage = 1
@@ -123,7 +129,7 @@ export class ChargerSessionsComponent implements OnInit {
       // locationIds: this.locationId ? [this.locationId] : [],
       // opratorid: '',
       chargerboxid: [this.selecteChargerIds],
-      status: [],
+      status: [] as string[],
     }
 
     this._chargerService
@@ -131,7 +137,7 @@ export class ChargerSessionsComponent implements OnInit {
       .subscribe((res: any) => {
         if (res.data !== undefined && res.data != null && res.data.length > 0) {
           for (let i = 0; i < res.data.length; i++) {
-            if (this.arrKeys.indexOf(res.data[i].requestType) == -1) {
+            if (!this.arrKeys.includes(res.data[i].requestType)) {
               this.arrKeys.push(res.data[i].requestType)
             }
           }
