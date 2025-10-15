@@ -6,7 +6,7 @@ import { roleAuthGuard } from 'src/app/gurads/role.auth.guard';
 import { HelpComponent } from './help/help.component';
 import { DashboardComponent } from '../operator/dashboard/dashboard.component';
 import { GraphDetailComponent } from '../operator/graph-detail/graph-detail.component';
-import { AddCustomersComponent } from './customers/add-customers/add-customers.component';
+import { AddCustomersComponent } from '../super-admin/manage-customers/add-customers/add-customers.component';
 
 
 const routes: Routes = [
@@ -41,11 +41,6 @@ const routes: Routes = [
             component: AddCustomersComponent,
             pathMatch: 'full',
           },
-          {
-            path: 'customer',
-            component: AddCustomersComponent,
-            pathMatch: 'full',
-          }
         ]
       },
       {

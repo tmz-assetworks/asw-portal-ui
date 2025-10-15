@@ -185,7 +185,7 @@ export class EventsLogComponent implements OnInit {
     let prepare: any = []
     this.eventLogList = this.dataSource.data
     this.eventLogList.forEach((e: any) => {
-      var tempObj = [
+      let tempObj = [
         e.requestType,
         e.modifiedAt,
         e.deviceId,

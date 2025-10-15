@@ -9,6 +9,7 @@ import { StorageService } from 'src/app/service/storage.service'
 import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common'
+import { AuthService } from 'src/app/service/auth/auth.service'
 
 @Component({
   selector: 'app-add-customers',
@@ -51,6 +52,7 @@ export class AddCustomersComponent implements OnInit {
     private _superAdminService: SuperAdminService,
     private _storageService: StorageService,
     private _activatedRoute: ActivatedRoute,
+    private _authService: AuthService,
   ) {
     this.UserId = this._storageService.getLocalData('user_id')
     this.customersId = this._activatedRoute.snapshot.queryParams['id']
@@ -296,7 +298,12 @@ export class AddCustomersComponent implements OnInit {
               this.addCustomerProfile.reset()
               this.showLoader = false
               this.submitted = false
-              this._router.navigate(['superadmin/customer'])
+
+             // Call authservice to get user role
+
+              let userRole = this._authService.getRole();    
+              // Redirect as per user role   
+              this._router.navigate(userRole == 'SuperAdmin'?['superadmin/customer']:['admin/profile'])
             }
           },
           (error: any) => {
@@ -422,8 +429,10 @@ export class AddCustomersComponent implements OnInit {
  * Cancel function
  */
   cancel(){
+    // Call authservice to get user role
+    let userRole = this._authService.getRole();
 
-
-    this._router.navigate(['superadmin/customer'])
-  }
+  // Redirect as per user role 
+    this._router.navigate(userRole == 'SuperAdmin'?['superadmin/customer']:['admin/profile'])
+ }
 }

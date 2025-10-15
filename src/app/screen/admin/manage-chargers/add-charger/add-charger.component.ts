@@ -495,7 +495,7 @@ export class AddChargerComponent implements OnInit {
    */
 
   isUnique(arr: any) {
-    var tmpArr: any[] = []
+    let tmpArr: any[] = []
     for (var obj in arr) {
       if (!tmpArr.includes(arr[obj].value.connectorId)) {
         tmpArr.push(arr[obj].value.connectorId)
