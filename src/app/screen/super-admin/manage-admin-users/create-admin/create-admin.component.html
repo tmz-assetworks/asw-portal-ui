@@ -329,8 +329,9 @@
           <div class="barbar-block17 layout">
             <div
               class="barbar-text-body2 layout"
-              [routerLink]="['../../admin']"
-            >
+              [routerLink]="role === 'SuperAdmin' 
+              ? ['/superadmin/admin'] 
+              : ['/admin/admin-users']">
               CANCEL
             </div>
           </div>

@@ -6,7 +6,8 @@ import { SuperAdminService } from '../../super-admin.service';
 import { CommonModule, DatePipe, Location } from '@angular/common';
 import { StorageService } from 'src/app/service/storage.service';
 import { SharedMaterialModule } from 'src/app/shared/shared-material.module';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from 'src/app/service/auth/auth.service';
 
 @Component({
   selector: 'app-create-admin',
@@ -38,12 +39,15 @@ export class CreateAdminComponent implements OnInit {
   adminRowData: any
   customerName:any
   customerId:any
+
   constructor(
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private _superadminService: SuperAdminService,
     private _location: Location,
-    private _storageService: StorageService
+    private _storageService: StorageService,
+    private _authService: AuthService,
+    private _router: Router
   ) {
     this.role = localStorage.getItem('role') || '';
     this.editId = 0;
@@ -435,6 +439,4 @@ export class CreateAdminComponent implements OnInit {
       this.telephoneNumber = this.telephoneNumber + '-';
     }
   }
-
-
 }

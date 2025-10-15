@@ -7,6 +7,8 @@ import { HelpComponent } from './help/help.component';
 import { DashboardComponent } from '../operator/dashboard/dashboard.component';
 import { GraphDetailComponent } from '../operator/graph-detail/graph-detail.component';
 import { AddCustomersComponent } from '../super-admin/manage-customers/add-customers/add-customers.component';
+import { ManageAdminUsersComponent } from '../super-admin/manage-admin-users/manage-admin-users.component';
+import { CreateAdminComponent } from '../super-admin/manage-admin-users/create-admin/create-admin.component';
 
 
 const routes: Routes = [
@@ -60,12 +62,17 @@ const routes: Routes = [
       },
       {
         path: 'admin-users',
-        loadChildren: () =>
-          import(
-            '../admin/admin-users/admin-users.module'
-          ).then((m) => m.AdminUsersModule),
+         children: [
+          {
+            path: '',
+            component: ManageAdminUsersComponent,
+            pathMatch: 'full',
+          },
+           { path: 'create-admin', component: CreateAdminComponent },
+           { path: 'view-admin', component: CreateAdminComponent },
+           { path: 'edit-admin', component: CreateAdminComponent },
+        ]      
       },
-
       {
         path: 'users',
         loadChildren: () =>
