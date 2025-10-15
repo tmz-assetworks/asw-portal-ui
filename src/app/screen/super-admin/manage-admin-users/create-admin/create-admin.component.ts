@@ -6,7 +6,8 @@ import { SuperAdminService } from '../../super-admin.service';
 import { CommonModule, DatePipe, Location } from '@angular/common';
 import { StorageService } from 'src/app/service/storage.service';
 import { SharedMaterialModule } from 'src/app/shared/shared-material.module';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from 'src/app/service/auth/auth.service';
 
 @Component({
   selector: 'app-create-admin',
@@ -43,7 +44,9 @@ export class CreateAdminComponent implements OnInit {
     private toastr: ToastrService,
     private _superadminService: SuperAdminService,
     private _location: Location,
-    private _storageService: StorageService
+    private _storageService: StorageService,
+    private _authService: AuthService,
+    private _router: Router
   ) {
     this.role = localStorage.getItem('role') || '';
     this.editId = 0;
@@ -434,6 +437,16 @@ export class CreateAdminComponent implements OnInit {
     if (this.telephoneNumber.length == 9) {
       this.telephoneNumber = this.telephoneNumber + '-';
     }
+  }
+
+  // Define to handle cancel button click based on role
+
+  onCancel(){ 
+     // Call authservice to get user role
+    let userRole = this._authService.getRole();
+
+  // Redirect as per user role 
+    this._router.navigate(userRole == 'SuperAdmin'?['superadmin/admin']:['admin/admin-users'])
   }
 
 
