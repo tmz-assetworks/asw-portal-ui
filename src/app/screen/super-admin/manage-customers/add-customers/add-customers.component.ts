@@ -71,6 +71,7 @@ export class AddCustomersComponent implements OnInit {
       this.isUpdateBtn = false
     }
   }
+
   /**
    * Form group
    */
@@ -121,6 +122,7 @@ export class AddCustomersComponent implements OnInit {
    */
 
   GetCustomerbyID(id: number) {
+
     this._superAdminService.GetCustomerbyID(id).subscribe((res: any) => {
       this.customerData = res.data[0]
 

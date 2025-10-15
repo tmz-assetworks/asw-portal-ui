@@ -2756,23 +2756,8 @@ $color_type_6: rgb(255, 255, 255);
     @include xs {
       margin: 5px auto 0px;
     }
-    // margin: 15px 0px 0px 2px;
-    //   @include lg {
-    //     margin: 13px 0px 0px 5px;
-    //   }
-    //   @include md {
-    //     margin: 11px 0px 0px 5px;
-    //   }
-    //   @include sm {
-    //     margin: 9px 0px 0px 5px;
-    //   }
-    //   @include xxs {
-    //     margin: 8px 0px 0px 5px;
-    //   }
-    //   @include tn {
-    //     margin: 7px 0px 0px 5px;
-    //   }
   }
+
   &block2-item {
     @include flex-column;
     position: relative;
@@ -3150,9 +3135,7 @@ tr.mat-mdc-row:last-of-type {
     @include lg {
       font-size: 14px;
     }
-    // @include md {
-    //   font-size: 12px;
-    // }
+ 
     @include sm {
       font-size: 18px;
     }
@@ -3177,9 +3160,7 @@ tr.mat-mdc-row:last-of-type {
     position: relative;
     flex: 0 1 44px;
   }
-  &box16 {
-    // background-color: rgb(255, 255, 255);
-  }
+
   &box16.layout {
     position: relative;
     height: 24px;
@@ -3219,11 +3200,9 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block2 {
     @include flex-column;
     flex-direction: row;
-    // flex-wrap: wrap;
     justify-content: flex-start;
-    // align-content: center;
-    // align-items: center;
   }
+
   &block2.layout {
     position: relative;
     height: min-content;
@@ -3257,9 +3236,7 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
     position: relative;
     height: 50px;
     width: 50px;
-    // margin: 0px 27px 0px 28px;
     @include xl1 {
-      // margin: 0px 18px 0px 20px;
       width: 40px;
       height: 40px;
     }
@@ -3627,9 +3604,7 @@ statuspanel- {
     position: relative;
     flex: 0 1 44px;
   }
-  &box16 {
-    // background-color: rgb(255, 255, 255);
-  }
+
   &box16.layout {
     position: relative;
     height: 24px;
@@ -3729,9 +3704,7 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
       height: 40px;
     }
   }
-  &box3 {
-    // background-color: rgb(217, 217, 217);
-  }
+
   &box3.layout {
     position: relative;
     height: 23px;
@@ -3803,10 +3776,7 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block2 {
     @include flex-column;
     flex-direction: row;
-    // flex-wrap: wrap;
     justify-content: flex-start;
-    // align-content: center;
-    // align-items: center;
   }
   &block2.layout {
     position: relative;
@@ -3885,33 +3855,13 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
   padding: 10px;
   box-sizing: border-box;
 }
-//   .box-element-block2.layout {
-//     margin: 20px auto;
-//   }
+
 .dotted_line hr {
   width: 1px;
   height: 100px;
   border: 0;
   border-left: 1px dotted #c2c5c8;
 }
-
-/* .txt_label
-    {
-      width:18px;
-      height:12px;
-      background-color: #0062A6;
-      padding:5px;
-      border-radius: 5px;
-      display: inline-block;
-      text-align: center;
-      margin-right: 10px;
-     } */
-
-/*  b{
-      display: block;
-      font-weight: 400;
-      margin-left: 50px;
-    } */
 
 .mat-elevation-z8 {
   box-shadow: 0px 0px 0px 0px rgb(0 0 0 / 20%), 0px 0px 0px 0px rgb(0 0 0 / 14%),
@@ -3938,12 +3888,8 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
     width: 100%;
 
     @include lg {
-      // width: 100vw;
-      // max-width: 100%;
       overflow: auto;
-      // margin-bottom: 10px;
       display: inline-table;
-      // border-collapse: collapse;
     }
   }
 }
@@ -4065,9 +4011,6 @@ element.style {
   display: flex;
 }
 .barbar-text-body1.layout {
-  // position: relative;
-  // height: min-content;
-  //padding: 18px 40px;
   position: relative;
   height: min-content;
   padding: 18px 40px;
@@ -4085,7 +4028,6 @@ button {
 }
 input {
   font: 500 14px/1.2 'Roboto', Helvetica, Arial, serif;
-  // color: #ffffff;
   letter-spacing: 0px;
   background: transparent;
 
@@ -4138,12 +4080,6 @@ mat-select#mat-select-6 {
   width: 50%;
   float: left;
 }
-
-// .txt_label {
-//   display: block;
-//   font-weight: 400;
-//   margin-left: 50px;
-// }
 
 [hidden] {
   display: none !important;

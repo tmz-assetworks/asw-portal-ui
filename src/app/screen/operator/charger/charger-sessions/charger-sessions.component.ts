@@ -137,7 +137,7 @@ export class ChargerSessionsComponent implements OnInit {
       .subscribe((res: any) => {
         if (res.data !== undefined && res.data != null && res.data.length > 0) {
           for (let i = 0; i < res.data.length; i++) {
-            if (this.arrKeys.indexOf(res.data[i].requestType) == -1) {
+            if (!this.arrKeys.includes(res.data[i].requestType)) {
               this.arrKeys.push(res.data[i].requestType)
             }
           }

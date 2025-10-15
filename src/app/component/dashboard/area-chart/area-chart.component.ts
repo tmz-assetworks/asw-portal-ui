@@ -620,7 +620,7 @@ export class AreaChartComponent implements OnInit {
 
   findDistinct(a: any, temp: any, key: any) {
     return a.filter((accu: any) =>
-      temp.find((innerAccu: any) => innerAccu[key] === accu[key])
+      temp.some((innerAccu: any) => innerAccu[key] === accu[key])
         ? false
         : temp.push(accu),
     )

@@ -1256,10 +1256,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     @include sm {
       flex: 0 0 9%;
     }
-    // min-width: 53px;
-   &{ 
-      min-width: min-content;
-   }
   }
   &block36 {
     @include flex-column;
@@ -1300,11 +1296,8 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     @include sm {
       flex: 0 0 10%;
     }
-    // min-width: 59px;
-   &{
-    min-width: min-content;
-   }
   }
+
   &block37 {
     @include flex-column;
     align-items: center;
@@ -1336,11 +1329,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     @include sm {
       flex: 0 0 10%;
     }
-    // min-width: 59px;
-    &{
-    min-width: min-content;
-    }
-   
   }
   &block38 {
     @include flex-column;

@@ -157,9 +157,9 @@ export class CreateAdminComponent implements OnInit {
         phoneNumber: formField.phoneNumber,
         addressLine1: formField.addressLine1,
         addressLine2: formField.addressLine2,
-        countryID: parseInt(formField.country ?? '0'),
+        countryID: Number.parseInt(formField.country ?? '0'),
         customerID: this.customerId,
-        stateID: parseInt(formField.state ?? '0'),
+        stateID: Number.parseInt(formField.state ?? '0'),
         cityName: formField.cityName,
         zipCode: formField.zipcode,
         createdBy: this.UserId,
@@ -219,9 +219,9 @@ export class CreateAdminComponent implements OnInit {
         phoneNumber: formField.phoneNumber,
         addressLine1: formField.addressLine1,
         addressLine2: formField.addressLine2,
-        countryID: parseInt(formField?.country ?? '0'),
+        countryID: Number.parseInt(formField?.country ?? '0'),
         customerID: this.customerId,
-        stateID: parseInt(formField?.state ?? '0'),
+        stateID: Number.parseInt(formField?.state ?? '0'),
         cityName: formField.cityName,
         zipCode: formField.zipcode,
         modifiedBy: this.UserId,
@@ -231,12 +231,6 @@ export class CreateAdminComponent implements OnInit {
             roleID: 3,
           },
         ],
-        // operatorUserMapperCommand: [
-        //   {
-        //     id: this.editId,
-        //     locationId: 0,
-        //   },
-        // ],
       };
 
       Swal.fire({
@@ -285,16 +279,14 @@ export class CreateAdminComponent implements OnInit {
 
   getSelected(event: any, type: string) {
     if (type == 'state') {
-      if (this.countryId !== parseInt(event.value)) {
+      if (this.countryId !== Number.parseInt(event.value)) {
         // NEW COUNTRY IS SELECTED
         this.stateId = 0;
 
         this.addAdminFormGroup.patchValue({ state: this.selectValue });
-        // this.addAdminFormGroup.patchValue({ cityName: this.selectValue });
         this.stateList = [];
       }
-      this.countryId = parseInt(event.value);
-      // this.countryName = event.value.split('#')[1];
+      this.countryId = Number.parseInt(event.value);
       // CALL STATE API
       this._superadminService
         .getListApi('state', this.countryId)

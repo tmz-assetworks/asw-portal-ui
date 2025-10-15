@@ -1331,13 +1331,13 @@
       ClusterIcon.prototype.onRemove = function () {
         if (this.div_ && this.div_.parentNode) {
           this.hide()
-          this.div_.parentNode.removeChild(this.div_)
+          this.div_.remove();
           this.div_ = null
         }
 
         if (this.chart_div_ && this.chart_div_.parentNode) {
           this.hide()
-          this.chart_div_.parentNode.removeChild(this.chart_div_)
+          this.chart_div_.remove();
           this.chart_div_ = null
         }
       }

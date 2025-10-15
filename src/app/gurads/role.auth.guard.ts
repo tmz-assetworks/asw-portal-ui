@@ -16,12 +16,12 @@ export const roleAuthGuard: CanActivateFn = (route: ActivatedRouteSnapshot, stat
   const authService = inject(AuthService);
   
   let routePath = '';
-  routePath = window.location.pathname.split('/')[1];
+  routePath = globalThis.location.pathname.split('/')[1];
   let getRole = localStorage.getItem('role') || '';
 
   if (
     getRole !== '' &&
-    routePath.indexOf(getRole.toLowerCase()) !== -1 &&
+    routePath.toLowerCase().includes(getRole.toLowerCase()) &&
     authService.haveAccess(getRole)
   ) {
     return true;
@@ -49,12 +49,12 @@ export class RoleAuthGuard {
   
   canActivate() {
     let routePath = '';
-    routePath = window.location.pathname.split('/')[1];
+    routePath = globalThis.location.pathname.split('/')[1];
     let getRole = localStorage.getItem('role') || '';
 
     if (
       getRole !== '' &&
-      routePath.indexOf(getRole.toLowerCase()) !== -1 &&
+      routePath.toLowerCase().includes(getRole.toLowerCase()) &&
       this._authService.haveAccess(getRole)
     ) {
       return true;

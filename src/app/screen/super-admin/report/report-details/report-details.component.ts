@@ -200,11 +200,11 @@ export class ReportDetailComponent implements OnInit {
 
     if (this.reportType === 'billing Report') {
       if (!chargerType) {
-        return this.apiData.data.reduce((sum: number, item: any) => sum + (parseFloat(item.totalCollection) || 0), 0);
+        return this.apiData.data.reduce((sum: number, item: any) => sum + (Number.parseFloat(item.totalCollection) || 0), 0);
       }
       return this.apiData.data
         .filter((item: any) => item.chargerType === chargerType)
-        .reduce((sum: number, item: any) => sum + (parseFloat(item.totalCollection) || 0), 0);
+        .reduce((sum: number, item: any) => sum + (Number.parseFloat(item.totalCollection) || 0), 0);
     } else {
       if (!chargerType) {
         return this.apiData.data.reduce((sum: number, item: any) => sum + (item.avialableChargerCount || 0), 0);
@@ -249,12 +249,12 @@ downloadAsCSV(): void {
   link.setAttribute('download', filename);
   document.body.appendChild(link);
   link.click();
-  document.body.removeChild(link);
+  link.remove();
 }
 
 
   formatValue(value: any): string {
-    return this.reportType === 'billing Report' ? parseFloat(value).toFixed(2) : value;
+    return this.reportType === 'billing Report' ? Number.parseFloat(value).toFixed(2) : value;
   }
 
   onChargerTypeChange(): void {

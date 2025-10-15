@@ -920,16 +920,15 @@ export class AddLocationComponent implements OnInit {
         { id: 6, day: 'Sunday' },
       ]
       let count = 0
-      day.forEach((day: any) => {
-        const isOpenAllDays =
-          (this.addLocationFormGroup.get(
-            'locationScheduleCommand',
-          ) as FormArray).controls[day.id].value.isOpenAlldays === true
-
-        if (isOpenAllDays == true) {
-          count++
+      for (let i = 0; i < day.length; i++) {
+        const currentDay = day[i];
+        const formArray = this.addLocationFormGroup.get('locationScheduleCommand') as FormArray;
+        const isOpenAllDays = formArray.controls[currentDay.id].value.isOpenAlldays === true;
+        
+        if (isOpenAllDays) {
+          count++;
         }
-      })
+      }
       if (count == 7) {
         this.isOpenAllWeek = true
       }

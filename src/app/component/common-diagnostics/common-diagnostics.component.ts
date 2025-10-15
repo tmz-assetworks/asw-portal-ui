@@ -1426,7 +1426,7 @@ export class CommonDiagnosticsComponent implements OnInit {
 
   isReserveNowShow() {
     const array = new Uint32Array(1);
-    window.crypto.getRandomValues(array);
+    globalThis.crypto.getRandomValues(array);
     this.randomSixDigit = 100000 + (array[0] % 900000);
     this.isGetLocalListVersion = false
     this.isSendLocalListVersion = false

@@ -495,9 +495,9 @@ export class AddChargerComponent implements OnInit {
    */
 
   isUnique(arr: any) {
-    var tmpArr = []
+    var tmpArr: any[] = []
     for (var obj in arr) {
-      if (tmpArr.indexOf(arr[obj].value.connectorId) < 0) {
+      if (!tmpArr.includes(arr[obj].value.connectorId)) {
         tmpArr.push(arr[obj].value.connectorId)
       } else {
         return false // Duplicate value for connector id found

@@ -182,7 +182,7 @@ export class EventsLogComponent implements OnInit {
   }
 
   public downloadAsPDF() {
-    var prepare: any = []
+    let prepare: any = []
     this.eventLogList = this.dataSource.data
     this.eventLogList.forEach((e: any) => {
       var tempObj = [

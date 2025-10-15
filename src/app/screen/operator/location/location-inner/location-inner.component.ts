@@ -3,12 +3,9 @@ import { FormControl } from '@angular/forms'
 import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
 import { ActivatedRoute, Router } from '@angular/router'
-import { AuthService } from 'src/app/service/auth/auth.service'
-import { EChartsOption } from 'echarts'
 import { LocationService } from '../location.service'
 import { StorageService } from 'src/app/service/storage.service'
 import { MatSort } from '@angular/material/sort'
-import { isDataSource } from '@angular/cdk/collections'
 import { LocationStatusPanelComponent } from '../location-status-panel/location-status-panel.component'
 import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 import { CommonModule } from '@angular/common'
@@ -20,8 +17,7 @@ import { CommonModule } from '@angular/common'
   imports:[CommonModule,LocationStatusPanelComponent,SharedMaterialModule]
 })
 export class LocationInnerComponent implements OnInit {
-  // showLocationNav: boolean = false
-  // summaryStatus = []
+
   showLoader = false
   data:string[] = []
   dataSet: any
@@ -231,15 +227,15 @@ export class LocationInnerComponent implements OnInit {
   }
 
   pageChange(event: any) {
-    if (event.pageSize !== this.pageSize) {
-      this.currentPage = 1
-      this.pageSize = event.pageSize
-      this.paginator.pageIndex = 0
-    } else {
+    if (event.pageSize == this.pageSize) {
       this.currentPage =
         event.previousPageIndex < event.pageIndex
           ? this.currentPage + 1
           : this.currentPage - 1
+    } else {
+      this.currentPage = 1
+      this.pageSize = event.pageSize
+      this.paginator.pageIndex = 0
     }
 
     this.getlocationsdispenserdetails()

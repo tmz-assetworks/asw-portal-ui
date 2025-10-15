@@ -2,17 +2,13 @@ import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 import { RoleAuthGuard } from 'src/app/gurads/role.auth.guard'
 import { MasterComponent } from '../master/master.component'
-import { GraphDetailComponent } from './graph-detail/graph-detail.component'
 import { CommonModule } from '@angular/common'
-import { TransactionDialogComponent } from 'src/app/component/dashboard/transaction-dialog/transaction-dialog.component'
-import { LegendsDialogComponent } from 'src/app/component/dashboard/legends-dialog/legends-dialog.component'
 
 const routes: Routes = [
   {
     path: '',
     component: MasterComponent,
     canActivate: [RoleAuthGuard],
-    // pathMatch: 'full',
     children: [
       {
         path: '',

@@ -89,9 +89,9 @@ export class DashboardComponent implements OnInit {
     this.locationIds.valueChanges.subscribe((res) => {
       this.onSelectLocation(res)
     })
-    this.getSummaryStatus()
-    ;(window as any).initMap = this.initMap as any
-    this.initMapFunc = (window as any).initMap.bind(this)
+    this.getSummaryStatus();
+    (globalThis as any).initMap = this.initMap as any
+    this.initMapFunc = (globalThis as any).initMap.bind(this)
 
 
     /**
