@@ -39,6 +39,7 @@ export class CreateAdminComponent implements OnInit {
   adminRowData: any
   customerName:any
   customerId:any
+
   constructor(
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
@@ -438,16 +439,4 @@ export class CreateAdminComponent implements OnInit {
       this.telephoneNumber = this.telephoneNumber + '-';
     }
   }
-
-  // Define to handle cancel button click based on role
-
-  onCancel(){ 
-     // Call authservice to get user role
-    let userRole = this._authService.getRole();
-
-  // Redirect as per user role 
-    this._router.navigate(userRole == 'SuperAdmin'?['superadmin/admin']:['admin/admin-users'])
-  }
-
-
 }
