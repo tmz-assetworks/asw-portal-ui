@@ -83,6 +83,34 @@
                   <div class="fill-group layout">
                     <div class="fill-block6 layout">
                       <div class="fill-text-body1 layout">
+                        Charger Make
+                      </div>
+                      <h5 class="fill-highlights layout">
+                        {{ chargerInfo?.chargerMake }}
+                      </h5>
+                    </div>
+                    <div class="fill-image layout"></div>
+                  </div>
+                </div>
+                <div class="fill-block5-spacer"></div>
+                <div class="fill-block5-item">
+                  <div class="fill-group layout">
+                    <div class="fill-block6 layout">
+                      <div class="fill-text-body1 layout">
+                        Charger Model
+                      </div>
+                      <h5 class="fill-highlights layout">
+                        {{ chargerInfo?.chargerModel }}
+                      </h5>
+                    </div>
+                    <div class="fill-image layout"></div>
+                  </div>
+                </div>
+                <div class="fill-block5-spacer"></div>
+                <div class="fill-block5-item">
+                  <div class="fill-group layout">
+                    <div class="fill-block6 layout">
+                      <div class="fill-text-body1 layout">
                         Asset ID
                       </div>
                       <h5 class="fill-highlights layout">
@@ -146,7 +174,15 @@
                     <div class="fill-image layout"></div>
                   </div>
                 </div>
-                <div class="fill-block5-spacer"></div>
+                <div class="fill-block5-spacer"></div>             
+                
+                
+              </div>
+            </div>
+
+            <div class="fill-block4 layout">
+              <div class="fill-block5 layout">
+                
                 <div class="fill-block5-item">
                   <div class="fill-group layout">
                     <div class="fill-block6 layout">
@@ -165,7 +201,7 @@
                   <div class="fill-group layout">
                     <div class="fill-block6 layout">
                       <div class="fill-text-body1 layout">
-                        Installed Date
+                        Activation Date
                       </div>
                       <h5 class="fill-highlights layout">
                         {{ chargerInfo?.installedDate  | date: 'dd MMMM yyyy':userTimeZone }}
@@ -175,12 +211,6 @@
                   </div>
                 </div>
                 <div class="fill-block5-spacer"></div>
-                
-              </div>
-            </div>
-
-            <div class="fill-block4 layout">
-              <div class="fill-block5 layout">
                 <div class="fill-block5-item">
                   <div class="fill-group layout">
                     <div class="fill-block6 layout">
@@ -199,6 +229,54 @@
                   <div class="fill-group layout">
                     <div class="fill-block6 layout">
                       <div class="fill-text-body1 layout">
+                        OEM Order Number
+                      </div>
+                      <h5 class="fill-highlights layout">
+                        {{ chargerInfo?.oemOrderNumber }}
+                      </h5>
+                    </div>
+                    <div class="fill-image layout"></div>
+                  </div>
+                </div>
+                <div class="fill-block5-spacer"></div>
+                <div class="fill-block5-item">
+                  <div class="fill-group layout">
+                    <div class="fill-block6 layout">
+                      <div class="fill-text-body1 layout">
+                        Location ID
+                      </div>
+                      <h5 class="fill-highlights layout">
+                        {{ chargerInfo?.locationId }}
+                      </h5>
+                    </div>
+                    <div class="fill-image layout"></div>
+                  </div>
+                </div>
+                <div class="fill-block5-spacer"></div>
+                <div class="fill-block5-item">
+                  <div class="fill-group layout">
+                    <div class="fill-block6 layout">
+                      <div class="fill-text-body1 layout">
+                        Location Name
+                      </div>
+                      <h5 class="fill-highlights layout">
+                        {{ chargerInfo?.locationName }}
+                      </h5>
+                    </div>
+                    <div class="fill-image layout"></div>
+                  </div>
+                </div>
+                
+                
+                
+              </div>
+            </div>
+            <div class="fill-block4 layout">
+              <div class="fill-block5 layout">
+                <div class="fill-block5-item">
+                  <div class="fill-group layout">
+                    <div class="fill-block6 layout">
+                      <div class="fill-text-body1 layout">
                         Address
                       </div>
                       <h5 class="fill-highlights layout">
@@ -213,10 +291,10 @@
                   <div class="fill-group layout">
                     <div class="fill-block6 layout">
                       <div class="fill-text-body1 layout">
-                        Country
+                        City
                       </div>
                       <h5 class="fill-highlights layout">
-                        {{ chargerInfo?.country }}
+                        {{ chargerInfo?.city }}
                       </h5>
                     </div>
                     <div class="fill-image layout"></div>
@@ -231,20 +309,6 @@
                       </div>
                       <h5 class="fill-highlights layout">
                         {{ chargerInfo?.state }}
-                      </h5>
-                    </div>
-                    <div class="fill-image layout"></div>
-                  </div>
-                </div>
-                <div class="fill-block5-spacer"></div>
-                <div class="fill-block5-item">
-                  <div class="fill-group layout">
-                    <div class="fill-block6 layout">
-                      <div class="fill-text-body1 layout">
-                        City
-                      </div>
-                      <h5 class="fill-highlights layout">
-                        {{ chargerInfo?.city }}
                       </h5>
                     </div>
                     <div class="fill-image layout"></div>
