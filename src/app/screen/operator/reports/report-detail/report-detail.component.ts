@@ -77,18 +77,15 @@ export class ReportDetailComponent implements OnInit {
       this.isSubscription = false
       this.GetTransactionDetails(false)
       this.displayedColumnsTransaction = [
+        'chargerAssetId',
         'assetId',
-        'department',
         'locationName',
-        'vin',
         'rfid',
         'startTime',
         'endTime',
         'duration',
         'totalAmount',
         'consumedEnergy',
-        'consumedTime',
-        'createdOn',
       ]
     }
   }
