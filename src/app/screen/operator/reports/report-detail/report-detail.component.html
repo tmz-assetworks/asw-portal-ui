@@ -280,9 +280,17 @@
                               class="mat-elevation-z8"
                             >
                               <caption></caption>
+                              <ng-container matColumnDef="chargerAssetId">
+                                <th mat-header-cell *matHeaderCellDef>
+                                  CHARGER ASSET ID
+                                </th>
+                                <td mat-cell *matCellDef="let element">
+                                  {{ element.chargerAssetId }}
+                                </td>
+                              </ng-container>
                               <ng-container matColumnDef="assetId">
                                 <th mat-header-cell *matHeaderCellDef>
-                                  ASSET ID
+                                  VEHICLE ASSET ID
                                 </th>
                                 <td mat-cell *matCellDef="let element">
                                   {{ element.assetId }}
@@ -305,14 +313,6 @@
                                 </td>
                               </ng-container>
 
-                              <ng-container matColumnDef="vin">
-                                <th mat-header-cell *matHeaderCellDef>
-                                  VIN
-                                </th>
-                                <td mat-cell *matCellDef="let element">
-                                  {{ element.vin }}
-                                </td>
-                              </ng-container>
                               <ng-container matColumnDef="rfid">
                                 <th mat-header-cell *matHeaderCellDef>
                                   RFID
@@ -352,7 +352,7 @@
 
                               <ng-container matColumnDef="totalAmount">
                                 <th mat-header-cell *matHeaderCellDef>
-                                  TOTAL AMOUNT
+                                  COST
                                 </th>
                                 <td mat-cell *matCellDef="let element">
                                   {{ element.totalAmount }}
@@ -360,31 +360,13 @@
                               </ng-container>
                               <ng-container matColumnDef="consumedEnergy">
                                 <th mat-header-cell *matHeaderCellDef>
-                                  CONSUMED ENERGY
+                                  ENERGY
                                 </th>
                                 <td mat-cell *matCellDef="let element">
                                   {{ element.consumedEnergy }}
                                 </td>
                               </ng-container>
-                              <ng-container matColumnDef="consumedTime">
-                                <th mat-header-cell *matHeaderCellDef>
-                                  CONSUMED TIME
-                                </th>
-                                <td mat-cell *matCellDef="let element">
-                                  {{ element.consumedTime }}
-                                </td>
-                              </ng-container>
-
-                              <ng-container matColumnDef="createdOn">
-                                <th mat-header-cell *matHeaderCellDef>
-                                  CREATED ON
-                                </th>
-                                <td mat-cell *matCellDef="let element">
-                                  {{
-                                    element.createdOn ? (element.createdOn  | date: 'MM-dd-yyyy HH:mm': userTimeZone) : 'N/A' 
-                                  }}
-                                </td>
-                              </ng-container>
+                                                           
 
                               <tr
                                 mat-header-row
