@@ -24,14 +24,14 @@ export class ManagePricingComponent implements OnInit {
   pageSizeOptions = [10, 20, 100]
   searchParam = ''
   displayedColumns: string[] = [
-    'CustomerName',
     'PricePlanName',
-    'Currency',
-    // 'Location',
+    'Price',   
+    'ParkingFee',
+    'SessionMarkup',
+    'KwhMarkup',
     'ValidFrom',
     'ValidTo',
-    'Level',
-    'Status',
+    'Level',    
     'Action',
   ]
 
