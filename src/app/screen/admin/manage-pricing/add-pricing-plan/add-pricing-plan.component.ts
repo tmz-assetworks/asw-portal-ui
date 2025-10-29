@@ -371,7 +371,10 @@ export class AddPricingPlanComponent implements OnInit {
 
     let formData = this.pricingPlanFormGroup.value
 
-    this.locationIdResponse.forEach((elem: any) => {
+    this.chargeboxidResponse = this.chargeboxidResponse.filter((x: any) =>
+    this.locationIdResponse.includes(x.locationId)
+  );
+    this.locationIdResponse.forEach((elem: any) => {      
       let index = this.chargeboxidResponse.findIndex(
         (x: any) => x.locationId === elem,
       )
