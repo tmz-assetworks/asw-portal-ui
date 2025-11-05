@@ -149,6 +149,27 @@ export class CreateAdminComponent implements OnInit {
       this.toastr.error('Please fill mandatory fields.');
       return;
     }
+
+    // validate UserName format
+    const usernamePattern = /^[a-zA-Z0-9]+$/; // Only letters and numbers
+    if (!usernamePattern.test(formField.username)) {
+      this.toastr.error('Select a username that is not already in use. Do not include spaces or special characters.');
+      return;
+    }
+     // validate email format
+    const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+    if (!emailPattern.test(formField.emailid)) {
+      this.toastr.error('Enter a valid email address');
+      return;
+    }
+
+    // validate phone number (9 digits)
+    const phonePattern = /^\d{9}$/;
+    if (!phonePattern.test(formField.phoneNumber.replaceAll(/\D/g, ''))) {
+      this.toastr.error('Provide a nine-digit phone number');
+      return;
+    }
+
     if (this.editId == 0) {
       let body = {
         displayName: this.role,
