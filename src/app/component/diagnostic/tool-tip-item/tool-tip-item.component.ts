@@ -124,7 +124,8 @@ export class ToolTipItemComponent implements OnInit {
       this.showToolTipitem = value
     }
   }
-
+@Input() tooltipText: string = ''; // this binds your title attr
+  showTooltip = false;
 
 
   constructor() {}
