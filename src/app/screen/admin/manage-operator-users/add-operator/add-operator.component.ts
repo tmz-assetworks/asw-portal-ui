@@ -195,10 +195,11 @@ export class AddOperatorComponent implements OnInit {
 
     // validate phone number (9 digits)
     const phonePattern = /^\d{9}$/;
-    if (!phonePattern.test(formField.phonenumber.replace(/\D/g, ''))) {
+    if (!phonePattern.test(formField.phonenumber.replaceAll(/\D/g, ''))) {
       this.toastr.error('Provide a nine-digit phone number');
       return;
     }
+
     if (this.editId == 0) {
       const body = {
         displayName: this.role,
