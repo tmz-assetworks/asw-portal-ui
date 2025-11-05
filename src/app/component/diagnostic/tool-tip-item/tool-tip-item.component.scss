@@ -75,3 +75,27 @@ $color_type_2: rgb(142, 21, 55);
     margin: 18px 9.5px 3px;
   }
 }
+
+
+
+.custom-tooltip {
+  position: absolute;
+  background: #9f070c;
+  color: #fff;
+  font-size: 12px;
+  padding: 7px 10px;
+  border-radius: 4px;
+  top: -35px;
+  left: 90%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  animation: fadeIn 0.2s ease-in forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
