@@ -157,7 +157,7 @@ export class CreateAdminComponent implements OnInit {
       return;
     }
      // validate email format
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
     if (!emailPattern.test(formField.emailid)) {
       this.toastr.error('Enter a valid email address');
       return;

@@ -187,7 +187,7 @@ export class AddOperatorComponent implements OnInit {
       return;
     }
      // validate email format
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+     const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
     if (!emailPattern.test(formField.emailid)) {
       this.toastr.error('Enter a valid email address');
       return;
@@ -253,22 +253,6 @@ export class AddOperatorComponent implements OnInit {
                   else {
                         this.toastr.error(data.statusMessage);
                        }
-              // if (data) {
-              //   if (data.statusCode == 400) {
-              //     this.toastr.error(
-              //       'User name and email id should be unique, please try again.',
-              //     )
-              //     this.showLoader = false
-              //     this.submitted = false
-              //     return
-              //   }
-              //   //Do your stuffs...
-              //   this.toastr.success('Record saved successfully.')
-              //   this.addOperatorProfile.reset()
-              //   this.showLoader = false
-              //   this.submitted = false
-              //   this.router.navigate(['admin/users'])
-              // }
             },
             (error: any) => {
               if (error.status == 400) {
