@@ -212,6 +212,7 @@ export class AddPricingPlanComponent implements OnInit {
     }
     this._AdminService.GetPlugType(pBody).subscribe((res: any) => {
       this.Pluglist = res.data
+       this.Pluglist.unshift({ id: -1, plugTypeName: 'ALL' });
     })
   }
 
