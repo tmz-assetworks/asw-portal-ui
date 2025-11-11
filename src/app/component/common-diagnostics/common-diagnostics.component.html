@@ -106,7 +106,7 @@
               <span class="close-icon" (keydown.enter)="closePopup()" (click)="closePopup()">X</span>
             </div>
 
-            <app-tool-tip-item class="item" (keydown.enter)="showMessage('getconfig'); viewToolTipTtem('isGetConfig')"
+            <app-tool-tip-item  tooltipText="Retrieve the current configuration keys and their values from the charger." class="item" (keydown.enter)="showMessage('getconfig'); viewToolTipTtem('isGetConfig')"
               (click)="showMessage('getconfig'); viewToolTipTtem('isGetConfig')" [isGetConfig]="isGetConfig"
               id="isGetConfig">
               <div class="title">GetConfiguration</div>
@@ -114,20 +114,20 @@
                 src="../../../../assets/diagnostic/getConfiguration.png" alt="" />
             </app-tool-tip-item>
 
-            <app-tool-tip-item class="item" (click)="clearCache(); viewToolTipTtem('isClearCache')"
+            <app-tool-tip-item tooltipText="Clear all locally stored authorization data on the charger." class="item" (click)="clearCache(); viewToolTipTtem('isClearCache')"
               [isClearCache]="isClearCache" (keydown.enter)="clearCache(); viewToolTipTtem('isClearCache')"
               id="ClearCache">
               <div class="title">ClearCache</div>
               <img class="img" alt="" style="width: 100%; height: 100%;"
                 src="../../../../assets/diagnostic/clearCache.png" />
             </app-tool-tip-item>
-            <app-tool-tip-item class="item" (click)="showMessage('reset'); viewToolTipTtem('isReset')"
+            <app-tool-tip-item tooltipText="Reboot the charger (soft or hard reset)." class="item" (click)="showMessage('reset'); viewToolTipTtem('isReset')"
               [isReset]="isReset" (keydown.enter)="showMessage('reset'); viewToolTipTtem('isReset')" id="Reset">
               <div class="title">Reset</div>
               <img alt="" class="img" style="width: 100%; height: 100%;"
                 src="../../../../assets/diagnostic/reset.png" />
             </app-tool-tip-item>
-            <app-tool-tip-item class="item" (click)="
+            <app-tool-tip-item tooltipText="Update a specific configuration key on the charger." class="item" (click)="
                   showMessage('changeconfig');
                   viewToolTipTtem('isChangeConfiguration')
                 " [isChangeConfiguration]="isChangeConfiguration" (keydown.enter)="showMessage('changeconfig');
@@ -137,7 +137,7 @@
                 src="../../../../assets/diagnostic/changeConfiguration.png" />
             </app-tool-tip-item>
 
-            <app-tool-tip-item class="item" (click)="
+            <app-tool-tip-item tooltipText="Set a connector or the entire charger to be available or unavailable." class="item" (click)="
                   showMessage('change'); viewToolTipTtem('isChangeAvailability')
                 " [isChangeAvailability]="isChangeAvailability"
               (keydown.enter)="showMessage('change'); viewToolTipTtem('isChangeAvailability')" id="ChangeAvailability">
@@ -145,7 +145,7 @@
               <img class="img" alt="" style="width: 100%; height: 100%;"
                 src="../../../../assets/diagnostic/changeAvailability.png" />
             </app-tool-tip-item>
-            <app-tool-tip-item class="item" (click)="
+            <app-tool-tip-item tooltipText="Send custom data between the central system and the charger." class="item" (click)="
                   showMessage('datatransfer'); viewToolTipTtem('isDataTransfer')
                 " (keydown.enter)="showMessage('datatransfer'); viewToolTipTtem('isDataTransfer')"
               [isDataTransfer]="isDataTransfer" id="DataTransfer">
@@ -166,7 +166,7 @@
               </span>
             </div>
 
-            <app-tool-tip-item class="item" (click)="
+            <app-tool-tip-item tooltipText="Request the current version number of the local authorization list on the charger." class="item" (click)="
                   getLocalListVersion(); viewToolTipTtem('isGetLocalListVersion')
                 " [isGetLocalListVersion]="isGetLocalListVersion"
               (keydown.enter)="getLocalListVersion(); viewToolTipTtem('isGetLocalListVersion')"
@@ -175,7 +175,7 @@
               <img class="img" alt="" style="width: 100%; height: 100%;"
                 src="../../../../../assets/Operator/Diagnostics-Icon/GetLocalListVersion.svg" />
             </app-tool-tip-item>
-            <app-tool-tip-item class="item" (click)="
+            <app-tool-tip-item tooltipText="Send or update a list of authorized users to the charger." class="item" (click)="
                   showMessage('sendlocal');
                   viewToolTipTtem('isSendLocalListVersion')
                 " [isSendLocalListVersion]="isSendLocalListVersion" (keydown.enter)=" showMessage('sendlocal');
@@ -195,7 +195,7 @@
               <span class="close-icon close5" (keydown.enter)="closePopup()" (click)="closePopup()">X</span>
             </div>
 
-            <app-tool-tip-item class="item" (click)="
+            <app-tool-tip-item tooltipText="Initiate a charging session remotely for a specific user." class="item" (click)="
                   showMessage('start');
                   viewToolTipTtem('isRemoteStartTransaction')
                 " [isRemoteStartTransaction]="isRemoteStartTransaction" (keydown.enter)="showMessage('start');
@@ -205,7 +205,7 @@
                 src="../../../../assets/diagnostic/RemoteStartTransaction.svg" />
             </app-tool-tip-item>
 
-            <app-tool-tip-item class="item" (click)="
+            <app-tool-tip-item tooltipText="Remotely stop an ongoing charging session." class="item" (click)="
                   remoteStopTransaction();
                   viewToolTipTtem('isRemoteStopTransaction')
                 " (keydown.enter)="remoteStopTransaction();
@@ -215,14 +215,14 @@
               <img class="img" alt="" style="width: 100%; height: 100%;"
                 src="../../../../assets/diagnostic/RemoteStopTransaction.svg" />
             </app-tool-tip-item>
-            <app-tool-tip-item class="item" (click)="showMessage('unlock'); viewToolTipTtem('isUnlock')"
+            <app-tool-tip-item tooltipText="Remotely unlock a connector." class="item" (click)="showMessage('unlock'); viewToolTipTtem('isUnlock')"
               [isUnlock]="isUnlock" (keydown.enter)="showMessage('unlock'); viewToolTipTtem('isUnlock')"
               id="UnlockConnector">
               <div class="title">UnlockConnector</div>
               <img class="img" alt="" style="width: 100%; height: 100%;"
                 src="../../../../../assets/Operator/Diagnostics-Icon/UnlockConnector.svg" />
             </app-tool-tip-item>
-            <app-tool-tip-item class="item" (click)="
+            <app-tool-tip-item tooltipText="Reserve a connector on the charger for a specific vehicle and time." class="item" (click)="
                   showMessage('isReserveNow'); viewToolTipTtem('isReserveNow')
                 " [isReserveNow]="isReserveNow"
               (keydown.enter)="showMessage('isReserveNow'); viewToolTipTtem('isReserveNow')" id="ReserveNow">
@@ -230,7 +230,7 @@
               <img class="img" alt="" style="width: 100%; height: 100%;"
                 src="../../../../../assets/Operator/Diagnostics-Icon/ReserveNow.svg" />
             </app-tool-tip-item>
-            <app-tool-tip-item class="item" (click)="
+            <app-tool-tip-item tooltipText="Cancel an existing reservation on the charger." class="item" (click)="
                   showMessage('isCancelReservation');
                   viewToolTipTtem('isCancelReservation')
                 " [isCancelReservation]="isCancelReservation" (keydown.enter)="showMessage('isCancelReservation');
@@ -239,7 +239,7 @@
               <img class="img" alt="" style="width: 100%; height: 100%;"
                 src="../../../../../assets/Operator/Diagnostics-Icon/CancelReservation.svg" />
             </app-tool-tip-item>
-            <app-tool-tip-item class="item" (click)="
+            <app-tool-tip-item tooltipText="Request the charger to send a specific message to CMS (e.g., status notification)." class="item" (click)="
                   showMessage('triggerMessage'); viewToolTipTtem('triggerMessage')
                 " (keydown.enter)="showMessage('triggerMessage'); viewToolTipTtem('triggerMessage')"
               [isTriggerMess]="isTriggerMess" id="TriggerMessageRequest">
@@ -259,7 +259,7 @@
               </span>
             </div>
 
-            <app-tool-tip-item class="item" (click)="
+            <app-tool-tip-item tooltipText="Request a charging schedule from the charger." class="item" (click)="
                   showMessage('getComposite');
                   viewToolTipTtem('isGetCompositeSchedule')
                 " [isGetCompositeSchedule]="isGetCompositeSchedule" (keydown.enter)="showMessage('getComposite');
@@ -268,7 +268,7 @@
               <img class="img" alt="" style="width: 100%; height: 100%;"
                 src="../../../../assets/diagnostic/GetCompositeSchedule.svg" />
             </app-tool-tip-item>
-            <app-tool-tip-item class="item" (click)="
+            <app-tool-tip-item tooltipText="Remove a previously set charging profile from the charger." class="item" (click)="
                   showMessage('getClearCharging');
                   viewToolTipTtem('isClearChargingProfile')
                 " [isClearChargingProfile]="isClearChargingProfile" (keydown.enter)="showMessage('getClearCharging');
@@ -277,7 +277,7 @@
               <img class="img" alt="" style="width: 100%; height: 100%;"
                 src="../../../../assets/diagnostic/ClearChargingProfile.svg" />
             </app-tool-tip-item>
-            <app-tool-tip-item class="item" (click)="
+            <app-tool-tip-item tooltipText="Send a charging schedule to the charger." class="item" (click)="
                   showMessage('setCharging'); viewToolTipTtem('setCharging')
                 " (keydown.enter)="showMessage('setCharging'); viewToolTipTtem('setCharging')"
               [isSetCharging]="isSetCharging" id="SetChargingProfle">
@@ -295,7 +295,7 @@
               Firmware Management
               <span class="close-icon close5" (click)="closePopup()" (keydown.enter)="closePopup()">X</span>
             </div>
-            <app-tool-tip-item class="item" (click)="
+            <app-tool-tip-item tooltipText="Instruct the charger to download and install new firmware." class="item" (click)="
                   showMessage('updatefirmware'); viewToolTipTtem('updatefirmware')
                 " [isUpdateFirmware]="isUpdateFirmware"
               (keydown.enter)="showMessage('updatefirmware'); viewToolTipTtem('updatefirmware')" id="UpdateFirmware">
@@ -303,7 +303,7 @@
               <img class="img" alt="" style="width: 100%; height: 100%;"
                 src="../../../../../assets/Operator/Diagnostics-Icon/UpdateFirmware.svg" />
             </app-tool-tip-item>
-            <app-tool-tip-item class="item" (click)="
+            <app-tool-tip-item tooltipText="Request diagnostic logs from the charger for troubleshooting." class="item" (click)="
                   showMessage('getdiagnostics'); viewToolTipTtem('getdiagnostics')
                 " [isDiagnostics]="isDiagnostics"
               (keydown.enter)="showMessage('getdiagnostics'); viewToolTipTtem('getdiagnostics')" id="Get_diagnostics">

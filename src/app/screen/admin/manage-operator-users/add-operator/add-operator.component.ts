@@ -164,21 +164,13 @@ export class AddOperatorComponent implements OnInit {
 
 
   saveForm() {
-
     this.submitted = true
     if (this.addOperatorProfile.invalid) {
-
-
-
       this.toastr.error('Please fill mandatory fields.')
       return
     }
-
-
-
     // let pass = sessionStorage.getItem('enpass')
     let formField = this.addOperatorProfile.value
-    
     if (
       formField.emailid == '' ||
       formField.username == '' ||
@@ -188,6 +180,26 @@ export class AddOperatorComponent implements OnInit {
       this.toastr.error('Fill all Mandatory Fields')
       return
     }
+    // validate UserName format
+    const usernamePattern = /^[a-zA-Z0-9]+$/; // Only letters and numbers
+    if (!usernamePattern.test(formField.username)) {
+      this.toastr.error('Select a username that is not already in use. Do not include spaces or special characters.');
+      return;
+    }
+     // validate email format
+     const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+    if (!emailPattern.test(formField.emailid)) {
+      this.toastr.error('Enter a valid email address');
+      return;
+    }
+
+    // validate phone number (9 digits)
+    const phonePattern = /^\d{9}$/;
+    if (!phonePattern.test(formField.phonenumber.replaceAll(/\D/g, ''))) {
+      this.toastr.error('Provide a nine-digit phone number');
+      return;
+    }
+
     if (this.editId == 0) {
       const body = {
         displayName: this.role,
@@ -234,22 +246,14 @@ export class AddOperatorComponent implements OnInit {
         if (result.isDismissed) {
           this._adminService.CreateUser(body).subscribe(
             (data) => {
-              if (data) {
-                if (data.statusCode == 400) {
-                  this.toastr.error(
-                    'User name and email id should be unique, please try again.',
-                  )
-                  this.showLoader = false
-                  this.submitted = false
-                  return
-                }
-                //Do your stuffs...
-                this.toastr.success('Record saved successfully.')
-                this.addOperatorProfile.reset()
-                this.showLoader = false
-                this.submitted = false
-                this.router.navigate(['admin/users'])
-              }
+              if (data.statusCode === 200 || data.statusCode === 201) {
+                    sessionStorage.removeItem('orgUserId');
+                    this.toastr.success(data.statusMessage);
+                    this._location.back();
+                  } 
+                  else {
+                        this.toastr.error(data.statusMessage);
+                       }
             },
             (error: any) => {
               if (error.status == 400) {

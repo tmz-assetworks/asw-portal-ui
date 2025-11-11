@@ -160,10 +160,10 @@
   <div class="layout mat-data">
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       <caption></caption>
-      <ng-container matColumnDef="CustomerName">
-        <th mat-header-cell *matHeaderCellDef>ORGANIZATION NAME</th>
+      <ng-container matColumnDef="Price">
+        <th mat-header-cell *matHeaderCellDef>BASE PRICE</th>
         <td mat-cell *matCellDef="let element">
-          {{ element.customerName }}
+          {{ element.price }}
         </td>
       </ng-container>
 
@@ -176,22 +176,20 @@
       </ng-container>
 
       <!-- Weight Column -->
-      <ng-container matColumnDef="Currency">
+      <ng-container matColumnDef="SessionMarkup">
         <th mat-header-cell *matHeaderCellDef>
-          CURRENCY
+          SESSION MARKUP
         </th>
         <td mat-cell *matCellDef="let element">
-          {{ element.currencyName }}
+          {{ element.sessionMarkup }}
         </td>
       </ng-container>
-
-      <!-- Symbol Column -->
-      <!-- <ng-container matColumnDef="Location">
-        <th mat-header-cell *matHeaderCellDef>LOCATION</th>
+      <ng-container matColumnDef="ParkingFee">
+        <th mat-header-cell *matHeaderCellDef>PARKING FEE</th>
         <td mat-cell *matCellDef="let element">
-          {{ element.location }}
+          {{ element.parkingFee }}
         </td>
-      </ng-container> -->
+      </ng-container>
       <ng-container matColumnDef="ValidFrom">
         <th mat-header-cell *matHeaderCellDef>VALID FROM</th>
         <td mat-cell *matCellDef="let element">
@@ -212,10 +210,10 @@
           {{ element.chargerType }}
         </td>
       </ng-container>
-      <ng-container matColumnDef="Status">
-        <th mat-header-cell *matHeaderCellDef>STATUS</th>
+      <ng-container matColumnDef="KwhMarkup">
+        <th mat-header-cell *matHeaderCellDef>KWH MARKUP</th>
         <td mat-cell *matCellDef="let element">
-          {{ element.isActive ? 'Active' : 'Inactive' }}
+          {{ element.kwhMarkup }}
         </td>
       </ng-container>
 

@@ -185,9 +185,9 @@ export class UserProfileComponent implements OnInit {
 
         this.userProfileFormGroup.patchValue({ zipcode: this.userData.zipcode })
         if (this.userData.notificationEnable) {
-          this.notificationText = 'Notification Enable'
+          this.notificationText = 'Enable Notification'
         } else {
-          this.notificationText = 'Notification Disable'
+          this.notificationText = 'Disable Notification'
         }
 
         this.userProfileFormGroup.patchValue({
@@ -352,9 +352,9 @@ export class UserProfileComponent implements OnInit {
   // IS NOTIFICATION CHECKED
   isNotificationChecked(event: any) {
     if (event.checked) {
-      this.notificationText = 'Notification Enable'
+      this.notificationText = 'Enable Notification'
     } else {
-      this.notificationText = 'Notification Disable'
+      this.notificationText = 'Disable Notification'
     }
   }
 }

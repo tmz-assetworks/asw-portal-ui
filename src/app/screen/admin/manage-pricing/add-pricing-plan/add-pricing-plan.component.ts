@@ -212,6 +212,7 @@ export class AddPricingPlanComponent implements OnInit {
     }
     this._AdminService.GetPlugType(pBody).subscribe((res: any) => {
       this.Pluglist = res.data
+       this.Pluglist.unshift({ id: -1, plugTypeName: 'ALL' });
     })
   }
 
@@ -371,7 +372,10 @@ export class AddPricingPlanComponent implements OnInit {
 
     let formData = this.pricingPlanFormGroup.value
 
-    this.locationIdResponse.forEach((elem: any) => {
+    this.chargeboxidResponse = this.chargeboxidResponse.filter((x: any) =>
+    this.locationIdResponse.includes(x.locationId)
+  );
+    this.locationIdResponse.forEach((elem: any) => {      
       let index = this.chargeboxidResponse.findIndex(
         (x: any) => x.locationId === elem,
       )
