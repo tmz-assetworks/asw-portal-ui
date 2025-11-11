@@ -1,14 +1,20 @@
 import { Component, OnInit } from '@angular/core'
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms'
-import { ActivatedRoute, Router } from '@angular/router'
+import { ActivatedRoute, Router, RouterModule } from '@angular/router'
 import { ToastrService } from 'ngx-toastr'
 import { LoginService } from '../login.service'
+import { CommonModule } from '@angular/common'
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.scss'],
-  imports:[ReactiveFormsModule]
+  imports:[   
+    CommonModule,
+    SharedMaterialModule,
+    ReactiveFormsModule,
+    RouterModule]
 })
 export class ChangePasswordComponent implements OnInit {
   changePassForm: FormGroup
