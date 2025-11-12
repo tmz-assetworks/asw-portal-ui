@@ -54,6 +54,7 @@ export class AddLocationComponent implements OnInit {
   selectcountryId = ''
   viewMode: boolean = false
   telephoneNumber: string = ''
+ marker!: google.maps.Marker
 
   timeListforStart = [
     '00:00',
@@ -298,7 +299,7 @@ export class AddLocationComponent implements OnInit {
   ngAfterViewInit() {
     const options: google.maps.places.AutocompleteOptions = {
       fields: ['formatted_address', 'geometry'],
-      componentRestrictions: { country: 'in' } // optional
+      //componentRestrictions: { country: 'in' } // optional
     };
 
     const autocomplete = new google.maps.places.Autocomplete(
@@ -755,59 +756,67 @@ export class AddLocationComponent implements OnInit {
   // Reverse Geocoding
 
   getReverseGeocodingData(lat: string, lng: string, zoomNum: number) {
-    
-    const latlng = new google.maps.LatLng(Number.parseFloat(lat), Number.parseFloat(lng));
-    const geocoder = new google.maps.Geocoder();
 
-    geocoder.geocode({ location: latlng }, (results, status) => {
-      if (status !== google.maps.GeocoderStatus.OK || !results[0]) {
-        console.error('Geocoding failed:', status);
-        return;
-      }
+  const latlng = new google.maps.LatLng(Number.parseFloat(lat), Number.parseFloat(lng));
+  const geocoder = new google.maps.Geocoder();
 
-      // Update address field
-      this.userAddress = results[0].formatted_address;
+  geocoder.geocode({ location: latlng }, (results, status) => {
+    if (status !== google.maps.GeocoderStatus.OK || !results[0]) {
+      console.error('Geocoding failed:', status);
+      return;
+    }
 
-      // Update form fields
-      this.addLocationFormGroup.patchValue({
-        Latitude: lat,
-        Longitude: lng,
+    // Update address field
+    this.userAddress = results[0].formatted_address;
+
+    // Update form fields
+    this.addLocationFormGroup.patchValue({
+      Latitude: lat,
+      Longitude: lng,
+    });
+
+    // Reset/Update map
+    if (this.map) {
+      this.map.setCenter(latlng);
+      this.map.setZoom(zoomNum);
+    } else {
+      this.map = new google.maps.Map(this.mapElement.nativeElement, {
+        center: latlng,
+        zoom: zoomNum,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
       });
+    }
 
-      // Reset/Update map
-      if (this.map) {
-        this.map.setCenter(latlng);
-        this.map.setZoom(zoomNum);
-      } else {
-        this.map = new google.maps.Map(this.mapElement.nativeElement, {
-          center: latlng,
-          zoom: zoomNum,
-          mapTypeId: google.maps.MapTypeId.ROADMAP,
-        });
-      }
-
-      // Add marker
-      const marker = new google.maps.Marker({
+    // 🟩 Changed logic starts here — single marker handling
+    if (!this.marker) {   // 🟩 create marker only if not exists
+      this.marker = new google.maps.Marker({
         position: latlng,
         map: this.map,
         draggable: true,
       });
 
-      // Listen for marker drag
-      marker.addListener('dragend', () => {
-        const newlat = marker.getPosition()?.lat() || 0;
-        const newlng = marker.getPosition()?.lng() || 0;
+      // 🟦 Listen for marker drag
+      this.marker.addListener('dragend', () => {
+        const newlat = this.marker.getPosition()?.lat() || 0;
+        const newlng = this.marker.getPosition()?.lng() || 0;
         this.handleEvent(newlat, newlng);
       });
 
-      // Listen for map drag (center moved)
+      // 🟦 Listen for map drag (center moved)
       this.map.addListener('dragend', () => {
         const newlat = this.map.getCenter()?.lat() || 0;
         const newlng = this.map.getCenter()?.lng() || 0;
         this.handleEvent(newlat, newlng);
       });
-    });
-  }
+
+    } else {
+      // 🟥 Instead of adding a new marker each time, update old one
+      this.marker.setPosition(latlng);
+      this.marker.setAnimation(google.maps.Animation.DROP);
+    }
+    // 🟩 Changed logic ends here
+  });
+}
 
   /**
    * Get Location Schedule Form Controls
