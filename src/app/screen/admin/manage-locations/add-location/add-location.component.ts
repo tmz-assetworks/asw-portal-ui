@@ -788,7 +788,11 @@ export class AddLocationComponent implements OnInit {
     }
 
     // 🟩 Changed logic starts here — single marker handling
-    if (!this.marker) {   // 🟩 create marker only if not exists
+    if (this.marker) {   // 🟩 create marker only if not exists
+      // 🟥 Instead of adding a new marker each time, update old one
+      this.marker.setPosition(latlng);
+      this.marker.setAnimation(google.maps.Animation.DROP); 
+    } else {
       this.marker = new google.maps.Marker({
         position: latlng,
         map: this.map,
@@ -808,13 +812,7 @@ export class AddLocationComponent implements OnInit {
         const newlng = this.map.getCenter()?.lng() || 0;
         this.handleEvent(newlat, newlng);
       });
-
-    } else {
-      // 🟥 Instead of adding a new marker each time, update old one
-      this.marker.setPosition(latlng);
-      this.marker.setAnimation(google.maps.Animation.DROP);
     }
-    // 🟩 Changed logic ends here
   });
 }
 
