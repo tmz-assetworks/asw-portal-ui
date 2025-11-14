@@ -25,6 +25,15 @@ export class ChangePasswordComponent implements OnInit {
   objectID: any = ''
   username = ''
 
+    // ✅ Password requirements list
+  passwordRequirements = [
+    { text: 'At least 8 characters long', valid: false },
+    { text: 'At least one uppercase letter (A-Z)', valid: false },
+    { text: 'At least one lowercase letter (a-z)', valid: false },
+    { text: 'At least one number (0-9)', valid: false },
+    { text: 'At least one special character (!@#$%^&*)', valid: false },
+  ]
+  
   constructor(
     private _loginService: LoginService,
     private _router: Router,
@@ -55,8 +64,7 @@ export class ChangePasswordComponent implements OnInit {
       this.objectID = params['objectID']
     })
 
-    let email
-    email = localStorage.getItem('userEmailVerify') || ''
+    const email = localStorage.getItem('userEmailVerify') || ''
     if (
       (email == undefined || email == null || email == '') &&
       this.username == undefined
@@ -66,9 +74,25 @@ export class ChangePasswordComponent implements OnInit {
         this._router.navigate(['./forgotPassword'])
       }, 4000)
     }
+    this.changePassForm.get('password')?.valueChanges.subscribe(value => {
+      this.updatePasswordValidity(value || '');
+    });
   }
 
+   updatePasswordValidity(password: string) {
+    this.passwordRequirements[0].valid = password.length >= 8;
+    this.passwordRequirements[1].valid = /[A-Z]/.test(password);
+    this.passwordRequirements[2].valid = /[a-z]/.test(password);
+    this.passwordRequirements[3].valid = /\d/.test(password);
+    this.passwordRequirements[4].valid = /[!@#$%^&*]/.test(password);
+  }
+  
   saveForm() {
+    const allValid = this.passwordRequirements.every(req => req.valid);
+    if (!allValid) {
+      this.toastr.error('Password does not meet the listed requirements.');
+      return;
+    }
     if (
       this.changePassForm.value.password == null ||
       this.changePassForm.value.cpassword == null
