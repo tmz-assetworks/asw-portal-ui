@@ -162,12 +162,14 @@ export class CreateAdminComponent implements OnInit {
       this.toastr.error('Enter a valid email address');
       return;
     }
-    // validate phone number (7 digits)
-    const phonePattern = /^\d{7}$/;
-    if (!phonePattern.test(formField.phoneNumber.replaceAll(/\D/g, ''))) {
-      this.toastr.error('Provide a seven-digit phone number');
-      return;
-    }
+    
+    // validate phone number ( 7 to 9 digits)
+      const phonePattern = /^\d{7,9}$/;
+        
+      if (!phonePattern.test(formField.phoneNumber.replaceAll(/\D/g, ''))) {
+        this.toastr.error('Provide a phone number with 7 to 9 digits');
+        return;
+      }
 
     if (this.editId == 0) {
       let body = {
