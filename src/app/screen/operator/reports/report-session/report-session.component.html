@@ -10,13 +10,7 @@
       <div class="location-block2 layout">
         <div class="location-block2-item">
           <div class="location-block4 layout">
-            <div class="location-block4-item">
-              <div class="location-block6 layout">
-                <a [routerLink]="['report-session']">
-                  <div class="location-text-body layout">SESSION</div>
-                </a>
-              </div>
-            </div>
+            
             <!-- <div class="location-block4-item">
               <div class="location-block5 layout">
                 <a [routerLink]="['report-subscription']">
@@ -26,18 +20,27 @@
             </div> -->
             <div class="location-block4-item">
               <div class="location-block5 layout">
-                <a [routerLink]="['report-transaction']">
-                  <div class="location-text-body layout">TRANSACTIONS</div>
+                <a [routerLink]="['../report-transaction']">
+                  <!-- <div class="location-text-body layout">TRANSACTIONS</div> -->
+                   <div class="location-text-body layout">CHARGING COSTS</div>
                 </a>
               </div>
             </div>
             <div class="location-block4-item">
+              <div class="location-block6 layout">
+                <a [routerLink]="['../report-session']">
+                  <!-- <div class="location-text-body layout">SESSION</div> -->
+                   <div class="location-text-body layout">CHARGER USAGE</div>
+                </a>
+              </div>
+            </div>
+            <!-- Remove tab CMS-348<div class="location-block4-item">
               <div class="location-block5 layout">
                 <a [routerLink]="['report-energy']">
                   <div class="location-text-body layout">ENERGY</div>
                 </a>
               </div>
-            </div>
+            </div>-->
           </div>
         </div>
         <div class="location-block2-spacer"></div>

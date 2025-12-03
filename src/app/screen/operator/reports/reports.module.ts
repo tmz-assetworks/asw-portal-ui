@@ -15,11 +15,11 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: ReportSessionComponent,
+        redirectTo: 'report-transaction',
         pathMatch: 'full',
       },
       {
-        path: 'reports/report-session',
+        path: 'report-session',
         component: ReportSessionComponent,
         // pathMatch: 'full',
       },
