@@ -1277,7 +1277,7 @@ const months = [...new Set(this.reportAvailableChargerCountDataSet.map((item: an
       xAxis: [
         {
           type: 'category',
-          name: 'Duration',
+          name: '',
           nameLocation: 'middle',
           nameGap: 43,
           axisTick: { show: false },
@@ -1290,7 +1290,7 @@ const months = [...new Set(this.reportAvailableChargerCountDataSet.map((item: an
       yAxis: [
         {
           type: 'value',
-          name: 'Charging Session',
+          name: 'Quantity',
           nameLocation: 'middle',
 
           /* fontWeight: 'bolder', */

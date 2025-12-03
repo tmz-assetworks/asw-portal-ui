@@ -17,6 +17,8 @@ import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
   imports:[AreaChartComponent,BarChartComponent,LineChartComponent,RouterModule,ReactiveFormsModule,SharedMaterialModule]
 })
 export class ReportSessionComponent implements OnInit {
+  basePath: string | null
+  role: string | null
   filterToggle = new FormControl('1')
   selectedDuration: string = '1'
   reportUpcomingSessionData = ''
@@ -32,6 +34,11 @@ export class ReportSessionComponent implements OnInit {
     private _storageService: StorageService,
   ) {
     this.UserId = this._storageService.getLocalData('user_id')
+    this.role = this._storageService.getLocalData('role')
+    this.basePath =
+    this.role == 'Admin'
+      ? '/admin/reports/detail'
+      : '/operator/reports/detail';
   }
 
   ngOnInit(): void {
@@ -135,8 +142,7 @@ export class ReportSessionComponent implements OnInit {
     sessionStorage.setItem('pageHeading', pageHeading)
     sessionStorage.setItem('duration', duration)
 
-    this._router.navigate(['detail'], {
-      relativeTo: this._route,
+    this._router.navigate([this.basePath], {
       queryParams: { id: event },
     })
   }

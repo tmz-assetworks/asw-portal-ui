@@ -125,6 +125,47 @@
                                 </div>
                               </div>
                             </div>
+                            
+                             <div class="barbar-block13-item ">
+                              <div class="barbar-block14 layout">
+                                <h5 class="barbar-highlights layout">
+                                  Location
+                                </h5>
+                                <div
+                                  class="barbar-box6 layout"
+                                  [ngClass]="{
+                                    'is-invalid':
+                                      searchFilter.get('locationId')?.errors &&
+                                      submitted == true
+                                  }"
+                                >
+                                <mat-form-field
+              appearance="outline"
+               
+                [ngClass]="{
+                  'is-invalid':
+                    searchFilter.get('locationId')?.errors &&
+                    submitted == true
+                }"
+              >
+                <mat-label>Select</mat-label>
+                <mat-select
+                  multiple
+                  formControlName="locationId"
+                >
+                  <mat-option
+                    *ngFor="let data of locationList"
+                    [value]="data.id"
+                    (onSelectionChange)="onSelectLocation($event, data.id)"
+                  >
+                    {{ data.locationName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              </div>
+                              </div>
+                            </div>
+                            
 
                             <div class="barbar-block14 layout">
                               <div class="barbar-flex1 layout">

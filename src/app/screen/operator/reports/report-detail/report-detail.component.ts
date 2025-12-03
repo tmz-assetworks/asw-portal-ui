@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router'
 import { StorageService } from 'src/app/service/storage.service'
 import { CommonModule, DatePipe, Location } from '@angular/common'
 import { ReportService } from '../reports.service'
+import { AdminService } from 'src/app/screen/admin/admin.service'
 import jsPDF from 'jspdf'
 
 import * as fs from 'file-saver'
@@ -19,6 +20,8 @@ import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
   imports:[SharedMaterialModule,CommonModule,ReactiveFormsModule]
 })
 export class ReportDetailComponent implements OnInit {
+  locationList: any
+  locationIdResponse: any = []
   graphHeading: any
   pageHeading: any
   duration: any
@@ -47,6 +50,7 @@ export class ReportDetailComponent implements OnInit {
     private __reportService: ReportService,
     public _fb: FormBuilder,
     private _toastr: ToastrService,
+    private _AdminService: AdminService,
   ) {
     this.graphHeading = this._storageService.getSessionData('graphHeading')
     this.pageHeading = this._storageService.getSessionData('pageHeading')
@@ -56,6 +60,7 @@ export class ReportDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.GetLocationName()
     this._activatedRoute.queryParams.subscribe((params) => {
       this.graphId = JSON.parse(params['id'])
     })
@@ -361,7 +366,7 @@ export class ReportDetailComponent implements OnInit {
         : '',
       operatorId: this.UserId,
       isExport: isExport,
-      locationId: [0],
+      locationId: this.locationIdResponse,
       duration: '',
     }
 
@@ -384,6 +389,7 @@ export class ReportDetailComponent implements OnInit {
   searchFilter = this._fb.group({
     fromDate: new FormControl('', [Validators.required]),
     toDate: new FormControl('', [Validators.required]),
+    locationId: new FormControl(''),
     // status: new FormControl(),
   })
 
@@ -398,6 +404,7 @@ export class ReportDetailComponent implements OnInit {
   checkStartDate() {}
 
   resetFilter() {
+    this.locationIdResponse=[]
     this.submitted = false
     this.searchFilter.reset()
 
@@ -435,5 +442,20 @@ export class ReportDetailComponent implements OnInit {
     let date = new Date()
     let time = this.datePipe.transform(date, 'HH:mm:ss')
     return time
+  }
+   GetLocationName() {
+    this._AdminService.GetLocationName().subscribe((res: any) => {
+      this.locationList = res.data
+    })
+  }
+    onSelectLocation(event: any, id: any) {
+    if (event.isUserInput) {
+      var index = this.locationIdResponse.indexOf(id)
+      if (index === -1) {
+        this.locationIdResponse.push(id)
+      } else {
+        this.locationIdResponse.splice(index, 1)
+      }
+    }
   }
 }

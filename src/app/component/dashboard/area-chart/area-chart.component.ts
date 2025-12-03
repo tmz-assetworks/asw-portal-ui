@@ -684,7 +684,7 @@ export class AreaChartComponent implements OnInit {
 
   setReportSessionLengthChartOption(dataSet: any) {
     let xAxisValue = dataSet.map((accu: any) => `${accu.times}`)
-    let sessionLen = dataSet.map((accu: any) => `${accu.sessionLenght}`)
+    let sessionLen = dataSet.map((accu: any) => `${accu.sessionLenghtInMinutes}`)
 
     return {
       color: ['#87B3B9'],
@@ -721,7 +721,7 @@ export class AreaChartComponent implements OnInit {
       },
       xAxis: [
         {
-          name: 'Session Length',
+          name: '',
           type: 'category',
           // boundaryGap: false,
           nameLocation: 'middle',
@@ -784,7 +784,7 @@ export class AreaChartComponent implements OnInit {
       yAxis: [
         {
           type: 'value',
-          name: 'Charging Sessions',
+          name: 'Minutes',
           nameLocation: 'middle',
           /* fontWeight: 'bolder', */
           nameGap: 60,
