@@ -164,10 +164,10 @@ export class CreateAdminComponent implements OnInit {
     }
     
     // validate phone number ( 7 to 9 digits)
-      const phonePattern = /^\d{7,9}$/;
+      const phonePattern = /^(\d{7}|\d{10})$/;
         
       if (!phonePattern.test(formField.phoneNumber.replaceAll(/\D/g, ''))) {
-        this.toastr.error('Provide a phone number with 7 to 9 digits');
+        this.toastr.error('Provide a phone number with "seven digits"');
         return;
       }
 
@@ -447,7 +447,7 @@ export class CreateAdminComponent implements OnInit {
    * @returns
    */
 
-  phoneNumber(event: any) {
+    phoneNumber(event: any) {
     const charCode = event.which ? event.which : event.keyCode;
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
       return;
@@ -461,4 +461,8 @@ export class CreateAdminComponent implements OnInit {
       this.telephoneNumber = this.telephoneNumber + '-';
     }
   }
+
+
+
+
 }

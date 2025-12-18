@@ -194,10 +194,10 @@ export class AddOperatorComponent implements OnInit {
     }
 
     // validate phone number (7 to 9 digits)
-      const phonePattern = /^\d{7,9}$/;
-
+      const phonePattern = /^(\d{7}|\d{10})$/;
+        
       if (!phonePattern.test(formField.phonenumber.replaceAll(/\D/g, ''))) {
-        this.toastr.error('Provide a phone number with 7 to 9 digits');
+        this.toastr.error('Provide a phone number with "seven digits"');
         return;
       }
 
