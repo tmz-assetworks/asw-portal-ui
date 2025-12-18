@@ -6,6 +6,7 @@ import { StorageService } from 'src/app/service/storage.service'
 import { UserProfileService } from 'src/app/screen/user-profile/user-profile.service'
 import { CommonModule } from '@angular/common'
 import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
+import { SupportModalComponent } from 'src/app/shared/support-modal/support-modal.component'
 
 @Component({
   selector: 'app-header',
@@ -13,6 +14,7 @@ import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
   styleUrls: ['./header.component.scss'],
   imports:[
     CommonModule,
+    SupportModalComponent,
     RouterModule,
     SharedMaterialModule
   ]
@@ -29,6 +31,9 @@ export class HeaderComponent implements OnInit {
   imageSubscription: any
   notificationSubscription: any
   isAdmin: boolean = false;
+  showSupport = false;
+  openSupport(): void { this.showSupport = true; }
+  closeSupport(): void { this.showSupport = false; }
 
   constructor(
     public _headerService: HeaderService,
@@ -76,6 +81,8 @@ export class HeaderComponent implements OnInit {
       },
     )
   }
+
+  
   //TOGGLE NAVIGATION
 
   toggleNav() {
