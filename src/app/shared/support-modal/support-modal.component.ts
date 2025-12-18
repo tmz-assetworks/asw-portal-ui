@@ -9,19 +9,29 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./support-modal.component.scss']
 })
 export class SupportModalComponent {
-  // Emit when modal should close
-  @Output() close = new EventEmitter<void>();
 
-  // Close on ESC
-  @HostListener('document:keydown.escape', ['$event'])
+  @Output() readonly close = new EventEmitter<void>();
+
+  /** Close modal on ESC key */
+  @HostListener('document:keydown.escape')
   onEscape(): void {
     this.close.emit();
   }
 
-  // Backdrop click handler - close if backdrop clicked
-  onBackdropClick(evt: MouseEvent): void {
-    const target = evt.target as HTMLElement;
-    if (target && target.classList.contains('support-backdrop')) {
+  /** Handle backdrop mouse click */
+  onBackdropClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+
+    if (target.classList.contains('support-backdrop')) {
+      event.preventDefault();
+      this.close.emit();
+    }
+  }
+
+  /** Handle backdrop keyboard interaction */
+  onBackdropKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
       this.close.emit();
     }
   }
