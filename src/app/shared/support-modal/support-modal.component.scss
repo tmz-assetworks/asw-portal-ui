@@ -1,5 +1,7 @@
+
 /* Backdrop */
 .support-backdrop {
+  all: unset;              /* important */
   position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.45);
@@ -8,6 +10,7 @@
   justify-content: center;
   z-index: 10000;
   backdrop-filter: blur(2px);
+  cursor: default;
 }
 
 /* Popup */
@@ -73,12 +76,11 @@
   width: 42px;
   height: 42px;
   border-radius: 10px;
-  background: #f3f6fb;
+  background: #e6ebf5;  /* darker background */
+  color: #0a3ea1;       /* higher contrast text/icon */
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #0b66ff;
-  flex: 0 0 42px;
 }
 
 .label {

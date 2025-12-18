@@ -1,3 +1,4 @@
+
 import { Component, Output, EventEmitter, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -10,12 +11,12 @@ import { CommonModule } from '@angular/common';
 })
 export class SupportModalComponent {
 
-  @Output() readonly close = new EventEmitter<void>();
+  @Output() readonly closeModal  = new EventEmitter<void>();
 
   /** Close modal on ESC key */
   @HostListener('document:keydown.escape')
   onEscape(): void {
-    this.close.emit();
+    this.closeModal.emit();
   }
 
   /** Handle backdrop mouse click */
@@ -24,15 +25,9 @@ export class SupportModalComponent {
 
     if (target.classList.contains('support-backdrop')) {
       event.preventDefault();
-      this.close.emit();
+      this.closeModal.emit();
     }
   }
 
-  /** Handle backdrop keyboard interaction */
-  onBackdropKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      this.close.emit();
-    }
-  }
+  
 }

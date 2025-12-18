@@ -1,18 +1,15 @@
 <!-- backdrop -->
-<div
+<button
   class="support-backdrop"
-  role="button"
-  tabindex="0"
+  type="button"
   aria-label="Close support dialog"
-  (click)="onBackdropClick($event)"
-  (keydown)="onBackdropKeydown($event)">
+  (click)="onBackdropClick($event)">
 
   <!-- popup container -->
-  <div
+  <dialog
     class="support-popup"
-    role="dialog"
-    aria-modal="true"
     aria-labelledby="support-title"
+    open
     (click)="$event.stopPropagation()">
 
     <div class="popup-header">
@@ -22,7 +19,7 @@
         type="button"
         class="close-btn"
         aria-label="Close support dialog"
-        (click)="close.emit()">
+        (click)="closeModal.emit()">
         <svg
           width="14"
           height="14"
@@ -43,7 +40,6 @@
     </p>
 
     <div class="popup-body">
-
       <div class="info-row">
         <div class="icon" aria-hidden="true">
           <svg width="18" height="18" viewBox="0 0 24 24" focusable="false">
@@ -94,5 +90,5 @@
       </div>
 
     </div>
-  </div>
-</div>
+  </dialog>
+</button>
