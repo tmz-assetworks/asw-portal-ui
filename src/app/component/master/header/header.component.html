@@ -34,6 +34,29 @@
     </div>
     <div class="header-section2">
       
+        <!-- ⭐ Support Button Wrapper -->
+         <div class="support-wrapper">
+           <button 
+             class="support-pill-btn" 
+             (click)="openSupport()" 
+             aria-haspopup="dialog" 
+             [attr.aria-expanded]="showSupport">
+
+             <span class="label">Support</span>
+
+             <span class="info-icon" aria-hidden="true">
+               <svg width="14" height="14" viewBox="0 0 24 24">
+                 <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
+                 <line x1="12" y1="11" x2="12" y2="16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                 <circle cx="12" cy="8" r="1" fill="currentColor"/>
+               </svg>
+             </span>
+
+           </button>
+         </div>
+         <!-- END Support Wrapper -->
+
+
 
       <div *ngIf="role == 'Operator'" class="txt_menu" [routerLink]="['alerts']" [queryParams]="{type: 'notification'}">
         <img src="../../../../assets/images/bell.png" />
@@ -87,3 +110,4 @@
     </div>
   </div>
 </div>
+<app-support-modal *ngIf="showSupport" (closeModal)="closeSupport()"></app-support-modal>
