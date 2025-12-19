@@ -125,9 +125,32 @@ export class ToolTipItemComponent implements OnInit {
     }
   }
 @Input() tooltipText: string = ''; // this binds your title attr
-  showTooltip = false;
+   showTooltip = false;
+tooltipPosition: 'top' | 'bottom' | 'left' | 'right' = 'top';
 
+onMouseEnter(event: MouseEvent): void {
+  this.showTooltip = true;
 
+  const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+
+  if (rect.top < 80) {
+    this.tooltipPosition = 'bottom';
+  } else if (rect.bottom > vh - 80) {
+    this.tooltipPosition = 'top';
+  } else if (rect.left < 120) {
+    this.tooltipPosition = 'right';
+  } else if (rect.right > vw - 120) {
+    this.tooltipPosition = 'left';
+  } else {
+    this.tooltipPosition = 'top';
+  }
+}
+
+onMouseLeave(): void {
+  this.showTooltip = false;
+}
   constructor() {}
 
   ngOnInit(): void {}
