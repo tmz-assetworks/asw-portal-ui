@@ -15,9 +15,11 @@
 
 /* Popup */
 .support-popup {
-  width: min(420px, 94%);
+  width: min(470px, 95%);
   background: #ffffff;
   border-radius: 12px;
+  border: none; 
+  outline: none; 
   box-shadow: 0 18px 40px rgba(17,24,39,0.25);
   padding: 20px 22px;
   position: relative;
