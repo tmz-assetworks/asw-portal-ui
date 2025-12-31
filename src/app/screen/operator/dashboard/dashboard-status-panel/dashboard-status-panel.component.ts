@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core'
-
-import { EChartsOption } from 'echarts'
 import { DashboardService } from '../dashboard.service'
 import { NgxEchartsModule } from 'ngx-echarts'
 
@@ -36,13 +34,29 @@ export class DashboardStatusPanelComponent implements OnInit {
   dataSet: any
   chartOption: any
   summaryData: any
+  chargingSession: Array<{key: number, value: string}> = [];
+  totalCost: string = '0.00';
+
 
   constructor(private _dashboardService: DashboardService) {}
 
   ngOnInit() {
-    this.getSummaryData()
+    this.getSummaryData();
+    this.getSummarySatus()
   }
 
+  // Fetch charging session info
+  getSummarySatus() {
+    this._dashboardService.GetSummaryStatus().subscribe({
+      next: (res) => {
+        this.chargingSession = res.data[2]?.statusData || [];        
+      },
+      error: (error) => {
+        console.error('Error fetching charging session data:', error);
+      }
+    });
+  }
+  
   /**
    * Get summary data
    */
@@ -50,20 +64,13 @@ export class DashboardStatusPanelComponent implements OnInit {
   getSummaryData() {
     this._dashboardService.GetSummaryData(0).subscribe((res) => {
       this.summaryData = res.data[0]
-
-      this.infra = this.summaryData.chargingInfustructure[0]
-      this.infrakey = this.infra.key
-      this.infraValue = this.infra.value
-
       this.charger = this.summaryData.chargingInfustructure[1]
 
       this.chargerkey = this.charger.key
       this.chargervalue = this.charger.value
-
-      //revenue chart
       this.dataSet = this.summaryData.revenue
-      this.chartOption = this.setRevenueOptions(this.dataSet) as EChartsOption
-
+      const totalCostItem = this.dataSet.find((item: any) => item.key === 'Total Cost');
+      this.totalCost = totalCostItem ? totalCostItem.value : '0.00';
       // EnergyUsed
       this.energyUsed = this.summaryData.energyUsed[0]
       this.energyUsedkey0 = this.energyUsed.key
@@ -88,19 +95,6 @@ export class DashboardStatusPanelComponent implements OnInit {
       this.energyPointsvalue1 = this.energyPoints.value
     })
   }
-
-  // energyPoints= [
-  //   {
-  //     Key: 'MT of CO2 Saved',
-  //     Value: 19408.07,
-  //     Icon: '../../../../assets/status-panel-icon/saved.png',
-  //   },
-  //   {
-  //     Key: 'Gasoline gallon equivalent (GGE Saved)',
-  //     Value: 990.71,
-  //     Icon: '../../../../assets/status-panel-icon/gallon.png',
-  //   },
-  // ]
 
   setRevenueOptions(data: any) {
     const legends = data.map((acc: any) => `${acc.key}`)
@@ -129,9 +123,6 @@ export class DashboardStatusPanelComponent implements OnInit {
       xAxis: [
         {
           type: 'category',
-          // name: 'USD',
-          // nameLocation: 'middle',
-          // nameGap: 50,
           data: values,
           axisLabel: {
             rotate: 30,

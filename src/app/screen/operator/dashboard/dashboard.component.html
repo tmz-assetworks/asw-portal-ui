@@ -9,6 +9,9 @@
           <app-widget
             [widgetIcon]="locations"
             [data]="summaryStatus[0]"
+            [url]="userRole + '/location'"
+            [showStatusBars]="false"
+            [compactMode]="true"
           ></app-widget>
         </div>
         <div class="dashboard-block15-spacer"></div>
@@ -16,6 +19,9 @@
           <app-widget
             [widgetIcon]="chargers"
             [data]="summaryStatus[1]"
+            [url]="userRole + '/charger'"
+            [showStatusBars]="false"
+            [compactMode]="true"
           ></app-widget>
         </div>
         <div class="dashboard-block15-spacer1"></div>
@@ -23,6 +29,9 @@
           <app-widget
             [widgetIcon]="charging_session"
             [data]="summaryStatus[2]"
+            [url]="userRole + '/reports/report-session'"
+            [showStatusBars]="false"
+            [compactMode]="true"
           ></app-widget>
         </div>
         <div class="dashboard-block15-spacer"></div>
@@ -30,6 +39,9 @@
           <app-widget
             [widgetIcon]="errors"
             [data]="summaryStatus[3]"
+            [showStatusBars]="false"
+            [compactMode]="true"
+            [clickable]="false"
           ></app-widget>
         </div>
       </div>

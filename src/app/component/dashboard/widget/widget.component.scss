@@ -14,21 +14,31 @@
     flex-shrink: 0;
     width: 100%;
     min-width: 150px;
-    max-width: 450px;
     margin: 0px 0px;
+    user-select: none;
     @include xl {
-      max-width: 900px;
+      max-width: none;
+    }
+    
+    &.compact {
+      min-height: 98px;
+      max-height: 100px;
+      cursor: pointer;
     }
   }
   &block29 {
     @include flex-column;
     background-color: rgb(142, 21, 55);
     border-radius: 10px 10px 10px 10px;
+    
+    .compact & {
+      background-color: transparent;
+    }
   }
   &block29.layout {
     position: relative;
     height: min-content;
-    margin: 1px 1px 111px;
+    margin: 1px 1px 10px;
   }
   &block30 {
     display: flex;
@@ -39,6 +49,10 @@
     min-height: 58px;
     flex-shrink: 0;
     margin: 9px 15px 38px 17px;
+    
+    .compact & {
+      margin: 15px 15px 15px 17px;
+    }
   }
   &block30-item {
     @include flex-column;
@@ -74,6 +88,11 @@
     margin-bottom: 0px;
     margin-top: 2px;
     align-self: right;
+    
+    .compact & {
+      color: #666666;
+    }
+    
     @include xxl {
       font-size: 36px;
       text-align: left;
@@ -119,6 +138,11 @@
     text-align: right;
     letter-spacing: 0px;
     white-space: nowrap;
+    
+    .compact & {
+      color: #666666;
+    }
+    
     @include xl {
       font-size: 12px;
       text-align: right;
@@ -343,6 +367,7 @@ $color_type_4: rgb(255, 255, 255);
     bottom: -85px;
     left: 17px;
     right: 17px;
+    pointer-events: none;
   }
   &block1 {
     display: flex;
@@ -390,24 +415,25 @@ $color_type_4: rgb(255, 255, 255);
   }
   &text-body.layout {
     position: relative;
-    flex: 0 0 69%;
+    flex: 0 0 auto;
     height: min-content;
+    min-width: 0;
 
     @include xl2 {
       font-size: 11px;
-      flex: 0 0 74%;
     }
     @include lg {
       font-size: 13px;
     }
   }
   &block2-spacer {
-    flex: 0 1 1%;
+    flex: 0 0 8px;
   }
   &block2-item {
     @include flex-column;
     position: relative;
-    flex: 1 1 30%;
+    flex: 1 1 auto;
+    min-width: 0;
     @include xl {
       flex: 1 1 100%;
     }
@@ -419,6 +445,8 @@ $color_type_4: rgb(255, 255, 255);
   &box.layout {
     position: relative;
     height: 5px;
+    width: 100%;
+    max-width: 100%;
     margin: 5.5px 0px;
   }
   &block1-spacer {
