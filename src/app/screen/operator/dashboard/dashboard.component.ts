@@ -32,10 +32,10 @@ declare const MarkerClusterer: any
   ]
 })
 export class DashboardComponent implements OnInit {
-  locations = '../../../../assets/Operator/Location-Icons.svg'
-  chargers = '../../../../assets/Operator/Chargers.svg'
-  charging_session = '../../../../assets/Operator/Charger-Seesion.svg'
-  errors = '../../../../assets/Operator/Error.svg'
+  locations = '../../../../assets/icons/Location-Icons.svg'
+  chargers = '../../../../assets/icons/Chargers.svg'
+  charging_session = '../../../../assets/icons/Charger-Seesion.svg'
+  errors = '../../../../assets/icons/Error.svg'
   costData = ''
 
   locationPerformingData = ''
@@ -60,6 +60,7 @@ export class DashboardComponent implements OnInit {
   mapstatusdata: any
   initMapFunc: any
   toggleValue: number = 1
+  userRole: string = '';
 
   constructor(
     private readonly _dashboardService: DashboardService,
@@ -70,6 +71,8 @@ export class DashboardComponent implements OnInit {
     public readonly dialog: MatDialog,
   ) {
     this.UserId = this._storageService.getLocalData('user_id')
+    // Get user role from local storage and set dynamic URLs
+    this.userRole = this._storageService.getLocalData('role')?.toLowerCase();
   }
 
   ngOnInit(): void {

@@ -5,7 +5,7 @@
         <div class="statuspanel-block45-item">
           <div class="statuspanel-group layout2">
             <h4 class="statuspanel-highlights2 layout">
-              Charging Infrastructure
+              Charging Sessions
             </h4>
           </div>
         </div>
@@ -24,13 +24,13 @@
       <div class="box-element-block2 layout">
         <div class="box-element-block5 layout">
           <img
-            src="../../../../../assets/Operator/Total-Sites.svg"
+            src="../../../../../assets/icons/completed.svg"
             alt=""
             class="box-element-box2 layout"
           />
           <div class="box-element-block6 layout">
-            <h3 class="box-element-subtitle layout">{{ infraValue }}</h3>
-            <div class="box-element-text-body layout">{{ infrakey }}</div>
+            <h3 class="box-element-subtitle layout">{{ chargingSession[2]?.value }}</h3>
+            <div class="box-element-text-body layout">{{ chargingSession[2]?.key }}</div>
           </div>
         </div>
         <div class="box-element-block2-spacer dotted_line">
@@ -38,13 +38,27 @@
         </div>
         <div class="box-element-block5 layout1">
           <img
-            src="../../../../../assets/Operator/Total-Chargers.svg"
+            src="../../../../../assets/icons/interrupted.svg"
             alt=""
             class="box-element-box2 layout"
           />
           <div class="box-element-block6 layout">
-            <h3 class="box-element-subtitle layout">{{ chargervalue }}</h3>
-            <div class="box-element-text-body layout">{{ chargerkey }}</div>
+            <h3 class="box-element-subtitle layout">{{ chargingSession[1]?.value }}</h3>
+            <div class="box-element-text-body layout">{{ chargingSession[1]?.key }}</div>
+          </div>
+        </div>
+         <div class="box-element-block2-spacer dotted_line">
+          <hr />
+        </div>
+        <div class="box-element-block5 layout1">
+          <img
+            src="../../../../../assets/icons/cancelled.svg"
+            alt=""
+            class="box-element-box2 layout"
+          />
+          <div class="box-element-block6 layout">
+            <h3 class="box-element-subtitle layout">{{ chargingSession[0]?.value }}</h3>
+            <div class="box-element-text-body layout">{{ chargingSession[0]?.key }}</div>
           </div>
         </div>
       </div>
@@ -73,7 +87,10 @@
         </div>
       </div>
 
-      <div echarts [options]="chartOption" class="echart-item"></div>
+      <div class="total-cost-display">
+        <p>Total Cost: <b>${{ totalCost }}</b></p>
+      </div>
+
     </div>
   </div>
 

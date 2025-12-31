@@ -638,12 +638,12 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     }
   }
   &block15-spacer {
-    flex: 1 1 100px;
+    flex: 0 0 16px;
     @include xxxl {
-      flex: 0 1 30px;
+      flex: 0 0 16px;
     }
     @include xxl {
-      flex: 0 1 10px;
+      flex: 0 0 16px;
     }
     @include lg {
       flex: 0 0 16px;
@@ -918,12 +918,12 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     }
   }
   &block15-spacer1 {
-    flex: 1 1 100px;
+    flex: 0 0 16px;
     @include xxxl {
-      flex: 0 1 30px;
+      flex: 0 0 16px;
     }
     @include xxl {
-      flex: 0 1 10px;
+      flex: 0 0 16px;
     }
     @include lg {
       display: none;
