@@ -153,7 +153,6 @@ export class DashboardComponent implements OnInit {
 
   initMap() {
     const initialize = () => {
-       // Default fallback center (if no data)
     let centerLat = 36.2082629;
     let centerLng = -113.737393;
 
@@ -206,8 +205,8 @@ export class DashboardComponent implements OnInit {
           data.latitude,  
           data.longitude,
         )
-        let newLat = accident_LatLng.lat() //+ (Math.random() - 0.5) / 1500 // * (Math.random() * (max - min) + min);
-        let newLng = accident_LatLng.lng() //+ (Math.random() - 0.5) / 1500 // * (Math.random() * (max - min) + min);
+        let newLat = accident_LatLng.lat() 
+        let newLng = accident_LatLng.lng()
         let finalLatLng = new google.maps.LatLng(newLat, newLng)
 
         let marker = new google.maps.Marker({

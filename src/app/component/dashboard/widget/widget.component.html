@@ -1,4 +1,4 @@
-<div class="widgets-block28 layout" [ngClass]="{'compact': compactMode}" (click)="onClick()" [style.cursor]="(compactMode && clickable) ? 'pointer' : 'default'">
+<div class="widgets-block28 layout" [ngClass]="{'compact': compactMode}" (click)="onClick()" (keydown.enter)="onClick()" (keydown.space)="onClick()" tabindex="0"  [style.cursor]="(compactMode && clickable) ? 'pointer' : 'default'">
   <div class="widgets-block29 layout">
     <div class="widgets-block30 layout">
       <div class="widgets-block30-item">
@@ -12,90 +12,7 @@
         </div>
       </div>
     </div>
-    <!-- <div class="widgets-block20 layout3"> -->
-
-    <!-- <div class="widget-block1 layout">
-        <div class="widget-block1-item">
-          <div class="widget-block2 layout">
-            <div class="widget-text-body layout">Commissioned</div>
-            <div class="widget-block2-spacer"></div>
-            <div class="widget-block2-item"><div class="widget-box layout"></div></div>
-          </div>
-        </div>
-        <div class="widget-block1-spacer"></div>
-        <div class="widget-text-body1 layout">20</div>
-      </div>
-      <div class="widget-block3 layout">
-        <div class="widget-block3-item">
-          <div class="widget-block4 layout">
-            <div class="widget-text-body2 layout">Under Maintenance</div>
-            <div class="widget-block4-spacer"></div>
-            <div class="widget-block4-item"><div class="widget-box1 layout"></div></div>
-          </div>
-        </div>
-        <div class="widget-block3-spacer"></div>
-        <div class="widget-text-body3 layout">25</div>
-      </div>
-      <div class="widget-block5 layout">
-        <div class="widget-block5-item">
-          <div class="widget-block6 layout">
-            <div class="widget-text-body4 layout">Upcoming</div>
-            <div class="widget-block6-spacer"></div>
-            <div class="widget-block6-item">
-              <div class="widget-box2 layout"></div>
-            </div>
-          </div>
-        </div>
-        <div class="widget-block5-spacer"></div>
-        <div class="widget-text-body5 layout">05</div>
-      </div> -->
-
-    <!-- <div class="widgets-block20-item">
-        <div class="widgets-block21 layout1">
-          <div class="widgets-text-body1 layout">
-            {{ data?.statusData[0]?.Key }}
-          </div>
-          <div class="widgets-text-body1 layout7">
-            {{ data.StatusData[1].Key }}
-          </div>
-          <div class="widgets-text-body1 layout8">
-            {{ data.StatusData[2].Key }}
-          </div>
-        </div>
-      </div>
-      <div class="widgets-block20-spacer5"></div>
-      <div class="widgets-block20-item7">
-        <div class="widgets-block22 layout1">
-          <div
-            class="widgets-box7 layout"
-            [ngStyle]="{ 'background-color': data?.statusData[0]?.Color }"
-          ></div>
-          <div
-            class="widgets-box8 layout1"
-            [ngStyle]="{ 'background-color': data.StatusData[1].Color }"
-          ></div>
-          <div
-            class="widgets-box9 layout1"
-            [ngStyle]="{ 'background-color': data.StatusData[2].Color }"
-          ></div>
-        </div>
-      </div>
-      <div class="widgets-block20-spacer6"></div>
-      <div class="widgets-block20-item8">
-        <div class="widgets-block23 layout1">
-          <div class="widgets-text-body110 layout">
-            {{ data?.statusData[0]?.value }}
-          </div>
-          <div class="widgets-text-body111 layout">
-            {{ data.StatusData[1].value }}
-          </div>
-          <div class="widgets-text-body112 layout">
-            {{ data.StatusData[2].value }}
-          </div>
-        </div>
-      </div> -->
-
-    <!-- </div> -->
+    
 
     <div class="widget widget-block layout" *ngIf="showStatusBars">
       <div class="widget-block1 layout">
@@ -164,64 +81,9 @@
           {{ (data?.statusData || [])[2]?.value }}
         </div>
       </div>
-      <!-- <div class="widget-block3 layout">
-        <div class="widget-block3-item">
-          <div class="widget-block4 layout">
-            <div class="widget-text-body2 layout">Under Maintenance</div>
-            <div class="widget-block4-spacer"></div>
-            <div class="widget-block4-item"><div class="widget-box1 layout"></div></div>
-          </div>
-        </div>
-        <div class="widget-block3-spacer"></div>
-        <div class="widget-text-body3 layout">25</div>
-      </div>
-      <div class="widget-block5 layout">
-        <div class="widget-block5-item">
-          <div class="widget-block6 layout">
-            <div class="widget-text-body4 layout">Upcoming</div>
-            <div class="widget-block6-spacer"></div>
-            <div class="widget-block6-item"><div class="widget-box2 layout"></div></div>
-          </div>
-        </div>
-        <div class="widget-block5-spacer"></div>
-        <div class="widget-text-body5 layout">05</div>
-      </div> -->
+      
     </div>
   </div>
 </div>
 
-<!-- <div class="widget widget-block layout">
-  <div class="widget-block1 layout">
-    <div class="widget-block1-item">
-      <div class="widget-block2 layout">
-        <div class="widget-text-body layout">Commissioned</div>
-        <div class="widget-block2-spacer"></div>
-        <div class="widget-block2-item"><div class="widget-box layout"></div></div>
-      </div>
-    </div>
-    <div class="widget-block1-spacer"></div>
-    <div class="widget-text-body1 layout">20</div>
-  </div>
-  <div class="widget-block3 layout">
-    <div class="widget-block3-item">
-      <div class="widget-block4 layout">
-        <div class="widget-text-body2 layout">Under Maintenance</div>
-        <div class="widget-block4-spacer"></div>
-        <div class="widget-block4-item"><div class="widget-box1 layout"></div></div>
-      </div>
-    </div>
-    <div class="widget-block3-spacer"></div>
-    <div class="widget-text-body3 layout">25</div>
-  </div>
-  <div class="widget-block5 layout">
-    <div class="widget-block5-item">
-      <div class="widget-block6 layout">
-        <div class="widget-text-body4 layout">Upcoming</div>
-        <div class="widget-block6-spacer"></div>
-        <div class="widget-block6-item"><div class="widget-box2 layout"></div></div>
-      </div>
-    </div>
-    <div class="widget-block5-spacer"></div>
-    <div class="widget-text-body5 layout">05</div>
-  </div>
-</div> -->
+

@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   imports:[CommonModule]
 })
 export class WidgetComponent implements OnInit {
-  constructor(private router: Router) {
+  constructor(private readonly router: Router) {
   }
 
   @Input() widgetIcon: string | undefined
@@ -21,17 +21,12 @@ export class WidgetComponent implements OnInit {
 
   ngOnInit(): void {}
   
-  // Navigate to the URL specified in the widget
-
   navigateToUrl() {
     if (this.url) {
       this.router.navigate([this.url]);
     }
   }
 
-  //Method to handle widget click - navigates to the URL specified in the widget
-  // Only works when in compact mode (dashboard) and clickable is true
-  
   onClick() {
     if (this.compactMode && this.clickable && this.url) {
       this.navigateToUrl();
