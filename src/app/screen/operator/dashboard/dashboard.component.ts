@@ -13,6 +13,7 @@ import { LineChartComponent } from 'src/app/component/dashboard/line-chart/line-
 import { WidgetComponent } from 'src/app/component/dashboard/widget/widget.component'
 import { BarChartComponent } from 'src/app/component/dashboard/bar-chart/bar-chart.component'
 import { DashboardStatusPanelComponent } from './dashboard-status-panel/dashboard-status-panel.component'
+import { GoogleMapsLoaderService } from 'src/app/services/google-maps-loader.service';
 declare const google: any
 declare const MarkerClusterer: any
 
@@ -69,6 +70,7 @@ export class DashboardComponent implements OnInit {
     private readonly _route: ActivatedRoute,
     private readonly  toastr: ToastrService,
     public readonly dialog: MatDialog,
+    private readonly mapsLoader: GoogleMapsLoaderService 
   ) {
     this.UserId = this._storageService.getLocalData('user_id')
     // Get user role from local storage and set dynamic URLs
@@ -493,10 +495,17 @@ export class DashboardComponent implements OnInit {
       chargeBoxId: '',
       opratorid: operatorId,
     }
-    this._dashboardService.GetMap(body).subscribe((res) => {
-      this.mapstatusdata = res.data
-      this.initMapFunc()
+    
+    this.mapsLoader.load()
+    .then(() => {
+      this._dashboardService.GetMap(body).subscribe((res) => {
+        this.mapstatusdata = res.data;
+        this.initMap();  // call directly after script loaded
+      });
     })
+    .catch(err => console.error('Google Maps failed to load', err));
+
+
   }
   /**
    * Tooltip for legends show description
