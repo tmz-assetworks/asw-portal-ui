@@ -40,7 +40,7 @@ export class LocationChargersComponent implements OnInit {
   isTableHasData: any
 
   constructor(
-    private _router: Router,
+    private readonly _router: Router,
     public _locationService: LocationService,
     private _storageService: StorageService,
     public dialog: MatDialog,

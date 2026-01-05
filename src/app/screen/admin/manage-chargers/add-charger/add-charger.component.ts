@@ -256,8 +256,7 @@ export class AddChargerComponent implements OnInit {
       return
     }
     let isChecked = this.addChargerFormGroup.get('isActive')?.value;
-    if (isChecked == false) {
-      
+    if (!isChecked) {
       this._toastr.error(
         'Connector id must be different. Please enter other connector id.',
       )
@@ -471,16 +470,19 @@ export class AddChargerComponent implements OnInit {
    * @returns
    */
 
-  isUnique(arr: any) {
-    let tmpArr: any[] = []
-    for (var obj in arr) {
-      if (!tmpArr.includes(arr[obj].value.connectorId)) {
-        tmpArr.push(arr[obj].value.connectorId)
-      } else {
-        return false // Duplicate value for connector id found
+  
+  isUnique(arr: any): boolean {
+    const tmpArr: any[] = [];
+
+    for (const obj in arr) {
+      if (tmpArr.includes(arr[obj].value.connectorId)) {
+        return false; // Duplicate value for connector id found
       }
+
+      tmpArr.push(arr[obj].value.connectorId);
     }
-    return true // No duplicate values found for connector id
+
+    return true; // No duplicate values found for connector id
   }
 
   // GET DISPENSER DETAILS BY ID

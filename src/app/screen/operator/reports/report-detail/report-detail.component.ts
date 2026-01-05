@@ -50,7 +50,7 @@ export class ReportDetailComponent implements OnInit {
     private __reportService: ReportService,
     public _fb: FormBuilder,
     private _toastr: ToastrService,
-    private _AdminService: AdminService,
+    private readonly _AdminService: AdminService,
   ) {
     this.graphHeading = this._storageService.getSessionData('graphHeading')
     this.pageHeading = this._storageService.getSessionData('pageHeading')
@@ -450,7 +450,7 @@ export class ReportDetailComponent implements OnInit {
   }
     onSelectLocation(event: any, id: any) {
     if (event.isUserInput) {
-      var index = this.locationIdResponse.indexOf(id)
+      const index = this.locationIdResponse.indexOf(id)
       if (index === -1) {
         this.locationIdResponse.push(id)
       } else {

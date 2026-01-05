@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
     private toastr: ToastrService,
     private _storageService: StorageService,
     private _authService: AuthService,
-    private _userProfileService: UserProfileService
+    private readonly _userProfileService: UserProfileService
   ) {
     this.email =
       localStorage.getItem('emailEleVehi') != null &&
