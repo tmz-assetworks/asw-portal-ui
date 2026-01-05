@@ -63,9 +63,7 @@
     position: relative;
     flex: 0 1 24px;
   }
-  &box2 {
-    // background-color: rgb(217, 217, 217);
-  }
+  
   &box2.layout {
     position: relative;
     height: 16px;
@@ -184,9 +182,7 @@
     position: relative;
     flex: 0 1 10px;
   }
-  &box5 {
-    // background-color: rgb(217, 217, 217);
-  }
+  
   &box5.layout {
     position: relative;
     height: 25px;
@@ -220,7 +216,6 @@
   font-weight: 600;
   font-family: 'Roboto';
   line-height: 15.23px;
-//   color: #FFFFFF;
 }
 .txt_menu {
   margin: 17px 17px;
@@ -263,16 +258,8 @@
   height: 30px;
   width: 30px;
   border-radius: 100px;
-  // padding: 22px 14px;
   position: relative;
 }
-
-// @media (max-width: 768px){
-//   .header-block8-item{
-//     max-width: 57%;
-//     flex: 1;
-// }
-// }
 
 .headerAdmin {
    display: flex;
