@@ -1,5 +1,5 @@
 import { trigger, state, style, transition, animate } from '@angular/animations'
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
 import { AlertsService } from 'src/app/screen/operator/alerts/alerts.service'
@@ -31,6 +31,11 @@ import { DiagWidgetBarComponent } from '../diagnostic/diag-widget-bar/diag-widge
 import { MatDatetimepickerModule, MatNativeDatetimeModule } from '@mat-datetimepicker/core';
 import { MatMomentDatetimeModule } from '@mat-datetimepicker/moment';
 declare let jsPDF: new () => any
+interface DiagnosticsRow {
+  OperatorType: string;
+  Datetime: string;
+  action?: string;
+}
 
 @Component({
   selector: 'app-common-diagnostics',
@@ -60,7 +65,7 @@ declare let jsPDF: new () => any
     ]),
   ],
 })
-export class CommonDiagnosticsComponent implements OnInit {
+export class CommonDiagnosticsComponent implements OnInit, AfterViewInit  {
   chargerName: string | null
   isFireWareItem = false
   isProvisioning = false
@@ -76,7 +81,7 @@ export class CommonDiagnosticsComponent implements OnInit {
   isSendLocalListVersion = false
   isClearChargingProfile = false
   isSetCharging = false
-  digitValidate = new RegExp('^[0-9]+$')
+  digitValidate = /^\d+$/
   chargerId: any = ''
   isTableHasData = false
   chargerType = ''
@@ -171,13 +176,13 @@ export class CommonDiagnosticsComponent implements OnInit {
   ]
   constructor(
     public _alertsService: AlertsService,
-    private _storageService: StorageService,
-    private _diagnosticsService: DiagnosticsService,
-    private toastr: ToastrService,
+    private readonly _storageService: StorageService,
+    private readonly _diagnosticsService: DiagnosticsService,
+    private readonly toastr: ToastrService,
     public _chargerService: ChargerService,
     public dialog: MatDialog,
-    private _fb: FormBuilder,
-    private router: Router
+    private readonly _fb: FormBuilder,
+    private readonly router: Router
   ) {
     this.requestMessTypes = [
       'BootNotification',
@@ -280,15 +285,17 @@ export class CommonDiagnosticsComponent implements OnInit {
     this.paginator._intl.itemsPerPageLabel = 'Rows per page'
   }
 
+  
   viewCharger(data: any) {
     this._storageService.setSessionData('chargerBoxId', data.chargerBoxId)
     this._storageService.setSessionData('chargerName', data.chargerName)
   }
 
-  dataSource = new MatTableDataSource<any>([])
+  
+  dataSource = new MatTableDataSource<DiagnosticsRow>([])
 
   displayedColumns = ['OperatorType', 'Datetime', 'action']
-  expandedElement!: any | null
+  expandedElement: DiagnosticsRow  | null =null
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value
@@ -1003,7 +1010,6 @@ export class CommonDiagnosticsComponent implements OnInit {
       this.toastr.error('Please Enter Id Tag')
       this.localIdTag = false
       this.showLoader = false
-      return
     } else {
       // CALL API TO BIND DATE
       this._diagnosticsService.getDate(rfid).subscribe({
@@ -1079,7 +1085,6 @@ export class CommonDiagnosticsComponent implements OnInit {
     this.chargerType = event.target.value
     if (this.chargerType == '') {
       this.toastr.error('Please Select Type')
-      return
     }
   }
   selectOptionKey(event: any, value:any, type: string) {
@@ -1118,24 +1123,17 @@ export class CommonDiagnosticsComponent implements OnInit {
       this.commandType !== 'change' &&
       this.commandType !== 'getComposite' &&
       this.commandType !== 'isReserveNow'
-    ) {
+    ) 
+    {
       this.toastr.error('Please Select Connector ID')
-      return
     }
-    /* if (this.commandType == 'change') {
-      this.changeAvailability(this.chargerType, this.connectorID)
-    }  */
   }
-
   selectRequestMessage(event: any) {
-    //alert(this.commandType);
     this.reqMessType = event.target.value
     if (this.reqMessType == '') {
       this.toastr.error('Please Select RequestMessage')
-      return
     }
   }
-
   /**
    * Remote Stop Transaction
    */
@@ -1181,33 +1179,35 @@ export class CommonDiagnosticsComponent implements OnInit {
       operatorId: this.UserId,
     }
     this._diagnosticsService.getConnectorId(pBody).subscribe({
-      next: (res) => {
-        if (
-          (type == 'remoteStart' ||
-            type == 'unlock' ||
-            type == 'triggerMessage') &&
-          type !== ''
-        ) {
-          if (res.data.connectorIds !== '')
-            this.selectConnectorIds = res.data.connectorIds
-              .split(',')
-              .map((element: any) => element.trim())
-        } else {
-          if (res.data.connectorIds == '') {
-            res.data.connectorIds = 0
-          } else {
-            this.selectConnectorIds = res.data.connectorIds
-              .split(',')
-              .map((element: any) => element.trim())
+       next: (res) => {
+         if (
+           (type === 'remoteStart' ||
+             type === 'unlock' ||
+             type === 'triggerMessage') &&
+           type !== ''
+         ) {
+           if (res.data.connectorIds !== '') {
+             this.selectConnectorIds = res.data.connectorIds
+               .split(',')
+               .map((element: string) => element.trim());
+           }
+         } 
+         else if (res.data.connectorIds === '') {
+           res.data.connectorIds = 0;
+         } 
+         else {
+           this.selectConnectorIds = res.data.connectorIds
+             .split(',')
+             .map((element: string) => element.trim());
 
-            this.selectConnectorIds.unshift(0)
-            // this.selectConnectorIds.push(res.data.connectorIds.split(','))
-          }
-        }
-      },
-      error: (err) => {
-      },
-    })
+           this.selectConnectorIds.unshift(0);
+         }
+       },
+       error: (err) => {
+         // handle error if needed
+       }
+    });
+
   }
   setCallFunction(cmsRequestPayload: any) {
     const source = interval(3000)
@@ -1218,14 +1218,14 @@ export class CommonDiagnosticsComponent implements OnInit {
         this._diagnosticsService
           .CmsReply(cmsRequestPayload)
           .subscribe((res) => {
-            if (res == 404) {
-            } else if (res.status === 'Accepted') {
+            if (res.status === 'Accepted') {
               let msg = res
               subscribe.unsubscribe()
               this.showLoader = false
               this.toastr.success(JSON.stringify(msg))
               this.GetOcppEventLog()
-            } else {
+            } 
+            else {
               subscribe.unsubscribe()
               this.showLoader = false
               let msg = res
@@ -1417,7 +1417,6 @@ export class CommonDiagnosticsComponent implements OnInit {
     this.isUnlock = false
     this.isCancelReservation = false
     this.isReserveNow = false
-    // this.isDiagnosticsItem = true;
     this.isTriggerMess = true
     this.isDiagnostics = false
     this.isSetCharging = false
@@ -1792,42 +1791,30 @@ export class CommonDiagnosticsComponent implements OnInit {
     }
   }
 
-  // checkCharger(test: any) {
-  //   this.filteredStreets = this.control.valueChanges.pipe(
-  //     startWith(''),
-  //     map((value) => (value.length >= 0 ? this._filter(value) : this.streets)),
-  //   )
-  //   test.blur()
-  // }
 
-  removeFilter(event: any, chargerId: any) {
-    // if (!event.isUserInput) {
-    //   return
-    // }
-
-    let isCharger =
-      this.streets.find((elem: any) => {
-        //elem.chargeboxid
-      }) == chargerId.value
-
-    if (isCharger) {
-      this.chargerId = chargerId.value
-      this.getConnectorIds('')
-      this.GetOcppEventLog()
-    } else {
-      if (chargerId.value == '') {
-        this.chargerId = ''
-
-        this.selectConnectorIds = [0]
-        this.GetOcppEventLog()
-      } else {
-        this.chargerId = chargerId.value
-        this.selectConnectorIds = [0]
-        this.dataSource.data = []
+  removeFilter(event: any, chargerId: any): void {
+      const isCharger =
+        this.streets.find((elem: any) => {
+          // existing logic
+        }) === chargerId.value;
+      
+      if (isCharger) {
+        this.chargerId = chargerId.value;
+        this.getConnectorIds('');
+        this.GetOcppEventLog();
       }
-
+      else if (chargerId.value === '') {
+        this.chargerId = '';
+        this.selectConnectorIds = [0];
+        this.GetOcppEventLog();
+      }
+      else {
+        this.chargerId = chargerId.value;
+        this.selectConnectorIds = [0];
+        this.dataSource.data = [];
+      }
     }
-  }
+
 
 
 
@@ -2120,8 +2107,6 @@ export class CommonDiagnosticsComponent implements OnInit {
     this.id = this.clearChargingId.nativeElement.value
       ? this.clearChargingId.nativeElement.value
       : undefined
-    // this.connectorId = this.connectrId.nativeElement.value? this.connectrId.nativeElement.value:undefined;
-    // this.clearChargingPurpose = this.clearChargingPurpos.nativeElement.value? this.clearChargingPurpos.nativeElement.value:undefined;
 
     this.clearChargingPurpose = this.clearChargingPurpose
       ? this.clearChargingPurpose
@@ -2183,9 +2168,6 @@ export class CommonDiagnosticsComponent implements OnInit {
       return
     } else if (!this._diagnosticsService.isValidURL(this.enterLocationValue)) {
       this.toastr.error('Please Enter Valid URL')
-      return
-    } else if (this.expiryDate == undefined) {
-      this.toastr.error('Please Enter Retrieve Date')
       return
     } else if (this.expiryDate !== undefined && this.expiryDate.length == 0) {
       this.toastr.error('Please Enter Retrieve Date')
@@ -2294,7 +2276,6 @@ export class CommonDiagnosticsComponent implements OnInit {
   changeDateTime(event: any, type?: string) {
     if (type !== undefined) {
       if (type == 'start') {
-        //  this.startDate = this._convertToIso(this.selectedDate)
         this.startDate = this._diagnosticsService.convertToUTC(event.value)
       } else if (type == 'end') {
         this.endDate = this._diagnosticsService.convertToUTC(event.value)
@@ -2306,7 +2287,6 @@ export class CommonDiagnosticsComponent implements OnInit {
     this.selectedDate = event.target.value
     if (type !== undefined) {
       if (type == 'start') {
-        //  this.startDate = this._convertToIso(this.selectedDate)
         this.startDate = this._diagnosticsService.convertToUTC(
           this.selectedDate,
         )
@@ -2336,10 +2316,7 @@ export class CommonDiagnosticsComponent implements OnInit {
 
   openMakePaymentDialog(id: any) {
     const dialogRef = this.dialog.open(TransactionDialogComponent, {
-      // width: '30%',
       autoFocus: false,
-      // height: '600px',
-      // panelClass: 'my-dialog-container-class2',
       data: { id: id },
     })
     dialogRef.afterClosed().subscribe((result) => { })
@@ -2349,7 +2326,6 @@ export class CommonDiagnosticsComponent implements OnInit {
     this.setChargingForm = this._fb.group({
       connectorId: new FormControl('', Validators.required),
       csChargingProfiles: new FormGroup({
-        // chargingProfile: new FormControl('', Validators.required),
         chargingProfileId: new FormControl('', [Validators.required]),
         transactionId: new FormControl(''),
         stackLevel: new FormControl('', [Validators.required]),
@@ -2510,14 +2486,15 @@ export class CommonDiagnosticsComponent implements OnInit {
     })
   }
   /** TO Match Chargerbox ID Is Coming In Drop Down OR NOT */
-  hasChargerBoxId() {
-    let ind = 0
+  
 
-    ind = this.chargerBoxIdArr?.findIndex(
-      (x: any) => x.chargeboxid?.toLowerCase() == this.chargerId?.toLowerCase(),
-    )
-    // alert(ind);
-    return ind == -1 ? false : true
+  hasChargerBoxId(): boolean {
+    const ind = this.chargerBoxIdArr?.findIndex(
+      (x: any) =>
+        x.chargeboxid?.toLowerCase() === this.chargerId?.toLowerCase()
+    ) ?? -1;
+
+    return ind !== -1;
   }
 
   numberOnly(event: any): boolean {
@@ -2549,10 +2526,6 @@ export class CommonDiagnosticsComponent implements OnInit {
    */
   submitted1 = false
 
-  // closeDialog() {
-  //   this._dialogRef.close()
-  // }
-
   /**
    * check start date validation
    */
@@ -2564,7 +2537,6 @@ export class CommonDiagnosticsComponent implements OnInit {
       this.remoteStartForm.controls.chargingProfile.patchValue({
         validTo: '',
       })
-      return
     }
   }
   checkStartDateForSetCharging() {
@@ -2575,7 +2547,6 @@ export class CommonDiagnosticsComponent implements OnInit {
       this.setChargingForm.controls.csChargingProfiles.patchValue({
         validTo: '',
       })
-      return
     }
   }
   /**
@@ -2589,7 +2560,6 @@ export class CommonDiagnosticsComponent implements OnInit {
     if (!fromDate) {
       this.toastr.error('Please select From Date first.')
       this.remoteStartForm.controls.chargingProfile.patchValue({ validTo: '' })
-      return
     }
   }
   checkValidFromForSetCharging() {
@@ -2597,7 +2567,6 @@ export class CommonDiagnosticsComponent implements OnInit {
     if (!fromDate) {
       this.toastr.error('Please select From Date first.')
       this.setChargingForm.controls.csChargingProfiles.patchValue({ validTo: '' })
-      return
     }
   }
   dateFilterForEnd = (d: Date | null): boolean => {
@@ -2612,65 +2581,98 @@ export class CommonDiagnosticsComponent implements OnInit {
     if (!fromDate) return true;
     return d >= new Date(fromDate);
   }
-  dateFilterForStartScheduleForSetCharging = (d: any | null) => {
-    let selectedDate: any = this.datePipe.transform(
-      d,
-      'yyyy-MM-ddT' + this.getModifiedTime(),
-    )
+  dateFilterForStartScheduleForSetCharging = (d: Date | null): boolean => {
+    if (!d) {
+      return false;
+    }
 
-    let today = new Date()
-    let todayDate: any = this.datePipe.transform(
-      today,
-      'yyyy-MM-ddT' + this.getModifiedTime(),
-    )
-    return selectedDate >= todayDate
-  }
+    const selectedDate = new Date(
+      this.datePipe.transform(
+        d,
+        'yyyy-MM-ddT' + this.getModifiedTime()
+      ) as string
+    );
 
-  dateFilterForStartSchedule = (d: any | null) => {
-    let selectedDate: any = this.datePipe.transform(
-      d,
-      'yyyy-MM-ddT' + this.getModifiedTime(),
-    )
+    const today = new Date();
+    const todayDate = new Date(
+      this.datePipe.transform(
+        today,
+        'yyyy-MM-ddT' + this.getModifiedTime()
+      ) as string
+    );
 
-    let today = new Date()
-    let todayDate: any = this.datePipe.transform(
-      today,
-      'yyyy-MM-ddT' + this.getModifiedTime(),
-    )
-    return selectedDate >= todayDate
-  }
-  dateFilterForStart = (d: any | null) => {
-    let selectedDate: any = this.datePipe.transform(
-      d,
-      'yyyy-MM-ddT' + this.getModifiedTime(),
-    )
+    return selectedDate >= todayDate;
+  };
 
-    let today = new Date()
-    let todayDate: any = this.datePipe.transform(
-      today,
-      'yyyy-MM-ddT' + this.getModifiedTime(),
-    )
-    return selectedDate >= todayDate
-  }
-  dateFilterForStartForSetCharging = (d: any | null) => {
-    let selectedDate: any = this.datePipe.transform(
-      d,
-      'yyyy-MM-ddT' + this.getModifiedTime(),
-    )
+  dateFilterForStartSchedule = (d: Date | null): boolean => {
+    if (!d) {
+      return false;
+    }
 
-    let today = new Date()
-    let todayDate: any = this.datePipe.transform(
-      today,
-      'yyyy-MM-ddT' + this.getModifiedTime(),
-    )
-    return selectedDate >= todayDate
-  }
+    const selectedDate = new Date(
+      this.datePipe.transform(
+        d,
+        'yyyy-MM-ddT' + this.getModifiedTime()
+      ) as string
+    );
 
-  getModifiedDate() {
-    let date = new Date()
-    let time = this.datePipe.transform(date, 'HH:mm:ss')
-    return time
-  }
+    const today = new Date();
+    const todayDate = new Date(
+      this.datePipe.transform(
+        today,
+        'yyyy-MM-ddT' + this.getModifiedTime()
+      ) as string
+    );
+
+    return selectedDate >= todayDate;
+  };
+
+  dateFilterForStart = (d: Date | null): boolean => {
+    if (!d) {
+      return false;
+    }
+
+    const selectedDate = new Date(
+      this.datePipe.transform(
+        d,
+        'yyyy-MM-ddT' + this.getModifiedTime()
+      ) as string
+    );
+
+    const today = new Date();
+    const todayDate = new Date(
+      this.datePipe.transform(
+        today,
+        'yyyy-MM-ddT' + this.getModifiedTime()
+      ) as string
+    );
+
+    return selectedDate >= todayDate;
+  };
+
+   dateFilterForStartForSetCharging = (d: Date | null): boolean => {
+    if (!d) {
+      return false;
+    }
+
+    const selectedDate = new Date(
+      this.datePipe.transform(
+        d,
+        'yyyy-MM-ddT' + this.getModifiedTime()
+      ) as string
+    );
+
+    const today = new Date();
+    const todayDate = new Date(
+      this.datePipe.transform(
+        today,
+        'yyyy-MM-ddT' + this.getModifiedTime()
+      ) as string
+    );
+
+    return selectedDate >= todayDate;
+  };
+
   getModifiedTime() {
     let date = new Date()
     let time = this.datePipe.transform(date, 'HH:mm:ss')

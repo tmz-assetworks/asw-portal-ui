@@ -42,7 +42,6 @@ export class AddChargerComponent implements OnInit {
   makeMasterId: any
   protcol: string = '1.6J'
   protocolId: any
-  // dispenserStatusId: any
   chargerData: any
   getMake: any
 
@@ -52,8 +51,6 @@ export class AddChargerComponent implements OnInit {
   getPowerCabinet: any
   getLocation: any = []
   selectedLocation: any
-  // selectedMake: any
-  // selectedModel: any
   selectedModem = 0
   selectedRfidReader = 0
   selectedPowerCabinet = 0
@@ -187,16 +184,11 @@ export class AddChargerComponent implements OnInit {
       Validators.maxLength(100),
     ]),
     meterType: new FormControl('', [Validators.pattern('[a-z0-9A-Z]{0,20}')]),
-    // multiplePorts: new FormControl(false),
     pingSchedule: new FormControl('', [
       Validators.pattern('[a-z0-9A-Z]{0,20}'),
     ]),
     privateStation: new FormControl(true),
     readingSchedule: new FormControl('', [Validators.maxLength(20)]),
-    // serialNumber: new FormControl('', [
-    //   Validators.required,
-    //   Validators.maxLength(20),
-    // ]),
     oemOrderNumber: new FormControl('',[Validators.required,Validators.maxLength(100)]),
     padId: new FormControl('0'),
     cableId: new FormControl('0'),
@@ -205,7 +197,6 @@ export class AddChargerComponent implements OnInit {
     deactivationDate: new FormControl(''),
     latitude: new FormControl('', [Validators.pattern('[0-9.+-]+')]),
     longitude: new FormControl('', [Validators.pattern('[0-9.+-]+')]),
-    // isAutomatic: new FormControl(false),
     portCommand: this._fb.array(
       [this.addPortsRows(0, 1, '', '', '', true, '', '', '', '', '')],
       Validators.required,
@@ -238,16 +229,13 @@ export class AddChargerComponent implements OnInit {
       ),
       incrementalPower: new FormControl(incrementalPower, [
         Validators.required,
-        // Validators.pattern('[0-9].[0-9]{0,10}'),
       ]),
       isActive: new FormControl(status ? true : false),
       maxPower: new FormControl(maxPower, [
         Validators.required,
-        // Validators.pattern('[0-9].[0-9]{0,10}'),
       ]),
       minPower: new FormControl(minPower, [
         Validators.required,
-        //Validators.pattern('[0-9].[0-9]{0,10}'),
       ]),
       plugTypeId: new FormControl(plugTypeId, Validators.required),
       portName: new FormControl(portName, [
@@ -256,7 +244,6 @@ export class AddChargerComponent implements OnInit {
       ]),
       power: new FormControl(power, [
         Validators.required,
-        // Validators.pattern('[0-9].[0-9]{0,10}'),
       ]),
     })
   }
@@ -305,16 +292,13 @@ export class AddChargerComponent implements OnInit {
       modemId: this.selectedModem,
       switchGearId: this.selectedSwitch,
       meterType: formData.meterType,
-      // multiplePorts: formData.multiplePorts,
       pingSchedule: formData.pingSchedule,
       fleetStation: formData.privateStation,
       readingSchedule: formData.readingSchedule,
-      // serialNumber: formData.serialNumber,
       rfIdReaderId: this.selectedRfidReader,
       powerCabinetId: this.selectedPowerCabinet,
       padId: this.selectedPad,
       cableId: this.selectedCable,
-      // dispenserStatusId: this.selectedStatus,
       protocolName: formData.protocolName,
       installationDate: this.datePipe.transform(
         formData.installationDate,
@@ -326,7 +310,6 @@ export class AddChargerComponent implements OnInit {
       ),
       createdBy: this.UserId,
       isActive: formData.isActive,
-      // isAutomatic: formData.isAutomatic,
       portCommand: formData.portCommand,
       oemOrderNumber: formData.oemOrderNumber,
       latitude: formData.latitude ? formData.latitude : null,
@@ -407,8 +390,6 @@ export class AddChargerComponent implements OnInit {
       assetId: formData.assetId,
       chargeBoxId: formData.chargeBoxId,
       locationId: formData.locationId,
-
-      // description: formData.description,
       endPointUrl: formData.endPointUrl,
       firmwareVersion: formData.firmwareVersion,
       makeName: formData.makeMasterId,
@@ -418,7 +399,6 @@ export class AddChargerComponent implements OnInit {
       modifiedBy: this.UserId,
       rfIdReaderId: formData.rfidReaderId,
       powerCabinetId: formData.powerCabinetId,
-      // dispenserStatusId: formData.dispenserStatusId,
       protocolName: formData.protocolName,
       installationDate: this.datePipe.transform(
         formData.installationDate,
@@ -430,15 +410,12 @@ export class AddChargerComponent implements OnInit {
       ),
       hardwareSerialNumber: formData.hardwareSerialNumber,
       meterType: formData.meterType,
-      // multiplePorts: formData.multiplePorts,
       pingSchedule: formData.pingSchedule,
       fleetStation: formData.privateStation,
       readingSchedule: formData.readingSchedule,
-      // serialNumber: formData.serialNumber,
       padId: formData.padId,
       cableId: formData.cableId,
       isActive: formData.isActive,
-      // isAutomatic: formData.isAutomatic,
       updatePortCommand: formData.portCommand,
       oemOrderNumber: formData.oemOrderNumber,
       latitude: formData.latitude ? formData.latitude : null,
@@ -530,9 +507,6 @@ export class AddChargerComponent implements OnInit {
           })
         }
         
-        // this.addChargerFormGroup.patchValue({
-        //  description: this.chargerData.description,
-        // })
         this.addChargerFormGroup.patchValue({
           endPointUrl: this.chargerData.endPointUrl,
         })
@@ -605,13 +579,6 @@ export class AddChargerComponent implements OnInit {
           isActive: this.chargerData.isActive,
         })
 
-        // if (this.chargerData.status) {
-        //   this.selectedStatus = this.chargerData.dispenserStatusId
-
-        //   this.addChargerFormGroup.patchValue({
-        //     statu: this.chargerData.status,
-        //   })
-        // }
         this.addChargerFormGroup.patchValue({
           hardwareSerialNumber: this.chargerData.hardwareSerialNumber,
         })
@@ -619,32 +586,16 @@ export class AddChargerComponent implements OnInit {
           meterType: this.chargerData.meterType,
         })
 
-        // this.addChargerFormGroup.patchValue = this.chargerData.multiplePorts;
-        // this.addChargerFormGroup.patchValue({
-        //   multiplePorts: this.chargerData.multiplePorts,
-        // })
-        //this.addChargerFormGroup.patchValue({ multiplePorts: "" });
-
         this.addChargerFormGroup.patchValue({
           pingSchedule: this.chargerData.pingSchedule,
         })
-        // this.addChargerFormGroup.patchValue = this.chargerData?.privateStation;
         this.addChargerFormGroup.patchValue({
           privateStation: this.chargerData.fleetStation,
         })
         this.addChargerFormGroup.patchValue({
           readingSchedule: this.chargerData.readingSchedule,
         })
-        // this.addChargerFormGroup.patchValue({
-        //   serialNumber: this.chargerData.serialNumber,
-        // })
-        // this.addChargerFormGroup.patchValue({
-        //   isAutomatic: this.chargerData.isAutomatic,
-        // })
-        // this.addChargerFormGroup.patchValue = this.chargerData?.serialNumber;
-
-        // this.addChargerFormGroup.patchValue({ serialNumber: this.chargerData.serialNumber });
-
+        
         this.removePortAssigned(0)
         const ports = this.chargerData?.portCommmand
 

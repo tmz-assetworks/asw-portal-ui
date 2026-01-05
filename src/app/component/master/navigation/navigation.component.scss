@@ -9,57 +9,31 @@ a {
   }
 
   &block19 {
-    // @include flex-column;
     background-color: rgb(50, 62, 72);
   }
   &block19.layout {
     position: relative;
     height: 100%;
-    //width: 194px;
     width: 250px;
     z-index: 6;
-
-    // @include lg {
-    //   margin: 90px;
-    // }
-    // @include md {
-    //   width: 90px;
-    //   max-width: 90px;
-    // }
-    // @include xs {
-    //   width: 70px;
-    // }
-    // @include xxs {
-    //   width: 60px;
-    // }
   }
   &block2 {
-    // @include flex-column;
     background-color: rgb(50, 62, 72);
   }
   &block2.layout {
     position: relative;
     height: 100%;
-    //width: 194px;
     width: 250px;
     z-index: 6;
-
-    // min-width: 194px;
-    // @include lg {
-    //   width: 90px;
-    // }
     @include md {
       width: 90px;
       max-width: 90px;
-      // min-width: 90px;
     }
     @include xs {
       width: 70px;
-      // min-width: 70px;
     }
     @include xxs {
       width: 60px;
-      // min-width: 60px;
     }
   }
   &block2-collapse {
@@ -104,9 +78,6 @@ a {
     position: relative;
     flex: 1 1 194px;
   }
-  &box {
-    // background-color: rgb(217, 217, 217);
-  }
   &box.layout {
     position: relative;
     height: 24px;
@@ -143,18 +114,6 @@ a {
     min-width: 100%;
     margin: 0px 0px;
     z-index: 6;
-    // @include md {
-    //   width: 90px;
-    //   min-width: 90px;
-    // }
-    // @include xs {
-    //   width: 70px;
-    //   min-width: 70px;
-    // }
-    // @include xxs {
-    //   width: 60px;
-    //   min-width: 60px;
-    // }
   }
 
   &block4.layout-colapse {
@@ -196,9 +155,7 @@ a {
     flex: 0 1 16px;
     z-index: 6;
   }
-  &box1 {
-    // background-color: rgb(217, 217, 217);
-  }
+  
   &box1.layout {
     position: relative;
     height: 16px;
@@ -224,10 +181,6 @@ a {
     @include flex-column;
     position: relative;
     flex: 0 0 auto;
-    // @include sm {
-    //   min-width: unset;
-    //   display: none;
-    // }
   }
   &block5-item1-colapse {
     @include flex-column;
@@ -260,7 +213,6 @@ a {
     width: fit-content;
     margin: 1px 0px 0px;
     @include md {
-      // display: none;
     }
   }
 }
@@ -293,7 +245,6 @@ a {
 
 .submenu {
   
-  // border-left: 2px solid #57616a;
   display: block;
   transition: all 0.3s ease-in-out;
  

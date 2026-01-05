@@ -904,43 +904,42 @@ export class AddLocationComponent implements OnInit {
         'locationScheduleCommand',
       ) as FormArray).controls[index].patchValue({ isOpenAlldays: false })
     }
-    // if(index){
-    //   (this.addLocationFormGroup.get('locationScheduleCommand') as FormArray).controls[index].patchValue({ isOpenAlldays: true })
-    //     this.isOpenAllWeek=true
-    // }
   }
 
   //TO CHECK ALL CHECK BOX IS TRUE
 
-  verifyAllChecked(e: any, index: number) {
-    if (e.checked) {
-      const day: any = [
-        {
-          id: 0,
-          day: 'Monday',
-        },
-        { id: 1, day: 'Tuesday' },
-        { id: 2, day: 'Wednesday' },
-        { id: 3, day: 'Thursday' },
-        { id: 4, day: 'Friday' },
-        { id: 5, day: 'Saturday' },
-        { id: 6, day: 'Sunday' },
-      ]
-      let count = 0
-      for (let i = 0; i < day.length; i++) {
-        const currentDay = day[i];
-        const formArray = this.addLocationFormGroup.get('locationScheduleCommand') as FormArray;
-        const isOpenAllDays = formArray.controls[currentDay.id].value.isOpenAlldays === true;
-        
-        if (isOpenAllDays) {
-          count++;
-        }
-      }
-      if (count == 7) {
-        this.isOpenAllWeek = true
+  verifyAllChecked(e: any, index: number): void {
+  if (e.checked) {
+    const days = [
+      { id: 0, day: 'Monday' },
+      { id: 1, day: 'Tuesday' },
+      { id: 2, day: 'Wednesday' },
+      { id: 3, day: 'Thursday' },
+      { id: 4, day: 'Friday' },
+      { id: 5, day: 'Saturday' },
+      { id: 6, day: 'Sunday' },
+    ];
+
+    let count = 0;
+    const formArray = this.addLocationFormGroup.get(
+      'locationScheduleCommand'
+    ) as FormArray;
+
+    for (const currentDay of days) {
+      const isOpenAllDays =
+        formArray.controls[currentDay.id].value.isOpenAlldays === true;
+
+      if (isOpenAllDays) {
+        count++;
       }
     }
+
+    if (count === 7) {
+      this.isOpenAllWeek = true;
+    }
   }
+}
+
   // ALL DAY OPEN 24 HOUR
 
   openAllWeek(e: any) {

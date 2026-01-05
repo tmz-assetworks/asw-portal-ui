@@ -594,7 +594,6 @@
                                     (keypress)="numbersDecimalOnly($event)" class="barbar-input-text" id="limit"/>
                                   <span class="required">
                                     Enter Number Phases
-                                    <!-- <span class="required-field">*</span> -->
                                   </span>
                                   <select class="chargerType" formControlName="numberPhases" id="numberPhases">
                                     <option value="" disabled>
@@ -604,17 +603,6 @@
                                       {{ item }}
                                     </option>
                                   </select>
-                                  <!-- <span class="required">
-                                      Enter Number Phases
-                                    </span>
-                                    <input
-                                      type="text"
-                                      (keydown)="restrictZero($event)"
-                                      formControlName="numberPhases"
-                                      placeholder=""
-                                      (keypress)="numberOnly($event)"
-                                      class="barbar-input-text"
-                                    /> -->
                                 </div>
                                 <span class="required">
                                   Enter Min Charging Rate
@@ -671,9 +659,6 @@
                   Expiry Date
                   <span class="required-field">*</span>
                 </span>
-                <!--   <input *ngIf="commandType == 'isReserveNow'" type="datetime-local" class="barbar-box6 layout date1"
-                    (change)="selectDate($event)" min="{{currentDate}}" id="date1" /> -->
-
                     <mat-form-field *ngIf="commandType == 'isReserveNow'" class="chargerType">
                       <input matInput [matDatetimepicker]="picker1" [min]="minDate" (dateChange)="changeDateTime($event)"
                         style="color: black;" [readonly]="true" />
@@ -688,7 +673,6 @@
 
                 <input *ngIf="commandType == 'isReserveNow'" class="barbar-box6 layout" #inputTag
                   class="connector_id" />
-                <!-- <span *ngIf="commandType == 'isReserveNow'" class="validity"></span> -->
                 <span *ngIf="commandType == 'isReserveNow'" class="mandatoryField">
                   Enter ParentIdTag
                 </span>
@@ -745,9 +729,6 @@
                   Select Retrieve Date
                   <span class="required-field">*</span>
                 </span>
-
-                <!-- <input *ngIf="commandType == 'updatefirmware'" type="datetime-local" class="barbar-box6 layout date1"
-                    (change)="selectDate($event)" min="{{currentDate}}" id="date1" /> -->
                     <mat-form-field *ngIf="commandType == 'updatefirmware'" class="mt-space chargerType">
                       <input matInput [matDatetimepicker]="picker1" [min]="minDate" (dateChange)="changeDateTime($event)"
                         style="color: black;" [readonly]="true" />
@@ -785,9 +766,6 @@
                 <span *ngIf="commandType == 'getdiagnostics'" class="mandatoryField">
                   Select Start Date
                 </span>
-
-                <!-- <input *ngIf="commandType == 'getdiagnostics'" type="datetime-local" class="barbar-box6 layout date1"
-                    (change)="selectDate($event,'start')" id="date1" /> -->
                     <mat-form-field *ngIf="commandType == 'getdiagnostics'" class="mt-space chargerType">
                       <input matInput [matDatetimepicker]="picker1" (dateChange)="changeDateTime($event, 'start')"
                         style="color: black;" [readonly]="true" />
@@ -799,9 +777,6 @@
                 <span *ngIf="commandType == 'getdiagnostics'" class="mandatoryField">
                   Select Stop Date
                 </span>
-
-                <!--  <input *ngIf="commandType == 'getdiagnostics'" type="datetime-local" class="barbar-box6 layout date1"
-                    (change)="selectDate($event,'end')" id="date1" /> -->
                     <mat-form-field *ngIf="commandType == 'getdiagnostics'" class="mt-space chargerType">
                       <input matInput [matDatetimepicker]="picker2" (dateChange)="changeDateTime($event, 'end')"
                         style="color: black;" [readonly]="true" />
@@ -909,8 +884,6 @@
                 </select>
                 <span *ngIf="commandType == 'getconfig'" class="required">
                       Enter Key
-                  <!-- <span class="required-field">*</span> -->
-                  
                   <input type="text" class="cust-list-text-body21 layout" placeholder="Key"
                   [formControl]="control1" [matAutocomplete]="auto1" #getConfig
                   (keyup)="removeFilter1($event, getConfig)" />
@@ -977,7 +950,6 @@
                           <div class="barbar-block14 layout user-form">
                             <span class="required">
                               Select Connector ID
-                              <!-- <span class="required-field">*</span> -->
                             </span>
                             <select class="chargerType" formControlName="connectorId">
                               <option value="">Connector ID</option>
@@ -1132,7 +1104,6 @@
                                     (keypress)="numbersDecimalOnly($event)" class="barbar-input-text" />
                                   <span class="required">
                                     Enter Number Phases
-                                    <!-- <span class="required-field">*</span> -->
                                   </span>
                                   <select class="chargerType" formControlName="numberPhases">
                                     <option value="" disabled>

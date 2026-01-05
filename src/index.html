@@ -20,61 +20,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <script>
-      /** AIzaSyCX40o4SSWDp_a0DDw1u0OjdY-gLKjO18o
-       * @name Chart MarkerClusterer for Google Maps v3
-       * @version version 1.0
-       * @author Hassan Mughal (v3 author: Luke Mahe, v2 author: Xiaoxi Wu)
-       * @fileoverview
-       * The library creates and manages chart based per-zoom-level clusters for large amounts of
-       * markers.
-       * <br/>
-       * This library is derived from
-       * <a href="http://gmaps-utility-library-dev.googlecode.com/svn/tags/markerclusterer/"
-       * >v2 MarkerClusterer</a>.
-       */
-
-      /**
-       * Licensed under the Apache License, Version 2.0 (the "License");
-       * you may not use this file except in compliance with the License.
-       * You may obtain a copy of the License at
-       *
-       *     http://www.apache.org/licenses/LICENSE-2.0
-       *
-       * Unless required by applicable law or agreed to in writing, software
-       * distributed under the License is distributed on an "AS IS" BASIS,
-       * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-       * See the License for the specific language governing permissions and
-       * limitations under the License.
-       */
-
-      /**
-       * A Marker Clusterer that clusters markers.
-       *
-       * @param {google.maps.Map} map The Google map to attach to.
-       * @param {Array.<google.maps.Marker>=} opt_markers Optional markers to add to
-       *   the cluster.
-       * @param {Object=} opt_options support the following options:
-       *     'gridSize': (number) The grid size of a cluster in pixels.
-       *     'maxZoom': (number) The maximum zoom level that a marker can be part of a
-       *                cluster.
-       *     'zoomOnClick': (boolean) Whether the default behaviour of clicking on a
-       *                    cluster is to zoom into it.
-       *     'averageCenter': (boolean) Wether the center of each cluster should be
-       *                      the average of all markers in the cluster.
-       *     'minimumClusterSize': (number) The minimum number of markers to be in a
-       *                           cluster before the markers are hidden and a count
-       *                           is shown.
-       *     'styles': (object) An object that has style properties:
-       *       'url': (string) The image url.
-       *       'height': (number) The image height.
-       *       'width': (number) The image width.
-       *       'anchor': (Array) The anchor position of the label text.
-       *       'textColor': (string) The text color.
-       *       'textSize': (number) The text size.
-       *       'backgroundPosition': (string) The position of the backgound x, y.
-       * @constructor
-       * @extends google.maps.OverlayView
-       */
       function MarkerClusterer(map, opt_markers, opt_options) {
         // MarkerClusterer implements google.maps.OverlayView interface. We use the
         // extend function to extend MarkerClusterer with google.maps.OverlayView
