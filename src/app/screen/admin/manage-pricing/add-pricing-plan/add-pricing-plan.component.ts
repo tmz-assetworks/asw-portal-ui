@@ -454,7 +454,7 @@ export class AddPricingPlanComponent implements OnInit {
 
   private handleError(error: any): void {
   if (error.status === 400) {
-    let errorMsg = 'Something went wrong';
+    let errorMsg : string;
     if (error.error?.errors) {
       const validationErrors = error.error.errors
       errorMsg = Object.values(validationErrors).flat().join('<br/>')

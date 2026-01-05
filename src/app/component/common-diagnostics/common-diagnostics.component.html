@@ -704,7 +704,7 @@
                   Select Connector ID
                 </span>
                 <select *ngIf="commandType == 'triggerMessage'" class="chargerType" name="chargerType"
-                  (change)="selectConnectorID($event)" id="chargerTypeConnectorId">
+                  (change)="selectConnectorID($event)">
                   <option value="">Connector ID</option>
                   <option *ngFor="let item of selectConnectorIds">
                     {{ item }}

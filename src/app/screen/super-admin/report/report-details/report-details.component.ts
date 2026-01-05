@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { StorageService } from 'src/app/service/storage.service';
@@ -41,7 +41,7 @@ type ApiEndpointKey = 'payment' | 'charger';
 
   ]
 })
-export class ReportDetailComponent implements OnInit {
+export class ReportDetailComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = [];
   graphHeading: any;
   pageHeading: any;
