@@ -256,7 +256,7 @@
             (click)="IsActiveVehicleById(element.id, true)"
             *ngIf="!element.isActive"
           />
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;
           <img
             src="../../../../assets/Admin-SideNav/Vehicles-Icons/View.svg"
             alt=""
@@ -264,14 +264,27 @@
             (click)="viewVehicle(element.id)"
             title="View"
           />
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;
           <img
             src="../../../../assets/Admin-SideNav/Vehicles-Icons/Edit.svg"
             alt=""
             (click)="editVehicle(element.id)"
             style="cursor: pointer;"
             title="Edit"
+          /> 
+          &nbsp;
+          <img
+           src="../../../../assets/Admin-SideNav/Vehicles-Icons/delete-icon.svg"
+           alt="Delete vehicle"
+           title="Delete"
+           role="button"
+           tabindex="0"
+           (click)="confirmDeleteVehicle(element.id)"
+           (keydown.enter)="confirmDeleteVehicle(element.id)"
+           (keydown.space)="confirmDeleteVehicle(element.id)"
+           style="cursor: pointer;"
           />
+
         </td>
       </ng-container>
 

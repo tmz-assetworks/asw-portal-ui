@@ -670,3 +670,7 @@ select:disabled.simple-control::-ms-expand {
   top: 42%;
   transform: translateY(-50%);  // keeps outline centered vertically
 }
+.vehicleDeleteButton{
+  background-color: #DC3545;
+  border-radius: 5px 5px 5px 5px;
+}

@@ -12,7 +12,7 @@ import Swal from 'sweetalert2'
 import { ToastrService } from 'ngx-toastr'
 import { StorageService } from 'src/app/service/storage.service'
 import { AdminService } from '../../admin.service'
-import { CommonModule } from '@angular/common'
+import { CommonModule,Location } from '@angular/common'
 import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 @Component({
   selector: 'app-add-vehicle',
@@ -30,6 +30,7 @@ export class AddVehicleComponent implements OnInit {
 
   isSaveBtn: boolean = true
   isUpdateBtn: boolean = false
+  isDeleteBtn: boolean = false
   vehicleFormTitle: string = 'Add Vehicle'
   list: any
   vehicleId: any
@@ -77,6 +78,7 @@ export class AddVehicleComponent implements OnInit {
     private _storageService: StorageService,
     private _adminService: AdminService,
     private _activatedRoute: ActivatedRoute,
+    private readonly _location: Location,
   ) {
     this.UserId = this._storageService.getLocalData('user_id')
     this.vehicleId = this._activatedRoute.snapshot.queryParams['id']
@@ -88,10 +90,12 @@ export class AddVehicleComponent implements OnInit {
       this.isSaveBtn = false
       this.isRFIDAddBtn = true
       this.viewMode = false
+      this.isDeleteBtn = true
     } else if (this.vehicleId && routePath == 'view-vehicle') {
       this.vehicleFormTitle = 'View Vehicle'
       this.isSaveBtn = false
       this.isUpdateBtn = false
+      this.isDeleteBtn = false
       this.vehicleFormGroup.disable()
       this.viewMode = true
     } else {
@@ -100,6 +104,7 @@ export class AddVehicleComponent implements OnInit {
       this.isUpdateBtn = false
       this.isRFIDAddBtn = true
       this.viewMode = false
+      this.isDeleteBtn = false
     }
   }
 
@@ -287,6 +292,7 @@ export class AddVehicleComponent implements OnInit {
    */
 
   getVehicleDetailsById(id: number) {
+    this.vehicleId = id;
     this._adminService.GetAllVehicleById(id).subscribe((res: any) => {
       this.vehicleData = res.data[0]
       this.vehicleFormGroup.patchValue({ vin: this.vehicleData.vin })
@@ -320,18 +326,6 @@ export class AddVehicleComponent implements OnInit {
       })
       this.removeRFIDCardAssigned(0)
       const rfid = this.vehicleData?.vehicleRFIDIds
-      // [
-      //   {
-      //     id: 1,
-      //     name: 'test',
-      //     isActive: true,
-      //   },
-      //   {
-      //     id: 1,
-      //     name: 'test',
-      //     isActive: false,
-      //   },
-      // ]
 
       /**
        * RFID
@@ -345,6 +339,51 @@ export class AddVehicleComponent implements OnInit {
       }
     })
   }
+
+
+  /**
+     * Make vehicle delete from database
+     */
+      DeleteVehicle(): void {
+      Swal.fire({
+              title: '<strong>Are you sure you want to delete this vehicle? This action cannot be undone.</strong>',
+              icon: 'success',
+              focusConfirm: true,
+              confirmButtonText: ' <span style="color:#0062A6">CANCEL<span>',
+              confirmButtonColor: '#E6E8E9',
+              cancelButtonColor: '#0062A6',
+              cancelButtonText: ' CONFIRM',
+              showCancelButton: true,
+              allowOutsideClick: false, // 🔒 Prevent close on outside click
+              allowEscapeKey: false     // 🔒 Prevent close with Esc
+            }).then((result) => {
+              if (result.isDismissed) {
+                //Do your stuffs...
+                this._adminService.DeleteVehicleById(this.vehicleId).subscribe({
+                  next: (res) => {
+                    if (res.statusCode === 200) {
+                      this._toastr.success(res.statusMessage);
+                      this._location.back()
+                    } else {
+                      this._toastr.error(res.statusMessage);
+                    }
+                  },
+                  error: (error) => {
+                    if (error.status == 400) {
+                      let errorMsg = error.error.errors;
+                      this._toastr.error(errorMsg);
+                    }
+                  },
+                });
+              }
+            });
+  
+    }
+
+
+
+
+
 
   /**
    *

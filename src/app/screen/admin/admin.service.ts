@@ -201,11 +201,10 @@ export class AdminService {
     )
   }
 
-  public DeleteVehicleById(params: any): Observable<any> {
+  public DeleteVehicleById(id: number): Observable<any> {
     return this._http.delete<any>(
-      `${this.ASSET_API_URL}Vehicle/DeleteVehicleById`,
-      params,
-    )
+      `${this.ASSET_API_URL}Vehicle/DeleteVehicleById/${id}`
+    );
   }
 
   public GetDispensersWithPagination(params: any): Observable<any> {
