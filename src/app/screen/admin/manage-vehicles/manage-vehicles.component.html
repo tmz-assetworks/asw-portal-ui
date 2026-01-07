@@ -277,7 +277,11 @@
            src="../../../../assets/Admin-SideNav/Vehicles-Icons/delete-icon.svg"
            alt="Delete vehicle"
            title="Delete"
+           role="button"
+           tabindex="0"
            (click)="confirmDeleteVehicle(element.id)"
+           (keydown.enter)="confirmDeleteVehicle(element.id)"
+           (keydown.space)="confirmDeleteVehicle(element.id)"
            style="cursor: pointer;"
           />
 

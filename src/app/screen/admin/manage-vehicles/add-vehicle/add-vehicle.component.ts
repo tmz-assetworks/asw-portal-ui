@@ -78,7 +78,7 @@ export class AddVehicleComponent implements OnInit {
     private _storageService: StorageService,
     private _adminService: AdminService,
     private _activatedRoute: ActivatedRoute,
-    private _location: Location,
+    private readonly _location: Location,
   ) {
     this.UserId = this._storageService.getLocalData('user_id')
     this.vehicleId = this._activatedRoute.snapshot.queryParams['id']
@@ -366,7 +366,6 @@ export class AddVehicleComponent implements OnInit {
                       this._location.back()
                     } else {
                       this._toastr.error(res.statusMessage);
-                      return;
                     }
                   },
                   error: (error) => {

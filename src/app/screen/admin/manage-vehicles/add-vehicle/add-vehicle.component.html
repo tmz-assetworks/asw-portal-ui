@@ -227,7 +227,7 @@
       <div class="barbar-flex1 layout">
          <div class="barbar-flex1-item">
           <div class="barbar-block17 layout">
-            <div class="barbar-text-body1 layout vehicleDeleteButton" *ngIf="isDeleteBtn" (click)="DeleteVehicle()">
+            <div class="barbar-text-body1 layout vehicleDeleteButton" tabindex="0" (keydown.enter)="DeleteVehicle()" (keydown.space)="DeleteVehicle()" *ngIf="isDeleteBtn" (click)="DeleteVehicle()">
               DELETE
             </div>
           </div>

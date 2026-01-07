@@ -212,7 +212,6 @@ export class ManageVehiclesComponent implements OnInit {
                     this.getVehicleList();
                   } else {
                     this.__toastr.error(res.statusMessage);
-                    return;
                   }
                 },
                 error: (error) => {
