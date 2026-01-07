@@ -7,6 +7,7 @@ import { StorageService } from 'src/app/service/storage.service'
 import { AdminService } from '../admin.service'
 import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 import { CommonModule } from '@angular/common'
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-manage-vehicles',
@@ -184,4 +185,50 @@ export class ManageVehiclesComponent implements OnInit {
       }
     })
   }
+
+  /**
+   * Make vehicle delete from database
+   * @param id
+   */
+    confirmDeleteVehicle(id: any): void {
+    Swal.fire({
+            title: '<strong>Are you sure you want to delete this vehicle? This action cannot be undone.</strong>',
+            icon: 'success',
+            focusConfirm: true,
+            confirmButtonText: ' <span style="color:#0062A6">CANCEL<span>',
+            confirmButtonColor: '#E6E8E9',
+            cancelButtonColor: '#0062A6',
+            cancelButtonText: ' CONFIRM',
+            showCancelButton: true,
+            allowOutsideClick: false, // 🔒 Prevent close on outside click
+            allowEscapeKey: false     // 🔒 Prevent close with Esc
+          }).then((result) => {
+            if (result.isDismissed) {
+              //Do your stuffs...
+              this._adminService.DeleteVehicleById(id).subscribe({
+                next: (res) => {
+                  if (res.statusCode === 200) {
+                    this.__toastr.success(res.statusMessage);
+                    this.getVehicleList();
+                  } else {
+                    this.__toastr.error(res.statusMessage);
+                    return;
+                  }
+                },
+                error: (error) => {
+                  if (error.status == 400) {
+                    let errorMsg = error.error.errors;
+                    this.__toastr.error(errorMsg);
+                  }
+                },
+              });
+            }
+          });
+
+  }
+
+
+
+
+
 }
