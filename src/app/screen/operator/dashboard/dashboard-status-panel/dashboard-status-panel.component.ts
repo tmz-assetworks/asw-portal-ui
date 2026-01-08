@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core'
 import { DashboardService } from '../dashboard.service'
 import { NgxEchartsModule } from 'ngx-echarts'
+import { CommonModule } from '@angular/common'
 
 @Component({
   selector: 'app-dashboard-status-panel',
   templateUrl: './dashboard-status-panel.component.html',
   styleUrls: ['./dashboard-status-panel.component.scss'],
-  imports:[NgxEchartsModule]
+  imports:[NgxEchartsModule,CommonModule]
 })
 export class DashboardStatusPanelComponent implements OnInit {
   infra: any

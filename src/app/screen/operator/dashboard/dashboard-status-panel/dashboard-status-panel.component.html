@@ -88,9 +88,14 @@
       </div>
 
       <div class="total-cost-display">
-        <p>Total Cost: <b>${{ totalCost }}</b></p>
+        <p class="total-cost-text">
+          Total Cost:
+          <b class="total-cost-value">
+            <span class="total-cost-value">$</span>
+            {{ totalCost | number:'1.2-2':'en-IN' }}
+          </b>
+        </p>
       </div>
-
     </div>
   </div>
 
