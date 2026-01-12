@@ -58,32 +58,6 @@ export class DashboardStatusPanelComponent implements OnInit {
     });
   }
   
-
-  getChargingSessionLabel(key: number | string | undefined): string {
-        if (key === undefined || key === null) {
-          return '';
-        }     
-
-        // Case 1: backend sends enum number
-        if (typeof key === 'number') {
-          // map enum values if required
-          switch (key) {
-            case 1: // Cancelled
-              return 'Canceled';
-            case 2:
-              return 'Interrupted';
-            case 3:
-              return 'Completed';
-            default:
-              return '';
-          }
-        }     
-
-        // Case 2: backend sends string
-        return key === 'Cancelled' ? 'Canceled' : key;
-    }
-
-
   /**
    * Get summary data
    */
