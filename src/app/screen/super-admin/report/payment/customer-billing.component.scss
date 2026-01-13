@@ -1175,8 +1175,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     @include sm {
       flex: 0 0 20%;
     }
-    // min-width: 117px;
-   
   }
   &block34 {
     @include flex-column;
@@ -1196,7 +1194,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &text-body1.layout9 {
     position: relative;
     height: min-content;
-    // width: 198px;
     min-width: min-content;
     padding: 10px;
     white-space: nowrap;
@@ -1213,8 +1210,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     @include sm {
       flex: 0 0 10%;
     }
-    // min-width: 59px;
-   
   }
   &block35 {
     display: flex;
@@ -1233,7 +1228,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     position: relative;
     height: 50px;
     min-width: min-content;
-    // width: min-content;
   }
   &text-body2 {
     @include font-face($font_type5, rgb(255, 255, 255), 0px);
@@ -1351,7 +1345,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &text-body3.layout2 {
     position: relative;
     height: min-content;
-    // margin: 18px 34px 16px 38px;
     padding: 10px;
     white-space: nowrap;
   }
@@ -1374,10 +1367,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     @include flex-column;
     position: relative;
     flex: 1 1 48%;
-    @include lg {
-      // flex: 1 1 45%;
-      // max-width: 100%;
-    }
   }
   & &block391-spacer {
     flex: 0 1 3%;
@@ -1452,9 +1441,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
 
   &block42-spacer {
     flex: 0 1 25px;
-    @include lg {
-      // display: none;
-    }
     @include xl {
       display: none;
     }
@@ -1550,9 +1536,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     position: relative;
     flex: 0 1 17px;
   }
-  &box11 {
-    // background-color: rgb(217, 217, 217);
-  }
   &box11.layout1 {
     position: relative;
     width: 17px;
@@ -1591,7 +1574,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
 .header- {
   &block {
     @include flex-column;
-    //background-color: $color_type_6;
   }
   &block.layout {
     position: relative;
@@ -1681,8 +1663,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
 .location- {
   &block {
     @include flex-column;
-    // background-color: $color_type_6;
-
     &.layout {
       position: relative;
       overflow: hidden;
@@ -2437,7 +2417,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
 
 .mat-button-toggle-appearance-standard:hover {
   border: 1px solid #0062a6;
-  //background-color: #fff;
 }
 .dashboard-block35:hover {
   border: 1px solid #0062a6;

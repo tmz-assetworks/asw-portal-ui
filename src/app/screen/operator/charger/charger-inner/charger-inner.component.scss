@@ -1544,9 +1544,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     position: relative;
     flex: 0 1 17px;
   }
-  &box11 {
-    // background-color: rgb(217, 217, 217);
-  }
   &box11.layout1 {
     position: relative;
     width: 17px;
@@ -3588,4 +3585,25 @@ mat-button-toggle-group.pt-0 {
 .dashboard-block33 mat-button-toggle {
     font-size: 11px;
 }
+}
+/* ========== EXPORT BUTTON – REMOVE ALL DEFAULT BORDERS ========== */
+button.export-btn {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* Remove focus styles (Chrome / Edge / Firefox) */
+button.export-btn:focus,
+button.export-btn:focus-visible,
+button.export-btn:active {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Firefox inner focus fix */
+button.export-btn::-moz-focus-inner {
+  border: 0 !important;
 }

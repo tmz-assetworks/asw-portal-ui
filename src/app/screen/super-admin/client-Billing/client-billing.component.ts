@@ -102,7 +102,7 @@ export class ClientBillingComponent implements OnInit {
   this.addAdminFormGroup.get('endYear')?.valueChanges.subscribe(() => {
     this.resetEndMonthIfNeeded();
   });
-    const { mode, title, data, saveBtn }: FormModeResult<any> =
+    const { mode, data, saveBtn }: FormModeResult<any> =
       this.formModeHelper.getFormMode({
         saveBtnKey: 'saveBtn',
         dataKey: 'adminData',
@@ -226,7 +226,6 @@ switch (mode) {
                     this._location.back();
                   } else {
                     this.toastr.error(res.StatusMessage);
-                    return;
                   }
                 },
                 error: (error) => {

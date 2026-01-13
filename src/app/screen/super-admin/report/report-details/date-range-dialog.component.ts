@@ -68,25 +68,34 @@ export class DateRangeDialogComponent {
   }
 
   onSubmit(): void {
-    if (this.rangeForm.valid) {
-      const startDate:any = this.rangeForm.value.start;
-      const endDate:any = this.rangeForm.value.end;
-      
-      if (startDate && endDate) {
-        // Ensure end date is not in the future (additional validation)
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-        const validatedEndDate = endDate > today ? today : endDate;
-        
-        const months = this.calculateMonthsBetweenDates(startDate, validatedEndDate);
-        this.dialogRef.close({
-          startDate,
-          endDate: validatedEndDate,
-          months
-        });
-      }
+       if (!this.rangeForm.valid) {
+         return;
+       }
+
+       const startDate = this.rangeForm.value.start as Date | null;
+       const endDate = this.rangeForm.value.end as Date | null;
+
+       if (!startDate || !endDate) {
+         return;
+       }
+
+       // Ensure end date is not in the future
+       const today = new Date();
+       today.setHours(0, 0, 0, 0);
+
+       const validatedEndDate = new Date(
+         Math.min(endDate.getTime(), today.getTime())
+       );
+
+       const months = this.calculateMonthsBetweenDates(startDate, validatedEndDate);
+
+       this.dialogRef.close({
+         startDate,
+         endDate: validatedEndDate,
+         months
+       });
     }
-  }
+
 
   private calculateMonthsBetweenDates(start: Date, end: Date): number {
     const startYear = start.getFullYear();

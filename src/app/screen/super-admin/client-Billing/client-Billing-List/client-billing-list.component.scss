@@ -1339,3 +1339,37 @@ h1.cust-list-hero-title.layout{
     [hidden] {
       display: none !important;
   }
+
+.add-billing-btn {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Remove default focus ring */
+.add-billing-btn:focus,
+.add-billing-btn:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+.action-cell {
+  text-align: center;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0 7px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-btn:focus,
+.icon-btn:focus-visible {
+  outline: none;
+  box-shadow: none;
+}

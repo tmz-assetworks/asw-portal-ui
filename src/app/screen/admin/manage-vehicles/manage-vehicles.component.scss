@@ -1175,7 +1175,7 @@ td.mat-mdc-cell,
 td.mat-mdc-footer-cell {
   border-bottom: 1px solid #8f8f8f;
   text-align: center;
-  padding: 0 20px;
+  padding: 0 8px;
 }
 tr.mat-mdc-row:last-of-type {
   td.mat-mdc-cell {
@@ -1245,11 +1245,28 @@ td.mat-cell.cdk-cell.cdk-column-RFIDCardAssigned.mat-column-RFIDCardAssigned.ng-
   width: 78vw;
   overflow: auto;
 }
-// table.mat-table.cdk-table.mat-elevation-z8{
-//   min-width: 1200px;
-//   overflow: auto;
-//   display: inline-table;
-// }
+table.mat-table.cdk-table.mat-elevation-z8{
+  min-width: 1200px;
+  overflow: auto;
+  display: inline-table;
+}
+}
+
+@media screen and (max-width: 1566px){
+  .karkar-block6 .layout.mat-data {
+    width: 75vw !important;
+    min-width: -webkit-fill-available;
+}
+.manage-vehicles .mat-data{
+  display: block;
+  width: 77vw;
+  overflow: auto;
+}
+table.mat-table.cdk-table.mat-elevation-z8{
+  min-width: 1200px;
+  overflow: auto;
+  display: inline-table;
+}
 }
 
 .layout.mat-data {
@@ -1275,4 +1292,27 @@ td.mat-cell.cdk-cell.cdk-column-RFIDCardAssigned.mat-column-RFIDCardAssigned.ng-
 
 [hidden] {
   display: none !important;
+}
+/* Center align ACTION column */
+.action-col {
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Icon spacing */
+.action-col img {
+  margin: 0 6px;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }

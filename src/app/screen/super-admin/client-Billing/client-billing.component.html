@@ -291,16 +291,13 @@
         <div class="barbar-flex1-spacer"></div>
         <div class="barbar-flex1-item">
           <div class="barbar-block16 layout">
-            <div
-  *ngIf="saveBtnValue"
-  class="barbar-text-body1 layout"
-  (click)="createBilling()"
-  (keydown.enter)="createBilling()"
-  (keydown.space)="createBilling()"
-  tabindex="0"
->
+            <button type="button"
+                *ngIf="saveBtnValue"
+                class="barbar-text-body1 layout save-btn"
+                (click)="createBilling()"
+              >
               SAVE
-            </div>
+          </button>
           </div>
         </div>
       </div>

@@ -227,9 +227,14 @@
       <div class="barbar-flex1 layout">
          <div class="barbar-flex1-item">
           <div class="barbar-block17 layout">
-            <div class="barbar-text-body1 layout vehicleDeleteButton" tabindex="0" (keydown.enter)="DeleteVehicle()" (keydown.space)="DeleteVehicle()" *ngIf="isDeleteBtn" (click)="DeleteVehicle()">
-              DELETE
-            </div>
+            <button
+                  type="button"
+                  class="barbar-text-body1 layout vehicleDeleteButton"
+                  *ngIf="isDeleteBtn"
+                  (click)="DeleteVehicle()"
+                > 
+                  DELETE
+            </button>
           </div>
         </div>
         <div class="barbar-flex1-item">
@@ -242,7 +247,7 @@
         <div class="barbar-flex1-spacer"></div>
         <div class="barbar-flex1-item">
           <div class="barbar-block16 layout">
-            <div class="barbar-text-body1 layout" *ngIf="isSaveBtn" (click)="addVehicle()">
+            <div class="barbar-text-body1 layout" *ngIf="isSaveBtn"  (click)="addVehicle()">
               SAVE
             </div>
             <div class="barbar-text-body1 layout" *ngIf="isUpdateBtn" (click)="UpdateVehicle()">

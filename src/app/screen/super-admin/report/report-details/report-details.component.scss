@@ -2370,21 +2370,14 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block19.layout {
     position: absolute;
     top: 0px;
-    // height: min-content;
     bottom: 0px;
     left: 0px;
     right: 0px;
-    // width: min-content;
   }
   &box9 {
     background-color: $color_type_0;
     border-radius: 0px 4px 4px 0px;
-    // transition-duration: 0.3s;
-    // transition-property: transform;
   }
-  // &box9:hover {
-  //   transform: scale(1.1);
-  // }
   &box9.layout {
     position: relative;
     height: 48px;
@@ -2511,16 +2504,11 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     position: relative;
     height: min-content;
     cursor: pointer;
-    /*  width: 188px;
-    min-width: 188px;*/
   }
   &block23-item {
     @include flex-column;
     position: relative;
     flex: 0 1 36px;
-  }
-  &box10 {
-    // background-color: $color_type_8;
   }
   &box10.layout {
     position: relative;
@@ -2578,7 +2566,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
   &group2 {
     @include flex-column;
-    //background-color: $color_type_5;
   }
   &group2.layout {
     position: relative;
@@ -2608,12 +2595,10 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
 .header- {
   &block {
     @include flex-column;
-    // background-color: $color_type_16;
   }
   &block.layoutS {
     position: relative;
     overflow: hidden;
-    // min-height: auto !important;
     height: auto;
   }
   &block1 {
@@ -2678,7 +2663,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     overflow: visible;
     margin-top: 0px;
     margin-bottom: 0px;
-    // margin: 0px;
     @include font-face($font_type20, $color_type_12, 0px);
     white-space: pre-wrap;
     @include lg {
@@ -2717,7 +2701,6 @@ $color_type_6: rgb(255, 255, 255);
     position: relative;
     height: min-content;
     width: 98.29%;
-    // margin: 0px auto 0px;
     margin: 9px auto 0px;
     @include lg {
       margin: 8px auto 0px;
@@ -2757,7 +2740,6 @@ $color_type_6: rgb(255, 255, 255);
   &block5 {
     @include flex-column;
     background-color: $color_type_14;
-    // border-bottom: 1px solid rgb(255, 255, 255);
     transition-duration: 0.3s;
     transition-property: transform;
     a {
@@ -2765,7 +2747,6 @@ $color_type_6: rgb(255, 255, 255);
     }
   }
   &block5:hover {
-    //transform: translateY(-5);
     transform: translateY(-8px);
   }
   &block5.layout {
@@ -2859,7 +2840,6 @@ $color_type_6: rgb(255, 255, 255);
   &box3.layout {
     position: relative;
     height: 22px;
-    // margin: 12px 21px 11px 22px;
     margin: 19px 14px 13px 18px;
     @include lg {
       margin: 11px 18px 10px 19px;
@@ -3486,7 +3466,6 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
     @include xl1 {
       margin: 8px 20px 6px;
     }
-    // border-bottom: 1px dotted #c2c5c8;
     &.zero_br {
       border-bottom: 1px dotted #c2c5c8;
     }

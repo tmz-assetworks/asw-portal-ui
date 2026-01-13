@@ -139,30 +139,30 @@
                                       submitted == true
                                   }"
                                 >
-                                <mat-form-field
-              appearance="outline"
+                                  <mat-form-field
+                                   appearance="outline"
                
-                [ngClass]="{
-                  'is-invalid':
-                    searchFilter.get('locationId')?.errors &&
-                    submitted == true
-                }"
-              >
-                <mat-label>Select</mat-label>
-                <mat-select
-                  multiple
-                  formControlName="locationId"
-                >
-                  <mat-option
-                    *ngFor="let data of locationList"
-                    [value]="data.id"
-                    (onSelectionChange)="onSelectLocation($event, data.id)"
-                  >
-                    {{ data.locationName }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-              </div>
+                                     [ngClass]="{
+                                       'is-invalid':
+                                         searchFilter.get('locationId')?.errors &&
+                                         submitted == true
+                                     }"
+                                   >
+                                     <mat-label>Select</mat-label>
+                                     <mat-select
+                                       multiple
+                                       formControlName="locationId"
+                                     >
+                                       <mat-option
+                                         *ngFor="let data of locationList"
+                                         [value]="data.id"
+                                         (onSelectionChange)="onSelectLocation($event, data.id)"
+                                       >
+                                         {{ data.locationName }}
+                                       </mat-option>
+                                     </mat-select>
+                                   </mat-form-field>
+                                 </div>
                               </div>
                             </div>
                             
