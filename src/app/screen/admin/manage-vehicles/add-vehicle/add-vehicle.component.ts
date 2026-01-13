@@ -314,8 +314,9 @@ export class AddVehicleComponent implements OnInit {
       })
 
       this.vehicleFormGroup.patchValue({
-        modelyear: this.vehicleData.modelYear==null?"":this.vehicleData.modelYear,
+        modelyear: this.vehicleData.modelYear ?? '',
       })
+      
 
       this.vehicleFormGroup.patchValue({
         makeName: this.vehicleData.makeName,

@@ -297,9 +297,9 @@ downloadAsCSV(): void {
       'LOCATION CONTACT NUMBER'
     ];
 
-    const escapeCsv = (value: any) => {
+    const escapeCsv = (value: unknown): string => {
       if (value == null) return '""';
-      let str = String(value).replace(/"/g, '""');
+      const str = String(value).replaceAll('"', '""');
       return `"${str}"`;
     };
 

@@ -674,3 +674,12 @@ select:disabled.simple-control::-ms-expand {
   background-color: #DC3545;
   border-radius: 5px 5px 5px 5px;
 }
+
+button.vehicleDeleteButton,
+button.vehicleDeleteButton:focus,
+button.vehicleDeleteButton:focus-visible,
+button.vehicleDeleteButton:active {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}

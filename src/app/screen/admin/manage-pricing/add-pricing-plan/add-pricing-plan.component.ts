@@ -453,20 +453,33 @@ export class AddPricingPlanComponent implements OnInit {
   }
 
   private handleError(error: any): void {
-  if (error.status === 400) {
-    let errorMsg : string;
-    if (error.error?.errors) {
-      const validationErrors = error.error.errors
-      errorMsg = Object.values(validationErrors).flat().join('<br/>')
-    } else if (error.error.statusCode === 200) {
-      errorMsg = error.error.statusMessage
-    } else {
-      errorMsg = error.error.errors
-    }
-    this.toastr.error(errorMsg)
-    this.showLoader = false
-    }
-  }
+     if (error.status === 400) {
+       let errorMsg = '';
+      
+       if (error.error?.errors) {
+         const validationErrors = error.error.errors;
+        
+         errorMsg = Object.values(validationErrors)
+           .flat()
+           .map((err: unknown) =>
+             typeof err === 'string' ? err : JSON.stringify(err)
+           )
+           .join('<br/>');
+         
+       } else if (error.error?.statusCode === 200) {
+         errorMsg = error.error.statusMessage;
+        
+       } else {
+         errorMsg = typeof error.error?.errors === 'string'
+           ? error.error.errors
+           : JSON.stringify(error.error?.errors);
+       }
+     
+       this.toastr.error(errorMsg);
+       this.showLoader = false;
+     }
+}
+
 
   /**
    * Get price plan details by id
