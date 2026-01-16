@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core'
-import { FormControl } from '@angular/forms'
+import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms'
 import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
 import { ActivatedRoute, Router, RouterModule } from '@angular/router'
@@ -8,6 +8,7 @@ import { DashboardService } from '../../dashboard/dashboard.service'
 import { ChargerService } from '../charger.service'
 import { CommonModule, Location } from '@angular/common'
 import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
+import { AdminService } from 'src/app/screen/admin/admin.service'
 
 @Component({
   selector: 'app-charger-inner',
@@ -16,10 +17,14 @@ import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
   imports:[
     CommonModule,
     RouterModule,
-    SharedMaterialModule
+    SharedMaterialModule,
+    ReactiveFormsModule
   ]
 })
 export class ChargerInnerComponent implements OnInit {
+  locationList: any
+	locationIdResponse: any = []
+  submitted = false
   filterToggle = new FormControl('1')
   isTableHasData = false
   selectedTime: number = 1
@@ -97,8 +102,10 @@ export class ChargerInnerComponent implements OnInit {
     private _dashboardService: DashboardService,
     private _chargerService: ChargerService,
     private _storageService: StorageService,
+    private readonly _AdminService: AdminService,
     private _route: ActivatedRoute,
     private readonly _location: Location,
+    public _fb: FormBuilder,
   ) {
     this.UserId = this._storageService.getLocalData('user_id')
   }
@@ -133,7 +140,66 @@ export class ChargerInnerComponent implements OnInit {
     )
     this.getSummaryStatus()
     this.getDispensersDetail()
+    this.GetLocationName()
   }
+
+   searchFilter = this._fb.group({
+    searchText: new FormControl<string>(''),
+		locationId: new FormControl<number[]>([]),      // multi-select
+		activationStatus: new FormControl<number | null>(null) // Active / Deactive
+	  });
+
+  GetLocationName() {
+		this._AdminService.GetLocationName().subscribe((res: any) => {
+		  this.locationList = res.data
+		})
+	}
+
+  onSelectLocation(event: any, id: any) {
+		if (event.isUserInput) {
+		  const index = this.locationIdResponse.indexOf(id)
+		  if (index === -1) {
+			this.locationIdResponse.push(id)
+		  } else {
+			this.locationIdResponse.splice(index, 1)
+		  }
+		}
+	  
+  }
+
+  @ViewChild('input') searchInput!: any;
+	resetFilter(): void {
+	  // Clear selected location IDs (used in your custom logic)
+	  this.locationIdResponse = [];
+
+	  // Reset form with correct defaults
+	  this.searchFilter.reset({
+    searchText: '',
+		locationId: [],
+		activationStatus: null
+	  });
+
+	  // Reset validation state
+	  this.submitted = false;
+	  this.searchFilter.markAsPristine();
+	  this.searchFilter.markAsUntouched();
+
+	  // Clear search input text
+	  if (this.searchInput) {
+		this.searchInput.nativeElement.value = '';
+	  }
+	  this.searchParam = '';
+
+	  // Reset pagination
+	  this.currentPage = 1;
+	  if (this.paginator) {
+		this.paginator.pageIndex = 0;
+	  }
+
+	  // Reload full list
+	  this.getDispensersDetail();
+	}
+
   /**
    *
    * @param event
@@ -213,16 +279,25 @@ export class ChargerInnerComponent implements OnInit {
     })
   }
 
+  SearchGetDispensers() {
+		const searchParameter = this.searchFilter.value;
+		this.getDispensersDetail()
+	}
+
+  
   /**
    * Get Dispenser Details
    */
   getDispensersDetail() {
+    const searchParameter = this.searchFilter.value;
     const body = {
       pageNumber: this.currentPage,
       searchParam: this.searchParam,
       pageSize: this.pageSize,
       orderBy: '',
       operatorid: this.UserId,
+      locationIds: searchParameter.locationId ?? [],     
+		  activationStatus: searchParameter.activationStatus ?? null
     }
 
     this._chargerService.GetDispensersDetail(body).subscribe((res: any) => {
