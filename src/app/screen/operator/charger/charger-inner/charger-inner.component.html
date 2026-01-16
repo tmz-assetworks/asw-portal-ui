@@ -1,4 +1,4 @@
-<div class="header header-block layout">
+<div class="header header-block layout inner-charger-main">
   <div class="header-block1 layout">
     <div class="header-flex layout">
       <h1 class="header-subtitle-box layout">
@@ -13,7 +13,7 @@
               <div class="dashboard-block48 layout">
                 <div class="dashboard-block48-item">
                   <div>
-                    <div class="cust-list-flex3 layout">
+                    <!-- <div class="cust-list-flex3 layout">
                       <div class="cust-list-flex3-item">
                         <div class="cust-list-group layout">
                           <div class="cust-list-block19 layout">
@@ -66,7 +66,88 @@
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div> -->
+
+                      <!-- FILTER BAR -->
+                        <form [formGroup]="searchFilter" class="charger-filter-bar">
+                        
+                          <!-- LEFT SIDE (Search + Filters) -->
+                          <div class="filter-left">
+                          
+                            <!-- SEARCH INPUT -->
+                            <div class="search-wrapper">
+                              <input formControlName="searchText"
+                                type="text"
+                                placeholder="Search by asset id, charge box id, location name, make, model, sim card"
+                                (keyup)="applyFilter($event)"
+                              />
+                              <button type="button" class="search-icon-btn">
+                                <img src="../../../../assets/Admin-SideNav/Charger-Icons/Search.svg" alt="Search" />
+                              </button>
+                            </div>
+                          
+                            <!-- LOCATION -->
+                            <mat-form-field appearance="outline" class="filter-field">
+                              <mat-label>Location</mat-label>
+                              <mat-select multiple formControlName="locationId">
+                                <mat-option
+                                  *ngFor="let data of locationList"
+                                  [value]="data.id"
+                                  (onSelectionChange)="onSelectLocation($event, data.id)"
+                                >
+                                  {{ data.locationName }}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          
+                            <!-- STATUS -->
+                            <mat-form-field appearance="outline" class="filter-field">
+                              <mat-label>Status</mat-label>
+                              <mat-select formControlName="activationStatus">
+                                <mat-option value="1">Active</mat-option>
+                                <mat-option value="2">Inactive</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+                          
+                            <button type="button" class="btn primary action-btn" (click)="SearchGetDispensers()">
+                              SEARCH
+                            </button>
+                          
+                            <button type="button" class="btn secondary action-btn" (click)="resetFilter()">
+                              RESET
+                            </button>
+
+                          </div>
+                        
+                          <!-- RIGHT SIDE (Buttons) -->
+                          <div class="cust-list-flex3 layout">
+                              <button type="button"
+                                class="cust-list-flex3-item1 export-btn"
+                                (click)="downloadAsCSV()"
+                                aria-label="Export as CSV"
+                                >
+                                <div class="cust-list-block23 layout">
+                                  <div class="cust-list-block23-item">
+                                    <div class="cust-list-box10 layout">
+                                      <img
+                                        src="../../../../../assets/download-report.png"
+                                        alt="Download CSV"
+                                        srcset=""
+                                      />
+                                    </div>
+                                  </div>
+                                  <div class="cust-list-block23-spacer"></div>
+                                  <div class="cust-list-text-body4 layout">
+                                    EXPORT
+                                  </div>
+                                </div>
+                              </button>
+                            </div>
+                        
+                        </form>
+
+
+
                     <div class="layout mat-data">
                       <table
                         mat-table

@@ -18,7 +18,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block12.layout {
     position: relative;
     height: min-content;
-    margin: 0px 0px 0px 20px;
+    margin: -50px 0px 0px 20px;
     @include lg {
       margin: 0px 0px 0px 18px;
     }
@@ -1749,9 +1749,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     margin: 19px 20px 19px 0px;
     cursor: pointer;
   }
-  &box12 {
-    // background-color: rgb(217, 217, 217);
-  }
   &box12.layout {
     position: relative;
     flex: 1 1 auto;
@@ -2116,9 +2113,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     @include lg {
       margin: 0px 0px 5px;
     }
-  }
-  &box7 {
-    // background-color: $color_type_5;
   }
   &box7.layout {
     position: relative;
@@ -2530,7 +2524,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &flex3.layout {
     position: relative;
     height: min-content;
-    // margin: 50px 22px 0px;
+    margin-top: -22px;
     margin: 0px -11px 0px;
     @include lg {
       margin: 43px 19px 0px;
@@ -2717,21 +2711,19 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block23.layout {
     position: relative;
     height: min-content;
-    width: 161px;
-    min-width: 161px;
+    width: 128px;
+    min-width: 128px;
+    height: 55px;
   }
   &block23-item {
     @include flex-column;
     position: relative;
     flex: 0 1 36px;
   }
-  &box10 {
-    // background-color: $color_type_8;
-  }
   &box10.layout {
     position: relative;
     height: 18px;
-    margin: 16px 10px 16px 18px;
+    margin: 19px 10px 16px 18px;
     @include lg {
       margin: 14px 0px 14px 16px;
     }
@@ -2762,7 +2754,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     position: relative;
     flex: 0 0 auto;
     height: min-content;
-    margin: 18px 29px 16px 0px;
+    margin: 20px 36px 16px 0px;
     @include lg {
       margin: 16px 25px 14px 0px;
     }
@@ -2987,9 +2979,6 @@ tr.mat-mdc-row:last-of-type {
     @include flex-column;
     position: relative;
     flex: 0 1 40px;
-  }
-  &box6 {
-    //background-color: rgb(255, 255, 255);
   }
   &box6.layout3 {
     position: relative;
@@ -3585,25 +3574,169 @@ mat-button-toggle-group.pt-0 {
 .dashboard-block33 mat-button-toggle {
     font-size: 11px;
 }
+
 }
+
+  @media screen and (max-width: 1024px) {
+    .inner-charger-main .layout.mat-data{
+      width: 72vw !important;
+      min-width: -webkit-fill-available;
+  }
+  }
+  @media screen and (max-width: 1450px) {
+  .inner-charger-main .layout.mat-data{
+      width: 77vw !important;
+      min-width: -webkit-fill-available;
+  }
+  }
+  
 /* ========== EXPORT BUTTON – REMOVE ALL DEFAULT BORDERS ========== */
 button.export-btn {
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
   background: transparent !important;
+  margin-top:-22px;
 }
 
-/* Remove focus styles (Chrome / Edge / Firefox) */
-button.export-btn:focus,
-button.export-btn:focus-visible,
-button.export-btn:active {
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
+
+
+/* ===============================
+   Charger Filter Bar – Layout
+   =============================== */
+
+.charger-filter-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 0px 0px;
+  flex-wrap: wrap;
 }
 
-/* Firefox inner focus fix */
-button.export-btn::-moz-focus-inner {
-  border: 0 !important;
+/* LEFT SIDE */
+.filter-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 600px;
 }
+ 
+/* SEARCH */
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  height: 55px;
+  min-width: 233px;
+  border: 1px solid #cfcfcf;
+  border-radius: 6px;
+  background-color: #ffffff;
+  overflow: hidden;
+  margin-left: -9px;
+  margin-top: -22px;
+}
+
+.search-wrapper input {
+  flex: 1;
+  height: 100%;
+  padding: 0 12px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+.search-icon-btn {
+  width: 44px;
+  height: 55px;
+  border: none;
+  background-color: #0062a6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.search-icon-btn img {
+  width: 18px;
+}
+
+
+
+
+
+
+/* ===============================
+   RIGHT SIDE BUTTONS
+   =============================== */
+
+.filter-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  margin-right: -14px;
+}
+
+.btn {
+  height: 44px;
+  padding: 0 18px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn.primary {
+  background-color: #0062a6;
+  color: #ffffff;
+  margin-top: -22px;
+  height: 55px;
+}
+
+/* RESET button – match SEARCH height & radius exactly */
+.charger-filter-bar .btn.secondary {
+  height: 55px;
+  padding: 0 24px;
+  background-color: #e6e8e9;
+  border: 1px solid #0062a6;
+  color: #0062a6;
+  margin-top: -22px;
+  font-size: 14px;
+  font-weight: 600;
+
+  border-radius: 6px; /* SAME as SEARCH */
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+}
+
+/* Hover */
+.charger-filter-bar .btn.secondary:hover {
+  background-color: #f2f7fc;
+}
+
+/* Active */
+.charger-filter-bar .btn.secondary:active {
+  background-color: #e6eff8;
+}
+
+/* Base button */
+.action-btn {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  will-change: transform;
+  
+}
+
+/* Hover effect */
+.action-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+

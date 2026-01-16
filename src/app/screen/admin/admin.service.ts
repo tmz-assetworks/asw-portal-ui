@@ -214,6 +214,13 @@ export class AdminService {
     )
   }
 
+  public IsActiveDispenserById(params: any): Observable<any> {
+    return this._http.put<any>(
+      `${this.ASSET_API_URL}Dispenser/IsActiveDispenserById`,
+      params,
+    )
+  }
+
   public GetDispenserDetailsById(id: any): Observable<any> {
     return this._http.post<any>(
       `${this.ASSET_API_URL}Dispenser/GetDispenserDetailsById?dispenserId=${id}`,
