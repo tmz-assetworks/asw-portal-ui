@@ -45,9 +45,9 @@ export class CreateAdminComponent implements OnInit {
     private toastr: ToastrService,
     private _superadminService: SuperAdminService,
     private _location: Location,
-    private _storageService: StorageService,
-    private _authService: AuthService,
-    private _router: Router
+    private readonly _storageService: StorageService,
+    private readonly _authService: AuthService,
+    private readonly _router: Router
   ) {
     this.role = localStorage.getItem('role') || '';
     this.editId = 0;
@@ -398,13 +398,6 @@ export class CreateAdminComponent implements OnInit {
       this.addAdminFormGroup.patchValue({
         zipcode: this.adminRowData.zipcode,
       });
-
-      // this.addAdminFormGroup.patchValue({
-      //   organizationName:
-      //     this.adminRowData.customerID !== 0
-      //       ? this.adminRowData.customerID.toString()
-      //       : 0,
-      // });
     });
   }
 

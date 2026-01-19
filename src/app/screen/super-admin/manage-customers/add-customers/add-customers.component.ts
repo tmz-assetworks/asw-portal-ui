@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core'
-import { FormBuilder, Validators } from '@angular/forms'
-import { FormControl, FormGroup, Validator } from '@angular/forms'
+import { FormBuilder, Validators,ReactiveFormsModule } from '@angular/forms'
+import { FormControl } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import Swal from 'sweetalert2'
 import { ToastrService } from 'ngx-toastr'
 import { SuperAdminService } from '../../super-admin.service'
 import { StorageService } from 'src/app/service/storage.service'
 import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
-import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common'
 import { AuthService } from 'src/app/service/auth/auth.service'
 
@@ -52,7 +51,7 @@ export class AddCustomersComponent implements OnInit {
     private _superAdminService: SuperAdminService,
     private _storageService: StorageService,
     private _activatedRoute: ActivatedRoute,
-    private _authService: AuthService,
+    private readonly _authService: AuthService,
   ) {
     this.UserId = this._storageService.getLocalData('user_id')
     this.customersId = this._activatedRoute.snapshot.queryParams['id']

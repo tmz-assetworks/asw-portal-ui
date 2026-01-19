@@ -137,53 +137,6 @@
     </div>
   </div>
 
-  <!-- <ng-container>
-     <form [formGroup]="searchFilter">
-      <div class="cust-list-flex3 layout">
-          <div class="cust-list-group layout">
-            <div class="cust-list-block19 layout">
-              <div class="cust-list-box9 layout">
-                <img src="../../../../assets/Admin-SideNav/Charger-Icons/Search.svg" alt="Search" alt="" class="cust-list-icon layout"/>
-              </div>
-            
-              <div class="cust-list-block20 layout">
-                <input class="cust-list-text-body21 layout" (keyup)="applyFilter($event)"
-                  placeholder="Search by asset id, charge box id, location name, make, model, sim card" #input />
-              </div>
-            </div>
-          </div>
-          <div class="cust-list-block23-spacer"></div>
-          <div class="cust-list-group layout cust-filter-group">
-            <h5 class="barbar-highlights layout">Location</h5>
-            <div class="cust-list-block19 layout">
-              
-            
-              <div class="cust-list-block20 layout">
-                
-                <input class="cust-list-text-body21 layout" (keyup)="applyFilter($event)" #input />
-              </div>
-            </div>
-        </div>
-        <div class="cust-list-flex3-item1" [routerLink]="['add-chargers']">
-          <div class="cust-list-block23 layout">
-            <div class="cust-list-block23-item">
-              <div class="cust-list-box10 layout">
-                <img
-                  src="../../../../assets/Admin-SideNav/Charger-Icons/Add-Charger.svg"
-                  alt=""
-                  srcset=""
-                />
-              </div>
-            </div>
-            <div class="cust-list-block23-spacer"></div>
-            <div class="cust-list-text-body4 layout">ADD CHARGER</div>
-          </div>
-        </div>
-      </div>
-    </form>
-  </ng-container> -->
-
-
   <!-- FILTER BAR -->
 <form [formGroup]="searchFilter" class="charger-filter-bar">
 
@@ -225,7 +178,7 @@
       </mat-select>
     </mat-form-field>
 
-    <button type="button" class="btn primary" (click)="SearchGetDispensers()">
+    <button type="button" class="btn primary" (click)="GetDispensersWithPagination()">
       SEARCH
     </button>
 
@@ -285,19 +238,6 @@
           {{ element.modelName }}
         </td>
       </ng-container>
-      <!-- <ng-container matColumnDef="switchGear">
-        <th mat-header-cell *matHeaderCellDef>SWITCH GEAR</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.switchGear }}
-        </td>
-      </ng-container> -->
-      <!-- <ng-container matColumnDef="rfidReader">
-        his.
-        <th mat-header-cell *matHeaderCellDef>RFID READER</th>
-        <td mat-cell *matCellDef="let element">
-          {{ element.rfidReader }}
-        </td>
-      </ng-container> -->
       <ng-container matColumnDef="status">
         <th mat-header-cell *matHeaderCellDef>STATUS</th>
         <td mat-cell *matCellDef="let element">
@@ -321,40 +261,63 @@
 
       <!-- Symbol Column -->
       <ng-container matColumnDef="Action">
-        <th mat-header-cell *matHeaderCellDef>ACTION</th>
-        <td mat-cell *matCellDef="let element" style="cursor: pointer;">
-          <img
-            src="../../../../assets/Active.svg"
-            alt=""
-            title="Deactivate"
-            (click)="IsActiveDispenserById(element.id, false)"
-            *ngIf="element.isActive"
-          />
-          <img
-            src="../../../../assets/Admin-SideNav/Vehicles-Icons/Active-tik.svg"
-            alt=""
-            title="Activate"
-            (click)="IsActiveDispenserById(element.id, true)"
-            *ngIf="!element.isActive"
-          />
-          &nbsp;
-          <img
-            src="../../../../assets/Admin-SideNav/Charger-Icons/View.svg"
-            alt=""
-            title="View"
-            style="cursor: pointer;"
-            (click)="viewCharger(element.id)"
-          />
-          &nbsp;
-          <img
-            src="../../../../assets/Admin-SideNav/Charger-Icons/Edit.svg"
-            alt=""
-            title="Edit"
-            style="cursor: pointer;"
-            (click)="editCharger(element.id)"
-          />
-        </td>
-      </ng-container>
+  <th mat-header-cell *matHeaderCellDef>ACTION</th>
+
+  <td mat-cell *matCellDef="let element">
+    <div class="action-icons">
+      <!-- Deactivate -->
+      <img
+        *ngIf="element.isActive"
+        src="../../../../assets/Active.svg"
+        alt="Deactivate"
+        title="Deactivate"
+        role="button"
+        tabindex="0"
+        (click)="IsActiveDispenserById(element.id, false)"
+        (keydown.enter)="IsActiveDispenserById(element.id, false)"
+        (keydown.space)="IsActiveDispenserById(element.id, false)"
+      />
+
+      <!-- Activate -->
+      <img
+        *ngIf="!element.isActive"
+        src="../../../../assets/Admin-SideNav/Vehicles-Icons/Active-tik.svg"
+        alt="Activate"
+        title="Activate"
+        role="button"
+        tabindex="0"
+        (click)="IsActiveDispenserById(element.id, true)"
+        (keydown.enter)="IsActiveDispenserById(element.id, true)"
+        (keydown.space)="IsActiveDispenserById(element.id, true)"
+      />
+
+      <!-- View -->
+      <img
+        src="../../../../assets/Admin-SideNav/Charger-Icons/View.svg"
+        alt="View"
+        title="View"
+        role="button"
+        tabindex="0"
+        (click)="viewCharger(element.id)"
+        (keydown.enter)="viewCharger(element.id)"
+        (keydown.space)="viewCharger(element.id)"
+      />
+
+      <!-- Edit -->
+      <img
+        src="../../../../assets/Admin-SideNav/Charger-Icons/Edit.svg"
+        alt="Edit"
+        title="Edit"
+        role="button"
+        tabindex="0"
+        (click)="editCharger(element.id)"
+        (keydown.enter)="editCharger(element.id)"
+        (keydown.space)="editCharger(element.id)"
+      />
+    </div>
+  </td>
+</ng-container>
+
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>

@@ -3,11 +3,10 @@
 	import { MatTableDataSource } from '@angular/material/table'
 	import { Router, RouterModule } from '@angular/router'
 	import { StorageService } from 'src/app/service/storage.service'
-	import { ManageChargerService } from './manage-charger-service'
 	import { AdminService } from '../admin.service'
 	import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 	import { CommonModule } from '@angular/common'
-	import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms'
+	import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms'
 	import { ToastrService } from 'ngx-toastr'
 
 	@Component({
@@ -57,7 +56,7 @@
 		private _adminService: AdminService,
 		private readonly _AdminService: AdminService,
 		public _fb: FormBuilder,
-		private _toastr: ToastrService,
+		private readonly _toastr: ToastrService,
 	  ) {
 		this.UserId = this._storageService.getLocalData('user_id')
 
@@ -103,11 +102,6 @@
 		this._router.navigateByUrl(`/admin/chargers/edit-chargers?id=${id}`)
 	  }
 
-	  
-	  SearchGetDispensers() {
-		const searchParameter = this.searchFilter.value;
-		this.GetDispensersWithPagination()
-	  }
 	  /**
 	   * Get Charger List
 	   */
@@ -225,27 +219,24 @@
    * @param status
    */
 
-  		IsActiveDispenserById(id: any, status: any) {
-  		  const pbody = {
-  		    id: id,
-  		    isActive: status,
-  		    modifiedBy: this.UserId,
-  		  }
+    IsActiveDispenserById(id: any, status: boolean): void {
+		  const pbody = {
+		    id,
+		    isActive: status,
+		    modifiedBy: this.UserId
+		  };
+	  
+		  this._adminService.IsActiveDispenserById(pbody).subscribe(res => {
+		    if (!res) {
+		      return;
+		    }
 		
-  		  this._adminService.IsActiveDispenserById(pbody).subscribe((res) => {
-  		    if (res) {
-  		      if (status == false) {
-  		        this._toastr.success('Record inactive successfully')
-				
-  		        this.GetDispensersWithPagination()
-  		      } else {
-  		        this._toastr.success('Record active successfully')
-				
-  		        this.GetDispensersWithPagination()
-  		      }
-  		    }
-  		  })
-  		}
+		    const successMessage = status
+		      ? 'Record active successfully'
+		      : 'Record inactive successfully';
 		
-
+		    this._toastr.success(successMessage);
+		    this.GetDispensersWithPagination();
+		  });
 	}
+}

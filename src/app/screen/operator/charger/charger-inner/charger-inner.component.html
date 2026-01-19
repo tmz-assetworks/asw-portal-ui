@@ -13,61 +13,7 @@
               <div class="dashboard-block48 layout">
                 <div class="dashboard-block48-item">
                   <div>
-                    <!-- <div class="cust-list-flex3 layout">
-                      <div class="cust-list-flex3-item">
-                        <div class="cust-list-group layout">
-                          <div class="cust-list-block19 layout">
-                            <div class="cust-list-box9 layout">
-                              <img
-                                src="../../../../assets/icons/search.png"
-                                alt=""
-                                class="cust-list-icon layout"
-                              />
-                            </div>
-
-                            <div class="cust-list-block20 layout">
-                              <input
-                                class="cust-list-text-body21 layout"
-                                (keyup)="applyFilter($event)"
-                                placeholder="Search by asset id, charge box id, location name, make, model, sim card"
-                                #input
-                              />
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="cust-list-flex3-spacer"></div>
-                      <div class="cust-list-flex3-item1">
-                        <div class="cust-list-block23 layout">
-                          <div class="exp_button">
-                            <div class="cust-list-flex3 layout">
-                              <button type="button"
-                                class="cust-list-flex3-item1 export-btn"
-                                (click)="downloadAsCSV()"
-                                aria-label="Export as CSV"
-                                >
-                                <div class="cust-list-block23 layout">
-                                  <div class="cust-list-block23-item">
-                                    <div class="cust-list-box10 layout">
-                                      <img
-                                        src="../../../../../assets/download-report.png"
-                                        alt="Download CSV"
-                                        srcset=""
-                                      />
-                                    </div>
-                                  </div>
-                                  <div class="cust-list-block23-spacer"></div>
-                                  <div class="cust-list-text-body4 layout">
-                                    EXPORT
-                                  </div>
-                                </div>
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div> -->
-
+                    
                       <!-- FILTER BAR -->
                         <form [formGroup]="searchFilter" class="charger-filter-bar">
                         
@@ -109,7 +55,7 @@
                               </mat-select>
                             </mat-form-field>
                           
-                            <button type="button" class="btn primary action-btn" (click)="SearchGetDispensers()">
+                            <button type="button" class="btn primary action-btn" (click)="getDispensersDetail()">
                               SEARCH
                             </button>
                           

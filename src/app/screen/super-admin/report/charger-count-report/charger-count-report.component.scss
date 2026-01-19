@@ -1224,6 +1224,8 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
   &block35:hover {
     transform: scale(1.05);
+    border: 1px solid #0062a6;
+    border-left: 1px solid #0062a6;
   }
   &block35.layout {
     position: relative;
@@ -1367,8 +1369,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     @include flex-column;
     position: relative;
     flex: 1 1 48%;
-    @include lg {
-    }
   }
   & &block391-spacer {
     flex: 0 1 3%;
@@ -2414,7 +2414,4 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
 .mat-button-toggle-appearance-standard:hover {
   border: 1px solid #0062a6;
 }
-.dashboard-block35:hover {
-  border: 1px solid #0062a6;
-  border-left: 1px solid #0062a6;
-}
+
