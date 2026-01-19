@@ -279,11 +279,6 @@ export class ChargerInnerComponent implements OnInit {
     })
   }
 
-  SearchGetDispensers() {
-		const searchParameter = this.searchFilter.value;
-		this.getDispensersDetail()
-	}
-
   
   /**
    * Get Dispenser Details
@@ -373,10 +368,26 @@ downloadAsCSV(): void {
     ];
 
     const escapeCsv = (value: unknown): string => {
-      if (value == null) return '""';
-      const str = String(value).replaceAll('"', '""');
-      return `"${str}"`;
-    };
+         if (value === null || value === undefined) {
+           return '""';
+         }
+       
+         let stringValue: string;
+       
+         if (typeof value === 'object') {
+           try {
+             stringValue = JSON.stringify(value);
+           } catch {
+             stringValue = '';
+           }
+         } else {
+           stringValue = String(value);
+         }
+       
+         const escaped = stringValue.replace(/"/g, '""');
+         return `"${escaped}"`;
+  };
+
 
     const rows = res?.data?.map((item: any) => [
       escapeCsv(item.assetId),
