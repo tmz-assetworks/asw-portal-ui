@@ -1502,9 +1502,6 @@
     position: relative;
     flex: 0 1 17px;
   }
-  &box11 {
-    // background-color: rgb(217, 217, 217);
-  }
   &box11.layout1 {
     position: relative;
     width: 17px;
@@ -2329,7 +2326,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     position: relative;
     height: min-content;
 
-    margin: 50px 0px 30px;
+    margin: 6px 0px -30px;
     @include lg {
       margin: 43px 19px 0px;
     }
@@ -2359,7 +2356,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
   &group.layout {
     position: relative;
-    height: 50px;
+    height: 56px;
     width: 400px;
     max-width: 400px;
   }
@@ -2390,7 +2387,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   // }
   &box9.layout {
     position: relative;
-    height: 48px;
+    height: 55px;
     width: 54px;
     min-width: 54px;
     // margin: 0px 0px 0px 5px;
@@ -2465,7 +2462,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &text-body21.layout {
     position: relative;
     height: min-content;
-    margin: 6px 10px 9px;
+    margin: 13px 10px 9px;
     border: none;
     background-color: transparent;
     resize: none;
@@ -4655,9 +4652,6 @@ $color_type_6: rgb(255, 255, 255);
       margin: 5px;
     }
   }
-  &box3 {
-    // background-color: $color_type_13;
-  }
   &box3.layout {
     position: relative;
     height: 22px;
@@ -4755,7 +4749,7 @@ section {
 .cust-list-icon.layout {
   left: -29px;
   width: 31%;
-  top: 16px;
+  top: 21px;
   bottom: 10px;
 }
 
@@ -5032,9 +5026,6 @@ tr.mat-mdc-row:last-of-type {
     @include flex-column;
     position: relative;
     flex: 0 1 44px;
-  }
-  &box16 {
-    // background-color: rgb(255, 255, 255);
   }
   &box16.layout {
     position: relative;
@@ -5316,4 +5307,81 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
   display: none !important;
 }
 
+/* =========================
+   FILTER ROW ALIGNMENT FIX
+========================= */
 
+// .filter-row {
+//   display: flex;
+//   align-items: center;
+// }
+
+/* Common alignment */
+// .filter-item {
+//   display: flex;
+//   align-items: center;
+// }
+
+/* Search takes more space */
+// .search-item {
+//   flex: 1 1 320px;
+//   min-width: 260px;
+// }
+
+/* Mat dropdown sizing */
+// .filter-field {
+//   min-width: 160px;
+// }
+
+
+
+// .mat-mdc-form-field {
+//   margin-bottom: -23px;
+//   margin-right: 116px;
+// }
+
+
+/* =========================
+   SEARCH + STATUS ALIGNMENT
+========================= */
+
+.filter-row {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* small controlled gap */
+}
+
+/* Search takes fixed space */
+.search-item {
+  flex: 0 0 420px; /* search width */
+}
+
+/* Status starts immediately after search */
+.status-item {
+  flex: 0 0 200px;
+}
+
+/* Material field height alignment */
+.filter-field {
+  width: 100%;
+}
+
+.mat-mdc-form-field {
+  margin-bottom: -23px;
+}
+
+/* =========================
+   RESPONSIVE (≤ 768px)
+========================= */
+@media screen and (max-width: 768px) {
+  .filter-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-item,
+  .status-item {
+    width: 100%;
+    flex: 1;
+  }
+}
