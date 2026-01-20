@@ -9,7 +9,6 @@ import { LineChartComponent } from 'src/app/component/dashboard/line-chart/line-
 import { AreaChartComponent } from 'src/app/component/dashboard/area-chart/area-chart.component'
 import { BarChartComponent } from 'src/app/component/dashboard/bar-chart/bar-chart.component'
 import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
-import { LocationStatusPanelComponent } from '../location-status-panel/location-status-panel.component'
 import { WidgetComponent } from 'src/app/component/dashboard/widget/widget.component'
 @Component({
   selector: 'app-analytics',
@@ -22,7 +21,6 @@ import { WidgetComponent } from 'src/app/component/dashboard/widget/widget.compo
     AreaChartComponent,
     BarChartComponent,
     SharedMaterialModule,
-    LocationStatusPanelComponent,
     ReactiveFormsModule,
     RouterModule
   ]

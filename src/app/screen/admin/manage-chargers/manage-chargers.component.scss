@@ -1354,3 +1354,15 @@ td.mat-cell:last-of-type {
   justify-content: center;
 }
 
+/* Base button */
+.action-btn {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  will-change: transform;
+  
+}
+
+/* Hover effect */
+.action-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}

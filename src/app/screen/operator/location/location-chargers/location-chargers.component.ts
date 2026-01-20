@@ -81,13 +81,22 @@ export class LocationChargersComponent implements OnInit {
     this.GetDispenserByLocation(this.selectedLocationId)
   }
 
-  GetDispenserByLocation(locationId: any) {
+  onStatusChange(status: number): void {
+      if (!this.selectedLocationId) {
+        return;
+      }
+      this.currentPage = 1;
+      this.GetDispenserByLocation(this.selectedLocationId, status);
+  }
+
+  GetDispenserByLocation(locationId: number, status?: number ) {
     const pBody = {
       pageNumber: this.currentPage,
       searchParam: this.searchParam,
       pageSize: this.pageSize,
       orderBy: '',
       locationIds: [locationId],
+      activationStatus: status ?? null
     }
 
     this._locationService

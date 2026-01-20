@@ -6,7 +6,6 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { LocationService } from '../location.service'
 import { StorageService } from 'src/app/service/storage.service'
 import { MatSort } from '@angular/material/sort'
-import { LocationStatusPanelComponent } from '../location-status-panel/location-status-panel.component'
 import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 import { CommonModule } from '@angular/common'
 
@@ -14,7 +13,7 @@ import { CommonModule } from '@angular/common'
   selector: 'app-location-inner',
   templateUrl: './location-inner.component.html',
   styleUrls: ['./location-inner.component.scss'],
-  imports:[CommonModule,LocationStatusPanelComponent,SharedMaterialModule]
+  imports:[CommonModule,SharedMaterialModule]
 })
 export class LocationInnerComponent implements OnInit {
 
@@ -211,7 +210,6 @@ export class LocationInnerComponent implements OnInit {
     this._locationService
       .getlocationsdispenserdetails(pBody)
       .subscribe((res) => {
-        debugger
         if (res.data !== undefined && res.data != null && res.data.length > 0) {
           this.totalCount = res.paginationResponse.totalCount
           this.totalPages = res.paginationResponse.totalPages

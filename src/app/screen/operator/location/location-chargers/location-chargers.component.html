@@ -88,34 +88,47 @@
                   <div class="dashboard-block48 layout">
                     <div class="dashboard-block48-item">
                       <div>
-                        <div class="cust-list-flex3 layout">
-                          <div class="cust-list-flex3-item">
-                            <div class="cust-list-group layout">
-                              <div class="cust-list-block19 layout">
-                                <div class="cust-list-box9 layout">
-                                  <img
-                                    src="../../../../../assets/Operator/Search.svg"
-                                    alt=""
-                                    class="cust-list-icon layout"
-                                  />
-                                </div>
+                        <div class="cust-list-flex3 layout filter-row">
+  <!-- Search -->
+  <div class="filter-item search-item">
+    <div class="cust-list-group layout">
+      <div class="cust-list-block19 layout">
+        <div class="cust-list-box9 layout">
+          <img
+            src="../../../../../assets/Operator/Search.svg"
+            alt="Search"
+            class="cust-list-icon layout"
+          />
+        </div>
 
-                                <div class="cust-list-block20 layout">
-                                  <input
-                                    class="cust-list-text-body21 layout"
-                                    (keyup)="applyFilter($event)"
-                                    placeholder=" Search by charger id"
-                                    #input
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="cust-list-flex3-spacer"></div>
-                          <div class="cust-list-flex3-item1">
-                            <div class="cust-list-block23 layout"></div>
-                          </div>
-                        </div>
+        <div class="cust-list-block20 layout">
+          <input
+            class="cust-list-text-body21 layout"
+            (keyup)="applyFilter($event)"
+            placeholder="Search by ChargeBox ID and Asset ID"
+            #input
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Status -->
+  <div class="filter-item status-item">
+    <mat-form-field appearance="outline" class="filter-field">
+      <mat-label>Status</mat-label>
+      <mat-select
+        formControlName="activationStatus"
+        (selectionChange)="onStatusChange($event.value)"
+      >
+        <mat-option value="0">All</mat-option>
+        <mat-option value="1">Active</mat-option>
+        <mat-option value="2">Deactivated</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+
                         <div class="cust-list-group2 layout mat-data">
                           <table mat-table [dataSource]="dataSource">
                             <ng-container matColumnDef="assetId">
