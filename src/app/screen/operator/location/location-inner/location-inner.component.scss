@@ -69,7 +69,6 @@
     right: 0px;
   }
   &block13 {
-    // display: flex;
     @include sm {
       flex-wrap: wrap;
       row-gap: 16px;
@@ -1876,13 +1875,6 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
     height: min-content;
   }
 }
-
-// .box-element-box2.layout {
-//   padding: 10px;
-// }
-// .box-element-box2.layout[_ngcontent-dkq-c58] {
-//   padding: 10px;
-// }
 
 .mat-form-field-appearance-legacy {
   .mat-form-field-wrapper {

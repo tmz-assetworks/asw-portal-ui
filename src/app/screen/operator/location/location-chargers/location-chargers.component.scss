@@ -4734,6 +4734,7 @@ section {
 .mat-mdc-form-field {
   font-size: 14px;
   width: 100%;
+  margin-bottom: -23px;
 }
 
 .mat-mdc-table {
@@ -5307,72 +5308,25 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
   display: none !important;
 }
 
-/* =========================
-   FILTER ROW ALIGNMENT FIX
-========================= */
-
-// .filter-row {
-//   display: flex;
-//   align-items: center;
-// }
-
-/* Common alignment */
-// .filter-item {
-//   display: flex;
-//   align-items: center;
-// }
-
-/* Search takes more space */
-// .search-item {
-//   flex: 1 1 320px;
-//   min-width: 260px;
-// }
-
-/* Mat dropdown sizing */
-// .filter-field {
-//   min-width: 160px;
-// }
-
-
-
-// .mat-mdc-form-field {
-//   margin-bottom: -23px;
-//   margin-right: 116px;
-// }
-
-
-/* =========================
-   SEARCH + STATUS ALIGNMENT
-========================= */
 
 .filter-row {
   display: flex;
   align-items: center;
-  gap: 12px; /* small controlled gap */
+  gap: 12px; 
 }
 
-/* Search takes fixed space */
 .search-item {
-  flex: 0 0 420px; /* search width */
+  flex: 0 0 420px; 
 }
 
-/* Status starts immediately after search */
 .status-item {
   flex: 0 0 200px;
 }
 
-/* Material field height alignment */
 .filter-field {
   width: 100%;
 }
 
-.mat-mdc-form-field {
-  margin-bottom: -23px;
-}
-
-/* =========================
-   RESPONSIVE (≤ 768px)
-========================= */
 @media screen and (max-width: 768px) {
   .filter-row {
     flex-direction: column;

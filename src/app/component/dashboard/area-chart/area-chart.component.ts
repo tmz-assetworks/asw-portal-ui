@@ -100,7 +100,7 @@ export class AreaChartComponent implements OnInit {
           break;
       
         case 'chargingSession':
-          this.setChargingSessionChart();
+          this.setDashboardChargingSessionChart();  //remove method setChargingSessionChart simialr this sonar issue
           break;
       
         case 'reportSessionLength':
@@ -264,6 +264,8 @@ export class AreaChartComponent implements OnInit {
         ) as EChartsOption;
       }
 
+       
+
       private setChargerAreaChart(): void {
         this.chartTitle = 'Charging Sessions';
         this.option = {
@@ -274,16 +276,7 @@ export class AreaChartComponent implements OnInit {
       }
       
       
-      private setChargingSessionChart(): void {
-        if (this.isEmpty(this.chargingSessionDataSet)) {
-          this.option = {};
-          return;
-        }
-      
-        this.option = this.setAreaChartOption(
-          this.chargingSessionDataSet
-        ) as EChartsOption;
-      }
+     
       
       private setReportSessionLengthChart(): void {
         if (this.isEmpty(this.reportSessionLengthDataSet)) {

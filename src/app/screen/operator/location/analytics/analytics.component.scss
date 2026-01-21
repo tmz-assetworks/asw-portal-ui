@@ -85,7 +85,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     right: 0px;
   }
   &block13 {
-    // display: flex;
     @include sm {
       flex-wrap: wrap;
       row-gap: 16px;
@@ -1526,7 +1525,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
 
     @include lg {
       flex: 1 1 auto;
-      // max-width: auto;
       min-width: 100%;
     }
   }
@@ -1534,23 +1532,13 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block42-spacer {
     flex: 0 1 25px;
     @include lg {
-      // display: none;
     }
     @include xl {
       display: none;
     }
   }
 
-  // &box13 {
-  //   background-color: rgb(255, 255, 255);
-  //   box-shadow: 0px 0px 20px 0px rgba(196, 196, 196, 0.24705882352941178);
-  //   border: 1px solid rgb(228, 228, 228);
-  //   border-radius: 10px 10px 10px 10px;
-  // }
-  // &box13.layout {
-  //   position: relative;
-  //   height: 445px;
-  // }
+  
   &block13-spacer {
     flex: 0 1 22px;
     @include md;
@@ -1681,7 +1669,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
 .location- {
   &block {
     @include flex-column;
-    // background-color: $color_type_6;
   }
   &block.layout {
     position: relative;
@@ -1741,10 +1728,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     }
   }
   &subtitle-box.layout {
-    // position: relative;
-    // height: min-content;
-    // width: 7.97%;
-    // margin: 0px 91.79% 0px 0.23%;
     position: relative;
     height: min-content;
     margin: 0;
@@ -1752,7 +1735,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     font: 700 20px/1.2 'Roboto', Helvetica, Arial, serif;
     color: #131b21;
     letter-spacing: 0px;
-    // margin-bottom: 20px;
   }
   &subtitle {
     overflow: visible;
@@ -1837,7 +1819,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block5 {
     @include flex-column;
     background-color: $color_type_4;
-    // border-bottom: 1px solid rgb(255, 255, 255);
     transition-duration: 0.3s;
     transition-property: transform;
     a {
@@ -1845,7 +1826,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     }
   }
   &block5:hover {
-    //transform: translateY(-5);
     transform: translateY(-8px);
   }
   &block5.layout {
@@ -1874,7 +1854,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
       margin: 13px 20px 12px 13px;
     }
     @include sm {
-      // margin: 11px 17px 10px 11px;
       margin: 20px 17px 10px 11px;
     }
     @include xs {
@@ -1889,7 +1868,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
   &block6 {
     @include flex-column;
-    // background-color: $color_type_6;
     border-bottom: 4px solid rgb(216, 107, 0);
     transition-duration: 0.3s;
     transition-property: transform;
@@ -1941,9 +1919,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
       margin: 5px;
     }
   }
-  // &box3 {
-  //   background-color: $color_type_3;
-  // }
   &box3.layout {
     position: relative;
     height: 25px;
@@ -2186,7 +2161,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     position: relative;
     height: min-content;
     min-width: 0px;
-    //width: fit-content;
     margin: 1px 0px 34px;
 
     @include lg {
@@ -2236,13 +2210,9 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     position: relative;
     height: min-content;
   }
-  // &box11 {
-  //   background-color: $color_type_3;
-  // }
   &box11.layout {
     position: relative;
     height: 45px;
-    // width: 28.1%;
     margin: 0px auto;
   }
   &block22 {
@@ -2332,7 +2302,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     min-width: 1px;
     margin: 11px 0px;
     width: 1px;
-    // margin-left: 42px;
     margin: 15px 10px 34px 10px;
     background-color: rgb(141, 131, 131);
     @include lg {
@@ -2385,7 +2354,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &highlights2.layout {
     position: relative;
     height: min-content;
-    //width: 24.84%;
     margin: 0px 0% 0px 0%;
   }
   &block21-item2 {
@@ -3733,9 +3701,6 @@ $color_type_13: rgb(217, 217, 217);
     @include lg {
       font-size: 14px;
     }
-    // @include md {
-    //   font-size: 12px;
-    // }
     @include sm {
       font-size: 16px;
       white-space: nowrap;
@@ -3794,10 +3759,7 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block2 {
     @include flex-column;
     flex-direction: row;
-    // flex-wrap: wrap;
     justify-content: flex-start;
-    // align-content: center;
-    // align-items: center;
   }
   &block2.layout {
     position: relative;
@@ -3832,9 +3794,7 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
     position: relative;
     height: 50px;
     width: 50px;
-    // margin: 0px 27px 0px 28px;
     @include xl1 {
-      // margin: 0px 18px 0px 20px;
       width: 40px;
       height: 40px;
     }
@@ -4041,16 +4001,9 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
   .analytics-main .widgets-block28.layout{
       max-width: 410px;
   }
-  // .analytics-main .dashboard-block13-item .location-block4 {
-  //  display: block !important;
-  //   width: 334px;
-  // }
   .analytics-main .dashboard-block33-item1 .mat-button-toggle-appearance-standard.mat-button-toggle-label-content {
     padding: 0px 8px;
     font-size: 13px;
   }
-  // .dashboard-block13-item {
-  //   width: 400px;
-  // }
   }
   

@@ -368,26 +368,32 @@ downloadAsCSV(): void {
     ];
 
     const escapeCsv = (value: unknown): string => {
-         if (value === null || value === undefined) {
-           return '""';
-         }
-       
-         let stringValue: string;
-       
-         if (typeof value === 'object') {
-           try {
-             stringValue = JSON.stringify(value);
-           } catch {
-             stringValue = '';
-           }
-         } else {
-           stringValue = String(value);
-         }
-       
-         const escaped = stringValue.replace(/"/g, '""');
-         return `"${escaped}"`;
-  };
+      if (value === null || value === undefined) {
+        return '""';
+      }   
 
+      let stringValue: string;    
+
+      if (typeof value === 'object') {
+        if (value instanceof Date) {
+          stringValue = value.toISOString();
+        } else {
+          try {
+            stringValue = JSON.stringify(value);
+          } catch {
+            stringValue = '';
+          }
+        }
+      } else {
+        stringValue = `${value}`;
+      }   
+
+      const escaped = stringValue.replaceAll('"', '""');
+      return `"${escaped}"`;
+    };
+
+
+ 
 
     const rows = res?.data?.map((item: any) => [
       escapeCsv(item.assetId),

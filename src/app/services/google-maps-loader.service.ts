@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class GoogleMapsLoaderService {
 
   private isLoaded = false;
-  private apiKey: string = 'AIzaSyCX40o4SSWDp_a0DDw1u0OjdY-gLKjO18o';
+  private readonly apiKey: string = 'AIzaSyCX40o4SSWDp_a0DDw1u0OjdY-gLKjO18o';
 
   load(): Promise<void> {
     if (this.isLoaded) {
@@ -34,7 +34,7 @@ export class GoogleMapsLoaderService {
       };
 
       script.onerror = () => {
-        reject('Google Maps failed to load');
+        reject(new Error('Google Maps failed to load'));
       };
 
       document.head.appendChild(script);
