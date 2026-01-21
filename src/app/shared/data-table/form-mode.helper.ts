@@ -29,12 +29,16 @@ export class FormModeHelperService {
     const rawData = sessionStorage.getItem(dataKey);
 
     const saveBtn = rawSaveBtn ? JSON.parse(rawSaveBtn) : true;
-    const data: T | null = rawData
-      ? config?.parseData
-        ? config.parseData(rawData)
-        : JSON.parse(rawData)
-      : null;
 
+    let data: T | null = null;
+      
+    if (rawData) {
+      if (config?.parseData) {
+        data = config.parseData(rawData);
+      } else {
+        data = JSON.parse(rawData);
+      }
+    }
     let mode: FormMode = 'create';
     let title = config?.defaultTitle || 'Add Record';
 

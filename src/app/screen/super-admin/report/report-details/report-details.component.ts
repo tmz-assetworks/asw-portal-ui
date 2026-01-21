@@ -238,19 +238,17 @@ downloadAsCSV(): void {
 
   csvContent += headers + '\n' + rows;
 
-  // 🔁 Generate the filename conditionally
-  let filename = this.reportType === 'billing Report'
+   let filename =  this.reportType === 'billing Report'
     ? 'cost_information_report.csv'
-    : `${this.reportType.replace(/ /g, '_').toLowerCase()}_report.csv`;
-
-  const encodedUri = encodeURI(csvContent);
-  const link = document.createElement('a');
-  link.setAttribute('href', encodedUri);
-  link.setAttribute('download', filename);
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
-}
+    : `${this.reportType.replaceAll(' ', '_').toLowerCase()}_report.csv`;
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', filename);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    }
 
 
   formatValue(value: any): string {

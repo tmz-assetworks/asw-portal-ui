@@ -1366,3 +1366,21 @@ td.mat-cell:last-of-type {
   transform: scale(1.05);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
+.icon-btn {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+
+.icon-btn img {
+  width: 18px;
+  height: 18px;
+}
+
+.icon-btn:focus {
+  outline: 2px solid #0062a6;
+  outline-offset: 2px;
+}

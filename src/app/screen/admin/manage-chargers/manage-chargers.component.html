@@ -264,58 +264,70 @@
   <th mat-header-cell *matHeaderCellDef>ACTION</th>
 
   <td mat-cell *matCellDef="let element">
-    <div class="action-icons">
-      <!-- Deactivate -->
+  <div class="action-icons">
+
+    <!-- Deactivate -->
+    <button
+      *ngIf="element.isActive"
+      type="button"
+      class="icon-btn"
+      aria-label="Deactivate"
+      title="Deactivate"
+      (click)="IsActiveDispenserById(element.id, false)"
+    >
       <img
-        *ngIf="element.isActive"
         src="../../../../assets/Active.svg"
         alt="Deactivate"
-        title="Deactivate"
-        role="button"
-        tabindex="0"
-        (click)="IsActiveDispenserById(element.id, false)"
-        (keydown.enter)="IsActiveDispenserById(element.id, false)"
-        (keydown.space)="IsActiveDispenserById(element.id, false)"
       />
+    </button>
 
-      <!-- Activate -->
+    <!-- Activate -->
+    <button
+      *ngIf="!element.isActive"
+      type="button"
+      class="icon-btn"
+      aria-label="Activate"
+      title="Activate"
+      (click)="IsActiveDispenserById(element.id, true)"
+    >
       <img
-        *ngIf="!element.isActive"
         src="../../../../assets/Admin-SideNav/Vehicles-Icons/Active-tik.svg"
         alt="Activate"
-        title="Activate"
-        role="button"
-        tabindex="0"
-        (click)="IsActiveDispenserById(element.id, true)"
-        (keydown.enter)="IsActiveDispenserById(element.id, true)"
-        (keydown.space)="IsActiveDispenserById(element.id, true)"
       />
+    </button>
 
-      <!-- View -->
+    <!-- View -->
+    <button
+      type="button"
+      class="icon-btn"
+      aria-label="View charger"
+      title="View"
+      (click)="viewCharger(element.id)"
+    >
       <img
         src="../../../../assets/Admin-SideNav/Charger-Icons/View.svg"
         alt="View"
-        title="View"
-        role="button"
-        tabindex="0"
-        (click)="viewCharger(element.id)"
-        (keydown.enter)="viewCharger(element.id)"
-        (keydown.space)="viewCharger(element.id)"
       />
+    </button>
 
-      <!-- Edit -->
+    <!-- Edit -->
+    <button
+      type="button"
+      class="icon-btn"
+      aria-label="Edit charger"
+      title="Edit"
+      (click)="editCharger(element.id)"
+    >
       <img
         src="../../../../assets/Admin-SideNav/Charger-Icons/Edit.svg"
         alt="Edit"
-        title="Edit"
-        role="button"
-        tabindex="0"
-        (click)="editCharger(element.id)"
-        (keydown.enter)="editCharger(element.id)"
-        (keydown.space)="editCharger(element.id)"
       />
-    </div>
-  </td>
+    </button>
+
+  </div>
+</td>
+
+  
 </ng-container>
 
 
