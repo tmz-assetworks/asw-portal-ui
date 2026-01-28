@@ -6,15 +6,16 @@
         <div class="header-title">
           <h3 class="header-subtitle txt_label" style="margin-top: 30px;">
              <span
-    (click)="goback()"
-    (keydown)="handleKeyDown($event)"
-    tabindex="0"
-    role="button"
-    class="cursorPointer"
-    style="position: relative; top: 10px; font-size: 20px;"
-  >
-              <img src="../../../../assets/icons/backArrow.png" alt="" />
-            </span>
+  class="cursorPointer"
+  style="position: relative; top: 10px; font-size: 20px;"
+  tabindex="0"
+  aria-label="Go back"
+  (click)="goback()"
+  (keyup.enter)="goback()"
+  (keyup.space)="goback()"
+>
+  <img src="../../../../assets/icons/backArrow.png" alt="Back" />
+</span>
            
             <span class="graph-heading">{{ graphHeading }}</span>
             <b style="font-size: 13px; color: #0062a6;">{{ pageHeading }}</b>
@@ -25,6 +26,8 @@
       class="cust-list-flex3-item1"
       (click)="downloadAsCSV()"
       (keydown)="handleExportKeydown($event)"
+       (keyup.enter)="downloadAsCSV()"
+      (keyup.space)="downloadAsCSV()"
       tabindex="0"
       role="button"
       aria-label="Export as CSV"
