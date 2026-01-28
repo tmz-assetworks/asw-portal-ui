@@ -6,16 +6,16 @@
         <div class="header-title">
           <h3 class="header-subtitle txt_label" style="margin-top: 30px;">
              <span
-  class="cursorPointer"
-  style="position: relative; top: 10px; font-size: 20px;"
-  tabindex="0"
-  aria-label="Go back"
-  (click)="goback()"
-  (keyup.enter)="goback()"
-  (keyup.space)="goback()"
->
-  <img src="../../../../assets/icons/backArrow.png" alt="Back" />
-</span>
+                class="cursorPointer"
+                style="position: relative; top: 10px; font-size: 20px;"
+                role="button"
+                tabindex="0"
+                aria-label="Go back"
+                (click)="goback()"
+                (keyup)="onBackKey($event)"
+              >
+              <img src="../../../../assets/icons/backArrow.png" alt="Back" />
+            </span>
            
             <span class="graph-heading">{{ graphHeading }}</span>
             <b style="font-size: 13px; color: #0062a6;">{{ pageHeading }}</b>

@@ -370,11 +370,11 @@ downloadAsCSV(): void {
     
 
     const escapeCsv = (value: unknown): string => {
-        let stringValue = '';
-          
         if (value === null || value === undefined) {
-          stringValue = '';
-        } else if (value instanceof Date) {
+          return '""';
+        }
+        let stringValue: string;
+        if (value instanceof Date) {
           stringValue = value.toISOString();
         } else if (typeof value === 'object') {
           try {
