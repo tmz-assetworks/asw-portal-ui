@@ -3403,14 +3403,6 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
 }
 
 
-.dotted_line hr {
-  width: 1px;
-  height: 100px;
-  border: 0;
-  border-left: 1px dotted #c2c5c8;
-}
-
-
 .mat-elevation-z8 {
   box-shadow: 0px 0px 0px 0px rgb(0 0 0 / 20%), 0px 0px 0px 0px rgb(0 0 0 / 14%),
     0px 0px 0px 0px rgb(0 0 0 / 12%);
@@ -3469,11 +3461,9 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
   .dashboard-block13 .cust-list-flex3-spacer {
     flex: 0 1 0px !important;
   }
-  .cust-list-flex3.layout {
-    width: 160px;
-  }
 
   .cust-list-flex3.layout {
+    width: 160px;
     margin: 35px 13px 0px;
   }
   .dashboard-block13 .layout.mat-data {
@@ -3517,17 +3507,16 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
   column-gap: 19px;
 }
 .barbar-block13.layout {
+  display: flex;
+  flex-wrap: wrap;
   position: relative;
   width: 100%;
   height: min-content;
   margin: 22px 0px;
   column-gap: 19px;
 }
-.barbar-block13.layout {
-  display: flex;
-  flex-wrap: wrap;
-}
 .barbar-flex1.layout {
+  display: flex;
   position: relative;
   height: min-content;
   float: right;
@@ -3555,9 +3544,6 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
   border-radius: 5px 5px 5px 5px;
   margin-right: 30px;
 }
-.barbar-flex1.layout {
-  display: flex;
-}
 .barbar-text-body1.layout {
   position: relative;
   height: min-content;
@@ -3570,6 +3556,8 @@ button {
   color: #0062a6;
   letter-spacing: 0px;
   text-transform: uppercase;
+  background: transparent;
+  border: 0;
 }
 .submit-action input {
   color: #ffffff;
@@ -3580,10 +3568,6 @@ input {
   background: transparent;
 
   text-transform: uppercase;
-  border: 0;
-}
-button {
-  background: transparent;
   border: 0;
 }
 .barbar-text-body2.layout {
@@ -3660,10 +3644,6 @@ h3.header-subtitle.txt_label {
   color: #666;
 }
 
-.data-table-container {
-  max-height: 500px;
-  overflow-y: auto;
-}
 
 .data-table-container::-webkit-scrollbar {
   width: 8px;
@@ -3683,7 +3663,7 @@ h3.header-subtitle.txt_label {
 }
 
 .data-table-container {
-
+  max-height: 500px;
   overflow-y: auto;
   position: relative;
   margin-top: 20px;

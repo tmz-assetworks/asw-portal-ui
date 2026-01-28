@@ -251,6 +251,12 @@ downloadAsCSV(): void {
     }
 
 
+    onBackKey(event: KeyboardEvent): void {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        this.goback();
+      }
+    }
   formatValue(value: any): string {
     return this.reportType === 'billing Report' ? Number.parseFloat(value).toFixed(2) : value;
   }

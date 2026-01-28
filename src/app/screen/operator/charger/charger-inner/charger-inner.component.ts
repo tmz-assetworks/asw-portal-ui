@@ -367,29 +367,28 @@ downloadAsCSV(): void {
       'LOCATION CONTACT NUMBER'
     ];
 
+    
+
     const escapeCsv = (value: unknown): string => {
-      if (value === null || value === undefined) {
-        return '""';
-      }   
-
-      let stringValue: string;    
-
-      if (typeof value === 'object') {
+        if (value === null || value === undefined) {
+          return '""';
+        }
+        let stringValue: string;
         if (value instanceof Date) {
           stringValue = value.toISOString();
-        } else {
+        } else if (typeof value === 'object') {
           try {
             stringValue = JSON.stringify(value);
           } catch {
             stringValue = '';
           }
+        } else {
+          // primitives only
+          stringValue = String(value);
         }
-      } else {
-        stringValue = `${value}`;
-      }   
-
-      const escaped = stringValue.replaceAll('"', '""');
-      return `"${escaped}"`;
+      
+        const escaped = stringValue.replaceAll('"', '""');
+        return `"${escaped}"`;
     };
 
 
