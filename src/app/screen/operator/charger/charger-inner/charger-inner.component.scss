@@ -3681,8 +3681,6 @@ button.export-btn {
 .btn {
   height: 44px;
   padding: 0 18px;
-  font-size: 14px;
-  font-weight: 500;
   border-radius: 6px;
   border: 1px solid transparent;
   cursor: pointer;
@@ -3694,6 +3692,7 @@ button.export-btn {
   color: #ffffff;
   margin-top: -22px;
   height: 55px;
+  font: 13px / 1.2 "Roboto", Helvetica, Arial, serif;
 }
 
 /* RESET button – match SEARCH height & radius exactly */
@@ -3704,16 +3703,9 @@ button.export-btn {
   border: 1px solid #0062a6;
   color: #0062a6;
   margin-top: -22px;
-  font-size: 14px;
-  font-weight: 500;
-
-  border-radius: 6px; /* SAME as SEARCH */
+  font: 13px / 1.2 "Roboto", Helvetica, Arial, serif;
+  border-radius: 6px; 
   cursor: pointer;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
   box-sizing: border-box;
 }
 
