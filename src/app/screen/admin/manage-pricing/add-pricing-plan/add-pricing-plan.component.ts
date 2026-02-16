@@ -8,6 +8,7 @@ import { AdminService } from '../../admin.service'
 import { elementAt } from 'rxjs'
 import { CommonModule, DatePipe } from '@angular/common'
 import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
+import { InputTooltipDirective } from 'src/app/shared/directive/input-tooltip.directive'
 
 @Component({
   selector: 'app-add-pricing-plan',
@@ -17,7 +18,8 @@ import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
     RouterModule,
     CommonModule,
     SharedMaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    InputTooltipDirective
   ]
 })
 export class AddPricingPlanComponent implements OnInit {

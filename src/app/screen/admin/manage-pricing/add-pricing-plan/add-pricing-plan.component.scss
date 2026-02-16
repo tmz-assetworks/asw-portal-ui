@@ -245,6 +245,7 @@ $font_type_3: 500 14px/1.2 "Roboto", Helvetica, Arial, serif;
     position: relative;
     height: 48px;
     margin: 10px 0px;
+    cursor: pointer;
     @include lg {
       margin: 9px 0px;
     }
