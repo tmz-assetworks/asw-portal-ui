@@ -24,6 +24,7 @@ import { DiagWidgetBarComponent } from '../component/diagnostic/diag-widget-bar/
 import { MatTableComponent } from '../component/dashboard/mat-table/mat-table.component'
 import { ToolTipComponent } from '../component/diagnostic/tool-tip/tool-tip.component'
 import { ToolTipItemComponent } from '../component/diagnostic/tool-tip-item/tool-tip-item.component'
+import { InputTooltipDirective } from './directive/input-tooltip.directive'
 
 @NgModule({
   imports: [
@@ -54,6 +55,7 @@ import { ToolTipItemComponent } from '../component/diagnostic/tool-tip-item/tool
     DiagWidgetBarComponent,
     ToolTipComponent,
     ToolTipItemComponent,
+    InputTooltipDirective
   ],
   exports: [],
   declarations: [

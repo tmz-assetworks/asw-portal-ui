@@ -379,7 +379,9 @@
                 }"
               >
                 <mat-label>Select</mat-label>
-                <mat-select [value]="selectedUnitId" formControlName="unitName">
+                <mat-select [value]="selectedUnitId" formControlName="unitName" 
+                  appInputTooltip="Choose how to bill: kWh (recommended) or minutes of use."
+                >
                   <mat-option
                     *ngFor="let data of unitList"
                     [value]="data.id"
@@ -465,6 +467,7 @@
                   formControlName="parkingFee"
                   type="text"
                   class="barbar-input-text"
+                  appInputTooltip="Extra per-minute charge while the vehicle is plugged in and occupying a space."
                   (keypress)="numbersDecimalOnly($event)"
                 />
               </div>
@@ -499,6 +502,7 @@
               <div class="barbar-box6 layout">
                 <input
                   formControlName="gracePeriod"
+                  appInputTooltip="Delay parking fees by setting a grace period (in minutes) after session start."
                   type="text"
                   class="barbar-input-text"
                   (keypress)="numbersDecimalOnly($event)"

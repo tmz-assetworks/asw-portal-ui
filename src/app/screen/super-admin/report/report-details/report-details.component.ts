@@ -274,13 +274,6 @@ downloadAsCSV(): void {
   }
 
 
-  handleKeyDown(event: KeyboardEvent): void {
-  if (event.key === 'Enter' || event.key === ' ') {
-    event.preventDefault(); 
-    this.goback();
-  }
-}
-
 handleExportKeydown(event: KeyboardEvent): void {
   if (event.key === 'Enter' || event.key === ' ') {
     event.preventDefault(); 
