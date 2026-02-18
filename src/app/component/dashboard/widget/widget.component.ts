@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common'
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, Input } from '@angular/core'
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./widget.component.scss'],
   imports:[CommonModule]
 })
-export class WidgetComponent implements OnInit {
+export class WidgetComponent {
   constructor(private readonly router: Router) {
   }
 
@@ -18,8 +18,6 @@ export class WidgetComponent implements OnInit {
   @Input() showStatusBars: boolean = true; // Default to true to show status bars
   @Input() compactMode: boolean = false; // Default to false for normal height
   @Input() clickable: boolean = true; // Default to true to allow clicks
-
-  ngOnInit(): void {}
   
   navigateToUrl() {
     if (this.url) {

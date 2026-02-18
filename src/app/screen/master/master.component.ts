@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { RouterModule } from '@angular/router';
 import { FooterComponent } from 'src/app/component/master/footer/footer.component';
 import { HeaderComponent } from 'src/app/component/master/header/header.component';
@@ -15,8 +15,7 @@ import { NavigationComponent } from 'src/app/component/master/navigation/navigat
     RouterModule
   ]
 })
-export class MasterComponent implements OnInit {
+export class MasterComponent {
   constructor() {}
 
-  ngOnInit(): void {}
 }

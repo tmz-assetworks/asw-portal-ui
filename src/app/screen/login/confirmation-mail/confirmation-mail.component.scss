@@ -89,9 +89,6 @@
   display: block;
 }
 
-/* Style the checkmark/indicator */
-.remember .remember_checkmark:after {
-}
 
 .f_bar {
   input {
@@ -135,7 +132,6 @@
     left: 0px;
     right: 0px;
     padding: 80px;
-    //  background-image: url(../../../assets//images/login_bg.png);
     background-repeat: no-repeat;
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
@@ -189,7 +185,6 @@
     
   }
   &box {
-    /*  background-color: #00000073; */
     img {
       max-width: 100%;
     }
@@ -215,9 +210,6 @@
     left: 0px;
     right: 0px;
   }
-  &block2-spacer {
-    /*  flex: 1 1 5px; */
-  }
   &block2-item {
     @include flex-column;
     position: relative;
@@ -240,16 +232,12 @@
   }
   &block12 {
     @include flex-column;
-    /* background-color: rgb(217, 217, 217); */
   }
   &block12.layout {
     position: relative;
     flex: 0 0 auto;
     width: 57.6%;
     margin: 7.7% 0 4.48% 0;
-  }
-  &box2 {
-    /* background-color: rgb(195, 85, 85);*/
   }
   &box2.layout {
     position: relative;
@@ -299,9 +287,7 @@
     margin: 0px;
     font-size: 40px;
   }
-  &box3 {
-    //background-color: rgb(195, 85, 85);
-  }
+  
   &box3.layout {
     position: relative;
     flex: 0.767 1 auto;
@@ -342,9 +328,7 @@
     height: min-content;
     margin: 0;
   }
-  &box4 {
-    //background-color: rgb(195, 85, 85);
-  }
+  
   &box4.layout {
     position: relative;
     flex: 0.7 1 auto;
@@ -442,33 +426,16 @@
     min-height: 32px;
     flex-shrink: 1;
     width: auto;
-    // margin: 28px 0px 29px;
-    // @include sm {
-    //   margin: 18px 0px;
-    // }
-    // @include xs {
-    //   margin: 16px 0px 17px;
-    // }
-    // @include xxs {
-    //   margin: 14px 0px 15px;
-    // }
-    // @include tn {
-    //   margin: 13px 0px 14px;
-    // }
   }
   &medium-title {
     flex: 1 1 auto;
     overflow: scroll;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin: 0px;
+    margin: 0;
     border: none;
     background-color: transparent;
     border-radius: 8px 0px 0px 8px;
-    // resize: none;
     outline: none;
     @include font-face($font_type7, rgb(112, 120, 127), 0px);
-    // white-space: pre-wrap;
     text-align: left;
     width: auto;
     padding: 20px 30px;

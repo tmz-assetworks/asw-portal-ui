@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
-import { EChartsOption, graphic } from 'echarts'
+import { Component, EventEmitter, Input, Output } from '@angular/core'
+import { EChartsOption } from 'echarts'
 import { NgxEchartsModule } from 'ngx-echarts'
 
 import { DashboardService } from 'src/app/screen/operator/dashboard/dashboard.service'
@@ -11,7 +11,7 @@ import { DashboardService } from 'src/app/screen/operator/dashboard/dashboard.se
   imports:[NgxEchartsModule
     ]
 })
-export class StackedAreaChartComponent implements OnInit {
+export class StackedAreaChartComponent {
   chartTypeData: any
 
   @Input() set chartType(value: any) {
@@ -38,8 +38,6 @@ export class StackedAreaChartComponent implements OnInit {
   constructor(private _dashboardService: DashboardService) {}
 
   @Output() areaDetailPage: EventEmitter<any> = new EventEmitter<any>()
-
-  ngOnInit(): void {}
 
   setChartOption(chartType: any) {
     if (chartType == 'stackedArea') {

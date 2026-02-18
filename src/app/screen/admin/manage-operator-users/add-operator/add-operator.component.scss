@@ -174,11 +174,7 @@ $font_type_3: 500 14px/1.2 'Roboto', Helvetica, Arial, serif;
     height: 90%;
     margin-left: 5%;
     margin-right: 5%;
-    border: 0;
-    border-width: 0;
     border: none;
-    border-width: none;
-    border: hidden;
     outline: none;
     background-color: #fff;
   }
@@ -188,25 +184,6 @@ $font_type_3: 500 14px/1.2 'Roboto', Helvetica, Arial, serif;
     flex: 1 1 calc(20% - 8px);
     min-width: 248px;
     max-width: 358px;
-    // @include xl {
-    //   flex: 0 0 calc(50% - 8px);
-    //   min-width: 358px;
-    //   max-width: 358px;
-    // }
-    // @include lg {
-    //   flex: 0 0 100%;
-    //   min-width: 248px;
-    //   max-width: 248px;
-    // }
-    // @include md {
-    //   min-width: 200px;
-    //   max-width: 200px;
-    // }
-    // @include xxxl {
-    //   flex: 0 0 calc(50% - 8px);
-    //   min-width: 358px;
-    //   max-width: 358px;
-    // }
   }
   &block14 {
     @include flex-column;
@@ -218,7 +195,6 @@ $font_type_3: 500 14px/1.2 'Roboto', Helvetica, Arial, serif;
   &highlights {
     font: $font_type_2;
     color: $color_type_4;
-    //text-decoration: underline;
     letter-spacing: 0px;
     @include lg {
       font-size: 14px;
@@ -266,7 +242,6 @@ $font_type_3: 500 14px/1.2 'Roboto', Helvetica, Arial, serif;
     }
     @include lg {
       flex: 0 0 16px;
-      //display: none;
     }
   }
   &block15 {
@@ -434,29 +409,6 @@ $font_type_3: 500 14px/1.2 'Roboto', Helvetica, Arial, serif;
     height: min-content;
     float: right;
     margin-top: 30px;
-    /* width: 24.78%;
-    margin: 71px 0% 3px 75.22%;
-    */
-    /*
-    @include lg {
-      margin: 61px 0% 5px 75.22%;
-    }
-    @include md {
-      margin: 50px 0% 5px 75.22%;
-    }
-    @include sm {
-      margin: 41px 0% 5px 75.22%;
-    }
-    @include xs {
-      margin: 36px 0% 5px 75.22%;
-    }
-    @include xxs {
-      margin: 31px 0% 5px 75.22%;
-    }
-    @include tn {
-      margin: 28px 0% 5px 75.22%;
-    }
-    */
   }
   &flex1-item {
     @include flex-column;
@@ -496,27 +448,6 @@ $font_type_3: 500 14px/1.2 'Roboto', Helvetica, Arial, serif;
     position: relative;
     height: min-content;
     padding: 18px 40px;
-    /*
-    margin: 18px 40px 17px;
-    @include lg {
-      margin: 16px 35px 15px;
-    }
-    @include md {
-      margin: 13px 29px;
-    }
-    @include sm {
-      margin: 11px 24px;
-    }
-    @include xs {
-      margin: 10px 21px;
-    }
-    @include xxs {
-      margin: 9px 19px;
-    }
-    @include tn {
-      margin: 9px 17px 8px;
-    }
-    */
   }
   &flex1-spacer {
     flex: 0 1 27px;
@@ -552,27 +483,6 @@ $font_type_3: 500 14px/1.2 'Roboto', Helvetica, Arial, serif;
     position: relative;
     height: min-content;
     padding: 18px 40px;
-    /*
-    margin: 18px 40px 17px;
-    @include lg {
-      margin: 16px 35px 15px;
-    }
-    @include md {
-      margin: 13px 29px;
-    }
-    @include sm {
-      margin: 11px 24px;
-    }
-    @include xs {
-      margin: 10px 21px;
-    }
-    @include xxs {
-      margin: 9px 19px;
-    }
-    @include tn {
-      margin: 9px 17px 8px;
-    }
-    */
   }
 }
 
@@ -596,11 +506,6 @@ $font_type_3: 500 14px/1.2 'Roboto', Helvetica, Arial, serif;
   border-color: red !important;
   background-image: none !important;
 }
-
-// .error-mess {
-//   color: red;
-//   padding-top: 5px;
-// }
 
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,

@@ -114,31 +114,16 @@ export class AddPricingPlanComponent implements OnInit {
       Validators.maxLength(10),
     ]),
     transactionFees: new FormControl('', [
-      // Validators.required,
       Validators.maxLength(10),
     ]),
     
     salesTax: new FormControl('', [
-      // Validators.required,
       Validators.maxLength(10),
     ]),
     locationId: new FormControl('', Validators.required),
 
-    // chargeboxidResponse: new FormControl([], Validators.required),
-    // pricePlanLocationsMapperCommand: [
-    //   {
-    //     locationId: [],
-    //     chargerId: [],
-    //   },
-    // ],
   })
 
-  // addLocationRows(locationId: any, chargerId: any): FormGroup {
-  //   return new FormGroup({
-  //     locationId: new FormControl(locationId),
-  //     chargerId: new FormControl(chargerId),
-  //   });
-  // }
 
   ngOnInit() {
     /**
@@ -146,7 +131,6 @@ export class AddPricingPlanComponent implements OnInit {
      */
     this.getCustomerInfo(0)
     this.GetAllPriceType()
-    // this.GetAllUnit()
     this.GetAllCurrencyCode()
     this.CustomerDDL()
     this.GetLocationName()
@@ -586,7 +570,7 @@ export class AddPricingPlanComponent implements OnInit {
    */
   onSelectLocation(event: any, id: any) {
     if (event.isUserInput) {
-      var index = this.locationIdResponse.indexOf(id)
+      const index = this.locationIdResponse.indexOf(id)
       if (index === -1) {
         this.locationIdResponse.push(id)
       } else {
@@ -610,24 +594,8 @@ export class AddPricingPlanComponent implements OnInit {
         }
       })
   }
-  /**
-   * On select charger
-   * @param event
-   * @param data
-   */
   
-
-  /**
-   * date filter for valid to date
-   * @param d
-   * @returns
-   */
-
-  // dateFilter = (d: any | null) => {
-  //   let validFrom = this.addPricingForm.value.validFrom
-
-  //   return d > validFrom
-  // }
+  
   /**
    * Check valid from date
    * @param e
@@ -646,11 +614,7 @@ export class AddPricingPlanComponent implements OnInit {
    * check start date validation
    */
   checkStartDate() {
-    // if (
-    //   this.addPricingForm.value.validFrom > this.addPricingForm.value.validTo
-    // ) {
     this.pricingPlanFormGroup.patchValue({ validTo: '' })
-    // }
   }
 
   /**
@@ -680,7 +644,6 @@ export class AddPricingPlanComponent implements OnInit {
   getCustomerInfo(id: any) {
     this._AdminService.Getcustomer(id).subscribe((res) => {
       if (res.data) {
-        // this.selectedCustomerId = res.data[0].id
         this.customerData = res.data[0]
         this.customerName = res.data[0].userName
 
@@ -711,6 +674,4 @@ export class AddPricingPlanComponent implements OnInit {
     let time = this.datePipe.transform(date, 'HH:mm:ss')
     return time
   }
-  // CONNECTOR TYPE
-  
 }

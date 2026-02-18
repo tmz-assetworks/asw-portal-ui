@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common'
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, Input } from '@angular/core'
 
 @Component({
   selector: 'app-diag-widget',
@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core'
   styleUrls: ['./diag-widget.component.scss'],
   imports:[CommonModule]
 })
-export class DiagWidgetComponent implements OnInit {
+export class DiagWidgetComponent {
   showToolTipData: any
 
   @Input() set isProvisioning(value: boolean) {
@@ -44,6 +44,4 @@ export class DiagWidgetComponent implements OnInit {
   }
 
   constructor() {}
-
-  ngOnInit(): void {}
 }
