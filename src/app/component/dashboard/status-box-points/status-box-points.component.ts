@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common'
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, Input } from '@angular/core'
 import { StatusBoxElementComponent } from '../status-box-element/status-box-element.component'
 
 @Component({
@@ -9,7 +9,7 @@ import { StatusBoxElementComponent } from '../status-box-element/status-box-elem
   imports:[CommonModule,StatusBoxElementComponent]
 
 })
-export class StatusBoxPointsComponent implements OnInit {
+export class StatusBoxPointsComponent {
   constructor() {}
 
   @Input() title: any
@@ -27,6 +27,4 @@ export class StatusBoxPointsComponent implements OnInit {
       Icon: '../../../../assets/status-panel-icon/gallon.png',
     },
   ]
-
-  ngOnInit(): void {}
 }

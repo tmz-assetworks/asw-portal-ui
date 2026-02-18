@@ -382,9 +382,7 @@ $color_type_9: rgb(255, 255, 255);
   }
   &text-body42 {
     overflow: visible;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin: 0px;
+    margin: 0;
     @include font-face($font_type5, $color_type_3, 0px);
     white-space: pre-wrap;
     @include md {
@@ -438,9 +436,7 @@ $color_type_9: rgb(255, 255, 255);
   }
   &text-body43 {
     overflow: visible;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin: 0px;
+    margin: 0;
     @include font-face($font_type5, $color_type_3, 0px);
     white-space: pre-wrap;
     @include md {

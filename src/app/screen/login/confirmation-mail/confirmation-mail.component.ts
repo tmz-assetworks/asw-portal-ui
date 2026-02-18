@@ -1,17 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-confirmation-mail',
   templateUrl: './confirmation-mail.component.html',
   styleUrls: ['./confirmation-mail.component.scss']
 })
-export class ConfirmationMailComponent implements OnInit {
+export class ConfirmationMailComponent {
  path: string
   constructor() { 
     this.path = window.location.origin +'/changePassword'
-  }
-
-  ngOnInit(): void {
   }
 
 }

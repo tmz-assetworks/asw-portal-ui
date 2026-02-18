@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common'
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, Input } from '@angular/core'
 
 @Component({
   selector: 'app-tool-tip-item',
@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core'
   styleUrls: ['./tool-tip-item.component.scss'],
   imports:[CommonModule]
 })
-export class ToolTipItemComponent implements OnInit {
+export class ToolTipItemComponent {
   showToolTipitem: any
 
   @Input() set isGetConfig(value: boolean) {
@@ -152,6 +152,4 @@ onMouseLeave(): void {
   this.showTooltip = false;
 }
   constructor() {}
-
-  ngOnInit(): void {}
 }

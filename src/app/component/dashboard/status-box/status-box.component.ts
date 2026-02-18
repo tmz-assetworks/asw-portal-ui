@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, Input } from '@angular/core'
 import { DashboardService } from 'src/app/screen/operator/dashboard/dashboard.service'
 import { StatusBoxElementComponent } from '../status-box-element/status-box-element.component'
 import { CommonModule } from '@angular/common'
@@ -9,17 +9,12 @@ import { CommonModule } from '@angular/common'
   styleUrls: ['./status-box.component.scss'],
   imports:[CommonModule,StatusBoxElementComponent]
 })
-export class StatusBoxComponent implements OnInit {
+export class StatusBoxComponent {
   constructor(private _dashboardService: DashboardService) {}
 
   @Input() title: any
   @Input() icon: any
-  // data=[]
-
-  ngOnInit(): void {
-    // this.getSummaryData();
-  }
-
+  
   data = [
     {
       Key: 'Total Locations',

@@ -1,15 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-diag-widget-bar',
   templateUrl: './diag-widget-bar.component.html',
   styleUrls: ['./diag-widget-bar.component.scss']
 })
-export class DiagWidgetBarComponent implements OnInit {
+export class DiagWidgetBarComponent {
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }

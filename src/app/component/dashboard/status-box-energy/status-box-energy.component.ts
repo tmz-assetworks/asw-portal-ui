@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, Input } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { StatusListElementComponent } from '../status-list-element/status-list-element.component'
 
@@ -8,7 +8,7 @@ import { StatusListElementComponent } from '../status-list-element/status-list-e
   styleUrls: ['./status-box-energy.component.scss'],
   imports:[CommonModule,StatusListElementComponent]
 })
-export class StatusBoxEnergyComponent implements OnInit {
+export class StatusBoxEnergyComponent {
   constructor() {}
 
   @Input() title: any
@@ -32,5 +32,4 @@ export class StatusBoxEnergyComponent implements OnInit {
   icon2 = '../../../../assets/status-panel-icon/daily_average.png'
   icon3 = '../../../../assets/status-panel-icon/calender.png'
 
-  ngOnInit(): void {}
 }

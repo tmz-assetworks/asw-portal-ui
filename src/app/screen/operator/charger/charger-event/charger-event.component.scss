@@ -42,12 +42,10 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
 .location- {
   &block {
     @include flex-column;
-    // background-color: $color_type_6;
   }
   &block.layout {
     position: relative;
     overflow: hidden;
-    // min-height: 1314px;
   }
   &block1 {
     @include flex-column;
@@ -102,10 +100,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     }
   }
   &subtitle-box.layout {
-    // position: relative;
-    // height: min-content;
-    // width: 7.97%;
-    // margin: 0px 91.79% 0px 0.23%;
     position: relative;
     height: min-content;
     margin: 0;
@@ -117,9 +111,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
   &subtitle {
     overflow: visible;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin: 0px 18px;
+    margin: 0 18px;
     @include font-face($font_type20, $color_type_2, 0px);
     white-space: pre-wrap;
     @include lg {
@@ -204,7 +196,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block5 {
     @include flex-column;
     background-color: $color_type_4;
-    //border-bottom: 1px solid rgb(255, 255, 255);
     transition-duration: 0.3s;
     transition-property: transform;
     a {
@@ -212,7 +203,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     }
   }
   &block5:hover {
-    //transform: translateY(-5);
     transform: translateY(-8px);
   }
   &block5.layout {
@@ -255,7 +245,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
   &block6 {
     @include flex-column;
-    // background-color: $color_type_6;
     border-bottom: 3px solid rgb(216, 107, 0);
     transition-duration: 0.3s;
     transition-property: transform;
@@ -306,9 +295,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
       margin: 5px;
     }
   }
-  // &box3 {
-  //   background-color: $color_type_3;
-  // }
   &box3.layout {
     position: relative;
     height: 25px;
@@ -2095,9 +2081,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
   &subtitle {
     overflow: visible;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin: 0px;
+    margin: 0;
     @include font-face($font_type20, $color_type_2, 0px);
 
     @include lg {
@@ -2479,9 +2463,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
       margin: 0px 0px 5px;
     }
   }
-  &box7 {
-    // background-color: $color_type_5;
-  }
   &box7.layout {
     position: relative;
     height: 45px;
@@ -2518,7 +2499,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block9.layout {
     position: relative;
     height: min-content;
-    // margin-left: 30px;
     width: 125px;
   }
   &hero-title {
