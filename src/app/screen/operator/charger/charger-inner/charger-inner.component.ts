@@ -9,16 +9,19 @@ import { ChargerService } from '../charger.service'
 import { CommonModule, Location } from '@angular/common'
 import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 import { AdminService } from 'src/app/screen/admin/admin.service'
+import { InputTooltipDirective } from 'src/app/shared/directive/input-tooltip.directive'
 
 @Component({
   selector: 'app-charger-inner',
+  standalone: true,
   templateUrl: './charger-inner.component.html',
   styleUrls: ['./charger-inner.component.scss'],
   imports:[
     CommonModule,
     RouterModule,
     SharedMaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    InputTooltipDirective
   ]
 })
 export class ChargerInnerComponent implements OnInit {
