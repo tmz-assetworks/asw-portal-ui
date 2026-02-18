@@ -146,8 +146,9 @@
     <!-- SEARCH INPUT -->
     <div class="search-wrapper">
       <input formControlName="searchText"
+        appInputTooltip="Search by asset id, charge box id, location name, make, model, sim card"
         type="text"
-        placeholder="Search by asset id, charge box id, location name, make, model, sim card"
+        placeholder="Search for Charger"
         (keyup)="applyFilter($event)"
       />
       <button type="button" class="search-icon-btn">

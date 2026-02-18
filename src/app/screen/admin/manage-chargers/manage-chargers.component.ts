@@ -8,6 +8,7 @@
 	import { CommonModule } from '@angular/common'
 	import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms'
 	import { ToastrService } from 'ngx-toastr'
+import { InputTooltipDirective } from 'src/app/shared/directive/input-tooltip.directive'
 
 	@Component({
 	  selector: 'app-manage-chargers',
@@ -17,7 +18,8 @@
 		SharedMaterialModule,
 		RouterModule,
 		CommonModule,
-		ReactiveFormsModule   
+		ReactiveFormsModule,
+		InputTooltipDirective   
 	  ]
 	})
 	export class ManageChargersComponent implements OnInit {

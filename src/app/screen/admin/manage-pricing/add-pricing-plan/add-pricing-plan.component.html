@@ -370,6 +370,7 @@
                 <span style="color: #ff0000;">*</span>
               </h5>
               <mat-form-field
+              appInputTooltip="Choose how to bill: kWh (recommended) or minutes of use."
               appearance="outline"
                 class="barbar-box6 layout"
                 [ngClass]="{
@@ -380,7 +381,7 @@
               >
                 <mat-label>Select</mat-label>
                 <mat-select [value]="selectedUnitId" formControlName="unitName" 
-                  appInputTooltip="Choose how to bill: kWh (recommended) or minutes of use."
+                  
                 >
                   <mat-option
                     *ngFor="let data of unitList"
