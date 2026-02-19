@@ -1441,7 +1441,6 @@ $font_type_4: 500 13px/1.2 "Roboto", Helvetica, Arial, serif;
 
     @include lg {
       flex: 1 1 auto;
-      // max-width: auto;
       min-width: 100%;
     }
   }
@@ -1449,7 +1448,6 @@ $font_type_4: 500 13px/1.2 "Roboto", Helvetica, Arial, serif;
   &block42-spacer {
     flex: 0 1 25px;
     @include lg {
-      // display: none;
     }
   }
 
@@ -1543,9 +1541,7 @@ $font_type_4: 500 13px/1.2 "Roboto", Helvetica, Arial, serif;
     position: relative;
     flex: 0 1 17px;
   }
-  &box11 {
-    // background-color: rgb(217, 217, 217);
-  }
+  
   &box11.layout1 {
     position: relative;
     width: 17px;
@@ -1584,7 +1580,6 @@ $font_type_4: 500 13px/1.2 "Roboto", Helvetica, Arial, serif;
 .header- {
     &block {
       @include flex-column;
-      //background-color: $color_type_6;
     }
     &block.layout {
       position: relative;
@@ -1652,9 +1647,7 @@ $font_type_4: 500 13px/1.2 "Roboto", Helvetica, Arial, serif;
     }
     &subtitle {
       overflow: visible;
-      margin-top: 0px;
-      margin-bottom: 0px;
-      margin: 0px;
+      margin: 0;
       @include font-face($font_type20, $color_type_2, 0px);
 
       @include lg {
@@ -1751,9 +1744,7 @@ $font_type_4: 500 13px/1.2 "Roboto", Helvetica, Arial, serif;
     }
     &subtitle {
       overflow: visible;
-      margin-top: 0px;
-      margin-bottom: 0px;
-      margin: 0px 18px;
+      margin: 0 18px;
       @include font-face($font_type20, $color_type_2, 0px);
       white-space: pre-wrap;
       @include lg {
@@ -3731,9 +3722,7 @@ $font_type_4: 500 13px/1.2 "Roboto", Helvetica, Arial, serif;
       margin: 19px 20px 19px 0px;
       cursor: pointer;
     }
-    &box12 {
-      // background-color: rgb(217, 217, 217);
-    }
+    
     &box12.layout {
       position: relative;
       flex: 1 1 auto;

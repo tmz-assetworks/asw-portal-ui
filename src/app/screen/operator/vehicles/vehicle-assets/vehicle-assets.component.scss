@@ -8,7 +8,6 @@
     position: relative;
     height: min-content;
     margin: 0px 0px 0px 20px;
-    // margin: -2px -10px -15px 15px;
     @include lg {
       margin: 0px 0px 0px 18px;
     }
@@ -1475,9 +1474,7 @@
         position: relative;
         flex: 0 1 44px;
       }
-      &box16 {
-        // background-color: rgb(255, 255, 255);
-      }
+      
       &box16.layout {
         position: relative;
         height: 24px;
@@ -1568,8 +1565,6 @@
       &text-body {
         @include font-face($font_type1, rgb(112, 120, 127), 0px);
       }
-      // &text-body.layout {
-      // }
       &block2-spacer {
         flex: 1 1 auto;
       }
@@ -1666,36 +1661,14 @@
 
     @include lg {
       flex: 1 1 auto;
-      // max-width: auto;
       min-width: 100%;
     }
   }
-  // &box14 {
-  //   background-color: rgb(255, 255, 255);
-  //   box-shadow: 0px 0px 20px 0px rgba(196, 196, 196, 0.24705882352941178);
-  //   border: 1px solid rgb(228, 228, 228);
-  //   border-radius: 10px 10px 10px 10px;
-  // }
-  // &box14.layout {
-  //   position: relative;
-  //   height: 445px;
-  // }
   &block42-spacer {
     flex: 0 1 25px;
     @include lg {
-      // display: none;
     }
   }
-  // &box13 {
-  //   background-color: rgb(255, 255, 255);
-  //   box-shadow: 0px 0px 20px 0px rgba(196, 196, 196, 0.24705882352941178);
-  //   border: 1px solid rgb(228, 228, 228);
-  //   border-radius: 10px 10px 10px 10px;
-  // }
-  // &box13.layout {
-  //   position: relative;
-  //   height: 445px;
-  // }
   &block13-spacer {
     flex: 0 1 20px;
     @include md;
@@ -1718,16 +1691,11 @@
 
   &block48 {
     display: flex;
-    // background-color: rgb(255, 255, 255);
-    // box-shadow: 0px 0px 20px 0px rgba(196, 196, 196, 0.24705882352941178);
-    // border: 1px solid rgb(228, 228, 228);
     border-radius: 10px 10px 10px 10px;
   }
   &block48.layout {
     position: relative;
     height: min-content;
-    // width: 98.29%;
-    // margin: 28px auto 0px;
     @include xl1 {
       margin: 20px auto 0px;
     }
@@ -1786,9 +1754,7 @@
     position: relative;
     flex: 0 1 17px;
   }
-  &box11 {
-    // background-color: rgb(217, 217, 217);
-  }
+  
   &box11.layout1 {
     position: relative;
     width: 17px;
@@ -3045,7 +3011,6 @@ tr.mat-mdc-row:last-of-type {
     position: relative;
     height: min-content;
     margin: 15px 20px 13px;
-    // border-bottom: 1px dotted #c2c5c8;
     &.zero_br {
       border-bottom: 0px dotted #c2c5c8;
     }
@@ -3071,9 +3036,6 @@ tr.mat-mdc-row:last-of-type {
   &block4.layout {
     position: relative;
     height: min-content;
-  }
-  &box3 {
-    // background-color: rgb(217, 217, 217);
   }
   &box3.layout {
     position: relative;
@@ -3187,9 +3149,6 @@ tr.mat-mdc-row:last-of-type {
     @include flex-column;
     position: relative;
     flex: 0 1 40px;
-  }
-  &box6 {
-    //background-color: rgb(255, 255, 255);
   }
   &box6.layout3 {
     position: relative;
@@ -3780,9 +3739,7 @@ $color_type_4: rgb(255, 255, 255);
   }
   &subtitle {
     overflow: visible;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin: 0px;
+    margin: 0;
     @include font-face($font_type20, $color_type_2, 0px);
 
     @include lg {
@@ -4188,9 +4145,6 @@ $color_type_4: rgb(255, 255, 255);
       margin: 0px 0px 5px;
     }
   }
-  &box7 {
-    // background-color: $color_type_5;
-  }
   &box7.layout {
     position: relative;
     height: 45px;
@@ -4394,7 +4348,6 @@ $color_type_4: rgb(255, 255, 255);
     height: min-content;
     width: 77px;
     min-width: 77px;
-    // margin: 0 20px 0 30px;
   }
   &block12-spacer {
     flex: 0 1 3px;
@@ -4527,7 +4480,6 @@ $color_type_4: rgb(255, 255, 255);
     height: min-content;
     width: 77px;
     min-width: 77px;
-    // margin: auto 20px;
   }
   &block17-spacer {
     flex: 0 1 3px;
@@ -4601,8 +4553,6 @@ $color_type_4: rgb(255, 255, 255);
   &flex3.layout {
     position: relative;
     height: min-content;
-    // margin: 50px 22px 0px;
-    // margin: 0px -11px 0px;
     @include lg {
       margin: 43px 19px 0px;
     }
@@ -4653,22 +4603,13 @@ $color_type_4: rgb(255, 255, 255);
   &box9 {
     background-color: $color_type_0;
     border-radius: 0px 4px 4px 0px;
-    // transition-duration: 0.3s;
-    // transition-property: transform;
   }
-  // &box9:hover {
-  //   transform: scale(1.1);
-  // }
   &box9.layout {
     position: relative;
     height: 47px;
     width: 54px;
     min-width: 54px;
-    /*
-    @include lg {
-      margin: 5px 0px 5px 5px;
-    }
-    */
+    
   }
   &icon {
     width: 100%;
@@ -4685,31 +4626,7 @@ $color_type_4: rgb(255, 255, 255);
     right: 0px;
     width: 4.31%;
     margin: 0px 4.82% 0px 90.86%;
-    /*
-    @include lg {
-      top: 15px;
-      bottom: 14px;
-    }
-    @include md {
-      top: 13px;
-      bottom: 12px;
-    }
-    @include sm {
-      top: 11px;
-      bottom: 10px;
-    }
-    @include xs {
-      top: 10px;
-      bottom: 9px;
-    }
-    @include xxs {
-      top: 9px;
-      bottom: 8px;
-    }
-    @include tn {
-      top: 8px;
-    }
-    */
+    
   }
   &block20 {
     @include flex-column;
@@ -4795,9 +4712,6 @@ $color_type_4: rgb(255, 255, 255);
     @include flex-column;
     position: relative;
     flex: 0 1 36px;
-  }
-  &box10 {
-    // background-color: $color_type_8;
   }
   &box10.layout {
     position: relative;
@@ -4887,7 +4801,6 @@ $color_type_4: rgb(255, 255, 255);
   margin-left: 20px;
 }
 table {
-  // width: 100%;
   background: #ffffff;
   border: 1px solid #aea4a4;
   box-sizing: border-box;

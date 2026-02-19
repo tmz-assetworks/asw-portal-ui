@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core'
+import { Component, ViewChild } from '@angular/core'
 import { FormControl } from '@angular/forms'
 import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
@@ -10,7 +10,7 @@ import { Router, RouterModule } from '@angular/router'
   styleUrls: ['./location.component.scss'],
   imports:[RouterModule]
 })
-export class LocationComponent implements OnInit {
+export class LocationComponent {
   showLocationNav: boolean = false
 
   @ViewChild(MatPaginator) paginator!: MatPaginator
@@ -136,8 +136,6 @@ export class LocationComponent implements OnInit {
     },
   ]
   constructor(private _router: Router) {}
-
-  ngOnInit(): void {}
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value

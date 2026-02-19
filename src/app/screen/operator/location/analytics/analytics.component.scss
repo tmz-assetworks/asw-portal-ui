@@ -1738,9 +1738,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
   &subtitle {
     overflow: visible;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin: 0px 18px;
+    margin: 0 18px;
     @include font-face($font_type20, $color_type_2, 0px);
     white-space: pre-wrap;
     @include lg {
@@ -3579,9 +3577,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
   &subtitle {
     overflow: visible;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin: 0px;
+    margin: 0;
     @include font-face($font_type20, $color_type_2, 0px);
 
     @include lg {
@@ -3668,8 +3664,6 @@ $color_type_13: rgb(217, 217, 217);
   &group.layout2 {
     position: relative;
     height: min-content;
-    // width: 191px;
-    // min-width: 191px;
     margin: 15px 0px 5px 20px;
     @include xl1 {
       margin: 10px 0px 0px 18px;
@@ -3865,7 +3859,6 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
     @include xl1 {
       margin: 8px 20px 6px;
     }
-    // border-bottom: 1px dotted #c2c5c8;
     &.zero_br {
       border-bottom: 0px dotted #c2c5c8;
     }

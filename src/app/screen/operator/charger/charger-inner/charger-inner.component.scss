@@ -1650,9 +1650,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
   &subtitle {
     overflow: visible;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin: 0px;
+    margin: 0;
     @include font-face($font_type20, $color_type_2, 0px);
 
     @include lg {
@@ -2299,8 +2297,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block12.layout {
     position: relative;
     height: min-content;
-    // border-right: 1px dotted #70787f73;
-    // border-left: 1px dotted #70787f73;
   }
   &block12-item {
     @include flex-column;
@@ -2317,7 +2313,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     height: min-content;
     width: 77px;
     min-width: 77px;
-    // margin: 0 20px 0 30px;
   }
   &block12-spacer {
     flex: 0 1 3px;
@@ -2450,7 +2445,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     height: min-content;
     width: 77px;
     min-width: 77px;
-    // margin: auto 20px;
   }
   &block17-spacer {
     flex: 0 1 3px;
@@ -2524,8 +2518,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &flex3.layout {
     position: relative;
     height: min-content;
-    margin-top: -22px;
-    margin: 0px -11px 0px;
     @include lg {
       margin: 43px 19px 0px;
     }
@@ -2576,22 +2568,12 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &box9 {
     background-color: $color_type_0;
     border-radius: 0px 4px 4px 0px;
-    // transition-duration: 0.3s;
-    // transition-property: transform;
   }
-  // &box9:hover {
-  //   transform: scale(1.1);
-  // }
   &box9.layout {
     position: relative;
     height: 47px;
     width: 54px;
     min-width: 54px;
-    /*
-    @include lg {
-      margin: 5px 0px 5px 5px;
-    }
-    */
   }
   &icon {
     width: 100%;
@@ -2608,31 +2590,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     right: 0px;
     width: 4.31%;
     margin: 0px 4.82% 0px 90.86%;
-    /*
-    @include lg {
-      top: 15px;
-      bottom: 14px;
-    }
-    @include md {
-      top: 13px;
-      bottom: 12px;
-    }
-    @include sm {
-      top: 11px;
-      bottom: 10px;
-    }
-    @include xs {
-      top: 10px;
-      bottom: 9px;
-    }
-    @include xxs {
-      top: 9px;
-      bottom: 8px;
-    }
-    @include tn {
-      top: 8px;
-    }
-    */
   }
   &block20 {
     @include flex-column;
@@ -2781,7 +2738,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &group2.layout {
     position: relative;
     height: min-content;
-    // margin: 28px 23px 0px 22px;
     margin: 29px -20px 0px -15px;
     @include lg {
       margin: 43px 20px 0px 19px;
@@ -2808,7 +2764,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   margin-left: 20px;
 }
 table {
-  // width: 100%;
   background: #ffffff;
   border: 1px solid #aea4a4;
   box-sizing: border-box;
@@ -2914,7 +2869,6 @@ th.mat-mdc-header-cell {
 th.mat-mdc-header-cell:last-of-type,
 td.mat-mdc-cell:last-of-type,
 td.mat-mdc-footer-cell:last-of-type {
-  // padding-right: 0px;
   border-bottom: 1px solid #8f8f8f;
   text-align: center;
   padding: 0 30px;
@@ -3521,12 +3475,9 @@ $color_type_4: rgb(255, 255, 255);
 
     @include lg {
       width: 100vw;
-      // max-width: 100%;
       overflow: auto;
-      // margin-bottom: 10px;
       display: inline-table;
       min-width: 1200px;
-      // border-collapse: collapse;
     }
   }
 }
@@ -3550,7 +3501,6 @@ $color_type_4: rgb(255, 255, 255);
 
 .mat-button-toggle-appearance-standard:hover {
   border: 1px solid #0062a6;
-  //background-color: #fff;
 }
 mat-button-toggle-group.mat-button-toggle-group.mat-button-toggle-group-appearance-standard.ng-untouched.ng-pristine.ng-valid {
   margin: 0px;

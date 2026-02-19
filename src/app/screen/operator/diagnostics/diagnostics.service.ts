@@ -315,7 +315,7 @@ export class DiagnosticsService {
     let day = date.toLocaleString('default', { day: '2-digit' })
 
     // Generate yyyy-mm-dd date string
-    var formattedDate = year + '-' + month + '-' + day
+    const formattedDate = year + '-' + month + '-' + day
 
     return formattedDate
   }

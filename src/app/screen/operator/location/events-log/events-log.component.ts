@@ -145,7 +145,7 @@ export class EventsLogComponent implements OnInit {
 
     this.eventLogList = this.dataSource.data
 
-    for (var i = 0; i < this.eventLogList.length; i++) {
+    for (let i = 0; i < this.eventLogList.length; i++) {
       let newObj = {
         'REQUEST TYPE': this.eventLogList[i]['requestType'],
         'DATE/TIME': this.datePipe.transform(
@@ -174,7 +174,7 @@ export class EventsLogComponent implements OnInit {
     csv.unshift(header.join(','))
     let csvArray = csv.join('\r\n')
 
-    var blob = new Blob([csvArray], { type: 'text/csv' })
+    let blob = new Blob([csvArray], { type: 'text/csv' })
     fs.saveAs(
       blob,
       new Date().toDateString() + '_Location-EventLog_AssetWorks.csv',

@@ -1,4 +1,4 @@
-export var data = {
+export let data = {
   type: 'FeatureCollection',
   features: [
     {
