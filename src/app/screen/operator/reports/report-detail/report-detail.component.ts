@@ -130,8 +130,7 @@ export class ReportDetailComponent implements OnInit {
             this.chartList = res.data
 
             let newObjArr: any = []
-            // if (this.flag == 'chargerSession') {
-            for (var i = 0; i < this.chartList.length; i++) {
+            for (let i = 0; i < this.chartList.length; i++) {
               let newObj = {
                 'SUBSCRIPTION PLAN': this.chartList[i]['subscriptionPlan'],
                 'CONSUMED ENERGY': this.chartList[i]['consumedEnergy'],
@@ -183,8 +182,7 @@ export class ReportDetailComponent implements OnInit {
             this.chartList = res.data
 
             let newObjArr: any = []
-            // if (this.flag == 'chargerSession') {
-            for (var i = 0; i < this.chartList.length; i++) {
+            for (let i = 0; i < this.chartList.length; i++) {
               let newObj = {
                 'ASSET ID': this.chartList[i]['assetId'],
                 'DEPARTMENT': this.chartList[i]['department'],
@@ -222,27 +220,6 @@ export class ReportDetailComponent implements OnInit {
 
             this.convertToCSV(newObjArr)
           }
-
-          // var prepare: any = []
-          // setTimeout(() => {
-          //   res.data.forEach((e: any) => {
-          //     var tempObj = []
-          //     tempObj.push(e.customerName)
-          //     tempObj.push(e.price)
-          //     tempObj.push(e.createdOn)
-          //     tempObj.push(
-          //       this.datePipe.transform(e.timeReported, 'dd-MM-yyyy h:mm'),
-          //     )
-          //     prepare.push(tempObj)
-          //   })
-          //   let doc: any = new jsPDF()
-          //   doc.autoTable({
-          //     head: [['Customer Name', 'Price', 'Created On']],
-          //     columnStyles: {},
-          //     body: prepare,
-          //   })
-          //   doc.save('download' + '.pdf')
-          // }, 5000)
         })
     }
   }
@@ -265,7 +242,7 @@ export class ReportDetailComponent implements OnInit {
     csv.unshift(header.join(','))
     let csvArray = csv.join('\r\n')
 
-    var blob = new Blob([csvArray], { type: 'text/csv' })
+    let blob = new Blob([csvArray], { type: 'text/csv' })
     fs.saveAs(blob, 'REPORTS_' + new Date().toDateString() + '_AssetWorks.csv')
   }
 

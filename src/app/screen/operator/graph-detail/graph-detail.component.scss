@@ -99,7 +99,6 @@
   &block13.layout {
     position: relative;
     height: min-content;
-    /*  margin: 28px 0px 0px 20px; */
     margin: 0px 20px !important;
     @include lg {
       margin: 25px 0px 0px 18px;
@@ -1419,32 +1418,12 @@
       flex: 0 0 100%;
     }
   }
-  // &box14 {
-  //   background-color: rgb(255, 255, 255);
-  //   box-shadow: 0px 0px 20px 0px rgba(196, 196, 196, 0.24705882352941178);
-  //   border: 1px solid rgb(228, 228, 228);
-  //   border-radius: 10px 10px 10px 10px;
-  // }
-  // &box14.layout {
-  //   position: relative;
-  //   height: 445px;
-  // }
   &block42-spacer {
     flex: 0 1 25px;
     @include lg {
       display: none;
     }
   }
-  // &box13 {
-  //   background-color: rgb(255, 255, 255);
-  //   box-shadow: 0px 0px 20px 0px rgba(196, 196, 196, 0.24705882352941178);
-  //   border: 1px solid rgb(228, 228, 228);
-  //   border-radius: 10px 10px 10px 10px;
-  // }
-  // &box13.layout {
-  //   position: relative;
-  //   height: 445px;
-  // }
   &block13-spacer {
     flex: 0 1 22px;
     @include md;
@@ -1463,10 +1442,6 @@
 
   &block48 {
     display: flex;
-    // background-color: rgb(255, 255, 255);
-    // box-shadow: 0px 0px 20px 0px rgba(196, 196, 196, 0.24705882352941178);
-    // border: 1px solid rgb(228, 228, 228);
-    // border-radius: 10px 10px 10px 10px;
   }
   &block48.layout {
     position: relative;
@@ -1525,9 +1500,7 @@
     position: relative;
     flex: 0 1 17px;
   }
-  &box11 {
-    // background-color: rgb(217, 217, 217);
-  }
+  
   &box11.layout1 {
     position: relative;
     width: 17px;
@@ -2395,21 +2368,14 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block19.layout {
     position: absolute;
     top: 0px;
-    // height: min-content;
     bottom: 0px;
     left: 0px;
     right: 0px;
-    // width: min-content;
   }
   &box9 {
     background-color: $color_type_0;
     border-radius: 0px 4px 4px 0px;
-    // transition-duration: 0.3s;
-    // transition-property: transform;
   }
-  // &box9:hover {
-  //   transform: scale(1.1);
-  // }
   &box9.layout {
     position: relative;
     height: 48px;
@@ -2535,16 +2501,11 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block23.layout {
     position: relative;
     height: min-content;
-    /*  width: 188px;
-    min-width: 188px;*/
   }
   &block23-item {
     @include flex-column;
     position: relative;
     flex: 0 1 36px;
-  }
-  &box10 {
-    // background-color: $color_type_8;
   }
   &box10.layout {
     position: relative;
@@ -2602,7 +2563,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
   &group2 {
     @include flex-column;
-    //background-color: $color_type_5;
   }
   &group2.layout {
     position: relative;
@@ -2632,12 +2592,10 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
 .header- {
   &block {
     @include flex-column;
-    // background-color: $color_type_16;
   }
   &block.layoutS {
     position: relative;
     overflow: hidden;
-    // min-height: auto !important;
     height: auto;
   }
   &block1 {
@@ -2700,9 +2658,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
   &subtitle {
     overflow: visible;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin: 0px;
+    margin: 0;
     @include font-face($font_type20, $color_type_12, 0px);
     white-space: pre-wrap;
     @include lg {
@@ -2755,22 +2711,7 @@ $color_type_6: rgb(255, 255, 255);
     @include xs {
       margin: 5px auto 0px;
     }
-    // margin: 15px 0px 0px 2px;
-    //   @include lg {
-    //     margin: 13px 0px 0px 5px;
-    //   }
-    //   @include md {
-    //     margin: 11px 0px 0px 5px;
-    //   }
-    //   @include sm {
-    //     margin: 9px 0px 0px 5px;
-    //   }
-    //   @include xxs {
-    //     margin: 8px 0px 0px 5px;
-    //   }
-    //   @include tn {
-    //     margin: 7px 0px 0px 5px;
-    //   }
+    
   }
   &block2-item {
     @include flex-column;
@@ -2796,7 +2737,6 @@ $color_type_6: rgb(255, 255, 255);
   &block5 {
     @include flex-column;
     background-color: $color_type_14;
-    // border-bottom: 1px solid rgb(255, 255, 255);
     transition-duration: 0.3s;
     transition-property: transform;
     a {
@@ -2804,7 +2744,6 @@ $color_type_6: rgb(255, 255, 255);
     }
   }
   &block5:hover {
-    //transform: translateY(-5);
     transform: translateY(-8px);
   }
   &block5.layout {
@@ -2894,13 +2833,9 @@ $color_type_6: rgb(255, 255, 255);
       margin: 5px;
     }
   }
-  &box3 {
-    // background-color: $color_type_13;
-  }
   &box3.layout {
     position: relative;
     height: 22px;
-    // margin: 12px 21px 11px 22px;
     margin: 19px 14px 13px 18px;
     @include lg {
       margin: 11px 18px 10px 19px;
@@ -3047,9 +2982,6 @@ tr.mat-mdc-row:last-of-type {
   }
 }
 
-// table.mat-table {
-//   border-spacing: 0;
-// }
 
 .box-element-block2.layout[_ngcontent-mog-c58] {
   margin: 20px 0px 6px;
@@ -3120,8 +3052,6 @@ tr.mat-mdc-row:last-of-type {
   &group.layout2 {
     position: relative;
     height: min-content;
-    // width: 191px;
-    // min-width: 191px;
     margin: 15px 0px 5px 20px;
     @include xl1 {
       margin: 10px 0px 0px 18px;
@@ -3153,9 +3083,6 @@ tr.mat-mdc-row:last-of-type {
     @include lg {
       font-size: 14px;
     }
-    // @include md {
-    //   font-size: 12px;
-    // }
     @include sm {
       font-size: 18px;
     }
@@ -3179,9 +3106,6 @@ tr.mat-mdc-row:last-of-type {
     @include flex-column;
     position: relative;
     flex: 0 1 44px;
-  }
-  &box16 {
-    // background-color: rgb(255, 255, 255);
   }
   &box16.layout {
     position: relative;
@@ -3222,10 +3146,7 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block2 {
     @include flex-column;
     flex-direction: row;
-    // flex-wrap: wrap;
     justify-content: flex-start;
-    // align-content: center;
-    // align-items: center;
   }
   &block2.layout {
     position: relative;
@@ -3260,9 +3181,7 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
     position: relative;
     height: 50px;
     width: 50px;
-    // margin: 0px 27px 0px 28px;
     @include xl1 {
-      // margin: 0px 18px 0px 20px;
       width: 40px;
       height: 40px;
     }
@@ -3331,7 +3250,6 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
     @include xl1 {
       margin: 8px 20px 6px;
     }
-    // border-bottom: 1px dotted #c2c5c8;
     &.zero_br {
       border-bottom: 0px dotted #c2c5c8;
     }
@@ -3566,8 +3484,6 @@ statuspanel- {
   &group.layout2 {
     position: relative;
     height: min-content;
-    // width: 191px;
-    // min-width: 191px;
     margin: 15px 0px 5px 20px;
     @include xl1 {
       margin: 10px 0px 0px 18px;
@@ -3599,9 +3515,6 @@ statuspanel- {
     @include lg {
       font-size: 14px;
     }
-    // @include md {
-    //   font-size: 12px;
-    // }
     @include sm {
       font-size: 18px;
     }
@@ -3612,7 +3525,6 @@ statuspanel- {
   &highlights2.layout {
     position: relative;
     height: min-content;
-    // margin: 5px 0px 5px 0px; // niharika added
     @include sm {
       margin: 5px 0px 5px 0px; // niharika added
     }
@@ -3629,9 +3541,6 @@ statuspanel- {
     @include flex-column;
     position: relative;
     flex: 0 1 44px;
-  }
-  &box16 {
-    // background-color: rgb(255, 255, 255);
   }
   &box16.layout {
     position: relative;
@@ -3695,7 +3604,6 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
     @include xl1 {
       margin: 8px 20px 6px;
     }
-    // border-bottom: 1px dotted #c2c5c8;
     &.zero_br {
       border-bottom: 1px dotted #c2c5c8;
     }
@@ -3731,9 +3639,6 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
       width: 40px;
       height: 40px;
     }
-  }
-  &box3 {
-    // background-color: rgb(217, 217, 217);
   }
   &box3.layout {
     position: relative;
@@ -3806,10 +3711,7 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block2 {
     @include flex-column;
     flex-direction: row;
-    // flex-wrap: wrap;
     justify-content: flex-start;
-    // align-content: center;
-    // align-items: center;
   }
   &block2.layout {
     position: relative;
@@ -3844,9 +3746,7 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
     position: relative;
     height: 50px;
     width: 50px;
-    // margin: 0px 27px 0px 28px;
     @include xl1 {
-      // margin: 0px 18px 0px 20px;
       width: 40px;
       height: 40px;
     }
@@ -3872,8 +3772,6 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &text-body {
     @include font-face($font_type1, rgb(112, 120, 127), 0px);
   }
-  &text-body.layout {
-  }
   &block2-spacer {
     flex: 1 1 auto;
     max-width: 30%;
@@ -3888,33 +3786,12 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
   padding: 10px;
   box-sizing: border-box;
 }
-//   .box-element-block2.layout {
-//     margin: 20px auto;
-//   }
 .dotted_line hr {
   width: 1px;
   height: 100px;
   border: 0;
   border-left: 1px dotted #c2c5c8;
 }
-
-/* .txt_label
-    {
-      width:18px;
-      height:12px;
-      background-color: #0062A6;
-      padding:5px;
-      border-radius: 5px;
-      display: inline-block;
-      text-align: center;
-      margin-right: 10px;
-     } */
-
-/*  b{
-      display: block;
-      font-weight: 400;
-      margin-left: 50px;
-    } */
 
 .mat-mdc-elevation-z8 {
   box-shadow: 0px 0px 0px 0px rgb(0 0 0 / 20%), 0px 0px 0px 0px rgb(0 0 0 / 14%),
@@ -3941,12 +3818,8 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
     width: 100%;
 
     @include lg {
-      // width: 100vw;
-      // max-width: 100%;
       overflow: auto;
-      // margin-bottom: 10px;
       display: inline-table;
-      // border-collapse: collapse;
     }
   }
 }
@@ -4018,7 +3891,7 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
   width: 100%;
 }
 
-element.style {
+.element.style {
   position: relative;
   width: 100%;
   height: min-content;
@@ -4069,9 +3942,6 @@ element.style {
   display: flex;
 }
 .barbar-text-body1.layout {
-  // position: relative;
-  // height: min-content;
-  // padding: 18px 40px;
   position: relative;
   height: min-content;
   padding: 16px 40px;
@@ -4089,7 +3959,6 @@ button {
 }
 input {
   font: 500 14px/1.2 'Roboto', Helvetica, Arial, serif;
-  // color: #ffffff;
   letter-spacing: 0px;
   background: transparent;
 
@@ -4117,13 +3986,10 @@ button {
 }
 
 .form-select #mat-select-12 {
-  /* display: flex; */
   float: left;
-  // width: 50%;
 }
 .form-select #mat-select-0 {
   float: left;
-  // width: 50%;
 }
 .form-select mat-label {
   flex-wrap: wrap;

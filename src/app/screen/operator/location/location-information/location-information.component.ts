@@ -65,9 +65,9 @@ export class LocationInformationComponent implements OnInit {
     const initialize = () => {
       let lat = this.locationAddressLat
       let long = this.locationAddressLong
-      var center = new google.maps.LatLng(lat, long)
+      let center = new google.maps.LatLng(lat, long)
 
-      var map = new google.maps.Map(document.getElementById('map'), {
+      let map = new google.maps.Map(document.getElementById('map'), {
         zoom: 10,
         center: center,
         mapTypeId: google.maps.MapTypeId.ROADMAP,

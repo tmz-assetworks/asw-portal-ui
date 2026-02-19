@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 
 @Component({
@@ -7,7 +7,7 @@ import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
   styleUrls: ['./help.component.scss'],
   imports:[SharedMaterialModule]
 })
-export class HelpComponent implements OnInit {
+export class HelpComponent {
   // Initialize variables with default values
   panelOpenState = false
   panelOpenState1 = false
@@ -22,5 +22,4 @@ export class HelpComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {}
 }

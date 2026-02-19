@@ -1355,7 +1355,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &text-body3.layout2 {
     position: relative;
     height: min-content;
-    // margin: 18px 34px 16px 38px;
     padding: 10px;
     white-space: nowrap;
   }
@@ -1396,61 +1395,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     flex-shrink: 0;
     margin: 20px 1px 0px 0px;
   }
-  // &block42 {
-  //   display: flex;
-  //   flex-wrap: wrap;
-  //   row-gap: 16px;
-  //   @include lg {
-  //     flex-wrap: wrap;
-  //     row-gap: 16px;
-  //   }
-  // }
-  // &block42.layout {
-  //   position: relative;
-  //   height: min-content;
-  //   margin: 21px 0px 0px;
-  //   @include lg {
-  //     margin: 18px 0px 0px;
-  //   }
-  //   @include md {
-  //     margin: 16px 0px 0px;
-  //   }
-  //   @include sm {
-  //     margin: 13px 0px 0px;
-  //   }
-  //   @include xs {
-  //     margin: 12px 0px 0px;
-  //   }
-  //   @include xxs {
-  //     margin: 11px 0px 0px;
-  //   }
-  //   @include tn {
-  //     margin: 10px 0px 0px;
-  //   }
-  // }
-  // &block42-item {
-  //   @include flex-column;
-  //   position: relative;
-  //   flex: 1 1 auto;
-  //   min-width: 45%;
-  //   @include xl {
-  //     flex: 1 1 auto;
-  //     min-width: 45%;
-  //   }
-
-  //   @include lg {
-  //     flex: 1 1 auto;
-  //     // max-width: auto;
-  //     min-width: 100%;
-  //   }
-  // }
-
-  // &block42-spacer {
-  //   flex: 0 1 25px;
-  //   @include lg {
-  //     // display: none;
-  //   }
-  // }
+  
   &block42 {
     display: flex;
     flex-wrap: wrap;
@@ -1605,9 +1550,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     position: relative;
     flex: 0 1 17px;
   }
-  &box11 {
-    // background-color: rgb(217, 217, 217);
-  }
   &box11.layout1 {
     position: relative;
     width: 17px;
@@ -1714,9 +1656,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
   &subtitle {
     overflow: visible;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin: 0px;
+    margin: 0;
     @include font-face($font_type20, $color_type_2, 0px);
 
     @include lg {
@@ -1813,9 +1753,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
   &subtitle {
     overflow: visible;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin: 0px 18px;
+    margin: 0 18px;
     @include font-face($font_type20, $color_type_2, 0px);
     white-space: pre-wrap;
     @include lg {

@@ -208,164 +208,8 @@ export class GraphDetailComponent implements OnInit {
     })
   }
 
-  /**
-   * export pdf
-  //  */
-  // public downloadAsPDF() {
-  //   const pBody = {
-  //     pageNumber: 1,
-  //     searchParam: this.chargeBoxId ? this.chargeBoxId : '',
-  //     pageSize: 0,
-  //     orderBy: '',
-  //     duration: this.duration.toString(),
-  //     chargeBoxId: this.chargeBoxId ? this.chargeBoxId : '',
-  //     opratorid: this.UserId,
-  //     locationIds: this.locationId ? [this.locationId] : [],
-  //     flag: this.flag,
-  //     fromdate: this.searchFilter.value.fromDate,
-  //     todate: this.searchFilter.value.toDate,
-  //     status: [],
-  //     isExport: true,
-  //     chartType: this.graphId == 5 || this.graphId == 1 ? 'chargerinuse' : '',
-  //   }
-  //   this._dashboardService.GetChartDetailsList(pBody).subscribe((res) => {
-  //     if (res.data !== undefined && res.data != null && res.data.length > 0) {
-  //       this.chartListFilter = res.data
-  //       if (this.flag != 'locationStatus') {
-  //         // this.dataSource.data = this.chartListFilter
-  //         //this.isTableHasData = false
-  //       }
-  //     } else {
-  //       this.chartListFilter = res.data
-  //       // this.dataSource.data = []
-  //       // this.isTableHasData = true
-  //     }
-  //   })
-
-  //   if (this.flag == 'chargerSession') {
-  //     var prepare: any = []
-
-  //     setTimeout(() => {
-  //       this.chartListFilter.forEach((e: any) => {
-  //         var tempObj = []
-  //         tempObj.push(e.chargerName)
-
-  //         tempObj.push(e.chargerType)
-
-  //         tempObj.push(e.faultSince)
-
-  //         tempObj.push(
-  //           this.datePipe.transform(e.timeReported, 'dd-MM-yyyy h:mm'),
-  //         )
-  //         tempObj.push(e.locationId)
-  //         tempObj.push(e.locationName)
-  //         tempObj.push(e.chargingStatus)
-  //         tempObj.push(this.datePipe.transform(e.startTime, 'dd-MM-yyyy h:mm'))
-  //         tempObj.push(this.datePipe.transform(e.endTime, 'dd-MM-yyyy h:mm'))
-  //         tempObj.push(e.startmetervalue)
-  //         tempObj.push(e.endmetervalue)
-  //         tempObj.push(e.reasoneForStop)
-  //         prepare.push(tempObj)
-  //       })
-  //       let doc: any = new jsPDF()
-  //       doc.autoTable({
-  //         head: [
-  //           [
-  //             'ChargerName',
-
-  //             'ChargerType',
-
-  //             'FaultSince',
-
-  //             'TimeReported',
-
-  //             'LocationId',
-
-  //             'LocationName',
-
-  //             'ChargingStatus',
-
-  //             'StartTime',
-
-  //             'EndTime',
-
-  //             'StartMeterValue',
-
-  //             'EndMeterValue',
-
-  //             'ReasonForStop',
-  //           ],
-  //         ],
-  //         columnStyles: {
-  //           // 10: { cellWidth: 20 },
-  //           1: { cellWidth: 10 },
-  //           4: { cellWidth: 10, columnWidth: 'auto' },
-  //           5: { cellWidth: 20, columnWidth: 'auto' },
-  //           3: { cellWidth: 20, columnWidth: 'auto' },
-  //           8: { cellWidth: 20, columnWidth: 'auto' },
-  //           9: { cellWidth: 20, columnWidth: 'auto' },
-  //           10: { cellWidth: 20, columnWidth: 'auto' },
-
-  //           // 2: {cellWidth: 80},
-  //           // etc
-  //         },
-  //         body: prepare,
-  //       })
-
-  //       doc.save('download' + '.pdf')
-  //     }, 5000)
-  //   } else {
-  //     var prepare: any = []
-  //     setTimeout(() => {
-  //       this.chartListFilter.forEach((e: any) => {
-  //         var tempObj = []
-  //         tempObj.push(e.chargerName)
-  //         tempObj.push(e.uid)
-  //         tempObj.push(e.chargerType)
-  //         tempObj.push(e.faultSince)
-  //         tempObj.push(e.faultDescription)
-  //         tempObj.push(
-  //           this.datePipe.transform(e.timeReported, 'dd-MM-yyyy h:mm'),
-  //         )
-  //         tempObj.push(e.locationId)
-  //         tempObj.push(e.locationName)
-  //         prepare.push(tempObj)
-  //       })
-  //       let doc: any = new jsPDF()
-  //       doc.autoTable({
-  //         head: [
-  //           [
-  //             'ChargerName',
-
-  //             'UID',
-
-  //             'ChargerType',
-
-  //             'FaultSince',
-
-  //             'FaultDescription',
-
-  //             'TimeReported',
-
-  //             'LocationId',
-
-  //             'LocationName',
-  //           ],
-  //         ],
-  //         columnStyles: {
-  //           // 10: { cellWidth: 20 },
-
-  //           5: { cellWidth: 20, columnWidth: 'auto' },
-
-  //           // 2: {cellWidth: 80},
-  //           // etc
-  //         },
-  //         body: prepare,
-  //       })
-  //       doc.save('download' + '.pdf')
-  //     }, 5000)
-  //   }
-  // }
+  
+  
 
   /**
    *
@@ -483,18 +327,10 @@ export class GraphDetailComponent implements OnInit {
     this._dashboardService.GetChartDetailsList(pBody).subscribe((res) => {
       if (res.data !== undefined && res.data != null && res.data.length > 0) {
         this.chartListFilter = res.data
-        // if (this.flag != 'locationStatus') {
-        // this.dataSource.data = this.chartListFilter
-        //this.isTableHasData = false
       }
-      // } else {
-      //   this.chartListFilter = res.data
-      //   // this.dataSource.data = []
-      //   // this.isTableHasData = true
-      // }
       let newObjArr: any[] = []
       if (this.flag == 'chargerSession') {
-        for (var i = 0; i < this.chartListFilter.length; i++) {
+        for (let i = 0; i < this.chartListFilter.length; i++) {
           let newObj = {
             'CHARGER NAME': (this.chartListFilter[i] as any)['chargerName'],
             'CHARGER TYPE': (this.chartListFilter[i] as any)['chargerType'],
@@ -525,7 +361,7 @@ export class GraphDetailComponent implements OnInit {
 
         this.convertToCSV(newObjArr)
       } else {
-        for (var i = 0; i < this.chartListFilter.length; i++) {
+        for (let i = 0; i < this.chartListFilter.length; i++) {
           let newObj = {
             'CHARGER NAME': (this.chartListFilter[i] as any)['chargerName'],
             UID: (this.chartListFilter[i] as any)['chargerType'],
@@ -564,7 +400,7 @@ export class GraphDetailComponent implements OnInit {
     csv.unshift(header.join(','))
     let csvArray = csv.join('\r\n')
 
-    var blob = new Blob([csvArray], { type: 'text/csv' })
+    let blob = new Blob([csvArray], { type: 'text/csv' })
     fs.saveAs(blob, new Date().toDateString() + '_AssetWorks.csv')
   }
 }

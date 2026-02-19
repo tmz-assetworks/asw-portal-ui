@@ -129,7 +129,6 @@ th.mat-mdc-header-cell {
 th.mat-mdc-header-cell:last-of-type,
 td.mat-mdc-cell:last-of-type,
 td.mat-mdc-footer-cell:last-of-type {
-  // padding-right: 0px;
   border-bottom: 1px solid #8f8f8f;
   text-align: center;
   padding: 0 20px;
@@ -153,7 +152,6 @@ tr.mat-mdc-row:last-of-type {
 .location- {
   &block {
     @include flex-column;
-    // background-color: $color_type_6;
   }
   &block.layout {
     position: relative;
@@ -213,10 +211,6 @@ tr.mat-mdc-row:last-of-type {
     }
   }
   &subtitle-box.layout {
-    // position: relative;
-    // height: min-content;
-    // width: 7.97%;
-    // margin: 0px 91.79% 0px 0.23%;
     position: relative;
     height: min-content;
     margin: 0;
@@ -228,9 +222,7 @@ tr.mat-mdc-row:last-of-type {
   }
   &subtitle {
     overflow: visible;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin: 0px 18px;
+    margin: 0 18px;
     @include font-face($font_type20, $color_type_2, 0px);
     white-space: pre-wrap;
     @include lg {
@@ -312,7 +304,6 @@ tr.mat-mdc-row:last-of-type {
   &block5 {
     @include flex-column;
     background-color: $color_type_4;
-    //border-bottom: 1px solid rgb(255, 255, 255);
     transition-duration: 0.3s;
     transition-property: transform;
     a {
@@ -320,7 +311,6 @@ tr.mat-mdc-row:last-of-type {
     }
   }
   &block5:hover {
-    //transform: translateY(-5);
     transform: translateY(-8px);
   }
   &block5.layout {
@@ -2205,9 +2195,7 @@ tr.mat-mdc-row:last-of-type {
   }
   &subtitle {
     overflow: visible;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin: 0px;
+    margin: 0;
     @include font-face($font_type20, $color_type_2, 0px);
 
     @include lg {
