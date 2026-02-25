@@ -146,6 +146,7 @@ export class CommonDiagnosticsComponent implements OnInit, AfterViewInit  {
   isChargerDiagnostics: boolean = true
   chargerBoxIdArr: any
   userTimeZone:any;
+  assetId: string | null
 
   chargerDeteailTab = [
     // {
@@ -207,6 +208,7 @@ export class CommonDiagnosticsComponent implements OnInit, AfterViewInit  {
     this.currentDate = this._diagnosticsService.currentDate() + 'T00:00'
     this.UserId = this._storageService.getLocalData('user_id')
     this.userTimeZone=this._storageService.getLocalData('time_zone');
+    this.assetId = this._storageService.getSessionData('assetId') ?? 'N/A';
 
 
     this.chargerName = this._storageService.getSessionData('chargerName')

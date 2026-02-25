@@ -61,6 +61,8 @@ export class ChargerEventComponent implements OnInit {
   chargerBoxId: any
   eventLogList: any
   userTimeZone:any
+  assetId:string | null
+
   constructor(
     public _alertsService: AlertsService,
     private _storageService: StorageService,
@@ -72,6 +74,7 @@ export class ChargerEventComponent implements OnInit {
     this.selectedChargerIds = this._storageService.getSessionData(
       'chargerBoxId',
     )
+    this.assetId = this._storageService.getSessionData('assetId') ?? 'N/A';
     this.chargerName = this._storageService.getSessionData('chargerName')
     this.userTimeZone=this._storageService.getLocalData('time_zone');
   }

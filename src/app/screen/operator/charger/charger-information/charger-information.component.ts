@@ -20,15 +20,15 @@ export class ChargerInformationComponent implements OnInit {
   selecteLocationIds: string | null
   chargerInfo: any
   userTimeZone:any
-
+  assetId: string | null
+  
   constructor(
     private _storageService: StorageService,
     private _chargerService: ChargerService,
   ) {
     this.UserId = this._storageService.getLocalData('user_id')
-    this.selecteLocationIds = this._storageService.getSessionData(
-      'chargerBoxId',
-    )
+    this.selecteLocationIds = this._storageService.getSessionData('chargerBoxId')
+    this.assetId = this._storageService.getSessionData('assetId') ?? 'N/A';
     this.chargerName = this._storageService.getSessionData('chargerName')
     this.userTimeZone=this._storageService.getLocalData('time_zone');  
 
