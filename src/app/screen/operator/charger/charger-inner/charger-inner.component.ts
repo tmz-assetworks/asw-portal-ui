@@ -51,6 +51,7 @@ export class ChargerInnerComponent implements OnInit {
   viewCharger(data: any) {
     this._storageService.setSessionData('chargerBoxId', data.chargerBoxId)
     this._storageService.setSessionData('chargerName', data.chargerName)
+    this._storageService.setSessionData('assetId', data.assetId)
     let userRole=this._storageService.getLocalData('role')?.toLowerCase();
     if(userRole){
       this._router.navigate([`${userRole}/charger/chargers-info`])

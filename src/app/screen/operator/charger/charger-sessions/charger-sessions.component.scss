@@ -3583,3 +3583,30 @@ tr.mat-row:last-of-type {
 [hidden] {
   display: none !important;
 }
+
+.custom-pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;   // 👈 keeps everything vertically aligned
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.custom-pagination button {
+  color: #1976d2;
+  font-weight: 700;
+  font-size: 28px;       // 🔥 reduce from 35px (35 is too large)
+  line-height: 1;
+  display: flex;
+  align-items: center;   // 👈 center arrow inside button
+  justify-content: center;
+}
+
+.custom-pagination button:disabled {
+  color: #1976d2;
+}
+.page-input {
+  width: 60px;
+  height: 36px;          // 👈 match button height
+  text-align: center;
+}

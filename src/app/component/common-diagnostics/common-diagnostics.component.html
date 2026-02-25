@@ -6,6 +6,7 @@
 <div class="header header-block layout charger-diagnostics">
   <div class="header-block1 layout">
     <div class="header-flex layout">
+      <h1 class="header-subtitle-box layout">Asset ID: {{ assetId }}</h1>
       <h1 class="header-subtitle-box layout">{{ (chargerId!='' && isChargerDiagnostics)?chargerId:'Diagnostics' }}</h1>
       <div class="location-block2 layout" *ngIf="chargerId!='' && isChargerDiagnostics">
         <div class="location-block2-item">

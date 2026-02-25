@@ -1,6 +1,7 @@
 <div class="header header-block layout charger-session-main">
   <div class="header-block1 layout">
     <div class="header-flex layout">
+      <h1 class="header-subtitle-box layout">Asset ID: {{ assetId }}</h1>
       <h1 class="header-subtitle-box layout">{{ selecteChargerIds }}</h1>
 
       <div class="dashboard-block12 layout"></div>
@@ -154,16 +155,56 @@
               <p class="text-center">No record found</p>
             </ng-container>
           </div>
-          <mat-paginator
-            #paginator
-            [hidden]="!dataSource.data.length"
-            (page)="
-              GetChargerSessionDetailsList($event, currentPage, totalRecords)
-            "
-            [length]="totalRecords"
-            [pageSize]="pageSize"
-            [pageSizeOptions]="[10, 20, 100]"
-          ></mat-paginator>
+        <div class="custom-pagination" *ngIf="totalRecords > 0">
+
+  <!-- First -->
+  <button mat-icon-button
+          color="primary"
+          (click)="goFirst()"
+          [disabled]="currentPage === 1">
+    &laquo;
+  </button>
+
+  <!-- Previous -->
+  <button mat-icon-button
+          (click)="goPrevious()"
+          [disabled]="currentPage === 1">
+    &lsaquo;
+  </button>
+
+  <!-- Page Text + Input -->
+  <span class="page-label">Page</span>
+
+  <input
+    type="number"
+    min="1"
+    [max]="totalPages"
+    [(ngModel)]="jumpPageNumber"
+    (keyup.enter)="goToPage()"
+    class="page-input"
+  />
+
+  <span class="page-label">of {{ totalPages }}</span>
+
+  <!-- Next -->
+  <button mat-icon-button
+          (click)="goNext()"
+          [disabled]="currentPage === totalPages">
+    &rsaquo;
+  </button>
+
+  <!-- Last -->
+  <button mat-icon-button
+          (click)="goLast()"
+          [disabled]="currentPage === totalPages">
+    &raquo;
+  </button>
+
+</div>
+
+
+
+
         </div>
       </div>
     </div>

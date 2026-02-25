@@ -1,10 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
-import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
 import { Router, RouterModule } from '@angular/router'
 import { AuthService } from 'src/app/service/auth/auth.service'
 import { StorageService } from 'src/app/service/storage.service'
 import { ChargerService } from '../charger.service'
+import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog'
 import { MeterDialogComponent } from './meter-dialog/meter-dialog.component'
 import * as fs from 'file-saver'
@@ -26,7 +26,8 @@ export interface PeriodicElement {
   imports:[
     CommonModule,
     RouterModule,
-    SharedMaterialModule
+    SharedMaterialModule,
+    FormsModule
   ]
 })
 export class ChargerSessionsComponent implements OnInit {
@@ -39,12 +40,10 @@ export class ChargerSessionsComponent implements OnInit {
   arrKeys: any = ['All']
   searchKey: string = ''
   isTableHasData = false
-  eventLogList: any
-
+  eventLogList: any;
+  jumpPageNumber: number = 1;
+  assetId:string | null
   showLocationNav: boolean = false
-
-  @ViewChild(MatPaginator) paginator!: MatPaginator
-
   displayedColumns: string[] = [
     'assetId',
     'sessionid',
@@ -63,10 +62,6 @@ export class ChargerSessionsComponent implements OnInit {
   datePipe = new DatePipe('en-US')
   userTimeZone:any;
 
-  ngAfterViewInit() {
-    this.paginator._intl.itemsPerPageLabel = 'Rows per page'
-  }
-
   constructor(
     private _router: Router,
     private _auth: AuthService,
@@ -76,13 +71,14 @@ export class ChargerSessionsComponent implements OnInit {
   ) {
     this.UserId = this._storageService.getLocalData('user_id')
     this.selecteChargerIds = this._storageService.getSessionData('chargerBoxId')
-
+    this.assetId = this._storageService.getSessionData('assetId') ?? 'N/A';
     this.chargerName = this._storageService.getSessionData('chargerName')
     this.userTimeZone = this._storageService.getLocalData('time_zone');
   }
 
   ngOnInit(): void {
-    this.GetChargerSessionDetailsList('', this.currentPage, this.totalRecords)
+     this.loadSessions()
+
   }
 
   @ViewChild('pdfTable', { static: false })
@@ -93,59 +89,85 @@ export class ChargerSessionsComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase()
   }
 
-  GetChargerSessionDetailsList(
-    event: any,
-    currentPage: number,
-    totalPage: number,
-  ) {
-    this.pageSize = event !== undefined && event !== '' ? event.pageSize : 10
-    this.displayedColumns = [
-      'assetId',
-      'sessionid',
-      'duration',
-      'usage',
-      'starttime',
-      'endtime',
-    ]
-    this.currentPage =
-      event !== undefined && event !== ''
-        ? event.previousPageIndex < event.pageIndex
-          ? currentPage + 1
-          : currentPage - 1
-        : 1
-    if (this.currentPage == 0) {
-      this.currentPage = this.currentPage + 1
-    }
+    private updatePage(page: number): void {
 
-    const body = {
-      pageNumber: this.currentPage,
-      searchParam: this.searchKey,
-      pageSize: this.pageSize,
-      orderBy: '',
-      chargerboxid: [this.selecteChargerIds],
-      status: [] as string[],
-    }
+  if (page < 1 || page > this.totalPages) return;
 
-    this._chargerService
-      .GetChargerSessionDetailsList(body)
-      .subscribe((res: any) => {
-        if (res.data !== undefined && res.data != null && res.data.length > 0) {
-          for (let i = 0; i < res.data.length; i++) {
-            if (!this.arrKeys.includes(res.data[i].requestType)) {
-              this.arrKeys.push(res.data[i].requestType)
-            }
-          }
-          this.eventLogList = res.data
-          this.totalRecords = res.paginationResponse.totalCount
-          this.totalPages = res.paginationResponse.totalPages
-          this.dataSource.data = res.data
-          this.isTableHasData = false
+  if (page === this.currentPage) return;
+
+  this.currentPage = page;
+  this.jumpPageNumber = page;
+
+  this.loadSessions();
+}
+
+goFirst() { this.updatePage(1); }
+
+goPrevious() { this.updatePage(this.currentPage - 1); }
+
+goNext() { this.updatePage(this.currentPage + 1); }
+
+goLast() { this.updatePage(this.totalPages); }
+
+
+goToPage(): void {
+
+  if (!this.totalPages) return;
+
+  const page = Math.max(1, Math.min(this.jumpPageNumber, this.totalPages));
+
+  this.updatePage(page);
+}
+
+ isLoading = false;
+
+loadSessions(): void {
+
+  const body = {
+    pageNumber: this.currentPage,
+    searchParam: this.searchKey,
+    pageSize: this.pageSize,
+    orderBy: '',
+    chargerboxid: this.selecteChargerIds ? [this.selecteChargerIds] : [],
+    status: [] as string[],
+  };
+
+  this.isLoading = true;
+
+  this._chargerService
+    .GetChargerSessionDetailsList(body)
+    .subscribe({
+      next: (res: any) => {
+
+        if (res?.data?.length) {
+
+          this.eventLogList = res.data;
+          this.dataSource.data = res.data;
+
+          this.totalRecords = res.paginationResponse?.totalCount ?? 0;
+          this.totalPages = res.paginationResponse?.totalPages ?? 0;
+
+          this.jumpPageNumber = this.currentPage;
+          this.isTableHasData = false;
+
         } else {
-          this.dataSource.data = []
-          this.isTableHasData = true
+
+          this.dataSource.data = [];
+          this.totalRecords = 0;
+          this.totalPages = 0;
+          this.isTableHasData = true;
         }
-      })
-  }
+      },
+      error: (err) => {
+        console.error('Session API Error:', err);
+        this.dataSource.data = [];
+        this.isTableHasData = true;
+      },
+      complete: () => {
+        this.isLoading = false;
+      }
+    });
+}
 
   /**
    *
