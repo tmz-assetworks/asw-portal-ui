@@ -129,6 +129,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'department',
+        loadChildren: () =>
+          import('../admin/manage-department/manage-department.module').then(
+            (m) => m.ManageDepartmentModule,
+          ),
+      },
+      {
         path: 'subscriptions-plans',
         loadChildren: () =>
           import(

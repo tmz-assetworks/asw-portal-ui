@@ -1,0 +1,92 @@
+<div class="barbar-block10 layout">
+  <div class="barbar-flex layout">
+    <div class="barbar-block11 layout">
+      <h1 class="barbar-subtitle layout">{{ title }}</h1>
+    </div>
+    <form [formGroup]="departmentFormGroup">
+      <div class="barbar-block12 layout">
+        <div class="barbar-block13 layout">
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Department Name
+                <span style="color: #ff0000;">*</span>
+              </h5>
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    departmentFormGroup.get('pricingPlanName')?.errors &&
+                    submitted == true
+                }"
+              >
+                <input
+                  formControlName="departmentName"
+                  type="text"
+                  class="barbar-input-text"
+                  (keypress)="omit_special_char($event)"
+                />
+              </div>
+
+              <span
+                *ngIf="
+                  !departmentFormGroup.get('departmentName')?.valid &&
+                  departmentFormGroup.get('departmentName')?.touched &&
+                  (departmentFormGroup.get('departmentName')?.value?.length ?? 0) > 50
+                "
+                class="error-mess"
+              >
+                Department Name should not be greater than 50 Alphanumeric
+                Characters
+              </span>
+              <span
+                *ngIf="
+                  !departmentFormGroup.get('departmentName')?.valid &&
+                  departmentFormGroup.get('departmentName')?.touched &&
+                  departmentFormGroup.get('departmentName')?.value?.length == 0
+                "
+                class="error-mess"
+              >
+                Department Name Is Required
+              </span>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+      <div class="barbar-flex1 layout">
+        <div class="barbar-flex1-item">
+          <div class="barbar-block17 layout">
+            <div
+              class="barbar-text-body2 layout"
+              [routerLink]="['../../department']"
+            >
+              CANCEL
+            </div>
+          </div>
+        </div>
+        <div class="barbar-flex1-spacer"></div>
+        <div class="barbar-flex1-item">
+          <div class="barbar-block16 layout">
+            <div
+              class="barbar-text-body1 layout"
+              (click)="createDepartment()"
+              *ngIf="isSaveBtn"
+            >
+              SAVE
+            </div>
+            <div
+              class="barbar-text-body1 layout"
+              *ngIf="isUpdateBtn"
+              (click)="updateDepartment()"
+            >
+              UPDATE
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
