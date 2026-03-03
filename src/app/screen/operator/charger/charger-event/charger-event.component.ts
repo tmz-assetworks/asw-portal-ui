@@ -11,6 +11,7 @@ import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 import 'jspdf-autotable'
 import { TransactionDialogComponent } from 'src/app/component/dashboard/transaction-dialog/transaction-dialog.component'
 import { MatDialog } from '@angular/material/dialog'
+import { CustomPaginationComponent } from 'src/app/shared/custom-pagination/custom-pagination.component';
 
 
 import * as fs from 'file-saver'
@@ -25,7 +26,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
     RouterModule,
     SharedMaterialModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    CustomPaginationComponent  
   ],
   animations: [
     trigger('detailExpand', [
@@ -113,8 +115,7 @@ export class ChargerEventComponent implements OnInit {
   this.jumpPageNumber = 1;
   this.GetEventLogByLocation();
 }
-
-  private updatePage(page: number): void {
+  public updatePage(page: number): void {
 
   if (page < 1 || page > this.totalPages) return;
 
@@ -122,28 +123,8 @@ export class ChargerEventComponent implements OnInit {
 
   this.currentPage = page;
   this.jumpPageNumber = page;
-
   this.GetEventLogByLocation();
 }
-
-goFirst() { this.updatePage(1); }
-
-goPrevious() { this.updatePage(this.currentPage - 1); }
-
-goNext() { this.updatePage(this.currentPage + 1); }
-
-goLast() { this.updatePage(this.totalPages); }
-
-
-goToPage(): void {
-
-  if (!this.totalPages) return;
-
-  const page = Math.max(1, Math.min(this.jumpPageNumber, this.totalPages));
-
-  this.updatePage(page);
-}
-
 
 
 private handleEventLogResponse(res: any): void {

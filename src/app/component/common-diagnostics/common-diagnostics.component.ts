@@ -29,6 +29,7 @@ import { DiagWidgetComponent } from '../diagnostic/diag-widget/diag-widget.compo
 import { DiagWidgetBarComponent } from '../diagnostic/diag-widget-bar/diag-widget-bar.component'
 import { MatDatetimepickerModule, MatNativeDatetimeModule } from '@mat-datetimepicker/core';
 import { MatMomentDatetimeModule } from '@mat-datetimepicker/moment';
+import { CustomPaginationComponent } from 'src/app/shared/custom-pagination/custom-pagination.component';
 declare let jsPDF: new () => any
 interface DiagnosticsRow {
   OperatorType: string;
@@ -48,11 +49,12 @@ interface DiagnosticsRow {
     DiagWidgetComponent,
     RouterModule,
     ReactiveFormsModule,
-    FormsModule,              // ✅ ADD THIS
+    FormsModule,         
     DiagWidgetBarComponent,
     MatDatetimepickerModule,
     MatMomentDatetimeModule,
     MatNativeDatetimeModule,
+    CustomPaginationComponent
   ],
   animations: [
     trigger('detailExpand', [
@@ -329,7 +331,7 @@ onPageSizeChange(): void {
   this.GetOcppEventLog();
 }
 
-    private updatePage(page: number): void {
+public  updatePage(page: number): void {
 
   if (page < 1 || page > this.totalPages) return;
 
@@ -340,29 +342,6 @@ onPageSizeChange(): void {
 
   this.GetOcppEventLog();
 }
-
-goFirst() { this.updatePage(1); }
-
-goPrevious() { this.updatePage(this.currentPage - 1); }
-
-goNext() { this.updatePage(this.currentPage + 1); }
-
-goLast() { this.updatePage(this.totalPages); }
-
-
-goToPage(): void {
-
-  if (!this.totalPages) return;
-
-  const page = Math.max(1, Math.min(this.jumpPageNumber, this.totalPages));
-
-  this.updatePage(page);
-}
-
-
-
-
-
 
   /**
  * Get Charger List
