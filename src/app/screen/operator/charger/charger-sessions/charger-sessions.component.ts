@@ -104,7 +104,7 @@ export class ChargerSessionsComponent implements OnInit {
   this.loadSessions();
 }
 
-    private updatePage(page: number): void {
+public updatePage(page: number): void {
 
   if (page < 1 || page > this.totalPages) return;
 
