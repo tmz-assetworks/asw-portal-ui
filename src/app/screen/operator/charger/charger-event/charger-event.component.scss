@@ -537,7 +537,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     position: relative;
     height: min-content;
     min-width: 0px;
-    //width: fit-content;
     margin: 1px 0px 34px;
 
     @include lg {
@@ -587,13 +586,10 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     position: relative;
     height: min-content;
   }
-  // &box11 {
-  //   background-color: $color_type_3;
-  // }
+  
   &box11.layout {
     position: relative;
     height: 45px;
-    // width: 28.1%;
     margin: 0px auto;
   }
   &block22 {
@@ -683,7 +679,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     min-width: 1px;
     margin: 11px 0px;
     width: 1px;
-    // margin-left: 42px;
     margin: 15px 10px 34px 10px;
     background-color: rgb(141, 131, 131);
     @include lg {
@@ -736,7 +731,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &highlights2.layout {
     position: relative;
     height: min-content;
-    //width: 24.84%;
     margin: 0px 0% 0px 0%;
   }
   &block21-item2 {
@@ -1845,7 +1839,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     position: relative;
     height: min-content;
     margin: -4px 10px 11px 10px;
-    //margin: 0px 0px 0px 20px;
     @include lg {
       margin: 25px 0px 0px 18px;
     }
@@ -1901,8 +1894,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block2.layout {
     position: relative;
     height: min-content;
-    // width: 98.29%;
-    // margin: 0px auto 0px;
     width: 100%;
     box-sizing: border-box;
     @include lg {
@@ -1941,7 +1932,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
   &block5 {
     @include flex-column;
-    // background-color: $color_type_4;
     transition-duration: 0.3s;
     transition-property: transform;
     a {
@@ -1949,7 +1939,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     }
   }
   &block5:hover {
-    //transform: translateY(-5);
     transform: translateY(-8px);
   }
   &block5.layout {
@@ -2012,12 +2001,10 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
 .header- {
   &block {
     @include flex-column;
-    //background-color: $color_type_6;
   }
   &block.layout {
     position: relative;
     overflow: hidden;
-    // min-height: 1000px;
     height: auto !important;
   }
   &block1 {
@@ -2647,8 +2634,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block12.layout {
     position: relative;
     height: min-content;
-    // border-right: 1px dotted #70787f73;
-    // border-left: 1px dotted #70787f73;
   }
   &block12-item {
     @include flex-column;
@@ -2665,7 +2650,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     height: min-content;
     width: 77px;
     min-width: 77px;
-    // margin: 0 20px 0 30px;
   }
   &block12-spacer {
     flex: 0 1 3px;
@@ -2798,7 +2782,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     height: min-content;
     width: 77px;
     min-width: 77px;
-    // margin: auto 20px;
   }
   &block17-spacer {
     flex: 0 1 3px;
@@ -2907,7 +2890,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     max-width: 400px;
   }
   &block19 {
-    //@include flex-column;
     flex-direction: row-reverse;
     background-color: $color_type_8;
     border: 1px solid rgb(173, 173, 173);
@@ -2923,22 +2905,12 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &box9 {
     background-color: $color_type_0;
     border-radius: 0px 4px 4px 0px;
-    // transition-duration: 0.3s;
-    // transition-property: transform;
   }
-  // &box9:hover {
-  //   transform: scale(1.1);
-  // }
   &box9.layout {
     position: relative;
     height: 47px;
     width: 54px;
     min-width: 54px;
-    /*
-    @include lg {
-      margin: 5px 0px 5px 5px;
-    }
-    */
   }
   &icon {
     width: 100%;
@@ -2965,15 +2937,12 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     width: 100%;
     margin: 0px 6.5% -5px 0.54%;
     @include lg {
-      // margin: 7px 0.5% 6px 2.54%;
       margin: -2px 3.5% 6px 0.54%;
     }
     @include md {
-      //margin: 6px 0.5% 5px 2.54%;
       margin: -2px 3.5% 5px 2.54%;
     }
     @include sm {
-      //margin: 5px 0.5% 5px 2.54%;
       margin: 0px 2.5% 5px -0.46%;
     }
   }
@@ -3168,7 +3137,6 @@ section {
   width: 120px;
 }
 
-/* Structure */
 .example-container {
   display: flex;
   flex-direction: column;
@@ -3307,7 +3275,6 @@ tr.example-element-row:not(.example-expanded-row):active {
 }
 
 .example-element-description {
-  //padding: 16px;
   text-align: left;
   padding: 10px 0px 10px 2px;
 }
@@ -3321,7 +3288,6 @@ tr.example-element-row:not(.example-expanded-row):active {
   display: none !important;
 }
 mat-mdc-form-field.select-all-opt {
-  // margin: 0px 12px !important;
   width: 376px !important;
 }
 
@@ -3344,14 +3310,14 @@ mat-mdc-form-field.select-all-opt {
 ::ng-deep .mat-mdc-form-field .mdc-notched-outline {
   height: 85% !important;
   top: 42%;
-  transform: translateY(-50%);  // keeps outline centered vertically
+  transform: translateY(-50%);  
 }
 
 .pagination-container {
   display: flex;
-  justify-content: flex-end;   // 👈 move everything right
+  justify-content: flex-end;   
   align-items: center;
-  gap: 25px;                   // 👈 space between rows selector & pagination
+  gap: 25px;                  
   margin-top: 20px;
   width: 100%;
 }
@@ -3377,3 +3343,22 @@ mat-mdc-form-field.select-all-opt {
   height: 36px;
   text-align: center;
 }
+
+.icon-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.gray-panel {
+  display: flex;
+  flex-direction: column;
+  background-color: #ebebeb;
+  border-left: 1px solid white;
+}
+
+.expanded-cell {
+  background-color: #fff;
+}
+

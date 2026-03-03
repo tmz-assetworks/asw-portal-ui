@@ -1,280 +1,223 @@
 <div class="header header-block layout">
-  <div class="header-block1 layout">
-    <div class="header-flex layout">
-      <h1 class="header-subtitle-box layout">Asset ID: {{ assetId }}</h1>
-      <h1 class="header-subtitle-box layout">{{ selectedChargerIds }}</h1>
-      <div class="location-block2 layout">
-        <div class="location-block2-item">
-          <div class="location-block4 layout">
-            <div class="location-block4-item">
-              <div class="location-block5 layout">
-                <a [routerLink]="['../chargers-info']">
-                  <div class="location-text-body layout">
-                    CHARGER INFORMATION
+   <div class="header-block1 layout">
+      <div class="header-flex layout">
+         <h1 class="header-subtitle-box layout">Asset ID: {{ assetId }}</h1>
+         <h1 class="header-subtitle-box layout">{{ selectedChargerIds }}</h1>
+         <div class="location-block2 layout">
+            <div class="location-block2-item">
+               <div class="location-block4 layout">
+                  <div class="location-block4-item"
+                     *ngFor="let link of navLinks">
+                     <div class="location-block5 layout">
+                        <a [routerLink]="[link.route]">
+                           <div class="location-text-body layout">
+                              {{ link.label }}
+                           </div>
+                        </a>
+                     </div>
                   </div>
-                </a>
-              </div>
+               </div>
             </div>
-            <div class="location-block4-item">
-              <div class="location-block5 layout">
-                <a [routerLink]="['../chargers-session']">
-                  <div class="location-text-body layout">
-                    CHARGE SESSIONS
+            <div class="location-block2-spacer"></div>
+            <div class="location-block2-item1">
+               <div class="location-block3 layout gray-panel">
+                  <div class="location-box3 layout">
+                     <img
+                        src="../../../../../assets/charger-event.svg"
+                        alt=""
+                        srcset=""
+                        />
                   </div>
-                </a>
-              </div>
+               </div>
             </div>
-            <div class="location-block4-item">
-              <div class="location-block5 layout">
-                <a [routerLink]="['../chargers-diagnostic']">
-                  <div class="location-text-body layout">DIAGNOSTIC</div>
-                </a>
-              </div>
-            </div>
-            <div class="location-block4-item">
-              <div class="location-block6 layout">
-                <a [routerLink]="['../chargers-event']">
-                  <div class="location-text-body layout">EVENT LOGS</div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="location-block2-spacer"></div>
-        <div class="location-block2-item1">
-          <div
-            class="location-block3 layout"
-            style="
-              display: flex;
-              flex-direction: column;
-              background-color: #ebebeb;
-              border-left: 1px solid white;
-            "
-          >
-            <div class="location-box3 layout">
-              <img
-                src="../../../../../assets/charger-event.svg"
-                alt=""
-                srcset=""
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div class="cust-list-flex1 layout">
-          <div class="cust-list-flex3 layout">
-           <div class="cust-list-block20 layout">
-                  <mat-form-field appearance="outline" class="barbar-box6 layout select-all-opt">
-                    <select
-                      matNativeControl
-                      required
-                      [(ngModel)]="searchParam"
-                      (change)="selectOption($event)"
-                    >
-                      <option *ngFor="let item of arrKeys">
-                        {{ item.value }}
-                      </option>
-                    </select>
-                  </mat-form-field>
-                </div>
-
-            <div class="cust-list-flex3-spacer"></div>
-            <div class="cust-list-flex3-item1">
-            <button class="cust-list-block23 layout" (click)="downloadFile()" style="cursor:pointer;border:none;" type="button">
-            <div class="cust-list-block23-item">
-            <div class="cust-list-box10 layout">
-            <img
-            src="../../../../../assets/Operator/Download-icon.svg"
-            alt="Download Icon"
-            />
-            </div>
-            </div>
-  <div class="cust-list-block23-spacer"></div>
-  <div class="cust-list-text-body4 layout">
-    DOWNLOAD SESSION
-  </div>
-</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="cust-list-group2 layout" id="content" #content>
-          <table
-            mat-table
-            [dataSource]="dataSource"
-            multiTemplateDataRows
-            matSort
-            class="mat-elevation-z8"
-          >
-            <ng-container matColumnDef="Type">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                TYPE
-              </th>
-              <td mat-cell *matCellDef="let element; let i = index">
-                {{ element.requestType }}
-              </td>
-            </ng-container>
-            <ng-container matColumnDef="DateTime">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                Date/ Time
-              </th>
-              <td mat-cell *matCellDef="let element; let i = index">
-                {{ element.modifiedAt + "Z"| date: 'MM-dd-yyyy HH:mm':userTimeZone}}
-              </td>
-            </ng-container>
-
-            <ng-container matColumnDef="Action">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>
-                ACTION
-              </th>
-              <td mat-cell *matCellDef="let element; let i = index">
-               <button
-                type="button"
-                (click)="expandedElement = expandedElement === element ? null : element"
-                style="background: none; border: none; padding: 0; cursor: pointer;"
-                >
-                <img
-                src="../../../../assets/icons/view-icon.png"
-                alt="View"
-                />
-                </button>
-
-               <button
-               *ngIf="element.requestType == 'StopTransaction'"
-                type="button"
-                (click)="openMakePaymentDialog(element.id)"
-                style="background: none; border: none; padding: 0; cursor: pointer;"
-                title="Make Payment"
-                >
-                  <img
-                  src="../../../../../assets/chart-icon.svg"
-                  alt="Make Payment"
-                 />
-              </button> 
-              </td>
-            </ng-container>
-            <ng-container matColumnDef="expandedDetail">
-              <td
-                style="background-color: #fff;"
-                mat-cell
-                *matCellDef="let element"
-                [attr.colspan]="displayedColumns.length"
-              >
-                <div
-                  class="example-element-detail"
-                  [@detailExpand]="
-                    element === expandedElement ? 'expanded' : 'collapsed'
-                  "
-                >
-                  <div class="example-element-description">
-                    <div class="">
-                      <div class="">
-                        <div style="text-transform: none;">
-                          {{ element.requestPayload }}
+         </div>
+         <div>
+            <div class="cust-list-flex1 layout">
+               <div class="cust-list-flex3 layout">
+                  <div class="cust-list-block20 layout">
+                     <mat-form-field appearance="outline" class="barbar-box6 layout select-all-opt">
+                        <select
+                        matNativeControl
+                        required
+                        [(ngModel)]="searchParam"
+                        (change)="selectOption($event)"
+                        >
+                        <option *ngFor="let item of arrKeys">
+                           {{ item.value }}
+                        </option>
+                        </select>
+                     </mat-form-field>
+                  </div>
+                  <div class="cust-list-flex3-spacer"></div>
+                  <div class="cust-list-flex3-item1">
+                     <button class="cust-list-block23 layout" (click)="downloadFile()" style="cursor:pointer;border:none;" type="button">
+                        <div class="cust-list-block23-item">
+                           <div class="cust-list-box10 layout">
+                              <img
+                                 src="../../../../../assets/Operator/Download-icon.svg"
+                                 alt="Download Icon"
+                                 />
+                           </div>
                         </div>
-                      </div>
-                    </div>
-                    <hr />
-                    <div class="example-element-description">
-                      <div style="text-transform: none;">
-                        {{ element.responsePayload }}
-                      </div>
-                    </div>
+                        <div class="cust-list-block23-spacer"></div>
+                        <div class="cust-list-text-body4 layout">
+                           DOWNLOAD SESSION
+                        </div>
+                     </button>
                   </div>
-                </div>
-              </td>
+               </div>
+            </div>
+            <div class="cust-list-group2 layout" id="content" #content>
+               <table
+                  mat-table
+                  [dataSource]="dataSource"
+                  multiTemplateDataRows
+                  matSort
+                  class="mat-elevation-z8"
+                  >
+                  <ng-container matColumnDef="Type">
+                     <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        TYPE
+                     </th>
+                     <td mat-cell *matCellDef="let element; let i = index">
+                        {{ element.requestType }}
+                     </td>
+                  </ng-container>
+                  <ng-container matColumnDef="DateTime">
+                     <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        Date/ Time
+                     </th>
+                     <td mat-cell *matCellDef="let element; let i = index">
+                        {{ element.modifiedAt + "Z"| date: 'MM-dd-yyyy HH:mm':userTimeZone}}
+                     </td>
+                  </ng-container>
+                  <ng-container matColumnDef="Action">
+                     <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                        ACTION
+                     </th>
+                     <td mat-cell *matCellDef="let element; let i = index">
+                        <button
+                           type="button"
+                           (click)="expandedElement = expandedElement === element ? null : element"
+                           class="icon-button"
+                           >
+                        <img
+                           src="../../../../assets/icons/view-icon.png"
+                           alt="View"
+                           />
+                        </button>
+                        <button
+                        *ngIf="element.requestType == 'StopTransaction'"
+                        type="button"
+                        (click)="openMakePaymentDialog(element.id)"
+                        class="icon-button">
+                        title="Make Payment"
+                        >
+                        <img
+                           src="../../../../../assets/chart-icon.svg"
+                           alt="Make Payment"
+                           />
+                        </button> 
+                     </td>
+                  </ng-container>
+                  <ng-container matColumnDef="expandedDetail">
+                     <td
+                     mat-cell
+                     class="expanded-cell"
+                     *matCellDef="let element"
+                     [attr.colspan]="displayedColumns.length"
+                     >
+                     <div
+                     class="example-element-detail"
+                     [@detailExpand]="
+                     element === expandedElement ? 'expanded' : 'collapsed'
+                     "
+                     >
+                     <div class="example-element-description">
+                        <div class="">
+                           <div class="">
+                              <div style="text-transform: none;">
+                                 {{ element.requestPayload }}
+                              </div>
+                           </div>
+                        </div>
+                        <hr />
+                        <div class="example-element-description">
+                           <div style="text-transform: none;">
+                              {{ element.responsePayload }}
+                           </div>
+                        </div>
+                     </div>
+            </div>
+            </td>
             </ng-container>
-
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr
-              mat-row
-              *matRowDef="let element; columns: displayedColumns"
-              class="example-element-row"
-              [class.example-expanded-row]="expandedElement === element"
+            mat-row
+            *matRowDef="let element; columns: displayedColumns"
+            class="example-element-row"
+            [class.example-expanded-row]="expandedElement === element"
             ></tr>
             <tr
-              mat-row
-              *matRowDef="let row; columns: ['expandedDetail']"
-              class="example-detail-row"
-            ></tr>
-          </table>
-          <ng-container *ngIf="isTableHasData">
-            <p class="text-center">No record found</p>
-          </ng-container>
-        </div>
-      <div class="pagination-container" *ngIf="totalCount > 0">
-
-  <!-- LEFT SIDE -->
-  <div class="rows-selector">
-    <span>Rows per page:</span>
-
-    <select [(ngModel)]="pageSize"
-            (change)="onPageSizeChange()"
-            class="rows-dropdown">
-
-      <option [value]="5">5</option>
-      <option [value]="10">10</option>
-      <option [value]="25">25</option>
-      <option [value]="50">50</option>
-    </select>
-  </div>
-
-  <!-- RIGHT SIDE -->
-  <div class="custom-pagination">
-
-    <button mat-icon-button
-            color="primary"
-            (click)="goFirst()"
-            [disabled]="currentPage === 1">
-      &laquo;
-    </button>
-
-    <button mat-icon-button
-            color="primary"
-            (click)="goPrevious()"
-            [disabled]="currentPage === 1">
-      &lsaquo;
-    </button>
-
-    <span class="page-label">Page</span>
-
-    <input type="number"
-           min="1"
-           [max]="totalPages"
-           [(ngModel)]="jumpPageNumber"
-           (keyup.enter)="goToPage()"
-           class="page-input" />
-
-    <span class="page-label">of {{ totalPages }}</span>
-
-    <button mat-icon-button
-            color="primary"
-            (click)="goNext()"
-            [disabled]="currentPage === totalPages">
-      &rsaquo;
-    </button>
-
-    <button mat-icon-button
-            color="primary"
-            (click)="goLast()"
-            [disabled]="currentPage === totalPages">
-      &raquo;
-    </button>
-
-  </div>
-
-
-
-
-
-
-
-
-
+               mat-row
+               *matRowDef="let row; columns: ['expandedDetail']"
+               class="example-detail-row"
+               ></tr>
+            </table>
+            <ng-container *ngIf="isTableHasData">
+               <p class="text-center">No record found</p>
+            </ng-container>
+         </div>
+         <div class="pagination-container" *ngIf="totalCount > 0">
+            <!-- LEFT SIDE -->
+            <div class="rows-selector">
+               <span>Rows per page:</span>
+               <select [(ngModel)]="pageSize"
+               (change)="onPageSizeChange()"
+               class="rows-dropdown">
+               <option [value]="5">5</option>
+               <option [value]="10">10</option>
+               <option [value]="25">25</option>
+               <option [value]="50">50</option>
+               </select>
+            </div>
+            <!-- RIGHT SIDE -->
+            <div class="custom-pagination">
+               <button mat-icon-button
+               color="primary"
+               (click)="goFirst()"
+               [disabled]="currentPage === 1">
+               &laquo;
+               </button>
+               <button mat-icon-button
+               color="primary"
+               (click)="goPrevious()"
+               [disabled]="currentPage === 1">
+               &lsaquo;
+               </button>
+               <span class="page-label">Page</span>
+               <input type="number"
+               min="1"
+               [max]="totalPages"
+               [(ngModel)]="jumpPageNumber"
+               (keyup.enter)="goToPage()"
+               class="page-input" />
+               <span class="page-label">of {{ totalPages }}</span>
+               <button mat-icon-button
+               color="primary"
+               (click)="goNext()"
+               [disabled]="currentPage === totalPages">
+               &rsaquo;
+               </button>
+               <button mat-icon-button
+               color="primary"
+               (click)="goLast()"
+               [disabled]="currentPage === totalPages">
+               &raquo;
+               </button>
+            </div>
+         </div>
       </div>
-    </div>
-  </div>
+   </div>
 </div>
 </div>

@@ -1,230 +1,175 @@
 <div class="header header-block layout charger-session-main">
-  <div class="header-block1 layout">
-    <div class="header-flex layout">
-      <h1 class="header-subtitle-box layout">Asset ID: {{ assetId }}</h1>
-      <h1 class="header-subtitle-box layout">{{ selecteChargerIds }}</h1>
-
-      <div class="dashboard-block12 layout"></div>
-
-      <div class="location-block2 layout">
-        <div class="location-block2-item">
-          <div class="location-block4 layout">
-            <div class="location-block4-item">
-              <div class="location-block5 layout">
-                <a [routerLink]="['../chargers-info']">
-                  <div class="location-text-body layout">
-                    CHARGER INFORMATION
+   <div class="header-block1 layout">
+      <div class="header-flex layout">
+         <h1 class="header-subtitle-box layout">Asset ID: {{ assetId }}</h1>
+         <h1 class="header-subtitle-box layout">{{ selecteChargerIds }}</h1>
+         <div class="dashboard-block12 layout"></div>
+         <div class="location-block2 layout">
+            <div class="location-block2-item">
+               <div class="location-block4 layout">
+                  <div class="location-block4-item"
+                     *ngFor="let link of navLinks">
+                     <div [ngClass]="link.active ? 'location-block6 layout'
+                        : 'location-block5 layout'">
+                        <a [routerLink]="[link.route]">
+                           <div class="location-text-body layout">
+                              {{ link.label }}
+                           </div>
+                        </a>
+                     </div>
                   </div>
-                </a>
-              </div>
+               </div>
             </div>
-            <div class="location-block4-item">
-              <div class="location-block6 layout">
-                <a [routerLink]="['../chargers-session']">
-                  <div class="location-text-body layout">
-                    CHARGE SESSIONS
+            <div class="location-block2-spacer"></div>
+            <div class="location-block2-item1">
+               <div
+                  class="location-block3 layout gray-panel"
+                  >
+                  <div class="location-box3 layout">
+                     <img
+                        src="../../../../../assets/charger-session.svg"
+                        alt=""
+                        srcset=""
+                        />
                   </div>
-                </a>
-              </div>
+               </div>
             </div>
-            <div class="location-block4-item">
-              <div class="location-block5 layout">
-                <a [routerLink]="['../chargers-diagnostic']">
-                  <div class="location-text-body layout">DIAGNOSTIC</div>
-                </a>
-              </div>
+         </div>
+         <div>
+            <div class="dashboard-block14 layout">
+               <div class="dashboard-block15 layout"></div>
+               <div class="cust-list-flex3 layout">
+                  <div class="cust-list-flex3-item">
+                     <div class="cust-list-group layout">
+                        <div class="cust-list-block19 layout">
+                           <div class="left-charger-label">
+                              {{ selecteChargerIds }}
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="cust-list-flex3-spacer"></div>
+                  <div class="cust-list-flex3-item1">
+                     <button
+                        class="cust-list-block23 layout download-button"
+                        (click)="downloadFile()"
+                        >
+                        <div class="cust-list-block23-item">
+                           <div class="cust-list-box10 layout">
+                              <img
+                                 src="../../../../../assets/download-report.png"
+                                 alt="Download Report"
+                                 />
+                           </div>
+                        </div>
+                        <div class="cust-list-block23-spacer"></div>
+                        <div class="cust-list-text-body4 layout">
+                           DOWNLOAD SESSIONS
+                        </div>
+                     </button>
+                  </div>
+               </div>
+               <div class="cust-list-group2 layout mat-data" id="pdfTable" #pdfTable>
+                  <table mat-table [dataSource]="dataSource">
+                     <ng-container matColumnDef="assetId">
+                        <th mat-header-cell *matHeaderCellDef>ASSET ID</th>
+                        <td mat-cell *matCellDef="let element">
+                           {{ element.assetId }}
+                        </td>
+                     </ng-container>
+                     <ng-container matColumnDef="sessionid">
+                        <th mat-header-cell *matHeaderCellDef>SESSION ID</th>
+                        <td mat-cell *matCellDef="let element">
+                           {{ element.sessionid }}
+                        </td>
+                     </ng-container>
+                     <!-- Name Column -->
+                     <ng-container matColumnDef="duration">
+                        <th mat-header-cell *matHeaderCellDef>DURATION (HH:MM:SS)</th>
+                        <td mat-cell *matCellDef="let element">
+                           {{ element.duration }}
+                        </td>
+                     </ng-container>
+                     <!-- Weight Column -->
+                     <ng-container matColumnDef="usage">
+                        <th mat-header-cell *matHeaderCellDef>
+                           USAGE (kWh)
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                           {{ element.usage }}
+                        </td>
+                     </ng-container>
+                     <!-- Symbol Column -->
+                     <ng-container matColumnDef="starttime">
+                        <th mat-header-cell *matHeaderCellDef>START TIME</th>
+                        <td mat-cell *matCellDef="let element">
+                           {{ element.startTime +"Z" | date: 'MM-dd-yyyy HH:mm':userTimeZone }}
+                        </td>
+                     </ng-container>
+                     <ng-container matColumnDef="endtime">
+                        <th mat-header-cell *matHeaderCellDef>END TIME</th>
+                        <td mat-cell *matCellDef="let element">
+                           {{ element.endTime +"Z" | date: 'MM-dd-yyyy HH:mm':userTimeZone }}
+                        </td>
+                     </ng-container>
+                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                  </table>
+                  <ng-container *ngIf="isTableHasData">
+                     <p class="text-center">No record found</p>
+                  </ng-container>
+               </div>
+               <div class="pagination-container" *ngIf="totalRecords > 0">
+                  <!-- LEFT SIDE -->
+                  <div class="rows-selector">
+                     <span>Rows per page:</span>
+                     <select [(ngModel)]="pageSize"
+                     (change)="onPageSizeChange()"
+                     class="rows-dropdown">
+                     <option [value]="5">5</option>
+                     <option [value]="10">10</option>
+                     <option [value]="25">25</option>
+                     <option [value]="50">50</option>
+                     </select>
+                  </div>
+                  <!-- RIGHT SIDE -->
+                  <div class="custom-pagination">
+                     <button mat-icon-button
+                     color="primary"
+                     (click)="goFirst()"
+                     [disabled]="currentPage === 1">
+                     &laquo;
+                     </button>
+                     <button mat-icon-button
+                     color="primary"
+                     (click)="goPrevious()"
+                     [disabled]="currentPage === 1">
+                     &lsaquo;
+                     </button>
+                     <span class="page-label">Page</span>
+                     <input type="number"
+                     min="1"
+                     [max]="totalPages"
+                     [(ngModel)]="jumpPageNumber"
+                     (keyup.enter)="goToPage()"
+                     class="page-input" />
+                     <span class="page-label">of {{ totalPages }}</span>
+                     <button mat-icon-button
+                     color="primary"
+                     (click)="goNext()"
+                     [disabled]="currentPage === totalPages">
+                     &rsaquo;
+                     </button>
+                     <button mat-icon-button
+                     color="primary"
+                     (click)="goLast()"
+                     [disabled]="currentPage === totalPages">
+                     &raquo;
+                     </button>
+                  </div>
+               </div>
             </div>
-            <div class="location-block4-item">
-              <div class="location-block5 layout">
-                <a [routerLink]="['../chargers-event']">
-                  <div class="location-text-body layout">EVENT LOGS</div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="location-block2-spacer"></div>
-        <div class="location-block2-item1">
-          <div
-            class="location-block3 layout"
-            style="
-              display: flex;
-              flex-direction: column;
-              background-color: #ebebeb;
-              border-left: 1px solid white;
-            "
-          >
-            <div class="location-box3 layout">
-              <img
-                src="../../../../../assets/charger-session.svg"
-                alt=""
-                srcset=""
-              />
-            </div>
-          </div>
-        </div>
+         </div>
       </div>
-      <div>
-        <div class="dashboard-block14 layout">
-          <div class="dashboard-block15 layout"></div>
-
-          <div class="cust-list-flex3 layout">
-            <div class="cust-list-flex3-item">
-              <div class="cust-list-group layout">
-                <div class="cust-list-block19 layout">
-                  <div style="text-align: left; margin: 12px 0px 0px 17px;">
-                    {{ selecteChargerIds }}
-                  </div>
-
-                </div>
-              </div>
-            </div>
-            <div class="cust-list-flex3-spacer"></div>
-            <div class="cust-list-flex3-item1">
-            <button
-            class="cust-list-block23 layout"
-            (click)="downloadFile()"
-            style="cursor: pointer; border: none; background-color:#0062a6; padding: 0;"
-            >
-           <div class="cust-list-block23-item">
-           <div class="cust-list-box10 layout">
-           <img
-            src="../../../../../assets/download-report.png"
-            alt="Download Report"
-            />
-    </div>
-  </div>
-  <div class="cust-list-block23-spacer"></div>
-  <div class="cust-list-text-body4 layout">
-    DOWNLOAD SESSIONS
-  </div>
-</button>
-            </div>
-          </div>
-          <div class="cust-list-group2 layout mat-data" id="pdfTable" #pdfTable>
-            <table mat-table [dataSource]="dataSource">
-              <ng-container matColumnDef="assetId">
-                <th mat-header-cell *matHeaderCellDef>ASSET ID</th>
-                <td mat-cell *matCellDef="let element">
-                  {{ element.assetId }}
-                </td>
-              </ng-container>
-              <ng-container matColumnDef="sessionid">
-                <th mat-header-cell *matHeaderCellDef>SESSION ID</th>
-                <td mat-cell *matCellDef="let element">
-                  {{ element.sessionid }}
-                </td>
-              </ng-container>
-
-              <!-- Name Column -->
-              <ng-container matColumnDef="duration">
-                <th mat-header-cell *matHeaderCellDef>DURATION (HH:MM:SS)</th>
-                <td mat-cell *matCellDef="let element">
-                  {{ element.duration }}
-                </td>
-              </ng-container>
-
-              <!-- Weight Column -->
-              <ng-container matColumnDef="usage">
-                <th mat-header-cell *matHeaderCellDef>
-                  USAGE (kWh)
-                </th>
-                <td mat-cell *matCellDef="let element">
-                  {{ element.usage }}
-                </td>
-              </ng-container>
-
-              <!-- Symbol Column -->
-              <ng-container matColumnDef="starttime">
-                <th mat-header-cell *matHeaderCellDef>START TIME</th>
-                <td mat-cell *matCellDef="let element">
-                  {{ element.startTime +"Z" | date: 'MM-dd-yyyy HH:mm':userTimeZone }}
-                </td>
-              </ng-container>
-              <ng-container matColumnDef="endtime">
-                <th mat-header-cell *matHeaderCellDef>END TIME</th>
-                <td mat-cell *matCellDef="let element">
-                  {{ element.endTime +"Z" | date: 'MM-dd-yyyy HH:mm':userTimeZone }}
-                </td>
-              </ng-container>
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-            </table>
-            <ng-container *ngIf="isTableHasData">
-              <p class="text-center">No record found</p>
-            </ng-container>
-          </div>
-
-
-     <div class="pagination-container" *ngIf="totalRecords > 0">
-
-  <!-- LEFT SIDE -->
-  <div class="rows-selector">
-    <span>Rows per page:</span>
-
-    <select [(ngModel)]="pageSize"
-            (change)="onPageSizeChange()"
-            class="rows-dropdown">
-
-      <option [value]="5">5</option>
-      <option [value]="10">10</option>
-      <option [value]="25">25</option>
-      <option [value]="50">50</option>
-    </select>
-  </div>
-
-  <!-- RIGHT SIDE -->
-  <div class="custom-pagination">
-
-    <button mat-icon-button
-            color="primary"
-            (click)="goFirst()"
-            [disabled]="currentPage === 1">
-      &laquo;
-    </button>
-
-    <button mat-icon-button
-            color="primary"
-            (click)="goPrevious()"
-            [disabled]="currentPage === 1">
-      &lsaquo;
-    </button>
-
-    <span class="page-label">Page</span>
-
-    <input type="number"
-           min="1"
-           [max]="totalPages"
-           [(ngModel)]="jumpPageNumber"
-           (keyup.enter)="goToPage()"
-           class="page-input" />
-
-    <span class="page-label">of {{ totalPages }}</span>
-
-    <button mat-icon-button
-            color="primary"
-            (click)="goNext()"
-            [disabled]="currentPage === totalPages">
-      &rsaquo;
-    </button>
-
-    <button mat-icon-button
-            color="primary"
-            (click)="goLast()"
-            [disabled]="currentPage === totalPages">
-      &raquo;
-    </button>
-
-  </div>
-
-</div>
-
-
-
-
-        </div>
-      </div>
-    </div>
-  </div>
+   </div>
 </div>

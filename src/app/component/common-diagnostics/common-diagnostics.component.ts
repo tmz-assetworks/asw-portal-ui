@@ -151,11 +151,7 @@ export class CommonDiagnosticsComponent implements OnInit {
   isLoading = true;
 
   chargerDeteailTab = [
-    // {
-    //   text: "ANALYTICS",
-    //   link: "../chargers-analytics"
-
-    // },
+   
     {
       text: "CHARGER INFORMATION",
       link: "../chargers-info"
@@ -241,10 +237,34 @@ export class CommonDiagnosticsComponent implements OnInit {
 
   }
 
+allowedCommands = [
+  'change',
+  'reset',
+  'start',
+  'getconfig',
+  'changeconfig',
+  'getComposite',
+  'unlock',
+  'isCancelReservation',
+  'isReserveNow',
+  'triggerMessage',
+  'updatefirmware',
+  'sendlocal',
+  'getdiagnostics',
+  'datatransfer',
+  'getClearCharging',
+  'setCharging'
+];
+
+isCommand(type: string): boolean {
+  return this.commandType === type;
+}
+isAnyCommand(types: string[]): boolean {
+  return types.includes(this.commandType);
+}
+
   jsPDF: any
-
   fromHTML: any
-
   showLoader = false
   count = 1
   intervalId: any

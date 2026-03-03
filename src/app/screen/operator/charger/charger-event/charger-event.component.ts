@@ -92,6 +92,13 @@ export class ChargerEventComponent implements OnInit {
    * Select charger
    */
 
+  navLinks = [
+  { label: 'CHARGER INFORMATION', route: '../chargers-info' },
+  { label: 'CHARGE SESSIONS', route: '../chargers-session' },
+  { label: 'DIAGNOSTIC', route: '../chargers-diagnostic' },
+  { label: 'EVENT LOGS', route: '../chargers-event' }
+];
+
   selectOption(event: any) {
     this.searchParam = event.target.value
     this.GetEventLogByLocation()

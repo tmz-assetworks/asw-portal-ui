@@ -89,6 +89,13 @@ export class ChargerSessionsComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase()
   }
 
+  navLinks = [
+  { label: 'CHARGER INFORMATION', route: '../chargers-info', active: false },
+  { label: 'CHARGE SESSIONS', route: '../chargers-session', active: true },
+  { label: 'DIAGNOSTIC', route: '../chargers-diagnostic', active: false },
+  { label: 'EVENT LOGS', route: '../chargers-event', active: false }
+];
+
   onPageSizeChange(): void {
   this.currentPage = 1;
   this.jumpPageNumber = 1;
