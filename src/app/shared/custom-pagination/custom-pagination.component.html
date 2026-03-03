@@ -1,0 +1,49 @@
+<div class="pagination-container" *ngIf="totalCount > 0">
+            <!-- LEFT SIDE -->
+            <div class="rows-selector">
+               <span>Rows per page:</span>
+               <select [(ngModel)]="pageSize"
+               (change)="onPageSizeChange()"
+               class="rows-dropdown">
+               <option [value]="5">5</option>
+               <option [value]="10">10</option>
+               <option [value]="25">25</option>
+               <option [value]="50">50</option>
+               </select>
+            </div>
+            <!-- RIGHT SIDE -->
+            <div class="custom-pagination">
+               <button mat-icon-button
+               color="primary"
+               (click)="goFirst()"
+               [disabled]="currentPage === 1">
+               &laquo;
+               </button>
+               <button mat-icon-button
+               color="primary"
+               (click)="goPrevious()"
+               [disabled]="currentPage === 1">
+               &lsaquo;
+               </button>
+               <span class="page-label">Page</span>
+               <input type="number"
+               min="1"
+               [max]="totalPages"
+               [(ngModel)]="jumpPageNumber"
+               (keyup.enter)="goToPage()"
+               class="page-input" />
+               <span class="page-label">of {{ totalPages }}</span>
+               <button mat-icon-button
+               color="primary"
+               (click)="goNext()"
+               [disabled]="currentPage === totalPages">
+               &rsaquo;
+               </button>
+               <button mat-icon-button
+               color="primary"
+               (click)="goLast()"
+               [disabled]="currentPage === totalPages">
+               &raquo;
+               </button>
+            </div>
+         </div>

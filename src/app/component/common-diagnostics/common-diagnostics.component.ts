@@ -1,16 +1,15 @@
 import { trigger, state, style, transition, animate } from '@angular/animations'
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core'
-import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
 import { AlertsService } from 'src/app/screen/operator/alerts/alerts.service'
 import { StorageService } from 'src/app/service/storage.service'
-
 import { DiagnosticsService } from 'src/app/screen/operator/diagnostics/diagnostics.service'
 import { ToastrService } from 'ngx-toastr'
-
 import 'jspdf'
 import { ChargerService } from 'src/app/screen/operator/charger/charger.service'
 import { MatDialog } from '@angular/material/dialog'
+import { FormsModule } from '@angular/forms';
+
 import {
   FormArray,
   FormBuilder,
@@ -30,6 +29,7 @@ import { DiagWidgetComponent } from '../diagnostic/diag-widget/diag-widget.compo
 import { DiagWidgetBarComponent } from '../diagnostic/diag-widget-bar/diag-widget-bar.component'
 import { MatDatetimepickerModule, MatNativeDatetimeModule } from '@mat-datetimepicker/core';
 import { MatMomentDatetimeModule } from '@mat-datetimepicker/moment';
+import { CustomPaginationComponent } from 'src/app/shared/custom-pagination/custom-pagination.component';
 declare let jsPDF: new () => any
 interface DiagnosticsRow {
   OperatorType: string;
@@ -42,17 +42,19 @@ interface DiagnosticsRow {
   templateUrl: './common-diagnostics.component.html',
   styleUrls: ['./common-diagnostics.component.scss'],
   imports:[
-    CommonModule,
+   CommonModule,
     SharedMaterialModule,
     ToolTipItemComponent,
     ToolTipComponent,
     DiagWidgetComponent,
     RouterModule,
     ReactiveFormsModule,
+    FormsModule,         
     DiagWidgetBarComponent,
     MatDatetimepickerModule,
     MatMomentDatetimeModule,
-    MatNativeDatetimeModule
+    MatNativeDatetimeModule,
+    CustomPaginationComponent
   ],
   animations: [
     trigger('detailExpand', [
@@ -65,7 +67,7 @@ interface DiagnosticsRow {
     ]),
   ],
 })
-export class CommonDiagnosticsComponent implements OnInit, AfterViewInit  {
+export class CommonDiagnosticsComponent implements OnInit {
   chargerName: string | null
   isFireWareItem = false
   isProvisioning = false
@@ -146,14 +148,12 @@ export class CommonDiagnosticsComponent implements OnInit, AfterViewInit  {
   isChargerDiagnostics: boolean = true
   chargerBoxIdArr: any
   userTimeZone:any;
-  assetId: string | null
+  assetId: string | null;
+  jumpPageNumber: number = 1;
+  isLoading = true;
 
   chargerDeteailTab = [
-    // {
-    //   text: "ANALYTICS",
-    //   link: "../chargers-analytics"
-
-    // },
+   
     {
       text: "CHARGER INFORMATION",
       link: "../chargers-info"
@@ -239,10 +239,34 @@ export class CommonDiagnosticsComponent implements OnInit, AfterViewInit  {
 
   }
 
+allowedCommands = [
+  'change',
+  'reset',
+  'start',
+  'getconfig',
+  'changeconfig',
+  'getComposite',
+  'unlock',
+  'isCancelReservation',
+  'isReserveNow',
+  'triggerMessage',
+  'updatefirmware',
+  'sendlocal',
+  'getdiagnostics',
+  'datatransfer',
+  'getClearCharging',
+  'setCharging'
+];
+
+isCommand(type: string): boolean {
+  return this.commandType === type;
+}
+isAnyCommand(types: string[]): boolean {
+  return types.includes(this.commandType);
+}
+
   jsPDF: any
-
   fromHTML: any
-
   showLoader = false
   count = 1
   intervalId: any
@@ -281,12 +305,7 @@ export class CommonDiagnosticsComponent implements OnInit, AfterViewInit  {
     doc.save('download.pdf')
   }
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator
   @ViewChild('picker1') picker1: any
-  ngAfterViewInit() {
-    this.paginator._intl.itemsPerPageLabel = 'Rows per page'
-  }
-
   
   viewCharger(data: any) {
     this._storageService.setSessionData('chargerBoxId', data.chargerBoxId)
@@ -304,6 +323,25 @@ export class CommonDiagnosticsComponent implements OnInit, AfterViewInit  {
     this.dataSource.filter = filterValue.trim().toLowerCase()
   }
 
+
+
+onPageSizeChange(): void {
+  this.currentPage = 1;
+  this.jumpPageNumber = 1;
+  this.GetOcppEventLog();
+}
+
+public  updatePage(page: number): void {
+
+  if (page < 1 || page > this.totalPages) return;
+
+  if (page === this.currentPage) return;
+
+  this.currentPage = page;
+  this.jumpPageNumber = page;
+
+  this.GetOcppEventLog();
+}
 
   /**
  * Get Charger List
@@ -558,37 +596,50 @@ export class CommonDiagnosticsComponent implements OnInit, AfterViewInit  {
   /**
    * Get Ocpp Event Log List
    */
-  GetOcppEventLog() {
-    const pBody = {
-      pageNumber: this.currentPage,
-      searchParam: '',
-      pageSize: this.pageSize,
-      orderBy: '',
-      locationIds: [] as number[],
-      opratorid: this.UserId,
-      chargerBoxIds: this.chargerId == '' ? [] : [this.chargerId.toString()],
-    }
+GetOcppEventLog(): void {
 
-    this._diagnosticsService.GetEventLogByLocation(pBody).subscribe((res) => {
-      this.commandType = ''
+  const body = {
+    pageNumber: this.currentPage,
+    pageSize: this.pageSize,
+    searchParam: '',
+    orderBy: '',
+    locationIds: [] as number[],
+    opratorid: this.UserId,
+    chargerBoxIds: this.chargerId ? [this.chargerId.toString()] : []
+  };
 
-      if (
-        res !== undefined &&
-        res.data !== undefined &&
-        res.data !== null &&
-        res.data.length > 0
-      ) {
-        this.isTableHasData = true
-        this.totalCount = res.paginationResponse.totalCount
-        this.totalPages = res.paginationResponse.totalPages
-        this.pageSize = res.paginationResponse.pageSize
-        this.dataSource.data = res.data
-      } else {
-        this.isTableHasData = false
-        this.dataSource.data = []
+  this.isLoading = true;
+
+  this._diagnosticsService
+    .GetEventLogByLocation(body)
+    .subscribe({
+      next: (res: any) => {
+
+        const data = res?.data ?? [];
+        const pagination = res?.paginationResponse ?? {};
+
+        this.commandType = '';
+        this.dataSource.data = data;
+
+        this.totalCount = pagination.totalCount ?? 0;
+        this.totalPages = pagination.totalPages ?? 0;
+        this.pageSize = pagination.pageSize ?? this.pageSize;
+
+        this.jumpPageNumber = this.currentPage;
+        this.isTableHasData = data.length > 0;
+
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('OCPP API Error:', err);
+        this.dataSource.data = [];
+        this.totalCount = 0;
+        this.totalPages = 0;
+        this.isTableHasData = false;
+        this.isLoading = false;
       }
-    })
-  }
+    });
+}
 
   /**
    * changeConfiguration
@@ -1850,20 +1901,20 @@ export class CommonDiagnosticsComponent implements OnInit, AfterViewInit  {
    * Page Event
    */
 
-  pageChange(event: any) {
-    if (event.pageSize == this.pageSize) {
-     this.currentPage =
-        event.previousPageIndex < event.pageIndex
-          ? this.currentPage + 1
-          : this.currentPage - 1
-    }else {
-     this.currentPage = 1
-      this.pageSize = event.pageSize
-      this.paginator.pageIndex = 0
-    }
+  // pageChange(event: any) {
+  //   if (event.pageSize == this.pageSize) {
+  //    this.currentPage =
+  //       event.previousPageIndex < event.pageIndex
+  //         ? this.currentPage + 1
+  //         : this.currentPage - 1
+  //   }else {
+  //    this.currentPage = 1
+  //     this.pageSize = event.pageSize
+  //     this.paginator.pageIndex = 0
+  //   }
 
-    this.GetOcppEventLog()
-  }
+  //   this.GetOcppEventLog()
+  // }
 
   /**
    * Unlock

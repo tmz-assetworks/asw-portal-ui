@@ -1,6 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, OnInit, ViewChild } from '@angular/core'
-import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
 import { AlertsService } from '../../alerts/alerts.service'
 import { StorageService } from 'src/app/service/storage.service'
@@ -12,6 +11,7 @@ import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 import 'jspdf-autotable'
 import { TransactionDialogComponent } from 'src/app/component/dashboard/transaction-dialog/transaction-dialog.component'
 import { MatDialog } from '@angular/material/dialog'
+import { CustomPaginationComponent } from 'src/app/shared/custom-pagination/custom-pagination.component';
 
 
 import * as fs from 'file-saver'
@@ -26,7 +26,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
     RouterModule,
     SharedMaterialModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    CustomPaginationComponent  
   ],
   animations: [
     trigger('detailExpand', [
@@ -62,6 +63,8 @@ export class ChargerEventComponent implements OnInit {
   eventLogList: any
   userTimeZone:any
   assetId:string | null
+  jumpPageNumber: number = 1;
+  isLoading = true;
 
   constructor(
     public _alertsService: AlertsService,
@@ -83,19 +86,20 @@ export class ChargerEventComponent implements OnInit {
     this.getCommandList()
   }
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator
-
   datePipe = new DatePipe('en-US')
-
-  ngAfterViewInit() {
-    this.paginator._intl.itemsPerPageLabel = 'Rows per page'
-  }
 
   /**
    *
    * @param event
    * Select charger
    */
+
+  navLinks = [
+  { label: 'CHARGER INFORMATION', route: '../chargers-info' },
+  { label: 'CHARGE SESSIONS', route: '../chargers-session' },
+  { label: 'DIAGNOSTIC', route: '../chargers-diagnostic' },
+  { label: 'EVENT LOGS', route: '../chargers-event' }
+];
 
   selectOption(event: any) {
     this.searchParam = event.target.value
@@ -106,31 +110,76 @@ export class ChargerEventComponent implements OnInit {
    * Get EventLogByLocation
    */
 
-  GetEventLogByLocation() {
-    const body = {
-      pageNumber: this.currentPage,
-      searchParam: this.searchParam == 'All' ? '' : this.searchParam,
-      pageSize: this.pageSize,
-      orderBy: '',
-      locationIds: [] as number[],
-      opratorid: '',
-      chargerBoxIds: [this.selectedChargerIds],
-    }
+  onPageSizeChange(): void {
+  this.currentPage = 1;
+  this.jumpPageNumber = 1;
+  this.GetEventLogByLocation();
+}
+  public updatePage(page: number): void {
 
-    this._locationService.GetEventLogByLocation(body).subscribe((res: any) => {
-      if (res.data !== undefined && res.data != null && res.data.length > 0) {
-        this.eventLogList = res.data
-        this.totalCount = res.paginationResponse.totalCount
-        this.totalPages = res.paginationResponse.totalPages
-        this.pageSize = res.paginationResponse.pageSize
-        this.dataSource.data = this.eventLogList
-        this.isTableHasData = false
-      } else {
-        this.dataSource.data = []
-        this.isTableHasData = true
-      }
-    })
+  if (page < 1 || page > this.totalPages) return;
+
+  if (page === this.currentPage) return;
+
+  this.currentPage = page;
+  this.jumpPageNumber = page;
+  this.GetEventLogByLocation();
+}
+
+
+private handleEventLogResponse(res: any): void {
+
+  // Normalize API response safely
+  const data = res?.data ?? [];
+  const pagination = res?.paginationResponse ?? {};
+
+  // Assign table data
+  this.eventLogList = data;
+  this.dataSource.data = data;
+
+  // Pagination values
+  this.totalCount = pagination.totalCount ?? 0;
+  this.totalPages = pagination.totalPages ?? 0;
+  this.pageSize = pagination.pageSize ?? this.pageSize;
+
+  // Keep jump input synced with current page
+  this.jumpPageNumber = this.currentPage;
+
+  // Table empty state flag
+  this.isTableHasData = data.length === 0;
+
+  // Optional: If current page exceeds total pages after filter/search
+  if (this.currentPage > this.totalPages && this.totalPages > 0) {
+    this.currentPage = this.totalPages;
+    this.jumpPageNumber = this.totalPages;
   }
+}
+
+GetEventLogByLocation(): void {
+
+  const body = {
+    pageNumber: this.currentPage,
+    pageSize: this.pageSize,
+    searchParam: this.searchParam === 'All' ? '' : this.searchParam,
+    orderBy: '',
+    locationIds: [] as number[],
+    opratorid: '',
+    chargerBoxIds: this.selectedChargerIds ? [this.selectedChargerIds] : []
+  };
+
+  console.log(this.searchParam);
+  this._locationService
+    .GetEventLogByLocation(body)
+    .subscribe({
+      next: (res: any) => this.handleEventLogResponse(res), // 👈 HERE
+      error: (err) => {
+        console.error('API Error:', err);
+        this.dataSource.data = [];
+        this.isTableHasData = true;
+      },
+      complete: () => this.isLoading = false
+    });
+}
 
   /**
    * Download file using custom CSV generation
@@ -205,20 +254,7 @@ export class ChargerEventComponent implements OnInit {
    * Page Event
    */
 
-  pageChange(event: any) {
-    if (event.pageSize == this.pageSize) {
-      this.currentPage =
-        event.previousPageIndex < event.pageIndex
-          ? this.currentPage + 1
-          : this.currentPage - 1
-    } else {
-      this.currentPage = 1
-      this.pageSize = event.pageSize
-      this.paginator.pageIndex = 0
-    }
 
-    this.GetEventLogByLocation()
-  }
 
   openMakePaymentDialog(id: any) {
     const dialogRef = this.dialog.open(TransactionDialogComponent, {

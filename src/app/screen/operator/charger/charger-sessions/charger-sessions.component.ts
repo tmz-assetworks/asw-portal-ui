@@ -10,6 +10,7 @@ import { MeterDialogComponent } from './meter-dialog/meter-dialog.component'
 import * as fs from 'file-saver'
 import { CommonModule, DatePipe } from '@angular/common'
 import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
+import { CustomPaginationComponent } from 'src/app/shared/custom-pagination/custom-pagination.component';
 
 export interface PeriodicElement {
   sessionid: number
@@ -27,7 +28,8 @@ export interface PeriodicElement {
     CommonModule,
     RouterModule,
     SharedMaterialModule,
-    FormsModule
+    FormsModule,
+    CustomPaginationComponent
   ]
 })
 export class ChargerSessionsComponent implements OnInit {
@@ -89,7 +91,20 @@ export class ChargerSessionsComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase()
   }
 
-    private updatePage(page: number): void {
+  navLinks = [
+  { label: 'CHARGER INFORMATION', route: '../chargers-info', active: false },
+  { label: 'CHARGE SESSIONS', route: '../chargers-session', active: true },
+  { label: 'DIAGNOSTIC', route: '../chargers-diagnostic', active: false },
+  { label: 'EVENT LOGS', route: '../chargers-event', active: false }
+];
+
+  onPageSizeChange(): void {
+  this.currentPage = 1;
+  this.jumpPageNumber = 1;
+  this.loadSessions();
+}
+
+public updatePage(page: number): void {
 
   if (page < 1 || page > this.totalPages) return;
 
@@ -99,24 +114,6 @@ export class ChargerSessionsComponent implements OnInit {
   this.jumpPageNumber = page;
 
   this.loadSessions();
-}
-
-goFirst() { this.updatePage(1); }
-
-goPrevious() { this.updatePage(this.currentPage - 1); }
-
-goNext() { this.updatePage(this.currentPage + 1); }
-
-goLast() { this.updatePage(this.totalPages); }
-
-
-goToPage(): void {
-
-  if (!this.totalPages) return;
-
-  const page = Math.max(1, Math.min(this.jumpPageNumber, this.totalPages));
-
-  this.updatePage(page);
 }
 
  isLoading = false;
