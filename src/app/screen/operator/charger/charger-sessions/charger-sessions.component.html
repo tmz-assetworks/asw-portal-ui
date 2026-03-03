@@ -155,50 +155,68 @@
               <p class="text-center">No record found</p>
             </ng-container>
           </div>
-        <div class="custom-pagination" *ngIf="totalRecords > 0">
 
-  <!-- First -->
-  <button mat-icon-button
-          color="primary"
-          (click)="goFirst()"
-          [disabled]="currentPage === 1">
-    &laquo;
-  </button>
 
-  <!-- Previous -->
-  <button mat-icon-button
-          (click)="goPrevious()"
-          [disabled]="currentPage === 1">
-    &lsaquo;
-  </button>
+     <div class="pagination-container" *ngIf="totalRecords > 0">
 
-  <!-- Page Text + Input -->
-  <span class="page-label">Page</span>
+  <!-- LEFT SIDE -->
+  <div class="rows-selector">
+    <span>Rows per page:</span>
 
-  <input
-    type="number"
-    min="1"
-    [max]="totalPages"
-    [(ngModel)]="jumpPageNumber"
-    (keyup.enter)="goToPage()"
-    class="page-input"
-  />
+    <select [(ngModel)]="pageSize"
+            (change)="onPageSizeChange()"
+            class="rows-dropdown">
 
-  <span class="page-label">of {{ totalPages }}</span>
+      <option [value]="5">5</option>
+      <option [value]="10">10</option>
+      <option [value]="25">25</option>
+      <option [value]="50">50</option>
+    </select>
+  </div>
 
-  <!-- Next -->
-  <button mat-icon-button
-          (click)="goNext()"
-          [disabled]="currentPage === totalPages">
-    &rsaquo;
-  </button>
+  <!-- RIGHT SIDE -->
+  <div class="custom-pagination">
 
-  <!-- Last -->
-  <button mat-icon-button
-          (click)="goLast()"
-          [disabled]="currentPage === totalPages">
-    &raquo;
-  </button>
+    <button mat-icon-button
+            color="primary"
+            (click)="goFirst()"
+            [disabled]="currentPage === 1">
+      &laquo;
+    </button>
+
+    <button mat-icon-button
+            color="primary"
+            (click)="goPrevious()"
+            [disabled]="currentPage === 1">
+      &lsaquo;
+    </button>
+
+    <span class="page-label">Page</span>
+
+    <input type="number"
+           min="1"
+           [max]="totalPages"
+           [(ngModel)]="jumpPageNumber"
+           (keyup.enter)="goToPage()"
+           class="page-input" />
+
+    <span class="page-label">of {{ totalPages }}</span>
+
+    <button mat-icon-button
+            color="primary"
+            (click)="goNext()"
+            [disabled]="currentPage === totalPages">
+      &rsaquo;
+    </button>
+
+    <button mat-icon-button
+            color="primary"
+            (click)="goLast()"
+            [disabled]="currentPage === totalPages">
+      &raquo;
+    </button>
+
+  </div>
 
 </div>
 

@@ -3796,6 +3796,7 @@ app-tool-tip.wd_sub_1.tool_align.tool-tip-5 {
   display: none !important;
 }
 
+
 span.mat-mdc-button {
   position: absolute;
   bottom: 15px;
@@ -3885,3 +3886,54 @@ app-tool-tip.wd_sub_1.tool_alignP.tool-tip-11{
   }
   
   }
+
+  .pagination-container {
+  display: flex;
+  justify-content: flex-end;   // 👈 move everything right
+  align-items: center;
+  gap: 25px;                   // 👈 space between rows selector & pagination
+  margin-top: 20px;
+  width: 100%;
+}
+
+.rows-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rows-dropdown {
+  padding: 4px 8px;
+}
+
+.custom-pagination {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.page-input {
+  width: 60px;
+  height: 36px;
+  text-align: center;
+
+}
+
+
+
+.pagination-container button {
+    //width: auto !important;
+    /* min-width: 100%; */
+    height: 40px !important;
+    margin-bottom: 17px !important;
+    margin-top: 17px !important;
+    min-width: 40px !important;
+    width:40px !important;
+    background-color:transparent !important;
+    color:blue !important;
+    padding: 0px !important;
+  
+    
+}
+
+

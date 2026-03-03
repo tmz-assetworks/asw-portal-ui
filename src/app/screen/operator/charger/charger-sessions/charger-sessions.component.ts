@@ -89,6 +89,12 @@ export class ChargerSessionsComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase()
   }
 
+  onPageSizeChange(): void {
+  this.currentPage = 1;
+  this.jumpPageNumber = 1;
+  this.loadSessions();
+}
+
     private updatePage(page: number): void {
 
   if (page < 1 || page > this.totalPages) return;
