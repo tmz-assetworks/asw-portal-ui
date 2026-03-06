@@ -110,7 +110,8 @@ export class ChargerEventComponent implements OnInit {
    * Get EventLogByLocation
    */
 
-  onPageSizeChange(): void {
+onPageSizeChange(size: number): void {
+  this.pageSize = size;
   this.currentPage = 1;
   this.jumpPageNumber = 1;
   this.GetEventLogByLocation();
