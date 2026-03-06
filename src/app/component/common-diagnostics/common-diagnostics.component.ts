@@ -325,7 +325,8 @@ isAnyCommand(types: string[]): boolean {
 
 
 
-onPageSizeChange(): void {
+onPageSizeChange(size: number): void {
+  this.pageSize = size;
   this.currentPage = 1;
   this.jumpPageNumber = 1;
   this.GetOcppEventLog();

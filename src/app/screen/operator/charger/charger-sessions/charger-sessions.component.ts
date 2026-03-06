@@ -98,7 +98,8 @@ export class ChargerSessionsComponent implements OnInit {
   { label: 'EVENT LOGS', route: '../chargers-event', active: false }
 ];
 
-  onPageSizeChange(): void {
+  onPageSizeChange(size: number): void {
+  this.pageSize = size
   this.currentPage = 1;
   this.jumpPageNumber = 1;
   this.loadSessions();
