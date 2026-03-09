@@ -119,17 +119,14 @@
                      <p class="text-center">No record found</p>
                   </ng-container>
                </div>
-               
-                        <app-custom-pagination
-  [currentPage]="currentPage"
-  [totalPages]="totalPages"
-  [totalCount]="totalRecords"
-  [pageSize]="pageSize"
-  (pageChange)="updatePage($event)"
-  (pageSizeChange)="onPageSizeChange()">
-</app-custom-pagination>
-
-          
+               <app-custom-pagination
+                  [currentPage]="currentPage"
+                  [totalPages]="totalPages"
+                  [totalCount]="totalRecords"
+                  [pageSize]="pageSize"
+                  (pageChange)="updatePage($event)"
+                  (pageSizeChange)="onPageSizeChange($event)">
+               </app-custom-pagination>
             </div>
          </div>
       </div>

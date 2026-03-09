@@ -1121,21 +1121,14 @@
       <ng-container *ngIf="!isTableHasData">
          <p class="text-center">No record found</p>
       </ng-container>
- 
-               <app-custom-pagination
-  [currentPage]="currentPage"
-  [totalPages]="totalPages"
-  [totalCount]="totalCount"
-  [pageSize]="pageSize"
-  (pageChange)="updatePage($event)"
-  (pageSizeChange)="onPageSizeChange()">
-</app-custom-pagination>
-
-
-
-
-
-
+      <app-custom-pagination
+         [currentPage]="currentPage"
+         [totalPages]="totalPages"
+         [totalCount]="totalCount"
+         [pageSize]="pageSize"
+         (pageChange)="updatePage($event)"
+         (pageSizeChange)="onPageSizeChange($event)">
+      </app-custom-pagination>
    </div>
 </div>
 </div>

@@ -169,13 +169,13 @@
             </ng-container>
          </div>
          <app-custom-pagination
-  [currentPage]="currentPage"
-  [totalPages]="totalPages"
-  [totalCount]="totalCount"
-  [pageSize]="pageSize"
-  (pageChange)="updatePage($event)"
-  (pageSizeChange)="onPageSizeChange()">
-</app-custom-pagination>
+            [currentPage]="currentPage"
+            [totalPages]="totalPages"
+            [totalCount]="totalCount"
+            [pageSize]="pageSize"
+            (pageChange)="updatePage($event)"
+            (pageSizeChange)="onPageSizeChange($event)">
+         </app-custom-pagination>
       </div>
    </div>
 </div>
