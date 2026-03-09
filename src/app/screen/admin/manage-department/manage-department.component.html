@@ -1,0 +1,123 @@
+<div class="cust-list-flex1 layout manage-pricing-main">
+  <h1 class="cust-list-subtitle layout">Owning Department</h1>
+  <div class="cust-list-flex3 layout">
+    <div class="cust-list-flex3-item">
+      <div class="cust-list-group layout">
+        <div class="cust-list-block19 layout">
+          <div class="cust-list-box9 layout">
+            <img
+              src="../../../../assets/Admin-SideNav/pricing-Icons/Search.svg"
+              alt=""
+              class="cust-list-icon layout"
+            />
+          </div>
+
+          <div class="cust-list-block20 layout">
+            <input
+              class="cust-list-text-body21 layout"
+              (keyup)="applyFilter($event)"
+              placeholder="Search by price plan name"
+              #input
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cust-list-flex3-spacer"></div>
+    <div class="cust-list-flex3-item1">
+      <div class="cust-list-block23 layout" [routerLink]="['add-department']">
+        <div class="cust-list-block23-item">
+          <div class="cust-list-box10 layout">
+            <img
+              src="../../../../assets/Admin-SideNav/pricing-Icons/Add-Assets.svg"
+              alt=""
+              srcset=""
+            />
+          </div>
+        </div>
+        <div class="cust-list-block23-spacer"></div>
+        <div class="cust-list-text-body4 layout">
+          ADD DEPARTMENT
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="layout mat-data">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <caption></caption>
+      <ng-container matColumnDef="DeparmentName">
+        <th mat-header-cell *matHeaderCellDef>DEPARTMENT NAME</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.departmentName }} 
+        </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="Active">
+        <th mat-header-cell *matHeaderCellDef>ACTIVE</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.isActive }}
+        </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="CreatedBy">
+        <th mat-header-cell *matHeaderCellDef>
+          CREATED BY
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.createdByUserName }} 
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="CreatedOn">
+        <th mat-header-cell *matHeaderCellDef>CREATED DATE</th>
+        <td mat-cell *matCellDef="let element">
+           {{ element.createdOn }}
+        </td>
+      </ng-container>
+      
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="Action">
+        <th mat-header-cell *matHeaderCellDef>ACTION</th>
+        <td mat-cell *matCellDef="let element" style="cursor: pointer;">
+         
+          <img
+            src="../../../../assets/Admin-SideNav/pricing-Icons/Edit.svg"
+            alt=""
+            (click)="editDepartment(element)"
+            style="cursor: pointer;"
+            title="Edit"
+          />
+          <button
+            type="button"
+            class="icon-button"
+            title="Delete"
+            aria-label="Delete Department"
+            (click)="confirmDeleteDepartment(element.id)"
+          >
+            <img
+              src="../../../../assets/Admin-SideNav/Vehicles-Icons/delete-icon.svg"
+              alt=""
+            />
+          </button>
+          &nbsp;&nbsp;&nbsp;
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr> 
+    </table>
+    <ng-container *ngIf="isTableHasData">
+      <p class="text-center">No record found</p>
+    </ng-container>
+  </div>
+  <mat-paginator
+    #paginator
+    [hidden]="!dataSource.data.length"
+    (page)="pageChange($event)"
+    [length]="totalCount"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+  ></mat-paginator>
+</div>

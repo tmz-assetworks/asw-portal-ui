@@ -25,11 +25,6 @@ export class ManageVehiclesComponent implements OnInit {
    */
   allVehicleList:string[] = []
   isTableHasData: any
-  // totalCount: any
-  // pageSize: number = 10
-  // currentPage: number = 1
-  // totalPages: any
-  // pageSizeOptions = [10, 20, 100]
   totalCount: any
   pageSize: number = 10
   currentPage: number = 1
@@ -53,6 +48,8 @@ export class ManageVehiclesComponent implements OnInit {
     'LicencePlate',
     'RFIDCardAssigned',
     'Status',
+    'Department',
+    'ExternalVehicleLabel',
     'Action',
   ]
 

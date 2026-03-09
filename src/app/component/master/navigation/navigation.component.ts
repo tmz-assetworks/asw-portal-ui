@@ -153,6 +153,7 @@ private getAdminMenu() {
         { routerLink: ['assets'], text: 'Edit Assets', icon: this.ICON_BASE_ADMIN + 'Assets.svg' },
         { routerLink: ['vehicles'], text: 'Edit Vehicles', icon: this.ICON_BASE_ADMIN + 'Vehicles.svg' },
         { routerLink: ['pricing'], text: 'Edit Pricing', icon: this.ICON_BASE_ADMIN + 'Pricing.svg' },
+        { routerLink: ['department'], text: 'Edit Department', icon: this.ICON_BASE_ADMIN + 'OwnDep.svg' },
       ],
     },
     {

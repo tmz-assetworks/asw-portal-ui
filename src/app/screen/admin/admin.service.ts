@@ -458,6 +458,8 @@ export class AdminService {
     )
   }
 
+ 
+
   public CreateSwitchGear(params: any): Observable<any> {
     return this._http.post<any>(
       `${this.ASSET_API_URL}SwitchGear/CreateSwitchGear`,
@@ -549,6 +551,46 @@ export class AdminService {
       `${this.PRICING_API_URL}PricePlan/CreatePricePlan`,
       params,
     )
+  }
+
+   public GetAllDepartMentName(params: any): Observable<any> {
+    return this._http.post<any>(
+      `${this.ASSET_API_URL}OwningDepartments/GetAllDepartment`,
+      params,
+    )
+  }
+
+    /**
+   * Department API
+   * @param params
+   * @returns
+   */
+
+  public CreateDepartment(params: any): Observable<any> {
+    return this._http.post<any>(
+      `${this.ASSET_API_URL}OwningDepartments/CreateDepartment`,
+      params,
+    )
+  }
+
+   public getDepartmentById(params: any): Observable<any> {
+    return this._http.get<any>(
+      `${this.ASSET_API_URL}OwningDepartments/getDepartmentbyid?id=${params}`,
+      params,
+    )
+  }
+
+  public UpdateDepartment(params: any): Observable<any> {
+    return this._http.put<any>(
+      `${this.ASSET_API_URL}OwningDepartments/UpdateDepartment`,
+      params,
+    )
+  }
+
+  public DeleteDepartmentById(id: number): Observable<any> {
+    return this._http.delete<any>(
+      `${this.ASSET_API_URL}OwningDepartments/DeleteDepartmentById/${id}`
+    );
   }
 
   public UpdatePricePlan(params: any): Observable<any> {
