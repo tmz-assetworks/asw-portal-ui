@@ -394,7 +394,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block9.layout {
     position: relative;
     height: min-content;
-    // margin-left: 30px;
     width: 91px;
   }
   &hero-title {
@@ -427,8 +426,7 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &hero-title.layout {
     position: relative;
     height: min-content;
-   // margin: 0 auto;
-   margin: 0px 25px;
+    margin: 0px 25px;
     &.mt_zero {
       margin: 0;
     }
@@ -549,8 +547,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block12.layout {
     position: relative;
     height: min-content;
-    // border-right: 1px dotted #70787f73;
-    // border-left: 1px dotted #70787f73;
   }
   &block12-item {
     @include flex-column;
@@ -567,7 +563,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     height: min-content;
     width: 89px;
     min-width: 89px;
-    // margin: 0 20px 0 30px;
   }
   &block12-spacer {
     flex: 0 1 3px;
@@ -700,7 +695,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
     height: min-content;
     width: 89px;
     min-width: 89px;
-    // margin: auto 20px;
   }
   &block17-spacer {
     flex: 0 1 3px;
@@ -713,7 +707,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &text-body2.layout2 {
     position: relative;
     height: min-content;
-    // margin: 0 auto;
     @include lg {
       margin: 0px 27px 0px 35px;
     }
@@ -825,22 +818,12 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &box9 {
     background-color: $color_type_0;
     border-radius: 0px 4px 4px 0px;
-    // transition-duration: 0.3s;
-    // transition-property: transform;
   }
-  // &box9:hover {
-  //   transform: scale(1.1);
-  // }
   &box9.layout {
     position: relative;
     height: 47px;
     width: 54px;
     min-width: 54px;
-    /*
-    @include lg {
-      margin: 5px 0px 5px 5px;
-    }
-    */
   }
   &icon {
     width: 100%;
@@ -1177,11 +1160,8 @@ tr.mat-mdc-row:last-of-type {
 
     @include lg{
       width: 100vw;
-      // max-width: 100%;
       overflow: auto;
-      // margin-bottom: 10px;
       display:inline-table;
-      // border-collapse: collapse;
     }
   }
 }

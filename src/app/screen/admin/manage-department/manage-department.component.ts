@@ -11,141 +11,198 @@ import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-manage-department',
-  imports: [CommonModule,SharedMaterialModule,RouterModule],
+  imports: [CommonModule, SharedMaterialModule, RouterModule],
   templateUrl: './manage-department.component.html',
   styleUrl: './manage-department.component.scss',
 })
 export class ManageDepartmentComponent implements OnInit {
-  UserId: string | null
-  totalCount: any
-  pageSize: number = 10
-  currentPage: number = 1
-  totalPages: any
-  pageSizeOptions = [10, 20, 100]
-  searchParam = ''
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  UserId: string | null;
+  userTimeZone: any;
+
+  totalCount: number = 0;
+  pageSize: number = 10;
+  currentPage: number = 1;
+  totalPages: number = 0;
+
+  pageSizeOptions = [10, 20, 100];
+  searchParam = '';
+
   displayedColumns: string[] = [
     'DeparmentName',
     'Active',
     'CreatedBy',
-    'CreatedOn',    
+    'CreatedOn',
     'Action',
-  ]
-  isTableHasData: any
-  dataSource = new MatTableDataSource<any>([])
-  statusData: any
-  adminService: any
-  userTimeZone:any;
+  ];
+
+  isTableHasData = false;
+  statusData: any;
+
+  dataSource = new MatTableDataSource<any>([]);
+
   constructor(
-      private _adminService: AdminService,
-      private _router: Router,
-      private _storageService: StorageService,
-      private _toastr:ToastrService
-    ) {
-      this.UserId = this._storageService.getLocalData('user_id')
-      this.userTimeZone=this._storageService.getLocalData('time_zone');  
-    }
-  
-applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value
-    //this.dataSource.filter = filterValue.trim().toLowerCase()
-    this.searchParam = filterValue
-    this.GetAllDepartMentName()
+    private readonly _adminService: AdminService,
+    private readonly _router: Router,
+    private readonly _storageService: StorageService,
+    private readonly _toastr: ToastrService
+  ) {
+    this.UserId = this._storageService.getLocalData('user_id');
+    this.userTimeZone = this._storageService.getLocalData('time_zone');
   }
-  ngOnInit() {
-    this.GetAllDepartMentName()
+
+  ngOnInit(): void {
+    this.loadDepartments();
   }
-   @ViewChild(MatPaginator) paginator!: MatPaginator
 
   /**
-   * Get All Pricing Plan  List
+   * Search Filter
    */
-  GetAllDepartMentName(): void {
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.searchParam = filterValue;
+    this.loadDepartments();
+  }
+
+  /**
+   * Load Department List
+   */
+  loadDepartments(): void {
+
     const pBody = {
       pageNumber: this.currentPage,
       searchParam: this.searchParam,
       pageSize: this.pageSize,
       orderBy: '',
       opratorid: this.UserId,
-    }
-    this._adminService.GetAllDepartMentName(pBody).subscribe((res) => {
-      if (res.data !== undefined && res.data != null && res.data.length > 0) {
-        this.statusData = res.statusData
-        this.totalCount = res.paginationResponse.totalCount
-        this.totalPages = res.paginationResponse.totalPages
-        this.pageSize = res.paginationResponse.pageSize
-        this.dataSource.data = res.data
-        this.isTableHasData = false
-      } else {
-        this.dataSource.data = []
-        this.isTableHasData = true
-      }
-    })
+    };
+
+    this._adminService.GetAllDepartMentName(pBody).subscribe({
+      next: (res) => this.handleDepartmentResponse(res),
+      error: (err) => this.handleError(err)
+    });
   }
 
-    /**
-   *
-   * @param event
-   * Page Event
+  /**
+   * Handle Department API Response
    */
+  private handleDepartmentResponse(res: any): void {
 
-  pageChange(event: any) {
-    if (event.pageSize == this.pageSize) {
+    if (res?.data?.length > 0) {
+
+      this.statusData = res.statusData;
+      this.totalCount = res.paginationResponse.totalCount;
+      this.totalPages = res.paginationResponse.totalPages;
+      this.pageSize = res.paginationResponse.pageSize;
+
+      this.dataSource.data = res.data;
+      this.isTableHasData = false;
+
+    } else {
+
+      this.dataSource.data = [];
+      this.isTableHasData = true;
+
+    }
+  }
+
+  /**
+   * Pagination Change
+   */
+  pageChange(event: any): void {
+
+    if (event.pageSize === this.pageSize) {
+
       this.currentPage =
         event.previousPageIndex < event.pageIndex
           ? this.currentPage + 1
-          : this.currentPage - 1
+          : this.currentPage - 1;
+
     } else {
-      this.currentPage = 1
-      this.pageSize = event.pageSize
-      this.paginator.pageIndex = 0
+
+      this.currentPage = 1;
+      this.pageSize = event.pageSize;
+      this.paginator.pageIndex = 0;
+
     }
 
-    this.GetAllDepartMentName()
+    this.loadDepartments();
   }
+
   /**
-   * Edit Pricing Plan'
+   * Navigate to Edit
    */
-  editDepartment(data: any) {
-    this._router.navigateByUrl(`admin/department/edit-department?id=${data.id}`)
+  editDepartment(data: any): void {
+    this._router.navigateByUrl(`admin/department/edit-department?id=${data.id}`);
   }
 
   /**
-     * Make Department delete from database
-     * @param id
-     */
-      confirmDeleteDepartment(id: any): void {
-      Swal.fire({
-              title: '<strong>Are you sure you want to delete this Department? This action cannot be undone.</strong>',
-              icon: 'success',
-              focusConfirm: true,
-              confirmButtonText: ' <span style="color:#0062A6">CANCEL<span>',
-              confirmButtonColor: '#E6E8E9',
-              cancelButtonColor: '#0062A6',
-              cancelButtonText: ' CONFIRM',
-              showCancelButton: true,
-              allowOutsideClick: false, // 🔒 Prevent close on outside click
-              allowEscapeKey: false     // 🔒 Prevent close with Esc
-            }).then((result) => {
-              if (result.isDismissed) {
-                //Do your stuffs...
-                this._adminService.DeleteDepartmentById(id).subscribe({
-                  next: (res) => {
-                    if (res.statusCode === 200) {
-                      this._toastr.success(res.statusMessage);
-                      this.GetAllDepartMentName();
-                    } else {
-                      this._toastr.error(res.statusMessage);
-                    }
-                  },
-                  error: (error) => {
-                    if (error.status == 400) {
-                      let errorMsg = error.error.errors;
-                      this._toastr.error(errorMsg);
-                    }
-                  },
-                });
-              }
-            });
-  
+   * Confirm Delete Department
+   */
+  confirmDeleteDepartment(id: number): void {
+
+    Swal.fire({
+      title: '<strong>Are you sure you want to delete this Department? This action cannot be undone.</strong>',
+      icon: 'success',
+      focusConfirm: true,
+      confirmButtonText: ' <span style="color:#0062A6">CANCEL<span>',
+      confirmButtonColor: '#E6E8E9',
+      cancelButtonColor: '#0062A6',
+      cancelButtonText: ' CONFIRM',
+      showCancelButton: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false
+    }).then((result) => {
+
+      if (result.isDismissed) {
+        this.deleteDepartment(id);
+      }
+
+    });
+  }
+
+  /**
+   * Delete Department
+   */
+  private deleteDepartment(id: number): void {
+
+    this._adminService.DeleteDepartmentById(id).subscribe({
+
+      next: (res) => {
+
+        if (res.statusCode === 200) {
+
+          this._toastr.success(res.statusMessage);
+          this.loadDepartments();
+
+        } else {
+
+          this._toastr.error(res.statusMessage);
+
+        }
+
+      },
+
+      error: (error) => this.handleError(error)
+
+    });
+
+  }
+
+  /**
+   * Common Error Handler
+   */
+  private handleError(error: any): void {
+
+    if (error?.status === 400) {
+
+      const errorMsg = error?.error?.errors;
+      this._toastr.error(errorMsg);
+
     }
+
+  }
+
 }
