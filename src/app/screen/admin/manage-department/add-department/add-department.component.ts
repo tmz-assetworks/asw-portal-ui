@@ -62,6 +62,7 @@ export class AddDepartmentComponent implements OnInit {
    */
   departmentFormGroup = this.formBuilder.group({
     departmentName: new FormControl('', Validators.required),
+    deptkWhRate: new FormControl('', Validators.required),
   });
 
   ngOnInit() {
@@ -77,7 +78,8 @@ export class AddDepartmentComponent implements OnInit {
     this._AdminService.getDepartmentById(id).subscribe((res: any) => {
       if (res?.data?.departmentName) {
         this.departmentFormGroup.patchValue({
-          departmentName: res.data.departmentName
+          departmentName: res.data.departmentName,
+          deptkWhRate: res.data.deptkWhRate
         });
       }
     });
@@ -148,15 +150,16 @@ export class AddDepartmentComponent implements OnInit {
    * Update Department
    */
   updateDepartment() {
-
     if (!this.validateForm()) return;
-
     const formData = this.departmentFormGroup.value;
-
+    const deptRate = Number(
+         String(formData.deptkWhRate).replace(/[^0-9.]/g, '')
+       );
     const pBody = {
       Id: this.departmentId,
       createdBy: this.UserEmail,
       departmentName: formData.departmentName,
+      deptkWhRate: deptRate
     };
 
     this.confirmAction(() => {
@@ -171,23 +174,54 @@ export class AddDepartmentComponent implements OnInit {
    * Create Department
    */
   createDepartment() {
-
-    if (!this.validateForm()) return;
-
-    const formData = this.departmentFormGroup.value;
-
-    const pBody = {
-      createdBy: this.UserEmail,
-      departmentName: formData.departmentName,
-    };
-
-    this.confirmAction(() => {
-      this._AdminService.CreateDepartment(pBody).subscribe(
-        (res) => this.handleApiResponse(res),
-        (error: any) => this.handleError(error)
-      );
-    });
+       if (!this.validateForm()) return;
+       const formData = this.departmentFormGroup.value;
+       const deptRate = Number(
+         String(formData.deptkWhRate).replace(/[^0-9.]/g, '')
+       );
+       const pBody = {
+         createdBy: this.UserEmail,
+         departmentName: formData.departmentName,
+         deptkWhRate: deptRate
+       };
+       this.confirmAction(() => {
+         this._AdminService.CreateDepartment(pBody).subscribe(
+           (res) => this.handleApiResponse(res),
+           (error: any) => this.handleError(error)
+         );
+       });
   }
+  
+
+
+  formatUsd(): void {
+  const control = this.departmentFormGroup.get('deptkWhRate');
+
+  if (!control) {
+    return;
+  }
+
+  const rawValue = control.value;
+
+  if (!rawValue) {
+    return;
+  }
+
+  const numericValue = Number(String(rawValue).replace(/[^0-9.]/g, ''));
+
+  if (Number.isNaN(numericValue)) {
+    return;
+  }
+
+  const formatted = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD'
+  }).format(numericValue);
+
+  control.setValue(formatted, { emitEvent: false });
+}
+
+
 
   /**
    * Already exists message

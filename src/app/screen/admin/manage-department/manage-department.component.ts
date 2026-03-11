@@ -32,7 +32,7 @@ export class ManageDepartmentComponent implements OnInit {
 
   displayedColumns: string[] = [
     'DeparmentName',
-    'Active',
+    'DeptkWhRate',
     'CreatedBy',
     'CreatedOn',
     'Action',

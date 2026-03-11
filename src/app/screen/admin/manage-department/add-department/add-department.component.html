@@ -10,7 +10,7 @@
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
-                Department Name
+                Department
                 <span style="color: #ff0000;">*</span>
               </h5>
               <div
@@ -49,6 +49,50 @@
                 class="error-mess"
               >
                 Department Name Is Required
+              </span>
+            </div>
+          </div>
+          <div class="barbar-block13-spacer"></div>
+          <div class="barbar-block13-item">
+            <div class="barbar-block14 layout">
+              <h5 class="barbar-highlights layout">
+                Dept. kWh Rate
+                <span style="color: #ff0000;">*</span>
+              </h5>
+              <div
+                class="barbar-box6 layout"
+                [ngClass]="{
+                  'is-invalid':
+                    departmentFormGroup.get('deptkWhRate')?.errors &&
+                    submitted == true
+                }"
+              >
+                <input
+                  formControlName="deptkWhRate"
+                  type="text"
+                  class="barbar-input-text"
+                  (blur)="formatUsd()"
+                />
+              </div>
+              <span
+                *ngIf="
+                  !departmentFormGroup.get('deptkWhRate')?.valid &&
+                  departmentFormGroup.get('deptkWhRate')?.touched &&
+                  (departmentFormGroup.get('deptkWhRate')?.value?.length ?? 0) > 0
+                "
+                class="error-mess"
+              >
+                Dept. kWh Rate Must Be Between 1 To 100 Alphanumeric Only
+              </span>
+              <span
+                *ngIf="
+                  !departmentFormGroup.get('deptkWhRate')?.valid &&
+                  departmentFormGroup.get('deptkWhRate')?.touched &&
+                  departmentFormGroup.get('deptkWhRate')?.value?.length == 0
+                "
+                class="error-mess"
+              >
+                Dept. kWh Rate Is Required
               </span>
             </div>
           </div>
