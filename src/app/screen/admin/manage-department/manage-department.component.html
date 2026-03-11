@@ -53,10 +53,10 @@
       </ng-container>
 
       <!-- Name Column -->
-      <ng-container matColumnDef="Active">
-        <th mat-header-cell *matHeaderCellDef>ACTIVE</th>
+      <ng-container matColumnDef="DeptkWhRate">
+        <th mat-header-cell *matHeaderCellDef> Dept. kWh Rate</th>
         <td mat-cell *matCellDef="let element">
-          {{ element.isActive }}
+          {{ element.deptkWhRate | currency:'USD' }}
         </td>
       </ng-container>
 
