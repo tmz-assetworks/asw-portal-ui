@@ -344,82 +344,76 @@ export class ChargerInnerComponent implements OnInit {
     this._location.back();
     sessionStorage.clear();
   }
-downloadAsCSV(): void {
-  const body = {
-      pageNumber: 1,
-      searchParam: '',
-      pageSize: 9999,
-      orderBy: '',
-      operatorid: this.UserId,
-  };
 
-  this._chargerService.GetDispensersDetail(body).subscribe((res: any) => {
-    if (!res.data || res.data.length === 0) {
-      return;
-    }
+  downloadAsCSV(): void {
+     const body = {
+       pageNumber: 1,
+       searchParam: '',
+       pageSize: 9999,
+       orderBy: '',
+       operatorid: this.UserId
+     };
 
-    const headers = [
-      'ASSET ID',
-      'CHARGER ID',
-      'LOCATION',
-      'CHARGER MAKE',
-      'CHARGER MODEL',
-      'CONNECTOR TYPE',
-      'CHARGER STATUS',
-      'CHARGER PORTS',
-      'SIM ICCID',
-      'LOCATION CONTACT NUMBER'
-    ];
+     this._chargerService.GetDispensersDetail(body).subscribe((res: any) => {
+       if (!res?.data?.length) {
+         return;
+       }
+       const headers: string[] = [
+         'ASSET ID',
+         'CHARGER ID',
+         'LOCATION',
+         'CHARGER MAKE',
+         'CHARGER MODEL',
+         'CONNECTOR TYPE',
+         'CHARGER STATUS',
+         'CHARGER PORTS',
+         'SIM ICCID',
+         'LOCATION CONTACT NUMBER'
+       ];
+       const escapeCsv = (value: unknown): string => {
+         if (value === null || value === undefined) {
+           return '""';
+         }
+         const str = String(value)
+           .replaceAll('–', '-')   // normalize dash characters
+           .replaceAll('—', '-')
+           .replaceAll('"', '""');
 
-    
+         return `"${str}"`;
+       };
+       const rows: string = res.data
+         .map((item: any) =>
+           [
+             escapeCsv(item.assetId),
+             escapeCsv(item.chargerBoxId),
+             escapeCsv(item.locationContactName),
+             escapeCsv(item.makeName),
+             escapeCsv(item.modelName),
+             escapeCsv(item.chargerType),
+             escapeCsv(item.chargerStatus),
+             escapeCsv(item.noofPort),
+             escapeCsv(item.simCardMSIDN),
+             escapeCsv(item.locationContactNumber)
+           ].join(',')
+         )
+         .join('\n');
+       const csv = [headers.join(','), rows].join('\n');
 
-    const escapeCsv = (value: unknown): string => {
-        if (value === null || value === undefined) {
-          return '""';
-        }
-        let stringValue: string;
-        if (value instanceof Date) {
-          stringValue = value.toISOString();
-        } else if (typeof value === 'object') {
-          try {
-            stringValue = JSON.stringify(value);
-          } catch {
-            stringValue = '';
-          }
-        } else {
-          // primitives only
-          stringValue = String(value);
-        }
-      
-        const escaped = stringValue.replaceAll('"', '""');
-        return `"${escaped}"`;
-    };
+       // UTF-8 BOM ensures Excel reads encoding correctly
+       const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
 
+       const url = window.URL.createObjectURL(blob);
 
- 
+       const link = document.createElement('a');
+       link.href = url;
+       link.download = 'charger_detail_report.csv';
 
-    const rows = res?.data?.map((item: any) => [
-      escapeCsv(item.assetId),
-      escapeCsv(item.chargerBoxId),
-      escapeCsv(item.locationContactName),
-      escapeCsv(item.makeName),
-      escapeCsv(item.modelName),
-      escapeCsv(item.chargerType),
-      escapeCsv(item.chargerStatus),
-      escapeCsv(item.noofPort),
-      escapeCsv(item.simCardMSIDN),
-      escapeCsv(item.locationContactNumber)
-    ].join(',')).join('\n');
+       document.body.appendChild(link);
+       link.click();
 
-    const csvContent =
-      'data:text/csv;charset=utf-8,' + headers.join(',') + '\n' + rows;
+       document.body.removeChild(link);
+       window.URL.revokeObjectURL(url);
 
-    const link = document.createElement('a');
-    link.setAttribute('href', encodeURI(csvContent));
-    link.setAttribute('download', 'charger_detail_report.csv');
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-  });
+     });
  }
 }
