@@ -1,0 +1,36 @@
+<div class="warning-dialog-container">
+  <div class="dialog-header">
+    <h2>Session Timeout Warning</h2>
+    <button
+      type="button"
+      class="close-btn"
+      aria-label="Close warning dialog"
+      (click)="dismiss()">
+      ✕
+    </button>
+  </div>
+
+  <div class="dialog-body">
+    <div class="warning-icon">⏱</div>
+
+    <p class="primary-text">
+      Your session will expire in
+      <strong>{{ data.minutesLeft }} minute(s)</strong>
+      due to inactivity.
+    </p>
+
+    <p class="secondary-text">
+      To continue working, please click "Stay Logged In" below
+    </p>
+  </div>
+
+  <div class="dialog-actions">
+    <button type="button" class="aw-btn aw-btn-outline-primary" (click)="stayLoggedIn()">
+      Stay Logged In
+    </button>
+
+    <button type="button" class="aw-btn aw-btn-primary" (click)="logout()">
+      Logout Now
+    </button>
+  </div>
+</div>

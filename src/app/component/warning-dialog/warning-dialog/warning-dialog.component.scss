@@ -1,0 +1,85 @@
+.warning-dialog-container {
+  width: 366px;
+  padding: 14px 25px 18px 26px;
+  background: #ffffff;
+  border-radius: 12px;
+}
+
+/* Header */
+.dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #111827;
+  }
+}
+
+.close-btn {
+  border: none;
+  background: transparent;
+  font-size: 12px;
+  cursor: pointer;
+  color: #6b7280;
+}
+
+/* Body */
+.dialog-body {
+  text-align: center;
+  padding: 8px 0 16px;
+}
+
+.warning-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  background: #fef2f2;
+  color: #b91c1c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.primary-text {
+  font-size: 14px;
+  color: #374151;
+  margin: 0 0 6px;
+}
+
+.secondary-text {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 0;
+}
+
+.highlight {
+  color: #b91c1c;
+  font-weight: 600;
+}
+
+/* Actions */
+.dialog-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding-top: 8px;
+}
+.btn-warning {
+    background: #e6e8e9;
+    border: 1px solid #0062a6;
+    color: #0062a6;
+    font-size: 12px;
+    font-weight: 300;
+    border-radius: 3px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    cursor: pointer;
+}

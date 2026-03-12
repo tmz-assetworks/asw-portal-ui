@@ -1,0 +1,30 @@
+.session-expired-container {
+  text-align: center;
+  padding: 40px 15px 34px;
+  border-radius: 12px;
+  animation: popupFade 0.35s ease;
+}
+
+
+.icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.title {
+  margin-bottom: 10px;
+}
+
+.message {
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+}
+.logoutOk{
+    width: 100px;
+    height: 40px;
+}
