@@ -12,17 +12,12 @@ import { NgxEchartsModule } from 'ngx-echarts'
 export class AreaChartComponent implements OnInit {
   chargingSessionDataSet: any
   chartTypeData: any
-
   icon = '../../../../assets/chart-icon.svg'
   option: EChartsOption = {}
-
   @Input() chartTitle: any
   reportSessionLengthDataSet: any
   reportEnegyMTCo2SavedSet: any
   reportEnegyMTCo2SavedDataSet: any
-
-  // @Input() chartType: any
-
   @Input() set chartType(value: any) {
     if (value !== undefined) {
       this.chartTypeData = value
@@ -264,8 +259,6 @@ export class AreaChartComponent implements OnInit {
         ) as EChartsOption;
       }
 
-       
-
       private setChargerAreaChart(): void {
         this.chartTitle = 'Charging Sessions';
         this.option = {
@@ -274,9 +267,6 @@ export class AreaChartComponent implements OnInit {
           // ⬅️ keep your existing option object exactly as it is
         };
       }
-      
-      
-     
       
       private setReportSessionLengthChart(): void {
         if (this.isEmpty(this.reportSessionLengthDataSet)) {
@@ -300,49 +290,31 @@ export class AreaChartComponent implements OnInit {
         ) as EChartsOption;
       }
 
-
-
-
-  
-
   /**
    *
    * @param dataSet
    * @returns
    * Set area chart options
    */
-
   setAreaChartOption(dataSet: any) {
     const counts = dataSet.map((accu: any) => `${accu.counts}`)
-
     const maxCountValue = Math.max(...counts)
-
     this.chartTitle = 'Charging Sessions'
     const xAxisTimes = this.findDistinct(dataSet, [], 'times')
     const distinctCH = this.findDistinct(dataSet, [], 'chargingStatus')
-
     const gpSim = this.groupObj(distinctCH, dataSet)
-
     const legends = distinctCH.map((elem: any) => `${elem.chargingStatus}`)
-
     const distinctColor = this.findDistinct(
       this.chargingSessionDataSet,
       [],
       'color',
     )
-
     const color = distinctColor.map((elem: any) => `${elem.color}`)
-
     const times = xAxisTimes.map((acc: any) => `${acc.times}`)
-
     const u = this.makeGroupByAxis(xAxisTimes, distinctCH, gpSim)
 
     return {
       color: color,
-      title: {
-        // text: 'Charging Sessions',
-        // padding: [0, 20, 0, 100],
-      },
       tooltip: {
         trigger: 'axis',
         axisPointer: {
@@ -356,14 +328,7 @@ export class AreaChartComponent implements OnInit {
         data: legends,
         icon: 'square',
         right: '4%',
-        // top: 'center',
       },
-      // toolbox: {
-      //   feature: {
-      //     saveAsImage: {},
-      //   },
-      // },
-
       grid: {
         left: '14%',
         right: '5%',
@@ -374,25 +339,15 @@ export class AreaChartComponent implements OnInit {
         {
           name: 'Duration',
           type: 'category',
-          // boundaryGap: false,
           nameLocation: 'middle',
           nameGap: 42,
           axisTick: {
             alignWithLabel: true,
           },
           data: times,
-
           axisLabel: {
-            // formatter: '{value} kg',
-            // align: 'center',
             rotate: 25,
-
-            // ...
           },
-          // axisTick: {
-          //       alignWithLabel: true,
-          //     },
-
           // the default nameGap=15 would move the text to the right
         },
       ],
@@ -400,19 +355,11 @@ export class AreaChartComponent implements OnInit {
         {
           type: 'value',
           name: 'Charging Sessions',
-          // min: 0,
-          // max: maxCountValue,
-
           right: '0%',
-          // top: 'center',
-
           nameLocation: 'middle',
-          /* fontWeight: 'bolder', */
           nameGap: 50,
           nameTextStyle: {
-            // align: 'right',
             verticalAlign: 'top',
-
             fontSize: 14,
           },
         },
@@ -489,186 +436,99 @@ export class AreaChartComponent implements OnInit {
     }))
   }
 
-  setReportSessionLengthChartOption(dataSet: any) {
-    let xAxisValue = dataSet.map((accu: any) => `${accu.times}`)
-    let sessionLen = dataSet.map((accu: any) => `${accu.sessionLenghtInMinutes}`)
 
-    return {
-      color: ['#87B3B9'],
-      title: {
-        // text: 'Charging Sessions',
-        // padding: [0, 20, 0, 100],
-      },
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-          type: 'cross',
-          label: {
-            backgroundColor: '#6a7985',
-          },
-        },
-      },
-      legend: {
-        // data: ['SESSION LENGTH'],
-        icon: 'square',
-        // right: 0,
-        right: '4%',
-        // top: 'center',
-      },
-      // toolbox: {
-      //   feature: {
-      //     saveAsImage: {},
-      //   },
-      // },
-      grid: {
-        left: '12%',
-        right: '6%',
-        bottom: '12%',
-        containLabel: true,
-      },
-      xAxis: [
-        {
-          name: '',
-          type: 'category',
-          // boundaryGap: false,
-          nameLocation: 'middle',
-          nameGap: 30,
-          axisTick: {
-            alignWithLabel: true,
-          },
-          data: xAxisValue,
-          // [
-          //   '01',
-          //   '02',
-          //   '03',
-          //   '04',
-          //   '05',
-          //   '06',
-          //   '07',
-          //   '08',
-          //   '09',
-          //   '10',
-          //   '11',
-          //   '12',
-          //   '13',
-          //   '14',
-          //   '15',
-          //   '16',
-          //   '17',
-          //   '18',
-          //   '19',
-          //   '20',
-          //   '21',
-          //   '22',
-          //   '23',
-          //   '24',
-          // ],
-          axisLabel: {
-            // formatter: '{value} kg',
-            // align: 'center',
-            rotate: 30,
+  setReportSessionLengthChartOption(dataSet: any[]): any {
+  const xAxisValue: string[] = dataSet.map((item: any) => item?.times ?? '');
+  const sessionLen: number[] = dataSet.map((item: any) =>
+    item?.sessionLenghtInMinutes
+      ? Number((item.sessionLenghtInMinutes / 60).toFixed(2))
+      : 0
+  );
 
-            // ...
-          },
-          // axisTick: {
-          //       alignWithLabel: true,
-          //     },
-          nameTextStyle: {
-            // align: 'right',
-            verticalAlign: 'top',
-            /**
-             * the top padding will shift the name down so that it does not overlap with the axis-labels
-             * t-l-b-r
-             */
-            padding: [20, 0, 0, 0],
-            fontSize: 12,
-            // fontWeight: 800,
-            // fontStyle: 'italic',
-          },
-          // the default nameGap=15 would move the text to the right
+  return {
+    color: ['#87B3B9'],
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'cross',
+        label: {
+          backgroundColor: '#6a7985'
+        }
+      },
+      formatter: (params: any) => {
+        const value = params?.[0]?.data ?? 0;
+        const label = params?.[0]?.axisValue ?? '';
+        return `${label}<br/>Session Length: ${value} Hours`;
+      }
+    },
+
+    legend: {
+      icon: 'square',
+      right: '4%'
+    },
+
+    grid: {
+      left: '12%',
+      right: '6%',
+      bottom: '12%',
+      containLabel: true
+    },
+
+    xAxis: [
+      {
+        name: '',
+        type: 'category',
+        nameLocation: 'middle',
+        nameGap: 30,
+        axisTick: {
+          alignWithLabel: true
         },
-      ],
-      yAxis: [
-        {
-          type: 'value',
-          name: 'Minutes',
-          nameLocation: 'middle',
-          /* fontWeight: 'bolder', */
-          nameGap: 60,
-          nameTextStyle: {
-            // align: 'right',
-            // verticalAlign: 'top',
-            /**
-             * the top padding will shift the name down so that it does not overlap with the axis-labels
-             * t-l-b-r
-             */
-            // padding: [20, 0, 0, 0],
-            fontSize: 14,
-            // fontWeight: 800,
-            // fontStyle: 'italic',
-          },
+        data: xAxisValue,
+        axisLabel: {
+          rotate: 30
         },
-      ],
-      series: [
-        {
-          name: 'SESSION LENGTH',
-          type: 'line',
-          stack: 'Total',
-          smooth: true,
-          lineStyle: {
-            width: 0,
-          },
-          showSymbol: false,
-          areaStyle: {
-            color: '#87B3B9',
-          },
-          // areaStyle: {
-          //   opacity: 0.8,
-          //   color: new graphic.LinearGradient(0, 0, 0, 1, [
-          //     {
-          //       offset: 0,
-          //       color: '#87B3B9',
-          //     },
-          //     {
-          //       offset: 1,
-          //       color: 'rgba(144, 153, 63, 0.5)',
-          //     },
-          //   ]),
-          // },
-          emphasis: {
-            focus: 'series',
-          },
-          data: sessionLen,
-          // [
-          //   140,
-          //   232,
-          //   101,
-          //   264,
-          //   90,
-          //   340,
-          //   250,
-          //   264,
-          //   90,
-          //   340,
-          //   250,
-          //   264,
-          //   90,
-          //   264,
-          //   90,
-          //   340,
-          //   250,
-          //   264,
-          //   90,
-          //   340,
-          //   250,
-          //   264,
-          //   90,
-          //   90,
-          // ],
+        nameTextStyle: {
+          verticalAlign: 'top',
+          padding: [20, 0, 0, 0],
+          fontSize: 12
+        }
+      }
+    ],
+
+    yAxis: [
+      {
+        type: 'value',
+        name: 'Hours',
+        nameLocation: 'middle',
+        nameGap: 60,
+        nameTextStyle: {
+          fontSize: 14
+        }
+      }
+    ],
+
+    series: [
+      {
+        name: 'SESSION LENGTH',
+        type: 'line',
+        stack: 'Total',
+        smooth: true,
+        lineStyle: {
+          width: 0
         },
-      ],
-    }
-  }
+        showSymbol: false,
+        areaStyle: {
+          color: '#87B3B9'
+        },
+        emphasis: {
+          focus: 'series'
+        },
+        data: sessionLen
+      }
+    ]
+  };
+}
+
   setreportEnegyMTCo2SavedChartOption(dataSet: any) {
     let xAxisValue = dataSet.map((accu: any) => `${accu.times}`)
     let CO2Count = dataSet.map((accu: any) => `${accu.value}`)
@@ -676,8 +536,6 @@ export class AreaChartComponent implements OnInit {
     return {
       color: ['#87B3B9'],
       title: {
-        // text: 'Charging Sessions',
-        // padding: [0, 20, 0, 100],
       },
       tooltip: {
         trigger: 'axis',
@@ -689,17 +547,9 @@ export class AreaChartComponent implements OnInit {
         },
       },
       legend: {
-        // data: ['SESSION LENGTH'],
         icon: 'square',
-        // right: 0,
         right: '4%',
-        // top: 'center',
       },
-      // toolbox: {
-      //   feature: {
-      //     saveAsImage: {},
-      //   },
-      // },
       grid: {
         left: '12%',
         right: '6%',
@@ -710,39 +560,15 @@ export class AreaChartComponent implements OnInit {
         {
           name: 'Duration',
           type: 'category',
-          // boundaryGap: false,
           nameLocation: 'middle',
-          // nameGap: 50,
           axisTick: {
             alignWithLabel: true,
           },
           data: xAxisValue,
-          // [
-          //   'July 20',
-          //   'Aug 20',
-          //   'Sep 20',
-          //   'Oct 20',
-          //   'Nov 20',
-          //   'Dec 20',
-          //   'Jan 21',
-          //   'Feb 21',
-          //   'Mar 21',
-          //   'Apr 21',
-          //   'May 21',
-          //   'Jun 21',
-          // ],
           axisLabel: {
-            // formatter: '{value} kg',
-            // align: 'center',
             rotate: 30,
-
-            // ...
           },
-          // axisTick: {
-          //       alignWithLabel: true,
-          //     },
           nameTextStyle: {
-            // align: 'right',
             verticalAlign: 'top',
             /**
              * the top padding will shift the name down so that it does not overlap with the axis-labels
@@ -750,8 +576,6 @@ export class AreaChartComponent implements OnInit {
              */
             padding: [20, 0, 0, 0],
             fontSize: 14,
-            // fontWeight: 800,
-            // fontStyle: 'italic',
           },
           // the default nameGap=15 would move the text to the right
         },
@@ -762,7 +586,6 @@ export class AreaChartComponent implements OnInit {
           name: 'MT of CO2 Saved',
 
           nameLocation: 'middle',
-          /* fontWeight: 'bolder', */
           nameGap: 60,
           nameTextStyle: {
             fontSize: 14,
@@ -783,51 +606,10 @@ export class AreaChartComponent implements OnInit {
           areaStyle: {
             color: '#87B3B9',
           },
-
-          // areaStyle: {
-          //   opacity: 0.8,
-          //   color: new graphic.LinearGradient(0, 0, 0, 1, [
-          //     {
-          //       offset: 0,
-          //       color: '#87B3B9',
-          //     },
-          //     {
-          //       offset: 1,
-          //       color: 'rgba(144, 153, 63, 0.5)',
-          //     },
-          //   ]),
-          // },
           emphasis: {
             focus: 'series',
           },
           data: CO2Count,
-          // [
-          //   0,
-          //   140,
-          //   232,
-          //   101,
-          //   264,
-          //   90,
-          //   340,
-          //   250,
-          //   264,
-          //   90,
-          //   340,
-          //   250,
-          //   264,
-          //   90,
-          //   264,
-          //   90,
-          //   340,
-          //   250,
-          //   264,
-          //   90,
-          //   340,
-          //   250,
-          //   264,
-          //   90,
-          //   90,
-          // ],
         },
       ],
     }
