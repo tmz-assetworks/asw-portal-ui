@@ -185,6 +185,7 @@ export class ReportDetailComponent implements OnInit {
             for (let i = 0; i < this.chartList.length; i++) {
               let newObj = {
                 'ASSET ID': this.chartList[i]['assetId'],
+                'CHARGE BOX ID': this.chartList[i]['chargeBoxID'],
                 'DEPARTMENT': this.chartList[i]['department'],
                 'LOCATION NAME': this.chartList[i]['locationName'],
                 'CONSUMED ENERGY': this.chartList[i]['consumedEnergy'],

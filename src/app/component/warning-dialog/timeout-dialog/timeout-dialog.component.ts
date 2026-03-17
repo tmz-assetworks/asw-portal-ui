@@ -7,7 +7,7 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrl: './timeout-dialog.component.scss',
 })
 export class TimeoutDialogComponent {
-  constructor(private dialogRef: MatDialogRef<TimeoutDialogComponent>) {}
+  constructor(private readonly dialogRef: MatDialogRef<TimeoutDialogComponent>) {}
   close(): void {
     this.dialogRef.close();
   }

@@ -370,17 +370,24 @@ export class ChargerInnerComponent implements OnInit {
          'SIM ICCID',
          'LOCATION CONTACT NUMBER'
        ];
-       const escapeCsv = (value: unknown): string => {
-         if (value === null || value === undefined) {
-           return '""';
-         }
-         const str = String(value)
-           .replaceAll('–', '-')   // normalize dash characters
-           .replaceAll('—', '-')
-           .replaceAll('"', '""');
 
-         return `"${str}"`;
-       };
+      const escapeCsv = (value: unknown): string => {
+          if (value === null || value === undefined) {
+            return '""';
+          }       
+          const str =
+            typeof value === 'object'
+              ? JSON.stringify(value)
+              : String(value);        
+
+          const sanitized = str
+            .replaceAll('–', '-')
+            .replaceAll('—', '-')
+            .replaceAll('"', '""');       
+
+          return `"${sanitized}"`;
+        };
+
        const rows: string = res.data
          .map((item: any) =>
            [
@@ -402,7 +409,7 @@ export class ChargerInnerComponent implements OnInit {
        // UTF-8 BOM ensures Excel reads encoding correctly
        const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
 
-       const url = window.URL.createObjectURL(blob);
+       const url = globalThis.URL.createObjectURL(blob);
 
        const link = document.createElement('a');
        link.href = url;
@@ -411,8 +418,8 @@ export class ChargerInnerComponent implements OnInit {
        document.body.appendChild(link);
        link.click();
 
-       document.body.removeChild(link);
-       window.URL.revokeObjectURL(url);
+       link.remove();
+       globalThis.URL.revokeObjectURL(url);
 
      });
  }

@@ -1,5 +1,5 @@
 import { trigger, state, style, transition, animate } from '@angular/animations'
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core'
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { MatTableDataSource } from '@angular/material/table'
 import { AlertsService } from 'src/app/screen/operator/alerts/alerts.service'
 import { StorageService } from 'src/app/service/storage.service'
@@ -8,16 +8,7 @@ import { ToastrService } from 'ngx-toastr'
 import 'jspdf'
 import { ChargerService } from 'src/app/screen/operator/charger/charger.service'
 import { MatDialog } from '@angular/material/dialog'
-import { FormsModule } from '@angular/forms';
-
-import {
-  FormArray,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms'
+import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators,FormsModule} from '@angular/forms'
 import { interval, map, Observable, startWith } from 'rxjs'
 import { TransactionDialogComponent } from 'src/app/component/dashboard/transaction-dialog/transaction-dialog.component'
 import { CommonModule, DatePipe } from '@angular/common'
@@ -1018,12 +1009,9 @@ GetOcppEventLog(): void {
   }
   newLocalList(date: any, rfid: any, status: any): FormGroup {
     return new FormGroup({
-      //listVersion: new FormControl(listVersion,[Validators.required,Validators.pattern('[0-9]+')]),
-      //idTag: new FormControl(id),
       localListDate: new FormControl(date),
       rfid: new FormControl(rfid),
       status: new FormControl(status),
-      // updateType: new FormControl(updateType)
     })
   }
 
@@ -1897,27 +1885,6 @@ GetOcppEventLog(): void {
   }
 
   /**
-   *
-   * @param event
-   * Page Event
-   */
-
-  // pageChange(event: any) {
-  //   if (event.pageSize == this.pageSize) {
-  //    this.currentPage =
-  //       event.previousPageIndex < event.pageIndex
-  //         ? this.currentPage + 1
-  //         : this.currentPage - 1
-  //   }else {
-  //    this.currentPage = 1
-  //     this.pageSize = event.pageSize
-  //     this.paginator.pageIndex = 0
-  //   }
-
-  //   this.GetOcppEventLog()
-  // }
-
-  /**
    * Unlock
    */
   unlock(connectorID: number) {
@@ -1976,7 +1943,6 @@ GetOcppEventLog(): void {
       this.toastr.error('Please Enter Number Greater Than 0')
       return
     }
-    // return
     const pBody = {
       reservationId: digitValidate,
     }
@@ -2120,7 +2086,6 @@ GetOcppEventLog(): void {
       this.toastr.error('Please Select RequestMessage')
       return
     }
-    // return
     let pBody: any
     pBody =
       connectorID > 0
