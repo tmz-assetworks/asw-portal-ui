@@ -118,6 +118,9 @@ export class IdleService {
 
     this.router.navigate(['/login']).then(() => {
 
+      if (this.router.url.startsWith('/login')) {
+        return;
+      }
       this.dialog.open(TimeoutDialogComponent, {
         width: '420px',
         disableClose: true

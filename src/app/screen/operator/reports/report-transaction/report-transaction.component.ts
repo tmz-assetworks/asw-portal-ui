@@ -15,13 +15,6 @@ import { BarChartComponent } from 'src/app/component/dashboard/bar-chart/bar-cha
 })
 export class ReportTransactionComponent implements OnInit {
   filterToggle = new FormControl('1')
-  // basic = 'basic'
-  // basicStatus = 'basicStatus'
-  // bar = 'chargerBar'
-  // barChargers = 'reportTransactionYearly'
-  // lineChargers = 'reportTransaction'
-  // lineChargersTitle = 'reportTransaction'
-
   barChargersTitle = 'Transaction Amount'
   UserId: string | null
   reportTransactionMonthlyData = ''
@@ -39,8 +32,6 @@ export class ReportTransactionComponent implements OnInit {
   ngOnInit(): void {
     this.getReportTransaction(this.UserId, [], '1')
   }
-  setTime(event: any) {}
-
   openReportDetailPage(
     event: any,
     graphHeading: string,

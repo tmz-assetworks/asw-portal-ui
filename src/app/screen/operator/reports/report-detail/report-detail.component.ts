@@ -365,8 +365,6 @@ export class ReportDetailComponent implements OnInit {
       return
     }
   }
-  checkStartDate() {}
-
   resetFilter() {
     this.locationIdResponse=[]
     this.submitted = false

@@ -13,11 +13,9 @@
             </span>
             <span class="graph-heading">{{ graphHeading }}</span>
             <b style="font-size: 13px;">{{ pageHeading }}</b>
-            <!-- <strong style="font-size: 13px;">{{ pageHeading }}</strong> -->
           </h3>
           <div class="exp_button">
             <div class="cust-list-flex3 layout">
-              <!-- <div class="cust-list-flex3-spacer"></div> -->
               <div class="cust-list-flex3-item1" (click)="downloadAsCSV()">
                 <div class="cust-list-block23 layout">
                   <div class="cust-list-block23-item">
@@ -39,9 +37,6 @@
           </div>
         </div>
       </div>
-      <!--  <div style="margin-top:30px;">
-            <div style="width:40px;height: 40px;"> <span (click)="goback()" class="cursorPointer"><img  src="../../../../assets/icons/backArrow.png" class="txt_label" /></span></div>
-          </div> -->
       <div class="dashboard-block12 layout">
         <div class="dashboard-block13 layout">
           <div class="dashboard-block13-item">
@@ -74,7 +69,6 @@
                                         [matDatepicker]="fromDate"
                                         formControlName="fromDate"
                                         readonly
-                                        (dateChange)="checkStartDate()"
                                       />
 
                                       <mat-datepicker-toggle
@@ -311,8 +305,6 @@
                       <ng-container *ngIf="!isSubscription">
                         <div
                           class="cust-list-group2 layout"
-                          id="pdfTable"
-                          #pdfTable
                         >
                           <div class="layout mat-data">
                             <table
