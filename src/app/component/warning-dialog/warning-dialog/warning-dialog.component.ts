@@ -8,7 +8,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class WarningDialogComponent {
   constructor(
-    private dialogRef: MatDialogRef<WarningDialogComponent>,
+    private readonly dialogRef: MatDialogRef<WarningDialogComponent>,
     @Inject(MAT_DIALOG_DATA)
     public data: { minutesLeft: number }
   ) {}

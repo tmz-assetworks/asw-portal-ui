@@ -7,17 +7,17 @@ import { TimeoutDialogComponent } from 'src/app/component/warning-dialog/timeout
 
 @Injectable({ providedIn: 'root' })
 export class IdleService {
-  private idleTimeoutId?: number;
-  private warningTimeoutId?: number;
+  private idleTimeoutId?: ReturnType<typeof setTimeout>;
+  private warningTimeoutId?: ReturnType<typeof setTimeout>;
 
   private timeoutMinutes = 60;
   private warningMinutes = 1;
   private isWarningOpen = false;
 
   constructor(
-    private router: Router,
-    private dialog: MatDialog,
-    private ngZone: NgZone,
+    private readonly router: Router,
+    private readonly dialog: MatDialog,
+    private readonly ngZone: NgZone,
     private readonly settingService: SettingService
   ) {
     this.initListeners();
@@ -50,7 +50,7 @@ export class IdleService {
 
   private initListeners(): void {
     ['click', 'mousemove', 'keydown', 'scroll', 'touchstart'].forEach(event => {
-      window.addEventListener(event, () => this.onUserActivity());
+      globalThis.addEventListener(event, () => this.onUserActivity());
     });
   }
 
@@ -63,12 +63,12 @@ export class IdleService {
   private startTimers(): void {
     this.clearTimers();
 
-    this.warningTimeoutId = window.setTimeout(
+    this.warningTimeoutId = globalThis.setTimeout(
       () => this.showWarning(),
       (this.timeoutMinutes - this.warningMinutes) * 60 * 1000
     );
 
-    this.idleTimeoutId = window.setTimeout(
+    this.idleTimeoutId = globalThis.setTimeout(
       () => this.logoutUser(),
       this.timeoutMinutes * 60 * 1000
     );

@@ -153,7 +153,7 @@ export class AddDepartmentComponent implements OnInit {
     if (!this.validateForm()) return;
     const formData = this.departmentFormGroup.value;
     const deptRate = Number(
-         String(formData.deptkWhRate).replace(/[^0-9.]/g, '')
+         String(formData.deptkWhRate).replaceAll(/[^0-9.]/g, '')
        );
     const pBody = {
       Id: this.departmentId,
@@ -177,7 +177,7 @@ export class AddDepartmentComponent implements OnInit {
        if (!this.validateForm()) return;
        const formData = this.departmentFormGroup.value;
        const deptRate = Number(
-         String(formData.deptkWhRate).replace(/[^0-9.]/g, '')
+         String(formData.deptkWhRate).replaceAll(/[^0-9.]/g, '')
        );
        const pBody = {
          createdBy: this.UserEmail,
@@ -207,7 +207,7 @@ export class AddDepartmentComponent implements OnInit {
     return;
   }
 
-  const numericValue = Number(String(rawValue).replace(/[^0-9.]/g, ''));
+  const numericValue = Number(String(rawValue).replaceAll(/[^0-9.]/g, ''));
 
   if (Number.isNaN(numericValue)) {
     return;

@@ -6,8 +6,6 @@ import { StorageService } from 'src/app/service/storage.service'
 import { CommonModule, DatePipe, Location } from '@angular/common'
 import { ReportService } from '../reports.service'
 import { AdminService } from 'src/app/screen/admin/admin.service'
-import jsPDF from 'jspdf'
-
 import * as fs from 'file-saver'
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms'
 import { ToastrService } from 'ngx-toastr'
@@ -52,6 +50,10 @@ export class ReportDetailComponent implements OnInit {
     private _toastr: ToastrService,
     private readonly _AdminService: AdminService,
   ) {
+    this.loadUserSettings();
+  }
+  
+  private loadUserSettings(): void {
     this.graphHeading = this._storageService.getSessionData('graphHeading')
     this.pageHeading = this._storageService.getSessionData('pageHeading')
     this.duration = this._storageService.getSessionData('duration')
@@ -65,7 +67,7 @@ export class ReportDetailComponent implements OnInit {
       this.graphId = JSON.parse(params['id'])
     })
 
-    if (this.graphId == 1 || this.graphId == 2 || this.graphId == 3) {
+    if ([1, 2, 3].includes(this.graphId)) {
       this.isSubscription = true
       this.GetSubscriptionDetails(false)
       this.displayedColumnsSubscription = [
@@ -106,7 +108,7 @@ export class ReportDetailComponent implements OnInit {
    */
 
   downloadAsCSV() {
-    if (this.graphId == 1 || this.graphId == 2 || this.graphId == 3) {
+    if ([1, 2, 3].includes(this.graphId)) {
       const pBody = {
         pageNumber: 0,
         searchParam: '',
@@ -128,32 +130,24 @@ export class ReportDetailComponent implements OnInit {
             res.data.length > 0
           ) {
             this.chartList = res.data
-
-            let newObjArr: any = []
-            for (let i = 0; i < this.chartList.length; i++) {
-              let newObj = {
-                'SUBSCRIPTION PLAN': this.chartList[i]['subscriptionPlan'],
-                'CONSUMED ENERGY': this.chartList[i]['consumedEnergy'],
-                'CONSUMED TIME': this.chartList[i]['consumedTime'],
-                'LOCATION NAME': this.chartList[i]['locationName'],
-                REMARK: this.chartList[i]['remark'],
-                'SALES TAX': this.chartList[i]['salesTax'],
-                'TRANSACTION FEE': this.chartList[i]['transactionFee'],
-                'PARKING FEE': this.chartList[i]['parkingFee'],
-                RFID: this.chartList[i]['rfid'],
-                TAX: this.chartList[i]['tax'],
-                'TOTAL AMOUNT': this.chartList[i]['totalAmount'],
-                VIN: this.chartList[i]['vin'],
-                'CREATED ON': this.datePipe.transform(
-                  this.chartList[i]['createdOn'],
-                  'dd-MM-yyyy h:mm',
-                ),
-              }
-
-              //PUSH INTO NEW ARRAY
-
-              newObjArr.push(newObj)
-            }
+            const newObjArr = this.chartList.map((item: any) => ({
+              'SUBSCRIPTION PLAN': item.subscriptionPlan,
+              'CONSUMED ENERGY': item.consumedEnergy,
+              'CONSUMED TIME': item.consumedTime,
+              'LOCATION NAME': item.locationName,
+              REMARK: item.remark,
+              'SALES TAX': item.salesTax,
+              'TRANSACTION FEE': item.transactionFee,
+              'PARKING FEE': item.parkingFee,
+              RFID: item.rfid,
+              TAX: item.tax,
+              'TOTAL AMOUNT': item.totalAmount,
+              VIN: item.vin,
+              'CREATED ON': this.datePipe.transform(
+                item.createdOn,
+                'dd-MM-yyyy h:mm'
+              )
+            }));
 
             this.convertToCSV(newObjArr);
           }
@@ -180,43 +174,36 @@ export class ReportDetailComponent implements OnInit {
             res.data.length > 0
           ) {
             this.chartList = res.data
-
-            let newObjArr: any = []
-            for (let i = 0; i < this.chartList.length; i++) {
-              let newObj = {
-                'ASSET ID': this.chartList[i]['assetId'],
-                'DEPARTMENT': this.chartList[i]['department'],
-                'LOCATION NAME': this.chartList[i]['locationName'],
-                'CONSUMED ENERGY': this.chartList[i]['consumedEnergy'],
-                'CONSUMED TIME': this.chartList[i]['consumedTime'],
-                REMARK: this.chartList[i]['remark'],
-                'SALES TAX': this.chartList[i]['salesTax'],
-                'TRANSACTION FEE': this.chartList[i]['transactionFee'],
-                'PARKING FEE': this.chartList[i]['parkingFee'],
-                RFID: this.chartList[i]['rfid'],
-                'START TIME': this.datePipe.transform(
-                  this.chartList[i]['startTime'],
-                  'dd-MM-yyyy h:mm',
-                ),
-                'END TIME': this.datePipe.transform(
-                  this.chartList[i]['endTime'],
-                  'dd-MM-yyyy h:mm',
-                ),
-                DURATION: this.chartList[i]['duration'],
-                'UNIT COST': this.chartList[i]['unitCost'],
-                TAX: this.chartList[i]['tax'],
-                'TOTAL AMOUNT': this.chartList[i]['totalAmount'],
-                VIN: this.chartList[i]['vin'],
-                'CREATED ON': this.datePipe.transform(
-                  this.chartList[i]['createdOn'],
-                  'dd-MM-yyyy h:mm',
-                ),
-              }
-
-              //PUSH INTO NEW ARRAY
-
-              newObjArr.push(newObj)
-            }
+            const newObjArr = this.chartList.map((item: any) => ({
+                  'ASSET ID': item.assetId,
+                  'CHARGE BOX ID': item.chargeBoxID,
+                  'DEPARTMENT': item.department,
+                  'LOCATION NAME': item.locationName,
+                  'CONSUMED ENERGY': item.consumedEnergy,
+                  'CONSUMED TIME': item.consumedTime,
+                  REMARK: item.remark,
+                  'SALES TAX': item.salesTax,
+                  'TRANSACTION FEE': item.transactionFee,
+                  'PARKING FEE': item.parkingFee,
+                  RFID: item.rfid,
+                  'START TIME': this.datePipe.transform(
+                    item.startTime,
+                    'dd-MM-yyyy h:mm'
+                  ),
+                  'END TIME': this.datePipe.transform(
+                    item.endTime,
+                    'dd-MM-yyyy h:mm'
+                  ),
+                  DURATION: item.duration,
+                  'UNIT COST': item.unitCost,
+                  TAX: item.tax,
+                  'TOTAL AMOUNT': item.totalAmount,
+                  VIN: item.vin,
+                  'CREATED ON': this.datePipe.transform(
+                    item.createdOn,
+                    'dd-MM-yyyy h:mm'
+                  )
+                }));
 
             this.convertToCSV(newObjArr)
           }
@@ -268,7 +255,7 @@ export class ReportDetailComponent implements OnInit {
       this.paginator.pageIndex = 0    
     }
 
-    if (this.graphId == 1 || this.graphId == 2 || this.graphId == 3) {
+    if ([1, 2, 3].includes(this.graphId)) {
       this.GetSubscriptionDetails(false)
     } else {
       this.GetTransactionDetails(false)
