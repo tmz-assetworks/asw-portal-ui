@@ -1,26 +1,43 @@
-import { trigger, state, style, transition, animate } from '@angular/animations'
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
-import { MatTableDataSource } from '@angular/material/table'
-import { AlertsService } from 'src/app/screen/operator/alerts/alerts.service'
-import { StorageService } from 'src/app/service/storage.service'
-import { DiagnosticsService } from 'src/app/screen/operator/diagnostics/diagnostics.service'
-import { ToastrService } from 'ngx-toastr'
-import 'jspdf'
-import { ChargerService } from 'src/app/screen/operator/charger/charger.service'
-import { MatDialog } from '@angular/material/dialog'
-import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators,FormsModule} from '@angular/forms'
-import { interval, map, Observable, startWith } from 'rxjs'
-import { TransactionDialogComponent } from 'src/app/component/dashboard/transaction-dialog/transaction-dialog.component'
-import { CommonModule, DatePipe } from '@angular/common'
+import { trigger, state, style, transition, animate } from '@angular/animations';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+  FormsModule
+} from '@angular/forms';
+import { CommonModule, DatePipe } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
-import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
-import { ToolTipItemComponent } from '../diagnostic/tool-tip-item/tool-tip-item.component'
-import { ToolTipComponent } from '../diagnostic/tool-tip/tool-tip.component'
-import { DiagWidgetComponent } from '../diagnostic/diag-widget/diag-widget.component'
-import { DiagWidgetBarComponent } from '../diagnostic/diag-widget-bar/diag-widget-bar.component'
-import { MatDatetimepickerModule, MatNativeDatetimeModule } from '@mat-datetimepicker/core';
-import { MatMomentDatetimeModule } from '@mat-datetimepicker/moment';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
+
+import { interval, map, Observable, startWith } from 'rxjs';
+
+import { ToastrService } from 'ngx-toastr';
+import 'jspdf';
+
+import { AlertsService } from 'src/app/screen/operator/alerts/alerts.service';
+import { DiagnosticsService } from 'src/app/screen/operator/diagnostics/diagnostics.service';
+import { ChargerService } from 'src/app/screen/operator/charger/charger.service';
+import { StorageService } from 'src/app/service/storage.service';
+
+import { SharedMaterialModule } from 'src/app/shared/shared-material.module';
 import { CustomPaginationComponent } from 'src/app/shared/custom-pagination/custom-pagination.component';
+
+import { TransactionDialogComponent } from 'src/app/component/dashboard/transaction-dialog/transaction-dialog.component';
+import { ToolTipItemComponent } from '../diagnostic/tool-tip-item/tool-tip-item.component';
+import { ToolTipComponent } from '../diagnostic/tool-tip/tool-tip.component';
+import { DiagWidgetComponent } from '../diagnostic/diag-widget/diag-widget.component';
+import { DiagWidgetBarComponent } from '../diagnostic/diag-widget-bar/diag-widget-bar.component';
+
+import {
+  MatDatetimepickerModule,
+  MatNativeDatetimeModule
+} from '@mat-datetimepicker/core';
+import { MatMomentDatetimeModule } from '@mat-datetimepicker/moment';
 declare let jsPDF: new () => any
 interface DiagnosticsRow {
   OperatorType: string;
@@ -1885,6 +1902,16 @@ GetOcppEventLog(): void {
   }
 
   /**
+<<<<<<< HEAD
+   *
+   * @param event
+   * Page Event
+   */
+
+
+  /**
+=======
+>>>>>>> 0cf11d0c8a37c7df319c534a5e14c5a53f0a0351
    * Unlock
    */
   unlock(connectorID: number) {

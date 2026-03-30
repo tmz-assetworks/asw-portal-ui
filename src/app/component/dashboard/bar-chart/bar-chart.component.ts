@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core'
 import { ThemePalette } from '@angular/material/core'
 import { Router } from '@angular/router'
 import { EChartsOption, number } from 'echarts'
@@ -12,7 +12,10 @@ import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
   imports:[SharedMaterialModule,NgxEchartsModule
   ]
 })
-export class BarChartComponent implements OnInit {
+
+export class BarChartComponent implements OnChanges, OnInit {
+
+  @Input() chartData: any;
   performingDataSet: any
   statusData: any
   isToggle: boolean = false
@@ -24,9 +27,12 @@ export class BarChartComponent implements OnInit {
   reportSubscribeMonthlyDataSet: any
   reportSubscribeTypeDataSet: any
   reportSessionDataSet: any
+  reportInvalidBootDataSet:any
   reportTransactionYearlyDataSet: any
   reportAvailableChargerCountDataSet:any
   PaymentReportSet:any
+  reportInvalidSessionDataSet:any
+  reportLast24HourAlertsDataSet: any
   
 
   @Input() set locationStatusData(res: any) {
@@ -36,6 +42,13 @@ export class BarChartComponent implements OnInit {
       this.setChartOption('basicStatus')
     }
   }
+
+  @Input() set reportLast24HourAlertsData(res: any) {
+  if (res !== undefined) {
+    this.reportLast24HourAlertsDataSet = res
+    this.setChartOption(this.chartTypeData)
+  }
+}
 
   @Input() set locationPerformingData(value: any) {
     if (value !== undefined) {
@@ -70,6 +83,30 @@ export class BarChartComponent implements OnInit {
       this.setChartOption(this.chartTypeData)
     }
   }
+
+  @Input() set reportInvalidBootNotificationData(res: any) {
+    if (res !== undefined) {
+      this.reportInvalidBootDataSet = res
+      /**
+       * Set Chart type
+       */
+      this.setChartOption(this.chartTypeData)
+    }
+  }
+
+  @Input() set reportInvalidSessionData(res: any) {
+    if (res !== undefined) {
+      this.reportInvalidSessionDataSet = res
+      /**
+       * Set Chart type
+       */
+      this.setChartOption(this.chartTypeData)
+    }
+  }
+
+
+
+
 
   @Input() set reportSubscribeMonthlyData(res: any) {
     if (res !== undefined) {
@@ -112,6 +149,13 @@ export class BarChartComponent implements OnInit {
     }
   }
 
+  ngOnChanges(): void {
+  if (this.chartData) {
+    this.chargerData = this.chartData;  // or map it to whichever dataset you want
+    this.setChartOption(this.chartTypeData || 'bar'); // render chart
+  }
+}
+
    @Input() set reportPaymentDetailsData(res: any) {
     if (res !== undefined) {
       this.PaymentReportSet = res
@@ -122,6 +166,10 @@ export class BarChartComponent implements OnInit {
       this.setChartOption(this.chartTypeData)
     }
   }
+
+  
+
+
 
   color: ThemePalette = 'primary'
   checked = false
@@ -612,7 +660,44 @@ export class BarChartComponent implements OnInit {
           this.reportSessionDataSet,
         ) as EChartsOption
       }
-    } else if (chartType == 'reportAvailableCharger') {
+    } 
+    else if (chartType === 'reportInvalidBootNotification') {
+  if (this.reportInvalidBootDataSet && this.reportInvalidBootDataSet.length > 0) {
+    this.option = this.reportInvalidBootNotificationChartOptions(
+      this.reportInvalidBootDataSet
+    );
+  } else {
+    this.option = {};
+  }
+}
+
+else if (chartType === 'reportLast24HourAlerts') {
+  if (
+    this.reportLast24HourAlertsDataSet &&
+    this.reportLast24HourAlertsDataSet.length > 0
+  ) {
+    this.option = this.reportLast24HourAlertsChartOptions(
+      this.reportLast24HourAlertsDataSet
+    )
+  } else {
+    this.option = {}
+  }
+}
+
+
+else if (chartType === 'reportInvalidSession') {
+  if (this.reportInvalidSessionDataSet && this.reportInvalidSessionDataSet.length > 0) {
+    this.option = this.reportInvalidSessionChartOptions(
+      this.reportInvalidSessionDataSet
+    );
+  } else {
+    this.option = {};
+  }
+}
+
+
+    
+    else if (chartType == 'reportAvailableCharger') {
       if (this.reportAvailableChargerCountDataSet !== undefined) {
     if (this.reportAvailableChargerCountDataSet.length == 0) {
       this.option = {};
@@ -832,6 +917,207 @@ const months = [...new Set(this.reportAvailableChargerCountDataSet.map((item: an
   graphDetailPage(barChartId: number) {
     this.barDetailPage.emit(barChartId)
   }
+
+
+reportLast24HourAlertsChartOptions(dataSet: any[]): EChartsOption {
+  if (!dataSet || dataSet.length === 0) return {}
+
+  const labels = dataSet.map(item => item.value)
+  const criticalData = dataSet.map(item => item.critical)
+  const highData = dataSet.map(item => item.high)
+  const mediumData = dataSet.map(item => item.medium)
+
+  const maxValue = Math.max(
+    ...criticalData.map((v, i) => v + highData[i] + mediumData[i])
+  )
+
+  return {
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'shadow'
+      }
+    },
+    legend: {
+      data: ['Critical', 'High', 'Medium'],
+      right: '4%',
+      icon: 'square'
+    },
+    grid: {
+      left: '10%',
+      right: '4%',
+      bottom: '12%',
+      top: 50,
+      containLabel: true
+    },
+    xAxis: {
+      type: 'category',
+      data: labels,
+      name: 'Hour',
+      nameLocation: 'middle',
+      nameGap: 35,
+      axisLabel: {
+        rotate: 25
+      }
+    },
+    yAxis: {
+      type: 'value',
+      name: 'Alert Count',
+      min: 0,
+      max: Math.ceil(maxValue * 1.2),
+      nameLocation: 'middle',
+      nameGap: 50
+    },
+    series: [
+      {
+        name: 'Critical',
+        type: 'bar',
+        stack: 'total',
+        data: criticalData,
+        itemStyle: {
+          color: '#EF5350'
+        }
+      },
+      {
+        name: 'High',
+        type: 'bar',
+        stack: 'total',
+        data: highData,
+        itemStyle: {
+          color: '#FFA726'
+        }
+      },
+      {
+        name: 'Medium',
+        type: 'bar',
+        stack: 'total',
+        data: mediumData,
+        itemStyle: {
+          color: '#42A5F5'
+        }
+      }
+    ]
+  }
+}
+
+
+reportInvalidBootNotificationChartOptions(dataSet: any[]): EChartsOption {
+  if (!dataSet || dataSet.length === 0) return {};
+
+  const labels = dataSet.map(item => item.value);
+  const counts = dataSet.map(item => item.counts);
+
+  const maxValue = Math.max(...counts);
+
+  return {
+    tooltip: { trigger: 'axis' },
+    grid: {
+      left: '10%',
+      right: '4%',
+      bottom: '12%',
+      top: 50,
+      containLabel: true
+    },
+    xAxis: {
+      type: 'category',
+      data: labels,
+      name: 'Invalid Boot Type',
+      nameLocation: 'middle',
+      nameGap: 35,
+      axisLabel: { rotate: 25 }
+    },
+    yAxis: {
+      type: 'value',
+      name: 'Count',
+      min: 0,
+      max: Math.ceil(maxValue * 1.2),
+      nameLocation: 'middle',
+      nameGap: 50
+    },
+    series: [
+      {
+        type: 'bar',
+        data: counts,
+        barWidth: '15%',
+        itemStyle: {
+          color: '#42A5F5'
+        },
+        label: {
+          show: true,
+          position: 'top',
+          formatter: '{c}'
+        }
+      }
+    ],
+    legend: { show: false }
+  };
+}
+
+
+reportInvalidSessionChartOptions(dataSet: any[]): EChartsOption {
+  if (!dataSet || dataSet.length === 0) return {};
+
+  const labels = dataSet.map(item => item.value);
+  const startTxData = dataSet.map(item => item.invalidStartTx);
+  const authData = dataSet.map(item => item.invalidAuthorize);
+
+  const maxValue = Math.max(
+    ...startTxData.map((v, i) => v + authData[i])
+  );
+
+  return {
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: { type: 'shadow' }
+    },
+    legend: {
+      data: ['Invalid StartTransaction', 'Invalid Authorize'],
+      right: '4%',
+      icon: 'square'
+    },
+    grid: {
+      left: '10%',
+      right: '4%',
+      bottom: '12%',
+      top: 50,
+      containLabel: true
+    },
+    xAxis: {
+      type: 'category',
+      data: labels,
+      name: 'Time',
+      nameLocation: 'middle',
+      nameGap: 35,
+      axisLabel: { rotate: 25 }
+    },
+    yAxis: {
+      type: 'value',
+      name: 'Count',
+      min: 0,
+      max: Math.ceil(maxValue * 1.2),
+      nameLocation: 'middle',
+      nameGap: 50
+    },
+    series: [
+      {
+        name: 'Invalid StartTransaction',
+        type: 'bar',
+        stack: 'total', // ✅ STACKED
+        data: startTxData,
+        itemStyle: { color: '#EF5350' }
+      },
+      {
+        name: 'Invalid Authorize',
+        type: 'bar',
+        stack: 'total', // ✅ STACKED
+        data: authData,
+        itemStyle: { color: '#FFA726' }
+      }
+    ]
+  };
+}
+
+
 
   returnData(j: number, data: any) {
     const len = data.length

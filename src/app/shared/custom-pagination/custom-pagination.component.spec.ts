@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { CustomPaginationComponent } from './custom-pagination.component';
 
 describe('CustomPaginationComponent', () => {

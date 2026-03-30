@@ -7,6 +7,9 @@ import { ReportEnergyComponent } from './report-energy/report-energy.component'
 import { ReportSessionComponent } from './report-session/report-session.component'
 import { GraphDetailComponent } from '../graph-detail/graph-detail.component'
 import { ReportDetailComponent } from './report-detail/report-detail.component'
+import { ReportExceptionsComponent } from './report-exceptions/report-exceptions.component'
+import { ReportExceptionDetailsComponent } from './report-exception-details/report-exception-details.component'
+
 
 const routes: Routes = [
   {
@@ -18,11 +21,21 @@ const routes: Routes = [
         redirectTo: 'report-transaction',
         pathMatch: 'full',
       },
+
+         {
+        path: 'report-exceptions',
+        component: ReportExceptionsComponent 
+     },
+      // {
+      //   path: 'report-exception-details',
+      //   component: ReportExceptionDetailsComponent
+      // },
       {
         path: 'report-session',
         component: ReportSessionComponent,
         // pathMatch: 'full',
       },
+   
 
       {
         path: 'report-subscription',
@@ -42,12 +55,24 @@ const routes: Routes = [
       },
     ],
   },
+    {
+    path: 'report-exception-details',
+    component: ReportExceptionDetailsComponent
+  },
   { path: 'detail', component: GraphDetailComponent },
   { path: 'detail/:id', component: GraphDetailComponent },
   {
     path: 'report-subscription/report-detail',
     component: ReportDetailComponent,
   },
+
+  {
+    path: 'report-exception-details/report-detail',
+    component: ReportExceptionDetailsComponent,
+  },
+
+
+
   {
     path: 'report-subscription/report-detail/:id',
     component: ReportDetailComponent,

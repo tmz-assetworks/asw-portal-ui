@@ -40,14 +40,8 @@ export class ChargerInformationComponent implements OnInit {
 
   GetChargerInformation() {
     const body = {
-      //     pageNumber: 1,
-      //     searchParam: '',
-      //     pageSize: 10,
-      //     orderBy: 'chargerBoxId',
-      //     locationIds: [],
       chargeBoxId: this.selecteLocationIds,
       operatorId: '',
-      //     opratorid: this.UserId,
     }
     this._chargerService.GetChargerInformation(body).subscribe((res: any) => {
       if (res.data) {
