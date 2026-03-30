@@ -45,7 +45,8 @@ export class ChargerSessionsComponent implements OnInit {
   eventLogList: any;
   jumpPageNumber: number = 1;
   assetId:string | null
-  showLocationNav: boolean = false
+  showLocationNav: boolean = false;
+   isLoading = false;
   displayedColumns: string[] = [
     'assetId',
     'sessionid',
@@ -116,8 +117,6 @@ public updatePage(page: number): void {
 
   this.loadSessions();
 }
-
- isLoading = false;
 
 loadSessions(): void {
 

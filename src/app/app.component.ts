@@ -6,13 +6,15 @@ import { Subscription } from 'rxjs'
 import { IdleService } from './service/setting/idle.service'
 import { SettingService } from './service/setting/setting.service'
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    
   ],
 })
 export class AppComponent implements OnInit, OnDestroy {

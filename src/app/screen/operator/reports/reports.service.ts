@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http'
+import { HttpClient,HttpParams  } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 import { environment } from 'src/environments/environment'
@@ -61,6 +61,41 @@ export class ReportService {
       params,
     )
   }
+
+  GetInvalidRequestsChartData(data: any): Observable<any> {
+    let params = new HttpParams();
+    params = params.set('Duration', data.Duration || '');
+    return this._http.get<any>(
+      `${this.REPORT_API_URL}v1/Reports/GetInvalidBootChartData`,
+      { params } 
+    );
+  }
+
+  GetLast24HoursAlertData(data: any): Observable<any> {
+    let params = new HttpParams();
+    params = params.set('Duration', data.Duration || '');
+    return this._http.get<any>(
+      `${this.REPORT_API_URL}v1/Reports/GetLas24HoursAlerts`,
+      { params } 
+    );
+  }
+
+
+
+    InvalidSessionChartData(params: any): Observable<any> {
+    return this._http.post<any>(
+      `${this.REPORT_API_URL}v1/Reports/GetInvalidSessions/`,
+      params,
+    )
+  }
+
+  InvalidOcppCommandData(params: any): Observable<any> {
+    return this._http.post<any>(
+      `${this.REPORT_API_URL}v1/Reports/GetInvalidOCPPCommands/`,
+      params,
+    )
+  }
+
 
   /**
    * GET ENERGY USED

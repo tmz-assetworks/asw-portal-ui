@@ -61,4 +61,5 @@ export class CustomPaginationComponent implements OnChanges {
   onPageSizeChange(): void {
     this.pageSizeChange.emit(this.pageSize);
   }
+  
 }

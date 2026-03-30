@@ -83,6 +83,7 @@ export class ReportSessionComponent implements OnInit {
 
     this.__reportService.GetUpComingSession(pBody).subscribe((res) => {
       if (res.data) {
+        console.log(res.data);
         this.reportUpcomingSessionData = res.data
       }
     })
@@ -102,7 +103,7 @@ export class ReportSessionComponent implements OnInit {
       duration: duration,
       operatorId: operatorId,
     }
-
+    
     this.__reportService.ChargingSessionlength(pBody).subscribe((res) => {
       if (res.data) {
         this.reportSessionLengthData = res.data
@@ -141,7 +142,7 @@ export class ReportSessionComponent implements OnInit {
     sessionStorage.setItem('graphHeading', graphHeading)
     sessionStorage.setItem('pageHeading', pageHeading)
     sessionStorage.setItem('duration', duration)
-
+    
     this._router.navigate([this.basePath], {
       queryParams: { id: event },
     })

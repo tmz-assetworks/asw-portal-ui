@@ -3,6 +3,7 @@
       <img src="../../../assets/images/myloader.gif" alt="" class="margin" width="18%" height="22%" />
    </div>
 </div>
+
 <div class="header header-block layout charger-diagnostics">
    <div class="header-block1 layout">
       <div class="header-flex layout">
@@ -1121,14 +1122,14 @@
       <ng-container *ngIf="!isTableHasData">
          <p class="text-center">No record found</p>
       </ng-container>
-      <app-custom-pagination
-         [currentPage]="currentPage"
-         [totalPages]="totalPages"
-         [totalCount]="totalCount"
-         [pageSize]="pageSize"
-         (pageChange)="updatePage($event)"
-         (pageSizeChange)="onPageSizeChange($event)">
-      </app-custom-pagination>
+         <app-custom-pagination
+            [currentPage]="currentPage"
+            [totalPages]="totalPages"
+            [totalCount]="totalCount"
+            [pageSize]="pageSize"
+            (pageChange)="updatePage($event)"
+            (pageSizeChange)="onPageSizeChange($event)">
+         </app-custom-pagination>
    </div>
 </div>
 </div>

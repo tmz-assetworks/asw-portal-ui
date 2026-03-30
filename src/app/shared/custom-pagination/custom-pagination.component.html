@@ -1,5 +1,4 @@
 <div class="pagination-container" *ngIf="totalCount > 0">
-            <!-- LEFT SIDE -->
             <div class="rows-selector">
                <span>Rows per page:</span>
                <select [(ngModel)]="pageSize"
@@ -11,7 +10,6 @@
                <option [value]="100">100</option>
                </select>
             </div>
-            <!-- RIGHT SIDE -->
             <div class="custom-pagination">
                <button mat-icon-button
                color="primary"

@@ -1,1 +1,49 @@
-<router-outlet></router-outlet>
+<div class="header header-block layout reports-main">
+  <div class="header-block1 layout">
+    <div class="header-flex layout">
+      <!-- Page Title -->
+      <h1 class="header-subtitle-box layout">Reports</h1>
+      <!-- Tabs -->
+      <div class="location-block2 layout">
+        <div class="location-block2-item">
+          <div class="location-block4 layout">
+            <!-- Charging Costs -->
+            <div class="location-block4-item">
+              <div class="location-block6 layout">
+                <a routerLink="report-transaction" routerLinkActive="active-tab">
+                  <div class="location-text-body layout">
+                    CHARGING COSTS
+                  </div>
+                </a>
+              </div>
+            </div>
+            <!-- Charger Usage -->
+            <div class="location-block4-item">
+              <div class="location-block6 layout">
+                <a routerLink="report-session" routerLinkActive="active-tab">
+                  <div class="location-text-body layout">
+                    CHARGER USAGE
+                  </div>
+                </a>
+              </div>
+            </div>
+            <!-- Exceptions -->
+            <div class="location-block4-item">
+              <div class="location-block6 layout">
+                <a routerLink="report-exceptions" routerLinkActive="active-tab">
+                  <div class="location-text-body layout">
+                    EXCEPTIONS
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Tab Content -->
+      <div class="dashboard-block14 layout">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

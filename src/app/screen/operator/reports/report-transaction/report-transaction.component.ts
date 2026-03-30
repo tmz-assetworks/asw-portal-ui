@@ -46,6 +46,7 @@ export class ReportTransactionComponent implements OnInit {
       queryParams: { id: event },
     })
   }
+  
 
   /**
    * Get Report Transaction

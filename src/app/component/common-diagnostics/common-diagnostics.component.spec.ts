@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { CommonDiagnosticsComponent } from './common-diagnostics.component';
 
 describe('CommonDiagnosticsComponent', () => {
