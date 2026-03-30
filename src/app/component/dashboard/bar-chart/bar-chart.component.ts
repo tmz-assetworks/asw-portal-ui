@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core'
 import { ThemePalette } from '@angular/material/core'
 import { Router } from '@angular/router'
 import { EChartsOption, number } from 'echarts'
@@ -13,7 +13,7 @@ import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
   ]
 })
 
-export class BarChartComponent implements OnInit {
+export class BarChartComponent implements OnChanges, OnInit {
 
   @Input() chartData: any;
   performingDataSet: any

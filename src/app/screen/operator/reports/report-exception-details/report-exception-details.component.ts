@@ -263,7 +263,17 @@ filter(): void {
       return
     }
   } 
-  checkStartDate() {}
+checkStartDate(): void {
+  const { fromDate, toDate } = this.searchFilter.value;
+
+  if (fromDate && toDate && new Date(toDate) < new Date(fromDate)) {
+    this.searchFilter.patchValue({ toDate: '' });
+  }
+}
+
+
+
+
 dateFilterForStart = (d: any | null) => {
     let todayDate = new Date()
     return d <= todayDate
