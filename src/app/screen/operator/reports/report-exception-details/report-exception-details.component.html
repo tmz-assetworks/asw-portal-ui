@@ -4,36 +4,38 @@
       <div class="top-header-title">
         <div class="header-title">
           <h3 class="header-subtitle txt_label" style="margin-top: 30px;">
-            <span
-              (click)="goback()"
-              class="cursorPointer"
-              style="position: relative; top: 10px; font-size: 20px;"
-            >
-              <img src="../../../../assets/icons/backArrow.png" alt="" />
-            </span>
-            <span class="graph-heading">{{ graphHeading }}</span>
+          <button type="button" (click)="goback()" aria-label="Go back">
+            <img src="../../../../assets/icons/backArrow.png" alt="Back" />
+          </button>
+                    <span class="graph-heading">{{ graphHeading }}</span>
             <b style="font-size: 13px;">{{ pageHeading }}</b>
           </h3>
           <div class="exp_button">
             <div class="cust-list-flex3 layout">
              
-              <div class="cust-list-flex3-item1" (click)="downloadAsCSV()">
-                <div class="cust-list-block23 layout">
-                  <div class="cust-list-block23-item">
-                    <div class="cust-list-box10 layout">
-                      <img
-                        src="../../../../../assets/download-report.png"
-                        alt=""
-                        srcset=""
-                      />
-                    </div>
-                  </div>
-                  <div class="cust-list-block23-spacer"></div>
-                  <div class="cust-list-text-body4 layout">
-                    EXPORT
-                  </div>
-                </div>
+        <div
+          class="cust-list-flex3-item1"
+          (click)="downloadAsCSV()"
+          (keydown.enter)="downloadAsCSV()"
+          (keydown.space)="downloadAsCSV()"
+          tabindex="0"
+          role="button"
+        >
+          <div class="cust-list-block23 layout">
+            <div class="cust-list-block23-item">
+              <div class="cust-list-box10 layout">
+                <img
+                  src="../../../../../assets/download-report.png"
+                  alt="Export report"
+                />
               </div>
+            </div>
+            <div class="cust-list-block23-spacer"></div>
+            <div class="cust-list-text-body4 layout">
+              EXPORT
+            </div>
+          </div>
+        </div>
             </div>
           </div>
         </div>
