@@ -83,7 +83,6 @@ export class ReportSessionComponent implements OnInit {
 
     this.__reportService.GetUpComingSession(pBody).subscribe((res) => {
       if (res.data) {
-        console.log(res.data);
         this.reportUpcomingSessionData = res.data
       }
     })

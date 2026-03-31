@@ -33,11 +33,19 @@ export class ReportExceptionDetailsComponent implements OnInit, AfterViewInit {
   // 🔹 TABLE CONFIG
   // =========================
   displayedColumnsTransaction: string[] = [
-    'deviceId',
-    'createdOn',
-    'status',
-    'responsePayload'
+   'deviceId',
+   'createdOn',
+   'status',
+   'expand'
   ];
+
+
+expandedElement: any | null = null;
+
+toggleRow(element: any): void {
+  this.expandedElement =
+    this.expandedElement === element ? null : element;
+}
 
   dataSource = new MatTableDataSource<ReportItem>();
 

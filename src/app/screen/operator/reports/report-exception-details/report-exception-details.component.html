@@ -7,7 +7,7 @@
           <button type="button" (click)="goback()" aria-label="Go back">
             <img src="../../../../assets/icons/backArrow.png" alt="Back" />
           </button>
-                    <span class="graph-heading">{{ graphHeading }}</span>
+            <span class="graph-heading">{{ graphHeading }}</span>
             <b style="font-size: 13px;">{{ pageHeading }}</b>
           </h3>
           <div class="exp_button">
@@ -200,28 +200,23 @@
                           #pdfTable
                         >
                           <div class="layout mat-data">
-                            <table
+                          <table
   mat-table
   [dataSource]="dataSource"
+  multiTemplateDataRows
   class="mat-elevation-z8"
 >
-  <caption></caption>
-
   <!-- Device ID -->
   <ng-container matColumnDef="deviceId">
-    <th mat-header-cell *matHeaderCellDef>
-      DEVICE ID
-    </th>
+    <th mat-header-cell *matHeaderCellDef>DEVICE ID</th>
     <td mat-cell *matCellDef="let element">
       {{ element.deviceId }}
     </td>
   </ng-container>
 
-  <!-- Time -->
+  <!-- Created On -->
   <ng-container matColumnDef="createdOn">
-    <th mat-header-cell *matHeaderCellDef>
-      CREATED ON
-    </th>
+    <th mat-header-cell *matHeaderCellDef>CREATED ON</th>
     <td mat-cell *matCellDef="let element">
       {{
         element.createdOn
@@ -233,38 +228,68 @@
 
   <!-- Status -->
   <ng-container matColumnDef="status">
-    <th mat-header-cell *matHeaderCellDef>
-      STATUS
-    </th>
+    <th mat-header-cell *matHeaderCellDef>STATUS</th>
     <td mat-cell *matCellDef="let element">
       {{
         element.responsePayload?.includes('Rejected') ? 'Rejected' :
         element.responsePayload?.includes('Invalid') ? 'Invalid' :
         element.responsePayload?.includes('NotSupported') ? 'NotSupported' :
+        element.responsePayload?.includes('INACTIVE_CHARGER') ? 'Inactive Charger' :
         'Unknown'
       }}
     </td>
   </ng-container>
-  <!-- Response -->
-  <ng-container matColumnDef="responsePayload">
-    <th mat-header-cell *matHeaderCellDef>
-      RESPONSE
-    </th>
+
+  <!-- Expand Button -->
+  <ng-container matColumnDef="expand">
+    <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let element">
-      <pre>{{ element.responsePayload }}</pre>
+      <button mat-icon-button (click)="toggleRow(element); $event.stopPropagation()">
+        {{ expandedElement === element ? '−' : '+' }}
+      </button>
     </td>
   </ng-container>
 
-  <!-- Rows -->
+  <!-- Expanded Detail Row -->
+  <ng-container matColumnDef="expandedDetail">
+    <td
+      mat-cell
+      *matCellDef="let element"
+      [attr.colspan]="displayedColumnsTransaction.length"
+    >
+      <div class="expanded-content" *ngIf="expandedElement === element">
+        <div>
+          <strong>Request Payload</strong>
+          <pre>{{ element.requestPayload }}</pre>
+        </div>
+
+        <div>
+          <strong>Response Payload</strong>
+          <pre>{{ element.responsePayload }}</pre>
+        </div>
+      </div>
+    </td>
+  </ng-container>
+
+  <!-- Main Row -->
   <tr
     mat-header-row
     *matHeaderRowDef="displayedColumnsTransaction"
   ></tr>
+
   <tr
     mat-row
-    *matRowDef="let row; columns: displayedColumnsTransaction"
+    *matRowDef="let element; columns: displayedColumnsTransaction"
+    class="main-row"
+    (click)="toggleRow(element)"
   ></tr>
 
+  <!-- Expanded Row -->
+  <tr
+    mat-row
+    *matRowDef="let row; columns: ['expandedDetail']"
+    class="detail-row"
+  ></tr>
 </table>
                             <ng-container *ngIf="isTableEmpty">
                               <p class="text-center">No record found</p>
