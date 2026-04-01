@@ -3731,4 +3731,22 @@ $font_type_4: 500 13px/1.2 "Roboto", Helvetica, Arial, serif;
     }
   }
 
+.location-block4 a {
+  text-decoration: none;
+  display: block;
+  border-bottom: 4px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.location-block4 a.location-block6 {
+  background-color: $color_type_6;
+  border-bottom: 4px solid rgb(216, 107, 0);
+  box-shadow: 2px 0px 4px 0px #00000040;
+}
+
+.location-block4 a:hover {
+  transform: translateY(-8px);
+}
+  
+
 

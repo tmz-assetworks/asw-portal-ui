@@ -33,11 +33,11 @@ interface ApiResponse<T> {
 })
 export class ReportExceptionsComponent implements OnInit, OnDestroy {
   private readonly destroy$ = new Subject<void>();
-  readonly filterToggle = new FormControl<DurationType>('Last24Hours', { nonNullable: true });
+  readonly filterToggle = new FormControl<DurationType>('Last90Days', { nonNullable: true });
 
   basePath: string;
   role: string;
-  selectedDuration: DurationType = 'Last24Hours';
+  selectedDuration: DurationType = 'Last90Days';
   userId: string;
 
   reportUpcomingSessionData = '';
@@ -117,6 +117,9 @@ export class ReportExceptionsComponent implements OnInit, OnDestroy {
     this.reportService.GetInvalidRequestsChartData(requestBody)
       .pipe(takeUntil(this.destroy$))
       .subscribe((response: ApiResponse<unknown[]>) => {
+        console.log('API Response:', response); // full response
+      console.log('Response Data:', response?.data); // only data array
+
         this.reportInvalidBootNotification = [...(Array.isArray(response?.data) ? response.data : [])];
         this.cdr.markForCheck();
       });
