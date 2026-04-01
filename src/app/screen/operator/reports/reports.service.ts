@@ -71,11 +71,11 @@ export class ReportService {
     );
   }
 
-  GetLast24HoursAlertData(data: any): Observable<any> {
+  GetCommandAlerts(data: any): Observable<any> {
     let params = new HttpParams();
     params = params.set('Duration', data.Duration || '');
     return this._http.get<any>(
-      `${this.REPORT_API_URL}v1/Reports/GetLas24HoursAlerts`,
+      `${this.REPORT_API_URL}v1/Reports/GetCommandAlerts`,
       { params } 
     );
   }

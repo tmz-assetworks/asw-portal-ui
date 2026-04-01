@@ -1,7 +1,7 @@
 @use '../../../../../styles' as *;
 
 .txt_label {
-  span {
+  button {
     width: 25px;
     height: 25px;
     background-color: #0062a6;
@@ -4069,4 +4069,33 @@ h3.header-subtitle.txt_label {
   height: 85% !important;
   top: 42%;
   transform: translateY(-50%);  // keeps outline centered vertically
+}
+
+.main-row {
+  cursor: pointer;
+}
+
+.detail-row {
+  background: #f9f9f9;
+}
+
+.expanded-content {
+  padding: 16px;
+  border-left: 3px solid #1976d2;
+}
+
+pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  background: #f4f4f4;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.detail-row {
+  height: 0;
+}
+
+.detail-row.hidden {
+  display: none;
 }

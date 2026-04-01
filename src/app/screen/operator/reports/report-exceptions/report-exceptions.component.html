@@ -2,34 +2,47 @@
   <div class="header-block1 layout">
     <div class="header-flex layout">
       <div class="dashboard-block14 layout">
-        <div class="dashboard-block15 layout"></div>
-
+        <!-- Duration toggle -->
         <div class="dashboard-block32 layout">
           <div class="dashboard-block33 layout">
-            <mat-button-toggle-group
-              [formControl]="filterToggle"
-              (change)="setTime($event)">
-              <mat-button-toggle value="Last24Hours">
-                Last 24 Hours
-              </mat-button-toggle>
-              <mat-button-toggle value="OneWeek">
-                One Week
-              </mat-button-toggle>
-              <mat-button-toggle value="CurrentMonth">
-                Current Month
-              </mat-button-toggle>
-              <mat-button-toggle value="Last3Months">
-                Last 3 Months
-              </mat-button-toggle>
+            <mat-button-toggle-group [formControl]="filterToggle">
+              <div class="dashboard-block33-item">
+              </div>
+              <div class="dashboard-block33-item1">
+                <div class="dashboard-block35 layout space-between">
+                  <mat-button-toggle value="Last24Hours" style="border: 1px solid #0062a6;" (click)=" ('Last24Hours')">
+                    Last 24 Hours
+                  </mat-button-toggle>
+                </div>
+              </div>
+              <div class="dashboard-block33-item2">
+                <div class="dashboard-block36 layout space-between">
+                  <mat-button-toggle value="Last7Days">One Week</mat-button-toggle>
+                </div>
+              </div>
+              <div class="dashboard-block33-item3">
+                <div class="dashboard-block37 layout space-between">
+                  <mat-button-toggle value="Last30Days">
+                    Current Month
+                  </mat-button-toggle>
+                </div>
+              </div>
+              <div class="dashboard-block33-item4">
+                <div class="dashboard-block38 layout space-between">
+                  <mat-button-toggle value="Last90Days">
+                    Last 3 Months
+                  </mat-button-toggle>
+                </div>
+              </div>
             </mat-button-toggle-group>
+
           </div>
         </div>
 
+        <!-- First row of charts -->
         <div class="dashboard-block42 layout">
           <div class="dashboard-block42-item">
-            <app-bar-chart
-              [reportInvalidSessionData]="reportInvalidSessionData"
-              [chartType]="'reportInvalidSession'"
+            <app-bar-chart [reportInvalidSessionData]="reportInvalidSessionData" [chartType]="'reportInvalidSession'"
               [chartTitle]="'Invalid Sessions'"
               (barDetailPage)="openDetailPage(2, 'Invalid Sessions', '', selectedDuration)">
             </app-bar-chart>
@@ -38,30 +51,26 @@
           <div class="dashboard-block42-spacer"></div>
 
           <div class="dashboard-block42-item">
-            <app-bar-chart
-              [reportInvalidBootNotificationData]="reportInvalidBootNotification"
-              [chartType]="'reportInvalidBootNotification'"
-              [chartTitle]="'Invalid Boot Notifications'"
+            <app-bar-chart [reportInvalidBootNotificationData]="reportInvalidBootNotification"
+              [chartType]="'reportInvalidBootNotification'" [chartTitle]="'Invalid Boot Notifications'"
               (barDetailPage)="openDetailPage(2, 'Invalid Boot Notifications', '', selectedDuration)">
             </app-bar-chart>
           </div>
         </div>
 
+        <!-- Second row of charts -->
         <div class="dashboard-block42 layout">
           <div class="dashboard-block42-item">
-            <app-bar-chart
-              [reportLast24HourAlertsData]="report24AlertChartData"
-              [chartType]="'reportLast24HourAlerts'"
-              [chartTitle]="'Last 24-Hour Alerts'"
-              (barDetailPage)="openDetailPage(2, 'Last 24-Hour Alerts', '', selectedDuration)">
+            <app-bar-chart [reportLast24HourAlertsData]="report24AlertChartData" [chartType]="'reportLast24HourAlerts'"
+              [chartTitle]="'Last 24-Hour Alerts'">
             </app-bar-chart>
           </div>
 
           <div class="dashboard-block42-spacer"></div>
           <div class="dashboard-block42-item"></div>
         </div>
+
       </div>
     </div>
   </div>
 </div>
-

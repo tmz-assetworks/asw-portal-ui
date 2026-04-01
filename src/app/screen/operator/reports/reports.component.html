@@ -7,34 +7,34 @@
       <div class="location-block2 layout">
         <div class="location-block2-item">
           <div class="location-block4 layout">
-            <!-- Charging Costs -->
-            <div class="location-block4-item">
-              <div class="location-block6 layout">
-                <a routerLink="report-transaction" routerLinkActive="active-tab">
-                  <div class="location-text-body layout">
-                    CHARGING COSTS
-                  </div>
-                </a>
-              </div>
+
+            <div class="location-block4-item" routerLinkActive="location-block6"
+              [routerLinkActiveOptions]="{ exact: true }">
+              <a routerLink="report-transaction">
+                <div class="location-text-body layout">CHARGING COSTS</div>
+              </a>
             </div>
-            <!-- Charger Usage -->
-            <div class="location-block4-item">
-              <div class="location-block6 layout">
-                <a routerLink="report-session" routerLinkActive="active-tab">
-                  <div class="location-text-body layout">
-                    CHARGER USAGE
-                  </div>
-                </a>
-              </div>
+
+            <div class="location-block4-item" routerLinkActive="location-block6"
+              [routerLinkActiveOptions]="{ exact: true }">
+              <a routerLink="report-session">
+                <div class="location-text-body layout">CHARGER USAGE</div>
+              </a>
             </div>
-            <!-- Exceptions -->
-            <div class="location-block4-item">
-              <div class="location-block6 layout">
-                <a routerLink="report-exceptions" routerLinkActive="active-tab">
-                  <div class="location-text-body layout">
-                    EXCEPTIONS
-                  </div>
-                </a>
+
+            <div class="location-block4-item" routerLinkActive="location-block6"
+              [routerLinkActiveOptions]="{ exact: true }">
+              <a routerLink="report-exceptions">
+                <div class="location-text-body layout">EXCEPTIONS</div>
+              </a>
+            </div>
+            <div class="location-block2-spacer"></div>
+            <div class="location-block2-item1">
+              <div class="location-block3 layout"
+                style="display: flex; flex-direction: column; background-color: #ebebeb; border-left: 1px solid white;">
+                <div class="location-box3 layout">
+                  <img src="../../../../assets/charger-session.svg" alt="" srcset="">
+                </div>
               </div>
             </div>
           </div>

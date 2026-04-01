@@ -15,6 +15,7 @@ interface ReportItem {
   deviceId: string;
   requestType: string;
   createdOn: string;
+  requestPayload:string;
   responsePayload: string;
   errorCode?: string;
   requestId?: string;
@@ -33,11 +34,19 @@ export class ReportExceptionDetailsComponent implements OnInit, AfterViewInit {
   // 🔹 TABLE CONFIG
   // =========================
   displayedColumnsTransaction: string[] = [
-    'deviceId',
-    'createdOn',
-    'status',
-    'responsePayload'
+   'deviceId',
+   'createdOn',
+   'status',
+   'expand'
   ];
+
+
+expandedElement: any | null = null;
+
+toggleRow(element: any): void {
+  this.expandedElement =
+    this.expandedElement === element ? null : element;
+}
 
   dataSource = new MatTableDataSource<ReportItem>();
 
@@ -93,7 +102,6 @@ export class ReportExceptionDetailsComponent implements OnInit, AfterViewInit {
     private _adminService: AdminService
   ) {
     this.graphHeading = this._storageService.getSessionData('graphHeading') || '';
-    console.log(this.graphHeading);
     this.pageHeading = this._storageService.getSessionData('pageHeading') || '';
     this.duration = this._storageService.getSessionData('duration') || 'Last24Hours';
   }
@@ -116,7 +124,6 @@ export class ReportExceptionDetailsComponent implements OnInit, AfterViewInit {
   // =========================
   private loadData(): void {
     const payload = this.buildPayload();
-    console.log(payload);
     this._reportService.InvalidOcppCommandData(payload).subscribe({
       next: (res) => this.handleResponse(res),
       error: () => this._toastr.error('Failed to load data')
@@ -217,8 +224,8 @@ filter(): void {
         'REQUEST ID': x.requestId || '-',
         'TIME': this.formatDate(x.createdOn),
         'STATUS': this.getStatus(x.responsePayload),
-        'ERROR': x.errorCode || '-',
-        'RESPONSE': x.responsePayload
+        'REQUEST PAYLOAD': this.formatJsonPayload(x.requestPayload),
+        'RESPONSE PAYLOAD': this.formatJsonPayload(x.responsePayload)
       }));
 
       this.exportCSV(formatted);
@@ -247,10 +254,14 @@ filter(): void {
   // =========================
   getStatus(payload: string): string {
     if (!payload) return 'Unknown';
-
     if (payload.includes('Rejected')) return 'Rejected';
     if (payload.includes('Invalid')) return 'Invalid';
     if (payload.includes('NotSupported')) return 'NotSupported';
+    if (payload.includes('INACTIVE_CHARGER')) return 'Inactive Charger';
+    if (payload.includes('FormationViolation')) return 'FormationViolation';
+    if (payload.includes('OccurrenceConstraintViolation')) return 'OccurrenceConstraintViolation';
+    if (payload.includes('SecurityError')) return 'SecurityError';
+    if (payload.includes('InternalError')) return 'InternalError';
 
     return 'Unknown';
   }
@@ -294,6 +305,18 @@ dateFilterForStart = (d: any | null) => {
   this.pageSize = event.pageSize;
   this.currentPage = event.pageIndex + 1;
   this.loadData();
+}
+
+isExpansionDetailRow = (index: number, row: any) => {
+  return this.expandedElement === row;
+};
+
+private formatJsonPayload(payload: string): string {
+  try {
+    return JSON.stringify(JSON.parse(payload));
+  } catch {
+    return payload;
+  }
 }
 
 
