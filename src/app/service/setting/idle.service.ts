@@ -110,25 +110,25 @@ export class IdleService {
   }
 
   private logoutUser(): void {
+    const isAlreadyOnLogin = this.router.url.startsWith('/login');
     this.clearTimers();
     this.dialog.closeAll();
     localStorage.clear();
-
+    
     this.ngZone.run(() => {
-
-    this.router.navigate(['/login']).then(() => {
-
-      if (this.router.url.startsWith('/login')) {
-        return;
-      }
-      this.dialog.open(TimeoutDialogComponent, {
-        width: '420px',
-        disableClose: true
+      this.router.navigate(['/login']).then(() => {
+      
+        if (!isAlreadyOnLogin) {
+          setTimeout(() => {   
+            this.dialog.open(TimeoutDialogComponent, {
+              width: '420px',
+              disableClose: true
+            });
+          }, 100);
+        }
+      
       });
-
     });
-
-  });
   }
 }
 

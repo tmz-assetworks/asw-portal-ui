@@ -1396,32 +1396,12 @@
       flex: 0 0 100%;
     }
   }
-  // &box14 {
-  //   background-color: rgb(255, 255, 255);
-  //   box-shadow: 0px 0px 20px 0px rgba(196, 196, 196, 0.24705882352941178);
-  //   border: 1px solid rgb(228, 228, 228);
-  //   border-radius: 10px 10px 10px 10px;
-  // }
-  // &box14.layout {
-  //   position: relative;
-  //   height: 445px;
-  // }
   &block42-spacer {
     flex: 0 1 25px;
     @include lg {
       display: none;
     }
   }
-  // &box13 {
-  //   background-color: rgb(255, 255, 255);
-  //   box-shadow: 0px 0px 20px 0px rgba(196, 196, 196, 0.24705882352941178);
-  //   border: 1px solid rgb(228, 228, 228);
-  //   border-radius: 10px 10px 10px 10px;
-  // }
-  // &box13.layout {
-  //   position: relative;
-  //   height: 445px;
-  // }
   &block13-spacer {
     flex: 0 1 22px;
     @include md;
@@ -1440,10 +1420,6 @@
 
   &block48 {
     display: flex;
-    // background-color: rgb(255, 255, 255);
-    // box-shadow: 0px 0px 20px 0px rgba(196, 196, 196, 0.24705882352941178);
-    // border: 1px solid rgb(228, 228, 228);
-    // border-radius: 10px 10px 10px 10px;
   }
   &block48.layout {
     position: relative;
@@ -2370,30 +2346,19 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block19.layout {
     position: absolute;
     top: 0px;
-    // height: min-content;
     bottom: 0px;
     left: 0px;
     right: 0px;
-    // width: min-content;
   }
   &box9 {
     background-color: $color_type_0;
     border-radius: 0px 4px 4px 0px;
-    // transition-duration: 0.3s;
-    // transition-property: transform;
   }
-  // &box9:hover {
-  //   transform: scale(1.1);
-  // }
   &box9.layout {
     position: relative;
     height: 55px;
     width: 54px;
     min-width: 54px;
-    // margin: 0px 0px 0px 5px;
-    @include lg {
-      //margin: 5px 0px 5px 5px;
-    }
   }
   &icon {
     width: 100%;
@@ -2582,7 +2547,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &group2.layout {
     position: relative;
     height: min-content;
-    // margin: 50px 23px 0px 22px;
     margin: 50px 0px 0px 0px;
     @include lg {
       margin: 43px 20px 0px 19px;
@@ -2620,7 +2584,6 @@ $color_type_5: rgb(245, 245, 245);
 .location- {
   &block {
     @include flex-column;
-    // background-color: $color_type_6;
   }
   &block.layout {
     position: relative;
@@ -2680,10 +2643,6 @@ $color_type_5: rgb(245, 245, 245);
     }
   }
   &subtitle-box.layout {
-    // position: relative;
-    // height: min-content;
-    // width: 7.97%;
-    // margin: 0px 91.79% 0px 0.23%;
     position: relative;
     height: min-content;
     margin: 0;
@@ -2691,7 +2650,6 @@ $color_type_5: rgb(245, 245, 245);
     font: 700 20px/1.2 'Roboto', Helvetica, Arial, serif;
     color: #131b21;
     letter-spacing: 0px;
-    // margin-bottom: 20px;
   }
   &subtitle {
     overflow: visible;
@@ -2774,7 +2732,6 @@ $color_type_5: rgb(245, 245, 245);
   &block5 {
     @include flex-column;
     background-color: $color_type_4;
-    // border-bottom: 1px solid rgb(255, 255, 255);
     transition-duration: 0.3s;
     transition-property: transform;
     a {
@@ -2782,7 +2739,6 @@ $color_type_5: rgb(245, 245, 245);
     }
   }
   &block5:hover {
-    //transform: translateY(-5);
     transform: translateY(-8px);
   }
   &block5.layout {
@@ -2811,7 +2767,6 @@ $color_type_5: rgb(245, 245, 245);
       margin: 13px 20px 12px 13px;
     }
     @include sm {
-      // margin: 11px 17px 10px 11px;
       margin: 20px 17px 10px 11px;
     }
     @include xs {
@@ -2826,7 +2781,6 @@ $color_type_5: rgb(245, 245, 245);
   }
   &block6 {
     @include flex-column;
-    // background-color: $color_type_6;
     border-bottom: 4px solid rgb(216, 107, 0);
     transition-duration: 0.3s;
     transition-property: transform;
@@ -2878,9 +2832,6 @@ $color_type_5: rgb(245, 245, 245);
       margin: 5px;
     }
   }
-  // &box3 {
-  //   background-color: $color_type_3;
-  // }
   &box3.layout {
     position: relative;
     height: 25px;
@@ -3123,7 +3074,6 @@ $color_type_5: rgb(245, 245, 245);
     position: relative;
     height: min-content;
     min-width: 0px;
-    //width: fit-content;
     margin: 1px 0px 34px;
 
     @include lg {
@@ -3173,13 +3123,9 @@ $color_type_5: rgb(245, 245, 245);
     position: relative;
     height: min-content;
   }
-  // &box11 {
-  //   background-color: $color_type_3;
-  // }
   &box11.layout {
     position: relative;
     height: 45px;
-    // width: 28.1%;
     margin: 0px auto;
   }
   &block22 {
@@ -3269,7 +3215,6 @@ $color_type_5: rgb(245, 245, 245);
     min-width: 1px;
     margin: 11px 0px;
     width: 1px;
-    // margin-left: 42px;
     margin: 15px 10px 34px 10px;
     background-color: rgb(141, 131, 131);
     @include lg {
@@ -3322,7 +3267,6 @@ $color_type_5: rgb(245, 245, 245);
   &highlights2.layout {
     position: relative;
     height: min-content;
-    //width: 24.84%;
     margin: 0px 0% 0px 0%;
   }
   &block21-item2 {
@@ -4431,7 +4375,6 @@ $color_type_5: rgb(245, 245, 245);
     position: relative;
     height: min-content;
     margin: -4px 10px 11px 10px;
-    //margin: 0px 0px 0px 20px;
     @include lg {
       margin: 25px 0px 0px 18px;
     }
@@ -4497,7 +4440,6 @@ $color_type_6: rgb(255, 255, 255);
     position: relative;
     height: min-content;
     width: 98.29%;
-    // margin: 0px auto 0px;
     margin: 9px auto 0px;
     @include lg {
       margin: 8px auto 0px;
@@ -4511,22 +4453,6 @@ $color_type_6: rgb(255, 255, 255);
     @include xs {
       margin: 5px auto 0px;
     }
-    // margin: 15px 0px 0px 2px;
-    //   @include lg {
-    //     margin: 13px 0px 0px 5px;
-    //   }
-    //   @include md {
-    //     margin: 11px 0px 0px 5px;
-    //   }
-    //   @include sm {
-    //     margin: 9px 0px 0px 5px;
-    //   }
-    //   @include xxs {
-    //     margin: 8px 0px 0px 5px;
-    //   }
-    //   @include tn {
-    //     margin: 7px 0px 0px 5px;
-    //   }
   }
   &block2-item {
     @include flex-column;
@@ -4552,7 +4478,6 @@ $color_type_6: rgb(255, 255, 255);
   &block5 {
     @include flex-column;
     background-color: $color_type_14;
-    // border-bottom: 1px solid rgb(255, 255, 255);
     transition-duration: 0.3s;
     transition-property: transform;
     a {
@@ -4560,7 +4485,6 @@ $color_type_6: rgb(255, 255, 255);
     }
   }
   &block5:hover {
-    //transform: translateY(-5);
     transform: translateY(-8px);
   }
   &block5.layout {
@@ -4653,7 +4577,6 @@ $color_type_6: rgb(255, 255, 255);
   &box3.layout {
     position: relative;
     height: 22px;
-    // margin: 12px 21px 11px 22px;
     margin: 19px 14px 13px 18px;
     @include lg {
       margin: 11px 18px 10px 19px;
@@ -4891,10 +4814,6 @@ tr.mat-mdc-row:last-of-type {
   }
 }
 
-// table.mat-table {
-//   border-spacing: 0;
-// }
-
 .box-element-block2.layout[_ngcontent-mog-c58] {
   margin: 20px 0px 6px;
 }
@@ -4964,8 +4883,6 @@ tr.mat-mdc-row:last-of-type {
   &group.layout2 {
     position: relative;
     height: min-content;
-    // width: 191px;
-    // min-width: 191px;
     margin: 15px 0px 5px 20px;
     @include xl1 {
       margin: 10px 0px 0px 18px;
@@ -4997,9 +4914,6 @@ tr.mat-mdc-row:last-of-type {
     @include lg {
       font-size: 14px;
     }
-    // @include md {
-    //   font-size: 12px;
-    // }
     @include sm {
       font-size: 18px;
     }
@@ -5098,9 +5012,7 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
     position: relative;
     height: 50px;
     width: 50px;
-    // margin: 0px 27px 0px 28px;
     @include xl1 {
-      // margin: 0px 18px 0px 20px;
       width: 40px;
       height: 40px;
     }
@@ -5169,7 +5081,6 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
     @include xl1 {
       margin: 8px 20px 6px;
     }
-    // border-bottom: 1px dotted #c2c5c8;
     &.zero_br {
       border-bottom: 0px dotted #c2c5c8;
     }
@@ -5295,6 +5206,7 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
 
 .location-charge-main .cust-list-group2.layout.mat-data {
   width: 100%;
+  
 }
 
 [hidden] {
@@ -5331,4 +5243,24 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
     width: 100%;
     flex: 1;
   }
+}
+.action-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 13px;
+  height: 68px;
+  cursor: pointer;
+}
+
+.icon-img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
 }
