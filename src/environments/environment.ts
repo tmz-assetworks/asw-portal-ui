@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   PORTAL_API_URL: 'https://asw-portal-rest-service.azurewebsites.net/',
   USER_API_URL: 'https://user-mgmt-service.azurewebsites.net/api/',
-  DIAGNOSTIC_API_URL: 'https://ocpp-core.azurewebsites.net/api/',
+  DIAGNOSTIC_API_URL: 'https://app-eus-cms-internal-ocpp01-dev.azurewebsites.net/api/',
   ASSET_API_URL: 'https://assets-service.azurewebsites.net/api/',
   REPORT_API_URL: 'https://asw-report-service.azurewebsites.net/api/',
   PRICING_API_URL: 'https://pricing-service.azurewebsites.net/api/',
