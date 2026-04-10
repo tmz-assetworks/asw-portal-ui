@@ -99,7 +99,6 @@
   &block13.layout {
     position: relative;
     height: min-content;
-    /*  margin: 28px 0px 0px 20px; */
     margin: 0px 20px !important;
     @include lg {
       margin: 25px 0px 0px 18px;
@@ -1558,8 +1557,6 @@
   margin: 28px 20px;
 }
 
-// table css
-
 $color_type_0: rgb(0, 98, 166);
 $color_type_1: rgb(112, 120, 127);
 $color_type_2: rgb(117, 117, 117);
@@ -2369,21 +2366,14 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   &block19.layout {
     position: absolute;
     top: 0px;
-    // height: min-content;
     bottom: 0px;
     left: 0px;
     right: 0px;
-    // width: min-content;
   }
   &box9 {
     background-color: $color_type_0;
     border-radius: 0px 4px 4px 0px;
-    // transition-duration: 0.3s;
-    // transition-property: transform;
   }
-  // &box9:hover {
-  //   transform: scale(1.1);
-  // }
   &box9.layout {
     position: relative;
     height: 48px;
@@ -2573,7 +2563,6 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
   &group2 {
     @include flex-column;
-    //background-color: $color_type_5;
   }
   &group2.layout {
     position: relative;
@@ -2872,12 +2861,6 @@ $color_type_6: rgb(255, 255, 255);
 .example-container .mat-form-field + .mat-form-field {
   margin-left: 20px;
 }
-table {
-  width: 100%;
-  background: #ffffff;
-  border: 1px solid #aea4a4;
-  box-sizing: border-box;
-}
 section {
   display: table;
 }
@@ -2993,13 +2976,6 @@ tr.mat-mdc-row:last-of-type {
   }
 }
 
-.box-element-block2.layout[_ngcontent-mog-c58] {
-  margin: 20px 0px 6px;
-}
-.box-element-box2.layout[_ngcontent-mog-c58] {
-  padding: 10px;
-  box-sizing: border-box;
-}
 
 .statuspanel- {
   &block43 {
@@ -3062,8 +3038,6 @@ tr.mat-mdc-row:last-of-type {
   &group.layout2 {
     position: relative;
     height: min-content;
-    // width: 191px;
-    // min-width: 191px;
     margin: 15px 0px 5px 20px;
     @include xl1 {
       margin: 10px 0px 0px 18px;
@@ -3146,12 +3120,6 @@ tr.mat-mdc-row:last-of-type {
     }
   }
 }
-.box-element-box2.layout {
-  padding: 10px;
-}
-.box-element-box2.layout[_ngcontent-dkq-c58] {
-  padding: 10px;
-}
 
 $font_type0: 700 20px/1.2 'Roboto', Helvetica, Arial, serif;
 $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
@@ -3233,19 +3201,8 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
     height: min-content;
   }
 }
-.box-element-box2.layout {
-  padding: 10px;
-  box-sizing: border-box;
-}
-.box-element-block2.layout {
-  margin: 20px auto;
-}
-.dotted_line hr {
-  width: 1px;
-  height: 100px;
-  border: 0;
-  border-left: 1px dotted #c2c5c8;
-}
+
+
 
 .list-element- {
   &block2 {
@@ -3265,7 +3222,6 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
     @include xl1 {
       margin: 8px 20px 6px;
     }
-    // border-bottom: 1px dotted #c2c5c8;
     &.zero_br {
       border-bottom: 0px dotted #c2c5c8;
     }
@@ -3372,10 +3328,12 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
     width: 254px;
   }
 }
-// expand table css
 
 table {
   width: 100%;
+  background: #ffffff;
+  border: 1px solid #aea4a4;
+  box-sizing: border-box;
 }
 
 tr.example-detail-row {
@@ -3500,8 +3458,6 @@ statuspanel- {
   &group.layout2 {
     position: relative;
     height: min-content;
-    // width: 191px;
-    // min-width: 191px;
     margin: 15px 0px 5px 20px;
     @include xl1 {
       margin: 10px 0px 0px 18px;
@@ -3533,9 +3489,6 @@ statuspanel- {
     @include lg {
       font-size: 14px;
     }
-    // @include md {
-    //   font-size: 12px;
-    // }
     @include sm {
       font-size: 18px;
     }
@@ -3546,9 +3499,8 @@ statuspanel- {
   &highlights2.layout {
     position: relative;
     height: min-content;
-    // margin: 5px 0px 5px 0px; // niharika added
     @include sm {
-      margin: 5px 0px 5px 0px; // niharika added
+      margin: 5px 0px 5px 0px; 
     }
   }
   &block45-spacer1 {
@@ -3593,10 +3545,10 @@ statuspanel- {
 .box-element-block2.layout[_ngcontent-mog-c58] {
   margin: 20px 0px 6px;
 }
-.box-element-box2.layout[_ngcontent-mog-c58] {
-  padding: 10px;
-  box-sizing: border-box;
+.box-element-block2.layout {
+  margin: 20px auto;
 }
+
 .echart- {
   &item {
     height: 290px;
@@ -3606,212 +3558,15 @@ statuspanel- {
   }
 }
 
-$font_type0: 700 20px/1.2 'Roboto', Helvetica, Arial, serif;
-$font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
 
-.list-element- {
-  &block2 {
-    @include flex-column;
-  }
-  &block2.layout {
-    position: relative;
-    height: min-content;
-  }
-  &block6 {
-    @include flex-column;
-  }
-  &block6.layout {
-    position: relative;
-    height: min-content;
-    margin: 15px 20px 13px;
-    @include xl1 {
-      margin: 8px 20px 6px;
-    }
-    // border-bottom: 1px dotted #c2c5c8;
-    &.zero_br {
-      border-bottom: 1px dotted #c2c5c8;
-    }
-  }
-  &block3 {
-    display: flex;
-  }
-  &block3.layout {
-    position: relative;
-    height: min-content;
-    margin-bottom: 15px;
-    @include xl1 {
-      margin-bottom: 7px;
-    }
-  }
-  &block3-item {
-    @include flex-column;
-    position: relative;
-    flex: 0 1 50px;
-    @include xl1 {
-      flex: 0 1 40px;
-    }
-  }
-  &block4 {
-    @include flex-column;
-    border: 1px solid rgb(173, 173, 173);
-    border-radius: 8px 8px 8px 8px;
-  }
-  &block4.layout {
-    position: relative;
-    height: min-content;
-    @include xl1 {
-      width: 40px;
-      height: 40px;
-    }
-  }
-
-  &box3.layout {
-    position: relative;
-    height: 23px;
-    width: 23px;
-    min-width: 23px;
-    margin: 14px 14px 13px 13px;
-    @include xl1 {
-      margin: 9px 9px 9px 9px;
-    }
-  }
-  &block3-spacer {
-    flex: 1 1 auto;
-  }
-  &block3-item1 {
-    @include flex-column;
-    position: relative;
-    flex: 0 1 81px;
-  }
-  &block5 {
-    @include flex-column;
-  }
-  &block5.layout {
-    position: relative;
-    height: min-content;
-    margin: 5px 0px 4px;
-    text-align: left;
-  }
-  &subtitle {
-    font: $font_type0;
-    color: rgb(19, 27, 33);
-    text-decoration: underline;
-    letter-spacing: 0px;
-  }
-  &subtitle.layout {
-    position: relative;
-    height: min-content;
-    margin: 0px 0px 0px 11px;
-    text-decoration: none;
-  }
-  &text-body {
-    font: $font_type1;
-    color: rgb(112, 120, 127);
-    text-decoration: underline;
-    letter-spacing: 0px;
-  }
-  &text-body.layout {
-    position: relative;
-    height: min-content;
-    margin: 1px 2px 0px 0px;
-    text-decoration: none;
-    text-align: right;
-  }
-  &line {
-    border: 1px solid rgb(194, 197, 200);
-    width: 100%;
-    height: auto;
-    vertical-align: top;
-    object-fit: contain;
-    object-position: center top;
-  }
-  &line.layout {
-    position: absolute;
-    top: 63px;
-    left: 0px;
-    width: 254px;
-  }
-}
-.box-element- {
-  &block2 {
-    @include flex-column;
-    flex-direction: row;
-    justify-content: flex-start;
-  }
-  &block2.layout {
-    position: relative;
-    height: min-content;
-    margin: 20px 0px 30px;
-    @include lg {
-      margin: 20px 0px 30px;
-    }
-    @include lg {
-      margin: 10px 0px 20px;
-    }
-  }
-  &block5 {
-    @include flex-column;
-    align-items: center;
-  }
-  &block5.layout {
-    position: relative;
-    flex: 0 1 105px;
-     height: min-content;
-    margin: 0px 0px 1px;
-    @include xl1 {
-      flex: 0 1 90px;
-    }
-   
-  }
-  &box2 {
-    border: 1px solid rgb(173, 173, 173);
-    border-radius: 8px 8px 8px 8px;
-  }
-  &box2.layout {
-    position: relative;
-    height: 50px;
-    width: 50px;
-    @include xl1 {
-      width: 40px;
-      height: 40px;
-    }
-  }
-  &block6 {
-    @include flex-column;
-    justify-items: center;
-  }
-  &block6.layout {
-    position: relative;
-    height: min-content;
-    margin: 14px auto;
-    text-align: center;
-  }
-  &subtitle {
-    @include font-face($font_type0, rgb(19, 27, 33), 0px);
-  }
-  &subtitle.layout {
-    position: relative;
-    height: min-content;
-    text-align: center;
-  }
-  &text-body {
-    @include font-face($font_type1, rgb(112, 120, 127), 0px);
-  }
-  &block2-spacer {
-    flex: 1 1 auto;
-    max-width: 30%;
-  }
-  &block5.layout1 {
-    position: relative;
-    flex: 0 1 105px;
-    height: min-content;
-  }
-}
 .box-element-box2.layout {
   padding: 10px;
   box-sizing: border-box;
 }
-
+.box-element-box2.layout[_ngcontent-mog-c58] {
+  padding: 10px;
+  box-sizing: border-box;
+}
 .dotted_line hr {
   width: 1px;
   height: 100px;
@@ -3879,11 +3634,10 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
   }
   .cust-list-flex3.layout {
     width: 160px;
+    margin: 35px 13px 0px;
+
   }
 
-  .cust-list-flex3.layout {
-    margin: 35px 13px 0px;
-  }
   .dashboard-block13 .layout.mat-data {
     width: 66vw !important;
     min-width: -webkit-fill-available;
@@ -3930,17 +3684,8 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
   height: min-content;
   margin: 22px 27px;
   column-gap: 19px;
-}
-.barbar-block13.layout {
   display: flex;
   flex-wrap: wrap;
-}
-.barbar-flex1.layout {
-  position: relative;
-  height: min-content;
-  float: right;
-  margin-top: 30px;
-  margin-bottom: 30px;
 }
 .barbar-flex1-item {
   display: flex;
@@ -3963,8 +3708,14 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
   border-radius: 5px 5px 5px 5px;
   margin-right: 30px;
 }
+
 .barbar-flex1.layout {
   display: flex;
+  position: relative;
+  height: min-content;
+  float: right;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 .barbar-text-body1.layout {
   position: relative;
@@ -3972,12 +3723,6 @@ $font_type1: 13px/1.2 'Roboto', Helvetica, Arial, serif;
   padding: 18px 40px;
   background: #0062a6;
   border-radius: 5px;
-}
-button {
-  font: 500 14px/1.2 'Roboto', Helvetica, Arial, serif;
-  color: #0062a6;
-  letter-spacing: 0px;
-  text-transform: uppercase;
 }
 .submit-action input {
   color: #ffffff;
@@ -3990,7 +3735,12 @@ input {
   text-transform: uppercase;
   border: 0;
 }
+
 button {
+  font: 500 14px/1.2 'Roboto', Helvetica, Arial, serif;
+  color: #0062a6;
+  letter-spacing: 0px;
+  text-transform: uppercase;
   background: transparent;
   border: 0;
 }
@@ -4011,7 +3761,6 @@ button {
 }
 
 .form-select #mat-select-12 {
-  /* display: flex; */
   float: left;
   width: 50%;
 }
@@ -4068,16 +3817,14 @@ h3.header-subtitle.txt_label {
 ::ng-deep .mat-mdc-form-field .mdc-notched-outline {
   height: 85% !important;
   top: 42%;
-  transform: translateY(-50%);  // keeps outline centered vertically
+  transform: translateY(-50%); 
 }
 
 .main-row {
   cursor: pointer;
 }
 
-.detail-row {
-  background: #f9f9f9;
-}
+
 
 .expanded-content {
   padding: 16px;
@@ -4091,11 +3838,11 @@ pre {
   padding: 10px;
   border-radius: 4px;
 }
-
 .detail-row {
   height: 0;
-}
+  background: #f9f9f9;
 
+}
 .detail-row.hidden {
   display: none;
 }
