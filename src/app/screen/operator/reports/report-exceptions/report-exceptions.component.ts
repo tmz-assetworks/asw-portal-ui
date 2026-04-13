@@ -2,15 +2,12 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnIni
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
-
 import { ReportService } from '../reports.service';
 import { StorageService } from 'src/app/service/storage.service';
-import { AreaChartComponent } from 'src/app/component/dashboard/area-chart/area-chart.component';
-import { LineChartComponent } from 'src/app/component/dashboard/line-chart/line-chart.component';
 import { BarChartComponent } from 'src/app/component/dashboard/bar-chart/bar-chart.component';
 import { SharedMaterialModule } from 'src/app/shared/shared-material.module';
 
-type DurationType = 'Last24Hours' | 'Last7Days' | 'Last30Days' | 'Last90Days' | string;
+type DurationType = | 'Last24Hours' | 'Last7Days' | 'Last30Days' | 'Last90Days';
 
 interface ApiResponse<T> {
   data: T;
@@ -22,8 +19,6 @@ interface ApiResponse<T> {
   styleUrls: ['./report-exceptions.component.scss'],
   standalone: true,
   imports: [
-    AreaChartComponent,
-    LineChartComponent,
     BarChartComponent,
     RouterModule,
     ReactiveFormsModule,
