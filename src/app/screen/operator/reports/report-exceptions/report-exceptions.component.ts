@@ -7,7 +7,7 @@ import { StorageService } from 'src/app/service/storage.service';
 import { BarChartComponent } from 'src/app/component/dashboard/bar-chart/bar-chart.component';
 import { SharedMaterialModule } from 'src/app/shared/shared-material.module';
 
-type DurationType = 'Last24Hours' | 'Last7Days' | 'Last30Days' | 'Last90Days' | string;
+type DurationType = | 'Last24Hours' | 'Last7Days' | 'Last30Days' | 'Last90Days';
 
 interface ApiResponse<T> {
   data: T;
