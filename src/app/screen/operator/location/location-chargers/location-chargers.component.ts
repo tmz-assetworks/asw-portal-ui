@@ -22,12 +22,8 @@ export class LocationChargersComponent implements OnInit {
   UserId: any
   selectedLocationId: any
   locationName: string | null
-
   expandedElement: any
-
   arrKeys: any = ['All']
-
-  // totalRecords = 30
   totalCount: any
   pageSize: number = 10
   currentPage: number = 1
@@ -65,9 +61,7 @@ export class LocationChargersComponent implements OnInit {
     'action',
   ]
   dataSource = new MatTableDataSource<any>()
-
   @ViewChild(MatPaginator) paginatorCharger: any
-  // @ViewChild('input') inputValue: any
   ngOnInit() {
     this.GetDispenserByLocation(this.selectedLocationId)
   }
@@ -89,6 +83,13 @@ export class LocationChargersComponent implements OnInit {
       this.GetDispenserByLocation(this.selectedLocationId, status);
   }
 
+  /**
+	 * Edit Charger
+	 */
+	editCharger(id: string) {
+	this._router.navigateByUrl(`/admin/chargers/edit-chargers?id=${id}`)
+	}
+
   GetDispenserByLocation(locationId: number, status?: number ) {
     const pBody = {
       pageNumber: this.currentPage,
@@ -99,16 +100,13 @@ export class LocationChargersComponent implements OnInit {
       activationStatus: status ?? null
     }
 
-    this._locationService
-      .GetDispenserByLocation(pBody)
-      .subscribe((res: any) => {
+    this._locationService.GetDispenserByLocation(pBody).subscribe((res: any) => {
+      
         if (res.data !== undefined && res.data != null && res.data.length > 0) {
           this.totalCount = res.paginationResponse.totalCount
           this.totalPages = res.paginationResponse.totalPages
           this.pageSize = res.paginationResponse.pageSize
-
           this.dataSource.data = res.data
-
           this.statusList = res.statusList
           this.isTableHasData = false
         } else {
@@ -137,8 +135,6 @@ export class LocationChargersComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value
     this.dataSource.filter = filterValue.trim().toLowerCase()
     this.searchParam = filterValue
-
-    //const filterValue = this.inputValue.nativeElement.value.toLowerCase()
     if (this.dataSource.filteredData.length > 0) {
       this.isTableHasData = false
     } else {
@@ -155,8 +151,6 @@ export class LocationChargersComponent implements OnInit {
     const dialogRef = this.dialog.open(CommandDialogComponent, {
       width: '25%',
       autoFocus: false,
-      // height: "600px",
-      // panelClass: 'my-dialog-container-class2',
       data: { commandType: command, chargeBoxId: chargeBoxId },
     })
     dialogRef.afterClosed().subscribe((result) => {})

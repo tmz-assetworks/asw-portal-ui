@@ -1,6 +1,3 @@
-<!-- <a [routerLink]="['../analytics']">Analytics</a>
-<a [routerLink]="['../location-info']">Location Info</a>
-<a [routerLink]="['../location-chargers']">Location Chargers</a> -->
 @if(showLoader){
 <div class="loader">
   <img src="../../../assets/images/myloader.gif" alt="" class="margin" width="18%" height="22%" />
@@ -15,10 +12,6 @@
 
       <div class="location-block23 layout">
         <div class="location-block23-item">
-          <!-- <h3 class="dashboard-subtitle layout">Locations A</h3> -->
-          <!--  <hr class="dashboard-line layout" /> -->
-          <!-- </div> -->
-
           <div class="dashboard-block13 layout location-charger_2">
             <div class="dashboard-block13-item">
               <div class="location-block2 layout">
@@ -60,18 +53,9 @@
                     </div>
                   </div>
                 </div>
-
                 <div class="tabs-block2-spacer"></div>
                 <div class="tabs-block2-item1">
                   <div class="tabs-block3 layout">
-                    <!-- <img src="../../../../../assets/location-info/lc.png" alt="" srcset="">  -->
-
-                    <!-- <div class="tabs-box3 layout">
-
-
-
-
-                  </div> -->
                     <img
                       class="tabs-box3 layout"
                       src="../../../../../assets/Operator/Location-Charger.svg"
@@ -97,7 +81,6 @@
                                    class="cust-list-icon layout"
                                  />
                                </div>
-
                                <div class="cust-list-block20 layout">
                                  <input
                                    class="cust-list-text-body21 layout"
@@ -109,7 +92,6 @@
                              </div>
                            </div>
                          </div>
-
                           <div class="filter-item status-item">
                             <mat-form-field appearance="outline" class="filter-field">
                               <mat-label>Status</mat-label>
@@ -191,7 +173,6 @@
                             <ng-container matColumnDef="diagnostic">
                               <th mat-header-cell *matHeaderCellDef>DIAGNOSTIC</th>
                               <td mat-cell *matCellDef="let element">
-                                
                                 <span
                                   class="showHandCursor"
                                   matTooltip="Diagnostic"
@@ -211,50 +192,56 @@
                             </ng-container>
                             <ng-container matColumnDef="action">
                               <th mat-header-cell *matHeaderCellDef>ACTION</th>
-                              <td mat-cell *matCellDef="let element">
+                              <td mat-cell *matCellDef="let element" class="action-cell">
+  
+                                <!-- Reset -->
                                 <span
-                                  class="showHandCursor"
+                                  class="showHandCursor action-icon"
                                   matTooltip="Reset"
-                                  (click)="
-                                    openCommandDialog(
-                                      'reset',
-                                      element.chargeBoxId
-                                    )
-                                  "
+                                  tabindex="0"
+                                  (click)="openCommandDialog('reset', element.chargeBoxId)"
+                                  (keydown.enter)="openCommandDialog('reset', element.chargeBoxId)"
+                                  (keydown.space)="openCommandDialog('reset', element.chargeBoxId)"
                                 >
-                                  <img
-                                    src="../../../../../assets/locationcharger-icon/delete-icon.svg"
-                                    alt=""
-                                  />
+                                  <img src="../../../../../assets/locationcharger-icon/delete-icon.svg" alt="Reset" />
                                 </span>
-                                
+                              
+                                <!-- Start -->
                                 <span
-                                  class="showHandCursor"
+                                  class="showHandCursor action-icon"
                                   matTooltip="Remote Start Transaction"
-                                  (click)="
-                                    openCommandDialog(
-                                      'start',
-                                      element.chargeBoxId
-                                    )
-                                  "
+                                  tabindex="0"
+                                  (click)="openCommandDialog('start', element.chargeBoxId)"
+                                  (keydown.enter)="openCommandDialog('start', element.chargeBoxId)"
+                                  (keydown.space)="openCommandDialog('start', element.chargeBoxId)"
                                 >
-                                  <img
-                                    src="../../../../../assets/Operator/Start.svg"
-                                    alt=""
-                                  />
+                                  <img src="../../../../../assets/Operator/Start.svg" alt="Start" />
                                 </span>
+                              
+                                <!-- Stop -->
                                 <span
-                                  class="showHandCursor"
+                                  class="showHandCursor action-icon"
                                   matTooltip="Remote Stop Transaction"
-                                  (click)="
-                                    remoteStopTransaction(element.chargeBoxId)
-                                  "
+                                  tabindex="0"
+                                  (click)="remoteStopTransaction(element.chargeBoxId)"
+                                  (keydown.enter)="remoteStopTransaction(element.chargeBoxId)"
+                                  (keydown.space)="remoteStopTransaction(element.chargeBoxId)"
                                 >
-                                  <img
-                                    src="../../../../../assets/Operator/Stop.svg"
-                                    alt=""
-                                  />
+                                  <img src="../../../../../assets/Operator/Stop.svg" alt="Stop" />
                                 </span>
+                              
+                                <!-- Edit -->
+                                <span
+                                  class="showHandCursor action-icon"
+                                  matTooltip="Edit Charger"
+                                  tabindex="0"
+                                  (click)="editCharger(element.id)"
+                                  (keydown.enter)="editCharger(element.id)"
+                                  (keydown.space)="editCharger(element.id)"
+                                >
+                                  <img src="../../../../assets/Admin-SideNav/Charger-Icons/Edit.svg" alt="Edit" />
+                                </span>
+                              
                               </td>
                             </ng-container>
 
@@ -271,12 +258,6 @@
                           @if(isTableHasData){
                             <p class="text-center">No record found</p>
                           }
-                          
-                          <!-- <mat-paginator
-                            [length]="100"
-                            [pageSizeOptions]="[10, 20, 100]"
-                            aria-label="Rows per page"
-                          ></mat-paginator> -->
                         </div>
                         <mat-paginator
                             #paginator
