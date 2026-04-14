@@ -193,60 +193,55 @@
                             <ng-container matColumnDef="action">
                               <th mat-header-cell *matHeaderCellDef>ACTION</th>
                               <td mat-cell *matCellDef="let element" class="action-cell">
+  
+                                <!-- Reset -->
                                 <span
                                   class="showHandCursor action-icon"
                                   matTooltip="Reset"
-                                  (click)="
-                                    openCommandDialog(
-                                      'reset',
-                                      element.chargeBoxId
-                                    )
-                                  "
+                                  tabindex="0"
+                                  (click)="openCommandDialog('reset', element.chargeBoxId)"
+                                  (keydown.enter)="openCommandDialog('reset', element.chargeBoxId)"
+                                  (keydown.space)="openCommandDialog('reset', element.chargeBoxId)"
                                 >
-                                  <img
-                                    src="../../../../../assets/locationcharger-icon/delete-icon.svg"
-                                    alt=""
-                                  />
+                                  <img src="../../../../../assets/locationcharger-icon/delete-icon.svg" alt="Reset" />
                                 </span>
+                              
+                                <!-- Start -->
                                 <span
                                   class="showHandCursor action-icon"
                                   matTooltip="Remote Start Transaction"
-                                  (click)="
-                                    openCommandDialog(
-                                      'start',
-                                      element.chargeBoxId
-                                    )
-                                  "
+                                  tabindex="0"
+                                  (click)="openCommandDialog('start', element.chargeBoxId)"
+                                  (keydown.enter)="openCommandDialog('start', element.chargeBoxId)"
+                                  (keydown.space)="openCommandDialog('start', element.chargeBoxId)"
                                 >
-                                  <img
-                                    src="../../../../../assets/Operator/Start.svg"
-                                    alt=""
-                                  />
+                                  <img src="../../../../../assets/Operator/Start.svg" alt="Start" />
                                 </span>
+                              
+                                <!-- Stop -->
                                 <span
                                   class="showHandCursor action-icon"
                                   matTooltip="Remote Stop Transaction"
-                                  (click)="
-                                    remoteStopTransaction(element.chargeBoxId)
-                                  "
+                                  tabindex="0"
+                                  (click)="remoteStopTransaction(element.chargeBoxId)"
+                                  (keydown.enter)="remoteStopTransaction(element.chargeBoxId)"
+                                  (keydown.space)="remoteStopTransaction(element.chargeBoxId)"
                                 >
-                                  <img
-                                    src="../../../../../assets/Operator/Stop.svg"
-                                    alt=""
-                                  />
+                                  <img src="../../../../../assets/Operator/Stop.svg" alt="Stop" />
                                 </span>
+                              
+                                <!-- Edit -->
                                 <span
                                   class="showHandCursor action-icon"
                                   matTooltip="Edit Charger"
-                                  (click)="
-                                    editCharger(element.id)
-                                  "
+                                  tabindex="0"
+                                  (click)="editCharger(element.id)"
+                                  (keydown.enter)="editCharger(element.id)"
+                                  (keydown.space)="editCharger(element.id)"
                                 >
-                                  <img
-                                   src="../../../../assets/Admin-SideNav/Charger-Icons/Edit.svg"
-                                   alt="Edit"
-                                 />
+                                  <img src="../../../../assets/Admin-SideNav/Charger-Icons/Edit.svg" alt="Edit" />
                                 </span>
+                              
                               </td>
                             </ng-container>
 
