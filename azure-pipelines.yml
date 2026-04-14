@@ -98,8 +98,7 @@ stages:
         inputs:
           targetType: 'inline'
           script: |
-            Write-Host "##vso[build.addbuildtag]$(runDateTag)"
-            Write-Host "##vso[build.addbuildtag]$(Build.SourceBranchName)"
+            Write-Host "##vso[build.addbuildtag]$(runDateTag)"            
       
       # publish the artifacts
       - task: PublishBuildArtifacts@1
