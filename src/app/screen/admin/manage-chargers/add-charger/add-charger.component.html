@@ -16,38 +16,25 @@
                 <span style="color: #ff0000;">*</span>
               </h5>
 
-              <div
-                class="barbar-box6 layout"
-                [ngClass]="{
+              <div class="barbar-box6 layout" [ngClass]="{
                   'is-invalid':
                     addChargerFormGroup.get('assetId')?.errors &&
                     submitted == true
-                }"
-              >
-                <input
-                  formControlName="assetId"
-                  type="text"
-                  class="barbar-input-text"
-                />
+                }">
+                <input formControlName="assetId" type="text" class="barbar-input-text" />
               </div>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !addChargerFormGroup.get('assetId')?.valid &&
                   addChargerFormGroup.get('assetId')?.touched &&
                   (addChargerFormGroup.get('assetId')?.value?.length ?? 0) > 0
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Asset ID Must Be Between 1 To 20 Characters And Number Only
               </span>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !addChargerFormGroup.get('assetId')?.valid &&
                   addChargerFormGroup.get('assetId')?.touched &&
                   addChargerFormGroup.get('assetId')?.value?.length == 0
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Asset ID Is Required
               </span>
             </div>
@@ -59,38 +46,25 @@
                 Charger Box ID
                 <span style="color: #ff0000;">*</span>
               </h5>
-              <div
-                class="barbar-box6 layout"
-                [ngClass]="{
+              <div class="barbar-box6 layout" [ngClass]="{
                   'is-invalid':
                     addChargerFormGroup.get('chargeBoxId')?.errors &&
                     submitted == true
-                }"
-              >
-                <input
-                  formControlName="chargeBoxId"
-                  type="text"
-                  class="barbar-input-text"
-                />
+                }">
+                <input formControlName="chargeBoxId" type="text" class="barbar-input-text" />
               </div>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !addChargerFormGroup.get('chargeBoxId')?.valid &&
                   addChargerFormGroup.get('chargeBoxId')?.touched &&
                   (addChargerFormGroup.get('chargeBoxId')?.value?.length ?? 0) > 0
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Charger Box ID Must Be Between 1 To 100 Alphanumeric Only
               </span>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !addChargerFormGroup.get('chargeBoxId')?.valid &&
                   addChargerFormGroup.get('chargeBoxId')?.touched &&
                   addChargerFormGroup.get('chargeBoxId')?.value?.length == 0
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Charger Box ID Is Required
               </span>
             </div>
@@ -103,38 +77,24 @@
                 Location
                 <span style="color: #ff0000;">*</span>
               </h5>
-              <mat-form-field
-              appearance="outline" 
-                class="barbar-box6 layout"
-                [ngClass]="{
+              <mat-form-field appearance="outline" class="barbar-box6 layout" [ngClass]="{
                   'is-invalid':
                     addChargerFormGroup.get('locationId')?.errors &&
                     submitted == true
-                }"
-              >
-                <mat-select
-                  class="selectLocationData"
-                  [value]="selectedLocation"
-                  formControlName="locationId"
-                >
-                  <mat-option
-                    *ngFor="let data of getLocation"
-                    [value]="data.id"
-                    (onSelectionChange)="selectLocation($event, data.id)"
-                  >
+                }">
+                <mat-select class="selectLocationData" [value]="selectedLocation" formControlName="locationId">
+                  <mat-option *ngFor="let data of getLocation" [value]="data.id"
+                    (onSelectionChange)="selectLocation($event, data.id)">
                     {{ data.locationName }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
-            <span
-              *ngIf="
+            <span *ngIf="
                 !addChargerFormGroup.get('locationId')?.valid &&
                 addChargerFormGroup.get('locationId')?.touched &&
                 addChargerFormGroup.get('locationId')?.value?.length == 0
-              "
-              class="error-mess"
-            >
+              " class="error-mess">
               Location Is Required
             </span>
           </div>
@@ -144,12 +104,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">SIM ICCID</h5>
               <div class="barbar-box6 layout">
-                <input
-                  formControlName="simCardMSIDN"
-                  type="text"
-                  maxlength="25"
-                  class="barbar-input-text"
-                />
+                <input formControlName="simCardMSIDN" type="text" maxlength="25" class="barbar-input-text" />
               </div>
             </div>
           </div>
@@ -158,12 +113,7 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">Firmware Version</h5>
               <div class="barbar-box6 layout">
-                <input
-                  formControlName="firmwareVersion"
-                  type="text"
-                  maxlength="20"
-                  class="barbar-input-text"
-                />
+                <input formControlName="firmwareVersion" type="text" maxlength="20" class="barbar-input-text" />
               </div>
             </div>
           </div>
@@ -175,39 +125,26 @@
                 <span style="color: #ff0000;">*</span>
               </h5>
 
-              <div
-                class="barbar-box6 layout"
-                [ngClass]="{
+              <div class="barbar-box6 layout" [ngClass]="{
                   'is-invalid':
                     addChargerFormGroup.get('makeMasterId')?.errors &&
                     submitted == true
-                }"
-              >
-                <input
-                  formControlName="makeMasterId"
-                  (keypress)="omit_special_char($event)"
-                  type="text"
-                  class="barbar-input-text"
-                />
+                }">
+                <input formControlName="makeMasterId" (keypress)="omit_special_char($event)" type="text"
+                  class="barbar-input-text" />
               </div>
             </div>
-            <span
-              *ngIf="
+            <span *ngIf="
                 !addChargerFormGroup.get('makeMasterId')?.valid &&
                 addChargerFormGroup.get('makeMasterId')?.touched &&
                 addChargerFormGroup.get('makeMasterId')?.value?.length == 0
-              "
-              class="error-mess"
-            >
+              " class="error-mess">
               Make Is Required
             </span>
-            <span
-              *ngIf="
+            <span *ngIf="
                 addChargerFormGroup.get('makeMasterId')?.touched &&
                 (addChargerFormGroup.get('makeMasterId')?.value?.length ?? 0) > 40
-              "
-              class="error-mess"
-            >
+              " class="error-mess">
               Make Must Be less than 40 Alphanumeric character
             </span>
           </div>
@@ -218,43 +155,30 @@
                 Model
                 <span style="color: #ff0000;">*</span>
               </h5>
-              <div
-                class="barbar-box6 layout"
-                [ngClass]="{
+              <div class="barbar-box6 layout" [ngClass]="{
                   'is-invalid':
                     addChargerFormGroup.get('modelId')?.errors &&
                     submitted == true
-                }"
-              >
-                <input
-                  formControlName="modelId"
-                  (keypress)="omit_special_char($event)"
-                  type="text"
-                  class="barbar-input-text"
-                />
+                }">
+                <input formControlName="modelId" (keypress)="omit_special_char($event)" type="text"
+                  class="barbar-input-text" />
               </div>
             </div>
-            <span
-              *ngIf="
+            <span *ngIf="
                 !addChargerFormGroup.get('modelId')?.valid &&
                 addChargerFormGroup.get('modelId')?.touched &&
                 addChargerFormGroup.get('modelId')?.value?.length == 0
-              "
-              class="error-mess"
-            >
+              " class="error-mess">
               Model Is Required
             </span>
 
-            <span
-              *ngIf="
+            <span *ngIf="
                 addChargerFormGroup.get('modelId')?.touched &&
                 (addChargerFormGroup.get('modelId')?.value?.length ?? 0) > 40
-              "
-              class="error-mess"
-            >
+              " class="error-mess">
               Model Must Be less than 40 Alphanumeric Character
             </span>
-          </div> 
+          </div>
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
@@ -262,19 +186,12 @@
                 Protocol
                 <span style="color: #ff0000;">*</span>
               </h5>
-              <div
-                class="barbar-box6 layout"
-                [ngClass]="{
+              <div class="barbar-box6 layout" [ngClass]="{
                   'is-invalid':
                     addChargerFormGroup.get('protocolName')?.errors &&
                     submitted == true
-                }"
-              >
-                <input
-                  formControlName="protocolName"
-                  type="text"
-                  class="barbar-input-text"
-                />
+                }">
+                <input formControlName="protocolName" type="text" class="barbar-input-text" />
               </div>
             </div>
           </div>
@@ -285,38 +202,25 @@
                 Hardware Serial Number
                 <span style="color: #ff0000;">*</span>
               </h5>
-              <div
-                class="barbar-box6 layout"
-                [ngClass]="{
+              <div class="barbar-box6 layout" [ngClass]="{
                   'is-invalid':
                     addChargerFormGroup.get('hardwareSerialNumber')?.errors &&
                     submitted == true
-                }"
-              >
-                <input
-                  formControlName="hardwareSerialNumber"
-                  type="text"
-                  class="barbar-input-text"
-                />
+                }">
+                <input formControlName="hardwareSerialNumber" type="text" class="barbar-input-text" />
               </div>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !addChargerFormGroup.get('hardwareSerialNumber')?.valid &&
                   addChargerFormGroup.get('hardwareSerialNumber')?.touched &&
                   (addChargerFormGroup.get('hardwareSerialNumber')?.value?.length ?? 0) > 100
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Hardware Serial Number Must Be Between 1 To 100 Alphanumeric
               </span>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !addChargerFormGroup.get('hardwareSerialNumber')?.valid &&
                   addChargerFormGroup.get('hardwareSerialNumber')?.touched &&
                   addChargerFormGroup.get('hardwareSerialNumber')?.value?.length == 0
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Hardware Serial Number Is Required
               </span>
             </div>
@@ -328,38 +232,25 @@
                 OEM Order Number
                 <span style="color: #ff0000;">*</span>
               </h5>
-              <div
-                class="barbar-box6 layout"
-                [ngClass]="{
+              <div class="barbar-box6 layout" [ngClass]="{
                   'is-invalid':
                     addChargerFormGroup.get('oemOrderNumber')?.errors &&
                     submitted == true
-                }"
-              >
-                <input
-                  formControlName="oemOrderNumber"
-                  type="text"
-                  class="barbar-input-text"
-                />
+                }">
+                <input formControlName="oemOrderNumber" type="text" class="barbar-input-text" />
               </div>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !addChargerFormGroup.get('oemOrderNumber')?.valid &&
                   addChargerFormGroup.get('oemOrderNumber')?.touched &&
                   (addChargerFormGroup.get('oemOrderNumber')?.value?.length ?? 0) > 100
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 OEM Order Number Must Be Between 1 To 100 Alphanumeric
               </span>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !addChargerFormGroup.get('oemOrderNumber')?.valid &&
                   addChargerFormGroup.get('oemOrderNumber')?.touched &&
                   addChargerFormGroup.get('oemOrderNumber')?.value?.length == 0
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 OEM Order Number Is Required
               </span>
             </div>
@@ -371,20 +262,13 @@
                 Latitude
               </h5>
               <div class="barbar-box6 layout">
-                <input
-                  formControlName="latitude"
-                  type="text"
-                  class="barbar-input-text"
-                />
+                <input formControlName="latitude" type="text" class="barbar-input-text" />
               </div>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !addChargerFormGroup.get('latitude')?.valid &&
                   addChargerFormGroup.get('latitude')?.touched &&
                   (addChargerFormGroup.get('latitude')?.value?.length ?? 0) > 0
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Latitude must not be in special characters
               </span>
             </div>
@@ -396,20 +280,13 @@
                 Longitude
               </h5>
               <div class="barbar-box6 layout">
-                <input
-                  formControlName="longitude"
-                  type="text"
-                  class="barbar-input-text"
-                />
+                <input formControlName="longitude" type="text" class="barbar-input-text" />
               </div>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !addChargerFormGroup.get('longitude')?.valid &&
                   addChargerFormGroup.get('longitude')?.touched &&
                   (addChargerFormGroup.get('longitude')?.value?.length ?? 0) > 0
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Longitude must not be in special characters
               </span>
             </div>
@@ -421,42 +298,27 @@
                 Installation Date
                 <span style="color: #ff0000;">*</span>
               </h5>
-              <mat-form-field
-              appearance="outline" 
-                class="barbar-box6 layout"
-                [ngClass]="{
+              <mat-form-field appearance="outline" class="barbar-box6 layout" [ngClass]="{
                   'is-invalid':
                     addChargerFormGroup.get('installationDate')?.errors &&
                     submitted == true
-                }"
-              >
-                <input
-                  matInput
-                  [matDatepicker]="InstallationDate"
-                  formControlName="installationDate"
-                  readonly
-                />
+                }">
+                <input matInput [matDatepicker]="InstallationDate" formControlName="installationDate" readonly />
 
-                <mat-datepicker-toggle
-                  matSuffix
-                  [for]="InstallationDate"
-                ></mat-datepicker-toggle>
+                <mat-datepicker-toggle matSuffix [for]="InstallationDate"></mat-datepicker-toggle>
                 <mat-datepicker #InstallationDate></mat-datepicker>
               </mat-form-field>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !addChargerFormGroup.get('installationDate')?.valid &&
                   addChargerFormGroup.get('installationDate')?.touched
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Installation Date is Required
               </span>
             </div>
           </div>
 
-          
-          
+
+
           <div class="barbar-block13-spacer"></div>
           <div class="barbar-block13-item" *ngIf="isSaveBtn==false ">
             <div class="barbar-block14 layout">
@@ -464,51 +326,37 @@
                 Charger Status
                 <span style="color: #ff0000;">*</span>
               </h5>
-<mat-form-field appearance="outline"  class="barbar-box6 layout">
-  <mat-select formControlName="isActive">
-    <mat-option [value]="true">Active</mat-option>
-    <mat-option [value]="false">Deactivated</mat-option>
-  </mat-select>
-              
-  </mat-form-field>
+              <mat-form-field appearance="outline" class="barbar-box6 layout">
+                <mat-select formControlName="isActive">
+                  <mat-option [value]="true">Active</mat-option>
+                  <mat-option [value]="false">Deactivated</mat-option>
+                </mat-select>
+
+              </mat-form-field>
             </div>
-          </div> 
+          </div>
           <div class="barbar-block13-spacer"></div>
-          <div class="barbar-block13-item" *ngIf="isSaveBtn==false && this.addChargerFormGroup.get('isActive')?.value==false" >
-            <div class="barbar-block14 layout" >
+          <div class="barbar-block13-item"
+            *ngIf="isSaveBtn==false && this.addChargerFormGroup.get('isActive')?.value==false">
+            <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Deactivation Date
                 <span style="color: #ff0000;">*</span>
               </h5>
-              <mat-form-field
-              appearance="outline"
-                class="barbar-box6 layout"
-                [ngClass]="{
+              <mat-form-field appearance="outline" class="barbar-box6 layout" [ngClass]="{
                   'is-invalid':
                     addChargerFormGroup.get('deactivationDate')?.errors &&
                     submitted == true
-                }"
-              >
-                <input
-                  matInput
-                  [matDatepicker]="DeactivationDate"
-                  formControlName="deactivationDate"
-                  readonly
-                />
+                }">
+                <input matInput [matDatepicker]="DeactivationDate" formControlName="deactivationDate" readonly />
 
-                <mat-datepicker-toggle
-                  matSuffix
-                  [for]="DeactivationDate"
-                ></mat-datepicker-toggle>
+                <mat-datepicker-toggle matSuffix [for]="DeactivationDate"></mat-datepicker-toggle>
                 <mat-datepicker #DeactivationDate></mat-datepicker>
               </mat-form-field>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !addChargerFormGroup.get('deactivationDate')?.valid &&
                   addChargerFormGroup.get('deactivationDate')?.touched
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Deactivation Date is Required
               </span>
             </div>
@@ -531,12 +379,8 @@
         </div>
       </div>
 
-      <div
-        class="barbar-block12 layout"
-        formArrayName="portCommand"
-        *ngFor="let port of getPortFormControls(); let i = index"
-        [ngClass]="viewMode ? 'disable' : ''"
-      >
+      <div class="barbar-block12 layout" formArrayName="portCommand"
+        *ngFor="let port of getPortFormControls(); let i = index" [ngClass]="viewMode ? 'disable' : ''">
         <div class="barbar-block13 layout" [formGroupName]="i">
           <div class="barbar-block13-item mbottom">
             <div class="barbar-block14 layout">
@@ -545,39 +389,25 @@
                 <span style="color: #ff0000;">*</span>
               </h5>
 
-              <div
-                class="barbar-box6 layout"
-                [ngClass]="{
+              <div class="barbar-box6 layout" [ngClass]="{
                   'is-invalid':
                     port.get('connectorId')?.errors && submitted == true
-                }"
-              >
-                <input
-                  formControlName="connectorId"
-                  readonly
-                  type="number"
-                  class="barbar-input-text"
-                  (keypress)="numberOnly($event)"
-                />
+                }">
+                <input formControlName="connectorId" readonly type="number" class="barbar-input-text"
+                  (keypress)="numberOnly($event)" />
               </div>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !port.get('connectorId')?.valid &&
                   port.get('connectorId')?.touched &&
                   port.get('connectorId')?.value.length > 10
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Connector Id Must Be Between 0 To 10 Numeric
               </span>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !port.get('connectorId')?.valid &&
                   port.get('connectorId')?.touched &&
                   port.get('connectorId')?.value.length == 0
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Connector Id Is Required
               </span>
             </div>
@@ -589,31 +419,21 @@
                 Connector Type
                 <span style="color: #ff0000;">*</span>
               </h5>
-              <mat-form-field
-              appearance="outline" 
-                class="barbar-box6 layout"
-                [ngClass]="{
+              <mat-form-field appearance="outline" class="barbar-box6 layout" [ngClass]="{
                   'is-invalid':
                     port.get('connectorType')?.errors && submitted == true
-                }"
-              >
+                }">
                 <mat-select formControlName="connectorType">
-                  <mat-option
-                    *ngFor="let data of connectorType"
-                    [value]="data.id"
-                  >
+                  <mat-option *ngFor="let data of connectorType" [value]="data.id">
                     {{ data.connectorTypeName }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !port.get('connectorType')?.valid &&
                   port.get('connectorType')?.touched &&
                   port.get('connectorType')?.value.length == 0
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Connector Type Is Required
               </span>
             </div>
@@ -625,37 +445,24 @@
                 Port Name
                 <span style="color: #ff0000;">*</span>
               </h5>
-              <div
-                class="barbar-box6 layout"
-                [ngClass]="{
+              <div class="barbar-box6 layout" [ngClass]="{
                   'is-invalid':
                     port.get('portName')?.errors && submitted == true
-                }"
-              >
-                <input
-                  formControlName="portName"
-                  type="text"
-                  class="barbar-input-text"
-                />
+                }">
+                <input formControlName="portName" type="text" class="barbar-input-text" />
               </div>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !port.get('portName')?.valid &&
                   port.get('portName')?.touched &&
                   port.get('portName')?.value.length > 10
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Port Name Must Be Between 0 To 10 Alphanumeric Characters
               </span>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !port.get('portName')?.valid &&
                   port.get('portName')?.touched &&
                   port.get('portName')?.value.length == 0
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Port Name Is Required
               </span>
             </div>
@@ -667,28 +474,21 @@
                 Charger Type
                 <span style="color: #ff0000;">*</span>
               </h5>
-              <mat-form-field
-              appearance="outline" 
-                class="barbar-box6 layout"
-                [ngClass]="{
+              <mat-form-field appearance="outline" class="barbar-box6 layout" [ngClass]="{
                   'is-invalid':
                     port.get('plugTypeId')?.errors && submitted == true
-                }"
-              >
+                }">
                 <mat-select formControlName="plugTypeId">
                   <mat-option *ngFor="let data of Pluglist" [value]="data.id">
                     {{ data.plugTypeName }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !port.get('plugTypeId')?.valid &&
                   port.get('plugTypeId')?.touched &&
                   port.get('plugTypeId')?.value.length == 0
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Charger Type Is Required
               </span>
             </div>
@@ -701,38 +501,24 @@
                 Power(kW)
                 <span style="color: #ff0000;">*</span>
               </h5>
-              <div
-                class="barbar-box6 layout"
-                [ngClass]="{
+              <div class="barbar-box6 layout" [ngClass]="{
                   'is-invalid': port.get('power')?.errors && submitted == true
-                }"
-              >
-                <input
-                  formControlName="power"
-                  type="text"
-                  (keypress)="numberWithDecimalOnly($event)"
-                  class="barbar-input-text"
-                  maxlength="10"
-                />
+                }">
+                <input formControlName="power" type="text" (keypress)="numberWithDecimalOnly($event)"
+                  class="barbar-input-text" maxlength="10" />
               </div>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !port.get('power')?.valid &&
                   port.get('power')?.touched &&
                   port.get('power')?.value.length > 10
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Power Must Be Between 0 To 10 Alphanumeric
               </span>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !port.get('power')?.valid &&
                   port.get('power')?.touched &&
                   port.get('power')?.value.length == 0
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Power Is Required
               </span>
             </div>
@@ -745,39 +531,25 @@
                 Min Power (kW)
                 <span style="color: #ff0000;">*</span>
               </h5>
-              <div
-                class="barbar-box6 layout"
-                [ngClass]="{
+              <div class="barbar-box6 layout" [ngClass]="{
                   'is-invalid':
                     port.get('minPower')?.errors && submitted == true
-                }"
-              >
-                <input
-                  formControlName="minPower"
-                  type="text"
-                  (keypress)="numberWithDecimalOnly($event)"
-                  class="barbar-input-text"
-                  maxlength="10"
-                />
+                }">
+                <input formControlName="minPower" type="text" (keypress)="numberWithDecimalOnly($event)"
+                  class="barbar-input-text" maxlength="10" />
               </div>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !port.get('minPower')?.valid &&
                   port.get('minPower')?.touched &&
                   port.get('minPower')?.value.length > 10
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Min Power Must Be Between 0 To 10 Numeric
               </span>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !port.get('minPower')?.valid &&
                   port.get('minPower')?.touched &&
                   port.get('minPower')?.value.length == 0
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Min Power Is Required
               </span>
             </div>
@@ -789,39 +561,25 @@
                 Max Power (kW)
                 <span style="color: #ff0000;">*</span>
               </h5>
-              <div
-                class="barbar-box6 layout"
-                [ngClass]="{
+              <div class="barbar-box6 layout" [ngClass]="{
                   'is-invalid':
                     port.get('maxPower')?.errors && submitted == true
-                }"
-              >
-                <input
-                  formControlName="maxPower"
-                  type="text"
-                  class="barbar-input-text"
-                  (keypress)="numberWithDecimalOnly($event)"
-                  maxlength="10"
-                />
+                }">
+                <input formControlName="maxPower" type="text" class="barbar-input-text"
+                  (keypress)="numberWithDecimalOnly($event)" maxlength="10" />
               </div>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !port.get('maxPower')?.valid &&
                   port.get('maxPower')?.touched &&
                   port.get('maxPower')?.value.length > 10
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Max Power Must Be Between 0 To 10 Numeric
               </span>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !port.get('maxPower')?.valid &&
                   port.get('maxPower')?.touched &&
                   port.get('maxPower')?.value.length == 0
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Max Power Is Required
               </span>
             </div>
@@ -833,39 +591,25 @@
                 Power Increment (Example: ”.1”)
                 <span style="color: #ff0000;">*</span>
               </h5>
-              <div
-                class="barbar-box6 layout"
-                [ngClass]="{
+              <div class="barbar-box6 layout" [ngClass]="{
                   'is-invalid':
                     port.get('incrementalPower')?.errors && submitted == true
-                }"
-              >
-                <input
-                  formControlName="incrementalPower"
-                  type="text"
-                  (keypress)="numberWithDecimalOnly($event)"
-                  maxlength="10"
-                  class="barbar-input-text"
-                />
+                }">
+                <input formControlName="incrementalPower" type="text" (keypress)="numberWithDecimalOnly($event)"
+                  maxlength="10" class="barbar-input-text" />
               </div>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !port.get('incrementalPower')?.valid &&
                   port.get('incrementalPower')?.touched &&
                   port.get('incrementalPower')?.value.length > 10
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Power Increment Must Be Between 0 To 10 Numeric
               </span>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !port.get('incrementalPower')?.valid &&
                   port.get('incrementalPower')?.touched &&
                   port.get('incrementalPower')?.value.length == 0
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Power Increment Is Required
               </span>
             </div>
@@ -874,27 +618,29 @@
       </div>
 
       <div class="barbar-block13-spacer"></div>
-          <div class="rfid-form">
-            <div class="barbar-block13-item add-port">
-              <div class="barbar-block14 layout">
-                <button
-                  class="add-port-btn"
-                  type="button"
-                  *ngIf="isPortAddBtn"
-                  (click)="addPorts()"
-                >
-                  Add port
-                </button>
-              </div>
-            </div>
+      <div class="rfid-form">
+        <div class="barbar-block13-item add-port">
+          <div class="barbar-block14 layout">
+            <button class="add-port-btn" type="button" *ngIf="isPortAddBtn" (click)="addPorts()">
+              Add port
+            </button>
           </div>
+        </div>
+      </div>
       <div class="barbar-flex1 layout">
+
         <div class="barbar-flex1-item">
           <div class="barbar-block17 layout">
-            <div
-              class="barbar-text-body2 layout"
-              [routerLink]="['../../chargers']"
-            >
+            <button type="button" class="barbar-text-body1 layout delbutton" *ngIf="isDeleteBtn"
+              (click)="DeleteCharger()">
+              DELETE
+            </button>
+          </div>
+        </div>
+
+        <div class="barbar-flex1-item">
+          <div class="barbar-block17 layout">
+            <div class="barbar-text-body2 layout" [routerLink]="['../../chargers']">
               CANCEL
             </div>
           </div>
@@ -902,18 +648,10 @@
         <div class="barbar-flex1-spacer"></div>
         <div class="barbar-flex1-item">
           <div class="barbar-block16 layout">
-            <div
-              class="barbar-text-body1 layout"
-              *ngIf="isSaveBtn"
-              (click)="addCharger()"
-            >
+            <div class="barbar-text-body1 layout" *ngIf="isSaveBtn" (click)="addCharger()">
               SAVE
             </div>
-            <div
-              class="barbar-text-body1 layout"
-              *ngIf="isUpdateBtn"
-              (click)="UpdateCharger()"
-            >
+            <div class="barbar-text-body1 layout" *ngIf="isUpdateBtn" (click)="UpdateCharger()">
               UPDATE
             </div>
           </div>

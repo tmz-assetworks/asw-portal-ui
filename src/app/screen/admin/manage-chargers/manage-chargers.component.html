@@ -10,17 +10,11 @@
                 <div class="cust-list-block6 layout">
                   <div class="cust-list-block7 layout">
                     <div class="cust-list-block7-item">
-                      <div
-                        class="cust-list-block8 layout"
-                        [style.background-color]="
+                      <div class="cust-list-block8 layout" [style.background-color]="
                           portType ? portType[portType.length - 1].color : ''
-                        "
-                      >
+                        ">
                         <div class="cust-list-box7 layout">
-                          <img
-                            src="../../../../assets/Admin-SideNav/Charger-Icons/Total-port.svg"
-                            alt="Total Port"
-                          />
+                          <img src="../../../../assets/Admin-SideNav/Charger-Icons/Total-port.svg" alt="Total Port" />
                         </div>
                       </div>
                     </div>
@@ -29,14 +23,14 @@
                       <div class="cust-list-block9 layout">
                         <h1 class="cust-list-hero-title layout mt_zero">
                           {{
-                            portType ? portType[portType.length - 1]?.count : ''
+                          portType ? portType[portType.length - 1]?.count : ''
                           }}
                         </h1>
                         <div class="cust-list-text-body2 layout">
                           {{
-                            portType
-                              ? portType[portType.length - 1]?.portType
-                              : ''
+                          portType
+                          ? portType[portType.length - 1]?.portType
+                          : ''
                           }}
                         </div>
                       </div>
@@ -57,17 +51,11 @@
                 <div class="cust-list-block11 layout">
                   <div class="cust-list-block12 layout">
                     <div class="cust-list-block12-item">
-                      <div
-                        class="cust-list-block13 layout"
-                        [style.background-color]="
+                      <div class="cust-list-block13 layout" [style.background-color]="
                           portType ? portType[0].color : ''
-                        "
-                      >
+                        ">
                         <div class="cust-list-box7 layout">
-                          <img
-                            src="../../../../assets/Admin-SideNav/Charger-Icons/Total-port.svg"
-                            alt="Total-ports"
-                          />
+                          <img src="../../../../assets/Admin-SideNav/Charger-Icons/Total-port.svg" alt="Total-ports" />
                         </div>
                       </div>
                     </div>
@@ -98,17 +86,11 @@
                 <div class="cust-list-block16 layout">
                   <div class="cust-list-block17 layout">
                     <div class="cust-list-block17-item">
-                      <div
-                        class="cust-list-block18 layout"
-                        [style.background-color]="
+                      <div class="cust-list-block18 layout" [style.background-color]="
                           portType ? portType[1].color : ''
-                        "
-                      >
+                        ">
                         <div class="cust-list-box7 layout">
-                          <img
-                            src="../../../../assets/Admin-SideNav/Charger-Icons/Total-port.svg"
-                            alt="Total-ports"
-                          />
+                          <img src="../../../../assets/Admin-SideNav/Charger-Icons/Total-port.svg" alt="Total-ports" />
                         </div>
                       </div>
                     </div>
@@ -138,67 +120,61 @@
   </div>
 
   <!-- FILTER BAR -->
-<form [formGroup]="searchFilter" class="charger-filter-bar">
+  <form [formGroup]="searchFilter" class="charger-filter-bar">
 
-  <!-- LEFT SIDE (Search + Filters) -->
-  <div class="filter-left">
+    <!-- LEFT SIDE (Search + Filters) -->
+    <div class="filter-left">
 
-    <!-- SEARCH INPUT -->
-    <div class="search-wrapper">
-      <input formControlName="searchText"
-        appInputTooltip="Search by asset id, charge box id, location name, make, model, sim card"
-        type="text"
-        placeholder="Search for Charger"
-        (keyup)="applyFilter($event)"
-      />
-      <button type="button" class="search-icon-btn">
-        <img src="../../../../assets/Admin-SideNav/Charger-Icons/Search.svg" alt="Search" />
+      <!-- SEARCH INPUT -->
+      <div class="search-wrapper">
+        <input formControlName="searchText"
+          appInputTooltip="Search by asset id, charge box id, location name, make, model, sim card" type="text"
+          placeholder="Search for Charger" (keyup)="applyFilter($event)" />
+        <button type="button" class="search-icon-btn">
+          <img src="../../../../assets/Admin-SideNav/Charger-Icons/Search.svg" alt="Search" />
+        </button>
+      </div>
+
+      <!-- LOCATION -->
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Location</mat-label>
+        <mat-select multiple formControlName="locationId">
+          <mat-option *ngFor="let data of locationList" [value]="data.id"
+            (onSelectionChange)="onSelectLocation($event, data.id)">
+            {{ data.locationName }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- STATUS -->
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="activationStatus">
+          <mat-option value="1">Active</mat-option>
+          <mat-option value="2">Inactive</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button type="button" class="btn primary action-btn" (click)="GetDispensersWithPagination()">
+        SEARCH
+      </button>
+
+      <button type="button" class="btn secondary action-btn" (click)="resetFilter()">
+        RESET
+      </button>
+
+    </div>
+
+    <!-- RIGHT SIDE (Buttons) -->
+    <div class="filter-right">
+
+
+      <button type="button" class="btn primary add-btn action-btn" [routerLink]="['add-chargers']">
+        + ADD CHARGER
       </button>
     </div>
 
-    <!-- LOCATION -->
-    <mat-form-field appearance="outline" class="filter-field">
-      <mat-label>Location</mat-label>
-      <mat-select multiple formControlName="locationId">
-        <mat-option
-          *ngFor="let data of locationList"
-          [value]="data.id"
-          (onSelectionChange)="onSelectLocation($event, data.id)"
-        >
-          {{ data.locationName }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <!-- STATUS -->
-    <mat-form-field appearance="outline" class="filter-field">
-      <mat-label>Status</mat-label>
-      <mat-select formControlName="activationStatus">
-        <mat-option value="1">Active</mat-option>
-        <mat-option value="2">Inactive</mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <button type="button" class="btn primary action-btn" (click)="GetDispensersWithPagination()">
-      SEARCH
-    </button>
-
-    <button type="button" class="btn secondary action-btn" (click)="resetFilter()">
-      RESET
-    </button>
-    
-  </div>
-
-  <!-- RIGHT SIDE (Buttons) -->
-  <div class="filter-right">
-    
-
-    <button type="button" class="btn primary add-btn action-btn" [routerLink]="['add-chargers']">
-      + ADD CHARGER
-    </button>
-  </div>
-
-</form>
+  </form>
 
 
   <div class="layout mat-data">
@@ -262,74 +238,53 @@
 
       <!-- Symbol Column -->
       <ng-container matColumnDef="Action">
-  <th mat-header-cell *matHeaderCellDef>ACTION</th>
+        <th mat-header-cell *matHeaderCellDef>ACTION</th>
 
-  <td mat-cell *matCellDef="let element">
-  <div class="action-icons">
+        <td mat-cell *matCellDef="let element">
+          <div class="action-icons">
 
-    <!-- Deactivate -->
-    <button
-      *ngIf="element.isActive"
+            <!-- Deactivate -->
+            <button *ngIf="element.isActive" type="button" class="icon-btn" aria-label="Deactivate" title="Deactivate"
+              (click)="IsActiveDispenserById(element.id, false)">
+              <img src="../../../../assets/Active.svg" alt="Deactivate" />
+            </button>
+
+            <!-- Activate -->
+            <button *ngIf="!element.isActive" type="button" class="icon-btn" aria-label="Activate" title="Activate"
+              (click)="IsActiveDispenserById(element.id, true)">
+              <img src="../../../../assets/Admin-SideNav/Vehicles-Icons/Active-tik.svg" alt="Activate" />
+            </button>
+
+            <!-- View -->
+            <button type="button" class="icon-btn" aria-label="View charger" title="View"
+              (click)="viewCharger(element.id)">
+              <img src="../../../../assets/Admin-SideNav/Charger-Icons/View.svg" alt="View" />
+            </button>
+
+            <!-- Edit -->
+            <button type="button" class="icon-btn" aria-label="Edit charger" title="Edit"
+              (click)="editCharger(element.id)">
+              <img src="../../../../assets/Admin-SideNav/Charger-Icons/Edit.svg" alt="Edit" />
+            </button>
+                <button
       type="button"
-      class="icon-btn"
-      aria-label="Deactivate"
-      title="Deactivate"
-      (click)="IsActiveDispenserById(element.id, false)"
+      class="icon-button"
+      aria-label="Delete vehicle"
+      title="Delete"
+      (click)="confirmDeleteCharger(element.id)"
     >
       <img
-        src="../../../../assets/Active.svg"
-        alt="Deactivate"
+        src="assets/Admin-SideNav/Vehicles-Icons/delete-icon.svg"
+        alt="Delete"
+        loading="lazy"
       />
     </button>
 
-    <!-- Activate -->
-    <button
-      *ngIf="!element.isActive"
-      type="button"
-      class="icon-btn"
-      aria-label="Activate"
-      title="Activate"
-      (click)="IsActiveDispenserById(element.id, true)"
-    >
-      <img
-        src="../../../../assets/Admin-SideNav/Vehicles-Icons/Active-tik.svg"
-        alt="Activate"
-      />
-    </button>
+          </div>
+        </td>
 
-    <!-- View -->
-    <button
-      type="button"
-      class="icon-btn"
-      aria-label="View charger"
-      title="View"
-      (click)="viewCharger(element.id)"
-    >
-      <img
-        src="../../../../assets/Admin-SideNav/Charger-Icons/View.svg"
-        alt="View"
-      />
-    </button>
 
-    <!-- Edit -->
-    <button
-      type="button"
-      class="icon-btn"
-      aria-label="Edit charger"
-      title="Edit"
-      (click)="editCharger(element.id)"
-    >
-      <img
-        src="../../../../assets/Admin-SideNav/Charger-Icons/Edit.svg"
-        alt="Edit"
-      />
-    </button>
-
-  </div>
-</td>
-
-  
-</ng-container>
+      </ng-container>
 
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -340,12 +295,6 @@
     </ng-container>
   </div>
 
-  <mat-paginator
-    #paginator
-    [hidden]="!dataSource.data.length"
-    (page)="pageChange($event)"
-    [length]="totalCount"
-    [pageSize]="pageSize"
-    [pageSizeOptions]="pageSizeOptions"
-  ></mat-paginator>
+  <mat-paginator #paginator [hidden]="!dataSource.data.length" (page)="pageChange($event)" [length]="totalCount"
+    [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"></mat-paginator>
 </div>
