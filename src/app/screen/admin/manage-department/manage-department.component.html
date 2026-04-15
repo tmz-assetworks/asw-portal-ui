@@ -82,13 +82,21 @@
         <th mat-header-cell *matHeaderCellDef>ACTION</th>
         <td mat-cell *matCellDef="let element" style="cursor: pointer;">
          
-          <img
-            src="../../../../assets/Admin-SideNav/pricing-Icons/Edit.svg"
-            alt=""
-            (click)="editDepartment(element)"
-            style="cursor: pointer;"
+          <button
+            type="button"
+            class="icon-button"
             title="Edit"
-          />
+            aria-label="Edit Department"
+            (click)="editDepartment(element)"
+          >
+            <img
+              src="../../../../assets/Admin-SideNav/pricing-Icons/Edit.svg"
+              alt=""
+            />
+          </button>
+
+
+
           <button
             type="button"
             class="icon-button"

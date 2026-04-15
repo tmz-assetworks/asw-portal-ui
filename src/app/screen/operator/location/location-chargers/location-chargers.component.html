@@ -195,53 +195,57 @@
                               <td mat-cell *matCellDef="let element" class="action-cell">
   
                                 <!-- Reset -->
-                                <span
-                                  class="showHandCursor action-icon"
-                                  matTooltip="Reset"
-                                  tabindex="0"
-                                  (click)="openCommandDialog('reset', element.chargeBoxId)"
-                                  (keydown.enter)="openCommandDialog('reset', element.chargeBoxId)"
-                                  (keydown.space)="openCommandDialog('reset', element.chargeBoxId)"
-                                >
-                                  <img src="../../../../../assets/locationcharger-icon/delete-icon.svg" alt="Reset" />
-                                </span>
+                                <button
+                                 type="button"
+                                 matTooltip="Reset"
+                                 class="showHandCursor action-icon icon-button"
+                                 title="Reset"
+                                 aria-label="Reset Charger"
+                                 (click)="openCommandDialog('reset', element.chargeBoxId)"
+                               >
+                                 <img src="../../../../../assets/locationcharger-icon/delete-icon.svg" alt="Reset" />
+                               </button>
                               
                                 <!-- Start -->
-                                <span
-                                  class="showHandCursor action-icon"
-                                  matTooltip="Remote Start Transaction"
-                                  tabindex="0"
-                                  (click)="openCommandDialog('start', element.chargeBoxId)"
-                                  (keydown.enter)="openCommandDialog('start', element.chargeBoxId)"
-                                  (keydown.space)="openCommandDialog('start', element.chargeBoxId)"
-                                >
-                                  <img src="../../../../../assets/Operator/Start.svg" alt="Start" />
-                                </span>
-                              
+                                <button
+                                 type="button"
+                                 matTooltip="Remote Start Transaction"
+                                 class=" showHandCursor action-icon icon-button"
+                                 title="Start"
+                                 aria-label="Start Charger"
+                                 (click)="openCommandDialog('start', element.chargeBoxId)"
+                               >
+                                 <img src="../../../../../assets/Operator/Start.svg" alt="Start" />
+                               </button>
+                                
                                 <!-- Stop -->
-                                <span
-                                  class="showHandCursor action-icon"
-                                  matTooltip="Remote Stop Transaction"
-                                  tabindex="0"
-                                  (click)="remoteStopTransaction(element.chargeBoxId)"
-                                  (keydown.enter)="remoteStopTransaction(element.chargeBoxId)"
-                                  (keydown.space)="remoteStopTransaction(element.chargeBoxId)"
-                                >
-                                  <img src="../../../../../assets/Operator/Stop.svg" alt="Stop" />
-                                </span>
-                              
+                                <button
+                                 type="button"
+                                 class=" showHandCursor action-icon icon-button"
+                                 matTooltip="Remote Stop Transaction"
+                                 title="Stop"
+                                 aria-label="Stop Charger"
+                                 (click)="remoteStopTransaction(element.chargeBoxId)"
+                               >
+                                 <img src="../../../../../assets/Operator/Stop.svg" alt="Stop" />
+                               </button>
+                                
                                 <!-- Edit -->
-                                <span
-                                  class="showHandCursor action-icon"
-                                  matTooltip="Edit Charger"
-                                  tabindex="0"
-                                  (click)="editCharger(element.id)"
-                                  (keydown.enter)="editCharger(element.id)"
-                                  (keydown.space)="editCharger(element.id)"
-                                >
-                                  <img src="../../../../assets/Admin-SideNav/Charger-Icons/Edit.svg" alt="Edit" />
-                                </span>
-                              
+
+                                <button
+                                 type="button"
+                                 class="showHandCursor action-icon icon-button"
+                                 matTooltip="Edit Charger"
+                                 title="Edit"
+                                 aria-label="Edit Charger"
+                                 (click)="editCharger(element.id)"
+                               >
+                                 <img
+                                   src="../../../../assets/Admin-SideNav/pricing-Icons/Edit.svg"
+                                   alt=""
+                                 />
+                               </button>
+
                               </td>
                             </ng-container>
 
