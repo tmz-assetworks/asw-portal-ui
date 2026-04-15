@@ -116,15 +116,23 @@
           <div class="barbar-block16 layout">
             <div
               class="barbar-text-body1 layout"
-              (click)="createDepartment()"
               *ngIf="isSaveBtn"
+              tabindex="0"
+              role="button"
+              (click)="createDepartment()"
+              (keydown.enter)="createDepartment()"
+              (keydown.space)="createDepartment()"
             >
               SAVE
             </div>
             <div
               class="barbar-text-body1 layout"
               *ngIf="isUpdateBtn"
+               tabindex="0"
+              role="button"
               (click)="updateDepartment()"
+              (keydown.enter)="createDepartment()"
+              (keydown.space)="createDepartment()"
             >
               UPDATE
             </div>
