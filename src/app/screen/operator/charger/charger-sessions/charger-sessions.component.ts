@@ -174,24 +174,27 @@ loadSessions(): void {
   downloadFile() {
     let newObjArr: any = []
 
-    for (let i = 0; i < this.eventLogList.length; i++) {
-      let newObj = {
-        'ASSET ID': this.eventLogList[i]['assetId'],
-        'SESSION ID': this.eventLogList[i]['sessionid'],
-        'DURATION (HH:MM:SS)': this.eventLogList[i]['duration'],
-        'USAGE (kWh)': this.eventLogList[i]['usage'],
-        'START TIME': this.eventLogList[i]['startTime'],
-        'END TIME': this.datePipe.transform(
-          this.eventLogList[i]['endTime'],
-          'dd-MM-yyyy h:mm',this.userTimeZone
-        ),
+    if (!this.eventLogList || this.eventLogList.length === 0) {
+        return;
       }
-
-      //PUSH INTO NEW ARRAY
-
-      newObjArr.push(newObj)
+    for (const item of this.eventLogList) {
+      const newObj = {
+        'ASSET ID': item['assetId'],
+        'SESSION ID': item['sessionid'],
+        'DURATION (HH:MM:SS)': item['duration'],
+        'USAGE (kWh)': item['usage'],
+        'START TIME': item['startTime'],
+        'END TIME': this.datePipe.transform(
+          item['endTime'],
+          'dd-MM-yyyy h:mm',
+          this.userTimeZone
+        ),
+      };
+    
+      newObjArr.push(newObj);
     }
 
+    
     const replacer = (key: any, value: any) => (value === null ? '' : value) // specify how you want to handle null values here
     const header = Object.keys(newObjArr[0])
 

@@ -114,20 +114,21 @@
         <div class="barbar-flex1-spacer"></div>
         <div class="barbar-flex1-item">
           <div class="barbar-block16 layout">
-            <div
-              class="barbar-text-body1 layout"
-              (click)="createDepartment()"
-              *ngIf="isSaveBtn"
-            >
-              SAVE
-            </div>
-            <div
-              class="barbar-text-body1 layout"
-              *ngIf="isUpdateBtn"
-              (click)="updateDepartment()"
+            <button
+                class="barbar-text-body1 layout action-button"
+                *ngIf="isSaveBtn"
+                (click)="createDepartment()"
+              >
+                SAVE
+            </button>
+            <button
+                class="barbar-text-body1 layout action-button"
+                *ngIf="isUpdateBtn"
+                (click)="updateDepartment()"
             >
               UPDATE
-            </div>
+            </button>
+            
           </div>
         </div>
       </div>
