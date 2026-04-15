@@ -9,7 +9,6 @@ import { CommonModule } from '@angular/common'
 import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms'
 import { ToastrService } from 'ngx-toastr'
 import { InputTooltipDirective } from 'src/app/shared/directive/input-tooltip.directive'
-import Swal from 'sweetalert2'
 
 @Component({
 	selector: 'app-manage-chargers',
@@ -60,7 +59,6 @@ export class ManageChargersComponent implements OnInit {
 		private readonly _AdminService: AdminService,
 		public _fb: FormBuilder,
 		private readonly _toastr: ToastrService,
-		private readonly __toastr: ToastrService,
 	) {
 		this.UserId = this._storageService.getLocalData('user_id')
 
@@ -241,43 +239,6 @@ export class ManageChargersComponent implements OnInit {
 
 			this._toastr.success(successMessage);
 			this.GetDispensersWithPagination();
-		});
-	}
-
-	/**
- * Delete charger after confirmation
- */
-	confirmDeleteCharger(id: number): void {
-		Swal.fire({
-			title: '<strong>Are you sure you want to delete this Charger? This action cannot be undone.</strong>',
-			icon: 'warning',
-			showCancelButton: true,
-			confirmButtonText: 'Confirm',
-			cancelButtonText: 'Cancel',
-			confirmButtonColor: '#0062A6',
-			cancelButtonColor: '#E6E8E9',
-			allowOutsideClick: false,
-			allowEscapeKey: false
-		}).then((result) => {
-			if (!result.isConfirmed) return;
-
-			this._adminService.DeleteDispenserById(id).subscribe({
-				next: ({ statusCode, statusMessage }) => {
-					if (statusCode === 200) {
-						this.__toastr.success(statusMessage);
-						this.GetDispensersWithPagination();
-					} else {
-						this.__toastr.error(statusMessage);
-					}
-				},
-				error: ({ error, status }) => {
-					const message =
-						error?.statusMessage ||
-						error?.errors ||
-						'Unable to delete charger';
-					this.__toastr.error(message);
-				}
-			});
 		});
 	}
 

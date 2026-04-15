@@ -105,7 +105,7 @@ export class AddChargerComponent implements OnInit {
       this.addChargerFormGroup.disable()
       this.viewMode = true
       this.isPortAddBtn = false
-       this.isDeleteBtn = true
+       this.isDeleteBtn = false
     } else {
       this.chargerTitle = 'Add Charger'
       this.isSaveBtn = true
@@ -897,41 +897,56 @@ export class AddChargerComponent implements OnInit {
   }
 
 
-  DeleteCharger(): void {
-    Swal.fire({
-      title: '<strong>Are you sure you want to delete this Charger? This action cannot be undone.</strong>',
-      icon: 'warning',
-      focusConfirm: true,
-      confirmButtonText: ' <span style="color:#0062A6">CANCEL<span>',
-      confirmButtonColor: '#E6E8E9',
-      cancelButtonColor: '#0062A6',
-      cancelButtonText: ' CONFIRM',
-      showCancelButton: true,
-      allowOutsideClick: false,
-      allowEscapeKey: false
-    }).then((result) => {
-      if (result.isDismissed) {
+ DeleteCharger(): void {
+  const formValue = this.addChargerFormGroup.value;
 
-        this._adminService.DeleteDispenserById(this.chargerboxId).subscribe({
-          next: (res) => {
-            if (res.statusCode === 200) {
-              this._toastr.success(res.statusMessage);
-              this._location.back()
-            } else {
-              this._toastr.error(res.statusMessage);
-            }
-          },
-          error: (error) => {
-            if (error.status == 400) {
-              let errorMsg = error.error.errors;
-              this._toastr.error(errorMsg);
-            }
-          },
-        });
-      }
-    });
+  const selectedLocation = this.getLocation.find(
+    (x: any) => x.id === formValue.locationId
+  );
 
-  }
+  const locationName = selectedLocation?.locationName || 'Unknown Location';
+  const chargerDisplayName = `${locationName} — ${formValue.chargeBoxId}`;
+  const chargerStatus = formValue.isActive ? 'Active' : 'Deactivated';
 
+  Swal.fire({
+    title: 'Delete Charger?',
+    html: `
+      <p>Are you sure you want to delete:</p>
+      <strong>${chargerDisplayName}</strong><br><br>
+      Asset ID: <strong>${formValue.assetId}</strong><br>
+      Status: <strong>${chargerStatus}</strong><br><br>
+      <span style="color:red">This action cannot be undone.</span>
+    `,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, Delete',
+    cancelButtonText: 'Cancel',
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#E6E8E9',
+    reverseButtons: true,
+    allowOutsideClick: false,
+    allowEscapeKey: false
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this._adminService.DeleteDispenserById(this.chargerboxId).subscribe({
+        next: (res) => {
+          if (res.statusCode === 200) {
+            this._toastr.success(`${chargerDisplayName} deleted successfully`);
+            this._location.back();
+          } else {
+            this._toastr.error(res.statusMessage);
+          }
+        },
+        error: (error) => {
+          if (error.status === 400) {
+            this._toastr.error(error.error.errors);
+          } else {
+            this._toastr.error('Delete failed');
+          }
+        }
+      });
+    }
+  });
+}
 
 }
