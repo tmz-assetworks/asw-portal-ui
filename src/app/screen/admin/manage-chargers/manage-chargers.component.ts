@@ -60,7 +60,7 @@ export class ManageChargersComponent implements OnInit {
 		private readonly _AdminService: AdminService,
 		public _fb: FormBuilder,
 		private readonly _toastr: ToastrService,
-		private __toastr: ToastrService,
+		private readonly __toastr: ToastrService,
 	) {
 		this.UserId = this._storageService.getLocalData('user_id')
 

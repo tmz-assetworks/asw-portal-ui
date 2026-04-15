@@ -648,10 +648,12 @@
         <div class="barbar-flex1-spacer"></div>
         <div class="barbar-flex1-item">
           <div class="barbar-block16 layout">
-            <div class="barbar-text-body1 layout" *ngIf="isSaveBtn" (click)="addCharger()">
+            <div class="barbar-text-body1 layout" *ngIf="isSaveBtn" (click)="addCharger()"
+              (keydown.enter)="addCharger()" (keydown.space)="addCharger()" tabindex="0" role="button">
               SAVE
             </div>
-            <div class="barbar-text-body1 layout" *ngIf="isUpdateBtn" (click)="UpdateCharger()">
+            <div class="barbar-text-body1 layout" *ngIf="isUpdateBtn" (click)="UpdateCharger()"
+              (keydown.enter)="UpdateCharger()" (keydown.space)="UpdateCharger()" tabindex="0" role="button">
               UPDATE
             </div>
           </div>
