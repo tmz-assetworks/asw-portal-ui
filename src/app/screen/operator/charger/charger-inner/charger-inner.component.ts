@@ -372,21 +372,33 @@ export class ChargerInnerComponent implements OnInit {
        ];
 
       const escapeCsv = (value: unknown): string => {
-          if (value === null || value === undefined) {
-            return '""';
-          }       
-          const str =
-            typeof value === 'object'
-              ? JSON.stringify(value)
-              : String(value);        
-
-          const sanitized = str
-            .replaceAll('–', '-')
-            .replaceAll('—', '-')
-            .replaceAll('"', '""');       
-
-          return `"${sanitized}"`;
-        };
+        if (value === null || value === undefined) {
+          return '""';
+        }
+      
+        let str: string;
+      
+        if (typeof value === 'string') {
+          str = value;
+        } else if (typeof value === 'number' || typeof value === 'boolean') {
+          str = String(value);
+        } else if (typeof value === 'object') {
+          try {
+            str = JSON.stringify(value);
+          } catch {
+            str = ''; // fallback if circular object
+          }
+        } else {
+          str = '';
+        }
+      
+        const sanitized = str
+          .replaceAll('–', '-')
+          .replaceAll('—', '-')
+          .replaceAll('"', '""');
+      
+        return `"${sanitized}"`;
+      };
 
        const rows: string = res.data
          .map((item: any) =>

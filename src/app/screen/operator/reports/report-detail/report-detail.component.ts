@@ -92,7 +92,6 @@ export class ReportDetailComponent implements OnInit {
         'endTime',
         'duration',
         'totalAmount',
-        'depCost',
         'consumedEnergy',
       ]
     }
@@ -199,7 +198,6 @@ export class ReportDetailComponent implements OnInit {
                   'UNIT COST': item.unitCost,
                   TAX: item.tax,
                   'TOTAL AMOUNT': item.totalAmount,
-                  DepCost: item.depCost,
                   VIN: item.vin,
                   'CREATED ON': this.datePipe.transform(
                     item.createdOn,
