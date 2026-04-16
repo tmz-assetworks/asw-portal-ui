@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr'
 import { StorageService } from 'src/app/service/storage.service'
 import Swal from 'sweetalert2'
 import { AdminService } from '../../admin.service'
-import { CommonModule, DatePipe } from '@angular/common'
+import { CommonModule, DatePipe, Location } from '@angular/common'
 import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 
 
@@ -20,7 +20,7 @@ import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
   selector: 'app-add-charger',
   templateUrl: './add-charger.component.html',
   styleUrls: ['./add-charger.component.scss'],
-  imports:[
+  imports: [
     RouterModule,
     ReactiveFormsModule,
     CommonModule,
@@ -34,7 +34,7 @@ export class AddChargerComponent implements OnInit {
   registrationForm: any
   chargerTitle: string = 'Add Charger'
   isUpdateBtn: boolean = false
-
+ isDeleteBtn: boolean = false
   UserId: string | null
   ConnectorId: any = 1
   chargerboxId: any
@@ -81,6 +81,7 @@ export class AddChargerComponent implements OnInit {
     private _storageService: StorageService,
     private _toastr: ToastrService,
     private _adminService: AdminService,
+    private readonly _location: Location
   ) {
     this.UserId = this._storageService.getLocalData('user_id')
     this.chargerboxId = this._activatedRoute.snapshot.queryParams['id']
@@ -96,6 +97,7 @@ export class AddChargerComponent implements OnInit {
       this.isSaveBtn = false
       this.viewMode = false
       this.isPortAddBtn = true
+       this.isDeleteBtn = true
     } else if (this.chargerboxId && routePath == 'view-chargers') {
       this.chargerTitle = 'View Charger'
       this.isSaveBtn = false
@@ -103,12 +105,14 @@ export class AddChargerComponent implements OnInit {
       this.addChargerFormGroup.disable()
       this.viewMode = true
       this.isPortAddBtn = false
+       this.isDeleteBtn = false
     } else {
       this.chargerTitle = 'Add Charger'
       this.isSaveBtn = true
       this.isUpdateBtn = false
       this.viewMode = false
       this.isPortAddBtn = true
+      this.isDeleteBtn = false
     }
   }
 
@@ -148,7 +152,7 @@ export class AddChargerComponent implements OnInit {
       }
     }, 2000)
     setTimeout(() => {
-        this.addChargerFormGroup.get('isActive')?.valueChanges.subscribe((value: boolean | null) => {
+      this.addChargerFormGroup.get('isActive')?.valueChanges.subscribe((value: boolean | null) => {
         if (value) {
           this.onIsActiveUnchecked(); // Call your function when unchecked
         }
@@ -189,7 +193,7 @@ export class AddChargerComponent implements OnInit {
     ]),
     privateStation: new FormControl(true),
     readingSchedule: new FormControl('', [Validators.maxLength(20)]),
-    oemOrderNumber: new FormControl('',[Validators.required,Validators.maxLength(100)]),
+    oemOrderNumber: new FormControl('', [Validators.required, Validators.maxLength(100)]),
     padId: new FormControl('0'),
     cableId: new FormControl('0'),
     installationDate: new FormControl('', Validators.required),
@@ -280,7 +284,7 @@ export class AddChargerComponent implements OnInit {
 
     const pBody = {
       assetId: formData.assetId,
-      simCardMSIDN:formData.simCardMSIDN,
+      simCardMSIDN: formData.simCardMSIDN,
       chargeBoxId: formData.chargeBoxId,
       endPointUrl: formData.endPointUrl,
       firmwareVersion: formData.firmwareVersion,
@@ -385,7 +389,7 @@ export class AddChargerComponent implements OnInit {
     let formData = this.addChargerFormGroup.value
     const body = {
       id: this.chargerboxId,
-      simCardMSIDN:formData.simCardMSIDN,
+      simCardMSIDN: formData.simCardMSIDN,
       assetId: formData.assetId,
       chargeBoxId: formData.chargeBoxId,
       locationId: formData.locationId,
@@ -418,7 +422,7 @@ export class AddChargerComponent implements OnInit {
       updatePortCommand: formData.portCommand,
       oemOrderNumber: formData.oemOrderNumber,
       latitude: formData.latitude ? formData.latitude : null,
-      longitude: formData.longitude ? formData.longitude : null,      
+      longitude: formData.longitude ? formData.longitude : null,
     }
 
     Swal.fire({
@@ -470,7 +474,7 @@ export class AddChargerComponent implements OnInit {
    * @returns
    */
 
-  
+
   isUnique(arr: any): boolean {
     const tmpArr: any[] = [];
 
@@ -508,7 +512,7 @@ export class AddChargerComponent implements OnInit {
             locationId: this.chargerData.locationName,
           })
         }
-        
+
         this.addChargerFormGroup.patchValue({
           endPointUrl: this.chargerData.endPointUrl,
         })
@@ -597,7 +601,7 @@ export class AddChargerComponent implements OnInit {
         this.addChargerFormGroup.patchValue({
           readingSchedule: this.chargerData.readingSchedule,
         })
-        
+
         this.removePortAssigned(0)
         const ports = this.chargerData?.portCommmand
 
@@ -717,8 +721,8 @@ export class AddChargerComponent implements OnInit {
     })
   }
   onIsActiveUnchecked(): void {
-  this.addChargerFormGroup.get('deactivationDate')?.setValue(null);
-}
+    this.addChargerFormGroup.get('deactivationDate')?.setValue(null);
+  }
 
   /**
    * Select Location
@@ -817,8 +821,8 @@ export class AddChargerComponent implements OnInit {
   }
   addPorts(fbGroup?: FormGroup): void {
     this.ConnectorId = this.ConnectorId + 1
-    ;(this.addChargerFormGroup.get('portCommand') as FormArray).push(
-      fbGroup ||
+      ; (this.addChargerFormGroup.get('portCommand') as FormArray).push(
+        fbGroup ||
         this.addPortsRows(
           0,
           this.ConnectorId,
@@ -832,7 +836,7 @@ export class AddChargerComponent implements OnInit {
           '',
           '',
         ),
-    )
+      )
   }
 
   getPortFormControls(): any {
@@ -840,7 +844,7 @@ export class AddChargerComponent implements OnInit {
   }
 
   disableInputs() {
-    ;(<FormArray>this.addChargerFormGroup.get('portCommand')).controls.forEach(
+    ; (<FormArray>this.addChargerFormGroup.get('portCommand')).controls.forEach(
       (control) => {
         control.disable()
       },
@@ -889,6 +893,60 @@ export class AddChargerComponent implements OnInit {
   }
 
   removePortAssigned(index: any) {
-    ;(this.addChargerFormGroup.get('portCommand') as FormArray).removeAt(index)
+    ; (this.addChargerFormGroup.get('portCommand') as FormArray).removeAt(index)
   }
+
+
+ DeleteCharger(): void {
+  const formValue = this.addChargerFormGroup.value;
+
+  const selectedLocation = this.getLocation.find(
+    (x: any) => x.id === formValue.locationId
+  );
+
+  const locationName = selectedLocation?.locationName || 'Unknown Location';
+  const chargerDisplayName = `${locationName} — ${formValue.chargeBoxId}`;
+  const chargerStatus = formValue.isActive ? 'Active' : 'Deactivated';
+
+  Swal.fire({
+    title: 'Delete Charger?',
+    html: `
+      <p>Are you sure you want to delete:</p>
+      <strong>${chargerDisplayName}</strong><br><br>
+      Asset ID: <strong>${formValue.assetId}</strong><br>
+      Status: <strong>${chargerStatus}</strong><br><br>
+      <span style="color:red">This action cannot be undone.</span>
+    `,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, Delete',
+    cancelButtonText: 'Cancel',
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#E6E8E9',
+    reverseButtons: true,
+    allowOutsideClick: false,
+    allowEscapeKey: false
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this._adminService.DeleteDispenserById(this.chargerboxId).subscribe({
+        next: (res) => {
+          if (res.statusCode === 200) {
+            this._toastr.success(`${chargerDisplayName} deleted successfully`);
+            this._location.back();
+          } else {
+            this._toastr.error(res.statusMessage);
+          }
+        },
+        error: (error) => {
+          if (error.status === 400) {
+            this._toastr.error(error.error.errors);
+          } else {
+            this._toastr.error('Delete failed');
+          }
+        }
+      });
+    }
+  });
+}
+
 }
