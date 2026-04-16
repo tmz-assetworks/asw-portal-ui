@@ -41,6 +41,12 @@ export class AdminService {
     )
   }
 
+  public DeleteDispenserById(id: number): Observable<any> {
+    return this._http.delete<any>(
+      `${this.ASSET_API_URL}Dispenser/DeleteDispenserById/${id}`
+    );
+  }
+
   /**
    * Create user
    * @param params
