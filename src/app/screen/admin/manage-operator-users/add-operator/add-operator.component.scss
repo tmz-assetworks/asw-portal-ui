@@ -531,3 +531,14 @@ input[type='number'] {
   top: 42%;
   transform: translateY(-50%);  // keeps outline centered vertically
 }
+
+.delbutton {
+    background-color: #DC3545;
+    border-radius: 5px 5px 5px 5px;
+}
+
+button.delbutton, button.delbutton:focus, button.delbutton:focus-visible, button.delbutton:active {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+}

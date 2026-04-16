@@ -39,6 +39,7 @@ export class CreateAdminComponent implements OnInit {
   adminRowData: any
   customerName:any
   customerId:any
+  isDeleteBtn: boolean = false
 
   constructor(
     private formBuilder: FormBuilder,
@@ -74,6 +75,7 @@ export class CreateAdminComponent implements OnInit {
       this.adminData !== ''
     ) {
       this.title = 'Edit Admin User';
+      this.isDeleteBtn = true;
       this.setFormValue(this.adminData);
     } else if (
       !this.saveBtnValue &&
@@ -82,10 +84,12 @@ export class CreateAdminComponent implements OnInit {
       this.adminData !== ''
     ) {
       this.title = 'View Admin User';
+        this.isDeleteBtn = false;
       this.setFormValue(this.adminData);
       this.addAdminFormGroup.disable();
     } else {
       this.title = 'Add Admin User';
+       this.isDeleteBtn = false;
     }
   }
 
@@ -454,6 +458,56 @@ export class CreateAdminComponent implements OnInit {
       this.telephoneNumber = this.telephoneNumber + '-';
     }
   }
+
+DeleteUser(): void {
+  const { username, emailid } = this.addAdminFormGroup.getRawValue();
+
+  const userName = username || 'Unknown User';
+  const email = emailid || 'N/A';
+  const userId = this.editId;
+
+  if (!userId || userId <= 0) {
+    this.toastr.error('Invalid user selected');
+    return;
+  }
+
+  Swal.fire({
+    title: 'Delete User?',
+    html: `
+      <p>Are you sure you want to delete this user?</p>
+      <strong>${userName}</strong><br><br>
+      User ID: <strong>${userId}</strong><br>
+      Email: <strong>${email}</strong><br><br>
+      <span style="color:red">This action cannot be undone.</span>
+    `,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, Delete',
+    cancelButtonText: 'Cancel',
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#E6E8E9',
+    reverseButtons: true,
+    allowOutsideClick: false,
+    allowEscapeKey: false
+  }).then(({ isConfirmed }) => {
+    if (!isConfirmed) return;
+
+    this._superadminService.DeleteUserById(userId).subscribe({
+      next: ({ statusCode, statusMessage }) => {
+        if (statusCode === 200) {
+          this.toastr.success(`${userName} deleted successfully`);
+          this._location.back();
+        } else {
+          this.toastr.error(statusMessage);
+        }
+      },
+      error: ({ error }) => {
+        this.toastr.error(error?.errors || 'Delete failed');
+      }
+    });
+  });
+}
+
 
 
 

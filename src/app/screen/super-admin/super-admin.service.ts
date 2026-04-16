@@ -20,6 +20,12 @@ export class SuperAdminService {
     return this._http.post<any>(`${this.userUrl}User/CreateUser`, params)
   }
 
+  public DeleteUserById(userId: number): Observable<any> {
+  return this._http.delete<any>(
+    `${this.userUrl}User/DeleteUserById/${userId}`
+  );
+}
+
   public UpdateUser(params: any): Observable<any> {
     return this._http.put<any>(`${this.userUrl}User/UpdateUser`, params)
   }

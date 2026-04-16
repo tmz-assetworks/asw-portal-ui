@@ -50,6 +50,12 @@ export class AdminService {
   public CreateUser(params: any): Observable<any> {
     return this._http.post<any>(`${this.USER_API_URL}User/CreateUser`, params)
   }
+
+  public DeleteUserById(userId: number): Observable<any> {
+  return this._http.delete<any>(
+    `${this.USER_API_URL}User/DeleteUserById/${userId}`
+  );
+}
   /**
    * Update user
    * @param params

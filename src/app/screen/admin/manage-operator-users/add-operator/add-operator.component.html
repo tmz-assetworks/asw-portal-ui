@@ -16,40 +16,26 @@
                 (<span>No space or special characters</span>)
               </h5>
 
-              <div
-                class="barbar-box6 layout"
-                [ngClass]="{
+              <div class="barbar-box6 layout" [ngClass]="{
                   'is-invalid':
                     addOperatorProfile.get('username')?.errors &&
                     submitted == true
-                }"
-              >
-                <input
-                
-                  formControlName="username"
-                  type="text"
-                  class="barbar-input-text"
-                  (keypress)="omit_special_char($event)"
-                />
+                }">
+                <input formControlName="username" type="text" class="barbar-input-text"
+                  (keypress)="omit_special_char($event)" />
               </div>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !addOperatorProfile.get('username')?.valid &&
                   addOperatorProfile.get('username')?.touched &&
                   (addOperatorProfile.get('username')?.value?.length ?? 0) > 20
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Username Must Be Between 0 To 20 Alphanumeric
               </span>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !addOperatorProfile.get('username')?.valid &&
                   addOperatorProfile.get('username')?.touched &&
                   addOperatorProfile.get('username')?.value?.length == 0
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 User Name Is Required
               </span>
             </div>
@@ -61,38 +47,25 @@
                 Email ID
                 <span style="color: #ff0000;">*</span>
               </h5>
-              <div
-                class="barbar-box6 layout"
-                [ngClass]="{
+              <div class="barbar-box6 layout" [ngClass]="{
                   'is-invalid':
                     addOperatorProfile.get('emailid')?.errors &&
                     submitted == true
-                }"
-              >
-                <input
-                  formControlName="emailid"
-                  type="text"
-                  class="barbar-input-text"
-                />
+                }">
+                <input formControlName="emailid" type="text" class="barbar-input-text" />
               </div>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !addOperatorProfile.get('emailid')?.valid &&
                   addOperatorProfile.get('emailid')?.touched &&
                   addOperatorProfile.get('emailid')?.value?.length == 0
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Email Id Is Required
               </span>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !addOperatorProfile.get('emailid')?.valid &&
                   addOperatorProfile.get('emailid')?.touched &&
                   (addOperatorProfile.get('emailid')?.value?.length ?? 0) > 0
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Please Enter Valid Email Id
               </span>
             </div>
@@ -104,47 +77,33 @@
                 Phone Number
                 <span style="color: #ff0000;">*</span>
               </h5>
-              <div
-                class="barbar-box6 layout"
-                [ngClass]="{
+              <div class="barbar-box6 layout" [ngClass]="{
                   'is-invalid':
                     addOperatorProfile.get('phonenumber')?.errors &&
                     submitted == true
-                }"
-              >
-                <input
-                  formControlName="phonenumber"
-                  type="text"
-                  maxlength="14"
-                  (keypress)="phoneNumber($event); numberOnly($event)"
-                  [(ngModel)]="telephoneNumber"
-                  class="barbar-input-text"
-                />
+                }">
+                <input formControlName="phonenumber" type="text" maxlength="14"
+                  (keypress)="phoneNumber($event); numberOnly($event)" [(ngModel)]="telephoneNumber"
+                  class="barbar-input-text" />
                 <!-- <input
                   formControlName="phonenumber"
                   type="text"
                   class="barbar-input-text"
                   (keypress)="numberOnly($event)"
                 /> -->
-                <span
-                  *ngIf="
+                <span *ngIf="
                     !addOperatorProfile.get('phonenumber')?.valid &&
                     addOperatorProfile.get('phonenumber')?.touched &&
                     (addOperatorProfile.get('phonenumber')?.value?.length ?? 0) > 0
-                  "
-                  class="error-mess"
-                >
+                  " class="error-mess">
                   Phone Number Must Be Between 10 To 15 digits
                 </span>
 
-                <span
-                  *ngIf="
+                <span *ngIf="
                     !addOperatorProfile.get('phonenumber')?.valid &&
                     addOperatorProfile.get('phonenumber')?.touched &&
                     addOperatorProfile.get('phonenumber')?.value?.length == 0
-                  "
-                  class="error-mess"
-                >
+                  " class="error-mess">
                   Phone Number Is Required
                 </span>
               </div>
@@ -154,16 +113,13 @@
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">Assign Location
-              <span style="color: #ff0000;">*</span>
+                <span style="color: #ff0000;">*</span>
               </h5>
               <mat-form-field appearance="outline" class="barbar-box6 layout">
                 <!-- <mat-form-field class="dashboard-text-body1 layout9"> -->
                 <mat-label>Select Location</mat-label>
                 <mat-select multiple formControlName="locationIds">
-                  <mat-option
-                    *ngFor="let item of locationList"
-                    [value]="item.id"
-                  >
+                  <mat-option *ngFor="let item of locationList" [value]="item.id">
                     {{ item.locationName }}
                   </mat-option>
                 </mat-select>
@@ -187,31 +143,21 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Address Line 1
-                
+
               </h5>
-              <div
-                class="barbar-box6 layout"
-                [ngClass]="{
+              <div class="barbar-box6 layout" [ngClass]="{
                   'is-invalid':
                     addOperatorProfile.get('addressLine1')?.errors &&
                     submitted == true
-                }"
-              >
-                <input
-                  formControlName="addressLine1"
-                  type="text"
-                  class="barbar-input-text"
-                />
+                }">
+                <input formControlName="addressLine1" type="text" class="barbar-input-text" />
               </div>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !addOperatorProfile.get('addressLine1')?.valid &&
-                  addOperatorProfile.get('addressLine1')?.touched"
-                class="error-mess"
-              >
+                  addOperatorProfile.get('addressLine1')?.touched" class="error-mess">
                 Address Line1 Must Not Exceed More Than 255 Characters
               </span>
-              
+
             </div>
           </div>
 
@@ -220,22 +166,15 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">Address Line 2</h5>
               <div class="barbar-box6 layout">
-                <input
-                  formControlName="addressLine2"
-                  type="text"
-                  class="barbar-input-text"
-                />
+                <input formControlName="addressLine2" type="text" class="barbar-input-text" />
 
                 <!-- <mat-error>This Fiels is required</mat-error> -->
               </div>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !addOperatorProfile.get('addressLine2')?.valid &&
                   addOperatorProfile.get('addressLine2')?.touched &&
                   (addOperatorProfile.get('addressLine2')?.value?.length ?? 0) > 255
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Address Line 2 Must Not Exceed More Than 255 Characters
               </span>
             </div>
@@ -246,22 +185,15 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Country
-               
+
               </h5>
 
-              <mat-form-field
-              appearance="outline"
-                class="barbar-box6 layout"
-                [ngClass]="{
+              <mat-form-field appearance="outline" class="barbar-box6 layout" [ngClass]="{
                   'is-invalid':
                     addOperatorProfile.get('country')?.errors &&
                     submitted == true
-                }"
-              >
-                <mat-select
-                  formControlName="country"
-                  (selectionChange)="getSelected($event, 'state')"
-                >
+                }">
+                <mat-select formControlName="country" (selectionChange)="getSelected($event, 'state')">
                   <!--  <mat-option value="{{selectcountryId}}" [disabled]="true">Select</mat-option> -->
                   <mat-option value="{{ selectValue }}">Select</mat-option>
                   <mat-option *ngFor="let c of countryList" value="{{ c.id }}">
@@ -269,14 +201,11 @@
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !addOperatorProfile.get('country')?.valid &&
                   addOperatorProfile.get('country')?.touched &&
                   addOperatorProfile.get('country')?.value?.length == 0
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Country Is Required
               </span>
             </div>
@@ -287,35 +216,25 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 State/Province
-               
+
               </h5>
 
-              <mat-form-field
-              appearance="outline"
-                class="barbar-box6 layout"
-                [ngClass]="{
+              <mat-form-field appearance="outline" class="barbar-box6 layout" [ngClass]="{
                   'is-invalid':
                     addOperatorProfile.get('state')?.errors && submitted == true
-                }"
-              >
-                <mat-select
-                  formControlName="state"
-                  (selectionChange)="getSelected($event, 'city')"
-                >
+                }">
+                <mat-select formControlName="state" (selectionChange)="getSelected($event, 'city')">
                   <mat-option value="{{ selectValue }}">Select</mat-option>
                   <mat-option *ngFor="let c of stateList" value="{{ c.id }}">
                     {{ c.stateName }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !addOperatorProfile.get('state')?.valid &&
                   addOperatorProfile.get('state')?.touched &&
                   addOperatorProfile.get('state')?.value?.length == 0
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 State Is Required
               </span>
             </div>
@@ -327,28 +246,18 @@
               <h5 class="barbar-highlights layout">
                 City
               </h5>
-              <div
-                class="barbar-box6 layout"
-                [ngClass]="{
+              <div class="barbar-box6 layout" [ngClass]="{
                   'is-invalid':
                     addOperatorProfile.get('cityName')?.errors &&
                     submitted == true
-                }"
-              >
-                <input
-                  formControlName="cityName"
-                  type="text"
-                  class="barbar-input-text"
-                  (keypress)="omit_special_char($event)"
-                />
+                }">
+                <input formControlName="cityName" type="text" class="barbar-input-text"
+                  (keypress)="omit_special_char($event)" />
               </div>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !addOperatorProfile.get('city')?.valid &&
                   addOperatorProfile.get('city')?.touched
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 City Is Required
               </span>
             </div>
@@ -359,31 +268,20 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Zip Code
-                
+
               </h5>
-              <div
-                class="barbar-box6 layout"
-                [ngClass]="{
+              <div class="barbar-box6 layout" [ngClass]="{
                   'is-invalid':
                     addOperatorProfile.get('zipcode')?.errors &&
                     submitted == true
-                }"
-              >
-                <input
-                  formControlName="zipcode"
-                  maxlength="9"
-                  type="text"
-                  class="barbar-input-text"
-                  (keydown.space)="$event.preventDefault()"
-                />
-                <span
-                  *ngIf="
+                }">
+                <input formControlName="zipcode" maxlength="9" type="text" class="barbar-input-text"
+                  (keydown.space)="$event.preventDefault()" />
+                <span *ngIf="
                     !addOperatorProfile.get('zipcode')?.valid &&
                     addOperatorProfile.get('zipcode')?.touched &&
                     addOperatorProfile.get('zipcode')?.value?.length == 0
-                  "
-                  class="error-mess"
-                >
+                  " class="error-mess">
                   Zip Code Is Required
                 </span>
               </div>
@@ -400,10 +298,15 @@
       <div class="barbar-flex1 layout">
         <div class="barbar-flex1-item">
           <div class="barbar-block17 layout">
-            <div
-              class="barbar-text-body2 layout"
-              [routerLink]="['../../users']"
-            >
+            <button type="button" class="barbar-text-body1 layout delbutton" *ngIf="isDeleteBtn" (click)="DeleteUser()">
+              DELETE
+            </button><!--container-->
+          </div>
+        </div>
+
+        <div class="barbar-flex1-item">
+          <div class="barbar-block17 layout">
+            <div class="barbar-text-body2 layout" [routerLink]="['../../users']">
               CANCEL
             </div>
           </div>
@@ -411,11 +314,7 @@
         <div class="barbar-flex1-spacer"></div>
         <div class="barbar-flex1-item">
           <div class="barbar-block16 layout">
-            <div
-              *ngIf="saveBtnValue"
-              class="barbar-text-body1 layout"
-              (click)="saveForm()"
-            >
+            <div *ngIf="saveBtnValue" class="barbar-text-body1 layout" (click)="saveForm()">
               SAVE
             </div>
           </div>
