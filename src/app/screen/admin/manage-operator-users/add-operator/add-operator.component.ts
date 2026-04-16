@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, HostListener, OnInit, ViewChild } from '@angular/core'
+import { Component, OnInit} from '@angular/core'
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms'
 import { Router, RouterModule } from '@angular/router'
 import { ToastrService } from 'ngx-toastr'
@@ -35,6 +35,7 @@ export class AddOperatorComponent implements OnInit {
   disabled: any
   showLoader: boolean = false
   datePipe = new DatePipe('en-US')
+  isDeleteBtn: boolean = false;
   constructor(
     private formBuilder: FormBuilder,
     public router: Router,
@@ -67,6 +68,7 @@ export class AddOperatorComponent implements OnInit {
       this.operatorData !== ''
     ) {
       // this.title = 'Edit Admin User'
+       this.isDeleteBtn = true;
       this.setoperatorData(this.operatorData)
     } else if (
       !this.saveBtnValue &&
@@ -103,12 +105,10 @@ export class AddOperatorComponent implements OnInit {
     country: new FormControl(this.selectValue, Validators.required),
     state: new FormControl(this.selectValue, Validators.required),
     cityName: new FormControl(''),
-    // city: new FormControl(this.selectValue, Validators.required),
     zipcode: new FormControl(''),
   })
 
   ngOnInit() {
-    // this.onSubmit();
     this._adminService.getListApi('country').subscribe((res) => {
       this.countryList = res.data
     })
@@ -117,51 +117,8 @@ export class AddOperatorComponent implements OnInit {
     })
   }
 
-  // alertWithSuccess() {
-  //   Swal.fire({
-  //     title: '<strong>Are you sure you want to confirm?</strong>',
-  //     icon: 'success',
-  //     focusConfirm: true,
-  //     confirmButtonText: ' <span style="color:#0062A6">CANCEL<span>',
-  //     confirmButtonColor: '#E6E8E9',
-
-  //     cancelButtonColor: '#0062A6',
-  //     cancelButtonText: ' CONFIRM',
-  //     showCancelButton: true,
-  //   }).then((result) => {
-  //     if (result.isDismissed) {
-  //       // this.toastr.success("Record has been registered on success.")
-  //       //Do your stuffs...
-  //       this.saveForm()
-  //     }
-  //   })
-  // }
-
    keyPressAlphaNumeric(event:any) {
-
-    //var inp = String.fromCharCode(event.keyCode);
-
-    // let inp = String.fromCharCode(event.keyCode);
-    // // Allow numbers, alpahbets, space, underscore
-    // if (/[a-zA-Z0-9-_ ]/.test(inp)) {
-    //   return true;
-    // } else {
-    //   event.preventDefault();
-    //   return false;
-    // }
-
-    // if (/[a-zA-Z0-9]/.test(inp)) {
-    //   return true;
-    // } else {
-    //   //this.toastr.error(' User name must be AlphaNumeric.')
-    //   event.preventDefault();
-    //   return false;
-    // }
   }
-
-
-
-
 
   saveForm() {
     this.submitted = true
@@ -169,7 +126,6 @@ export class AddOperatorComponent implements OnInit {
       this.toastr.error('Please fill mandatory fields.')
       return
     }
-    // let pass = sessionStorage.getItem('enpass')
     let formField = this.addOperatorProfile.value
     if (
       formField.emailid == '' ||
@@ -208,18 +164,14 @@ export class AddOperatorComponent implements OnInit {
         userPrincipalName: '',
         mailNickname: '',
         isActive: true,
-        //  password: pass,
-        //  isForceChangePasswordNextSignIn: true,
         emailId: formField.emailid,
         name: formField.username,
-        // dob: this.datePipe.transform(formField.dob, 'yyyy-MM-ddThh:mm:ss'),
         phoneNumber: formField.phonenumber,
         addressLine1: formField.addressLine1,
         addressLine2: formField.addressLine2,
         countryID: formField.country ?? '0',
         customerID: 1,
         stateID: formField.state ?? '0',
-        // cityID: parseInt(formField.city),
         cityName: formField.cityName,
         zipCode: formField.zipcode,
         createdBy: this.UserId,
@@ -271,14 +223,12 @@ export class AddOperatorComponent implements OnInit {
         id: this.editId,
         emailId: formField.emailid,
         name: formField.username,
-        // dob: this.datePipe.transform(formField.dob, 'yyyy-MM-ddThh:mm:ss'),
         phoneNumber: formField.phonenumber,
         addressLine1: formField.addressLine1,
         addressLine2: formField.addressLine2,
         countryID: formField.country ?? "0",
         customerID: 1,
         stateID: formField.state ?? "0",
-        // cityID: parseInt(formField.city),
         cityName: formField.cityName,
         zipCode: formField.zipcode,
         modifiedBy: this.UserId,
@@ -497,4 +447,60 @@ export class AddOperatorComponent implements OnInit {
       this.telephoneNumber = this.telephoneNumber + '-'
     }
   }
+
+ DeleteUser(): void {
+  const { username, emailid } = this.addOperatorProfile.getRawValue();
+
+  const userName = username || 'Unknown User';
+  const email = emailid || 'N/A';
+  const userId = this.editId;
+
+  if (!userId || userId <= 0) {
+    this.toastr.error('Invalid user selected');
+    return;
+  }
+
+  Swal.fire({
+    title: 'Delete Operator?',
+    html: `
+      <p>Are you sure you want to delete this operator?</p>
+      <strong>${userName}</strong><br><br>
+      User ID: <strong>${userId}</strong><br>
+      Email: <strong>${email}</strong><br><br>
+      <span style="color:red">This action cannot be undone.</span>
+    `,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, Delete',
+    cancelButtonText: 'Cancel',
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#E6E8E9',
+    reverseButtons: true,
+    allowOutsideClick: false,
+    allowEscapeKey: false
+  }).then(({ isConfirmed }) => {
+    if (!isConfirmed) return;
+
+    this._adminService.DeleteUserById(userId).subscribe({
+      next: ({ statusCode, statusMessage }) => {
+        if (statusCode === 200) {
+          this.toastr.success(`${userName} deleted successfully`);
+          this._location.back();
+        } else {
+          this.toastr.error(statusMessage);
+        }
+      },
+      error: ({ error }) => {
+        this.toastr.error(error?.errors || 'Delete failed');
+      }
+    });
+  });
+}
+  
+
+
+
+
+
+
 }

@@ -14,40 +14,26 @@
                 <span style="color: #ff0000;">*</span>
                 (<span>No space or special characters</span>)
               </h5>
-              <div
-                class="barbar-box6 layout"
-                [ngClass]="{
+              <div class="barbar-box6 layout" [ngClass]="{
                   'is-invalid':
                     addAdminFormGroup.get('username')?.errors &&
                     submitted == true
-                }"
-              >
-                <input
-                  formControlName="username"
-                  maxlength="100"
-                  type="text"
-                  (keypress)="omit_special_char($event)"
-                  class="barbar-input-text"
-                />
+                }">
+                <input formControlName="username" maxlength="100" type="text" (keypress)="omit_special_char($event)"
+                  class="barbar-input-text" />
               </div>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !addAdminFormGroup.get('username')?.valid &&
                   addAdminFormGroup.get('username')?.touched &&
                   (addAdminFormGroup.get('username')?.value?.length ?? 0) > 20
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Username Must Be Between 5 To 20 Characters
               </span>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !addAdminFormGroup.get('username')?.valid &&
                   (addAdminFormGroup.get('username')?.touched || submitted) &&
                   addAdminFormGroup.get('username')?.value?.length == 0
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Username Is Required
               </span>
             </div>
@@ -60,38 +46,25 @@
                 Email ID
                 <span style="color: #ff0000;">*</span>
               </h5>
-              <div
-                class="barbar-box6 layout"
-                [ngClass]="{
+              <div class="barbar-box6 layout" [ngClass]="{
                   'is-invalid':
                     addAdminFormGroup.get('emailid')?.errors &&
                     submitted == true
-                }"
-              >
-                <input
-                  formControlName="emailid"
-                  type="text"
-                  class="barbar-input-text"
-                />
+                }">
+                <input formControlName="emailid" type="text" class="barbar-input-text" />
               </div>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !addAdminFormGroup.get('emailid')?.valid &&
                   (addAdminFormGroup.get('emailid')?.touched || submitted) &&
                   addAdminFormGroup.get('emailid')?.value?.length == 0
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Email Id Is Required
               </span>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !addAdminFormGroup.get('emailid')?.valid &&
                   addAdminFormGroup.get('emailid')?.touched &&
                   (addAdminFormGroup.get('emailid')?.value?.length ?? 0) > 0
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Please Enter Valid Email Id
               </span>
             </div>
@@ -104,42 +77,28 @@
                 Phone Number
                 <span style="color: #ff0000;">*</span>
               </h5>
-              <div
-                class="barbar-box6 layout"
-                [ngClass]="{
+              <div class="barbar-box6 layout" [ngClass]="{
                   'is-invalid':
                     addAdminFormGroup.get('phoneNumber')?.errors &&
                     submitted == true
-                }"
-              >
-                <input
-                  formControlName="phoneNumber"
-                  type="text"
-                  maxlength="14"
-                  (keypress)="phoneNumber($event); numberOnly($event)"
-                  [(ngModel)]="telephoneNumber"
-                  class="barbar-input-text"
-                />
+                }">
+                <input formControlName="phoneNumber" type="text" maxlength="14"
+                  (keypress)="phoneNumber($event); numberOnly($event)" [(ngModel)]="telephoneNumber"
+                  class="barbar-input-text" />
               </div>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !addAdminFormGroup.get('phoneNumber')?.valid &&
                   addAdminFormGroup.get('phoneNumber')?.touched &&
                   (addAdminFormGroup.get('phoneNumber')?.value?.length ?? 0) > 0
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Phone Number Must Be 10 digits
               </span>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !addAdminFormGroup.get('phoneNumber')?.valid &&
                   (addAdminFormGroup.get('phoneNumber')?.touched ||
                     submitted) &&
                   addAdminFormGroup.get('phoneNumber')?.value?.length == 0
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Phone Number Is Required
               </span>
             </div>
@@ -153,13 +112,8 @@
                 <span style="color: #ff0000;">*</span>
               </h5>
               <div class="barbar-box6 layout">
-                <input
-                  formControlName="organizationName"
-                  readonly
-                  [(ngModel)]="customerName"
-                  [value]="customerId"
-                  class="barbar-input-text"
-                />
+                <input formControlName="organizationName" readonly [(ngModel)]="customerName" [value]="customerId"
+                  class="barbar-input-text" />
               </div>
             </div>
           </div>
@@ -172,32 +126,23 @@
           <div class="barbar-block13-item">
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
-                Address Line1                
+                Address Line1
               </h5>
-              <div class="barbar-box6 layout"
-              [ngClass]="{
+              <div class="barbar-box6 layout" [ngClass]="{
                 'is-invalid':
                   addAdminFormGroup.get('addressLine1')?.errors &&
                   submitted == true
-              }"
-              >
-                <input
-                  formControlName="addressLine1"
-                  type="text"
-                  class="barbar-input-text"
-                />
+              }">
+                <input formControlName="addressLine1" type="text" class="barbar-input-text" />
               </div>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !addAdminFormGroup.get('addressLine1')?.valid &&
                   addAdminFormGroup.get('addressLine1')?.touched &&
                   (addAdminFormGroup.get('addressLine1')?.value?.length  ?? 0) > 255
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Address Line1 Must Not Exceed More Than 255 Characters
               </span>
-              
+
             </div>
           </div>
 
@@ -206,21 +151,14 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">Address Line2</h5>
               <div class="barbar-box6 layout">
-                <input
-                  formControlName="addressLine2"
-                  type="text"
-                  class="barbar-input-text"
-                />
+                <input formControlName="addressLine2" type="text" class="barbar-input-text" />
               </div>
-              <span
-                *ngIf="
+              <span *ngIf="
                   !addAdminFormGroup.get('addressLine2')?.valid &&
                   addAdminFormGroup.get('addressLine2')?.touched &&
                   (addAdminFormGroup.get('addressLine2')?.value?.length ?? 0) > 255 &&
                   addAdminFormGroup.get('addressLine2')?.value?.length != 0
-                "
-                class="error-mess"
-              >
+                " class="error-mess">
                 Address Line2 Must Not Exceed More Than 255 Characters
               </span>
             </div>
@@ -231,24 +169,17 @@
             <div class="barbar-block14 layout">
               <h5 class="barbar-highlights layout">
                 Country
-               
+
               </h5>
-              <mat-form-field
-              appearance="outline"
-                class="barbar-box6 layout"
-                
-              >
-                <mat-select
-                  formControlName="country"
-                  (selectionChange)="getSelected($event, 'state')"
-                >
+              <mat-form-field appearance="outline" class="barbar-box6 layout">
+                <mat-select formControlName="country" (selectionChange)="getSelected($event, 'state')">
                   <mat-option value="{{ selectValue }}">Select</mat-option>
                   <mat-option *ngFor="let c of countryList" value="{{ c.id }}">
                     {{ c.countryName }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-              
+
             </div>
           </div>
 
@@ -259,22 +190,15 @@
                 State/Province
               </h5>
 
-              <mat-form-field
-              appearance="outline"
-                class="barbar-box6 layout"
-                
-              >
-                <mat-select
-                  formControlName="state"
-                  (selectionChange)="getSelected($event, 'city')"
-                >
+              <mat-form-field appearance="outline" class="barbar-box6 layout">
+                <mat-select formControlName="state" (selectionChange)="getSelected($event, 'city')">
                   <mat-option value="{{ selectValue }}">Select</mat-option>
                   <mat-option *ngFor="let c of stateList" value="{{ c.id }}">
                     {{ c.stateName }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-              
+
             </div>
           </div>
 
@@ -284,16 +208,9 @@
               <h5 class="barbar-highlights layout">
                 City
               </h5>
-              <div
-                class="barbar-box6 layout"
-                
-              >
-                <input
-                  formControlName="cityName"
-                  type="text"
-                  class="barbar-input-text"
-                  (keypress)="omit_special_char($event)"
-                />
+              <div class="barbar-box6 layout">
+                <input formControlName="cityName" type="text" class="barbar-input-text"
+                  (keypress)="omit_special_char($event)" />
               </div>
 
             </div>
@@ -305,31 +222,29 @@
               <h5 class="barbar-highlights layout">
                 Zip Code
               </h5>
-              <div
-                class="barbar-box6 layout"
-                
-              >
-                <input
-                  formControlName="zipcode"
-                  type="text"
-                  maxlength="9"
-                  minlength="0"
-                  class="barbar-input-text"
-                />
+              <div class="barbar-box6 layout">
+                <input formControlName="zipcode" type="text" maxlength="9" minlength="0" class="barbar-input-text" />
               </div>
 
-              
+
             </div>
           </div>
         </div>
       </div>
 
       <div class="barbar-flex1 layout">
+
         <div class="barbar-flex1-item">
           <div class="barbar-block17 layout">
-            <div
-              class="barbar-text-body2 layout"
-              [routerLink]="role === 'SuperAdmin' 
+            <button type="button" class="barbar-text-body1 layout delbutton" *ngIf="isDeleteBtn" (click)="DeleteUser()">
+              DELETE
+            </button><!--container-->
+          </div>
+        </div>
+
+        <div class="barbar-flex1-item">
+          <div class="barbar-block17 layout">
+            <div class="barbar-text-body2 layout" [routerLink]="role === 'SuperAdmin' 
               ? ['/superadmin/admin'] 
               : ['/admin/admin-users']">
               CANCEL
@@ -339,11 +254,7 @@
         <div class="barbar-flex1-spacer"></div>
         <div class="barbar-flex1-item">
           <div class="barbar-block16 layout">
-            <div
-              *ngIf="saveBtnValue"
-              class="barbar-text-body1 layout"
-              (click)="addUpdateAdmin()"
-            >
+            <div *ngIf="saveBtnValue" class="barbar-text-body1 layout" (click)="addUpdateAdmin()">
               SAVE
             </div>
           </div>
