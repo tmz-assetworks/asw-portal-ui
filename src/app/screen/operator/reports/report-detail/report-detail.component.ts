@@ -204,7 +204,9 @@ export class ReportDetailComponent implements OnInit {
                   'CREATED ON': this.datePipe.transform(
                     item.createdOn,
                     'dd-MM-yyyy h:mm'
-                  )
+                  ),
+		 'Peak Kw':item.PeakKw
+
                 }));
 
             this.convertToCSV(newObjArr)
