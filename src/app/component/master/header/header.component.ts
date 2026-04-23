@@ -82,6 +82,13 @@ export class HeaderComponent implements OnInit {
     )
   }
 
+  openShop() {
+    window.open(
+      'https://www.assetworks.com/fleet/assetworks-ev-charging-hardware-documentation/',
+      '_blank',
+      'noopener,noreferrer'
+    );
+  }
   
   //TOGGLE NAVIGATION
 
