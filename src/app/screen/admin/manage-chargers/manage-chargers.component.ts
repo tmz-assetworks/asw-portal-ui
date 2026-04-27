@@ -84,10 +84,13 @@ export class ManageChargersComponent implements OnInit {
 		this.paginator._intl.itemsPerPageLabel = 'Rows per page'
 	}
 
+	
 	applyFilter(event: Event) {
-		const filterValue = (event.target as HTMLInputElement).value
-		this.searchParam = filterValue
-		this.GetDispensersWithPagination()
+	  const inputElement = event.target as HTMLInputElement;
+	  const trimmedValue = inputElement.value.trim();
+	  inputElement.value = trimmedValue;
+	  this.searchParam = trimmedValue;
+	  this.GetDispensersWithPagination();
 	}
 
 	/**

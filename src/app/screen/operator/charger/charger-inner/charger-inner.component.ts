@@ -204,17 +204,7 @@ export class ChargerInnerComponent implements OnInit {
 	  this.getDispensersDetail();
 	}
 
-  /**
-   *
-   * @param event
-   * Search Filter
-   */
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value
-    this.searchParam = filterValue
-    this.getDispensersDetail()
-  }
+  
 
   /**
    * Summary Status
@@ -283,6 +273,19 @@ export class ChargerInnerComponent implements OnInit {
     })
   }
 
+  /**
+   *
+   * @param event
+   * Search Filter
+   */
+
+  applyFilter(event: Event) {
+  const inputElement = event.target as HTMLInputElement;
+  const trimmedValue = inputElement.value.trim();
+  inputElement.value = trimmedValue;
+  this.searchParam = trimmedValue;
+  this.getDispensersDetail();
+}
   
   /**
    * Get Dispenser Details
