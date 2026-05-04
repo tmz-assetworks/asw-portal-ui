@@ -458,11 +458,10 @@ export class CreateAdminComponent implements OnInit {
   }
 
 DeleteUser(): void {
-  const { username, emailid } = this.addOperatorProfile.getRawValue();
+  const { username, emailid } = this.addAdminFormGroup.getRawValue();
   const userName = this.escapeHtml(username || 'Unknown User');
   const email = this.escapeHtml(emailid || 'N/A');
   const userId = this.editId;
-  const userRole = this.role;
 
   if (!userId || userId <= 0) {
     this.toastr.error('Invalid user selected');
@@ -480,7 +479,6 @@ DeleteUser(): void {
           <div style="margin-bottom: 12px;">
             <strong>Username:</strong> ${userName}<br>
             <strong>Email:</strong> ${email}<br>
-            <strong>User Role:</strong> ${userRole}
           </div>
   
           <div style="color: #d33; font-size: 13px;">
