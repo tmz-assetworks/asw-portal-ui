@@ -277,7 +277,6 @@ export class CreateAdminComponent implements OnInit {
         allowEscapeKey: false     // 🔒 Prevent close with Esc
       }).then((result) => {
         if (result.isDismissed) {
-          // this.toastr.success("Record has been registered on success.")
           //Do your stuffs...
           this._superadminService.UpdateUser(body).subscribe({
             next: (res) => {
@@ -292,7 +291,6 @@ export class CreateAdminComponent implements OnInit {
               if (error.status == 400) {
                 let errorMsg = error.error.errors;
                 this.toastr.error(errorMsg);
-                // this.showLoader = false
               }
             },
           });
@@ -460,11 +458,11 @@ export class CreateAdminComponent implements OnInit {
   }
 
 DeleteUser(): void {
-  const { username, emailid } = this.addAdminFormGroup.getRawValue();
-
-  const userName = username || 'Unknown User';
-  const email = emailid || 'N/A';
+  const { username, emailid } = this.addOperatorProfile.getRawValue();
+  const userName = this.escapeHtml(username || 'Unknown User');
+  const email = this.escapeHtml(emailid || 'N/A');
   const userId = this.editId;
+  const userRole = this.role;
 
   if (!userId || userId <= 0) {
     this.toastr.error('Invalid user selected');
@@ -472,44 +470,86 @@ DeleteUser(): void {
   }
 
   Swal.fire({
-    title: 'Delete User?',
-    html: `
-      <p>Are you sure you want to delete this user?</p>
-      <strong>${userName}</strong><br><br>
-      User ID: <strong>${userId}</strong><br>
-      Email: <strong>${email}</strong><br><br>
-      <span style="color:red">This action cannot be undone.</span>
-    `,
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonText: 'Yes, Delete',
-    cancelButtonText: 'Cancel',
-    confirmButtonColor: '#d33',
-    cancelButtonColor: '#E6E8E9',
-    reverseButtons: true,
-    allowOutsideClick: false,
-    allowEscapeKey: false
-  }).then(({ isConfirmed }) => {
-    if (!isConfirmed) return;
+      title: 'Delete User?',
+      html: `
+        <div style="text-align: center; line-height: 1.6;">
+          <p style="margin-bottom: 12px;">
+            Are you sure you want to delete this user?
+          </p>
+  
+          <div style="margin-bottom: 12px;">
+            <strong>Username:</strong> ${userName}<br>
+            <strong>Email:</strong> ${email}<br>
+            <strong>User Role:</strong> ${userRole}
+          </div>
+  
+          <div style="color: #d33; font-size: 13px;">
+            This action is permanent. The email address used cannot be reused to create another CMS account.
+          </div>
+        </div>
+      `,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, Delete',
+      cancelButtonText: 'Cancel',
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#E6E8E9',
+      reverseButtons: true,
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+      focusCancel: true
+    }).then((result) => {
+    if (!result.isConfirmed) return;
 
-    this._superadminService.DeleteUserById(userId).subscribe({
-      next: ({ statusCode, statusMessage }) => {
-        if (statusCode === 200) {
-          this.toastr.success(`${userName} deleted successfully`);
-          this._location.back();
-        } else {
-          this.toastr.error(statusMessage);
-        }
-      },
-      error: ({ error }) => {
-        this.toastr.error(error?.errors || 'Delete failed');
-      }
-    });
+    this.deleteUserById(userId, userName);
   });
 }
 
+    private deleteUserById(userId: number, userName: string): void {
+  this._superadminService.DeleteUserById(userId).subscribe({
+    next: ({ statusCode, statusMessage }) => {
+      if (statusCode === 200) {
+        this.toastr.success(`${userName} deleted successfully`);
+        this._location.back();
+      } else {
+        this.toastr.error(statusMessage);
+      }
+    },
+    error: ({ error }) => {
+      this.toastr.error(error?.errors || 'Delete failed');
+    }
+  });
+}
 
-
-
-
+  addOperatorProfile = this.formBuilder.group({
+    username: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(20),
+      Validators.pattern('[a-zA-Z0-9 ]+'),
+    ]),
+    emailid: new FormControl('', [
+      Validators.required,
+      Validators.email,
+      Validators.pattern(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/),
+    ]),
+    // dob: new FormControl('', Validators.required),
+    phonenumber: new FormControl('', Validators.required),
+    addressLine1: new FormControl('', [
+      Validators.maxLength(255),
+    ]),
+    addressLine2: new FormControl('', [Validators.maxLength(255)]),
+    locationIds: new FormControl([], Validators.required),
+    country: new FormControl(this.selectValue, Validators.required),
+    state: new FormControl(this.selectValue, Validators.required),
+    cityName: new FormControl(''),
+    zipcode: new FormControl(''),
+  })
+private escapeHtml(value: string): string {
+  return value
+    ?.replace(/&/g, '&amp;')
+    ?.replace(/</g, '&lt;')
+    ?.replace(/>/g, '&gt;')
+    ?.replace(/"/g, '&quot;')
+    ?.replace(/'/g, '&#039;') || '';
+}
 }
