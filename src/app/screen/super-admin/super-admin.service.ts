@@ -20,10 +20,15 @@ export class SuperAdminService {
     return this._http.post<any>(`${this.userUrl}User/CreateUser`, params)
   }
 
-  public DeleteUserById(userId: number): Observable<any> {
-  return this._http.delete<any>(
-    `${this.userUrl}User/DeleteUserById/${userId}`
-  );
+ DeleteUserById(userId: number): Observable<any> {
+  const body = {
+    id: userId,
+    isActive: false
+  };
+
+  return this._http.request<any>('DELETE', `${this.userUrl}User/DeleteUser`, {
+    body
+  });
 }
 
   public UpdateUser(params: any): Observable<any> {
