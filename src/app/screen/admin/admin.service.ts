@@ -57,15 +57,10 @@ export class AdminService {
     return this._http.post<any>(`${this.USER_API_URL}User/CreateUser`, params)
   }
 
-  DeleteUserById(userId: number): Observable<any> {
-  const body = {
-    id: userId,
-    isActive: false
-  };
-
-  return this._http.request<any>('DELETE', `${this.USER_API_URL}User/DeleteUser`, {
-    body
-  });
+  public DeleteUserById(userId: number): Observable<any> {
+  return this._http.delete<any>(
+    `${this.USER_API_URL}User/DeleteUserById/${userId}`
+  );
 }
   /**
    * Update user
