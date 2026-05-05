@@ -67,7 +67,6 @@ export class AddOperatorComponent implements OnInit {
       this.operatorData !== null &&
       this.operatorData !== ''
     ) {
-      // this.title = 'Edit Admin User'
        this.isDeleteBtn = true;
       this.setoperatorData(this.operatorData)
     } else if (
@@ -76,12 +75,9 @@ export class AddOperatorComponent implements OnInit {
       this.operatorData !== null &&
       this.operatorData !== ''
     ) {
-      // this.title = 'View Admin User'
       this.setoperatorData(this.operatorData)
       this.addOperatorProfile.disable()
-    } else {
-      //  this.title = 'Add Admin Users'
-    }
+    } 
   }
 
   addOperatorProfile = this.formBuilder.group({
@@ -130,7 +126,6 @@ export class AddOperatorComponent implements OnInit {
     if (
       formField.emailid == '' ||
       formField.username == '' ||
-      // formField.dob == '' ||
       formField.phonenumber == ''
     ) {
       this.toastr.error('Fill all Mandatory Fields')
@@ -395,8 +390,6 @@ export class AddOperatorComponent implements OnInit {
 
   //dob filter
   dateFilter = (d: any | null) => {
-    // const date = new Date();
-    // date.setDate(date.getDate() - 30);
     return d < new Date()
   }
 
@@ -410,18 +403,6 @@ export class AddOperatorComponent implements OnInit {
       (k >= 48 && k <= 57)
     )
   }
-
-  // alphaOnly(event:any) {
-  //   var key = event.keyCode;
-  //   return ((key >= 65 && key <= 90) || key == 8);
-  // };
-  // numberOnly(event: any): boolean {
-  //   const charCode = event.which ? event.which : event.keyCode
-  //   if ((charCode >= 65 && charCode <= 90) || key == 8) {
-  //     return false
-  //   }
-  //   return true
-  // }
 
   numberOnly(event: any): boolean {
     const charCode = event.which ? event.which : event.keyCode
@@ -448,11 +429,10 @@ export class AddOperatorComponent implements OnInit {
     }
   }
 
- DeleteUser(): void {
+DeleteUser(): void {
   const { username, emailid } = this.addOperatorProfile.getRawValue();
-
-  const userName = username || 'Unknown User';
-  const email = emailid || 'N/A';
+  const userName = this.escapeHtml(username || 'Unknown User');
+  const email = this.escapeHtml(emailid || 'N/A');
   const userId = this.editId;
 
   if (!userId || userId <= 0) {
@@ -461,13 +441,22 @@ export class AddOperatorComponent implements OnInit {
   }
 
   Swal.fire({
-    title: 'Delete Operator?',
+    title: 'Delete User?',
     html: `
-      <p>Are you sure you want to delete this operator?</p>
-      <strong>${userName}</strong><br><br>
-      User ID: <strong>${userId}</strong><br>
-      Email: <strong>${email}</strong><br><br>
-      <span style="color:red">This action cannot be undone.</span>
+      <div style="text-align: center; line-height: 1.6;">
+        <p style="margin-bottom: 12px;">
+          Are you sure you want to delete this user?
+        </p>
+
+        <div style="margin-bottom: 12px;">
+          <strong>Username:</strong> ${userName}<br>
+          <strong>Email:</strong> ${email}<br>
+        </div>
+
+        <div style="color: #d33; font-size: 13px;">
+          This action is permanent. The email address used cannot be reused to create another CMS account.
+        </div>
+      </div>
     `,
     icon: 'warning',
     showCancelButton: true,
@@ -477,25 +466,40 @@ export class AddOperatorComponent implements OnInit {
     cancelButtonColor: '#E6E8E9',
     reverseButtons: true,
     allowOutsideClick: false,
-    allowEscapeKey: false
-  }).then(({ isConfirmed }) => {
-    if (!isConfirmed) return;
+    allowEscapeKey: false,
+    focusCancel: true
+  }).then((result) => {
+    if (!result.isConfirmed) return;
 
-    this._adminService.DeleteUserById(userId).subscribe({
-      next: ({ statusCode, statusMessage }) => {
-        if (statusCode === 200) {
-          this.toastr.success(`${userName} deleted successfully`);
-          this._location.back();
-        } else {
-          this.toastr.error(statusMessage);
-        }
-      },
-      error: ({ error }) => {
-        this.toastr.error(error?.errors || 'Delete failed');
-      }
-    });
+    this.deleteUserById(userId, userName);
   });
 }
+
+private escapeHtml(value: string): string {
+  return value
+    ?.replace(/&/g, '&amp;')
+    ?.replace(/</g, '&lt;')
+    ?.replace(/>/g, '&gt;')
+    ?.replace(/"/g, '&quot;')
+    ?.replace(/'/g, '&#039;') || '';
+}
+
+private deleteUserById(userId: number, userName: string): void {
+  this._adminService.DeleteUserById(userId).subscribe({
+    next: ({ statusCode, statusMessage }) => {
+      if (statusCode === 200) {
+        this.toastr.success(`${userName} deleted successfully`);
+        this._location.back();
+      } else {
+        this.toastr.error(statusMessage);
+      }
+    },
+    error: ({ error }) => {
+      this.toastr.error(error?.errors || 'Delete failed');
+    }
+  });
+}
+
   
 
 
