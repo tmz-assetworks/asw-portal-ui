@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core'
+import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core'
 import { ThemePalette } from '@angular/material/core'
 import { Router } from '@angular/router'
-import { EChartsOption, number } from 'echarts'
+import { EChartsOption } from 'echarts'
 import { NgxEchartsModule } from 'ngx-echarts'
 import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
 
@@ -13,7 +13,7 @@ import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
   ]
 })
 
-export class BarChartComponent implements OnChanges, OnInit {
+export class BarChartComponent implements OnChanges {
 
   @Input() chartData: any;
   performingDataSet: any
@@ -296,17 +296,10 @@ export class BarChartComponent implements OnChanges, OnInit {
             type: 'value',
             name: 'Chargers',
             nameLocation: 'middle',
-
-            // fontWeight: 'bolder',
             nameGap: 50,
-            // min: 0,
-            // max: maxCountValue,
             nameTextStyle: {
-              // align: 'right',
               verticalAlign: 'top',
               fontSize: 14,
-              // fontWeight: 800,
-              // fontStyle: 'italic',
             },
           },
         ],
@@ -324,14 +317,12 @@ export class BarChartComponent implements OnChanges, OnInit {
           containLabel: true,
         },
         legend: {
-          // left: '56%',
           right: '4%',
           icon: 'square',
         },
         tooltip: {},
         dataset: {
           source: [
-            //  ['Time', 'Available', 'Connected', 'Offline'],
             ['Time', 'AVAILABLE', 'CONNECTED', 'OFFLINE'],
             ['00:00', 153, 18, 25],
             ['3:00', 193, 173, 55.1],
@@ -350,9 +341,7 @@ export class BarChartComponent implements OnChanges, OnInit {
             name: 'Time',
             nameLocation: 'middle',
             nameGap: 45,
-            //nameGap: 25,
             axisTick: { show: false },
-
             axisLabel: {
               rotate: 30,
             },
@@ -363,14 +352,11 @@ export class BarChartComponent implements OnChanges, OnInit {
             type: 'value',
             name: 'Chargers',
             nameLocation: 'middle',
-
             nameGap: 50,
             min: 0,
             max: 500,
             nameTextStyle: {
-              // align: 'right',
               verticalAlign: 'top',
-
               fontSize: 14,
             },
           },
@@ -411,7 +397,6 @@ export class BarChartComponent implements OnChanges, OnInit {
           containLabel: true,
         },
         legend: {
-          // left: '63%',
           right: '0%',
           icon: 'square',
         },
@@ -437,7 +422,6 @@ export class BarChartComponent implements OnChanges, OnInit {
             nameLocation: 'middle',
             nameGap: 50,
             axisTick: { show: false },
-
             axisLabel: {
               rotate: 30,
             },
@@ -448,22 +432,12 @@ export class BarChartComponent implements OnChanges, OnInit {
             type: 'value',
             name: 'Chargers',
             nameLocation: 'middle',
-
-            /* fontWeight: 'bolder', */
             nameGap: 60,
             min: 0,
             max: 300,
             nameTextStyle: {
-              // align: 'right',
               verticalAlign: 'top',
-              /**
-               * the top padding will shift the name down so that it does not overlap with the axis-labels
-               * t-l-b-r
-               */
-              // padding: [20, 0, 0, 0],
               fontSize: 14,
-              // fontWeight: 800,
-              // fontStyle: 'italic',
             },
           },
         ],
@@ -494,10 +468,8 @@ export class BarChartComponent implements OnChanges, OnInit {
         ],
       }
     } else if (chartType === 'dashboardlocationPerform') {
-      //alert(4);
       if (this.performingDataSet !== undefined) {
         this.barChartId = 4
-
         if (this.performingDataSet?.length == 0) {
           this.option = {}
           return
@@ -547,7 +519,6 @@ export class BarChartComponent implements OnChanges, OnInit {
         // CREATE OBJECT FOR DIFF ELEMENT
         for (let j = 0; j < legendCountData.length; j++) {
           let obj = {
-            //  name: 'TOTAL LOCATIONS',
             name: legendData[j],
             type: 'bar',
             stack: 'Total',
@@ -579,10 +550,8 @@ export class BarChartComponent implements OnChanges, OnInit {
           },
           xAxis: {
             type: 'category',
-            // data: ['Total Locations', 'Live', 'Under Maintenance', 'Upcoming'], // on hover
             data: legendData,
             axisLabel: {
-              // rotate: 30,
               fontSize: 10,
             },
           },
@@ -591,17 +560,11 @@ export class BarChartComponent implements OnChanges, OnInit {
             name: 'Count',
             min: 0,
             max: 500,
-
             nameLocation: 'middle',
-            // fontWeight: 'bolder',
             nameGap: 50,
             nameTextStyle: {
-              // align: 'right',
               verticalAlign: 'top',
-
               fontSize: 14,
-              // fontWeight: 800,
-              // fontStyle: 'italic',
             },
           },
           series: seriesData,
@@ -909,11 +872,6 @@ const months = [...new Set(this.reportAvailableChargerCountDataSet.map((item: an
   }
 }
   }
-
-  ngOnInit(): void {
-    // this.setChartOption(this.chartType)
-  }
-
   graphDetailPage(barChartId: number) {
     this.barDetailPage.emit(barChartId)
   }
@@ -1003,12 +961,9 @@ reportLast24HourAlertsChartOptions(dataSet: any[]): EChartsOption {
 
 reportInvalidBootNotificationChartOptions(dataSet: any[]): EChartsOption {
   if (!dataSet || dataSet.length === 0) return {};
-
   const labels = dataSet.map(item => item.value);
   const counts = dataSet.map(item => item.counts);
-
   const maxValue = Math.max(...counts);
-
   return {
     tooltip: { trigger: 'axis' },
     grid: {
@@ -1056,11 +1011,9 @@ reportInvalidBootNotificationChartOptions(dataSet: any[]): EChartsOption {
 
 reportInvalidSessionChartOptions(dataSet: any[]): EChartsOption {
   if (!dataSet || dataSet.length === 0) return {};
-
   const labels = dataSet.map(item => item.value);
   const startTxData = dataSet.map(item => item.invalidStartTx);
   const authData = dataSet.map(item => item.invalidAuthorize);
-
   const maxValue = Math.max(
     ...startTxData.map((v, i) => v + authData[i])
   );
@@ -1172,18 +1125,10 @@ reportInvalidSessionChartOptions(dataSet: any[]): EChartsOption {
     const len = dataSet?.length
 
     const meteredValue = dataSet?.map((accu: any) => `${accu.meterValue}`)
-
-    // const maxMeterdedValue = Math.max(...meteredValue)
-
-    // const color = dataSet.map((elem: any) => `${elem.color}`)
-
     const legends = dataSet?.map((accu: any) => accu.locationName)
-
     const u = dataSet?.map((accu: any, index: any) => {
       let arr: any = []
-
       arr.length = len
-
       return {
         name: accu.locationName,
         type: 'bar',
@@ -1211,9 +1156,7 @@ reportInvalidSessionChartOptions(dataSet: any[]): EChartsOption {
       legend: {
         data: legends,
         icon: 'square',
-        // left: '8%',
         right: '4%',
-
         textStyle: {
           fontSize: '10',
         },
@@ -1227,27 +1170,26 @@ reportInvalidSessionChartOptions(dataSet: any[]): EChartsOption {
       xAxis: {
         type: 'category',
         data: legends,
-
         axisLabel: {
           rotate: 30,
         },
       },
       yAxis: {
-        type: 'value',
-        name: 'Energy Discharge (kWh) Till Date',
-        // min: 0,
-        // max: maxMeterdedValue,
-
-        nameLocation: 'middle',
-        /* fontWeight: 'bolder', */
-        nameGap: 50,
-        nameTextStyle: {
-          // align: 'right',
-          verticalAlign: 'top',
-
-          fontSize: 14,
+          type: 'value',
+          name: 'kWh',
+          nameLocation: 'middle',
+          nameGap: 65,
+          nameTextStyle: {
+            fontSize: 14,
+            fontWeight: 500,
+            align: 'center',
+            verticalAlign: 'middle',
+            padding: [0, 0, 10, 0] // adds spacing from axis numbers
+          },
+          axisLabel: {
+            margin: 12 // spacing between numbers and axis line
+          }
         },
-      },
       series: [
         {
           name: 'Placeholder',
@@ -1263,54 +1205,8 @@ reportInvalidSessionChartOptions(dataSet: any[]): EChartsOption {
               color: 'transparent',
             },
           },
-          // data: [0, 900, 1245, 1530, 1376, 1376, 1511, 1689, 1856, 1495, 1292]
         },
         ...u,
-        // {
-        //   name: 'LOCATION A',
-        //   type: 'bar',
-        //   stack: 'Total',
-        //   itemStyle: {
-        //     color: '#27B406',
-        //   },
-        //   data: [220, '-', '-', '-', '-'],
-        // },
-        // {
-        //   name: 'LOCATION B',
-        //   type: 'bar',
-        //   stack: 'Total',
-        //   itemStyle: {
-        //     color: '#A60000',
-        //   },
-        //   data: ['-', 160, '-', '-', '-'],
-        // },
-        // {
-        //   name: 'LOCATION C',
-        //   type: 'bar',
-        //   stack: 'Total',
-        //   itemStyle: {
-        //     color: '#FB5858',
-        //   },
-        //   data: ['-', '-', 140, '-', '-'],
-        // },
-        // {
-        //   name: 'LOCATION D',
-        //   type: 'bar',
-        //   stack: 'Total',
-        //   itemStyle: {
-        //     color: '#FFA12D',
-        //   },
-        //   data: ['-', '-', '-', '120', '-'],
-        // },
-        // {
-        //   name: 'LOCATION E',
-        //   type: 'bar',
-        //   stack: 'Total',
-        //   itemStyle: {
-        //     color: '#E97300',
-        //   },
-        //   data: ['-', '-', '-', '-', 60],
-        // },
       ],
     }
   }
@@ -1339,7 +1235,6 @@ reportInvalidSessionChartOptions(dataSet: any[]): EChartsOption {
         icon: 'square',
       },
       grid: {
-        // left: '14%',
         left: '10%',
         right: '4%',
         bottom: '12%',
@@ -1352,27 +1247,10 @@ reportInvalidSessionChartOptions(dataSet: any[]): EChartsOption {
       xAxis: {
         type: 'category',
         data: xAxisData,
-        // data: [
-        //   'July 20',
-        //   'Aug 20',
-        //   'Sept 20',
-        //   'Oct 20',
-        //   'Nov 20',
-        //   'Dec 20',
-        //   'Jan 21',
-        //   'Feb 21',
-        //   'Mar 21',
-        //   'Apr 21',
-        //   'May 21',
-        //   'Jun 21',
-        //   'July 21',
-        // ],
         name: 'Month',
         nameLocation: 'middle',
         nameGap: 45,
-        //nameGap: 25,
         axisTick: { show: false },
-
         axisLabel: {
           rotate: 30,
         },
@@ -1382,23 +1260,15 @@ reportInvalidSessionChartOptions(dataSet: any[]): EChartsOption {
         name: 'Monthly Subscription',
         nameLocation: 'middle',
         nameGap: 90,
-        // nameTextStyle: {
-        //   verticalAlign: 'top',
-        //   fontSize: 10,
-        // },
         axisLabel: {
           formatter: '${value}',
-          // align: 'center'
-          // ...
         },
       },
       series: [
         {
           name: 'MONTHLY SUBSCRIPTION',
-          // data: [120, 200, 150, 80, 70, 110, 130, 80, 70, 110, 130, 110, 130],
           data: montlyPriceData,
           type: 'bar',
-          // itemStyle:{color:'#FFA12D'}
         },
       ],
     }
@@ -1425,19 +1295,11 @@ reportInvalidSessionChartOptions(dataSet: any[]): EChartsOption {
       },
       xAxis: {
         type: 'category',
-        // data: [
-        //   'Service Plan 1',
-        //   'Service Plan 2',
-        //   'Service Plan 3',
-        //   'Service Plan 4',
-        // ],
         data: xAxisData,
         name: 'Plans',
         nameLocation: 'middle',
         nameGap: 70,
-        //nameGap: 25,
         axisTick: { show: false },
-
         axisLabel: {
           rotate: 30,
         },
@@ -1448,20 +1310,16 @@ reportInvalidSessionChartOptions(dataSet: any[]): EChartsOption {
         nameLocation: 'middle',
         nameGap: 90,
         nameTextStyle: {
-          // align: 'right',
           verticalAlign: 'top',
           fontSize: 14,
         },
         axisLabel: {
           formatter: '${value}',
-          // align: 'center'
-          // ...
         },
       },
       series: [
         {
           name: 'TYPE',
-          // data: [120, 200, 150, 80],
           data: subPriceData,
           type: 'bar',
           itemStyle: { color: '#90993F' },
@@ -1471,8 +1329,6 @@ reportInvalidSessionChartOptions(dataSet: any[]): EChartsOption {
   }
 
   reportSessionDataChartOptions(dataSet: any) {
-    // const maxValue = dataSet.map((accu: any) => `${accu.counts}`)
-    // const maxCountValue = Math.max(...maxValue)
     let arrObject: any[] = []
     let seriesData: any[] = []
     let legendColorData: any[] = []
@@ -1537,28 +1393,12 @@ reportInvalidSessionChartOptions(dataSet: any[]): EChartsOption {
         containLabel: true,
       },
       legend: {
-        // left: '63%',
         right: '4%',
         icon: 'square',
       },
       tooltip: {},
       dataset: {
         source: arrObject,
-        // [
-        //   ['Time', 'Available', 'Connected', 'Offline'],
-        //   ['July 20', 26, 18, 25],
-        //   ['Aug 20', 47, 173, 55.1],
-        //   ['Sep 20', 60, 65.2, 82.5],
-        //   ['Oct 20', 70, 53.9, 39.1],
-        //   ['Nov 20', 80, 53.9, 39.1],
-        //   ['Dec 20', 92.4, 53.9, 39.1],
-        //   ['Jan 21', 72.4, 53.9, 39.1],
-        //   ['Fab 21', 72.4, 53.9, 39.1],
-        //   ['Mar 21', 72.4, 53.9, 39.1],
-        //   ['Apr 21', 72.4, 53.9, 39.1],
-        //   ['May 21', 72.4, 53.9, 39.1],
-        //   ['Jun 21', 72.4, 53.9, 39.1],
-        // ],
       },
       xAxis: [
         {
@@ -1578,51 +1418,22 @@ reportInvalidSessionChartOptions(dataSet: any[]): EChartsOption {
           type: 'value',
           name: 'Quantity',
           nameLocation: 'middle',
-
-          /* fontWeight: 'bolder', */
           nameGap: 60,
           min: 0,
           max: 300,
           nameTextStyle: {
-            // align: 'right',
             verticalAlign: 'top',
             /**
              * the top padding will shift the name down so that it does not overlap with the axis-labels
              * t-l-b-r
              */
-            // padding: [20, 0, 0, 0],
             fontSize: 14,
-            // fontWeight: 800,
-            // fontStyle: 'italic',
           },
         },
       ],
       // Declare several bar series, each will be mapped
       // to a column of dataset.source by default.
       series: seriesData,
-      // [
-      //   {
-      //     type: 'bar',
-      //     barWidth: '10%',
-      //     itemStyle: {
-      //       color: '#90993F',
-      //     },
-      //   },
-      //   {
-      //     type: 'bar',
-      //     barWidth: '10%',
-      //     itemStyle: {
-      //       color: '#E97300',
-      //     },
-      //   },
-      //   {
-      //     type: 'bar',
-      //     barWidth: '10%',
-      //     itemStyle: {
-      //       color: '#757575',
-      //     },
-      //   },
-      // ],
     }
   }
   setReportTransactionMonthlyChartOptions(dataSet: any) {
@@ -1639,7 +1450,6 @@ reportInvalidSessionChartOptions(dataSet: any[]): EChartsOption {
         containLabel: true,
       },
       legend: {
-        // left: '63%',
         right: '4%',
         icon: 'square',
       },
@@ -1647,18 +1457,6 @@ reportInvalidSessionChartOptions(dataSet: any[]): EChartsOption {
       dataset: {
         source: [
           ['Yearly', 'COST BY YEAR'],
-          // ['2022', 600],
-          // ['2023', 650],
-          // ['2024', 450],
-          // ['2025', 325],
-          // ['2026', 800],
-          // ['2027', 450],
-          // ['2028', 650],
-          // ['2029', 410],
-          // ['2030', 630],
-          // ['2031', 650],
-          // ['2032', 690],
-          // ['2033', 630],
           ...dataArray,
         ],
       },
@@ -1669,9 +1467,7 @@ reportInvalidSessionChartOptions(dataSet: any[]): EChartsOption {
           nameLocation: 'middle',
           nameGap: 35,
           axisTick: { show: false },
-
           axisLabel: {
-            //  rotate: 30,
             rotate: 0,
           },
         },
@@ -1683,25 +1479,11 @@ reportInvalidSessionChartOptions(dataSet: any[]): EChartsOption {
           nameLocation: 'middle',
           axisLabel: {
             formatter: '${value}',
-            // align: 'center'
-            // ...
           },
-
-          /* fontWeight: 'bolder', */
           nameGap: 90,
-          // min: 0,
-          // max: 1000,
           nameTextStyle: {
-            // align: 'right',
             verticalAlign: 'top',
-            /**
-             * the top padding will shift the name down so that it does not overlap with the axis-labels
-             * t-l-b-r
-             */
-            // padding: [20, 0, 0, 0],
             fontSize: 14,
-            // fontWeight: 800,
-            // fontStyle: 'italic',
           },
         },
       ],
@@ -1712,7 +1494,6 @@ reportInvalidSessionChartOptions(dataSet: any[]): EChartsOption {
           type: 'bar',
           barWidth: '18%',
           itemStyle: {
-            // color: '#90993F',
             color: '#FFA12D',
           },
         },
