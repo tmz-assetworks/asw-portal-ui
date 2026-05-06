@@ -131,6 +131,7 @@ export class ReportDetailComponent implements OnInit {
             res.data.length > 0
           ) {
             this.chartList = res.data
+            console.log(res.data);
             const newObjArr = this.chartList.map((item: any) => ({
               'SUBSCRIPTION PLAN': item.subscriptionPlan,
               'CONSUMED ENERGY': item.consumedEnergy,
@@ -147,7 +148,9 @@ export class ReportDetailComponent implements OnInit {
               'CREATED ON': this.datePipe.transform(
                 item.createdOn,
                 'dd-MM-yyyy h:mm'
-              )
+              ),
+              'Peak Kw':item.peakKw
+
             }));
 
             this.convertToCSV(newObjArr);
@@ -175,6 +178,7 @@ export class ReportDetailComponent implements OnInit {
             res.data.length > 0
           ) {
             this.chartList = res.data
+            console.log(res.data);
             const newObjArr = this.chartList.map((item: any) => ({
                   'ASSET ID': item.assetId,
                   'CHARGE BOX ID': item.chargeBoxID,
@@ -205,7 +209,8 @@ export class ReportDetailComponent implements OnInit {
                     item.createdOn,
                     'dd-MM-yyyy h:mm'
                   ),
-		 'Peak Kw':item.PeakKw
+		          'Peak Kw':item.peakKw
+
 
                 }));
 
