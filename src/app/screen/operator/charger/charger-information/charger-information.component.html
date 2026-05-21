@@ -64,7 +64,7 @@
         </div>
       </div>
       <div class="location-block15 layout">
-        <div class="location-flex14 layout">
+        <!-- <div class="location-flex14 layout">
           <div class="location-block17 layout">
             <div class="location-flex15 layout">
               <div class="location-flex15-item">
@@ -329,9 +329,138 @@
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </div> -->
 
+        <div class="info-section">
+         <div class="section-header">
+           BASIC INFORMATION
+         </div>
+         <table class="info-table">
+           <tbody>
+             <tr>
+               <td class="label-column">Charger Make</td>
+               <td class="value-column">
+                 {{ chargerInfo?.chargerMake || '-' }}
+               </td>
+             </tr>
+           
+             <tr>
+               <td class="label-column">Charger Model</td>
+               <td class="value-column">
+                 {{ chargerInfo?.chargerModel || '-' }}
+               </td>
+             </tr>
+           
+             <tr>
+               <td class="label-column">Asset ID</td>
+               <td class="value-column">
+                 {{ chargerInfo?.assetId || '-' }}
+               </td>
+             </tr>
+           
+             <tr>
+               <td class="label-column">Hardware Serial Number</td>
+               <td class="value-column">
+                 {{ chargerInfo?.hardwareSerialNumber || '-' }}
+               </td>
+             </tr>
+           
+             <tr>
+               <td class="label-column">Charge Box ID</td>
+               <td class="value-column">
+                 {{ chargerInfo?.chargeBoxId || '-' }}
+               </td>
+             </tr>
+           
+             <tr>
+               <td class="label-column">Connector Type</td>
+               <td class="value-column">
+                 {{ chargerInfo?.charger || '-' }}
+               </td>
+             </tr>
+           
+             <tr>
+               <td class="label-column">Charger Type</td>
+               <td class="value-column">
+                 {{ chargerInfo?.chargerType || '-' }}
+               </td>
+             </tr>
+           
+             <tr>
+               <td class="label-column">Charger Status</td>
+               <td class="value-column">
+                 {{ chargerInfo?.chargerStatus || '-' }}
+               </td>
+             </tr>
+           
+             
+           
+             <tr>
+               <td class="label-column">SIM ICCID</td>
+               <td class="value-column">
+                 {{ chargerInfo?.simCardMSIDN || '-' }}
+               </td>
+             </tr>
+           
+             <tr>
+               <td class="label-column">Location Name</td>
+               <td class="value-column">
+                 {{ chargerInfo?.locationName || '-' }}
+               </td>
+             </tr>
+           
+             <tr>
+               <td class="label-column">Address</td>
+               <td class="value-column">
+                 {{ chargerInfo?.address || '-' }}
+               </td>
+             </tr>
+           
+             <tr>
+               <td class="label-column">City</td>
+               <td class="value-column">
+                 {{ chargerInfo?.city || '-' }}
+               </td>
+             </tr>
+           
+             <tr>
+               <td class="label-column">State</td>
+               <td class="value-column">
+                 {{ chargerInfo?.state || '-' }}
+               </td>
+             </tr>
+           
+           </tbody>
+         </table>
+      </div>
+      <div class="info-section mt-24">
+         <div class="section-header">
+           WARRANTY RETURN INFORMATION
+         </div>
+         <table class="info-table">
+           <tbody>
+             <tr>
+               <td class="label-column">OEM Order Number</td>
+               <td class="value-column">
+                 {{ chargerInfo?.oemOrderNumber || '-' }}
+               </td>
+             </tr>
+             <tr>
+               <td class="label-column">OEM Activation Date</td>
+               <td class="value-column">
+                 {{
+                   chargerInfo?.installedDate
+                     ? (chargerInfo?.installedDate | date:'dd MMMM yyyy':userTimeZone)
+                     : '-'
+                 }}
+               </td>
+             </tr>
+             
+           </tbody>
+         
+         </table>
+      </div>
+     </div>
       <div class="location-block3-spacer"></div>
       <div class="location-block3-item1"></div>
     </div>
