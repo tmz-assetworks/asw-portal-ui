@@ -172,17 +172,7 @@
                               <ng-container matColumnDef="status">
                                 <th mat-header-cell *matHeaderCellDef>STATUS</th>
                                 <td mat-cell *matCellDef="let element">
-                                  {{
-                                  element.responsePayload?.includes('Rejected') ? 'Rejected' :
-                                  element.responsePayload?.includes('Invalid') ? 'Invalid' :
-                                  element.responsePayload?.includes('NotSupported') ? 'NotSupported' :
-                                  element.responsePayload?.includes('INACTIVE_CHARGER') ? 'Inactive Charger' :
-                                  element.responsePayload?.includes('FormationViolation') ? 'FormationViolation' :
-                                  element.responsePayload?.includes('OccurrenceConstraintViolation') ? 'OccurrenceConstraintViolation' :
-                                  element.responsePayload?.includes('SecurityError') ? 'SecurityError' :
-                                  element.responsePayload?.includes('InternalError') ? 'InternalError' :
-                                  'Unknown'
-                                  }}
+                                  {{element.errorCode}}
                                 </td>
                               </ng-container>
 

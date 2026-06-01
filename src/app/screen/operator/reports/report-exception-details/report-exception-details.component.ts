@@ -1,290 +1,298 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { MatPaginator,PageEvent } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { Location, DatePipe, CommonModule } from '@angular/common';
-import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
-import { StorageService } from 'src/app/service/storage.service';
-import { ReportService } from '../reports.service';
-import { AdminService } from 'src/app/screen/admin/admin.service';
-import { SharedMaterialModule } from 'src/app/shared/shared-material.module';
-import * as fs from 'file-saver';
+  import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+  import { MatPaginator,PageEvent } from '@angular/material/paginator';
+  import { MatTableDataSource } from '@angular/material/table';
+  import { Location, DatePipe, CommonModule } from '@angular/common';
+  import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+  import { ToastrService } from 'ngx-toastr';
+  import { StorageService } from 'src/app/service/storage.service';
+  import { ReportService } from '../reports.service';
+  import { AdminService } from 'src/app/screen/admin/admin.service';
+  import { SharedMaterialModule } from 'src/app/shared/shared-material.module';
+  import * as fs from 'file-saver';
 
-interface ReportItem {
-  deviceId: string;
-  requestType: string;
-  createdOn: string;
-  requestPayload:string;
-  responsePayload: string;
-  errorCode?: string;
-  requestId?: string;
-}
-
-@Component({
-  selector: 'app-report-exception-details',
-  templateUrl: './report-exception-details.component.html',
-  styleUrls: ['./report-exception-details.component.scss'],
-  standalone: true,
-  imports: [SharedMaterialModule, CommonModule, ReactiveFormsModule],
-})
-export class ReportExceptionDetailsComponent implements OnInit, AfterViewInit {
-
-  displayedColumnsTransaction: string[] = [
-   'deviceId',
-   'createdOn',
-   'status',
-   'expand'
-  ];
-
-
-expandedElement: any | null = null;
-
-toggleRow(element: any): void {
-  this.expandedElement =
-    this.expandedElement === element ? null : element;
-}
-
-  dataSource = new MatTableDataSource<ReportItem>();
-
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-
-  graphHeading: string = '';
-  pageHeading: string = '';
-  duration: string = '';
-  currentPage: number = 1;
-
-  pageSize = 10;
-  totalCount = 0;
-  pageSizeOptions = [10, 20, 100];
-
-  searchFilter = this._fb.group({
-    fromDate: new FormControl('', Validators.required),
-    toDate: new FormControl('', Validators.required),
-    locationId: new FormControl<number[]>([])
-  });
-
-  locationList: any[] = [];
-  selectedLocationIds: number[] = [];
-
-  userId = this._storageService.getLocalData('user_id');
-  userTimeZone = this._storageService.getLocalData('time_zone');
-
-  isTableEmpty = false;
-  submitted = false;
-
-  private readonly  datePipe = new DatePipe('en-US');
-
-  constructor(
-    private readonly _storageService: StorageService,
-    private readonly _location: Location,
-    private readonly _reportService: ReportService,
-    private readonly _fb: FormBuilder,
-    private readonly _toastr: ToastrService,
-    private readonly _adminService: AdminService
-  ) {
-    this.graphHeading = this._storageService.getSessionData('graphHeading') || '';
-    this.pageHeading = this._storageService.getSessionData('pageHeading') || '';
-    this.duration = this._storageService.getSessionData('duration') || 'Last24Hours';
+  interface ReportItem {
+    deviceId: string;
+    requestType: string;
+    createdOn: string;
+    requestPayload:string;
+    responsePayload: string;
+    errorCode?: string;
+    requestId?: string;
   }
 
-  ngOnInit(): void {
-    this.loadLocations();
-    this.loadData();
+  @Component({
+    selector: 'app-report-exception-details',
+    templateUrl: './report-exception-details.component.html',
+    styleUrls: ['./report-exception-details.component.scss'],
+    standalone: true,
+    imports: [SharedMaterialModule, CommonModule, ReactiveFormsModule],
+  })
+  export class ReportExceptionDetailsComponent implements OnInit, AfterViewInit {
+
+    displayedColumnsTransaction: string[] = [
+    'deviceId',
+    'createdOn',
+    'status',
+    'expand'
+    ];
+
+
+  expandedElement: any | null = null;
+  startDateSession: string | null = null;
+  endDateSession: string | null = null;
+
+  toggleRow(element: any): void {
+    this.expandedElement =
+      this.expandedElement === element ? null : element;
   }
 
-  ngAfterViewInit(): void {
-    this.paginator._intl.itemsPerPageLabel = 'Rows per page';
-    this.dataSource.paginator = this.paginator;
-  }
+    dataSource = new MatTableDataSource<ReportItem>();
 
-  private loadData(): void {
-    const payload = this.buildPayload();
-    this._reportService.InvalidOcppCommandData(payload).subscribe({
-      next: (res) => this.handleResponse(res),
-      error: () => this._toastr.error('Failed to load data')
+    @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+    graphHeading: string = '';
+    pageHeading: string = '';
+    duration: string = '';
+    currentPage: number = 1;
+
+    pageSize = 10;
+    totalCount = 0;
+    pageSizeOptions = [10, 20, 100];
+
+    searchFilter = this._fb.group({
+      fromDate: new FormControl('', Validators.required),
+      toDate: new FormControl('', Validators.required),
+      locationId: new FormControl<number[]>([])
     });
-  } 
 
-private buildPayload(): any {
-  const formValue = this.searchFilter.value;
+    locationList: any[] = [];
+    selectedLocationIds: number[] = [];
 
-  const hasCustomDate = formValue.fromDate && formValue.toDate;
+    userId = this._storageService.getLocalData('user_id');
+    userTimeZone = this._storageService.getLocalData('time_zone');
 
-  return {
+    isTableEmpty = false;
+    submitted = false;
 
-    requestType: this.graphHeading,
-    duration: hasCustomDate ? null : this.duration,
+    private readonly  datePipe = new DatePipe('en-US');
 
-    locationIds: formValue.locationId || [],
+    constructor(
+      private readonly _storageService: StorageService,
+      private readonly _location: Location,
+      private readonly _reportService: ReportService,
+      private readonly _fb: FormBuilder,
+      private readonly _toastr: ToastrService,
+      private readonly _adminService: AdminService
+    ) {
+      this.graphHeading = this._storageService.getSessionData('graphHeading') || '';
+      this.pageHeading = this._storageService.getSessionData('pageHeading') || '';
+      this.duration = this._storageService.getSessionData('duration') || 'Last24Hours';
+      this.startDateSession = this._storageService.getSessionData('StartDate')|| '';
+      this.endDateSession = this._storageService.getSessionData('EndDate')|| '';;
+    }
 
-    startDate: hasCustomDate
-      ? new Date(formValue.fromDate).toISOString()
-      : null,
+    ngOnInit(): void {
+      this.loadLocations();
 
-    endDate: hasCustomDate
-      ? new Date(formValue.toDate).toISOString()
-      : null,
+      this.setDefaultDates();
 
-    page: this.currentPage,
-    pageSize: this.pageSize
-  };
-}
+      this.loadData();
+    }
 
-  private handleResponse(res: any): void {
-    const data: ReportItem[] = Array.isArray(res?.data) ? res.data : [];
-    this.dataSource.data = data;
-    this.totalCount = data.length;
-    this.isTableEmpty = !data.length;
-  }
+    ngAfterViewInit(): void {
+      this.paginator._intl.itemsPerPageLabel = 'Rows per page';
+      this.dataSource.paginator = this.paginator;
+    }
 
-filter(): void {
-  this.submitted = true;
+private setDefaultDates(): void {
 
-  if (this.searchFilter.invalid) {
-    this._toastr.error('Please fill mandatory fields.');
+  if (!this.startDateSession || !this.endDateSession) {
     return;
   }
 
-  this.currentPage = 1; // ✅ reset page on new search
-  this.loadData();
+  this.searchFilter.patchValue({
+    fromDate: new Date(this.startDateSession)as any,
+    toDate: new Date(this.endDateSession)as any
+  });
 }
 
-  resetFilter(): void {
-    this.searchFilter.reset();
-    this.selectedLocationIds = [];
-    this.submitted = false;
+
+    private loadData(): void {
+      const payload = this.buildPayload();
+      this._reportService.InvalidOcppCommandData(payload).subscribe({
+        next: (res) => this.handleResponse(res),
+        error: () => this._toastr.error('Failed to load data')
+      });
+    } 
+
+  private buildPayload(): any {
+    const formValue = this.searchFilter.value;
+
+    const hasCustomDate = formValue.fromDate && formValue.toDate;
+
+    return {
+
+      requestType: this.graphHeading,
+      duration: hasCustomDate ? null : this.duration,
+
+      locationIds: formValue.locationId || [],
+
+      startDate: hasCustomDate
+        ? new Date(formValue.fromDate).toISOString()
+        : null,
+
+      endDate: hasCustomDate
+        ? new Date(formValue.toDate).toISOString()
+        : null,
+
+      page: this.currentPage,
+      pageSize: this.pageSize
+    };
+  }
+
+    private handleResponse(res: any): void {
+      const data: ReportItem[] = Array.isArray(res?.data) ? res.data : [];
+      this.dataSource.data = data;
+      this.totalCount = data.length;
+      this.isTableEmpty = !data.length;
+    }
+
+  filter(): void {
+    this.submitted = true;
+
+    if (this.searchFilter.invalid) {
+      this._toastr.error('Please fill mandatory fields.');
+      return;
+    }
+
+    this.currentPage = 1; // ✅ reset page on new search
     this.loadData();
   }
 
-  private loadLocations(): void {
-    this._adminService.GetLocationName().subscribe(res => {
-      this.locationList = res?.data || [];
-    });
-  }
-
-  onSelectLocation(event: any, id: number): void {
-    if (!event.isUserInput) return;
-
-    const index = this.selectedLocationIds.indexOf(id);
-
-    if (index === -1) {
-      this.selectedLocationIds.push(id);
-    } else {
-      this.selectedLocationIds.splice(index, 1);
+    resetFilter(): void {
+      this.searchFilter.reset();
+      this.selectedLocationIds = [];
+      this.submitted = false;
+      this.loadData();
     }
-  }
-  
-  downloadAsCSV(): void {
-    const payload = this.buildPayload();
 
-    this._reportService.InvalidOcppCommandData(payload).subscribe(res => {
-      const data: ReportItem[] = res?.data;
+    private loadLocations(): void {
+      this._reportService.GetLocationName().subscribe(res => {
+        this.locationList = res?.data || [];
+      });
+    }
 
-      if (!data?.length) {
-        this._toastr.warning('No data to export');
-        return;
+    onSelectLocation(event: any, id: number): void {
+      if (!event.isUserInput) return;
+
+      const index = this.selectedLocationIds.indexOf(id);
+
+      if (index === -1) {
+        this.selectedLocationIds.push(id);
+      } else {
+        this.selectedLocationIds.splice(index, 1);
       }
-
-      const formatted = data.map((x) => ({
-        'DEVICE ID': x.deviceId,
-        'REQUEST ID': x.requestId || '-',
-        'TIME': this.formatDate(x.createdOn),
-        'STATUS': this.getStatus(x.responsePayload),
-        'REQUEST PAYLOAD': this.formatJsonPayload(x.requestPayload),
-        'RESPONSE PAYLOAD': this.formatJsonPayload(x.responsePayload)
-      }));
-
-      this.exportCSV(formatted);
-    });
-  }
-
-  private formatDate(date: string): string {
-    return this.datePipe.transform(date, 'dd-MM-yyyy HH:mm') || '';
-  }
-
-  private exportCSV(data: Record<string, unknown>[]): void {
-    const headers = Object.keys(data[0]);
-
-    const csvRows = data.map(row =>
-      headers.map(field => JSON.stringify(row[field] ?? '')).join(',')
-    );
-
-    csvRows.unshift(headers.join(','));
-
-    const blob = new Blob([csvRows.join('\r\n')], { type: 'text/csv' });
-    fs.saveAs(blob, 'InvalidBootNotification_Report.csv');
-  }
-
-  
-  getStatus(payload: string): string {
-    if (!payload) return 'Unknown';
-    if (payload.includes('Rejected')) return 'Rejected';
-    if (payload.includes('Invalid')) return 'Invalid';
-    if (payload.includes('NotSupported')) return 'NotSupported';
-    if (payload.includes('INACTIVE_CHARGER')) return 'Inactive Charger';
-    if (payload.includes('FormationViolation')) return 'FormationViolation';
-    if (payload.includes('OccurrenceConstraintViolation')) return 'OccurrenceConstraintViolation';
-    if (payload.includes('SecurityError')) return 'SecurityError';
-    if (payload.includes('InternalError')) return 'InternalError';
-
-    return 'Unknown';
-  }
-
-   checkValidFrom(event: any) {
-    let fromDate = this.searchFilter.value.fromDate
-    if (!fromDate) {
-      this._toastr.error('Please select valid start date first.')
-      this.searchFilter.patchValue({ toDate: '' })
-      return
     }
-  } 
-  
-checkStartDate(): void {
-  const { fromDate, toDate } = this.searchFilter.value;
+    
+    downloadAsCSV(): void {
+      const payload = this.buildPayload();
 
-  if (fromDate && toDate && new Date(toDate) < new Date(fromDate)) {
-    this.searchFilter.patchValue({ toDate: '' });
+      this._reportService.InvalidOcppCommandData(payload).subscribe(res => {
+        const data: ReportItem[] = res?.data;
+
+        if (!data?.length) {
+          this._toastr.warning('No data to export');
+          return;
+        }
+
+        const formatted = data.map((x) => ({
+          'DEVICE ID': x.deviceId,
+          'REQUEST ID': x.requestId || '-',
+          'TIME': this.formatDate(x.createdOn),
+          'STATUS': x.errorCode,
+          'REQUEST PAYLOAD': this.formatJsonPayload(x.requestPayload),
+          'RESPONSE PAYLOAD': this.formatJsonPayload(x.responsePayload)
+        }));
+
+        this.exportCSV(formatted);
+      });
+    }
+
+    private formatDate(date: string): string {
+      return this.datePipe.transform(date, 'dd-MM-yyyy HH:mm') || '';
+    }
+
+    private exportCSV(data: Record<string, unknown>[]): void {
+      const headers = Object.keys(data[0]);
+
+      const csvRows = data.map(row =>
+        headers.map(field => JSON.stringify(row[field] ?? '')).join(',')
+      );
+
+      csvRows.unshift(headers.join(','));
+
+      const blob = new Blob([csvRows.join('\r\n')], { type: 'text/csv' });
+      fs.saveAs(blob, 'InvalidBootNotification_Report.csv');
+    }
+
+    
+
+
+    checkValidFrom(event: any) {
+      let fromDate = this.searchFilter.value.fromDate
+      if (!fromDate) {
+        this._toastr.error('Please select valid start date first.')
+        this.searchFilter.patchValue({ toDate: '' })
+        return
+      }
+    } 
+    
+  checkStartDate(): void {
+    const { fromDate, toDate } = this.searchFilter.value;
+
+    if (fromDate && toDate && new Date(toDate) < new Date(fromDate)) {
+      this.searchFilter.patchValue({ toDate: '' });
+    }
   }
-}
 
 
 
 
-dateFilterForStart = (d: any | null) => {
-    let todayDate = new Date()
-    return d <= todayDate
+  dateFilterForStart = (d: any | null) => {
+      let todayDate = new Date()
+      return d <= todayDate
+    }
+    dateFilterForEnd = (d: any | null) => {
+      let fromDate:any = this.searchFilter.value.fromDate
+      return d >= fromDate
+    }
+
+    getModifiedDate() {
+      let date = new Date()
+      let time = this.datePipe.transform(date, 'HH:mm:ss')
+      return time
+    }
+
+
+    pageChange(event: PageEvent): void {
+    this.pageSize = event.pageSize;
+    this.currentPage = event.pageIndex + 1;
+    this.loadData();
   }
-  dateFilterForEnd = (d: any | null) => {
-    let fromDate:any = this.searchFilter.value.fromDate
-    return d >= fromDate
+
+  isExpansionDetailRow = (index: number, row: any) => {
+    return this.expandedElement === row;
+  };
+
+  private formatJsonPayload(payload: string): string {
+    try {
+      return JSON.stringify(JSON.parse(payload));
+    } catch {
+      return payload;
+    }
   }
 
-  getModifiedDate() {
-    let date = new Date()
-    let time = this.datePipe.transform(date, 'HH:mm:ss')
-    return time
+    goback(): void {
+      this._location.back();
+    }
   }
-
-
-  pageChange(event: PageEvent): void {
-  this.pageSize = event.pageSize;
-  this.currentPage = event.pageIndex + 1;
-  this.loadData();
-}
-
-isExpansionDetailRow = (index: number, row: any) => {
-  return this.expandedElement === row;
-};
-
-private formatJsonPayload(payload: string): string {
-  try {
-    return JSON.stringify(JSON.parse(payload));
-  } catch {
-    return payload;
-  }
-}
-
-  goback(): void {
-    this._location.back();
-  }
-}
