@@ -63,6 +63,7 @@ export class ReportTransactionComponent implements OnInit {
     }
     this._reportService.GetTransaction(pBbody).subscribe((res: any) => {
       if (res.data) {
+        console.log(res.data[0].monthlydata);
         this.reportTransactionMonthlyData = res.data[0].monthlydata
         this.reportTransactionYearlyData = res.data[0].yearlydata
       }
