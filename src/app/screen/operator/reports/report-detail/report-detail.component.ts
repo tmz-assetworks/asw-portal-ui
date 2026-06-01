@@ -149,7 +149,7 @@ export class ReportDetailComponent implements OnInit {
                 item.createdOn,
                 'dd-MM-yyyy h:mm'
               ),
-              'Peak Kw':item.peakKw
+              'Peak Kw':item.PeakKw
 
             }));
 
@@ -209,8 +209,7 @@ export class ReportDetailComponent implements OnInit {
                     item.createdOn,
                     'dd-MM-yyyy h:mm'
                   ),
-		          'Peak Kw':item.peakKw
-
+		          'Peak Kw':item.PeakKw
 
                 }));
 

@@ -64,7 +64,7 @@ export class ReportService {
 
   GetInvalidRequestsChartData(data: any): Observable<any> {
     let params = new HttpParams();
-    params = params.set('Duration', data.Duration || '');
+     params = params.set('Duration', data.Duration || '');
     return this._http.get<any>(
       `${this.REPORT_API_URL}v1/Reports/GetInvalidBootChartData`,
       { params } 
@@ -95,6 +95,15 @@ export class ReportService {
       params,
     )
   }
+
+   GetLocationName(): Observable<any> {
+    return this._http.get<any>(
+     `${this.REPORT_API_URL}v1/Reports/GetLocations`
+    )
+  }
+
+
+
 
 
   /**

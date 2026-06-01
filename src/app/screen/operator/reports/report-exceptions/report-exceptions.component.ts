@@ -11,8 +11,9 @@ type DurationType = | 'Last24Hours' | 'Last7Days' | 'Last30Days' | 'Last90Days';
 
 interface ApiResponse<T> {
   data: T;
+  startDate?: any;
+  endDate?: any;
 }
-
 @Component({
   selector: 'app-report-exceptions',
   templateUrl: './report-exceptions.component.html',
@@ -34,7 +35,8 @@ export class ReportExceptionsComponent implements OnInit, OnDestroy {
   role: string;
   selectedDuration: DurationType = 'Last90Days';
   userId: string;
-
+  startDate?: any;
+  endDate?:any;
   reportUpcomingSessionData = '';
   reportInvalidBootNotification: unknown[] = [];
   reportInvalidSessionData: unknown[] = [];
@@ -106,19 +108,25 @@ export class ReportExceptionsComponent implements OnInit, OnDestroy {
       });
   }
 
-  private getInvalidBootNotification(duration: DurationType): void {
-    const requestBody = { Duration: duration };
+private getInvalidBootNotification(duration: DurationType): void {
 
-    this.reportService.GetInvalidRequestsChartData(requestBody)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((response: ApiResponse<unknown[]>) => {
-        console.log('API Response:', response); // full response
-      console.log('Response Data:', response?.data); // only data array
-
-        this.reportInvalidBootNotification = [...(Array.isArray(response?.data) ? response.data : [])];
-        this.cdr.markForCheck();
-      });
-  }
+    const requestBody = {
+    Duration: duration
+  };
+  this.reportService
+    .GetInvalidRequestsChartData(requestBody)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(({ data = [], startDate, endDate }: ApiResponse<unknown[]>) => {
+      if (startDate) {
+        sessionStorage.setItem('StartDate', startDate);
+      }
+      if (endDate) {
+        sessionStorage.setItem('EndDate', endDate);
+      }
+      this.reportInvalidBootNotification = Array.isArray(data) ? [...data] : [];
+      this.cdr.markForCheck();
+    });
+}
 
   private getInvalidSession(duration: DurationType): void {
     const requestBody = { duration };
