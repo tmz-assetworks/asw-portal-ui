@@ -1,3 +1,4 @@
+/// <reference types="jasmine" />
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
@@ -12,11 +13,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 describe('ClientBillingComponent', () => {
   let component: ClientBillingComponent;
   let fixture: ComponentFixture<ClientBillingComponent>;
-  let clientBillingService: jasmine.SpyObj<ClientBillingService>;
-  let formBuilder: FormBuilder;
-  let toastr: jasmine.SpyObj<ToastrService>;
-  let location: jasmine.SpyObj<Location>;
-  let storageService: jasmine.SpyObj<StorageService>;
+  // Note: injected spies are provided to the TestBed but not referenced directly in these tests
 
   beforeEach(async () => {
     const clientBillingServiceSpy = jasmine.createSpyObj('ClientBillingService', [
@@ -41,11 +38,7 @@ describe('ClientBillingComponent', () => {
     fixture = TestBed.createComponent(ClientBillingComponent);
     
     component = fixture.componentInstance;
-    clientBillingService = TestBed.inject(ClientBillingService) as jasmine.SpyObj<ClientBillingService>;
-    formBuilder = TestBed.inject(FormBuilder);
-    toastr = TestBed.inject(ToastrService) as jasmine.SpyObj<ToastrService>;
-    location = TestBed.inject(Location) as jasmine.SpyObj<Location>;
-    storageService = TestBed.inject(StorageService) as jasmine.SpyObj<StorageService>;
+    // Spies are available via providers; tests interact with the component instance only
   });
 
   it('should create the component', () => {
@@ -100,12 +93,12 @@ describe('ClientBillingComponent', () => {
     const endMonthControl = component.addAdminFormGroup.get('endMonth');
     
     // Set initial values
-    startYearControl?.setValue(2023);
-    endYearControl?.setValue(2024);
-    endMonthControl?.setValue(5);
+    startYearControl?.setValue('2023');
+    endYearControl?.setValue('2024');
+    endMonthControl?.setValue('5');
     
     // Trigger value change
-    endYearControl?.setValue(2025);
+    endYearControl?.setValue('2025');
     
    //  expect(endMonthControl?.value).toBe('');
   });
@@ -117,13 +110,13 @@ describe('ClientBillingComponent', () => {
     const endMonthControl = component.addAdminFormGroup.get('endMonth');
     
     // Set initial values
-    startYearControl?.setValue(2023);
-    endYearControl?.setValue(2023);
-    startMonthControl?.setValue(6); // June
-    endMonthControl?.setValue(5); // May (before June)
+    startYearControl?.setValue('2023');
+    endYearControl?.setValue('2023');
+    startMonthControl?.setValue('6'); // June
+    endMonthControl?.setValue('5'); // May (before June)
     
     // Trigger value change
-    startMonthControl?.setValue(7); // July
+    startMonthControl?.setValue('7'); // July
     
   });
 
@@ -133,9 +126,9 @@ describe('ClientBillingComponent', () => {
     const endYearControl = component.addAdminFormGroup.get('endYear');
     
     // Set start month to June (6)
-    startMonthControl?.setValue(6);
-    startYearControl?.setValue(2023);
-    endYearControl?.setValue(2023);
+    startMonthControl?.setValue('6');
+    startYearControl?.setValue('2023');
+    endYearControl?.setValue('2023');
     
     // Check if months before June are disabled
     expect(component.isEndMonthDisabled(5)).toBeTrue(); // May should be disabled

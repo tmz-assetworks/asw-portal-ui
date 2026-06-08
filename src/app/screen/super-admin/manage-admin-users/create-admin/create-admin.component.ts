@@ -528,7 +528,7 @@ DeleteUser(): void {
     emailid: new FormControl('', [
       Validators.required,
       Validators.email,
-      Validators.pattern(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/),
+      Validators.pattern(/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/)
     ]),
     // dob: new FormControl('', Validators.required),
     phonenumber: new FormControl('', Validators.required),
@@ -542,12 +542,17 @@ DeleteUser(): void {
     cityName: new FormControl(''),
     zipcode: new FormControl(''),
   })
-private escapeHtml(value: string): string {
-  return value
-    ?.replace(/&/g, '&amp;')
-    ?.replace(/</g, '&lt;')
-    ?.replace(/>/g, '&gt;')
-    ?.replace(/"/g, '&quot;')
-    ?.replace(/'/g, '&#039;') || '';
+  private escapeHtml(value: string | null | undefined): string {
+  if (!value) {
+    return '';
+  }
+  const htmlEntities: Record<string, string> = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;'
+  };
+  return value.replace(/[&<>"']/g, (char) => htmlEntities[char]);
 }
 }
