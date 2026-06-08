@@ -62,7 +62,7 @@ export class DashboardComponent implements OnInit {
   initMapFunc: any
   toggleValue: number = 1
   userRole: string = '';
-  private clusterer?: MarkerClusterer;
+  private readonly clusterer?: MarkerClusterer;
   constructor(
     private readonly _dashboardService: DashboardService,
     private readonly _storageService: StorageService,
@@ -174,7 +174,7 @@ export class DashboardComponent implements OnInit {
     }
 
     const map = new google.maps.Map(
-      document.getElementById('map') as HTMLElement,
+      document.getElementById('map'),
       {
         zoom: 5,
         center: new google.maps.LatLng(centerLat, centerLng),
@@ -195,7 +195,7 @@ export class DashboardComponent implements OnInit {
       BusySE: '#3366cc',
     };
 
-    const markers: google.maps.Marker[] = [];
+    const markers: (google.maps.Marker & { chargerStatus?: string })[] = [];
     for (const data of this.mapstatusdata) {
       if (!data.latitude || !data.longitude) {
         continue;
@@ -219,7 +219,7 @@ export class DashboardComponent implements OnInit {
   }
 });
 
-(marker as any).chargerStatus = data.status;
+(marker as google.maps.Marker & { chargerStatus?: string }).chargerStatus = data.status;
 
       const contentString =
         `<p>
@@ -283,7 +283,7 @@ const customRenderer: Renderer = {
       Reserved: 0,
       Unavailable: 0
     };
-    markersInCluster.forEach((marker: any) => {
+    markersInCluster.forEach((marker: google.maps.Marker & { chargerStatus?: string }) => {
       const status = marker.chargerStatus;
       if (counts[status] !== undefined) {
         counts[status]++;
@@ -387,7 +387,11 @@ const customRenderer: Renderer = {
         return clusterMarker;
     }};
     // Official Google MarkerClusterer
-    new MarkerClusterer({ map, markers, renderer: customRenderer });
+    const markerClusterer = new MarkerClusterer({
+      map,
+      markers,
+      renderer: customRenderer
+    });
     // Add Legend
     const legendDiv = document.createElement('div');
     legendDiv.style.cssText = 'margin-right:5px;background:#fff;padding:10px;width:150px';
@@ -406,7 +410,7 @@ const customRenderer: Renderer = {
 
 private getClusterTooltip( markersInCluster: any[], statusColors: Record<string, string> ): string {
   const counts: Record<string, number> = {};
-  markersInCluster.forEach((marker: any) => {
+  markersInCluster.forEach((marker: google.maps.Marker & { chargerStatus?: string }) => {
     const status = marker.chargerStatus ?? 'Unknown';
     counts[status] = (counts[status] ?? 0) + 1;
   });

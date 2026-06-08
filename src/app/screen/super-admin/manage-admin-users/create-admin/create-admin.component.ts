@@ -528,8 +528,7 @@ DeleteUser(): void {
     emailid: new FormControl('', [
       Validators.required,
       Validators.email,
-      // removed unnecessary escape before "["; keep other escapes for literal chars
-      Validators.pattern(/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?]/),
+      Validators.pattern(/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/)
     ]),
     // dob: new FormControl('', Validators.required),
     phonenumber: new FormControl('', Validators.required),
