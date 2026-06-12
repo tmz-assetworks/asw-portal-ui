@@ -262,6 +262,62 @@
       </div>
     </div>
   </div>
-
-  <!-- status box points end -->
+    <div class="statuspanel-block46 layout">
+      <div class="statuspanel-block47 layout">
+        <div class="statuspanel-block45 layout1">
+          <div class="statuspanel-block45-item">
+            <div class="statuspanel-group layout2">
+              <h4 class="statuspanel-highlights2 layout">FleetFocus/EAM Integration</h4>
+            </div>
+          </div>
+          <div class="statuspanel-block45-spacer1"></div>
+          <div class="statuspanel-block45-item2">
+            <div class="integration-icon-wrapper">
+              <img
+                src="../../../../../assets/help/Operator/healtehcheck.png"
+                alt="FleetFocus Integration"
+                class="integration-icon"
+              />
+            </div>
+          </div>
+        </div>
+      <div class="integration-status-container">
+        <!-- Vehicle Update -->
+        <div class="integration-status-item">
+          <div class="integration-status-icon">
+            <i class="fa fa-check-circle"></i>
+          </div>
+        
+          <div class="integration-status-content">
+            <div class="integration-status-label">
+              Last Vehicle List Update
+            </div>
+          
+            <div class="integration-status-value">
+              {{ vehicleUpdateDate ? (vehicleUpdateDate | date:'MMM dd, hh:mm a') : '-' }}
+            </div>
+          </div>
+        </div>
+      
+        <div class="integration-divider"></div>
+      
+        <!-- Transaction Update -->
+        <div class="integration-status-item">
+          <div class="integration-status-icon">
+            <i class="fa fa-check-circle"></i>
+          </div>
+        
+          <div class="integration-status-content">
+            <div class="integration-status-label">
+              Last Transaction Update
+            </div>
+          
+            <div class="integration-status-value">
+              {{ transactionUpdateDate ? (transactionUpdateDate | date:'MMM dd, hh:mm a') : '-' }}
+            </div>
+          </div>
+        </div>
+       </div>
+     </div>
+   </div>
 </div>
