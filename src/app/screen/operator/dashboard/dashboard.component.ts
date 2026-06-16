@@ -237,18 +237,8 @@ export class DashboardComponent implements OnInit {
       });
 
       marker.addListener('mouseover', () => {
-        infoWindow.open(map, marker);
-        google.maps.event.addListenerOnce(
-        infoWindow,
-        'domready',
-        () => {
-          document
-            .querySelectorAll('.gm-style-iw-chr .gm-ui-hover-effect')
-            .forEach((btn: any) => {
-              btn.style.display = 'none';
-            });
-        }
-      );
+       infoWindow.open(map, marker);
+       this.registerInfoWindowEvents(infoWindow);
       });
 
       marker.addListener('mouseout', () => {
@@ -391,18 +381,10 @@ export class DashboardComponent implements OnInit {
         anchor: clusterMarker,
         map
       });    
-      google.maps.event.addListenerOnce(
-        infoWindow,
-        'domready',
-        () => {
-          document
-            .querySelectorAll('.gm-style-iw-chr .gm-ui-hover-effect')
-            .forEach((btn: any) => {
-              btn.style.display = 'none';
-            });
-        }
-      );
+      this.registerInfoWindowEvents(infoWindow);
     });
+
+    
 
     clusterMarker.addListener('mouseout', () => {
         infoWindow.close(); });
@@ -429,6 +411,22 @@ export class DashboardComponent implements OnInit {
     google.setOnLoadCallback(initialize);
 }
 
+    private registerInfoWindowEvents(
+      infoWindow: google.maps.InfoWindow
+    ): void {
+      google.maps.event.addListenerOnce(
+        infoWindow,
+        'domready',
+        () => this.hideInfoWindowCloseButton()
+      );
+    }
+    private hideInfoWindowCloseButton(): void {
+      document
+        .querySelectorAll('.gm-style-iw-chr .gm-ui-hover-effect')
+        .forEach((btn: Element) => {
+          (btn as HTMLElement).style.display = 'none';
+        });
+    }
 
 private getClusterTooltip( markersInCluster: any[], statusColors: Record<string, string> ): string {
   const counts: Record<string, number> = {};
