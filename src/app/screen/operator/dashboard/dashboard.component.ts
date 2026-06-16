@@ -154,7 +154,7 @@ export class DashboardComponent implements OnInit {
    */
 
   initMap(): void {
-  const initialize = (): void => {
+   const initialize = (): void => {
     let centerLat = 36.2082629;
     let centerLng = -113.737393;
     if (this.mapstatusdata?.length > 0) {
@@ -200,27 +200,26 @@ export class DashboardComponent implements OnInit {
       if (!data.latitude || !data.longitude) {
         continue;
       }
-  const marker = new google.maps.Marker({
-    position: new google.maps.LatLng(
-    Number(data.latitude),
-    Number(data.longitude)
-  ),
-  title: data.status,
-  map,
-  icon: {
-    path:
-      'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z',
-    fillColor: statusColors[data.status] ?? '#ea002a',
-    fillOpacity: 1,
-    strokeColor: '#ffffff',
-    strokeWeight: 1,
-    scale: 1.5,
-    anchor: new google.maps.Point(12, 22)
-  }
-});
+     const marker = new google.maps.Marker({
+       position: new google.maps.LatLng(
+       Number(data.latitude),
+       Number(data.longitude)
+     ),
+     title: data.status,
+     map,
+     icon: {
+       path:
+         'M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z',
+       fillColor: statusColors[data.status] ?? '#ea002a',
+       fillOpacity: 1,
+       strokeColor: '#ffffff',
+       strokeWeight: 1,
+       scale: 1.5,
+       anchor: new google.maps.Point(12, 22)
+     }
+    });
 
-(marker as google.maps.Marker & { chargerStatus?: string }).chargerStatus = data.status;
-
+    (marker as google.maps.Marker & { chargerStatus?: string }).chargerStatus = data.status;
       const contentString =
         `<p>
           <b style="color:blue">${data.chargeBoxid}</b>
@@ -239,6 +238,17 @@ export class DashboardComponent implements OnInit {
 
       marker.addListener('mouseover', () => {
         infoWindow.open(map, marker);
+        google.maps.event.addListenerOnce(
+        infoWindow,
+        'domready',
+        () => {
+          document
+            .querySelectorAll('.gm-style-iw-chr .gm-ui-hover-effect')
+            .forEach((btn: any) => {
+              btn.style.display = 'none';
+            });
+        }
+      );
       });
 
       marker.addListener('mouseout', () => {
@@ -269,8 +279,8 @@ export class DashboardComponent implements OnInit {
       markers.push(marker);
     }
 
-const customRenderer: Renderer = {
-  render: (cluster: Cluster): google.maps.Marker => {
+   const customRenderer: Renderer = {
+   render: (cluster: Cluster): google.maps.Marker => {
     const markersInCluster = (cluster as any).markers ?? [];
     const counts: Record<string, number> = {
       Available: 0,
@@ -377,10 +387,22 @@ const customRenderer: Renderer = {
     });
 
     clusterMarker.addListener('mouseover', () => {
-          infoWindow.open({
-          anchor: clusterMarker, map
-         });
-      });
+      infoWindow.open({
+        anchor: clusterMarker,
+        map
+      });    
+      google.maps.event.addListenerOnce(
+        infoWindow,
+        'domready',
+        () => {
+          document
+            .querySelectorAll('.gm-style-iw-chr .gm-ui-hover-effect')
+            .forEach((btn: any) => {
+              btn.style.display = 'none';
+            });
+        }
+      );
+    });
 
     clusterMarker.addListener('mouseout', () => {
         infoWindow.close(); });
