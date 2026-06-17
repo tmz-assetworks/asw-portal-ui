@@ -83,7 +83,6 @@ export class ReportExceptionsComponent implements OnInit, OnDestroy {
     sessionStorage.setItem('graphHeading', graphHeading);
     sessionStorage.setItem('pageHeading', pageHeading);
     sessionStorage.setItem('duration', duration);
-    console.log("test")
     this.router.navigate(['/operator/reports/report-exception-details'], { queryParams: { id: eventId } });
   }
 
