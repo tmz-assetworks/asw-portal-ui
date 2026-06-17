@@ -37,7 +37,8 @@ export class DashboardStatusPanelComponent implements OnInit {
   summaryData: any
   chargingSession: Array<{key: number, value: string}> = [];
   totalCost: string = '0.00';
-
+  vehicleUpdateDate: any;
+  transactionUpdateDate: any;
 
   constructor(private _dashboardService: DashboardService) {}
 
@@ -92,7 +93,8 @@ export class DashboardStatusPanelComponent implements OnInit {
     this._dashboardService.GetSummaryData(0).subscribe((res) => {
       this.summaryData = res.data[0]
       this.charger = this.summaryData.chargingInfustructure[1]
-
+      this.vehicleUpdateDate = this.summaryData.lastVehicleUpdate
+      this.transactionUpdateDate = this.summaryData.lastTransactionUpdate
       this.chargerkey = this.charger.key
       this.chargervalue = this.charger.value
       this.dataSet = this.summaryData.revenue

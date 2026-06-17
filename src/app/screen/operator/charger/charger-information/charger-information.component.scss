@@ -2284,6 +2284,25 @@ $font_type_4: 500 13px/1.2 'Roboto', Helvetica, Arial, serif;
   border-bottom: none;
 }
 
+/* Header Styling */
+.info-table thead th {
+  text-align: left;
+  padding: 12px 20px;
+  font-weight: 600;
+  background-color: #f8f9fb;
+  color: #334155;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+/* Column Widths */
+.info-table thead th:first-child {
+  width: 35%;
+}
+
+.info-table thead th:last-child {
+  width: 65%;
+}
+
 .label-column {
   width: 35%;
   padding: 14px 20px;
