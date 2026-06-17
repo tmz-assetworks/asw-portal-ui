@@ -33,6 +33,7 @@ export class BarChartComponent implements OnChanges {
   PaymentReportSet:any
   reportInvalidSessionDataSet:any
   reportLast24HourAlertsDataSet: any
+  reportZeroCostTransactionsDataSet: any
   
 
   @Input() set locationStatusData(res: any) {
@@ -49,6 +50,14 @@ export class BarChartComponent implements OnChanges {
     this.setChartOption(this.chartTypeData)
   }
 }
+
+@Input() set reportZeroCostTransactionsData(res: any) {
+  if (res !== undefined) {
+    this.reportZeroCostTransactionsDataSet = res;
+    this.setChartOption(this.chartTypeData);
+  }
+}
+
 
   @Input() set locationPerformingData(value: any) {
     if (value !== undefined) {
@@ -387,7 +396,22 @@ export class BarChartComponent implements OnChanges {
           },
         ],
       }
-    } else if (chartType == 'chargerBar') {
+    } 
+    else if (chartType === 'reportZeroCostTransactions') {
+  if (
+    this.reportZeroCostTransactionsDataSet &&
+    this.reportZeroCostTransactionsDataSet.length > 0
+  ) {
+    this.option = this.reportZeroCostTransactionsChartOptions(
+      this.reportZeroCostTransactionsDataSet
+    );
+  } else {
+    this.option = {};
+  }
+}
+    
+    
+    else if (chartType == 'chargerBar') {
       this.option = {
         grid: {
           left: '10%',
@@ -1436,6 +1460,67 @@ reportInvalidSessionChartOptions(dataSet: any[]): EChartsOption {
       series: seriesData,
     }
   }
+
+  reportZeroCostTransactionsChartOptions(dataSet: any[]): EChartsOption {
+
+  if (!dataSet || dataSet.length === 0) {
+    return {};
+  }
+
+  const labels = dataSet.map(item => item.value);
+  const counts = dataSet.map(item => item.counts);
+
+  const maxValue = Math.max(...counts);
+
+  return {
+    tooltip: {
+      trigger: 'axis',
+      axisPointer: {
+        type: 'shadow'
+      }
+    },
+    grid: {
+      left: '10%',
+      right: '4%',
+      bottom: '12%',
+      top: 50,
+      containLabel: true
+    },
+    xAxis: {
+      type: 'category',
+      data: labels,
+      name: 'Date',
+      nameLocation: 'middle',
+      nameGap: 35,
+      axisLabel: {
+        rotate: 25
+      }
+    },
+    yAxis: {
+      type: 'value',
+      name: 'Transactions',
+      min: 0,
+      max: Math.ceil(maxValue * 1.2),
+      nameLocation: 'middle',
+      nameGap: 50
+    },
+    series: [
+      {
+        name: 'Zero Cost',
+        type: 'bar',
+        data: counts,
+        barWidth: '20%',
+        itemStyle: {
+          color: '#EF5350'
+        },
+        label: {
+          show: true,
+          position: 'top'
+        }
+      }
+    ]
+  };
+}
   setReportTransactionMonthlyChartOptions(dataSet: any) {
     let dataArray = dataSet.map((accu: any) => [
       `${accu.year}`,

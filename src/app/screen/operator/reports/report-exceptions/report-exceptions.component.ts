@@ -41,6 +41,7 @@ export class ReportExceptionsComponent implements OnInit, OnDestroy {
   reportInvalidBootNotification: unknown[] = [];
   reportInvalidSessionData: unknown[] = [];
   report24AlertChartData: unknown[] = [];
+  reportZeroCostTransactionsData: unknown[] = [];
 
   constructor(
     private readonly router: Router,
@@ -82,7 +83,7 @@ export class ReportExceptionsComponent implements OnInit, OnDestroy {
     sessionStorage.setItem('graphHeading', graphHeading);
     sessionStorage.setItem('pageHeading', pageHeading);
     sessionStorage.setItem('duration', duration);
-
+    console.log("test")
     this.router.navigate(['/operator/reports/report-exception-details'], { queryParams: { id: eventId } });
   }
 
@@ -90,6 +91,7 @@ export class ReportExceptionsComponent implements OnInit, OnDestroy {
     this.getUpcomingSession(this.userId);
     this.getInvalidBootNotification(duration);
     this.getInvalidSession(duration);
+    this.getZeroCostTransactions(duration);
   }
 
   private clearStoredDuration(): void {
@@ -149,6 +151,27 @@ private getInvalidBootNotification(duration: DurationType): void {
         this.cdr.markForCheck();
       });
   }
+
+  private getZeroCostTransactions(duration: DurationType): void {
+
+    console.log('rgrgerger');
+  const requestBody = {
+    duration: duration
+  };
+
+  this.reportService
+    .GetZeroCostTransactionsChartData(requestBody)
+    .pipe(takeUntil(this.destroy$))
+    .subscribe((response: ApiResponse<unknown[]>) => {
+
+      this.reportZeroCostTransactionsData =
+        [...(response?.data ?? [])];
+
+      this.cdr.markForCheck();
+    });
+}
+
+
 
   refreshDuration(duration: DurationType): void {
     this.selectedDuration = duration;
