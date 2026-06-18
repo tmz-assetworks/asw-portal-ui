@@ -89,6 +89,16 @@ export class ReportService {
     )
   }
 
+    GetZeroCostTransactionsChartData(params: any): Observable<any> {
+    return this._http.post<any>(
+      `${this.REPORT_API_URL}v1/Reports/GetZeroCostTransactionsChartData/`,
+      params,
+    )
+  }
+
+
+
+
   InvalidOcppCommandData(params: any): Observable<any> {
     return this._http.post<any>(
       `${this.REPORT_API_URL}v1/Reports/GetInvalidOCPPCommands/`,
