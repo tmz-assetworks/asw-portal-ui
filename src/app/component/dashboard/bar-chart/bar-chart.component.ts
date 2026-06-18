@@ -9,7 +9,7 @@ import { SharedMaterialModule } from 'src/app/shared/shared-material.module'
   selector: 'app-bar-chart',
   templateUrl: './bar-chart.component.html',
   styleUrls: ['./bar-chart.component.scss'],
-  imports:[SharedMaterialModule,NgxEchartsModule
+  imports: [SharedMaterialModule, NgxEchartsModule
   ]
 })
 
@@ -27,14 +27,14 @@ export class BarChartComponent implements OnChanges {
   reportSubscribeMonthlyDataSet: any
   reportSubscribeTypeDataSet: any
   reportSessionDataSet: any
-  reportInvalidBootDataSet:any
+  reportInvalidBootDataSet: any
   reportTransactionYearlyDataSet: any
-  reportAvailableChargerCountDataSet:any
-  PaymentReportSet:any
-  reportInvalidSessionDataSet:any
+  reportAvailableChargerCountDataSet: any
+  PaymentReportSet: any
+  reportInvalidSessionDataSet: any
   reportLast24HourAlertsDataSet: any
   reportZeroCostTransactionsDataSet: any
-  
+
 
   @Input() set locationStatusData(res: any) {
     if (res !== undefined) {
@@ -45,36 +45,19 @@ export class BarChartComponent implements OnChanges {
   }
 
   @Input() set reportLast24HourAlertsData(res: any) {
-  if (res !== undefined) {
-    this.reportLast24HourAlertsDataSet = res
-    this.setChartOption(this.chartTypeData)
-  }
-}
-
-@Input() set reportZeroCostTransactionsData(res: any) {
-  if (res !== undefined) {
-    this.reportZeroCostTransactionsDataSet = res;
-    this.setChartOption(this.chartTypeData);
-  }
-}
-
-
-  @Input() set locationPerformingData(value: any) {
-    if (value !== undefined) {
-      this.performingDataSet = value
-
-      /**
-       * Set Chart type
-       */
-      this.setChartOption(this.chartTypeData)
-    }
+    this.updateData('reportLast24HourAlertsDataSet', res);
   }
 
-  @Input() set chargersData(value: any) {
-    if (value !== undefined && value !== '') {
-      this.chargerData = value
-      this.setChartOption(this.chartTypeData)
-    }
+  @Input() set reportZeroCostTransactionsData(res: any) {
+    this.updateData('reportZeroCostTransactionsDataSet', res);
+  }
+
+  @Input() set locationPerformingData(res: any) {
+    this.updateData('performingDataSet', res);
+  }
+
+  @Input() set chargersData(res: any) {
+    this.updateData('chargerData', res);
   }
 
   @Input() set locationareaData(res: any) {
@@ -84,101 +67,51 @@ export class BarChartComponent implements OnChanges {
   }
 
   @Input() set reportSessionData(res: any) {
-    if (res !== undefined) {
-      this.reportSessionDataSet = res
-      /**
-       * Set Chart type
-       */
-      this.setChartOption(this.chartTypeData)
-    }
+    this.updateData('reportSessionDataSet', res);
   }
 
   @Input() set reportInvalidBootNotificationData(res: any) {
-    if (res !== undefined) {
-      this.reportInvalidBootDataSet = res
-      /**
-       * Set Chart type
-       */
-      this.setChartOption(this.chartTypeData)
-    }
+    this.updateData('reportInvalidBootDataSet', res);
   }
 
   @Input() set reportInvalidSessionData(res: any) {
-    if (res !== undefined) {
-      this.reportInvalidSessionDataSet = res
-      /**
-       * Set Chart type
-       */
-      this.setChartOption(this.chartTypeData)
-    }
+    this.updateData('reportInvalidSessionDataSet', res);
   }
-
-
-
-
 
   @Input() set reportSubscribeMonthlyData(res: any) {
-    if (res !== undefined) {
-      this.reportSubscribeMonthlyDataSet = res
-      /**
-       * Set Chart type
-       */
-      this.setChartOption(this.chartTypeData)
-    }
+    this.updateData('reportSubscribeMonthlyDataSet', res);
   }
 
-  @Input() set reportSubscribeTypeData(res: any) {
-    if (res !== undefined) {
-      this.reportSubscribeTypeDataSet = res
-      /**
-       * Set Chart type
-       */
-      this.setChartOption(this.chartTypeData)
-    }
+ @Input() set reportSubscribeTypeData(res: any) {
+    this.updateData('reportSubscribeTypeDataSet', res);
   }
 
   @Input() set reportTransactionYearlyData(res: any) {
-    if (res !== undefined) {
-      this.reportTransactionYearlyDataSet = res
-      /**
-       * Set Chart type
-       */
-      this.setChartOption(this.chartTypeData)
-    }
+    this.updateData('reportTransactionYearlyDataSet', res);
   }
 
   @Input() set reportAvailableChargerCountData(res: any) {
-    if (res !== undefined) {
-      this.reportAvailableChargerCountDataSet = res
-      
-      /**
-       * Set Chart type
-       */
-      this.setChartOption(this.chartTypeData)
+    this.updateData('reportAvailableChargerCountDataSet', res);
+  }
+
+  @Input() set reportPaymentDetailsData(res: any) {
+    this.updateData('PaymentReportSet', res);
+  }
+
+
+  private updateData(property: keyof BarChartComponent, value: any): void {
+    if (value !== undefined) {
+      (this as any)[property] = value;
+      this.setChartOption(this.chartTypeData);
     }
   }
 
   ngOnChanges(): void {
-  if (this.chartData) {
-    this.chargerData = this.chartData;  // or map it to whichever dataset you want
-    this.setChartOption(this.chartTypeData || 'bar'); // render chart
-  }
-}
-
-   @Input() set reportPaymentDetailsData(res: any) {
-    if (res !== undefined) {
-      this.PaymentReportSet = res
-      
-      /**
-       * Set Chart type
-       */
-      this.setChartOption(this.chartTypeData)
+    if (this.chartData) {
+      this.chargerData = this.chartData;  // or map it to whichever dataset you want
+      this.setChartOption(this.chartTypeData || 'bar'); // render chart
     }
   }
-
-  
-
-
 
   color: ThemePalette = 'primary'
   checked = false
@@ -191,6 +124,7 @@ export class BarChartComponent implements OnChanges {
       this.setChartOption(this.chartTypeData)
     }
   }
+
   @Input() chartTitle: any
   @Output() barDetailPage: EventEmitter<any> = new EventEmitter<any>()
   @Output() toggleValueChanges = new EventEmitter<any>()
@@ -199,7 +133,7 @@ export class BarChartComponent implements OnChanges {
     this.isToggle = value
   }
 
-  constructor(private _router: Router) {}
+  constructor(private _router: Router) { }
   icon = '../../../../assets/chart-icon.svg'
 
   option: EChartsOption = {}
@@ -396,21 +330,21 @@ export class BarChartComponent implements OnChanges {
           },
         ],
       }
-    } 
+    }
     else if (chartType === 'reportZeroCostTransactions') {
-  if (
-    this.reportZeroCostTransactionsDataSet &&
-    this.reportZeroCostTransactionsDataSet.length > 0
-  ) {
-    this.option = this.reportZeroCostTransactionsChartOptions(
-      this.reportZeroCostTransactionsDataSet
-    );
-  } else {
-    this.option = {};
-  }
-}
-    
-    
+      if (
+        this.reportZeroCostTransactionsDataSet &&
+        this.reportZeroCostTransactionsDataSet.length > 0
+      ) {
+        this.option = this.reportZeroCostTransactionsChartOptions(
+          this.reportZeroCostTransactionsDataSet
+        );
+      } else {
+        this.option = {};
+      }
+    }
+
+
     else if (chartType == 'chargerBar') {
       this.option = {
         grid: {
@@ -537,7 +471,7 @@ export class BarChartComponent implements OnChanges {
         for (let i = 0; i < this.statusData.length; i++) {
           let color =
             this.statusData[i]?.color
-              ?? '#90993F'
+            ?? '#90993F'
           legendColorData.push(color)
         }
         // CREATE OBJECT FOR DIFF ELEMENT
@@ -647,452 +581,452 @@ export class BarChartComponent implements OnChanges {
           this.reportSessionDataSet,
         ) as EChartsOption
       }
-    } 
+    }
     else if (chartType === 'reportInvalidBootNotification') {
-  if (this.reportInvalidBootDataSet && this.reportInvalidBootDataSet.length > 0) {
-    this.option = this.reportInvalidBootNotificationChartOptions(
-      this.reportInvalidBootDataSet
-    );
-  } else {
-    this.option = {};
-  }
-}
+      if (this.reportInvalidBootDataSet && this.reportInvalidBootDataSet.length > 0) {
+        this.option = this.reportInvalidBootNotificationChartOptions(
+          this.reportInvalidBootDataSet
+        );
+      } else {
+        this.option = {};
+      }
+    }
 
-else if (chartType === 'reportLast24HourAlerts') {
-  if (
-    this.reportLast24HourAlertsDataSet &&
-    this.reportLast24HourAlertsDataSet.length > 0
-  ) {
-    this.option = this.reportLast24HourAlertsChartOptions(
-      this.reportLast24HourAlertsDataSet
-    )
-  } else {
-    this.option = {}
-  }
-}
-
-
-else if (chartType === 'reportInvalidSession') {
-  if (this.reportInvalidSessionDataSet && this.reportInvalidSessionDataSet.length > 0) {
-    this.option = this.reportInvalidSessionChartOptions(
-      this.reportInvalidSessionDataSet
-    );
-  } else {
-    this.option = {};
-  }
-}
+    else if (chartType === 'reportLast24HourAlerts') {
+      if (
+        this.reportLast24HourAlertsDataSet &&
+        this.reportLast24HourAlertsDataSet.length > 0
+      ) {
+        this.option = this.reportLast24HourAlertsChartOptions(
+          this.reportLast24HourAlertsDataSet
+        )
+      } else {
+        this.option = {}
+      }
+    }
 
 
-    
+    else if (chartType === 'reportInvalidSession') {
+      if (this.reportInvalidSessionDataSet && this.reportInvalidSessionDataSet.length > 0) {
+        this.option = this.reportInvalidSessionChartOptions(
+          this.reportInvalidSessionDataSet
+        );
+      } else {
+        this.option = {};
+      }
+    }
+
+
+
     else if (chartType == 'reportAvailableCharger') {
       if (this.reportAvailableChargerCountDataSet !== undefined) {
-    if (this.reportAvailableChargerCountDataSet.length == 0) {
-      this.option = {};
-      return;
-    }
-    interface ChargerCountReport {
-     month: string;
-     chargerType: 'AC' | 'DC';
-     avialableChargerCount: string | number;
-   }
-    // Process the API data for the chart
-const months = [...new Set(this.reportAvailableChargerCountDataSet.map((item: any) => item.month))]
-  .sort((a, b) => (a as string).localeCompare(b as string));
-    const acData = months.map(month => {
-  const item = this.reportAvailableChargerCountDataSet.find((d: ChargerCountReport) => d.month === month && d.chargerType === 'AC');
-  
-  return item ? (item.avialableChargerCount as string) : 0;
-});
-    
-    const dcData = months.map(month => {
-  const item = this.reportAvailableChargerCountDataSet.find((d: ChargerCountReport) => d.month === month && d.chargerType === 'DC');
-  return item ? (item.avialableChargerCount as string) : 0;
-});
+        if (this.reportAvailableChargerCountDataSet.length == 0) {
+          this.option = {};
+          return;
+        }
+        interface ChargerCountReport {
+          month: string;
+          chargerType: 'AC' | 'DC';
+          avialableChargerCount: string | number;
+        }
+        // Process the API data for the chart
+        const months = [...new Set(this.reportAvailableChargerCountDataSet.map((item: any) => item.month))]
+          .sort((a, b) => (a as string).localeCompare(b as string));
+        const acData = months.map(month => {
+          const item = this.reportAvailableChargerCountDataSet.find((d: ChargerCountReport) => d.month === month && d.chargerType === 'AC');
 
-    this.option = {
-      grid: {
-        left: '10%',
-        right: '4%',
-        bottom: '12%',
-        top: 50,
-        containLabel: true,
-      },
-      legend: {
-        right: '4%',
-        icon: 'square',
-      },
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-          type: 'shadow'
-        },
-        formatter: (params: any) => {
-          let result = `<div style="font-weight:bold">${params[0].axisValue}</div>`;
-          params.forEach((param: any) => {
-            result += `<div>
+          return item ? (item.avialableChargerCount as string) : 0;
+        });
+
+        const dcData = months.map(month => {
+          const item = this.reportAvailableChargerCountDataSet.find((d: ChargerCountReport) => d.month === month && d.chargerType === 'DC');
+          return item ? (item.avialableChargerCount as string) : 0;
+        });
+
+        this.option = {
+          grid: {
+            left: '10%',
+            right: '4%',
+            bottom: '12%',
+            top: 50,
+            containLabel: true,
+          },
+          legend: {
+            right: '4%',
+            icon: 'square',
+          },
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              type: 'shadow'
+            },
+            formatter: (params: any) => {
+              let result = `<div style="font-weight:bold">${params[0].axisValue}</div>`;
+              params.forEach((param: any) => {
+                result += `<div>
               <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${param.color};margin-right:5px"></span>
               ${param.seriesName}: Available-${param.value}
             </div>`;
-          });
-          return result;
-        }
-      },
-      xAxis: {
-        type: 'category',
-        data: months as string[],
-        name: 'Month',
-        nameLocation: 'middle',
-        nameGap: 40,
-        axisTick: { show: false },
-        axisLabel: {
-          rotate: 30,
-        },
-      },
-      yAxis: {
-        type: 'value',
-        name: 'Available Charger',
-        nameLocation: 'middle',
-        nameGap: 50,
-        axisLabel: {
-          formatter: '{value}'
-        },
-      },
-      series: [
-        {
-          name: 'AC Chargers',
-          type: 'bar',
-          barWidth: '15%',
-          data: acData,
-          itemStyle: {
-            color: '#0062a6' // Blue color for AC
-          },
-          emphasis: {
-            itemStyle: {
-              color: '#004b8c'
+              });
+              return result;
             }
-          }
-        },
-        {
-          name: 'DC Chargers',
-          type: 'bar',
-          barWidth: '15%',
-          data: dcData,
-          itemStyle: {
-            color: '#ff7f00' // Orange color for DC
           },
-          emphasis: {
-            itemStyle: {
-              color: '#e67300'
+          xAxis: {
+            type: 'category',
+            data: months as string[],
+            name: 'Month',
+            nameLocation: 'middle',
+            nameGap: 40,
+            axisTick: { show: false },
+            axisLabel: {
+              rotate: 30,
+            },
+          },
+          yAxis: {
+            type: 'value',
+            name: 'Available Charger',
+            nameLocation: 'middle',
+            nameGap: 50,
+            axisLabel: {
+              formatter: '{value}'
+            },
+          },
+          series: [
+            {
+              name: 'AC Chargers',
+              type: 'bar',
+              barWidth: '15%',
+              data: acData,
+              itemStyle: {
+                color: '#0062a6' // Blue color for AC
+              },
+              emphasis: {
+                itemStyle: {
+                  color: '#004b8c'
+                }
+              }
+            },
+            {
+              name: 'DC Chargers',
+              type: 'bar',
+              barWidth: '15%',
+              data: dcData,
+              itemStyle: {
+                color: '#ff7f00' // Orange color for DC
+              },
+              emphasis: {
+                itemStyle: {
+                  color: '#e67300'
+                }
+              }
             }
-          }
+          ]
+        };
+      }
+    } else if (chartType == 'reportPaymentDetails') {
+      if (this.PaymentReportSet !== undefined) {
+        if (this.PaymentReportSet.length == 0) {
+          this.option = {};
+          return;
         }
-      ]
-    };
-  }
-    }else if (chartType == 'reportPaymentDetails') {
-  if (this.PaymentReportSet !== undefined) {
-    if (this.PaymentReportSet.length == 0) {
-      this.option = {};
-      return;
-    }
-    interface ChargerCountReport {
-     month: string;
-     chargerType: 'AC' | 'DC';
-     totalCollection: string | number;
-   }
-    
-     const months = [...new Set(this.PaymentReportSet.map((item: any) => item.month))]
-  .sort((a, b) => (a as string).localeCompare(b as string));
+        interface ChargerCountReport {
+          month: string;
+          chargerType: 'AC' | 'DC';
+          totalCollection: string | number;
+        }
 
-    const acData = months.map(month => {
-  const item = this.PaymentReportSet.find((d: ChargerCountReport) => d.month === month && d.chargerType === 'AC');
-  return item ? (item.totalCollection as string) : 0;
-});
-    
-    const dcData = months.map(month => {
-  const item = this.PaymentReportSet.find((d: ChargerCountReport) => d.month === month && d.chargerType === 'DC');
-  return item ? (item.totalCollection as string) : 0;
-});
+        const months = [...new Set(this.PaymentReportSet.map((item: any) => item.month))]
+          .sort((a, b) => (a as string).localeCompare(b as string));
 
-    this.option = {
-      grid: {
-        left: '10%',
-        right: '4%',
-        bottom: '12%',
-        top: 50,
-        containLabel: true,
-      },
-      legend: {
-        right: '4%',
-        icon: 'square',
-      },
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-          type: 'shadow'
-        },
-        formatter: (params: any) => {
-          let result = `<div style="font-weight:bold">${params[0].axisValue}</div>`;
-          params.forEach((param: any) => {
-            result += `<div>
+        const acData = months.map(month => {
+          const item = this.PaymentReportSet.find((d: ChargerCountReport) => d.month === month && d.chargerType === 'AC');
+          return item ? (item.totalCollection as string) : 0;
+        });
+
+        const dcData = months.map(month => {
+          const item = this.PaymentReportSet.find((d: ChargerCountReport) => d.month === month && d.chargerType === 'DC');
+          return item ? (item.totalCollection as string) : 0;
+        });
+
+        this.option = {
+          grid: {
+            left: '10%',
+            right: '4%',
+            bottom: '12%',
+            top: 50,
+            containLabel: true,
+          },
+          legend: {
+            right: '4%',
+            icon: 'square',
+          },
+          tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+              type: 'shadow'
+            },
+            formatter: (params: any) => {
+              let result = `<div style="font-weight:bold">${params[0].axisValue}</div>`;
+              params.forEach((param: any) => {
+                result += `<div>
               <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${param.color};margin-right:5px"></span>
               ${param.seriesName}: ₹${param.value.toFixed(2)}
             </div>`;
-          });
-          return result;
-        }
-      },
-      xAxis: {
-        type: 'category',
-        data: months as string[],
-        name: 'Month',
-        nameLocation: 'middle',
-        nameGap: 40,
-        axisTick: { show: false },
-        axisLabel: {
-          rotate: 30,
-        },
-      },
-      yAxis: {
-        type: 'value',
-        name: 'Amount ($)',
-        nameLocation: 'middle',
-        nameGap: 60,
-        axisLabel: {
-          formatter: '${value}'
-        },
-      },
-      series: [
-        {
-          name: 'AC Chargers',
-          type: 'bar',
-          barWidth: '15%',
-          data: acData,
-          itemStyle: {
-            color: '#0062a6' // Blue color for AC
-          },
-          emphasis: {
-            itemStyle: {
-              color: '#004b8c'
+              });
+              return result;
             }
-          }
-        },
-        {
-          name: 'DC Chargers',
-          type: 'bar',
-          barWidth: '15%',
-          data: dcData,
-          itemStyle: {
-            color: '#ff7f00' // Orange color for DC
           },
-          emphasis: {
-            itemStyle: {
-              color: '#e67300'
+          xAxis: {
+            type: 'category',
+            data: months as string[],
+            name: 'Month',
+            nameLocation: 'middle',
+            nameGap: 40,
+            axisTick: { show: false },
+            axisLabel: {
+              rotate: 30,
+            },
+          },
+          yAxis: {
+            type: 'value',
+            name: 'Amount ($)',
+            nameLocation: 'middle',
+            nameGap: 60,
+            axisLabel: {
+              formatter: '${value}'
+            },
+          },
+          series: [
+            {
+              name: 'AC Chargers',
+              type: 'bar',
+              barWidth: '15%',
+              data: acData,
+              itemStyle: {
+                color: '#0062a6' // Blue color for AC
+              },
+              emphasis: {
+                itemStyle: {
+                  color: '#004b8c'
+                }
+              }
+            },
+            {
+              name: 'DC Chargers',
+              type: 'bar',
+              barWidth: '15%',
+              data: dcData,
+              itemStyle: {
+                color: '#ff7f00' // Orange color for DC
+              },
+              emphasis: {
+                itemStyle: {
+                  color: '#e67300'
+                }
+              }
             }
-          }
-        }
-      ]
-    };
-  }
-}
+          ]
+        };
+      }
+    }
   }
   graphDetailPage(barChartId: number) {
     this.barDetailPage.emit(barChartId)
   }
 
 
-reportLast24HourAlertsChartOptions(dataSet: any[]): EChartsOption {
-  if (!dataSet || dataSet.length === 0) return {}
+  reportLast24HourAlertsChartOptions(dataSet: any[]): EChartsOption {
+    if (!dataSet || dataSet.length === 0) return {}
 
-  const labels = dataSet.map(item => item.value)
-  const criticalData = dataSet.map(item => item.critical)
-  const highData = dataSet.map(item => item.high)
-  const mediumData = dataSet.map(item => item.medium)
+    const labels = dataSet.map(item => item.value)
+    const criticalData = dataSet.map(item => item.critical)
+    const highData = dataSet.map(item => item.high)
+    const mediumData = dataSet.map(item => item.medium)
 
-  const maxValue = Math.max(
-    ...criticalData.map((v, i) => v + highData[i] + mediumData[i])
-  )
+    const maxValue = Math.max(
+      ...criticalData.map((v, i) => v + highData[i] + mediumData[i])
+    )
 
-  return {
-    tooltip: {
-      trigger: 'axis',
-      axisPointer: {
-        type: 'shadow'
-      }
-    },
-    legend: {
-      data: ['Critical', 'High', 'Medium'],
-      right: '4%',
-      icon: 'square'
-    },
-    grid: {
-      left: '10%',
-      right: '4%',
-      bottom: '12%',
-      top: 50,
-      containLabel: true
-    },
-    xAxis: {
-      type: 'category',
-      data: labels,
-      name: 'Hour',
-      nameLocation: 'middle',
-      nameGap: 35,
-      axisLabel: {
-        rotate: 25
-      }
-    },
-    yAxis: {
-      type: 'value',
-      name: 'Alert Count',
-      min: 0,
-      max: Math.ceil(maxValue * 1.2),
-      nameLocation: 'middle',
-      nameGap: 50
-    },
-    series: [
-      {
-        name: 'Critical',
-        type: 'bar',
-        stack: 'total',
-        data: criticalData,
-        itemStyle: {
-          color: '#EF5350'
+    return {
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow'
         }
       },
-      {
-        name: 'High',
-        type: 'bar',
-        stack: 'total',
-        data: highData,
-        itemStyle: {
-          color: '#FFA726'
+      legend: {
+        data: ['Critical', 'High', 'Medium'],
+        right: '4%',
+        icon: 'square'
+      },
+      grid: {
+        left: '10%',
+        right: '4%',
+        bottom: '12%',
+        top: 50,
+        containLabel: true
+      },
+      xAxis: {
+        type: 'category',
+        data: labels,
+        name: 'Hour',
+        nameLocation: 'middle',
+        nameGap: 35,
+        axisLabel: {
+          rotate: 25
         }
       },
-      {
-        name: 'Medium',
-        type: 'bar',
-        stack: 'total',
-        data: mediumData,
-        itemStyle: {
-          color: '#42A5F5'
-        }
-      }
-    ]
-  }
-}
-
-
-reportInvalidBootNotificationChartOptions(dataSet: any[]): EChartsOption {
-  if (!dataSet || dataSet.length === 0) return {};
-  const labels = dataSet.map(item => item.value);
-  const counts = dataSet.map(item => item.counts);
-  const maxValue = Math.max(...counts);
-  return {
-    tooltip: { trigger: 'axis' },
-    grid: {
-      left: '10%',
-      right: '4%',
-      bottom: '12%',
-      top: 50,
-      containLabel: true
-    },
-    xAxis: {
-      type: 'category',
-      data: labels,
-      name: 'Invalid Boot Type',
-      nameLocation: 'middle',
-      nameGap: 35,
-      axisLabel: { rotate: 25 }
-    },
-    yAxis: {
-      type: 'value',
-      name: 'Count',
-      min: 0,
-      max: Math.ceil(maxValue * 1.2),
-      nameLocation: 'middle',
-      nameGap: 50
-    },
-    series: [
-      {
-        type: 'bar',
-        data: counts,
-        barWidth: '15%',
-        itemStyle: {
-          color: '#42A5F5'
+      yAxis: {
+        type: 'value',
+        name: 'Alert Count',
+        min: 0,
+        max: Math.ceil(maxValue * 1.2),
+        nameLocation: 'middle',
+        nameGap: 50
+      },
+      series: [
+        {
+          name: 'Critical',
+          type: 'bar',
+          stack: 'total',
+          data: criticalData,
+          itemStyle: {
+            color: '#EF5350'
+          }
         },
-        label: {
-          show: true,
-          position: 'top',
-          formatter: '{c}'
+        {
+          name: 'High',
+          type: 'bar',
+          stack: 'total',
+          data: highData,
+          itemStyle: {
+            color: '#FFA726'
+          }
+        },
+        {
+          name: 'Medium',
+          type: 'bar',
+          stack: 'total',
+          data: mediumData,
+          itemStyle: {
+            color: '#42A5F5'
+          }
         }
-      }
-    ],
-    legend: { show: false }
-  };
-}
+      ]
+    }
+  }
 
 
-reportInvalidSessionChartOptions(dataSet: any[]): EChartsOption {
-  if (!dataSet || dataSet.length === 0) return {};
-  const labels = dataSet.map(item => item.value);
-  const startTxData = dataSet.map(item => item.invalidStartTx);
-  const authData = dataSet.map(item => item.invalidAuthorize);
-  const maxValue = Math.max(
-    ...startTxData.map((v, i) => v + authData[i])
-  );
-
-  return {
-    tooltip: {
-      trigger: 'axis',
-      axisPointer: { type: 'shadow' }
-    },
-    legend: {
-      data: ['Invalid StartTransaction', 'Invalid Authorize'],
-      right: '4%',
-      icon: 'square'
-    },
-    grid: {
-      left: '10%',
-      right: '4%',
-      bottom: '12%',
-      top: 50,
-      containLabel: true
-    },
-    xAxis: {
-      type: 'category',
-      data: labels,
-      name: 'Time',
-      nameLocation: 'middle',
-      nameGap: 35,
-      axisLabel: { rotate: 25 }
-    },
-    yAxis: {
-      type: 'value',
-      name: 'Count',
-      min: 0,
-      max: Math.ceil(maxValue * 1.2),
-      nameLocation: 'middle',
-      nameGap: 50
-    },
-    series: [
-      {
-        name: 'Invalid StartTransaction',
-        type: 'bar',
-        stack: 'total', // ✅ STACKED
-        data: startTxData,
-        itemStyle: { color: '#EF5350' }
+  reportInvalidBootNotificationChartOptions(dataSet: any[]): EChartsOption {
+    if (!dataSet || dataSet.length === 0) return {};
+    const labels = dataSet.map(item => item.value);
+    const counts = dataSet.map(item => item.counts);
+    const maxValue = Math.max(...counts);
+    return {
+      tooltip: { trigger: 'axis' },
+      grid: {
+        left: '10%',
+        right: '4%',
+        bottom: '12%',
+        top: 50,
+        containLabel: true
       },
-      {
-        name: 'Invalid Authorize',
-        type: 'bar',
-        stack: 'total', // ✅ STACKED
-        data: authData,
-        itemStyle: { color: '#FFA726' }
-      }
-    ]
-  };
-}
+      xAxis: {
+        type: 'category',
+        data: labels,
+        name: 'Invalid Boot Type',
+        nameLocation: 'middle',
+        nameGap: 35,
+        axisLabel: { rotate: 25 }
+      },
+      yAxis: {
+        type: 'value',
+        name: 'Count',
+        min: 0,
+        max: Math.ceil(maxValue * 1.2),
+        nameLocation: 'middle',
+        nameGap: 50
+      },
+      series: [
+        {
+          type: 'bar',
+          data: counts,
+          barWidth: '15%',
+          itemStyle: {
+            color: '#42A5F5'
+          },
+          label: {
+            show: true,
+            position: 'top',
+            formatter: '{c}'
+          }
+        }
+      ],
+      legend: { show: false }
+    };
+  }
+
+
+  reportInvalidSessionChartOptions(dataSet: any[]): EChartsOption {
+    if (!dataSet || dataSet.length === 0) return {};
+    const labels = dataSet.map(item => item.value);
+    const startTxData = dataSet.map(item => item.invalidStartTx);
+    const authData = dataSet.map(item => item.invalidAuthorize);
+    const maxValue = Math.max(
+      ...startTxData.map((v, i) => v + authData[i])
+    );
+
+    return {
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: { type: 'shadow' }
+      },
+      legend: {
+        data: ['Invalid StartTransaction', 'Invalid Authorize'],
+        right: '4%',
+        icon: 'square'
+      },
+      grid: {
+        left: '10%',
+        right: '4%',
+        bottom: '12%',
+        top: 50,
+        containLabel: true
+      },
+      xAxis: {
+        type: 'category',
+        data: labels,
+        name: 'Time',
+        nameLocation: 'middle',
+        nameGap: 35,
+        axisLabel: { rotate: 25 }
+      },
+      yAxis: {
+        type: 'value',
+        name: 'Count',
+        min: 0,
+        max: Math.ceil(maxValue * 1.2),
+        nameLocation: 'middle',
+        nameGap: 50
+      },
+      series: [
+        {
+          name: 'Invalid StartTransaction',
+          type: 'bar',
+          stack: 'total', // ✅ STACKED
+          data: startTxData,
+          itemStyle: { color: '#EF5350' }
+        },
+        {
+          name: 'Invalid Authorize',
+          type: 'bar',
+          stack: 'total', // ✅ STACKED
+          data: authData,
+          itemStyle: { color: '#FFA726' }
+        }
+      ]
+    };
+  }
 
 
 
@@ -1199,21 +1133,21 @@ reportInvalidSessionChartOptions(dataSet: any[]): EChartsOption {
         },
       },
       yAxis: {
-          type: 'value',
-          name: 'kWh',
-          nameLocation: 'middle',
-          nameGap: 65,
-          nameTextStyle: {
-            fontSize: 14,
-            fontWeight: 500,
-            align: 'center',
-            verticalAlign: 'middle',
-            padding: [0, 0, 10, 0] // adds spacing from axis numbers
-          },
-          axisLabel: {
-            margin: 12 // spacing between numbers and axis line
-          }
+        type: 'value',
+        name: 'kWh',
+        nameLocation: 'middle',
+        nameGap: 65,
+        nameTextStyle: {
+          fontSize: 14,
+          fontWeight: 500,
+          align: 'center',
+          verticalAlign: 'middle',
+          padding: [0, 0, 10, 0] // adds spacing from axis numbers
         },
+        axisLabel: {
+          margin: 12 // spacing between numbers and axis line
+        }
+      },
       series: [
         {
           name: 'Placeholder',
@@ -1372,7 +1306,7 @@ reportInvalidSessionChartOptions(dataSet: any[]): EChartsOption {
       let ind = dataSet.findIndex((x: any) => x.chargingStatus == legendData[i])
       if (ind >= 0) {
         legendColorData.push(
-           dataSet[ind]?.color ?? '#90993F',
+          dataSet[ind]?.color ?? '#90993F',
         )
       }
     }
@@ -1463,64 +1397,64 @@ reportInvalidSessionChartOptions(dataSet: any[]): EChartsOption {
 
   reportZeroCostTransactionsChartOptions(dataSet: any[]): EChartsOption {
 
-  if (!dataSet || dataSet.length === 0) {
-    return {};
-  }
+    if (!dataSet || dataSet.length === 0) {
+      return {};
+    }
 
-  const labels = dataSet.map(item => item.value);
-  const counts = dataSet.map(item => item.counts);
+    const labels = dataSet.map(item => item.value);
+    const counts = dataSet.map(item => item.counts);
 
-  const maxValue = Math.max(...counts);
+    const maxValue = Math.max(...counts);
 
-  return {
-    tooltip: {
-      trigger: 'axis',
-      axisPointer: {
-        type: 'shadow'
-      }
-    },
-    grid: {
-      left: '10%',
-      right: '4%',
-      bottom: '12%',
-      top: 50,
-      containLabel: true
-    },
-    xAxis: {
-      type: 'category',
-      data: labels,
-      name: 'Date',
-      nameLocation: 'middle',
-      nameGap: 35,
-      axisLabel: {
-        rotate: 25
-      }
-    },
-    yAxis: {
-      type: 'value',
-      name: 'Transactions',
-      min: 0,
-      max: Math.ceil(maxValue * 1.2),
-      nameLocation: 'middle',
-      nameGap: 50
-    },
-    series: [
-      {
-        name: 'Zero Cost',
-        type: 'bar',
-        data: counts,
-        barWidth: '20%',
-        itemStyle: {
-          color: '#EF5350'
-        },
-        label: {
-          show: true,
-          position: 'top'
+    return {
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'shadow'
         }
-      }
-    ]
-  };
-}
+      },
+      grid: {
+        left: '10%',
+        right: '4%',
+        bottom: '12%',
+        top: 50,
+        containLabel: true
+      },
+      xAxis: {
+        type: 'category',
+        data: labels,
+        name: 'Date',
+        nameLocation: 'middle',
+        nameGap: 35,
+        axisLabel: {
+          rotate: 25
+        }
+      },
+      yAxis: {
+        type: 'value',
+        name: 'Transactions',
+        min: 0,
+        max: Math.ceil(maxValue * 1.2),
+        nameLocation: 'middle',
+        nameGap: 50
+      },
+      series: [
+        {
+          name: 'Zero Cost',
+          type: 'bar',
+          data: counts,
+          barWidth: '20%',
+          itemStyle: {
+            color: '#EF5350'
+          },
+          label: {
+            show: true,
+            position: 'top'
+          }
+        }
+      ]
+    };
+  }
   setReportTransactionMonthlyChartOptions(dataSet: any) {
     let dataArray = dataSet.map((accu: any) => [
       `${accu.year}`,
