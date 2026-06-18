@@ -36,6 +36,30 @@ export class BarChartComponent implements OnChanges {
   reportZeroCostTransactionsDataSet: any
 
 
+private readonly defaultGrid = {
+  left: '10%',
+  right: '4%',
+  bottom: '12%',
+  top: 50,
+  containLabel: true
+};
+
+private readonly defaultLegend = {
+  right: '4%',
+  icon: 'square'
+};
+
+private readonly defaultTooltip: EChartsOption['tooltip'] = {
+  trigger: 'axis',
+  axisPointer: {
+    type: 'shadow'
+  }
+};
+
+
+
+
+
   @Input() set locationStatusData(res: any) {
     if (res !== undefined) {
       this.statusData = res
@@ -213,10 +237,7 @@ export class BarChartComponent implements OnChanges {
           top: 50,
           containLabel: true,
         },
-        legend: {
-          right: '4%',
-          icon: 'square',
-        },
+        legend: this.defaultLegend,
         tooltip: {},
         dataset: {
           source: arrObject,
@@ -259,10 +280,7 @@ export class BarChartComponent implements OnChanges {
           top: 50,
           containLabel: true,
         },
-        legend: {
-          right: '4%',
-          icon: 'square',
-        },
+        legend:this.defaultLegend,
         tooltip: {},
         dataset: {
           source: [
@@ -489,12 +507,7 @@ export class BarChartComponent implements OnChanges {
           seriesData.push(obj)
         }
         this.option = {
-          tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-              type: 'shadow',
-            },
-          },
+          tooltip:this.defaultTooltip,
           legend: {
             data: legendData,
             icon: 'square',
@@ -644,17 +657,8 @@ export class BarChartComponent implements OnChanges {
         });
 
         this.option = {
-          grid: {
-            left: '10%',
-            right: '4%',
-            bottom: '12%',
-            top: 50,
-            containLabel: true,
-          },
-          legend: {
-            right: '4%',
-            icon: 'square',
-          },
+          grid:this.defaultGrid,
+          legend:this.defaultLegend,
           tooltip: {
             trigger: 'axis',
             axisPointer: {
@@ -749,17 +753,8 @@ export class BarChartComponent implements OnChanges {
         });
 
         this.option = {
-          grid: {
-            left: '10%',
-            right: '4%',
-            bottom: '12%',
-            top: 50,
-            containLabel: true,
-          },
-          legend: {
-            right: '4%',
-            icon: 'square',
-          },
+          grid: this.defaultGrid,
+          legend:this.defaultLegend,
           tooltip: {
             trigger: 'axis',
             axisPointer: {
@@ -848,24 +843,13 @@ export class BarChartComponent implements OnChanges {
     )
 
     return {
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-          type: 'shadow'
-        }
-      },
+      tooltip:this.defaultTooltip,
       legend: {
         data: ['Critical', 'High', 'Medium'],
         right: '4%',
         icon: 'square'
       },
-      grid: {
-        left: '10%',
-        right: '4%',
-        bottom: '12%',
-        top: 50,
-        containLabel: true
-      },
+      grid: this.defaultGrid,
       xAxis: {
         type: 'category',
         data: labels,
@@ -924,13 +908,7 @@ export class BarChartComponent implements OnChanges {
     const maxValue = Math.max(...counts);
     return {
       tooltip: { trigger: 'axis' },
-      grid: {
-        left: '10%',
-        right: '4%',
-        bottom: '12%',
-        top: 50,
-        containLabel: true
-      },
+      grid: this.defaultGrid,
       xAxis: {
         type: 'category',
         data: labels,
@@ -977,22 +955,13 @@ export class BarChartComponent implements OnChanges {
     );
 
     return {
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: { type: 'shadow' }
-      },
+      tooltip:this.defaultTooltip,
       legend: {
         data: ['Invalid StartTransaction', 'Invalid Authorize'],
         right: '4%',
         icon: 'square'
       },
-      grid: {
-        left: '10%',
-        right: '4%',
-        bottom: '12%',
-        top: 50,
-        containLabel: true
-      },
+      grid: this.defaultGrid,
       xAxis: {
         type: 'category',
         data: labels,
@@ -1105,12 +1074,7 @@ export class BarChartComponent implements OnChanges {
     })
 
     return {
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-          type: 'shadow',
-        },
-      },
+      tooltip:this.defaultTooltip,
       legend: {
         data: legends,
         icon: 'square',
@@ -1188,17 +1152,8 @@ export class BarChartComponent implements OnChanges {
     let montlyPriceData = dataSet.map((accu: any) => `${accu.montlyPrice}`)
 
     return {
-      legend: {
-        right: '4%',
-        icon: 'square',
-      },
-      grid: {
-        left: '10%',
-        right: '4%',
-        bottom: '12%',
-        top: 50,
-        containLabel: true,
-      },
+      legend:this.defaultLegend,
+      grid: this.defaultGrid,
       tooltip: {
         show: true,
       },
@@ -1237,17 +1192,8 @@ export class BarChartComponent implements OnChanges {
     let subPriceData = dataSet.map((accu: any) => `${accu.subPrice}`)
 
     return {
-      legend: {
-        right: '4%',
-        icon: 'square',
-      },
-      grid: {
-        left: '10%',
-        right: '4%',
-        bottom: '12%',
-        top: 50,
-        containLabel: true,
-      },
+      legend: this.defaultLegend,
+      grid:this.defaultGrid,
       tooltip: {
         show: true,
       },
@@ -1350,10 +1296,7 @@ export class BarChartComponent implements OnChanges {
         top: 50,
         containLabel: true,
       },
-      legend: {
-        right: '4%',
-        icon: 'square',
-      },
+      legend: this.defaultLegend,
       tooltip: {},
       dataset: {
         source: arrObject,
@@ -1407,19 +1350,8 @@ export class BarChartComponent implements OnChanges {
     const maxValue = Math.max(...counts);
 
     return {
-      tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-          type: 'shadow'
-        }
-      },
-      grid: {
-        left: '10%',
-        right: '4%',
-        bottom: '12%',
-        top: 50,
-        containLabel: true
-      },
+      tooltip:this.defaultTooltip,
+      grid: this.defaultGrid,
       xAxis: {
         type: 'category',
         data: labels,
@@ -1461,17 +1393,8 @@ export class BarChartComponent implements OnChanges {
       accu.yearlyPrice,
     ])
     return {
-      grid: {
-        left: '10%',
-        right: '4%',
-        bottom: '12%',
-        top: 50,
-        containLabel: true,
-      },
-      legend: {
-        right: '4%',
-        icon: 'square',
-      },
+      grid: this.defaultGrid,
+      legend: this.defaultLegend,
       tooltip: {},
       dataset: {
         source: [
