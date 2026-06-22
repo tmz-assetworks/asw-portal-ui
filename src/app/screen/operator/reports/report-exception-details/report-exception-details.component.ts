@@ -20,6 +20,16 @@
     requestId?: string;
   }
 
+  interface ZeroCostTransactionItem {
+  chargeBoxId: string;
+  sessionId: number;
+  locationName: string;
+  rfid: string;
+  startTime: string;
+  endTime: string;
+  billingCost: number;
+}
+
   @Component({
     selector: 'app-report-exception-details',
     templateUrl: './report-exception-details.component.html',
@@ -36,7 +46,17 @@
     'expand'
     ];
 
+    displayedColumnsZeroCost: string[] = [
+  'chargeBoxId',
+  'sessionId',
+  'locationName',
+  'rfid',
+  'startTime',
+  'endTime',
+  'billingCost'
+];
 
+isZeroCostTransaction = false;
   expandedElement: any | null = null;
   startDateSession: string | null = null;
   endDateSession: string | null = null;
@@ -92,6 +112,10 @@
     }
 
     ngOnInit(): void {
+
+        this.isZeroCostTransaction =
+      this.graphHeading === 'Zero Cost Transactions';
+      
       this.loadLocations();
 
       this.setDefaultDates();
@@ -106,13 +130,27 @@
 
 private setDefaultDates(): void {
 
+  // For Alert page, default to last 24 hours
+  if (this.graphHeading === 'Alerts') {
+    const endDate = new Date();
+    const startDate = new Date(endDate.getTime() - (24 * 60 * 60 * 1000));
+
+    this.searchFilter.patchValue({
+      fromDate: startDate as any,
+      toDate: endDate as any
+    });
+
+    return;
+  }
+
+  // Existing session date logic
   if (!this.startDateSession || !this.endDateSession) {
     return;
   }
 
   this.searchFilter.patchValue({
-    fromDate: new Date(this.startDateSession)as any,
-    toDate: new Date(this.endDateSession)as any
+    fromDate: new Date(this.startDateSession) as any,
+    toDate: new Date(this.endDateSession) as any
   });
 }
 
@@ -150,12 +188,29 @@ private setDefaultDates(): void {
     };
   }
 
-    private handleResponse(res: any): void {
-      const data: ReportItem[] = Array.isArray(res?.data) ? res.data : [];
-      this.dataSource.data = data;
-      this.totalCount = data.length;
-      this.isTableEmpty = !data.length;
-    }
+
+get displayedColumns(): string[] {
+
+  return this.isZeroCostTransaction
+    ? this.displayedColumnsZeroCost
+    : this.displayedColumnsTransaction;
+}
+
+ private handleResponse(res: any): void {
+
+  const data =
+    this.isZeroCostTransaction
+      ? (res?.dataModel ?? [])
+      : (res?.data ?? []);
+
+  console.log(data);    
+
+  this.dataSource.data = data;
+
+  this.totalCount = data.length;
+
+  this.isTableEmpty = !data.length;
+}
 
   filter(): void {
     this.submitted = true;
