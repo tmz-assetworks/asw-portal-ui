@@ -144,9 +144,23 @@
                       </ng-container>
 
 
-                      <ng-container *ngIf="!isTableEmpty">
+                      <ng-container *ngIf="!isTableEmpty || isLoading">
                         <div class="cust-list-group2 layout" id="pdfTable" #pdfTable>
-                          <div class="layout mat-data">
+
+                                  <!-- Loading Spinner -->
+                          <div *ngIf="isLoading" class="loader">
+                        <img
+                          src="../../../assets/images/myloader.gif"
+                          alt="Loading"
+                          class="margin"
+                          width="18%"
+                          height="22%"
+                        />
+                      </div>
+
+
+
+                          <div class="layout mat-data" *ngIf="!isLoading">
                             <ng-container *ngIf="isZeroCostTransaction; else exceptionTable">
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">

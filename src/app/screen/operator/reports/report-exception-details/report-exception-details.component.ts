@@ -74,7 +74,7 @@ isZeroCostTransaction = false;
     pageHeading: string = '';
     duration: string = '';
     currentPage: number = 1;
-
+    isLoading = false;
     pageSize = 10;
     totalCount = 0;
     pageSizeOptions = [10, 20, 100];
@@ -113,8 +113,8 @@ isZeroCostTransaction = false;
 
     ngOnInit(): void {
 
-        this.isZeroCostTransaction =
-      this.graphHeading === 'Zero Cost Transactions';
+      this.isZeroCostTransaction =
+      this.graphHeading === 'Transactions With No Billing Cost';
       
       this.loadLocations();
 
@@ -155,13 +155,22 @@ private setDefaultDates(): void {
 }
 
 
-    private loadData(): void {
-      const payload = this.buildPayload();
-      this._reportService.InvalidOcppCommandData(payload).subscribe({
-        next: (res) => this.handleResponse(res),
-        error: () => this._toastr.error('Failed to load data')
-      });
-    } 
+ private loadData(): void {
+  this.isLoading = true;
+
+  const payload = this.buildPayload();
+
+  this._reportService.InvalidOcppCommandData(payload).subscribe({
+    next: (res) => {
+      this.handleResponse(res);
+      this.isLoading = false;
+    },
+    error: () => {
+      this.isLoading = false;
+      this._toastr.error('Failed to load data');
+    }
+  });
+}
 
   private buildPayload(): any {
     const formValue = this.searchFilter.value;
@@ -220,7 +229,7 @@ get displayedColumns(): string[] {
       return;
     }
 
-    this.currentPage = 1; // ✅ reset page on new search
+    this.currentPage = 1; 
     this.loadData();
   }
 
@@ -249,29 +258,51 @@ get displayedColumns(): string[] {
       }
     }
     
-    downloadAsCSV(): void {
-      const payload = this.buildPayload();
+downloadAsCSV(): void {
 
-      this._reportService.InvalidOcppCommandData(payload).subscribe(res => {
-        const data: ReportItem[] = res?.data;
+  const payload = this.buildPayload();
 
-        if (!data?.length) {
-          this._toastr.warning('No data to export');
-          return;
-        }
+  this._reportService.InvalidOcppCommandData(payload).subscribe(res => {
 
-        const formatted = data.map((x) => ({
-          'DEVICE ID': x.deviceId,
-          'REQUEST ID': x.requestId || '-',
-          'TIME': this.formatDate(x.createdOn),
-          'STATUS': x.errorCode,
-          'REQUEST PAYLOAD': this.formatJsonPayload(x.requestPayload),
-          'RESPONSE PAYLOAD': this.formatJsonPayload(x.responsePayload)
-        }));
+    const data = this.isZeroCostTransaction
+      ? (res?.dataModel ?? [])
+      : (res?.data ?? []);
 
-        this.exportCSV(formatted);
-      });
+    if (!data.length) {
+      this._toastr.warning('No data to export');
+      return;
     }
+
+    let formatted: any[];
+
+    if (this.isZeroCostTransaction) { 
+
+      formatted = data.map((x: any) => ({
+        'CHARGE BOX ID': x.chargeBoxId,
+        'SESSION ID': x.sessionId,
+        'LOCATION': x.locationName,
+        'RFID': x.rfid,
+        'START TIME': this.formatDate(x.startTime),
+        'END TIME': this.formatDate(x.endTime),
+        'BILLING COST': x.billingCost
+      }));
+
+    } else {
+
+      formatted = data.map((x: any) => ({
+        'DEVICE ID': x.deviceId,
+        'REQUEST ID': x.requestId || '-',
+        'TIME': this.formatDate(x.createdOn),
+        'STATUS': x.errorCode,
+        'REQUEST PAYLOAD': x.requestPayload,
+        'RESPONSE PAYLOAD': x.responsePayload
+      }));
+
+    }
+
+    this.exportCSV(formatted);
+  });
+}
 
     private formatDate(date: string): string {
       return this.datePipe.transform(date, 'dd-MM-yyyy HH:mm') || '';
@@ -286,8 +317,10 @@ get displayedColumns(): string[] {
 
       csvRows.unshift(headers.join(','));
 
+     
+
       const blob = new Blob([csvRows.join('\r\n')], { type: 'text/csv' });
-      fs.saveAs(blob, 'InvalidBootNotification_Report.csv');
+      fs.saveAs(blob, this.graphHeading + '.csv');
     }
 
     
@@ -339,13 +372,6 @@ get displayedColumns(): string[] {
     return this.expandedElement === row;
   };
 
-  private formatJsonPayload(payload: string): string {
-    try {
-      return JSON.stringify(JSON.parse(payload));
-    } catch {
-      return payload;
-    }
-  }
 
     goback(): void {
       this._location.back();
