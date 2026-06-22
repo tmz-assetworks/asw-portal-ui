@@ -256,6 +256,8 @@ export class DashboardComponent implements OnInit {
           data.chargeBoxid
         );
 
+        this._storageService.setSessionData('assetId', data.assetId)
+
         const userRole =
           this._storageService.getLocalData('role')?.toLowerCase();
 

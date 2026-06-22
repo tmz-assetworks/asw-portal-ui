@@ -69,8 +69,14 @@
         </app-bar-chart>
           </div>
 
-          <div class="dashboard-block42-spacer"></div>
-          <div class="dashboard-block42-item"></div>
+          <div class="dashboard-block42-item">
+          <app-bar-chart
+              [reportZeroCostTransactionsData]="reportZeroCostTransactionsData"
+              chartType="reportZeroCostTransactions"
+              chartTitle="Transactions with No Billing Cost"
+              (barDetailPage)="openDetailPage(2,'Zero Cost Transactions','',selectedDuration)">
+          </app-bar-chart>
+        </div>
         </div>
 
       </div>
