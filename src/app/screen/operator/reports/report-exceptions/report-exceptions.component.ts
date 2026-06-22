@@ -152,8 +152,6 @@ private getInvalidBootNotification(duration: DurationType): void {
   }
 
   private getZeroCostTransactions(duration: DurationType): void {
-
-    console.log('rgrgerger');
   const requestBody = {
     duration: duration
   };
@@ -169,8 +167,6 @@ private getInvalidBootNotification(duration: DurationType): void {
       this.cdr.markForCheck();
     });
 }
-
-
 
   refreshDuration(duration: DurationType): void {
     this.selectedDuration = duration;
