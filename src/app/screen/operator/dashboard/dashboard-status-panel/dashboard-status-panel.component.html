@@ -136,7 +136,7 @@
                 <h3 class="list-element-subtitle layout">
                   {{ energyUsedvalue0 }}
                 </h3>
-                <div class="list-element-text-body layout">
+                <div class="box-element-text-body layout">
                   {{ energyUsedkey0 }}
                 </div>
               </div>
@@ -163,7 +163,7 @@
                 <h3 class="list-element-subtitle layout">
                   {{ energyUsedvalue1 }}
                 </h3>
-                <div class="list-element-text-body layout">
+                <div class="box-element-text-body layout">
                   {{ energyUsedkey1 }}
                 </div>
               </div>
@@ -190,7 +190,7 @@
                 <h3 class="list-element-subtitle layout">
                   {{ energyUsedvalue2 }}
                 </h3>
-                <div class="list-element-text-body layout">
+                <div class="box-element-text-body layout">
                   {{ energyUsedkey2 }}
                 </div>
               </div>
@@ -271,7 +271,7 @@
             </div>
           </div>
           <div class="statuspanel-block45-spacer1"></div>
-          <div class="statuspanel-block45-item2">
+          <div class="statuspanel-block45-item2 heartcheck-icon">
             <div class="integration-icon-wrapper">
               <img
                 src="../../../../../assets/help/Operator/health-check.png"
@@ -289,10 +289,9 @@
           </div>
         
           <div class="integration-status-content">
-            <div class="integration-status-label">
+            <div class="box-element-text-body layout">
               Last Vehicle List Update
             </div>
-          
             <h3 class="box-element-subtitle layout">
               {{ vehicleUpdateDate ? (vehicleUpdateDate | date:'MMM dd, hh:mm a') : '-' }}
             </h3>
@@ -308,7 +307,7 @@
           </div>
         
           <div class="integration-status-content">
-            <div class="integration-status-label">
+            <div class="box-element-text-body layout">
               Last Transaction Update
             </div>
           
