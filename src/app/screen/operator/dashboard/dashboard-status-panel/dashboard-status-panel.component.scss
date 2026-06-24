@@ -146,7 +146,7 @@
 }
 
 $font_type0: 700 20px/1.2 'Roboto', Helvetica, Arial, serif;
-$font_type1: 12px/1.2 'Roboto', Helvetica, Arial, serif;
+$font_type1: 11px/1.2 'Roboto', Helvetica, Arial, serif;
 
 .list-element- {
   &block2 {
@@ -296,7 +296,6 @@ $font_type1: 12px/1.2 'Roboto', Helvetica, Arial, serif;
     flex: 0 1 105px;
     height: min-content;
     margin: 0px 0px 1px;
-    font-weight: 600;
     @include xl1 {
       flex: 0 1 90px;
     }
@@ -440,7 +439,7 @@ $font_type1: 12px/1.2 'Roboto', Helvetica, Arial, serif;
 .statuspanel-highlights2 {
   margin: 0;
   color: #fff;
-  font-size: 16px;
+  font-size: 13px;
   font-weight: 600;
   line-height: 1.3;
   max-width: 180px;
